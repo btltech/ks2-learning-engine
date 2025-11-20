@@ -1,0 +1,5 @@
+{
+  "name": "KS2 Learning Engine",
+  "description": "An intelligent and vibrant teaching engine for KS2 pupils (ages 7-11), covering all subjects in the DfE curriculum with adaptive difficulty levels, powered by Gemini.",
+  "requestFramePermissions": []
+}

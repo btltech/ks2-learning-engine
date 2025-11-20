@@ -1,0 +1,4184 @@
+[
+  {
+    "subject":"Art",
+    "topic":"Sculpture",
+    "year_level":3,
+    "question":"A 3D artwork is called:",
+    "correct":"Sculpture",
+    "options":[
+      "Drawing",
+      "Painting",
+      "Printing"
+    ],
+    "id":"art_y3_0041",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Sculpture",
+    "year_level":3,
+    "question":"A 3D artwork that you can touch and see from all sides is called:",
+    "correct":"Sculpture",
+    "options":[
+      "Painting",
+      "Drawing",
+      "Photography"
+    ],
+    "id":"art_y3_0021",
+    "dataset":"converted_worksheet",
+    "explanation":"A sculpture is a three-dimensional artwork that you can touch and view from different angles, unlike paintings or drawings which are flat.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Pattern",
+    "year_level":3,
+    "question":"A pattern is:",
+    "correct":"A repeated design",
+    "options":[
+      "A single shape",
+      "A color",
+      "A texture"
+    ],
+    "id":"art_y3_0019",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Drawing",
+    "year_level":3,
+    "question":"A pencil drawing is called:",
+    "correct":"A sketch",
+    "options":[
+      "A painting",
+      "A sculpture",
+      "A print"
+    ],
+    "id":"art_y3_0010",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Pattern",
+    "year_level":3,
+    "question":"If a pattern is blue, red, blue, what comes next?",
+    "correct":"Red",
+    "options":[
+      "Green",
+      "Blue",
+      "Yellow"
+    ],
+    "id":"art_y3_0025",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Primary Colours",
+    "year_level":3,
+    "question":"If you mix all primary colours together, what colour do you get?",
+    "correct":"Brown",
+    "options":[
+      "Purple",
+      "Green",
+      "White"
+    ],
+    "id":"art_y3_0036",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Colour",
+    "year_level":3,
+    "question":"If you mix blue and yellow paint together, what colour do you get?",
+    "correct":"Green",
+    "options":[
+      "Red",
+      "Purple",
+      "Orange"
+    ],
+    "id":"art_y3_0029",
+    "dataset":"converted_worksheet",
+    "explanation":"When you mix blue and yellow paint together, you create green. This is a basic primary colour mixing rule that children learn in art class.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Colour",
+    "year_level":3,
+    "question":"If you mix blue and yellow paint, what colour do you get?",
+    "correct":"Green",
+    "options":[
+      "Purple",
+      "Orange",
+      "Brown"
+    ],
+    "id":"art_y3_0005",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Primary Colours",
+    "year_level":3,
+    "question":"If you mix red, blue and yellow paint together, what colour do you get?",
+    "correct":"Brown or Grey",
+    "options":[
+      "Blue",
+      "Black",
+      "Green"
+    ],
+    "id":"art_y3_0034",
+    "dataset":"converted_worksheet",
+    "explanation":"When you mix all three primary colours (red, blue and yellow) together in paint, you typically get a muddy brown or grey colour. This is because you're combining all the wavelengths of light.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Drawing",
+    "year_level":3,
+    "question":"If you want to show that something is closer, how should you draw it?",
+    "correct":"Bigger",
+    "options":[
+      "Smaller",
+      "Blurry",
+      "Lighter"
+    ],
+    "id":"art_y3_0016",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Texture",
+    "year_level":3,
+    "question":"If you wanted to show bumpy texture, which art supply could you use?",
+    "correct":"Glue and beads",
+    "options":[
+      "Watercolours",
+      "Smooth paper",
+      "A soft brush"
+    ],
+    "id":"art_y3_0055",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Sculpture",
+    "year_level":3,
+    "question":"In art class, students join pieces of wood, metal, and plastic together to make a sculpture. What is this process called?",
+    "correct":"Assembling",
+    "options":[
+      "Sculping",
+      "Painting",
+      "Carving"
+    ],
+    "id":"art_y3_0058",
+    "dataset":"converted_worksheet",
+    "explanation":"Assembling means putting different materials or parts together to make a sculpture. Sculping is shaping clay or stone, painting adds colour, and carving removes material from a solid block.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Pattern",
+    "year_level":3,
+    "question":"Look at this colour pattern: blue, red, blue. What colour comes next?",
+    "correct":"red",
+    "options":[
+      "green",
+      "yellow",
+      "blue"
+    ],
+    "id":"art_y3_0051",
+    "dataset":"converted_worksheet",
+    "explanation":"The pattern alternates between blue and red (blue, red, blue). So after blue comes red. Green and yellow are new colours not in the pattern, while blue would break the alternating sequence.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Primary Colours",
+    "year_level":3,
+    "question":"Painters use primary colours to make what kinds of other colours?",
+    "correct":"Secondary",
+    "options":[
+      "Spotty",
+      "Shiny",
+      "Invisible"
+    ],
+    "id":"art_y3_0039",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Sculpture",
+    "year_level":3,
+    "question":"Practice 1: A 3D artwork is called:",
+    "correct":"Sculpture",
+    "options":[
+      "Drawing",
+      "Painting",
+      "Printing"
+    ],
+    "id":"art_y3_0042",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Pattern",
+    "year_level":3,
+    "question":"Practice 1: A pattern is:",
+    "correct":"A repeated design",
+    "options":[
+      "A single shape",
+      "A color",
+      "A texture"
+    ],
+    "id":"art_y3_0020",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Drawing",
+    "year_level":3,
+    "question":"Practice 1: A pencil drawing is called:",
+    "correct":"A sketch",
+    "options":[
+      "A painting",
+      "A sculpture",
+      "A print"
+    ],
+    "id":"art_y3_0011",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Primary Colours",
+    "year_level":3,
+    "question":"Practice 1: Primary colours cannot be:",
+    "correct":"Mixed from other colours",
+    "options":[
+      "Used in paintings",
+      "Seen in nature",
+      "Named"
+    ],
+    "id":"art_y3_0031",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Texture",
+    "year_level":3,
+    "question":"Practice 1: Texture refers to how something looks and feels rough, smooth, bumpy or soft",
+    "correct":"looks and feels rough, smooth, bumpy or soft",
+    "options":[
+      "smells like different materials",
+      "sounds when you touch it",
+      "changes color in the light"
+    ],
+    "id":"art_y3_0012",
+    "dataset":"converted_worksheet",
+    "explanation":"Texture describes how surfaces feel and look - whether they are rough like sandpaper, smooth like glass, bumpy like a sponge, or soft like velvet. This is an important art concept that helps artists create interesting visual effects.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Texture",
+    "year_level":3,
+    "question":"Practice 1: Texture refers to how something:",
+    "correct":"Feels",
+    "options":[
+      "Sounds",
+      "Smells",
+      "Tastes"
+    ],
+    "id":"art_y3_0051",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Primary Colours",
+    "year_level":3,
+    "question":"Practice 1: The three primary colours are:",
+    "correct":"Red, blue, yellow",
+    "options":[
+      "Red, green, blue",
+      "Orange, purple, green",
+      "Black, white, grey"
+    ],
+    "id":"art_y3_0030",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Colour",
+    "year_level":3,
+    "question":"Practice 1: Which of these is a primary colour?",
+    "correct":"Yellow",
+    "options":[
+      "Purple",
+      "Orange",
+      "Green"
+    ],
+    "id":"art_y3_0002",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Sculpture",
+    "year_level":3,
+    "question":"Practice 2: A 3D artwork is called:",
+    "correct":"Sculpture",
+    "options":[
+      "Drawing",
+      "Painting",
+      "Printing"
+    ],
+    "id":"art_y3_0043",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Pattern",
+    "year_level":3,
+    "question":"Practice 2: A pattern is:",
+    "correct":"A repeated design",
+    "options":[
+      "A single shape",
+      "A color",
+      "A texture"
+    ],
+    "id":"art_y3_0021",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Drawing",
+    "year_level":3,
+    "question":"Practice 2: A pencil drawing is called:",
+    "correct":"A sketch",
+    "options":[
+      "A painting",
+      "A sculpture",
+      "A print"
+    ],
+    "id":"art_y3_0012",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Primary Colours",
+    "year_level":3,
+    "question":"Practice 2: Primary colours cannot be:",
+    "correct":"Mixed from other colours",
+    "options":[
+      "Used in paintings",
+      "Seen in nature",
+      "Named"
+    ],
+    "id":"art_y3_0033",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Texture",
+    "year_level":3,
+    "question":"Practice 2: Texture refers to how something:",
+    "correct":"Feels",
+    "options":[
+      "Sounds",
+      "Smells",
+      "Tastes"
+    ],
+    "id":"art_y3_0052",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Primary Colours",
+    "year_level":3,
+    "question":"Practice 2: The three primary colours are:",
+    "correct":"Red, blue, yellow",
+    "options":[
+      "Red, green, blue",
+      "Orange, purple, green",
+      "Black, white, grey"
+    ],
+    "id":"art_y3_0032",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Colour",
+    "year_level":3,
+    "question":"Practice 2: Which of these is a primary colour?",
+    "correct":"Yellow",
+    "options":[
+      "Purple",
+      "Orange",
+      "Green"
+    ],
+    "id":"art_y3_0003",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Sculpture",
+    "year_level":3,
+    "question":"Practice 3: A 3D artwork is called:",
+    "correct":"Sculpture",
+    "options":[
+      "Drawing",
+      "Painting",
+      "Printing"
+    ],
+    "id":"art_y3_0044",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Pattern",
+    "year_level":3,
+    "question":"Practice 3: A pattern is:",
+    "correct":"A repeated design",
+    "options":[
+      "A single shape",
+      "A color",
+      "A texture"
+    ],
+    "id":"art_y3_0022",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Drawing",
+    "year_level":3,
+    "question":"Practice 3: A pencil drawing is called:",
+    "correct":"A sketch",
+    "options":[
+      "A painting",
+      "A sculpture",
+      "A print"
+    ],
+    "id":"art_y3_0013",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Primary Colours",
+    "year_level":3,
+    "question":"Practice 3: Primary colours cannot be:",
+    "correct":"Mixed from other colours",
+    "options":[
+      "Used in paintings",
+      "Seen in nature",
+      "Named"
+    ],
+    "id":"art_y3_0035",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Texture",
+    "year_level":3,
+    "question":"Practice 3: Texture refers to how something looks and feels rough or smooth",
+    "correct":"looks and feels rough or smooth",
+    "options":[
+      "has many colors",
+      "is very big",
+      "is made of paper"
+    ],
+    "id":"art_y3_0026",
+    "dataset":"converted_worksheet",
+    "explanation":"Texture describes how surfaces feel and look - whether they are rough, smooth, bumpy, or soft. It's about the surface quality of materials.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Texture",
+    "year_level":3,
+    "question":"Practice 3: Texture refers to how something:",
+    "correct":"Feels",
+    "options":[
+      "Sounds",
+      "Smells",
+      "Tastes"
+    ],
+    "id":"art_y3_0053",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Primary Colours",
+    "year_level":3,
+    "question":"Practice 3: The three primary colours are:",
+    "correct":"Red, blue, yellow",
+    "options":[
+      "Red, green, blue",
+      "Orange, purple, green",
+      "Black, white, grey"
+    ],
+    "id":"art_y3_0034",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Colour",
+    "year_level":3,
+    "question":"Practice 3: Which of these is a primary colour?",
+    "correct":"Yellow",
+    "options":[
+      "Purple",
+      "Orange",
+      "Green"
+    ],
+    "id":"art_y3_0004",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Primary Colours",
+    "year_level":3,
+    "question":"Primary colours cannot be:",
+    "correct":"Mixed from other colours",
+    "options":[
+      "Used in paintings",
+      "Seen in nature",
+      "Named"
+    ],
+    "id":"art_y3_0029",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Texture",
+    "year_level":3,
+    "question":"Texture refers to how something looks and feels when you touch it. Which of these best describes texture?",
+    "correct":"Looks and feels rough, smooth, bumpy or soft",
+    "options":[
+      "Smells nice in the art room",
+      "Has many different colors",
+      "Makes a loud noise when touched"
+    ],
+    "id":"art_y3_0005",
+    "dataset":"converted_worksheet",
+    "explanation":"Texture describes how surfaces feel and look - whether they are rough like sandpaper, smooth like glass, bumpy like a ball, or soft like velvet. This is an important element artists use in their work.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Texture",
+    "year_level":3,
+    "question":"Texture refers to how something:",
+    "correct":"Feels",
+    "options":[
+      "Sounds",
+      "Smells",
+      "Tastes"
+    ],
+    "id":"art_y3_0050",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Primary Colours",
+    "year_level":3,
+    "question":"The three primary colours are:",
+    "correct":"Red, blue, yellow",
+    "options":[
+      "Red, green, blue",
+      "Orange, purple, green",
+      "Black, white, grey"
+    ],
+    "id":"art_y3_0028",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Pattern",
+    "year_level":3,
+    "question":"To make a good pattern in art, should you repeat something like shapes, colours or designs?",
+    "correct":"Yes, you should repeat something to make a good pattern",
+    "options":[
+      "No, patterns are always random",
+      "Only if it's a really big pattern",
+      "Patterns don't need repetition"
+    ],
+    "id":"art_y3_0052",
+    "dataset":"converted_worksheet",
+    "explanation":"A pattern is made by repeating shapes, colours or designs over and over again. This repetition is what makes something a pattern rather than just random pictures.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Pattern",
+    "year_level":3,
+    "question":"To make a good pattern, should you repeat something?",
+    "correct":"Yes, always",
+    "options":[
+      "Only sometimes",
+      "Never",
+      "Maybe once"
+    ],
+    "id":"art_y3_0026",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Primary Colours",
+    "year_level":3,
+    "question":"What are the three primary colours that artists use to create all other colours?",
+    "correct":"red, blue and yellow",
+    "options":[
+      "red, green and purple",
+      "orange, green and violet",
+      "pink, turquoise and brown"
+    ],
+    "id":"art_y3_0016",
+    "dataset":"converted_worksheet",
+    "explanation":"The three primary colours in art are red, blue, and yellow. These colours cannot be created by mixing other colours together and are the foundation for creating all other colours.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Primary Colours",
+    "year_level":3,
+    "question":"What are the three primary colours used in art?",
+    "correct":"red, blue and yellow",
+    "options":[
+      "red, green and purple",
+      "orange, green and violet",
+      "pink, turquoise and brown"
+    ],
+    "id":"art_y3_0002",
+    "dataset":"converted_worksheet",
+    "explanation":"Primary colours are the basic colours that cannot be created by mixing other colours. The three primary colours in art are red, blue, and yellow.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Sculpture",
+    "year_level":3,
+    "question":"What do we call a 3D artwork that you can touch and see from all sides?",
+    "correct":"Sculpture",
+    "options":[
+      "Painting",
+      "Drawing",
+      "Photograph"
+    ],
+    "id":"art_y3_0028",
+    "dataset":"converted_worksheet",
+    "explanation":"A sculpture is a three-dimensional artwork that you can touch and view from different angles, unlike paintings or drawings which are flat.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Sculpture",
+    "year_level":3,
+    "question":"What do we call an artwork that has height, width, and depth - like a statue or clay model?",
+    "correct":"Sculpture",
+    "options":[
+      "Painting",
+      "Drawing",
+      "Photograph"
+    ],
+    "id":"art_y3_0007",
+    "dataset":"converted_worksheet",
+    "explanation":"A sculpture is a three-dimensional art form that can be touched and viewed from all angles, unlike paintings, drawings, or photographs which are flat.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Sculpture",
+    "year_level":3,
+    "question":"What do we call carving shapes from a block of material?",
+    "correct":"Subtraction",
+    "options":[
+      "Addition",
+      "Construction",
+      "Molding"
+    ],
+    "id":"art_y3_0046",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Colour",
+    "year_level":3,
+    "question":"What do we call colours that are opposite each other on the colour wheel?",
+    "correct":"Complementary",
+    "options":[
+      "Harmonious",
+      "Analogous",
+      "Triadic"
+    ],
+    "id":"art_y3_0006",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Drawing",
+    "year_level":3,
+    "question":"What do we call it when a drawing looks 3D on a flat surface?",
+    "correct":"Perspective",
+    "options":[
+      "Texture",
+      "Composition",
+      "Symmetry"
+    ],
+    "id":"art_y3_0018",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Drawing",
+    "year_level":3,
+    "question":"What do we call it when an artist makes a drawing look like it has height, width and depth on a flat piece of paper?",
+    "correct":"Perspective",
+    "options":[
+      "Shading",
+      "Symmetry",
+      "Proportion"
+    ],
+    "id":"art_y3_0043",
+    "dataset":"converted_worksheet",
+    "explanation":"Perspective is the technique artists use to make 2D drawings appear three-dimensional and realistic on a flat surface. Shading adds depth, symmetry means both sides are the same, and proportion refers to size relationships.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Sculpture",
+    "year_level":3,
+    "question":"What do we call the art of cutting and shaping materials like wood or stone to make sculptures?",
+    "correct":"Carving",
+    "options":[
+      "Painting",
+      "Sculpting",
+      "Drawing"
+    ],
+    "id":"art_y3_0055",
+    "dataset":"converted_worksheet",
+    "explanation":"Carving means cutting and shaping materials like wood, stone, or soap to create artistic shapes. Painting uses paint on canvas, sculpting is a broader term for creating 3D art, and drawing makes marks on paper.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Texture",
+    "year_level":3,
+    "question":"What do we call the type of texture that you can physically feel when you touch something?",
+    "correct":"Tactile texture",
+    "options":[
+      "Visual texture",
+      "Artistic texture",
+      "Surface texture"
+    ],
+    "id":"art_y3_0046",
+    "dataset":"converted_worksheet",
+    "explanation":"Tactile texture is what you can actually touch and feel on a surface, like the roughness of sandpaper or smoothness of silk. Visual texture only looks like it has texture but doesn't actually have that feeling when touched.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Drawing",
+    "year_level":3,
+    "question":"What do you call a drawing made with a pencil?",
+    "correct":"A sketch",
+    "options":[
+      "A painting",
+      "A photograph",
+      "A sculpture"
+    ],
+    "id":"art_y3_0004",
+    "dataset":"converted_worksheet",
+    "explanation":"When artists draw with pencils on paper, it's called a sketch. Sketches are quick drawings that capture the basic shape and form of something.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Colour",
+    "year_level":3,
+    "question":"What do you call it when an artist uses only one colour but shows it in many different shades and tones?",
+    "correct":"Monochrome",
+    "options":[
+      "Multicolour",
+      "Hue",
+      "Tinted"
+    ],
+    "id":"art_y3_0033",
+    "dataset":"converted_worksheet",
+    "explanation":"Monochrome means using only one colour with different shades, tints, and tones of that colour. It's like having a picture in just black and white or just reds.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Sculpture",
+    "year_level":3,
+    "question":"What is a famous sculpture made of bronze, often green?",
+    "correct":"Statue of Liberty",
+    "options":[
+      "Mona Lisa",
+      "Starry Night",
+      "The Scream"
+    ],
+    "id":"art_y3_0048",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Pattern",
+    "year_level":3,
+    "question":"What is a pattern in art?",
+    "correct":"a repeated design or sequence",
+    "options":[
+      "a single colour",
+      "random dots on paper",
+      "an unfinished drawing"
+    ],
+    "id":"art_y3_0006",
+    "dataset":"converted_worksheet",
+    "explanation":"A pattern is made when the same design, shape, or colours repeat over and over again in a regular way. Think of stripes on clothing or tiles on a floor where the same design appears again and again.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Sculpture",
+    "year_level":3,
+    "question":"What is it called when you join different materials together?",
+    "correct":"Assemblage",
+    "options":[
+      "Disassemble",
+      "Disruption",
+      "Separation"
+    ],
+    "id":"art_y3_0049",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Colour",
+    "year_level":3,
+    "question":"What is it called when you only use one colour and different shades of it?",
+    "correct":"Monochromatic",
+    "options":[
+      "Polychromatic",
+      "Analogous",
+      "Complementary"
+    ],
+    "id":"art_y3_0009",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Primary Colours",
+    "year_level":3,
+    "question":"What is so special about red, blue, and yellow?",
+    "correct":"They make all other colours",
+    "options":[
+      "They are the brightest",
+      "They are found everywhere",
+      "They are the newest colours"
+    ],
+    "id":"art_y3_0040",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Drawing",
+    "year_level":3,
+    "question":"What kind of lines are used to show direction and movement in drawings?",
+    "correct":"Dynamic lines",
+    "options":[
+      "Static lines",
+      "Dashed lines",
+      "Outline lines"
+    ],
+    "id":"art_y3_0042",
+    "dataset":"converted_worksheet",
+    "explanation":"Dynamic lines are curved or zigzag lines that show motion and energy in art. They help artists show how things are moving or the feeling of movement. Static lines are straight and still, dashed lines are broken lines, and outline lines just trace around the edge of shapes.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Drawing",
+    "year_level":3,
+    "question":"What kind of lines are used to show direction and movement?",
+    "correct":"Gestural lines",
+    "options":[
+      "Contour lines",
+      "Parallel lines",
+      "Diagonal lines"
+    ],
+    "id":"art_y3_0017",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Texture",
+    "year_level":3,
+    "question":"What kind of texture might crumpled paper create in a collage?",
+    "correct":"Crinkled",
+    "options":[
+      "Silky",
+      "Shiny",
+      "Fuzzy"
+    ],
+    "id":"art_y3_0057",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Primary Colours",
+    "year_level":3,
+    "question":"What makes red, blue, and yellow special in art class?",
+    "correct":"They are the basic colours that make all other colours",
+    "options":[
+      "They are the most popular colours in art",
+      "They were the first colours used by children",
+      "They sparkle under bright lights"
+    ],
+    "id":"art_y3_0038",
+    "dataset":"converted_worksheet",
+    "explanation":"Red, blue, and yellow are primary colours because they cannot be created by mixing other colours together. All other colours can be made by mixing these three basic colours.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Drawing",
+    "year_level":3,
+    "question":"What tool would you use to smudge charcoal to create softer lines?",
+    "correct":"A blending stump",
+    "options":[
+      "An eraser",
+      "A ruler",
+      "A protractor"
+    ],
+    "id":"art_y3_0015",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Texture",
+    "year_level":3,
+    "question":"What's the name for texture that you can actually feel on a surface?",
+    "correct":"Actual Texture",
+    "options":[
+      "Visual Texture",
+      "Smooth Texture",
+      "Implied Texture"
+    ],
+    "id":"art_y3_0056",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Sculpture",
+    "year_level":3,
+    "question":"When building up a sculpture, what process are you using?",
+    "correct":"Addition",
+    "options":[
+      "Subtraction",
+      "Multiplication",
+      "Division"
+    ],
+    "id":"art_y3_0047",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Primary Colours",
+    "year_level":3,
+    "question":"When painters mix two primary colours together, what new types of colours do they make?",
+    "correct":"Secondary colours",
+    "options":[
+      "Warm colours",
+      "Pastel colours",
+      "Tertiary colours"
+    ],
+    "id":"art_y3_0037",
+    "dataset":"converted_worksheet",
+    "explanation":"Painters mix primary colours (red, blue, yellow) together to create secondary colours (green, orange, purple). This is a basic art principle taught in KS2.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Texture",
+    "year_level":3,
+    "question":"Which art supply would help you create a bumpy texture on your painting?",
+    "correct":"Salt",
+    "options":[
+      "Glossy paint",
+      "Smooth paper",
+      "Fine brush"
+    ],
+    "id":"art_y3_0045",
+    "dataset":"converted_worksheet",
+    "explanation":"Salt creates a bumpy texture when it dries on wet paint or glue. Glossy paint would make things smooth, smooth paper wouldn't add texture to paint, and fine brushes just make thin lines.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Colour",
+    "year_level":3,
+    "question":"Which colour should you mix with red paint to make pink?",
+    "correct":"White",
+    "options":[
+      "Blue",
+      "Yellow",
+      "Green"
+    ],
+    "id":"art_y3_0031",
+    "dataset":"converted_worksheet",
+    "explanation":"To make any colour lighter, you add white paint or paint with white in it. This is called making a tint. Red + white = pink (lighter red). Blue, yellow and green would create different colours altogether.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Colour",
+    "year_level":3,
+    "question":"Which colour would you add to red to make it lighter?",
+    "correct":"White",
+    "options":[
+      "Black",
+      "Blue",
+      "Green"
+    ],
+    "id":"art_y3_0007",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Drawing",
+    "year_level":3,
+    "question":"Which drawing technique uses dots to create shading and tone?",
+    "correct":"Stippling",
+    "options":[
+      "Scumbling",
+      "Hatching",
+      "Blending"
+    ],
+    "id":"art_y3_0014",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Sculpture",
+    "year_level":3,
+    "question":"Which famous bronze sculpture is often seen with its distinctive green colour?",
+    "correct":"The Statue of Liberty",
+    "options":[
+      "David",
+      "The Thinker",
+      "Mona Lisa"
+    ],
+    "id":"art_y3_0057",
+    "dataset":"converted_worksheet",
+    "explanation":"The Statue of Liberty is a famous bronze sculpture covered in copper patina that turns green over time. David and The Thinker are also bronze sculptures but not famous for their green colour, and Mona Lisa is a painting.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Pattern",
+    "year_level":3,
+    "question":"Which is the best place to find patterns in nature?",
+    "correct":"A butterfly's wings",
+    "options":[
+      "A plain rock",
+      "A puddle",
+      "The sky"
+    ],
+    "id":"art_y3_0024",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Sculpture",
+    "year_level":3,
+    "question":"Which material is NOT commonly used to make sculptures?",
+    "correct":"Air",
+    "options":[
+      "Clay",
+      "Wood",
+      "Metal"
+    ],
+    "id":"art_y3_0045",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Texture",
+    "year_level":3,
+    "question":"Which material would create a rough texture in your artwork?",
+    "correct":"Sandpaper",
+    "options":[
+      "Silk",
+      "Glass",
+      "Satin"
+    ],
+    "id":"art_y3_0054",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Colour",
+    "year_level":3,
+    "question":"Which of these colours is considered warm in art?",
+    "correct":"Red",
+    "options":[
+      "Blue",
+      "Green",
+      "Purple"
+    ],
+    "id":"art_y3_0032",
+    "dataset":"converted_worksheet",
+    "explanation":"Red is a warm colour that makes us feel hot and energetic. Blue, green, and purple are cool colours that make us feel calm and peaceful.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Primary Colours",
+    "year_level":3,
+    "question":"Which of these colours is NOT a primary colour?",
+    "correct":"Green",
+    "options":[
+      "Red",
+      "Blue",
+      "Yellow"
+    ],
+    "id":"art_y3_0037",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Texture",
+    "year_level":3,
+    "question":"Which of these describes a 'smooth' texture you might find on an object?",
+    "correct":"Sleek",
+    "options":[
+      "Scratchy",
+      "Bumpy",
+      "Prickly"
+    ],
+    "id":"art_y3_0058",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Colour",
+    "year_level":3,
+    "question":"Which of these is a primary colour?",
+    "correct":"Yellow",
+    "options":[
+      "Purple",
+      "Orange",
+      "Green"
+    ],
+    "id":"art_y3_0001",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Colour",
+    "year_level":3,
+    "question":"Which of these is a warm colour?",
+    "correct":"Red",
+    "options":[
+      "Blue",
+      "Green",
+      "Purple"
+    ],
+    "id":"art_y3_0008",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Sculpture",
+    "year_level":3,
+    "question":"Which of these materials is NOT usually used by artists to make sculptures?",
+    "correct":"Chocolate",
+    "options":[
+      "Clay",
+      "Stone",
+      "Metal"
+    ],
+    "id":"art_y3_0054",
+    "dataset":"converted_worksheet",
+    "explanation":"Artists commonly use clay, stone and metal to create sculptures. Chocolate is not a suitable material for making permanent sculptures as it melts and would not last.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Pattern",
+    "year_level":3,
+    "question":"Which of these shows a pattern being made?",
+    "correct":"Repeating a leaf shape",
+    "options":[
+      "Drawing one star",
+      "Mixing two colors",
+      "Splattering paint"
+    ],
+    "id":"art_y3_0023",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Pattern",
+    "year_level":3,
+    "question":"Which of these shows a pattern being made? A row of alternating red and blue blocks, A pile of random toys, A scattered arrangement of flowers, A wall with randomly placed stickers",
+    "correct":"A row of alternating red and blue blocks",
+    "options":[
+      "A pile of random toys",
+      "A scattered arrangement of flowers",
+      "A wall with randomly placed stickers"
+    ],
+    "id":"art_y3_0049",
+    "dataset":"converted_worksheet",
+    "explanation":"A pattern is a repeated sequence or design. A row of alternating red and blue blocks shows a clear repeating pattern of red-blue-red-blue.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Pattern",
+    "year_level":3,
+    "question":"Which of these shows the most clear example of patterns found in nature?",
+    "correct":"Butterfly wings",
+    "options":[
+      "Mountain rocks",
+      "Ocean waves",
+      "Cloud formations"
+    ],
+    "id":"art_y3_0050",
+    "dataset":"converted_worksheet",
+    "explanation":"Butterfly wings display beautiful, intricate patterns with repeating designs that are found throughout nature. While mountains, oceans, and clouds all have patterns, butterfly wings showcase the most obvious and recognizable natural patterns.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Primary Colours",
+    "year_level":3,
+    "question":"Which of these things CANNOT be done with primary colours?",
+    "correct":"made by mixing other colours",
+    "options":[
+      "seen in a rainbow",
+      "used to make all other colours",
+      "found in nature"
+    ],
+    "id":"art_y3_0003",
+    "dataset":"converted_worksheet",
+    "explanation":"Primary colours (red, blue, yellow) are the basic colours that cannot be created by mixing other colours together. They are the foundation for creating all other colours.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Pattern",
+    "year_level":3,
+    "question":"Which one is NOT a way to create patterns?",
+    "correct":"Random scribbling",
+    "options":[
+      "Printing with stamps",
+      "Using a stencil",
+      "Drawing freehand"
+    ],
+    "id":"art_y3_0027",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Pattern",
+    "year_level":3,
+    "question":"Which one is NOT a way to create patterns? A) Repeating shapes in a sequence B) Creating a design with alternating colors C) Making a series of identical objects D) Using random colors without repetition",
+    "correct":"Using random colors without repetition",
+    "options":[
+      "Repeating shapes in a sequence",
+      "Creating a design with alternating colors",
+      "Making a series of identical objects"
+    ],
+    "id":"art_y3_0053",
+    "dataset":"converted_worksheet",
+    "explanation":"Patterns are created by repeating elements in a predictable way. Using random colors without repetition breaks the pattern structure, while the other options show different ways to create patterns through repetition.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Primary Colours",
+    "year_level":3,
+    "question":"Which primary colour do you mix with yellow to make green?",
+    "correct":"Blue",
+    "options":[
+      "Red",
+      "Orange",
+      "Purple"
+    ],
+    "id":"art_y3_0036",
+    "dataset":"converted_worksheet",
+    "explanation":"In art, mixing blue and yellow creates green. Red is a primary colour but mixes with yellow to make orange, not green.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Primary Colours",
+    "year_level":3,
+    "question":"Which primary colour, when mixed with yellow, makes green?",
+    "correct":"Blue",
+    "options":[
+      "Red",
+      "White",
+      "Purple"
+    ],
+    "id":"art_y3_0038",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Drawing",
+    "year_level":3,
+    "question":"Which tool helps you make soft, blended lines when drawing with charcoal?",
+    "correct":"kneaded eraser",
+    "options":[
+      "pencil sharpener",
+      "blending stump",
+      "paintbrush"
+    ],
+    "id":"art_y3_0040",
+    "dataset":"converted_worksheet",
+    "explanation":"A kneaded eraser is soft and can be shaped into different forms to smudge charcoal on paper, creating smooth transitions between light and dark areas. A pencil sharpener is used for sharpening pencils, a blending stump is used with graphite pencils, and a paintbrush is used for painting.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Printing",
+    "year_level":4,
+    "question":"A printing block creates:",
+    "correct":"Repeated images",
+    "options":[
+      "One image only",
+      "3D sculptures",
+      "Photographs"
+    ],
+    "id":"art_y4_0023",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Printing",
+    "year_level":4,
+    "question":"A printing block creates: A) a repeated pattern on paper B) a single picture only C) a random design D) an abstract shape",
+    "correct":"a repeated pattern on paper",
+    "options":[
+      "a single picture only",
+      "a random design",
+      "an abstract shape"
+    ],
+    "id":"art_y4_0006",
+    "dataset":"converted_worksheet",
+    "explanation":"Printing blocks are used to create the same pattern over and over again on paper, like stamps that repeat the same image many times.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Hatching",
+    "year_level":4,
+    "question":"Hatching uses:",
+    "correct":"Parallel lines",
+    "options":[
+      "Dots",
+      "Curves",
+      "Colors"
+    ],
+    "id":"art_y4_0014",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Secondary Colours",
+    "year_level":4,
+    "question":"If we mix red and yellow paint together, what colour will we make?",
+    "correct":"Orange",
+    "options":[
+      "Green",
+      "Purple",
+      "Pink"
+    ],
+    "id":"art_y4_0034",
+    "dataset":"converted_worksheet",
+    "explanation":"When you mix red and yellow paint together, you create orange. This is one of the three secondary colours in art.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Secondary Colours",
+    "year_level":4,
+    "question":"If we mix red and yellow paint, what colour will we create?",
+    "correct":"Orange",
+    "options":[
+      "Green",
+      "Purple",
+      "Pink"
+    ],
+    "id":"art_y4_0040",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Colour",
+    "year_level":4,
+    "question":"If you add white to a colour, what new shade are you creating?",
+    "correct":"Tint",
+    "options":[
+      "Tone",
+      "Shade",
+      "Hue"
+    ],
+    "id":"art_y4_0010",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Printing",
+    "year_level":4,
+    "question":"If you want to print the same image many times in art, what do you need?",
+    "correct":"A printing plate or block",
+    "options":[
+      "Many different pencils",
+      "A single sheet of paper",
+      "A rainbow colored marker"
+    ],
+    "id":"art_y4_0051",
+    "dataset":"converted_worksheet",
+    "explanation":"To print the same image many times in art, you need a printing plate or block that has the design carved into it. This allows you to press ink onto paper repeatedly to make multiple copies of the same picture.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Printing",
+    "year_level":4,
+    "question":"If you want to print the same image many times, what do you need?",
+    "correct":"A printing block",
+    "options":[
+      "More paper",
+      "A bigger brush",
+      "Different paints"
+    ],
+    "id":"art_y4_0029",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Colour",
+    "year_level":4,
+    "question":"In art class, you learn that when colours sit right beside each other on the colour wheel, what do we call them?",
+    "correct":"Adjacent colours",
+    "options":[
+      "Complementary colours",
+      "Analogy colours",
+      "Triadic colours"
+    ],
+    "id":"art_y4_0029",
+    "dataset":"converted_worksheet",
+    "explanation":"When colours are next to each other on the colour wheel, they are called adjacent colours. These colours look good together and create harmonious artwork.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Secondary Colours",
+    "year_level":4,
+    "question":"In art class, you mix red paint with yellow paint to make orange. What type of colour is orange?",
+    "correct":"Secondary",
+    "options":[
+      "Primary",
+      "Tertiary",
+      "Neutral"
+    ],
+    "id":"art_y4_0037",
+    "dataset":"converted_worksheet",
+    "explanation":"Orange is made by mixing two primary colours (red and yellow), so it is classified as a secondary colour.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Shading",
+    "year_level":4,
+    "question":"In art class, you're learning about shadows. What do we call the darkest part of a shadow on an object?",
+    "correct":"umbra",
+    "options":[
+      "highlight",
+      "halo",
+      "refraction"
+    ],
+    "id":"art_y4_0040",
+    "dataset":"converted_worksheet",
+    "explanation":"The umbra is the darkest part of a shadow where no direct light reaches. Highlights are bright areas, halo refers to a glow around objects, and refraction is when light bends.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Secondary Colours",
+    "year_level":4,
+    "question":"Is orange a primary or a secondary colour?",
+    "correct":"Secondary",
+    "options":[
+      "Primary",
+      "Neither",
+      "Both"
+    ],
+    "id":"art_y4_0043",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Colour",
+    "year_level":4,
+    "question":"Mixing black with a colour creates what, making it darker and deeper?",
+    "correct":"Shade",
+    "options":[
+      "Tint",
+      "Hue",
+      "Tone"
+    ],
+    "id":"art_y4_0012",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Secondary Colours",
+    "year_level":4,
+    "question":"Mixing blue and yellow makes:",
+    "correct":"Green",
+    "options":[
+      "Orange",
+      "Purple",
+      "Brown"
+    ],
+    "id":"art_y4_0032",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Secondary Colours",
+    "year_level":4,
+    "question":"Mixing red and blue makes:",
+    "correct":"Purple",
+    "options":[
+      "Green",
+      "Orange",
+      "Brown"
+    ],
+    "id":"art_y4_0033",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Printing",
+    "year_level":4,
+    "question":"Practice 1: A printing block creates:",
+    "correct":"Repeated images",
+    "options":[
+      "One image only",
+      "3D sculptures",
+      "Photographs"
+    ],
+    "id":"art_y4_0024",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Hatching",
+    "year_level":4,
+    "question":"Practice 1: Hatching uses:",
+    "correct":"Parallel lines",
+    "options":[
+      "Dots",
+      "Curves",
+      "Colors"
+    ],
+    "id":"art_y4_0015",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Secondary Colours",
+    "year_level":4,
+    "question":"Practice 1: Mixing blue and yellow makes:",
+    "correct":"Green",
+    "options":[
+      "Orange",
+      "Purple",
+      "Brown"
+    ],
+    "id":"art_y4_0034",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Secondary Colours",
+    "year_level":4,
+    "question":"Practice 1: Mixing red and blue makes:",
+    "correct":"Purple",
+    "options":[
+      "Green",
+      "Orange",
+      "Brown"
+    ],
+    "id":"art_y4_0035",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Shading",
+    "year_level":4,
+    "question":"Practice 1: Shading makes objects look:",
+    "correct":"3D",
+    "options":[
+      "Flat",
+      "Colorful",
+      "Smaller"
+    ],
+    "id":"art_y4_0046",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Artists",
+    "year_level":4,
+    "question":"Practice 1: Van Gogh painted:",
+    "correct":"Sunflowers",
+    "options":[
+      "Mona Lisa",
+      "The Scream",
+      "Guernica"
+    ],
+    "id":"art_y4_0002",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Colour",
+    "year_level":4,
+    "question":"Practice 1: Which two primary colours do you mix to make the secondary colour orange?",
+    "correct":"Red and Yellow",
+    "options":[
+      "Blue and Yellow",
+      "Red and Blue",
+      "Red and Green"
+    ],
+    "id":"art_y4_0006",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Printing",
+    "year_level":4,
+    "question":"Practice 2: A printing block creates:",
+    "correct":"Repeated images",
+    "options":[
+      "One image only",
+      "3D sculptures",
+      "Photographs"
+    ],
+    "id":"art_y4_0025",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Hatching",
+    "year_level":4,
+    "question":"Practice 2: Hatching uses:",
+    "correct":"Parallel lines",
+    "options":[
+      "Dots",
+      "Curves",
+      "Colors"
+    ],
+    "id":"art_y4_0016",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Secondary Colours",
+    "year_level":4,
+    "question":"Practice 2: Mixing blue and yellow makes:",
+    "correct":"Green",
+    "options":[
+      "Orange",
+      "Purple",
+      "Brown"
+    ],
+    "id":"art_y4_0036",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Secondary Colours",
+    "year_level":4,
+    "question":"Practice 2: Mixing red and blue makes:",
+    "correct":"Purple",
+    "options":[
+      "Green",
+      "Orange",
+      "Brown"
+    ],
+    "id":"art_y4_0037",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Shading",
+    "year_level":4,
+    "question":"Practice 2: Shading makes objects look:",
+    "correct":"3D",
+    "options":[
+      "Flat",
+      "Colorful",
+      "Smaller"
+    ],
+    "id":"art_y4_0047",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Artists",
+    "year_level":4,
+    "question":"Practice 2: Van Gogh painted:",
+    "correct":"Sunflowers",
+    "options":[
+      "Mona Lisa",
+      "The Scream",
+      "Guernica"
+    ],
+    "id":"art_y4_0003",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Colour",
+    "year_level":4,
+    "question":"Practice 2: Which two primary colours do you mix to make the secondary colour orange?",
+    "correct":"Red and Yellow",
+    "options":[
+      "Blue and Yellow",
+      "Red and Blue",
+      "Red and Green"
+    ],
+    "id":"art_y4_0007",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Printing",
+    "year_level":4,
+    "question":"Practice 3: A printing block creates:",
+    "correct":"Repeated images",
+    "options":[
+      "One image only",
+      "3D sculptures",
+      "Photographs"
+    ],
+    "id":"art_y4_0026",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Hatching",
+    "year_level":4,
+    "question":"Practice 3: Hatching uses:",
+    "correct":"Parallel lines",
+    "options":[
+      "Dots",
+      "Curves",
+      "Colors"
+    ],
+    "id":"art_y4_0017",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Secondary Colours",
+    "year_level":4,
+    "question":"Practice 3: Mixing blue and yellow makes:",
+    "correct":"Green",
+    "options":[
+      "Orange",
+      "Purple",
+      "Brown"
+    ],
+    "id":"art_y4_0038",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Secondary Colours",
+    "year_level":4,
+    "question":"Practice 3: Mixing red and blue makes:",
+    "correct":"Purple",
+    "options":[
+      "Green",
+      "Orange",
+      "Brown"
+    ],
+    "id":"art_y4_0039",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Shading",
+    "year_level":4,
+    "question":"Practice 3: Shading makes objects look:",
+    "correct":"3D",
+    "options":[
+      "Flat",
+      "Colorful",
+      "Smaller"
+    ],
+    "id":"art_y4_0048",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Artists",
+    "year_level":4,
+    "question":"Practice 3: Van Gogh painted:",
+    "correct":"Sunflowers",
+    "options":[
+      "Mona Lisa",
+      "The Scream",
+      "Guernica"
+    ],
+    "id":"art_y4_0004",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Colour",
+    "year_level":4,
+    "question":"Practice 3: Which two primary colours do you mix to make the secondary colour orange?",
+    "correct":"Red and Yellow",
+    "options":[
+      "Blue and Yellow",
+      "Red and Blue",
+      "Red and Green"
+    ],
+    "id":"art_y4_0008",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Shading",
+    "year_level":4,
+    "question":"Shading makes objects look:",
+    "correct":"3D",
+    "options":[
+      "Flat",
+      "Colorful",
+      "Smaller"
+    ],
+    "id":"art_y4_0045",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Shading",
+    "year_level":4,
+    "question":"Shading makes objects look: A) flat B) three-dimensional C) two-dimensional D) bright",
+    "correct":"three-dimensional",
+    "options":[
+      "flat",
+      "two-dimensional",
+      "bright"
+    ],
+    "id":"art_y4_0004",
+    "dataset":"converted_worksheet",
+    "explanation":"Shading uses light and dark areas to make objects appear round and realistic, giving them depth and dimension. Without shading, objects would look flat and two-dimensional.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Hatching",
+    "year_level":4,
+    "question":"To make areas darker with hatching, should your lines be closer together or further apart?",
+    "correct":"Closer together",
+    "options":[
+      "Further apart",
+      "Wavy",
+      "Thicker"
+    ],
+    "id":"art_y4_0018",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Secondary Colours",
+    "year_level":4,
+    "question":"To make the secondary colour purple, which paints do we need?",
+    "correct":"Red and Blue",
+    "options":[
+      "Blue and Yellow",
+      "Red and Yellow",
+      "Green and Yellow"
+    ],
+    "id":"art_y4_0042",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Artists",
+    "year_level":4,
+    "question":"Van Gogh painted:",
+    "correct":"Sunflowers",
+    "options":[
+      "Mona Lisa",
+      "The Scream",
+      "Guernica"
+    ],
+    "id":"art_y4_0001",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Colour",
+    "year_level":4,
+    "question":"What are red, yellow, and blue known as in the art world?",
+    "correct":"Primary colours",
+    "options":[
+      "Tertiary colours",
+      "Secondary colours",
+      "Neutral colours"
+    ],
+    "id":"art_y4_0013",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Secondary Colours",
+    "year_level":4,
+    "question":"What colour do you get when you mix blue and yellow paint together?",
+    "correct":"green",
+    "options":[
+      "purple",
+      "orange",
+      "red"
+    ],
+    "id":"art_y4_0009",
+    "dataset":"converted_worksheet",
+    "explanation":"When you mix blue and yellow paint together, you create green. This is one of the three secondary colours - the others are purple (made from red and blue) and orange (made from red and yellow).",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Secondary Colours",
+    "year_level":4,
+    "question":"What colour do you get when you mix blue and yellow paint?",
+    "correct":"green",
+    "options":[
+      "purple",
+      "orange",
+      "red"
+    ],
+    "id":"art_y4_0002",
+    "dataset":"converted_worksheet",
+    "explanation":"When you mix blue and yellow paint together, you create green. This is one of the three secondary colours in art.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Secondary Colours",
+    "year_level":4,
+    "question":"What colour do you get when you mix red and blue paint together?",
+    "correct":"purple",
+    "options":[
+      "yellow",
+      "green",
+      "orange"
+    ],
+    "id":"art_y4_0003",
+    "dataset":"converted_worksheet",
+    "explanation":"When you mix red and blue paint together, you create the secondary colour purple. This is a basic principle of colour mixing that children learn in art class.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Secondary Colours",
+    "year_level":4,
+    "question":"What colour do you get when you mix red and blue paint?",
+    "correct":"purple",
+    "options":[
+      "green",
+      "orange",
+      "yellow"
+    ],
+    "id":"art_y4_0017",
+    "dataset":"converted_worksheet",
+    "explanation":"When you mix red and blue paint together, you create purple. This is one of the three secondary colours in art.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Hatching",
+    "year_level":4,
+    "question":"What do we call it when we add more sets of parallel lines ON TOP of hatching?",
+    "correct":"Cross-hatching",
+    "options":[
+      "Over-hatching",
+      "Super-hatching",
+      "Line layering"
+    ],
+    "id":"art_y4_0022",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Printing",
+    "year_level":4,
+    "question":"What do you call the object used to transfer ink in printing?",
+    "correct":"Printing block",
+    "options":[
+      "Paintbrush",
+      "Colour stick",
+      "Ink pad"
+    ],
+    "id":"art_y4_0028",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Colour",
+    "year_level":4,
+    "question":"What do you get when you mix black with any colour to make it darker and deeper?",
+    "correct":"shade",
+    "options":[
+      "hue",
+      "tone",
+      "tint"
+    ],
+    "id":"art_y4_0032",
+    "dataset":"converted_worksheet",
+    "explanation":"When you mix black with any colour, you create a shade. A shade is a colour that is darker than the original because black absorbs light. For example, adding black to red creates a darker reddish-brown shade.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Shading",
+    "year_level":4,
+    "question":"What does 'value' mean in shading art?",
+    "correct":"How light or dark a colour is",
+    "options":[
+      "The brightness of a colour",
+      "The texture of paint",
+      "The size of the brush"
+    ],
+    "id":"art_y4_0043",
+    "dataset":"converted_worksheet",
+    "explanation":"In art, 'value' refers to how light or dark a colour appears. High value means light colours like white or pastels, while low value means dark colours like black or deep browns.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Shading",
+    "year_level":4,
+    "question":"What does 'value' refer to when talking about shading in art?",
+    "correct":"How light or dark something is",
+    "options":[
+      "How expensive it is",
+      "Its importance",
+      "Its colour"
+    ],
+    "id":"art_y4_0053",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Hatching",
+    "year_level":4,
+    "question":"What does hatching use to create different effects in art drawings?",
+    "correct":"Parallel lines to create texture and shadow",
+    "options":[
+      "Bold outlines for shapes",
+      "Random dots to fill areas",
+      "Bright colors for highlights"
+    ],
+    "id":"art_y4_0005",
+    "dataset":"converted_worksheet",
+    "explanation":"Hatching is a drawing technique that uses parallel lines to show light, shadow, and texture in artwork. The closer the lines are together, the darker the area appears.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Colour",
+    "year_level":4,
+    "question":"What is it called when colours are next to each other on the colour wheel?",
+    "correct":"Analogous",
+    "options":[
+      "Complementary",
+      "Triadic",
+      "Monochromatic"
+    ],
+    "id":"art_y4_0009",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Hatching",
+    "year_level":4,
+    "question":"What simple drawing technique uses lots of parallel lines to create shading?",
+    "correct":"Hatching",
+    "options":[
+      "Blending",
+      "Smudging",
+      "Pointillism"
+    ],
+    "id":"art_y4_0019",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Printing",
+    "year_level":4,
+    "question":"What yummy vegetable is great for printing colourful circles?",
+    "correct":"Potato",
+    "options":[
+      "Carrot",
+      "Broccoli",
+      "Cabbage"
+    ],
+    "id":"art_y4_0027",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Printing",
+    "year_level":4,
+    "question":"What\u2019s a cool way to make a printing block using string and cardboard?",
+    "correct":"Collagraph printing",
+    "options":[
+      "Scratch art",
+      "Rubbing",
+      "Pointillism"
+    ],
+    "id":"art_y4_0031",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Shading",
+    "year_level":4,
+    "question":"What's the darkest area of shading on an object usually called?",
+    "correct":"Core shadow",
+    "options":[
+      "Highlight",
+      "Reflected light",
+      "Outline"
+    ],
+    "id":"art_y4_0050",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Hatching",
+    "year_level":4,
+    "question":"When doing hatching in art, what direction should all your lines go to make good shading?",
+    "correct":"All of your lines should point in the same direction",
+    "options":[
+      "All of your lines should point in different directions",
+      "Some lines should go one way and some the other way",
+      "Lines should be drawn randomly in any direction"
+    ],
+    "id":"art_y4_0046",
+    "dataset":"converted_worksheet",
+    "explanation":"In hatching, you create shading by drawing parallel lines in the same direction to build up dark areas. If lines went in different directions, they would cancel each other out and not create effective shading.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Hatching",
+    "year_level":4,
+    "question":"When drawing with hatching techniques to make dark shadow areas, should you draw your parallel lines close together or far apart?",
+    "correct":"Closer together",
+    "options":[
+      "Further apart",
+      "More horizontal",
+      "Random spacing"
+    ],
+    "id":"art_y4_0044",
+    "dataset":"converted_worksheet",
+    "explanation":"In art drawing, when using hatching (parallel lines) to create shadows and darker areas, the lines need to be drawn closer together so they overlap more. This creates a darker effect because there's less white space between the lines.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Hatching",
+    "year_level":4,
+    "question":"When hatching, should all of your lines point in the same direction or different directions?",
+    "correct":"Same direction",
+    "options":[
+      "Different directions",
+      "Spirals",
+      "Circles"
+    ],
+    "id":"art_y4_0020",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Shading",
+    "year_level":4,
+    "question":"When shading in art, where should you press the hardest with your pencil?",
+    "correct":"In the darkest areas",
+    "options":[
+      "In the lightest areas",
+      "On the paper edges",
+      "In the middle of the page"
+    ],
+    "id":"art_y4_0041",
+    "dataset":"converted_worksheet",
+    "explanation":"When shading, you press harder with your pencil in the darkest areas to create deeper, richer dark tones. Lighter areas require less pressure for soft, subtle shading.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Shading",
+    "year_level":4,
+    "question":"When shading, where should you press the hardest with your pencil?",
+    "correct":"In the darkest areas",
+    "options":[
+      "Everywhere the same",
+      "In the lightest areas",
+      "Only on the edges"
+    ],
+    "id":"art_y4_0051",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Printing",
+    "year_level":4,
+    "question":"Which art tool is best for rolling ink onto a printing block in printmaking?",
+    "correct":"Brayer",
+    "options":[
+      "Palette knife",
+      "Sponge",
+      "Brush"
+    ],
+    "id":"art_y4_0052",
+    "dataset":"converted_worksheet",
+    "explanation":"A brayer is a small roller specifically designed for spreading ink evenly on printing blocks. It has a smooth, rubbery surface that makes it easy to apply consistent ink coverage.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Secondary Colours",
+    "year_level":4,
+    "question":"Which colour is made by mixing two primary colours together?",
+    "correct":"Orange",
+    "options":[
+      "Purple",
+      "Green",
+      "Pink"
+    ],
+    "id":"art_y4_0035",
+    "dataset":"converted_worksheet",
+    "explanation":"Orange is made by mixing red and yellow, which are both primary colours. Purple (violet) is made from blue and red, green is made from blue and yellow.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Colour",
+    "year_level":4,
+    "question":"Which colour scheme uses just one colour mixed with different lightness levels?",
+    "correct":"Monochrome",
+    "options":[
+      "Complementary",
+      "Analogous",
+      "Triadic"
+    ],
+    "id":"art_y4_0031",
+    "dataset":"converted_worksheet",
+    "explanation":"A monochrome colour scheme uses only one base colour combined with different shades, tones, and tints of that same colour. Complementary uses opposite colours, analogous uses neighbouring colours on the colour wheel, and triadic uses three evenly spaced colours.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Hatching",
+    "year_level":4,
+    "question":"Which drawing method uses many straight lines next to each other to make dark areas on paper?",
+    "correct":"Hatching",
+    "options":[
+      "Cross-hatching",
+      "Stippling",
+      "Blending"
+    ],
+    "id":"art_y4_0045",
+    "dataset":"converted_worksheet",
+    "explanation":"Hatching is a drawing technique that uses parallel lines to create shadows and shading. Cross-hatching uses intersecting lines, stippling uses dots, and blending smooths colors together.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Shading",
+    "year_level":4,
+    "question":"Which drawing tool is BEST for creating soft, gradual shading effects in art?",
+    "correct":"Blender pencil",
+    "options":[
+      "Hard pencil",
+      "Fine liner pen",
+      "Charcoal stick"
+    ],
+    "id":"art_y4_0039",
+    "dataset":"converted_worksheet",
+    "explanation":"A blender pencil (or blending pencil) has soft graphite that can be smudged and blended smoothly to create gradual shading effects. Hard pencils create sharp lines, fine liners make crisp outlines, and charcoal sticks are better for bold dark areas.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Shading",
+    "year_level":4,
+    "question":"Which drawing tool is BEST for creating soft, gradual shading effects?",
+    "correct":"Pencil",
+    "options":[
+      "Felt-tip pen",
+      "Crayon",
+      "Glitter glue"
+    ],
+    "id":"art_y4_0049",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Artists",
+    "year_level":4,
+    "question":"Which famous painting was created by Van Gogh?",
+    "correct":"The Starry Night",
+    "options":[
+      "Mona Lisa",
+      "The Scream",
+      "Water Lilies"
+    ],
+    "id":"art_y4_0021",
+    "dataset":"converted_worksheet",
+    "explanation":"Van Gogh is famous for painting 'The Starry Night' in 1889. While he painted many beautiful works, 'The Starry Night' is one of his most recognizable and celebrated paintings.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Artists",
+    "year_level":4,
+    "question":"Which famous painting was created by Vincent van Gogh?",
+    "correct":"The Starry Night",
+    "options":[
+      "Mona Lisa",
+      "The Scream",
+      "Girl with a Pearl Earring"
+    ],
+    "id":"art_y4_0028",
+    "dataset":"converted_worksheet",
+    "explanation":"Van Gogh painted The Starry Night in 1889. Leonardo da Vinci painted Mona Lisa, Edvard Munch painted The Scream, and Johannes Vermeer painted Girl with a Pearl Earring.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Printing",
+    "year_level":4,
+    "question":"Which method makes a cool printing block using string and cardboard?",
+    "correct":"Cut the cardboard into a design shape and tie string around it",
+    "options":[
+      "Glue string onto the cardboard to create patterns",
+      "Paint the string directly onto paper",
+      "Use a plastic bottle as a stamp"
+    ],
+    "id":"art_y4_0053",
+    "dataset":"converted_worksheet",
+    "explanation":"To make a printing block with string and cardboard, you cut the cardboard into your desired shape (like letters or animals) then wrap string around it tightly. When you press this against paint and paper, the string creates interesting textured patterns.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Printing",
+    "year_level":4,
+    "question":"Which of these art materials is best for rolling ink onto a block?",
+    "correct":"A roller",
+    "options":[
+      "A sponge",
+      "A cloth",
+      "Your finger"
+    ],
+    "id":"art_y4_0030",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Colour",
+    "year_level":4,
+    "question":"Which of these colour schemes uses only one colour and its tints?",
+    "correct":"Monochromatic",
+    "options":[
+      "Polychromatic",
+      "Complementary",
+      "Triadic"
+    ],
+    "id":"art_y4_0011",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Secondary Colours",
+    "year_level":4,
+    "question":"Which of these colours is created by mixing two primary colours?",
+    "correct":"Green",
+    "options":[
+      "White",
+      "Black",
+      "Grey"
+    ],
+    "id":"art_y4_0041",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Shading",
+    "year_level":4,
+    "question":"Which of these makes colours lighter in a drawing?",
+    "correct":"Highlight",
+    "options":[
+      "Hatching",
+      "Cross-hatching",
+      "Scumbling"
+    ],
+    "id":"art_y4_0052",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Artists",
+    "year_level":4,
+    "question":"Which painting was created by Van Gogh?",
+    "correct":"The Starry Night",
+    "options":[
+      "Mona Lisa",
+      "The Scream",
+      "Water Lilies"
+    ],
+    "id":"art_y4_0007",
+    "dataset":"converted_worksheet",
+    "explanation":"Van Gogh is famous for painting 'The Starry Night' in 1889. While he painted many works, 'The Starry Night' is one of his most well-known and recognizable paintings.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Artists",
+    "year_level":4,
+    "question":"Which painting was created by Vincent van Gogh?",
+    "correct":"Starry Night",
+    "options":[
+      "Mona Lisa",
+      "The Scream",
+      "The Persistence of Memory"
+    ],
+    "id":"art_y4_0014",
+    "dataset":"converted_worksheet",
+    "explanation":"Van Gogh painted Starry Night in 1889. The other paintings were created by different famous artists - Mona Lisa by Leonardo da Vinci, The Scream by Edvard Munch, and The Persistence of Memory by Salvador Dal\u00ed.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Hatching",
+    "year_level":4,
+    "question":"Which tool is best for hatching - a pencil, crayon, or paint brush?",
+    "correct":"Pencil",
+    "options":[
+      "Crayon",
+      "Paint brush",
+      "All of them are equal"
+    ],
+    "id":"art_y4_0021",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Hatching",
+    "year_level":4,
+    "question":"Which tool makes the finest lines for creating hatching patterns in art?",
+    "correct":"Pencil",
+    "options":[
+      "Crayon",
+      "Paint brush",
+      "Marker"
+    ],
+    "id":"art_y4_0047",
+    "dataset":"converted_worksheet",
+    "explanation":"A pencil is best for hatching because you can create thin, precise lines by drawing them close together. Crayons are too thick and paint brushes are too big for the fine lines needed in hatching.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Secondary Colours",
+    "year_level":4,
+    "question":"Which two colours do you mix together to make purple paint?",
+    "correct":"Red and blue",
+    "options":[
+      "Yellow and red",
+      "Blue and green",
+      "Green and red"
+    ],
+    "id":"art_y4_0036",
+    "dataset":"converted_worksheet",
+    "explanation":"Purple is made by mixing red paint and blue paint together. This is one of the three secondary colours that can be made by mixing two primary colours.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Colour",
+    "year_level":4,
+    "question":"Which two primary colours do you mix to make the secondary colour orange?",
+    "correct":"Red and Yellow",
+    "options":[
+      "Blue and Yellow",
+      "Red and Blue",
+      "Red and Green"
+    ],
+    "id":"art_y4_0005",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Secondary Colours",
+    "year_level":4,
+    "question":"Which two primary colours mix to make a bright green colour?",
+    "correct":"Blue and Yellow",
+    "options":[
+      "Red and Blue",
+      "Red and Green",
+      "Yellow and Red"
+    ],
+    "id":"art_y4_0044",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Printing",
+    "year_level":4,
+    "question":"Which vegetable has natural red colouring and makes lovely round printing shapes?",
+    "correct":"Red onion",
+    "options":[
+      "Carrot",
+      "Potato",
+      "Cabbage"
+    ],
+    "id":"art_y4_0049",
+    "dataset":"converted_worksheet",
+    "explanation":"Red onions have a natural red pigment that creates beautiful, vibrant circular prints when cut in half and pressed onto paper. Carrots are orange, potatoes don't create good circular shapes, and cabbage is green.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Shade",
+    "year_level":5,
+    "question":"Adding black to a color creates a:",
+    "correct":"Shade",
+    "options":[
+      "Tint",
+      "Tone",
+      "Hue"
+    ],
+    "id":"art_y5_0009",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Tint",
+    "year_level":5,
+    "question":"Adding white to a color creates a:",
+    "correct":"Tint",
+    "options":[
+      "Shade",
+      "Tone",
+      "Hue"
+    ],
+    "id":"art_y5_0013",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Cool Colours",
+    "year_level":5,
+    "question":"Cool colours include:",
+    "correct":"Blue, green, purple",
+    "options":[
+      "Red, orange, yellow",
+      "Black, white, grey",
+      "Only blue"
+    ],
+    "id":"art_y5_0001",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Perspective",
+    "year_level":5,
+    "question":"Perspective makes objects look:",
+    "correct":"Distant or close",
+    "options":[
+      "Colorful",
+      "Textured",
+      "Flat"
+    ],
+    "id":"art_y5_0005",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Perspective",
+    "year_level":5,
+    "question":"Perspective makes objects look: A) bigger as they go further away B) smaller as they go further away C) the same size no matter how far away they are D) more colorful as they go further away",
+    "correct":"smaller as they go further away",
+    "options":[
+      "bigger as they go further away",
+      "the same size no matter how far away they are",
+      "more colorful as they go further away"
+    ],
+    "id":"art_y5_0006",
+    "dataset":"converted_worksheet",
+    "explanation":"In perspective drawing, objects appear smaller the farther away they are from the viewer. This helps create a realistic sense of depth and distance on a flat surface.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Shade",
+    "year_level":5,
+    "question":"Practice 1: Adding black to a color creates a:",
+    "correct":"Shade",
+    "options":[
+      "Tint",
+      "Tone",
+      "Hue"
+    ],
+    "id":"art_y5_0010",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Tint",
+    "year_level":5,
+    "question":"Practice 1: Adding white to a color creates a:",
+    "correct":"Tint",
+    "options":[
+      "Shade",
+      "Tone",
+      "Hue"
+    ],
+    "id":"art_y5_0014",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Cool Colours",
+    "year_level":5,
+    "question":"Practice 1: Cool colours include:",
+    "correct":"Blue, green, purple",
+    "options":[
+      "Red, orange, yellow",
+      "Black, white, grey",
+      "Only blue"
+    ],
+    "id":"art_y5_0002",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Perspective",
+    "year_level":5,
+    "question":"Practice 1: Perspective makes objects look:",
+    "correct":"Distant or close",
+    "options":[
+      "Colorful",
+      "Textured",
+      "Flat"
+    ],
+    "id":"art_y5_0006",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Tone",
+    "year_level":5,
+    "question":"Practice 1: Tone refers to:",
+    "correct":"Light and dark",
+    "options":[
+      "Color only",
+      "Texture",
+      "Size"
+    ],
+    "id":"art_y5_0018",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Warm Colours",
+    "year_level":5,
+    "question":"Practice 1: Warm colours include:",
+    "correct":"Red, orange, yellow",
+    "options":[
+      "Blue, green, purple",
+      "Black, white, grey",
+      "Only red"
+    ],
+    "id":"art_y5_0022",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Shade",
+    "year_level":5,
+    "question":"Practice 2: Adding black to a color creates a:",
+    "correct":"Shade",
+    "options":[
+      "Tint",
+      "Tone",
+      "Hue"
+    ],
+    "id":"art_y5_0011",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Tint",
+    "year_level":5,
+    "question":"Practice 2: Adding white to a color creates a:",
+    "correct":"Tint",
+    "options":[
+      "Shade",
+      "Tone",
+      "Hue"
+    ],
+    "id":"art_y5_0015",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Cool Colours",
+    "year_level":5,
+    "question":"Practice 2: Cool colours include:",
+    "correct":"Blue, green, purple",
+    "options":[
+      "Red, orange, yellow",
+      "Black, white, grey",
+      "Only blue"
+    ],
+    "id":"art_y5_0003",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Perspective",
+    "year_level":5,
+    "question":"Practice 2: Perspective makes objects look:",
+    "correct":"Distant or close",
+    "options":[
+      "Colorful",
+      "Textured",
+      "Flat"
+    ],
+    "id":"art_y5_0007",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Tone",
+    "year_level":5,
+    "question":"Practice 2: Tone refers to:",
+    "correct":"Light and dark",
+    "options":[
+      "Color only",
+      "Texture",
+      "Size"
+    ],
+    "id":"art_y5_0019",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Warm Colours",
+    "year_level":5,
+    "question":"Practice 2: Warm colours include:",
+    "correct":"Red, orange, yellow",
+    "options":[
+      "Blue, green, purple",
+      "Black, white, grey",
+      "Only red"
+    ],
+    "id":"art_y5_0023",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Shade",
+    "year_level":5,
+    "question":"Practice 3: Adding black to a color creates a:",
+    "correct":"Shade",
+    "options":[
+      "Tint",
+      "Tone",
+      "Hue"
+    ],
+    "id":"art_y5_0012",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Tint",
+    "year_level":5,
+    "question":"Practice 3: Adding white to a color creates a:",
+    "correct":"Tint",
+    "options":[
+      "Shade",
+      "Tone",
+      "Hue"
+    ],
+    "id":"art_y5_0016",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Tint",
+    "year_level":5,
+    "question":"Practice 3: Adding white to a colour creates a:",
+    "correct":"Tint",
+    "options":[
+      "Shade",
+      "Hue",
+      "Saturation"
+    ],
+    "id":"art_y5_0020",
+    "dataset":"converted_worksheet",
+    "explanation":"When you add white to a colour, you create a tint. Tints are lighter versions of colours. Shades are created when you add black, and hue refers to the pure colour itself.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Cool Colours",
+    "year_level":5,
+    "question":"Practice 3: Cool colours include:",
+    "correct":"Blue, green, purple",
+    "options":[
+      "Red, orange, yellow",
+      "Black, white, grey",
+      "Only blue"
+    ],
+    "id":"art_y5_0004",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Perspective",
+    "year_level":5,
+    "question":"Practice 3: Perspective makes objects look:",
+    "correct":"Distant or close",
+    "options":[
+      "Colorful",
+      "Textured",
+      "Flat"
+    ],
+    "id":"art_y5_0008",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Tone",
+    "year_level":5,
+    "question":"Practice 3: Tone refers to:",
+    "correct":"Light and dark",
+    "options":[
+      "Color only",
+      "Texture",
+      "Size"
+    ],
+    "id":"art_y5_0020",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Warm Colours",
+    "year_level":5,
+    "question":"Practice 3: Warm colours include:",
+    "correct":"Red, orange, yellow",
+    "options":[
+      "Blue, green, purple",
+      "Black, white, grey",
+      "Only red"
+    ],
+    "id":"art_y5_0024",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Tone",
+    "year_level":5,
+    "question":"Tone refers to:",
+    "correct":"Light and dark",
+    "options":[
+      "Color only",
+      "Texture",
+      "Size"
+    ],
+    "id":"art_y5_0017",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Warm Colours",
+    "year_level":5,
+    "question":"Warm colours include:",
+    "correct":"Red, orange, yellow",
+    "options":[
+      "Blue, green, purple",
+      "Black, white, grey",
+      "Only red"
+    ],
+    "id":"art_y5_0021",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Tint",
+    "year_level":5,
+    "question":"What do you call a colour made by adding white to another colour?",
+    "correct":"Tint",
+    "options":[
+      "Shade",
+      "Hue",
+      "Saturation"
+    ],
+    "id":"art_y5_0008",
+    "dataset":"converted_worksheet",
+    "explanation":"When you add white to a colour, you create a tint. Tints are lighter versions of colours. Shades are created when you add black, and hue refers to the pure colour itself.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Tint",
+    "year_level":5,
+    "question":"What do you call a colour that has been made lighter by adding white to it?",
+    "correct":"tint",
+    "options":[
+      "shade",
+      "hue",
+      "tone"
+    ],
+    "id":"art_y5_0002",
+    "dataset":"converted_worksheet",
+    "explanation":"When you add white to a colour, you create a tint. Tints are lighter versions of colours. For example, adding white to red creates pink - which is a tint of red.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Shade",
+    "year_level":5,
+    "question":"What do you call a darker version of a colour when you add black to it?",
+    "correct":"Shade",
+    "options":[
+      "Tint",
+      "Hue",
+      "Color mixing"
+    ],
+    "id":"art_y5_0003",
+    "dataset":"converted_worksheet",
+    "explanation":"When you add black to a colour, you create a darker version called a shade. Adding white to a colour creates a tint, which is lighter. Hue refers to the pure colour itself.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Tone",
+    "year_level":5,
+    "question":"What does tone mean in art?",
+    "correct":"the lightness or darkness of a color",
+    "options":[
+      "the bright colors in a painting",
+      "the texture of paint on canvas",
+      "the shape and size of objects"
+    ],
+    "id":"art_y5_0001",
+    "dataset":"converted_worksheet",
+    "explanation":"In art, tone refers to how light or dark a color appears. It's about the value of the color - whether it's light (like pastel pink) or dark (like deep purple).",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Cool Colours",
+    "year_level":5,
+    "question":"Which of these colour pairs are both cool colours that artists often use together?",
+    "correct":"Blue and green",
+    "options":[
+      "Red and yellow",
+      "Orange and pink",
+      "Purple and brown"
+    ],
+    "id":"art_y5_0023",
+    "dataset":"converted_worksheet",
+    "explanation":"Cool colours are blue, green, and purple. Blue and green are the most common cool colours used in art and design.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Warm Colours",
+    "year_level":5,
+    "question":"Which of these groups contains only warm colours that make you think of sunshine and warmth?",
+    "correct":"red, orange and yellow",
+    "options":[
+      "blue, green and purple",
+      "black, white and grey",
+      "pink, lime and turquoise"
+    ],
+    "id":"art_y5_0016",
+    "dataset":"converted_worksheet",
+    "explanation":"Warm colours are red, orange and yellow. These colours make us feel warm and energetic, like the sun and fire.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Warm Colours",
+    "year_level":5,
+    "question":"Which of these groups contains only warm colours?",
+    "correct":"red, orange and yellow",
+    "options":[
+      "blue, green and purple",
+      "pink, brown and black",
+      "white, grey and silver"
+    ],
+    "id":"art_y5_0010",
+    "dataset":"converted_worksheet",
+    "explanation":"Warm colours are red, orange and yellow. These colours make us feel warm and energetic, like the sun and fire. Blue, green and purple are cool colours.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Warm Colours",
+    "year_level":5,
+    "question":"Which of these groups contains only warm colours? Warm colours include:",
+    "correct":"red, orange and yellow",
+    "options":[
+      "blue, green and purple",
+      "black, white and grey",
+      "pink, brown and silver"
+    ],
+    "id":"art_y5_0022",
+    "dataset":"converted_worksheet",
+    "explanation":"Warm colours are red, orange and yellow. These colours make us feel warm and energetic, like sunshine and fire.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Warm Colours",
+    "year_level":5,
+    "question":"Which of these groups shows all the warm colours?",
+    "correct":"red, orange and yellow",
+    "options":[
+      "blue, green and purple",
+      "pink, brown and black",
+      "white, grey and silver"
+    ],
+    "id":"art_y5_0004",
+    "dataset":"converted_worksheet",
+    "explanation":"Warm colours are red, orange and yellow. These colours make us feel warm and energetic, like the sun and fire.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Cool Colours",
+    "year_level":5,
+    "question":"Which of these groups shows only cool colours?",
+    "correct":"Blue, green and purple",
+    "options":[
+      "Red, orange and yellow",
+      "Pink, brown and black",
+      "White, grey and silver"
+    ],
+    "id":"art_y5_0005",
+    "dataset":"converted_worksheet",
+    "explanation":"Cool colours are blue, green and purple. These colours are associated with cool things like water, grass and the ocean. Warm colours like red, orange and yellow are opposite to cool colours.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Cool Colours",
+    "year_level":5,
+    "question":"Which of these groups shows only cool colours? Cool colours include blue, green and purple.",
+    "correct":"blue, green and purple",
+    "options":[
+      "red, orange and yellow",
+      "pink, brown and black",
+      "gold, silver and white"
+    ],
+    "id":"art_y5_0017",
+    "dataset":"converted_worksheet",
+    "explanation":"Cool colours are blue, green and purple. These colours make us feel calm and cool. Warm colours like red, orange and yellow make us feel warm and energetic.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Cool Colours",
+    "year_level":5,
+    "question":"Which of these pairs are both cool colours that artists often use in their paintings?",
+    "correct":"Blue and green",
+    "options":[
+      "Red and yellow",
+      "Orange and pink",
+      "Purple and brown"
+    ],
+    "id":"art_y5_0011",
+    "dataset":"converted_worksheet",
+    "explanation":"Cool colours are blue, green, and purple. Blue and green are the most common cool colours used in art. Red and yellow are warm colours, orange and pink are also warm colours, and purple is actually a cool colour but not as commonly mentioned as blue and green.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Art Movements",
+    "year_level":6,
+    "question":"Art Movement Question: Impressionism focused on:",
+    "correct":"Capturing light and movement in everyday scenes",
+    "options":[
+      "Creating perfect geometric shapes",
+      "Painting only portraits of wealthy people",
+      "Using only black and white colors"
+    ],
+    "id":"art_y6_0020",
+    "dataset":"converted_worksheet",
+    "explanation":"Impressionism was an art movement where artists like Monet and Renoir focused on how light changed throughout the day and captured quick, fleeting moments in nature and daily life.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Composition",
+    "year_level":6,
+    "question":"Composition refers to:",
+    "correct":"How elements are arranged",
+    "options":[
+      "Color choice",
+      "Size only",
+      "Texture only"
+    ],
+    "id":"art_y6_0009",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Art Movements",
+    "year_level":6,
+    "question":"Impressionism focused on:",
+    "correct":"Light and color",
+    "options":[
+      "Geometric shapes",
+      "Realistic detail",
+      "Abstract forms"
+    ],
+    "id":"art_y6_0001",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Art Movements",
+    "year_level":6,
+    "question":"Impressionism focused on: What was the main goal of Impressionist painters?",
+    "correct":"Capturing light and movement in everyday scenes",
+    "options":[
+      "Creating perfect geometric shapes",
+      "Painting only portraits of rich people",
+      "Showing dramatic historical events"
+    ],
+    "id":"art_y6_0005",
+    "dataset":"converted_worksheet",
+    "explanation":"Impressionist artists like Monet and Renoir wanted to capture how light looked at different times of day and show quick movements in ordinary life, like people walking or boats on water.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"One-Point Perspective",
+    "year_level":6,
+    "question":"In one-point perspective art, where do all the lines seem to come together?",
+    "correct":"vanishing point",
+    "options":[
+      "meeting point",
+      "focus point",
+      "center point"
+    ],
+    "id":"art_y6_0001",
+    "dataset":"converted_worksheet",
+    "explanation":"In one-point perspective, all parallel lines appear to converge at a single point on the horizon called the vanishing point. This creates the illusion of depth and distance on a flat surface.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"One-Point Perspective",
+    "year_level":6,
+    "question":"In one-point perspective drawing, what do all the lines that are supposed to be parallel actually meet at?",
+    "correct":"vanishing point",
+    "options":[
+      "meeting point",
+      "center point",
+      "corner point"
+    ],
+    "id":"art_y6_0011",
+    "dataset":"converted_worksheet",
+    "explanation":"In one-point perspective, all parallel lines appear to converge at a single point on the horizon called the vanishing point. This creates the illusion of depth and distance in drawings.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"One-Point Perspective",
+    "year_level":6,
+    "question":"In one-point perspective drawing, what do you call the point where all the lines seem to meet?",
+    "correct":"vanishing point",
+    "options":[
+      "meeting point",
+      "focus point",
+      "center point"
+    ],
+    "id":"art_y6_0016",
+    "dataset":"converted_worksheet",
+    "explanation":"In one-point perspective, all parallel lines appear to come together at a single point on the horizon called the vanishing point. This creates the illusion of depth and distance in drawings.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"One-Point Perspective",
+    "year_level":6,
+    "question":"In one-point perspective, lines meet at:",
+    "correct":"Vanishing point",
+    "options":[
+      "Horizon",
+      "Corner",
+      "Center"
+    ],
+    "id":"art_y6_0017",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"One-Point Perspective",
+    "year_level":6,
+    "question":"In one-point perspective, lines meet at: A) vanishing point B) horizon line C) focal point D) center of canvas",
+    "correct":"vanishing point",
+    "options":[
+      "horizon line",
+      "focal point",
+      "center of canvas"
+    ],
+    "id":"art_y6_0006",
+    "dataset":"converted_worksheet",
+    "explanation":"In one-point perspective, all parallel lines appear to converge at a single point on the horizon called the vanishing point. This creates the illusion of depth and distance on a flat surface.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Mixed Media",
+    "year_level":6,
+    "question":"Mixed media art uses:",
+    "correct":"different materials and techniques combined on one artwork",
+    "options":[
+      "only paint and pencils",
+      "one type of material only",
+      "just photographs and drawings"
+    ],
+    "id":"art_y6_0013",
+    "dataset":"converted_worksheet",
+    "explanation":"Mixed media means using different materials like paint, paper, fabric, clay, or found objects all together in one piece of art. This allows artists to create more interesting and textured artworks by combining various techniques and materials.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Mixed Media",
+    "year_level":6,
+    "question":"Mixed media uses:",
+    "correct":"Different materials combined",
+    "options":[
+      "Only paint",
+      "Only pencils",
+      "Only paper"
+    ],
+    "id":"art_y6_0013",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Artists",
+    "year_level":6,
+    "question":"Pablo Picasso co-founded which art movement?",
+    "correct":"Cubism movement",
+    "options":[
+      "Surrealist group",
+      "Fauvist collective",
+      "Impressionist circle"
+    ],
+    "id":"art_y6_0017",
+    "dataset":"converted_worksheet",
+    "explanation":"Pablo Picasso co-founded Cubism with Georges Braque around 1907. Cubism was a revolutionary art movement that broke objects down into geometric shapes and showed them from multiple viewpoints at once.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Artists",
+    "year_level":6,
+    "question":"Pablo Picasso co-founded:",
+    "correct":"Cubism",
+    "options":[
+      "Impressionism",
+      "Surrealism",
+      "Pop Art"
+    ],
+    "id":"art_y6_0005",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Artists",
+    "year_level":6,
+    "question":"Pablo Picasso co-founded: A) Surrealist group B) Fauvist collective C) Cubism movement D) Dada art association",
+    "correct":"Cubism movement",
+    "options":[
+      "Surrealist group",
+      "Fauvist collective",
+      "Dada art association"
+    ],
+    "id":"art_y6_0002",
+    "dataset":"converted_worksheet",
+    "explanation":"Pablo Picasso co-founded Cubism with Georges Braque around 1907. Cubism was a revolutionary art movement that broke objects down into geometric shapes and showed them from multiple angles simultaneously.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Composition",
+    "year_level":6,
+    "question":"Practice 1: Composition refers to:",
+    "correct":"How elements are arranged",
+    "options":[
+      "Color choice",
+      "Size only",
+      "Texture only"
+    ],
+    "id":"art_y6_0010",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Art Movements",
+    "year_level":6,
+    "question":"Practice 1: Impressionism focused on:",
+    "correct":"Light and color",
+    "options":[
+      "Geometric shapes",
+      "Realistic detail",
+      "Abstract forms"
+    ],
+    "id":"art_y6_0002",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"One-Point Perspective",
+    "year_level":6,
+    "question":"Practice 1: In one-point perspective, lines meet at:",
+    "correct":"Vanishing point",
+    "options":[
+      "Horizon",
+      "Corner",
+      "Center"
+    ],
+    "id":"art_y6_0018",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Mixed Media",
+    "year_level":6,
+    "question":"Practice 1: Mixed media uses:",
+    "correct":"Different materials combined",
+    "options":[
+      "Only paint",
+      "Only pencils",
+      "Only paper"
+    ],
+    "id":"art_y6_0014",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Artists",
+    "year_level":6,
+    "question":"Practice 1: Pablo Picasso co-founded:",
+    "correct":"Cubism",
+    "options":[
+      "Impressionism",
+      "Surrealism",
+      "Pop Art"
+    ],
+    "id":"art_y6_0006",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Artists",
+    "year_level":6,
+    "question":"Practice 1: Pablo Picasso co-founded: A) Surrealist group B) Fauvist collective C) Cubism movement D) Dada art association",
+    "correct":"Cubism movement",
+    "options":[
+      "Surrealist group",
+      "Fauvist collective",
+      "Dada art association"
+    ],
+    "id":"art_y6_0007",
+    "dataset":"converted_worksheet",
+    "explanation":"Pablo Picasso co-founded Cubism with Georges Braque around 1907. Cubism was a revolutionary art movement that broke objects down into geometric shapes and showed them from multiple viewpoints at once.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Composition",
+    "year_level":6,
+    "question":"Practice 2: Composition refers to:",
+    "correct":"How elements are arranged",
+    "options":[
+      "Color choice",
+      "Size only",
+      "Texture only"
+    ],
+    "id":"art_y6_0011",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Art Movements",
+    "year_level":6,
+    "question":"Practice 2: Impressionism focused on:",
+    "correct":"Light and color",
+    "options":[
+      "Geometric shapes",
+      "Realistic detail",
+      "Abstract forms"
+    ],
+    "id":"art_y6_0003",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"One-Point Perspective",
+    "year_level":6,
+    "question":"Practice 2: In one-point perspective, lines meet at:",
+    "correct":"Vanishing point",
+    "options":[
+      "Horizon",
+      "Corner",
+      "Center"
+    ],
+    "id":"art_y6_0019",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Mixed Media",
+    "year_level":6,
+    "question":"Practice 2: Mixed media uses:",
+    "correct":"Different materials combined",
+    "options":[
+      "Only paint",
+      "Only pencils",
+      "Only paper"
+    ],
+    "id":"art_y6_0015",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Artists",
+    "year_level":6,
+    "question":"Practice 2: Pablo Picasso co-founded:",
+    "correct":"Cubism",
+    "options":[
+      "Impressionism",
+      "Surrealism",
+      "Pop Art"
+    ],
+    "id":"art_y6_0007",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Artists",
+    "year_level":6,
+    "question":"Practice 2: Pablo Picasso co-founded: A) Surrealist group B) Fauvist school C) Cubism movement D) Dada collective",
+    "correct":"Cubism movement",
+    "options":[
+      "Surrealist group",
+      "Fauvist school",
+      "Dada collective"
+    ],
+    "id":"art_y6_0012",
+    "dataset":"converted_worksheet",
+    "explanation":"Pablo Picasso co-founded Cubism with Georges Braque around 1907-1908. Cubism was a revolutionary art movement that broke objects down into geometric shapes and showed them from multiple viewpoints simultaneously.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Composition",
+    "year_level":6,
+    "question":"Practice 3: Composition refers to:",
+    "correct":"How elements are arranged",
+    "options":[
+      "Color choice",
+      "Size only",
+      "Texture only"
+    ],
+    "id":"art_y6_0012",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Art Movements",
+    "year_level":6,
+    "question":"Practice 3: Impressionism focused on:",
+    "correct":"Light and color",
+    "options":[
+      "Geometric shapes",
+      "Realistic detail",
+      "Abstract forms"
+    ],
+    "id":"art_y6_0004",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"One-Point Perspective",
+    "year_level":6,
+    "question":"Practice 3: In one-point perspective, lines meet at:",
+    "correct":"Vanishing point",
+    "options":[
+      "Horizon",
+      "Corner",
+      "Center"
+    ],
+    "id":"art_y6_0020",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Mixed Media",
+    "year_level":6,
+    "question":"Practice 3: Mixed media uses:",
+    "correct":"Different materials combined",
+    "options":[
+      "Only paint",
+      "Only pencils",
+      "Only paper"
+    ],
+    "id":"art_y6_0016",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Artists",
+    "year_level":6,
+    "question":"Practice 3: Pablo Picasso co-founded:",
+    "correct":"Cubism",
+    "options":[
+      "Impressionism",
+      "Surrealism",
+      "Pop Art"
+    ],
+    "id":"art_y6_0008",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Composition",
+    "year_level":6,
+    "question":"What does composition mean in art?",
+    "correct":"How elements are arranged in a picture",
+    "options":[
+      "The colors used in a painting",
+      "The size of the canvas",
+      "The name of the artist"
+    ],
+    "id":"art_y6_0004",
+    "dataset":"converted_worksheet",
+    "explanation":"Composition means how different parts and elements are organized and placed together in an artwork to create a balanced and pleasing arrangement.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Mixed Media",
+    "year_level":6,
+    "question":"What does mixed media mean when artists are creating art?",
+    "correct":"different materials and techniques combined together",
+    "options":[
+      "only paint and pencils",
+      "just one type of art material",
+      "traditional drawing only"
+    ],
+    "id":"art_y6_0018",
+    "dataset":"converted_worksheet",
+    "explanation":"Mixed media means using various different materials like paint, paper, fabric, wood, or clay all in the same artwork to create interesting effects.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Art",
+    "topic":"Mixed Media",
+    "year_level":6,
+    "question":"What does mixed media mean when creating art?",
+    "correct":"different types of materials and techniques together",
+    "options":[
+      "only paint and paper",
+      "one type of artistic medium",
+      "just photographs and drawings"
+    ],
+    "id":"art_y6_0003",
+    "dataset":"converted_worksheet",
+    "explanation":"Mixed media means using various different materials like paint, clay, fabric, found objects, and different drawing techniques all combined in one artwork.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  }
+]

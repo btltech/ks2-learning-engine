@@ -1,0 +1,3776 @@
+[
+  {
+    "subject":"Geography",
+    "topic":"Map Skills",
+    "year_level":3,
+    "question":"A map key\/legend shows:",
+    "correct":"What symbols mean",
+    "options":[
+      "North direction only",
+      "The weather",
+      "Distance only"
+    ],
+    "id":"geography_y3_0013",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Continents",
+    "year_level":3,
+    "question":"How many continents are there in the world?",
+    "correct":"Seven",
+    "options":[
+      "Five",
+      "Six",
+      "Ten"
+    ],
+    "id":"geography_y3_0005",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"UK",
+    "year_level":3,
+    "question":"How many countries are in the United Kingdom?",
+    "correct":"Four",
+    "options":[
+      "Three",
+      "Five",
+      "Six"
+    ],
+    "id":"geography_y3_0011",
+    "dataset":"converted_worksheet",
+    "explanation":"The United Kingdom has four countries: England, Scotland, Wales, and Northern Ireland. This is a key fact about UK geography that pupils should know.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"UK",
+    "year_level":3,
+    "question":"How many countries make up the United Kingdom?",
+    "correct":"Four",
+    "options":[
+      "Three",
+      "Five",
+      "Six"
+    ],
+    "id":"geography_y3_0003",
+    "dataset":"converted_worksheet",
+    "explanation":"The United Kingdom has four countries: England, Scotland, Wales, and Northern Ireland. This is a key fact about UK geography that pupils should know.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Map Skills",
+    "year_level":3,
+    "question":"Practice 1: A map key\/legend shows:",
+    "correct":"What symbols mean",
+    "options":[
+      "North direction only",
+      "The weather",
+      "Distance only"
+    ],
+    "id":"geography_y3_0014",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Continents",
+    "year_level":3,
+    "question":"Practice 1: How many continents are there in the world?",
+    "correct":"Seven",
+    "options":[
+      "Five",
+      "Six",
+      "Ten"
+    ],
+    "id":"geography_y3_0007",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Weather",
+    "year_level":3,
+    "question":"Practice 1: Rain, snow, and hail are types of:",
+    "correct":"Precipitation",
+    "options":[
+      "Temperature",
+      "Wind",
+      "Clouds"
+    ],
+    "id":"geography_y3_0030",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"UK",
+    "year_level":3,
+    "question":"Practice 1: The capital of England is:",
+    "correct":"London",
+    "options":[
+      "Manchester",
+      "Birmingham",
+      "Liverpool"
+    ],
+    "id":"geography_y3_0023",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Continents",
+    "year_level":3,
+    "question":"Practice 1: The largest continent is:",
+    "correct":"Asia",
+    "options":[
+      "Africa",
+      "Europe",
+      "North America"
+    ],
+    "id":"geography_y3_0008",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Oceans",
+    "year_level":3,
+    "question":"Practice 1: The largest ocean is the:",
+    "correct":"Pacific",
+    "options":[
+      "Atlantic",
+      "Indian",
+      "Arctic"
+    ],
+    "id":"geography_y3_0018",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"UK",
+    "year_level":3,
+    "question":"Practice 1: The UK has how many countries?",
+    "correct":"Four",
+    "options":[
+      "Two",
+      "Three",
+      "Five"
+    ],
+    "id":"geography_y3_0024",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Coasts",
+    "year_level":3,
+    "question":"Practice 1: Where land meets the sea is the:",
+    "correct":"Coast",
+    "options":[
+      "River",
+      "Mountain",
+      "Valley"
+    ],
+    "id":"geography_y3_0002",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Map Skills",
+    "year_level":3,
+    "question":"Practice 2: A map key\/legend shows:",
+    "correct":"What symbols mean",
+    "options":[
+      "North direction only",
+      "The weather",
+      "Distance only"
+    ],
+    "id":"geography_y3_0015",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Continents",
+    "year_level":3,
+    "question":"Practice 2: How many continents are there in the world?",
+    "correct":"Seven",
+    "options":[
+      "Five",
+      "Six",
+      "Ten"
+    ],
+    "id":"geography_y3_0009",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Weather",
+    "year_level":3,
+    "question":"Practice 2: Rain, snow, and hail are types of:",
+    "correct":"Precipitation",
+    "options":[
+      "Temperature",
+      "Wind",
+      "Clouds"
+    ],
+    "id":"geography_y3_0031",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"UK",
+    "year_level":3,
+    "question":"Practice 2: The capital of England is:",
+    "correct":"London",
+    "options":[
+      "Manchester",
+      "Birmingham",
+      "Liverpool"
+    ],
+    "id":"geography_y3_0025",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Continents",
+    "year_level":3,
+    "question":"Practice 2: The largest continent is:",
+    "correct":"Asia",
+    "options":[
+      "Africa",
+      "Europe",
+      "North America"
+    ],
+    "id":"geography_y3_0010",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Oceans",
+    "year_level":3,
+    "question":"Practice 2: The largest ocean is the:",
+    "correct":"Pacific",
+    "options":[
+      "Atlantic",
+      "Indian",
+      "Arctic"
+    ],
+    "id":"geography_y3_0019",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"UK",
+    "year_level":3,
+    "question":"Practice 2: The UK has how many countries?",
+    "correct":"Four",
+    "options":[
+      "Two",
+      "Three",
+      "Five"
+    ],
+    "id":"geography_y3_0026",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Coasts",
+    "year_level":3,
+    "question":"Practice 2: Where land meets the sea is the:",
+    "correct":"Coast",
+    "options":[
+      "River",
+      "Mountain",
+      "Valley"
+    ],
+    "id":"geography_y3_0003",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Map Skills",
+    "year_level":3,
+    "question":"Practice 3: A map key\/legend shows:",
+    "correct":"What symbols mean",
+    "options":[
+      "North direction only",
+      "The weather",
+      "Distance only"
+    ],
+    "id":"geography_y3_0016",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Continents",
+    "year_level":3,
+    "question":"Practice 3: How many continents are there in the world?",
+    "correct":"Seven",
+    "options":[
+      "Five",
+      "Six",
+      "Ten"
+    ],
+    "id":"geography_y3_0011",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Weather",
+    "year_level":3,
+    "question":"Practice 3: Rain, snow, and hail are types of:",
+    "correct":"Precipitation",
+    "options":[
+      "Temperature",
+      "Wind",
+      "Clouds"
+    ],
+    "id":"geography_y3_0032",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"UK",
+    "year_level":3,
+    "question":"Practice 3: The capital of England is:",
+    "correct":"London",
+    "options":[
+      "Manchester",
+      "Birmingham",
+      "Liverpool"
+    ],
+    "id":"geography_y3_0027",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Continents",
+    "year_level":3,
+    "question":"Practice 3: The largest continent is:",
+    "correct":"Asia",
+    "options":[
+      "Africa",
+      "Europe",
+      "North America"
+    ],
+    "id":"geography_y3_0012",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Oceans",
+    "year_level":3,
+    "question":"Practice 3: The largest ocean is the:",
+    "correct":"Pacific",
+    "options":[
+      "Atlantic",
+      "Indian",
+      "Arctic"
+    ],
+    "id":"geography_y3_0020",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"UK",
+    "year_level":3,
+    "question":"Practice 3: The UK has how many countries?",
+    "correct":"Four",
+    "options":[
+      "Two",
+      "Three",
+      "Five"
+    ],
+    "id":"geography_y3_0028",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Coasts",
+    "year_level":3,
+    "question":"Practice 3: Where land meets the sea is the:",
+    "correct":"Coast",
+    "options":[
+      "River",
+      "Mountain",
+      "Valley"
+    ],
+    "id":"geography_y3_0004",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Weather",
+    "year_level":3,
+    "question":"Rain, snow, and hail are types of:",
+    "correct":"Precipitation",
+    "options":[
+      "Temperature",
+      "Wind",
+      "Clouds"
+    ],
+    "id":"geography_y3_0029",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"UK",
+    "year_level":3,
+    "question":"The capital of England is:",
+    "correct":"London",
+    "options":[
+      "Manchester",
+      "Birmingham",
+      "Liverpool"
+    ],
+    "id":"geography_y3_0021",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Continents",
+    "year_level":3,
+    "question":"The largest continent is:",
+    "correct":"Asia",
+    "options":[
+      "Africa",
+      "Europe",
+      "North America"
+    ],
+    "id":"geography_y3_0006",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Oceans",
+    "year_level":3,
+    "question":"The largest ocean is the:",
+    "correct":"Pacific",
+    "options":[
+      "Atlantic",
+      "Indian",
+      "Arctic"
+    ],
+    "id":"geography_y3_0017",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"UK",
+    "year_level":3,
+    "question":"The UK has how many countries?",
+    "correct":"Four",
+    "options":[
+      "Two",
+      "Three",
+      "Five"
+    ],
+    "id":"geography_y3_0022",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Weather",
+    "year_level":3,
+    "question":"What do rain, snow, and hail all belong to?",
+    "correct":"Precipitation",
+    "options":[
+      "Clouds",
+      "Seasons",
+      "Wind"
+    ],
+    "id":"geography_y3_0006",
+    "dataset":"converted_worksheet",
+    "explanation":"Rain, snow, and hail are all forms of precipitation - water falling from the sky in different states. Clouds are the water droplets in the air, seasons are times of year, and wind is moving air.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Weather",
+    "year_level":3,
+    "question":"What do we call rain, snow, and hail falling from the sky?",
+    "correct":"Precipitation",
+    "options":[
+      "Clouds",
+      "Wind",
+      "Temperature"
+    ],
+    "id":"geography_y3_0014",
+    "dataset":"converted_worksheet",
+    "explanation":"Rain, snow, and hail are all forms of precipitation - water falling from the sky in different states. Clouds are the water vapor in the air, wind is moving air, and temperature measures how hot or cold it is.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Map Skills",
+    "year_level":3,
+    "question":"What does a map key\/legend tell you?",
+    "correct":"What each symbol on the map means",
+    "options":[
+      "The distance between places",
+      "The names of all rivers",
+      "How to fold the map"
+    ],
+    "id":"geography_y3_0015",
+    "dataset":"converted_worksheet",
+    "explanation":"A map key or legend explains what different symbols, colors and pictures on a map represent. It's like a dictionary for maps that helps you understand what each mark means.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"UK",
+    "year_level":3,
+    "question":"What is the capital city of England?",
+    "correct":"London",
+    "options":[
+      "Manchester",
+      "Birmingham",
+      "Edinburgh"
+    ],
+    "id":"geography_y3_0002",
+    "dataset":"converted_worksheet",
+    "explanation":"London is the capital city of England and the United Kingdom. Manchester and Birmingham are major English cities but not capitals. Edinburgh is the capital of Scotland, not England.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Coasts",
+    "year_level":3,
+    "question":"Where land meets the sea is the:",
+    "correct":"Coast",
+    "options":[
+      "River",
+      "Mountain",
+      "Valley"
+    ],
+    "id":"geography_y3_0001",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Continents",
+    "year_level":3,
+    "question":"Which is the biggest continent in the world?",
+    "correct":"Asia",
+    "options":[
+      "Africa",
+      "North America",
+      "Australia"
+    ],
+    "id":"geography_y3_0004",
+    "dataset":"converted_worksheet",
+    "explanation":"Asia is the largest continent by both area and population. It covers about 17.4 million square miles and is home to over 4 billion people.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Oceans",
+    "year_level":3,
+    "question":"Which is the biggest ocean in the world?",
+    "correct":"Pacific Ocean",
+    "options":[
+      "Atlantic Ocean",
+      "Indian Ocean",
+      "Arctic Ocean"
+    ],
+    "id":"geography_y3_0005",
+    "dataset":"converted_worksheet",
+    "explanation":"The Pacific Ocean is the largest and deepest ocean on Earth, covering about one-third of the planet's surface.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Oceans",
+    "year_level":3,
+    "question":"Which is the largest ocean in the world?",
+    "correct":"Pacific Ocean",
+    "options":[
+      "Atlantic Ocean",
+      "Indian Ocean",
+      "Arctic Ocean"
+    ],
+    "id":"geography_y3_0021",
+    "dataset":"converted_worksheet",
+    "explanation":"The Pacific Ocean is the largest and deepest ocean on Earth, covering about one-third of the planet's surface.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Rivers",
+    "year_level":4,
+    "question":"A river flows into the sea at its:",
+    "correct":"Mouth",
+    "options":[
+      "Source",
+      "Tributary",
+      "Bank"
+    ],
+    "id":"geography_y4_0010",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"UK Counties",
+    "year_level":4,
+    "question":"Cornwall is in the:",
+    "correct":"South West",
+    "options":[
+      "North",
+      "East",
+      "Midlands"
+    ],
+    "id":"geography_y4_0031",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Earthquakes",
+    "year_level":4,
+    "question":"Earthquakes are caused by:",
+    "correct":"Tectonic plates moving",
+    "options":[
+      "Wind",
+      "Rain",
+      "Snow"
+    ],
+    "id":"geography_y4_0001",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Earthquakes",
+    "year_level":4,
+    "question":"How are earthquakes caused?",
+    "correct":"movement of tectonic plates",
+    "options":[
+      "volcanic eruptions",
+      "heavy rainfall",
+      "wind erosion"
+    ],
+    "id":"geography_y4_0013",
+    "dataset":"converted_worksheet",
+    "explanation":"Earthquakes happen when tectonic plates move and bump into each other under the Earth's surface. This movement causes energy to build up and then release suddenly, creating the shaking we feel.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"UK Counties",
+    "year_level":4,
+    "question":"If you visited the White Cliffs, which county would you be in?",
+    "correct":"Kent",
+    "options":[
+      "Devon",
+      "Northumberland",
+      "Sussex"
+    ],
+    "id":"geography_y4_0038",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"UK Counties",
+    "year_level":4,
+    "question":"If you wanted to visit Sherwood Forest, which county would you go to?",
+    "correct":"Nottinghamshire",
+    "options":[
+      "Oxfordshire",
+      "Suffolk",
+      "Dorset"
+    ],
+    "id":"geography_y4_0036",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Volcanoes",
+    "year_level":4,
+    "question":"Molten rock inside a volcano is called:",
+    "correct":"Magma",
+    "options":[
+      "Lava",
+      "Ash",
+      "Rock"
+    ],
+    "id":"geography_y4_0040",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"The Americas",
+    "year_level":4,
+    "question":"North and South America are separated by:",
+    "correct":"Central America",
+    "options":[
+      "Atlantic Ocean",
+      "Pacific Ocean",
+      "Arctic Ocean"
+    ],
+    "id":"geography_y4_0023",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"The Americas",
+    "year_level":4,
+    "question":"North and South America are separated by: A) The Atlantic Ocean B) The Panama Canal C) The Andes Mountains D) The Gulf of Mexico",
+    "correct":"The Panama Canal",
+    "options":[
+      "The Atlantic Ocean",
+      "The Andes Mountains",
+      "The Gulf of Mexico"
+    ],
+    "id":"geography_y4_0009",
+    "dataset":"converted_worksheet",
+    "explanation":"North and South America are separated by the Isthmus of Panama, which is crossed by the Panama Canal. The canal connects the Pacific and Atlantic oceans and forms the natural boundary between the two continents.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"The Americas",
+    "year_level":4,
+    "question":"North and South America are separated by: A) The Panama Canal B) The Andes Mountains C) The Amazon River D) The Caribbean Sea",
+    "correct":"The Panama Canal",
+    "options":[
+      "The Andes Mountains",
+      "The Amazon River",
+      "The Caribbean Sea"
+    ],
+    "id":"geography_y4_0023",
+    "dataset":"converted_worksheet",
+    "explanation":"North and South America are separated by the narrow isthmus of Panama, which is crossed by the Panama Canal. The Andes Mountains run along the western coast of South America, the Amazon River flows through South America, and the Caribbean Sea lies to the east of both continents.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"The Americas",
+    "year_level":4,
+    "question":"North and South America are separated by: A) The Panama Canal B) The Atlantic Ocean C) The Rocky Mountains D) The Amazon River",
+    "correct":"The Panama Canal",
+    "options":[
+      "The Atlantic Ocean",
+      "The Rocky Mountains",
+      "The Amazon River"
+    ],
+    "id":"geography_y4_0016",
+    "dataset":"converted_worksheet",
+    "explanation":"North and South America are separated by the Isthmus of Panama, which is crossed by the Panama Canal. The canal connects the Pacific and Atlantic oceans and forms the natural boundary between the two continents.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"The Americas",
+    "year_level":4,
+    "question":"North and South America are separated by: A) The Panama Canal B) The Strait of Magellan C) The Rocky Mountains D) The Amazon River",
+    "correct":"The Strait of Magellan",
+    "options":[
+      "The Panama Canal",
+      "The Rocky Mountains",
+      "The Amazon River"
+    ],
+    "id":"geography_y4_0002",
+    "dataset":"converted_worksheet",
+    "explanation":"North and South America are separated by the Strait of Magellan, a body of water located at the southern tip of South America. The Panama Canal separates North and Central America, while the Rocky Mountains run through North America but don't separate continents.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Rivers",
+    "year_level":4,
+    "question":"Practice 1: A river flows into the sea at its:",
+    "correct":"Mouth",
+    "options":[
+      "Source",
+      "Tributary",
+      "Bank"
+    ],
+    "id":"geography_y4_0012",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"UK Counties",
+    "year_level":4,
+    "question":"Practice 1: Cornwall is in the:",
+    "correct":"South West",
+    "options":[
+      "North",
+      "East",
+      "Midlands"
+    ],
+    "id":"geography_y4_0032",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Earthquakes",
+    "year_level":4,
+    "question":"Practice 1: Earthquakes are caused by:",
+    "correct":"Tectonic plates moving",
+    "options":[
+      "Wind",
+      "Rain",
+      "Snow"
+    ],
+    "id":"geography_y4_0002",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Volcanoes",
+    "year_level":4,
+    "question":"Practice 1: Molten rock inside a volcano is called:",
+    "correct":"Magma",
+    "options":[
+      "Lava",
+      "Ash",
+      "Rock"
+    ],
+    "id":"geography_y4_0041",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"The Americas",
+    "year_level":4,
+    "question":"Practice 1: North and South America are separated by:",
+    "correct":"Central America",
+    "options":[
+      "Atlantic Ocean",
+      "Pacific Ocean",
+      "Arctic Ocean"
+    ],
+    "id":"geography_y4_0024",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Rivers",
+    "year_level":4,
+    "question":"Practice 1: The start of a river is called the:",
+    "correct":"Source",
+    "options":[
+      "Mouth",
+      "Delta",
+      "Tributary"
+    ],
+    "id":"geography_y4_0013",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"UK",
+    "year_level":4,
+    "question":"Practice 1: Which of these is a country within the United Kingdom?",
+    "correct":"Wales",
+    "options":[
+      "France",
+      "Ireland",
+      "Belgium"
+    ],
+    "id":"geography_y4_0028",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Rivers",
+    "year_level":4,
+    "question":"Practice 2: A river flows into the sea at its:",
+    "correct":"Mouth",
+    "options":[
+      "Source",
+      "Tributary",
+      "Bank"
+    ],
+    "id":"geography_y4_0014",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"UK Counties",
+    "year_level":4,
+    "question":"Practice 2: Cornwall is in the:",
+    "correct":"South West",
+    "options":[
+      "North",
+      "East",
+      "Midlands"
+    ],
+    "id":"geography_y4_0033",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Earthquakes",
+    "year_level":4,
+    "question":"Practice 2: Earthquakes are caused by:",
+    "correct":"Tectonic plates moving",
+    "options":[
+      "Wind",
+      "Rain",
+      "Snow"
+    ],
+    "id":"geography_y4_0003",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Volcanoes",
+    "year_level":4,
+    "question":"Practice 2: Molten rock inside a volcano is called:",
+    "correct":"Magma",
+    "options":[
+      "Lava",
+      "Ash",
+      "Rock"
+    ],
+    "id":"geography_y4_0042",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"The Americas",
+    "year_level":4,
+    "question":"Practice 2: North and South America are separated by:",
+    "correct":"Central America",
+    "options":[
+      "Atlantic Ocean",
+      "Pacific Ocean",
+      "Arctic Ocean"
+    ],
+    "id":"geography_y4_0025",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Rivers",
+    "year_level":4,
+    "question":"Practice 2: The start of a river is called the:",
+    "correct":"Source",
+    "options":[
+      "Mouth",
+      "Delta",
+      "Tributary"
+    ],
+    "id":"geography_y4_0015",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"UK",
+    "year_level":4,
+    "question":"Practice 2: Which of these is a country within the United Kingdom?",
+    "correct":"Wales",
+    "options":[
+      "France",
+      "Ireland",
+      "Belgium"
+    ],
+    "id":"geography_y4_0029",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Rivers",
+    "year_level":4,
+    "question":"Practice 3: A river flows into the sea at its:",
+    "correct":"Mouth",
+    "options":[
+      "Source",
+      "Tributary",
+      "Bank"
+    ],
+    "id":"geography_y4_0016",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"UK Counties",
+    "year_level":4,
+    "question":"Practice 3: Cornwall is in the:",
+    "correct":"South West",
+    "options":[
+      "North",
+      "East",
+      "Midlands"
+    ],
+    "id":"geography_y4_0034",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Earthquakes",
+    "year_level":4,
+    "question":"Practice 3: Earthquakes are caused by:",
+    "correct":"Tectonic plates moving",
+    "options":[
+      "Wind",
+      "Rain",
+      "Snow"
+    ],
+    "id":"geography_y4_0004",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Volcanoes",
+    "year_level":4,
+    "question":"Practice 3: Molten rock inside a volcano is called:",
+    "correct":"Magma",
+    "options":[
+      "Lava",
+      "Ash",
+      "Rock"
+    ],
+    "id":"geography_y4_0043",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"The Americas",
+    "year_level":4,
+    "question":"Practice 3: North and South America are separated by:",
+    "correct":"Central America",
+    "options":[
+      "Atlantic Ocean",
+      "Pacific Ocean",
+      "Arctic Ocean"
+    ],
+    "id":"geography_y4_0026",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Rivers",
+    "year_level":4,
+    "question":"Practice 3: The start of a river is called the:",
+    "correct":"Source",
+    "options":[
+      "Mouth",
+      "Delta",
+      "Tributary"
+    ],
+    "id":"geography_y4_0017",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"UK",
+    "year_level":4,
+    "question":"Practice 3: Which of these is a country within the United Kingdom?",
+    "correct":"Wales",
+    "options":[
+      "France",
+      "Ireland",
+      "Belgium"
+    ],
+    "id":"geography_y4_0030",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"UK Counties",
+    "year_level":4,
+    "question":"The Peak District National Park is largely found within which county?",
+    "correct":"Derbyshire",
+    "options":[
+      "Hampshire",
+      "Leicestershire",
+      "Wiltshire"
+    ],
+    "id":"geography_y4_0039",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Earthquakes",
+    "year_level":4,
+    "question":"The point on the Earth's surface directly above where an earthquake starts is called what?",
+    "correct":"Epicentre",
+    "options":[
+      "Focus",
+      "Crater",
+      "Fault line"
+    ],
+    "id":"geography_y4_0006",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Rivers",
+    "year_level":4,
+    "question":"The start of a river is called the:",
+    "correct":"Source",
+    "options":[
+      "Mouth",
+      "Delta",
+      "Tributary"
+    ],
+    "id":"geography_y4_0011",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Earthquakes",
+    "year_level":4,
+    "question":"What do scientists use to measure how strong an earthquake is?",
+    "correct":"Seismograph",
+    "options":[
+      "Thermometer",
+      "Barometer",
+      "Richter scale"
+    ],
+    "id":"geography_y4_0039",
+    "dataset":"converted_worksheet",
+    "explanation":"Scientists use a seismograph to detect and record the movement of the ground during an earthquake. A Richter scale is actually a measurement system, not a tool, and thermometer and barometer measure temperature and air pressure respectively.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Rivers",
+    "year_level":4,
+    "question":"What do we call a small river that flows into a bigger river?",
+    "correct":"A tributary is a small river that flows into a bigger river.",
+    "options":[
+      "A confluence is where two rivers meet",
+      "A delta forms at the mouth of a river",
+      "A watershed divides different river systems"
+    ],
+    "id":"geography_y4_0029",
+    "dataset":"converted_worksheet",
+    "explanation":"A tributary is a smaller river or stream that flows into a larger river. The larger river is called the main stem or trunk river.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Rivers",
+    "year_level":4,
+    "question":"What do we call a smaller river that joins a larger one?",
+    "correct":"Tributary",
+    "options":[
+      "Delta",
+      "Source",
+      "Mouth"
+    ],
+    "id":"geography_y4_0018",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Volcanoes",
+    "year_level":4,
+    "question":"What do we call a volcano that hasn't erupted in a long time and is not expected to erupt again?",
+    "correct":"Extinct",
+    "options":[
+      "Active",
+      "Dormant",
+      "Sleeping"
+    ],
+    "id":"geography_y4_0037",
+    "dataset":"converted_worksheet",
+    "explanation":"An extinct volcano is one that has not erupted for many years and is not expected to erupt again. Active volcanoes regularly erupt, while dormant volcanoes have been inactive for a long time but could potentially erupt again.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Rivers",
+    "year_level":4,
+    "question":"What do we call the beginning of a river where it starts?",
+    "correct":"source",
+    "options":[
+      "mouth",
+      "estuary",
+      "tributary"
+    ],
+    "id":"geography_y4_0011",
+    "dataset":"converted_worksheet",
+    "explanation":"The source is where a river begins, often from a spring or mountain stream. The mouth is where a river ends, the estuary is where a river meets the sea, and a tributary is a smaller river that flows into a larger one.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Earthquakes",
+    "year_level":4,
+    "question":"What do we call the crack in the Earth's crust where earthquakes often happen?",
+    "correct":"Fault",
+    "options":[
+      "Volcano",
+      "Plate",
+      "Crack"
+    ],
+    "id":"geography_y4_0042",
+    "dataset":"converted_worksheet",
+    "explanation":"A fault is a crack in the Earth's crust where rocks can move and cause earthquakes. While volcanoes are related to earth movement, plates are the large sections of Earth that move, and 'crack' is too general a term for this specific geological feature.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Rivers",
+    "year_level":4,
+    "question":"What do we call the curves or bends that rivers make as they flow along the land?",
+    "correct":"Meander",
+    "options":[
+      "Waterfall",
+      "Delta",
+      "Source"
+    ],
+    "id":"geography_y4_0032",
+    "dataset":"converted_worksheet",
+    "explanation":"A meander is a large bend or curve in a river as it flows through a floodplain. Waterfalls are drops in the river, deltas are where rivers meet seas, and sources are where rivers begin.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Rivers",
+    "year_level":4,
+    "question":"What do we call the flat land on either side of a river?",
+    "correct":"Floodplain",
+    "options":[
+      "Delta",
+      "Valley",
+      "Estuary"
+    ],
+    "id":"geography_y4_0030",
+    "dataset":"converted_worksheet",
+    "explanation":"A floodplain is the flat area of land next to a river that gets covered with water during floods. A delta is where a river meets the sea, a valley is the low area between hills, and an estuary is where a river widens as it approaches the sea.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Volcanoes",
+    "year_level":4,
+    "question":"What do we call the hot melted rock that lives under the ground inside a volcano?",
+    "correct":"Magma",
+    "options":[
+      "Lava",
+      "Ash",
+      "Stone"
+    ],
+    "id":"geography_y4_0019",
+    "dataset":"converted_worksheet",
+    "explanation":"Molten rock inside a volcano before it erupts is called magma. When it flows out of the volcano, it's called lava. Ash and stone are not molten materials.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Volcanoes",
+    "year_level":4,
+    "question":"What do we call the molten rock that sits deep inside a volcano before it erupts?",
+    "correct":"Magma",
+    "options":[
+      "Lava",
+      "Ash",
+      "Stone"
+    ],
+    "id":"geography_y4_0005",
+    "dataset":"converted_worksheet",
+    "explanation":"Magma is molten rock that exists beneath the Earth's surface inside a volcano. When it flows out of the volcano, it's called lava. Ash and stone are not molten materials.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Volcanoes",
+    "year_level":4,
+    "question":"What do we call the molten rock that sits inside a volcano before it erupts?",
+    "correct":"Magma",
+    "options":[
+      "Lava",
+      "Ash",
+      "Rock"
+    ],
+    "id":"geography_y4_0012",
+    "dataset":"converted_worksheet",
+    "explanation":"Magma is molten rock that exists beneath the Earth's surface inside a volcano. When magma reaches the surface, it's called lava. Ash and rock are not molten.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Volcanoes",
+    "year_level":4,
+    "question":"What do we call the opening at the top of a volcano where lava and smoke come out?",
+    "correct":"Crater",
+    "options":[
+      "Mouth",
+      "Vent",
+      "Hole"
+    ],
+    "id":"geography_y4_0035",
+    "dataset":"converted_worksheet",
+    "explanation":"The crater is the circular depression at the summit of a volcano where lava and gases escape during an eruption. While 'vent' is also correct in geological terms, 'crater' is the most commonly used term for the opening students learn about in KS2 geography.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Rivers",
+    "year_level":4,
+    "question":"What do we call the place where a river falls down a steep cliff?",
+    "correct":"waterfall",
+    "options":[
+      "rapids",
+      "creek",
+      "estuary"
+    ],
+    "id":"geography_y4_0033",
+    "dataset":"converted_worksheet",
+    "explanation":"A waterfall is a place where a river or stream drops vertically or nearly vertically down a steep cliff or rock face. Rapids are fast-moving water with waves, a creek is a small stream, and an estuary is where a river meets the sea.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Rivers",
+    "year_level":4,
+    "question":"What is a place where a river drops down steeply called?",
+    "correct":"Waterfall",
+    "options":[
+      "Lake",
+      "Spring",
+      "Glacier"
+    ],
+    "id":"geography_y4_0022",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Rivers",
+    "year_level":4,
+    "question":"What is the flat land on either side of a river called?",
+    "correct":"Floodplain",
+    "options":[
+      "Canopy",
+      "Desert",
+      "Mountain"
+    ],
+    "id":"geography_y4_0019",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Rivers",
+    "year_level":4,
+    "question":"What is the name for the curve or bend in a river?",
+    "correct":"Meander",
+    "options":[
+      "Canyon",
+      "Waterfall",
+      "Strait"
+    ],
+    "id":"geography_y4_0021",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Earthquakes",
+    "year_level":4,
+    "question":"What is the name of a crack in the Earth's crust where earthquakes often happen?",
+    "correct":"Fault line",
+    "options":[
+      "River bed",
+      "Cliff edge",
+      "Mountain peak"
+    ],
+    "id":"geography_y4_0008",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Volcanoes",
+    "year_level":4,
+    "question":"What is the opening at the top of a volcano called?",
+    "correct":"Crater",
+    "options":[
+      "Vent",
+      "Mouth",
+      "Core"
+    ],
+    "id":"geography_y4_0045",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Earthquakes",
+    "year_level":4,
+    "question":"What should you do during an earthquake if you are inside a building?",
+    "correct":"Take cover under a sturdy table or desk",
+    "options":[
+      "Run outside immediately",
+      "Hide under a window",
+      "Stand in the doorway"
+    ],
+    "id":"geography_y4_0043",
+    "dataset":"converted_worksheet",
+    "explanation":"The safest indoor action during an earthquake is to take cover under a sturdy piece of furniture like a table or desk. This protects you from falling objects which are the main danger, not the shaking itself.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Earthquakes",
+    "year_level":4,
+    "question":"What should you do during an earthquake to stay safe, if indoors?",
+    "correct":"Drop, cover, and hold on",
+    "options":[
+      "Run outside immediately",
+      "Stand near a window",
+      "Climb onto a table"
+    ],
+    "id":"geography_y4_0009",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Earthquakes",
+    "year_level":4,
+    "question":"What tool do scientists use to measure how strong an earthquake is?",
+    "correct":"Seismograph",
+    "options":[
+      "Thermometer",
+      "Ruler",
+      "Wind vane"
+    ],
+    "id":"geography_y4_0005",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Volcanoes",
+    "year_level":4,
+    "question":"What's the name for a volcano that hasn't erupted in a long time?",
+    "correct":"Dormant",
+    "options":[
+      "Active",
+      "Extinct",
+      "Explosive"
+    ],
+    "id":"geography_y4_0047",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Volcanoes",
+    "year_level":4,
+    "question":"When lava comes out of a volcano and cools down, what type of rock is formed?",
+    "correct":"Igneous rock",
+    "options":[
+      "Sedimentary rock",
+      "Metamorphic rock",
+      "Granite"
+    ],
+    "id":"geography_y4_0036",
+    "dataset":"converted_worksheet",
+    "explanation":"When lava erupts from a volcano and cools down, it forms igneous rock. This is also called volcanic rock because it's made when molten rock hardens. Sedimentary rocks are made from layers of sediment, and metamorphic rocks change due to heat and pressure.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Volcanoes",
+    "year_level":4,
+    "question":"When lava cools and hardens, what kind of rock does it form?",
+    "correct":"Igneous",
+    "options":[
+      "Sedimentary",
+      "Metamorphic",
+      "Chalk"
+    ],
+    "id":"geography_y4_0046",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Rivers",
+    "year_level":4,
+    "question":"Where does a river begin?",
+    "correct":"source",
+    "options":[
+      "mouth",
+      "tributary",
+      "estuary"
+    ],
+    "id":"geography_y4_0004",
+    "dataset":"converted_worksheet",
+    "explanation":"The source is where a river begins, often from a spring or mountain stream. The mouth is where a river ends, the tributary is a smaller river that joins a main river, and the estuary is where a river meets the sea.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Earthquakes",
+    "year_level":4,
+    "question":"Where on the Earth's surface is directly above where an earthquake begins underground?",
+    "correct":"Epicentre",
+    "options":[
+      "Focus",
+      "Fault line",
+      "Seismic zone"
+    ],
+    "id":"geography_y4_0040",
+    "dataset":"converted_worksheet",
+    "explanation":"The epicentre is the point on the Earth's surface directly above where an earthquake begins underground. The focus (or hypocentre) is the actual point where the earthquake starts beneath the ground. A fault line is a crack in the Earth's crust where earthquakes often occur, and a seismic zone refers to areas prone to earthquakes.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"UK Counties",
+    "year_level":4,
+    "question":"Which county has the largest part of the Peak District National Park?",
+    "correct":"Derbyshire",
+    "options":[
+      "Yorkshire",
+      "Cheshire",
+      "Lancashire"
+    ],
+    "id":"geography_y4_0048",
+    "dataset":"converted_worksheet",
+    "explanation":"The Peak District National Park covers most of Derbyshire, with small parts in Yorkshire, Cheshire and Nottinghamshire. Derbyshire contains the largest portion of this beautiful area of hills and valleys.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"UK Counties",
+    "year_level":4,
+    "question":"Which county is famous for being the home of Cheddar cheese?",
+    "correct":"Somerset",
+    "options":[
+      "Lincolnshire",
+      "Warwickshire",
+      "Cheshire"
+    ],
+    "id":"geography_y4_0037",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Volcanoes",
+    "year_level":4,
+    "question":"Which famous volcano in Italy erupted in 79 AD and destroyed the cities of Pompeii and Herculaneum?",
+    "correct":"Mount Vesuvius",
+    "options":[
+      "Mount Etna",
+      "Mount Fuji",
+      "Mount St. Helens"
+    ],
+    "id":"geography_y4_0034",
+    "dataset":"converted_worksheet",
+    "explanation":"Mount Vesuvius is a famous active volcano located in southern Italy near Naples. While Mount Etna is also an Italian volcano, it's not as internationally famous as Vesuvius which erupted in 79 AD destroying Pompeii. Mount Fuji is in Japan and Mount St. Helens is in the USA.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Volcanoes",
+    "year_level":4,
+    "question":"Which natural disaster frequently happens at the same time as volcanic eruptions?",
+    "correct":"Earthquakes",
+    "options":[
+      "Tornadoes",
+      "Avalanches",
+      "Hurricanes"
+    ],
+    "id":"geography_y4_0038",
+    "dataset":"converted_worksheet",
+    "explanation":"Volcanic eruptions often trigger earthquakes because the movement of magma underground creates tremors. While avalanches can happen near volcanoes, they're not directly caused by eruptions like earthquakes are.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Earthquakes",
+    "year_level":4,
+    "question":"Which of these can earthquakes sometimes trigger under the ocean?",
+    "correct":"Tsunamis",
+    "options":[
+      "Volcanoes",
+      "Hurricanes",
+      "Rainbows"
+    ],
+    "id":"geography_y4_0007",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"UK Counties",
+    "year_level":4,
+    "question":"Which of these counties is known for its beautiful Lake District scenery?",
+    "correct":"Cumbria",
+    "options":[
+      "Norfolk",
+      "Kent",
+      "Rutland"
+    ],
+    "id":"geography_y4_0035",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"UK",
+    "year_level":4,
+    "question":"Which of these is a country within the United Kingdom?",
+    "correct":"Wales",
+    "options":[
+      "France",
+      "Ireland",
+      "Belgium"
+    ],
+    "id":"geography_y4_0027",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Volcanoes",
+    "year_level":4,
+    "question":"Which of these is a famous volcano located in Italy?",
+    "correct":"Mount Vesuvius",
+    "options":[
+      "Mount Everest",
+      "Ben Nevis",
+      "Mount Kilimanjaro"
+    ],
+    "id":"geography_y4_0044",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Volcanoes",
+    "year_level":4,
+    "question":"Which of these natural disasters often occurs alongside volcanic eruptions?",
+    "correct":"Earthquakes",
+    "options":[
+      "Tornadoes",
+      "Hurricanes",
+      "Blizzards"
+    ],
+    "id":"geography_y4_0048",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Rivers",
+    "year_level":4,
+    "question":"Which of these things CAN'T rivers be used for by people?",
+    "correct":"Growing trees",
+    "options":[
+      "Transporting goods",
+      "Providing drinking water",
+      "Generating electricity"
+    ],
+    "id":"geography_y4_0020",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Rivers",
+    "year_level":4,
+    "question":"Which of these things can't rivers be used for by people? A) Generating electricity B) Providing drinking water C) Transporting goods D) Growing rice",
+    "correct":"Growing rice",
+    "options":[
+      "Generating electricity",
+      "Providing drinking water",
+      "Transporting goods"
+    ],
+    "id":"geography_y4_0031",
+    "dataset":"converted_worksheet",
+    "explanation":"Rivers can be used for generating electricity through hydroelectric power, providing drinking water for communities, and transporting goods by boat. However, rivers are not typically used for growing rice - rice is usually grown in flooded fields called paddies or in wetlands, not directly in river channels.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"UK Counties",
+    "year_level":4,
+    "question":"Which UK county is home to the Lake District National Park with its famous lakes and mountains?",
+    "correct":"Cumbria",
+    "options":[
+      "Lancashire",
+      "Northumberland",
+      "Yorkshire"
+    ],
+    "id":"geography_y4_0044",
+    "dataset":"converted_worksheet",
+    "explanation":"Cumbria is the county that contains the Lake District National Park, famous for its lakes, mountains and beautiful scenery. While Lancashire and Yorkshire are nearby counties, they don't contain the Lake District.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Biomes",
+    "year_level":5,
+    "question":"A large ecosystem is called a:",
+    "correct":"Biome",
+    "options":[
+      "Climate",
+      "Country",
+      "City"
+    ],
+    "id":"geography_y5_0001",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Trade",
+    "year_level":5,
+    "question":"Buying and selling goods between countries is:",
+    "correct":"International trade",
+    "options":[
+      "Shopping",
+      "Tourism",
+      "Migration"
+    ],
+    "id":"geography_y5_0045",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Natural Resources",
+    "year_level":5,
+    "question":"Coal and oil are:",
+    "correct":"Fossil fuels",
+    "options":[
+      "Renewable energy",
+      "Rocks",
+      "Water sources"
+    ],
+    "id":"geography_y5_0036",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Natural Resources",
+    "year_level":5,
+    "question":"Coal and oil are: A) Renewable resources B) Wind power sources C) Mineral deposits D) Fossil fuels",
+    "correct":"Fossil fuels",
+    "options":[
+      "Renewable resources",
+      "Wind power sources",
+      "Mineral deposits"
+    ],
+    "id":"geography_y5_0004",
+    "dataset":"converted_worksheet",
+    "explanation":"Coal and oil are formed from ancient plants and animals that were buried underground millions of years ago. They are called fossil fuels because they come from fossils.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Trade",
+    "year_level":5,
+    "question":"Fair Trade helps farmers in poorer countries get a what?",
+    "correct":"Fair price for their goods",
+    "options":[
+      "Smaller farm",
+      "Free holiday",
+      "Pet dinosaur"
+    ],
+    "id":"geography_y5_0050",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Trade",
+    "year_level":5,
+    "question":"If the UK buys bananas from Costa Rica, what is this called?",
+    "correct":"Importing",
+    "options":[
+      "Exporting",
+      "Donating",
+      "Borrowing"
+    ],
+    "id":"geography_y5_0051",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Biomes",
+    "year_level":5,
+    "question":"In which biome would you find permafrost, a permanently frozen layer of soil?",
+    "correct":"Tundra",
+    "options":[
+      "Temperate Forest",
+      "Desert",
+      "Tropical Rainforest"
+    ],
+    "id":"geography_y5_0008",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Biomes",
+    "year_level":5,
+    "question":"Practice 1: A large ecosystem is called a:",
+    "correct":"Biome",
+    "options":[
+      "Climate",
+      "Country",
+      "City"
+    ],
+    "id":"geography_y5_0002",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Trade",
+    "year_level":5,
+    "question":"Practice 1: Buying and selling goods between countries is:",
+    "correct":"International trade",
+    "options":[
+      "Shopping",
+      "Tourism",
+      "Migration"
+    ],
+    "id":"geography_y5_0046",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Natural Resources",
+    "year_level":5,
+    "question":"Practice 1: Coal and oil are:",
+    "correct":"Fossil fuels",
+    "options":[
+      "Renewable energy",
+      "Rocks",
+      "Water sources"
+    ],
+    "id":"geography_y5_0037",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Europe",
+    "year_level":5,
+    "question":"Practice 1: The Alps mountain range is in:",
+    "correct":"Europe",
+    "options":[
+      "Asia",
+      "Africa",
+      "America"
+    ],
+    "id":"geography_y5_0020",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Climate Zones",
+    "year_level":5,
+    "question":"Practice 1: The area around the equator is:",
+    "correct":"Tropical",
+    "options":[
+      "Polar",
+      "Temperate",
+      "Desert"
+    ],
+    "id":"geography_y5_0011",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Mountains",
+    "year_level":5,
+    "question":"Practice 1: The highest mountain in the world is:",
+    "correct":"Mount Everest",
+    "options":[
+      "Ben Nevis",
+      "K2",
+      "Mont Blanc"
+    ],
+    "id":"geography_y5_0029",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Biomes",
+    "year_level":5,
+    "question":"Practice 2: A large ecosystem is called a:",
+    "correct":"Biome",
+    "options":[
+      "Climate",
+      "Country",
+      "City"
+    ],
+    "id":"geography_y5_0003",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Trade",
+    "year_level":5,
+    "question":"Practice 2: Buying and selling goods between countries is:",
+    "correct":"International trade",
+    "options":[
+      "Shopping",
+      "Tourism",
+      "Migration"
+    ],
+    "id":"geography_y5_0047",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Natural Resources",
+    "year_level":5,
+    "question":"Practice 2: Coal and oil are:",
+    "correct":"Fossil fuels",
+    "options":[
+      "Renewable energy",
+      "Rocks",
+      "Water sources"
+    ],
+    "id":"geography_y5_0038",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Europe",
+    "year_level":5,
+    "question":"Practice 2: The Alps mountain range is in:",
+    "correct":"Europe",
+    "options":[
+      "Asia",
+      "Africa",
+      "America"
+    ],
+    "id":"geography_y5_0021",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Climate Zones",
+    "year_level":5,
+    "question":"Practice 2: The area around the equator is:",
+    "correct":"Tropical",
+    "options":[
+      "Polar",
+      "Temperate",
+      "Desert"
+    ],
+    "id":"geography_y5_0012",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Mountains",
+    "year_level":5,
+    "question":"Practice 2: The highest mountain in the world is:",
+    "correct":"Mount Everest",
+    "options":[
+      "Ben Nevis",
+      "K2",
+      "Mont Blanc"
+    ],
+    "id":"geography_y5_0030",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Biomes",
+    "year_level":5,
+    "question":"Practice 3: A large ecosystem is called a:",
+    "correct":"Biome",
+    "options":[
+      "Climate",
+      "Country",
+      "City"
+    ],
+    "id":"geography_y5_0004",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Natural Resources",
+    "year_level":5,
+    "question":"Practice 3: Coal and oil are:",
+    "correct":"Fossil fuels",
+    "options":[
+      "Renewable energy",
+      "Rocks",
+      "Water sources"
+    ],
+    "id":"geography_y5_0039",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Europe",
+    "year_level":5,
+    "question":"Practice 3: The Alps mountain range is in:",
+    "correct":"Europe",
+    "options":[
+      "Asia",
+      "Africa",
+      "America"
+    ],
+    "id":"geography_y5_0022",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Climate Zones",
+    "year_level":5,
+    "question":"Practice 3: The area around the equator is:",
+    "correct":"Tropical",
+    "options":[
+      "Polar",
+      "Temperate",
+      "Desert"
+    ],
+    "id":"geography_y5_0013",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Europe",
+    "year_level":5,
+    "question":"The Alps mountain range is in:",
+    "correct":"Europe",
+    "options":[
+      "Asia",
+      "Africa",
+      "America"
+    ],
+    "id":"geography_y5_0019",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Climate Zones",
+    "year_level":5,
+    "question":"The area around the equator is:",
+    "correct":"Tropical",
+    "options":[
+      "Polar",
+      "Temperate",
+      "Desert"
+    ],
+    "id":"geography_y5_0010",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Climate Zones",
+    "year_level":5,
+    "question":"The area around the equator is: A) cold and snowy B) warm and dry C) cool and cloudy D) hot and rainy",
+    "correct":"hot and rainy",
+    "options":[
+      "cold and snowy",
+      "warm and dry",
+      "cool and cloudy"
+    ],
+    "id":"geography_y5_0002",
+    "dataset":"converted_worksheet",
+    "explanation":"The area around the equator has a tropical climate that is hot and rainy all year round due to direct sunlight and high humidity.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Climate Zones",
+    "year_level":5,
+    "question":"The area around the equator is: hot and rainy, cold and snowy, warm and dry, or cool and cloudy?",
+    "correct":"hot and rainy",
+    "options":[
+      "cold and snowy",
+      "warm and dry",
+      "cool and cloudy"
+    ],
+    "id":"geography_y5_0020",
+    "dataset":"converted_worksheet",
+    "explanation":"The area around the equator has a tropical climate that is hot and rainy year-round due to direct sunlight and high humidity.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Europe",
+    "year_level":5,
+    "question":"The Eiffel Tower is a famous landmark found in which European capital?",
+    "correct":"Paris",
+    "options":[
+      "Rome",
+      "Berlin",
+      "Madrid"
+    ],
+    "id":"geography_y5_0025",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Mountains",
+    "year_level":5,
+    "question":"The highest mountain in the world is:",
+    "correct":"Mount Everest",
+    "options":[
+      "Ben Nevis",
+      "K2",
+      "Mont Blanc"
+    ],
+    "id":"geography_y5_0028",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Europe",
+    "year_level":5,
+    "question":"What chilly continent is Europe connected to, forming Eurasia?",
+    "correct":"Asia",
+    "options":[
+      "Africa",
+      "Australia",
+      "South America"
+    ],
+    "id":"geography_y5_0024",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Biomes",
+    "year_level":5,
+    "question":"What do we call a large ecosystem that covers wide areas of the world?",
+    "correct":"Biome",
+    "options":[
+      "Habitat",
+      "Environment",
+      "Ecosystem"
+    ],
+    "id":"geography_y5_0003",
+    "dataset":"converted_worksheet",
+    "explanation":"A biome is a large geographical area with similar climate and plant\/animal life. While habitat, environment, and ecosystem are related terms, 'biome' specifically refers to these large ecosystems like deserts, rainforests, or tundras.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Mountains",
+    "year_level":5,
+    "question":"What do we call a very tall, cone-shaped mountain that can erupt with hot lava and smoke?",
+    "correct":"Volcano",
+    "options":[
+      "Mountain",
+      "Peak",
+      "Cliff"
+    ],
+    "id":"geography_y5_0052",
+    "dataset":"converted_worksheet",
+    "explanation":"A volcano is a tall, cone-shaped mountain with a hole at the top that can erupt with hot lava, ash and gas. While all volcanoes are mountains, not all mountains are volcanoes.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Trade",
+    "year_level":5,
+    "question":"What do we call it when a country sells its products to other countries?",
+    "correct":"Exporting",
+    "options":[
+      "Importing",
+      "Trading",
+      "Buying"
+    ],
+    "id":"geography_y5_0044",
+    "dataset":"converted_worksheet",
+    "explanation":"When a country sells goods to another country, this is called exporting. Importing is when a country buys goods from another country.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Trade",
+    "year_level":5,
+    "question":"What does Fair Trade help farmers in poorer countries get?",
+    "correct":"fair price for their products",
+    "options":[
+      "free education for their children",
+      "expensive machinery to work with",
+      "more land to farm"
+    ],
+    "id":"geography_y5_0045",
+    "dataset":"converted_worksheet",
+    "explanation":"Fair Trade is a trading system that ensures farmers and workers in developing countries receive fair payment for their goods, helping them earn a better living and improve their communities.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Mountains",
+    "year_level":5,
+    "question":"What force mainly causes mountains to form over millions of years?",
+    "correct":"Tectonic plates colliding",
+    "options":[
+      "Wind erosion",
+      "Volcanic eruptions",
+      "River flow"
+    ],
+    "id":"geography_y5_0031",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Trade",
+    "year_level":5,
+    "question":"What is it called when a country sells goods to another country?",
+    "correct":"Exporting",
+    "options":[
+      "Importing",
+      "Bartering",
+      "Stealing"
+    ],
+    "id":"geography_y5_0049",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Climate Zones",
+    "year_level":5,
+    "question":"What is the climate like in the rainforests near the Equator?",
+    "correct":"Hot and wet",
+    "options":[
+      "Cold and dry",
+      "Mild and wet",
+      "Hot and dry"
+    ],
+    "id":"geography_y5_0015",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Europe",
+    "year_level":5,
+    "question":"What is the longest river in Europe, flowing through Russia?",
+    "correct":"Volga",
+    "options":[
+      "Danube",
+      "Rhine",
+      "Thames"
+    ],
+    "id":"geography_y5_0027",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Mountains",
+    "year_level":5,
+    "question":"What is the name of a famous mountain range located in South America?",
+    "correct":"Andes Mountains",
+    "options":[
+      "Rocky Mountains",
+      "Himalayas",
+      "Alps"
+    ],
+    "id":"geography_y5_0033",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Mountains",
+    "year_level":5,
+    "question":"What is the name of a very tall, cone-shaped mountain that erupts?",
+    "correct":"Volcano",
+    "options":[
+      "Plateau",
+      "Glacier",
+      "Cliff"
+    ],
+    "id":"geography_y5_0035",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Europe",
+    "year_level":5,
+    "question":"What is the name of the currency used in many countries in Europe?",
+    "correct":"Euro",
+    "options":[
+      "Dollar",
+      "Pound",
+      "Yen"
+    ],
+    "id":"geography_y5_0026",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Mountains",
+    "year_level":5,
+    "question":"What is the term for the height of a mountain above sea level?",
+    "correct":"Altitude",
+    "options":[
+      "Longitude",
+      "Latitude",
+      "Gradient"
+    ],
+    "id":"geography_y5_0034",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Natural Resources",
+    "year_level":5,
+    "question":"What natural force makes wind turbines spin to make electricity?",
+    "correct":"Wind",
+    "options":[
+      "Sunlight",
+      "Water flow",
+      "Earth's heat"
+    ],
+    "id":"geography_y5_0039",
+    "dataset":"converted_worksheet",
+    "explanation":"Wind turbines use the power of moving air (wind) to turn their blades and generate electricity. The wind spins the turbine rotor which then powers a generator to produce renewable energy.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Natural Resources",
+    "year_level":5,
+    "question":"What natural resource, essential for life, covers most of our planet?",
+    "correct":"Water",
+    "options":[
+      "Oil",
+      "Gold",
+      "Diamonds"
+    ],
+    "id":"geography_y5_0043",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Natural Resources",
+    "year_level":5,
+    "question":"What powers wind turbines to create renewable energy?",
+    "correct":"Wind",
+    "options":[
+      "Sun",
+      "Rain",
+      "Coal"
+    ],
+    "id":"geography_y5_0041",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Climate Zones",
+    "year_level":5,
+    "question":"What type of climate is found in areas close to the Mediterranean Sea?",
+    "correct":"Hot, dry summers and mild, wet winters",
+    "options":[
+      "Cold and snowy all year",
+      "Hot and wet all year",
+      "Dry and arid all year"
+    ],
+    "id":"geography_y5_0017",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Biomes",
+    "year_level":5,
+    "question":"What type of forest has trees that lose their leaves each autumn?",
+    "correct":"Deciduous Forest",
+    "options":[
+      "Coniferous Forest",
+      "Tropical Rainforest",
+      "Boreal Forest"
+    ],
+    "id":"geography_y5_0006",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Mountains",
+    "year_level":5,
+    "question":"What word describes how tall a mountain is compared to sea level?",
+    "correct":"Height",
+    "options":[
+      "Peak",
+      "Altitude",
+      "Summit"
+    ],
+    "id":"geography_y5_0051",
+    "dataset":"converted_worksheet",
+    "explanation":"The correct answer is 'Height' as it refers to how tall something is, including mountains. While 'Altitude' is also related to height above sea level, in KS2 geography the simpler term 'height' is typically used. 'Peak' and 'Summit' refer to the top point of a mountain rather than its measurement.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Biomes",
+    "year_level":5,
+    "question":"Which biome has grasses as the main plants and often burns down in dry seasons?",
+    "correct":"Grassland",
+    "options":[
+      "Rainforest",
+      "Desert",
+      "Tundra"
+    ],
+    "id":"geography_y5_0035",
+    "dataset":"converted_worksheet",
+    "explanation":"Grasslands are biomes dominated by grasses with seasonal droughts and frequent fires. Rainforests have heavy rainfall and permanent trees, deserts have very little rain and extreme temperatures, and tundras have frozen conditions and permafrost.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Biomes",
+    "year_level":5,
+    "question":"Which biome has lots of rain and thick trees that make it dark underneath?",
+    "correct":"Tropical rainforest",
+    "options":[
+      "Desert",
+      "Taiga",
+      "Grassland"
+    ],
+    "id":"geography_y5_0037",
+    "dataset":"converted_worksheet",
+    "explanation":"Tropical rainforests have high rainfall (over 200cm per year) and dense tree canopies that block much sunlight from reaching the forest floor. Deserts are very dry with little rainfall, taigas are cold coniferous forests with short growing seasons, and grasslands have scattered trees rather than dense canopies.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Biomes",
+    "year_level":5,
+    "question":"Which biome has permanently frozen soil called permafrost?",
+    "correct":"Tundra",
+    "options":[
+      "Rainforest",
+      "Desert",
+      "Grassland"
+    ],
+    "id":"geography_y5_0036",
+    "dataset":"converted_worksheet",
+    "explanation":"The tundra biome has permafrost - permanently frozen soil that never thaws. This cold climate prevents trees from growing and creates a unique ecosystem. Rainforests are warm and wet, deserts are hot and dry, and grasslands have fertile soil but aren't frozen.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Biomes",
+    "year_level":5,
+    "question":"Which biome is characterized by high rainfall and a dense canopy of trees?",
+    "correct":"Rainforest",
+    "options":[
+      "Desert",
+      "Tundra",
+      "Grassland"
+    ],
+    "id":"geography_y5_0009",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Biomes",
+    "year_level":5,
+    "question":"Which biome is dominated by grasses and experiences seasonal droughts and fires?",
+    "correct":"Grassland",
+    "options":[
+      "Tundra",
+      "Taiga",
+      "Savanna"
+    ],
+    "id":"geography_y5_0007",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Biomes",
+    "year_level":5,
+    "question":"Which biome is known for having very little rainfall and extreme temperatures?",
+    "correct":"Desert",
+    "options":[
+      "Rainforest",
+      "Grassland",
+      "Tundra"
+    ],
+    "id":"geography_y5_0005",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Climate Zones",
+    "year_level":5,
+    "question":"Which climate zone experiences warm summers and cold winters?",
+    "correct":"Temperate",
+    "options":[
+      "Tropical",
+      "Polar",
+      "Desert"
+    ],
+    "id":"geography_y5_0014",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Climate Zones",
+    "year_level":5,
+    "question":"Which climate zone has warm summers and cold winters?",
+    "correct":"Temperate",
+    "options":[
+      "Tropical",
+      "Polar",
+      "Desert"
+    ],
+    "id":"geography_y5_0028",
+    "dataset":"converted_worksheet",
+    "explanation":"Temperate climates have four distinct seasons with warm summers and cold winters. Tropical zones are hot year-round, polar zones are cold year-round, and desert zones are hot and dry with little rainfall.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Climate Zones",
+    "year_level":5,
+    "question":"Which climate zone is known for being very cold and icy?",
+    "correct":"Polar",
+    "options":[
+      "Mediterranean",
+      "Tropical",
+      "Temperate"
+    ],
+    "id":"geography_y5_0016",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Climate Zones",
+    "year_level":5,
+    "question":"Which climate zone is known for having very little rainfall?",
+    "correct":"Desert",
+    "options":[
+      "Tropical",
+      "Temperate",
+      "Mediterranean"
+    ],
+    "id":"geography_y5_0018",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Trade",
+    "year_level":5,
+    "question":"Which continent does the UK trade most with, overall?",
+    "correct":"Europe",
+    "options":[
+      "Asia",
+      "Africa",
+      "South America"
+    ],
+    "id":"geography_y5_0052",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Europe",
+    "year_level":5,
+    "question":"Which currency is used by most countries in Europe?",
+    "correct":"Euro",
+    "options":[
+      "Pound",
+      "Yen",
+      "Rand"
+    ],
+    "id":"geography_y5_0026",
+    "dataset":"converted_worksheet",
+    "explanation":"The Euro is the official currency used by 20 out of 27 European Union countries. It was introduced in 1999 for electronic payments and in 2002 for physical coins and notes. While many European countries use the Euro, some still use their own currencies like the British Pound.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Europe",
+    "year_level":5,
+    "question":"Which European country is most famous for having pasta and pizza as part of its traditional food?",
+    "correct":"Italy",
+    "options":[
+      "France",
+      "Spain",
+      "Germany"
+    ],
+    "id":"geography_y5_0023",
+    "dataset":"converted_worksheet",
+    "explanation":"Italy is famous worldwide for its pasta, pizza, and Italian cuisine. While France, Spain, and Germany all have their own delicious foods, Italy is specifically known for these iconic dishes.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Mountains",
+    "year_level":5,
+    "question":"Which famous mountain range is found in South America?",
+    "correct":"Andes",
+    "options":[
+      "Rocky Mountains",
+      "Himalayas",
+      "Appenines"
+    ],
+    "id":"geography_y5_0050",
+    "dataset":"converted_worksheet",
+    "explanation":"The Andes are the longest continental mountain range in the world, stretching along the western coast of South America. The Rocky Mountains are in North America, the Himalayas are in Asia, and the Appenines are in Italy.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Mountains",
+    "year_level":5,
+    "question":"Which habitat might you find animals like snow leopards living in?",
+    "correct":"Mountainous regions",
+    "options":[
+      "Deserts",
+      "Rainforests",
+      "Swamps"
+    ],
+    "id":"geography_y5_0032",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Mountains",
+    "year_level":5,
+    "question":"Which is the tallest mountain in the whole world?",
+    "correct":"Mount Everest",
+    "options":[
+      "K2",
+      "Mount Kilimanjaro",
+      "The Matterhorn"
+    ],
+    "id":"geography_y5_0006",
+    "dataset":"converted_worksheet",
+    "explanation":"Mount Everest is the highest mountain in the world at 8,848 meters above sea level. It's located in the Himalayas on the border of Nepal and China.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Europe",
+    "year_level":5,
+    "question":"Which large European country is known for its delicious pasta and pizza?",
+    "correct":"Italy",
+    "options":[
+      "Germany",
+      "Spain",
+      "France"
+    ],
+    "id":"geography_y5_0023",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Natural Resources",
+    "year_level":5,
+    "question":"Which mineral do people dig out of the ground to make strong metal things like cars and bridges?",
+    "correct":"Iron ore",
+    "options":[
+      "Gold nuggets",
+      "Salt crystals",
+      "Coal seams"
+    ],
+    "id":"geography_y5_0040",
+    "dataset":"converted_worksheet",
+    "explanation":"Iron ore is the natural resource that is mined from the ground to make iron and steel. While gold, salt, and coal are all natural resources, they are not used to make iron metals.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Natural Resources",
+    "year_level":5,
+    "question":"Which natural resource comes from trees and is used to make paper and furniture?",
+    "correct":"Wood",
+    "options":[
+      "Coal",
+      "Iron ore",
+      "Oil"
+    ],
+    "id":"geography_y5_0038",
+    "dataset":"converted_worksheet",
+    "explanation":"Wood is a natural resource that comes from trees and is commonly used to make paper, furniture, and other wood products. Coal, iron ore, and oil are different natural resources used for energy and manufacturing metals.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Natural Resources",
+    "year_level":5,
+    "question":"Which natural resource is mined to make useful metals like iron?",
+    "correct":"Iron ore",
+    "options":[
+      "Wood",
+      "Cotton",
+      "Plastic"
+    ],
+    "id":"geography_y5_0042",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Natural Resources",
+    "year_level":5,
+    "question":"Which natural resource is used to make paper and furniture?",
+    "correct":"Wood",
+    "options":[
+      "Clay",
+      "Sand",
+      "Metal"
+    ],
+    "id":"geography_y5_0040",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Natural Resources",
+    "year_level":5,
+    "question":"Which natural resource, needed by all living things, can be found as oceans, rivers and lakes covering most of Earth's surface?",
+    "correct":"Water",
+    "options":[
+      "Wood",
+      "Iron",
+      "Coal"
+    ],
+    "id":"geography_y5_0041",
+    "dataset":"converted_worksheet",
+    "explanation":"Water is the natural resource that covers about 70% of Earth's surface and is essential for all living things. While wood, iron, and coal are important natural resources, only water covers most of our planet in its liquid form.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Trade",
+    "year_level":5,
+    "question":"Which of these is a reason countries trade with each other?",
+    "correct":"To get goods they can't produce themselves",
+    "options":[
+      "To start wars",
+      "To build bigger armies",
+      "To confuse their citizens"
+    ],
+    "id":"geography_y5_0048",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Trade",
+    "year_level":5,
+    "question":"Which of these is a reason countries trade with each other? A) They want to get goods they cannot make themselves B) All countries must trade or they will be punished C) Countries only trade when they have too much money D) Trade helps countries become better friends",
+    "correct":"They want to get goods they cannot make themselves",
+    "options":[
+      "All countries must trade or they will be punished",
+      "Countries only trade when they have too much money",
+      "Trade helps countries become better friends"
+    ],
+    "id":"geography_y5_0043",
+    "dataset":"converted_worksheet",
+    "explanation":"Countries trade because they don't produce everything they need. Each country has different resources and skills, so they buy goods from other countries that they can't make or grow themselves.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Natural Resources",
+    "year_level":5,
+    "question":"Which of these powers solar panels and helps plants grow?",
+    "correct":"Sunlight",
+    "options":[
+      "Coal",
+      "Gas",
+      "Plastic"
+    ],
+    "id":"geography_y5_0044",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Europe",
+    "year_level":5,
+    "question":"Which river is the longest in Europe and flows through Russia?",
+    "correct":"Volga River",
+    "options":[
+      "Danube River",
+      "Rhine River",
+      "Ural River"
+    ],
+    "id":"geography_y5_0027",
+    "dataset":"converted_worksheet",
+    "explanation":"The Volga River is the longest river in Europe at about 3,530 km long. It flows through Russia and empties into the Caspian Sea. The Danube flows through Central and Eastern Europe but is shorter. The Rhine flows through Western Europe but is much shorter than the Volga. The Ural River forms part of the boundary between Europe and Asia but is not the longest river in Europe.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Mountains",
+    "year_level":5,
+    "question":"Which type of habitat would you find snow leopards living in among these options?",
+    "correct":"Alpine",
+    "options":[
+      "Desert",
+      "Rainforest",
+      "Tundra"
+    ],
+    "id":"geography_y5_0049",
+    "dataset":"converted_worksheet",
+    "explanation":"Snow leopards live in high mountain areas with cold temperatures and rocky terrain, which is called alpine habitat. They are adapted to survive in these harsh conditions.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Environmental Issues",
+    "year_level":6,
+    "question":"Deforestation means:",
+    "correct":"Cutting down forests",
+    "options":[
+      "Planting trees",
+      "Building forests",
+      "Protecting forests"
+    ],
+    "id":"geography_y6_0004",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Global Warming",
+    "year_level":6,
+    "question":"Global warming is caused by:",
+    "correct":"Greenhouse gases",
+    "options":[
+      "Cold weather",
+      "Rain",
+      "Wind"
+    ],
+    "id":"geography_y6_0007",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Latitude\/Longitude",
+    "year_level":6,
+    "question":"Lines running east-west are:",
+    "correct":"Latitude",
+    "options":[
+      "Longitude",
+      "Equator only",
+      "Meridians"
+    ],
+    "id":"geography_y6_0010",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Latitude\/Longitude",
+    "year_level":6,
+    "question":"Lines running east-west around the Earth are called:",
+    "correct":"Latitude lines",
+    "options":[
+      "Longitude lines",
+      "Equator lines",
+      "Meridian lines"
+    ],
+    "id":"geography_y6_0018",
+    "dataset":"converted_worksheet",
+    "explanation":"Latitude lines run east-west around the Earth and are also called 'horizontal' lines. Longitude lines actually run north-south, while the Equator is a specific latitude line at 0 degrees.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Latitude\/Longitude",
+    "year_level":6,
+    "question":"Lines running east-west on a map or globe are called:",
+    "correct":"Latitude lines",
+    "options":[
+      "Longitude lines",
+      "Equator lines",
+      "Meridian lines"
+    ],
+    "id":"geography_y6_0012",
+    "dataset":"converted_worksheet",
+    "explanation":"Latitude lines run east-west around the Earth and are also called parallels. Longitude lines run north-south and are also called meridians.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Migration",
+    "year_level":6,
+    "question":"People moving from one country to another is:",
+    "correct":"Migration",
+    "options":[
+      "Tourism",
+      "Trade",
+      "Transport"
+    ],
+    "id":"geography_y6_0013",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Environmental Issues",
+    "year_level":6,
+    "question":"Practice 1: Deforestation means:",
+    "correct":"Cutting down forests",
+    "options":[
+      "Planting trees",
+      "Building forests",
+      "Protecting forests"
+    ],
+    "id":"geography_y6_0005",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Global Warming",
+    "year_level":6,
+    "question":"Practice 1: Global warming is caused by:",
+    "correct":"Greenhouse gases",
+    "options":[
+      "Cold weather",
+      "Rain",
+      "Wind"
+    ],
+    "id":"geography_y6_0008",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Latitude\/Longitude",
+    "year_level":6,
+    "question":"Practice 1: Lines running east-west are:",
+    "correct":"Latitude",
+    "options":[
+      "Longitude",
+      "Equator only",
+      "Meridians"
+    ],
+    "id":"geography_y6_0011",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Migration",
+    "year_level":6,
+    "question":"Practice 1: People moving from one country to another is:",
+    "correct":"Migration",
+    "options":[
+      "Tourism",
+      "Trade",
+      "Transport"
+    ],
+    "id":"geography_y6_0014",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"South America",
+    "year_level":6,
+    "question":"Practice 1: Practice 1: The Amazon rainforest is mainly in:",
+    "correct":"Brazil",
+    "options":[
+      "Peru",
+      "Colombia",
+      "Venezuela"
+    ],
+    "id":"geography_y6_0019",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"South America",
+    "year_level":6,
+    "question":"Practice 1: The Amazon rainforest is mainly in:",
+    "correct":"Brazil",
+    "options":[
+      "Peru",
+      "Colombia",
+      "Venezuela"
+    ],
+    "id":"geography_y6_0017",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Amazon",
+    "year_level":6,
+    "question":"Practice 1: The Amazon River is the world's:",
+    "correct":"Largest by volume",
+    "options":[
+      "Longest",
+      "Deepest",
+      "Widest at source"
+    ],
+    "id":"geography_y6_0002",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Environmental Issues",
+    "year_level":6,
+    "question":"Practice 2: Deforestation means:",
+    "correct":"Cutting down forests",
+    "options":[
+      "Planting trees",
+      "Building forests",
+      "Protecting forests"
+    ],
+    "id":"geography_y6_0006",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Global Warming",
+    "year_level":6,
+    "question":"Practice 2: Global warming is caused by:",
+    "correct":"Greenhouse gases",
+    "options":[
+      "Cold weather",
+      "Rain",
+      "Wind"
+    ],
+    "id":"geography_y6_0009",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Latitude\/Longitude",
+    "year_level":6,
+    "question":"Practice 2: Lines running east-west are:",
+    "correct":"Latitude",
+    "options":[
+      "Longitude",
+      "Equator only",
+      "Meridians"
+    ],
+    "id":"geography_y6_0012",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Migration",
+    "year_level":6,
+    "question":"Practice 2: People moving from one country to another is:",
+    "correct":"Migration",
+    "options":[
+      "Tourism",
+      "Trade",
+      "Transport"
+    ],
+    "id":"geography_y6_0015",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"South America",
+    "year_level":6,
+    "question":"Practice 2: The Amazon rainforest is mainly in:",
+    "correct":"Brazil",
+    "options":[
+      "Peru",
+      "Colombia",
+      "Venezuela"
+    ],
+    "id":"geography_y6_0018",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Amazon",
+    "year_level":6,
+    "question":"Practice 2: The Amazon River is the world's:",
+    "correct":"Largest by volume",
+    "options":[
+      "Longest",
+      "Deepest",
+      "Widest at source"
+    ],
+    "id":"geography_y6_0003",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"South America",
+    "year_level":6,
+    "question":"The Amazon rainforest is mainly in:",
+    "correct":"Brazil",
+    "options":[
+      "Peru",
+      "Colombia",
+      "Venezuela"
+    ],
+    "id":"geography_y6_0016",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"South America",
+    "year_level":6,
+    "question":"The Amazon rainforest is mainly in: A) Peru B) Brazil C) Colombia D) Argentina",
+    "correct":"Brazil",
+    "options":[
+      "Peru",
+      "Colombia",
+      "Argentina"
+    ],
+    "id":"geography_y6_0007",
+    "dataset":"converted_worksheet",
+    "explanation":"The Amazon rainforest covers about 60% of Brazil, making it the country with the largest portion of the rainforest. While Peru and Colombia also have parts of the Amazon, Brazil contains the majority.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"South America",
+    "year_level":6,
+    "question":"The Amazon rainforest is mainly in: A) Peru B) Colombia C) Argentina D) Brazil",
+    "correct":"Brazil",
+    "options":[
+      "Peru",
+      "Colombia",
+      "Argentina"
+    ],
+    "id":"geography_y6_0001",
+    "dataset":"converted_worksheet",
+    "explanation":"While the Amazon rainforest spans several South American countries, the majority of it (about 60%) is located in Brazil. Peru has the second largest portion but Brazil contains the biggest area of the Amazon basin.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Amazon",
+    "year_level":6,
+    "question":"The Amazon River is the world's:",
+    "correct":"Largest by volume",
+    "options":[
+      "Longest",
+      "Deepest",
+      "Widest at source"
+    ],
+    "id":"geography_y6_0001",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Environmental Issues",
+    "year_level":6,
+    "question":"What does deforestation mean?",
+    "correct":"Cutting down trees in forests",
+    "options":[
+      "Planting new trees",
+      "Burning forest fires",
+      "Building houses in forests"
+    ],
+    "id":"geography_y6_0003",
+    "dataset":"converted_worksheet",
+    "explanation":"Deforestation means cutting down trees in forests, which reduces the number of trees and can harm wildlife habitats.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"South America",
+    "year_level":6,
+    "question":"What is the most common language spoken in Brazil?",
+    "correct":"Portuguese",
+    "options":[
+      "Spanish",
+      "English",
+      "French"
+    ],
+    "id":"geography_y6_0023",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"South America",
+    "year_level":6,
+    "question":"What is the name of the driest desert in the world, found in Chile?",
+    "correct":"Atacama",
+    "options":[
+      "Sahara",
+      "Gobi",
+      "Kalahari"
+    ],
+    "id":"geography_y6_0021",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"South America",
+    "year_level":6,
+    "question":"Which desert in South America is so dry it has never received rain in recorded history?",
+    "correct":"Atacama Desert",
+    "options":[
+      "Sahara Desert",
+      "Patagonian Desert",
+      "Amazon Basin"
+    ],
+    "id":"geography_y6_0021",
+    "dataset":"converted_worksheet",
+    "explanation":"The Atacama Desert in northern Chile is the driest non-polar desert in the world, receiving almost no rainfall for centuries. The Sahara is in Africa, Patagonia is in Argentina, and the Amazon is a rainforest region.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"South America",
+    "year_level":6,
+    "question":"Which famous Incan ruins are built high up in the Andes mountains?",
+    "correct":"Machu Picchu",
+    "options":[
+      "Tiwanaku",
+      "Nazca Lines",
+      "Christ the Redeemer"
+    ],
+    "id":"geography_y6_0022",
+    "dataset":"converted_worksheet",
+    "explanation":"Machu Picchu is the famous Incan citadel built in the 15th century and located high in the Andes mountains. Tiwanaku was an important pre-Incan civilization, Nazca Lines are ancient geoglyphs in Peru, and Christ the Redeemer is a statue in Rio de Janeiro, Brazil.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"South America",
+    "year_level":6,
+    "question":"Which famous ruins, built by the Incas, are located high in the Andes?",
+    "correct":"Machu Picchu",
+    "options":[
+      "Colosseum",
+      "Great Wall",
+      "Angkor Wat"
+    ],
+    "id":"geography_y6_0022",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"South America",
+    "year_level":6,
+    "question":"Which large river basin is famous for its rainforest and biodiversity?",
+    "correct":"Amazon",
+    "options":[
+      "Nile",
+      "Mississippi",
+      "Yangtze"
+    ],
+    "id":"geography_y6_0024",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"Latitude\/Longitude",
+    "year_level":6,
+    "question":"Which lines run east-west around the Earth?",
+    "correct":"Latitude",
+    "options":[
+      "Longitude",
+      "Equator",
+      "Meridians"
+    ],
+    "id":"geography_y6_0006",
+    "dataset":"converted_worksheet",
+    "explanation":"Lines running east-west are called latitude lines. These are the horizontal lines that go around the Earth parallel to the equator. Longitude lines run north-south.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Geography",
+    "topic":"South America",
+    "year_level":6,
+    "question":"Which mountain range runs along the western side of South America?",
+    "correct":"Andes",
+    "options":[
+      "Alps",
+      "Himalayas",
+      "Rockies"
+    ],
+    "id":"geography_y6_0020",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  }
+]

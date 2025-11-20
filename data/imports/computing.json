@@ -1,0 +1,2399 @@
+[
+  {
+    "subject":"Computing",
+    "topic":"Input\/Output",
+    "year_level":3,
+    "question":"A keyboard is an:",
+    "correct":"Input device",
+    "options":[
+      "Output device",
+      "Storage device",
+      "Processing device"
+    ],
+    "id":"computing_y3_0019",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Input\/Output",
+    "year_level":3,
+    "question":"A keyboard is an: A) Output device B) Input device C) Storage device D) Processing device",
+    "correct":"Input device",
+    "options":[
+      "Output device",
+      "Storage device",
+      "Processing device"
+    ],
+    "id":"computing_y3_0003",
+    "dataset":"converted_worksheet",
+    "explanation":"A keyboard is an input device because it allows users to enter data and commands into a computer by typing letters, numbers, and symbols.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Input\/Output",
+    "year_level":3,
+    "question":"A keyboard is an: A) Output device B) Storage device C) Processing device D) Input device",
+    "correct":"Input device",
+    "options":[
+      "Output device",
+      "Storage device",
+      "Processing device"
+    ],
+    "id":"computing_y3_0024",
+    "dataset":"converted_worksheet",
+    "explanation":"A keyboard is an input device because it allows users to enter data and commands into a computer by pressing keys. The computer receives this information from the keyboard.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Input\/Output",
+    "year_level":3,
+    "question":"A monitor is an:",
+    "correct":"Output device",
+    "options":[
+      "Input device",
+      "Storage device",
+      "Processing device"
+    ],
+    "id":"computing_y3_0020",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Input\/Output",
+    "year_level":3,
+    "question":"A monitor is an: A) input device B) output device C) storage device D) processing unit",
+    "correct":"output device",
+    "options":[
+      "input device",
+      "storage device",
+      "processing unit"
+    ],
+    "id":"computing_y3_0011",
+    "dataset":"converted_worksheet",
+    "explanation":"A monitor is an output device because it displays information and images that the computer has processed. It shows what the computer is doing rather than receiving input from the user.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Algorithms",
+    "year_level":3,
+    "question":"An algorithm is:",
+    "correct":"A set of instructions",
+    "options":[
+      "A computer",
+      "A program",
+      "A game"
+    ],
+    "id":"computing_y3_0002",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Digital Content",
+    "year_level":3,
+    "question":"Digital content can be:",
+    "correct":"Text, images, video",
+    "options":[
+      "Only text",
+      "Only pictures",
+      "Only videos"
+    ],
+    "id":"computing_y3_0011",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Sequence",
+    "year_level":3,
+    "question":"In coding, doing things in order is:",
+    "correct":"Sequence",
+    "options":[
+      "Selection",
+      "Repetition",
+      "Variable"
+    ],
+    "id":"computing_y3_0028",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Input\/Output",
+    "year_level":3,
+    "question":"Practice 1: A keyboard is an:",
+    "correct":"Input device",
+    "options":[
+      "Output device",
+      "Storage device",
+      "Processing device"
+    ],
+    "id":"computing_y3_0021",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Input\/Output",
+    "year_level":3,
+    "question":"Practice 1: A monitor is an:",
+    "correct":"Output device",
+    "options":[
+      "Input device",
+      "Storage device",
+      "Processing device"
+    ],
+    "id":"computing_y3_0022",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Algorithms",
+    "year_level":3,
+    "question":"Practice 1: An algorithm is:",
+    "correct":"A set of instructions",
+    "options":[
+      "A computer",
+      "A program",
+      "A game"
+    ],
+    "id":"computing_y3_0004",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Digital Content",
+    "year_level":3,
+    "question":"Practice 1: Digital content can be:",
+    "correct":"Text, images, video",
+    "options":[
+      "Only text",
+      "Only pictures",
+      "Only videos"
+    ],
+    "id":"computing_y3_0012",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Sequence",
+    "year_level":3,
+    "question":"Practice 1: In coding, doing things in order is:",
+    "correct":"Sequence",
+    "options":[
+      "Selection",
+      "Repetition",
+      "Variable"
+    ],
+    "id":"computing_y3_0029",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Algorithms",
+    "year_level":3,
+    "question":"Practice 1: What is the order of instructions in a program called?",
+    "correct":"Sequence",
+    "options":[
+      "Loop",
+      "Selection",
+      "Debugging"
+    ],
+    "id":"computing_y3_0003",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"E-safety",
+    "year_level":3,
+    "question":"Practice 1: You should keep your password:",
+    "correct":"Secret",
+    "options":[
+      "Written on paper",
+      "Told to friends",
+      "Simple like '123'"
+    ],
+    "id":"computing_y3_0016",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Input\/Output",
+    "year_level":3,
+    "question":"Practice 2: A keyboard is an:",
+    "correct":"Input device",
+    "options":[
+      "Output device",
+      "Storage device",
+      "Processing device"
+    ],
+    "id":"computing_y3_0023",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Input\/Output",
+    "year_level":3,
+    "question":"Practice 2: A monitor is an:",
+    "correct":"Output device",
+    "options":[
+      "Input device",
+      "Storage device",
+      "Processing device"
+    ],
+    "id":"computing_y3_0024",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Algorithms",
+    "year_level":3,
+    "question":"Practice 2: An algorithm is:",
+    "correct":"A set of instructions",
+    "options":[
+      "A computer",
+      "A program",
+      "A game"
+    ],
+    "id":"computing_y3_0006",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Digital Content",
+    "year_level":3,
+    "question":"Practice 2: Digital content can be:",
+    "correct":"Text, images, video",
+    "options":[
+      "Only text",
+      "Only pictures",
+      "Only videos"
+    ],
+    "id":"computing_y3_0013",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Sequence",
+    "year_level":3,
+    "question":"Practice 2: In coding, doing things in order is:",
+    "correct":"Sequence",
+    "options":[
+      "Selection",
+      "Repetition",
+      "Variable"
+    ],
+    "id":"computing_y3_0030",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Algorithms",
+    "year_level":3,
+    "question":"Practice 2: What is the order of instructions in a program called?",
+    "correct":"Sequence",
+    "options":[
+      "Loop",
+      "Selection",
+      "Debugging"
+    ],
+    "id":"computing_y3_0005",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"E-safety",
+    "year_level":3,
+    "question":"Practice 2: You should keep your password:",
+    "correct":"Secret",
+    "options":[
+      "Written on paper",
+      "Told to friends",
+      "Simple like '123'"
+    ],
+    "id":"computing_y3_0017",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Input\/Output",
+    "year_level":3,
+    "question":"Practice 3: A keyboard is an:",
+    "correct":"Input device",
+    "options":[
+      "Output device",
+      "Storage device",
+      "Processing device"
+    ],
+    "id":"computing_y3_0025",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Input\/Output",
+    "year_level":3,
+    "question":"Practice 3: A monitor is an:",
+    "correct":"Output device",
+    "options":[
+      "Input device",
+      "Storage device",
+      "Processing device"
+    ],
+    "id":"computing_y3_0026",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Algorithms",
+    "year_level":3,
+    "question":"Practice 3: An algorithm is:",
+    "correct":"A set of instructions",
+    "options":[
+      "A computer",
+      "A program",
+      "A game"
+    ],
+    "id":"computing_y3_0008",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Digital Content",
+    "year_level":3,
+    "question":"Practice 3: Digital content can be:",
+    "correct":"Text, images, video",
+    "options":[
+      "Only text",
+      "Only pictures",
+      "Only videos"
+    ],
+    "id":"computing_y3_0014",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Sequence",
+    "year_level":3,
+    "question":"Practice 3: In coding, doing things in order is:",
+    "correct":"Sequence",
+    "options":[
+      "Selection",
+      "Repetition",
+      "Variable"
+    ],
+    "id":"computing_y3_0031",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Algorithms",
+    "year_level":3,
+    "question":"Practice 3: What is the order of instructions in a program called?",
+    "correct":"Sequence",
+    "options":[
+      "Loop",
+      "Selection",
+      "Debugging"
+    ],
+    "id":"computing_y3_0007",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"E-safety",
+    "year_level":3,
+    "question":"Practice 3: You should keep your password:",
+    "correct":"Secret",
+    "options":[
+      "Written on paper",
+      "Told to friends",
+      "Simple like '123'"
+    ],
+    "id":"computing_y3_0018",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Input\/Output",
+    "year_level":3,
+    "question":"Practice 4: A keyboard is an:",
+    "correct":"Input device",
+    "options":[
+      "Output device",
+      "Storage device",
+      "Processing device"
+    ],
+    "id":"computing_y3_0027",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Algorithms",
+    "year_level":3,
+    "question":"Practice 4: An algorithm is:",
+    "correct":"A set of instructions",
+    "options":[
+      "A computer",
+      "A program",
+      "A game"
+    ],
+    "id":"computing_y3_0010",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Algorithms",
+    "year_level":3,
+    "question":"Practice 4: What is the order of instructions in a program called?",
+    "correct":"Sequence",
+    "options":[
+      "Loop",
+      "Selection",
+      "Debugging"
+    ],
+    "id":"computing_y3_0009",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Algorithms",
+    "year_level":3,
+    "question":"What do we call the order that instructions are written in a computer program?",
+    "correct":"Sequence",
+    "options":[
+      "Loop",
+      "Condition",
+      "Variable"
+    ],
+    "id":"computing_y3_0029",
+    "dataset":"converted_worksheet",
+    "explanation":"The order in which instructions are written in a computer program is called sequence. Instructions must be written in the correct order to make the program work properly.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Algorithms",
+    "year_level":3,
+    "question":"What do we call the order that instructions follow in a computer program?",
+    "correct":"Sequence",
+    "options":[
+      "Pattern",
+      "Flow",
+      "Order"
+    ],
+    "id":"computing_y3_0001",
+    "dataset":"converted_worksheet",
+    "explanation":"In computing, the order in which instructions are executed in a program is called 'sequence'. This means the computer follows the steps one after another in the order they appear.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Algorithms",
+    "year_level":3,
+    "question":"What do we call the order that instructions happen in a computer program?",
+    "correct":"Sequence",
+    "options":[
+      "Loop",
+      "Condition",
+      "Variable"
+    ],
+    "id":"computing_y3_0008",
+    "dataset":"converted_worksheet",
+    "explanation":"In computing, the order in which instructions are executed in a program is called sequence. Instructions run one after another in the order they appear.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Algorithms",
+    "year_level":3,
+    "question":"What is an algorithm in computing?",
+    "correct":"A step-by-step set of instructions to solve a problem",
+    "options":[
+      "A computer program written in code",
+      "A type of mathematical equation",
+      "A special kind of robot"
+    ],
+    "id":"computing_y3_0002",
+    "dataset":"converted_worksheet",
+    "explanation":"An algorithm is like a recipe that tells you exactly what steps to follow to complete a task, such as solving a math problem or sorting toys by color.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Algorithms",
+    "year_level":3,
+    "question":"What is an algorithm?",
+    "correct":"A set of step-by-step instructions to solve a problem",
+    "options":[
+      "A type of computer program",
+      "A way to draw pictures on screen",
+      "A special kind of maths equation"
+    ],
+    "id":"computing_y3_0009",
+    "dataset":"converted_worksheet",
+    "explanation":"An algorithm is like a recipe that tells you exactly what steps to follow to complete a task or solve a problem. It's used in computing and everyday life.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Algorithms",
+    "year_level":3,
+    "question":"What is the order of instructions in a program called?",
+    "correct":"Sequence",
+    "options":[
+      "Loop",
+      "Selection",
+      "Debugging"
+    ],
+    "id":"computing_y3_0001",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Digital Content",
+    "year_level":3,
+    "question":"Which of these best describes how digital content is made?",
+    "correct":"Created using computer software",
+    "options":[
+      "Only made by professional artists",
+      "Never changed once created",
+      "Impossible to share online"
+    ],
+    "id":"computing_y3_0028",
+    "dataset":"converted_worksheet",
+    "explanation":"Digital content can be created using various computer software programs by anyone with access to a computer, not just professionals. It can be easily shared online and modified as needed.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Digital Content",
+    "year_level":3,
+    "question":"Which statement about digital content is true?",
+    "correct":"It can be created using computer software",
+    "options":[
+      "It is only made by grown-ups",
+      "It cannot be shared online",
+      "It is always free to use"
+    ],
+    "id":"computing_y3_0021",
+    "dataset":"converted_worksheet",
+    "explanation":"Digital content such as photos, videos, and documents can be created by anyone using computer programs. It does not have to be made by grown-ups, it can be shared responsibly online, and it is not always free to use.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"E-safety",
+    "year_level":3,
+    "question":"You should keep your password:",
+    "correct":"Secret",
+    "options":[
+      "Written on paper",
+      "Told to friends",
+      "Simple like '123'"
+    ],
+    "id":"computing_y3_0015",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"E-safety",
+    "year_level":3,
+    "question":"You should keep your password: A) on your computer screen B) shared with friends C) written on a post-it note stuck to your desk D) in a secure place",
+    "correct":"in a secure place",
+    "options":[
+      "on your computer screen",
+      "shared with friends",
+      "written on a post-it note stuck to your desk"
+    ],
+    "id":"computing_y3_0013",
+    "dataset":"converted_worksheet",
+    "explanation":"Good e-safety practice means keeping passwords secure and private. Writing them down in a secure place like a password manager or locked drawer is better than sharing them or leaving them visible.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"E-safety",
+    "year_level":3,
+    "question":"You should keep your password: A) written on a piece of paper in your pocket B) shared with your best friend C) posted on social media D) in a secure place",
+    "correct":"in a secure place",
+    "options":[
+      "written on a piece of paper in your pocket",
+      "shared with your best friend",
+      "posted on social media"
+    ],
+    "id":"computing_y3_0020",
+    "dataset":"converted_worksheet",
+    "explanation":"Good e-safety practice says you should keep passwords secure and private, not share them or write them down where others can find them.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Programming",
+    "year_level":4,
+    "question":"A block of code that repeats itself many times is called a:",
+    "correct":"Loop",
+    "options":[
+      "Variable",
+      "Function",
+      "Sequence"
+    ],
+    "id":"computing_y4_0017",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Loops",
+    "year_level":4,
+    "question":"A loop in coding means:",
+    "correct":"repeats a set of instructions multiple times",
+    "options":[
+      "runs only once",
+      "stops the computer from working",
+      "makes the program crash"
+    ],
+    "id":"computing_y4_0009",
+    "dataset":"converted_worksheet",
+    "explanation":"A loop in programming is when you tell the computer to do something again and again until a certain condition is met. It's like saying 'keep doing this task' rather than writing out the same code over and over.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Loops",
+    "year_level":4,
+    "question":"A loop in coding:",
+    "correct":"Repeats code",
+    "options":[
+      "Deletes code",
+      "Stops code",
+      "Hides code"
+    ],
+    "id":"computing_y4_0005",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Networks",
+    "year_level":4,
+    "question":"A network connects:",
+    "correct":"Multiple computers",
+    "options":[
+      "One computer only",
+      "Printers only",
+      "Phones only"
+    ],
+    "id":"computing_y4_0009",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Variables",
+    "year_level":4,
+    "question":"A variable stores:",
+    "correct":"Data that can change",
+    "options":[
+      "Only numbers",
+      "Only text",
+      "Nothing"
+    ],
+    "id":"computing_y4_0026",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Variables",
+    "year_level":4,
+    "question":"A variable stores: A fixed number that never changes, The instructions for how to run a program, A value that can change during program execution, A list of all computer files",
+    "correct":"A value that can change during program execution",
+    "options":[
+      "A fixed number that never changes",
+      "The instructions for how to run a program",
+      "A list of all computer files"
+    ],
+    "id":"computing_y4_0018",
+    "dataset":"converted_worksheet",
+    "explanation":"A variable in computing is like a container that holds data which can be changed while the program is running. For example, if you have a variable called 'score' that starts at 0, it can change to 10, 25, or any other number as the game progresses.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Debugging",
+    "year_level":4,
+    "question":"Debugging means:",
+    "correct":"Finding and fixing errors",
+    "options":[
+      "Writing code",
+      "Deleting code",
+      "Running code"
+    ],
+    "id":"computing_y4_0001",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Online Safety",
+    "year_level":4,
+    "question":"If you see something upsetting online, what should you do?",
+    "correct":"Tell a trusted grown-up immediately",
+    "options":[
+      "Delete the message and forget about it",
+      "Share it with your friends to discuss",
+      "Try to find out who posted it"
+    ],
+    "id":"computing_y4_0014",
+    "dataset":"converted_worksheet",
+    "explanation":"When you see upsetting content online, tell a trusted grown-up like a parent or teacher straight away so they can help keep you safe.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Online Safety",
+    "year_level":4,
+    "question":"If you see something upsetting online, you should:",
+    "correct":"Tell an trusted grown-up",
+    "options":[
+      "Ignore it",
+      "Share it",
+      "Reply to it"
+    ],
+    "id":"computing_y4_0013",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Programming",
+    "year_level":4,
+    "question":"In computer programming, what do we call a section of code that runs over and over again?",
+    "correct":"loop",
+    "options":[
+      "function",
+      "variable",
+      "algorithm"
+    ],
+    "id":"computing_y4_0001",
+    "dataset":"converted_worksheet",
+    "explanation":"A loop is a programming block that repeats the same set of instructions multiple times until a certain condition is met. Functions are blocks of code that perform specific tasks, variables store data values, and algorithms are step-by-step problem-solving procedures.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Programming",
+    "year_level":4,
+    "question":"In computing, what do we call a part of the program that runs again and again until it's told to stop?",
+    "correct":"Loop",
+    "options":[
+      "Function",
+      "Variable",
+      "Array"
+    ],
+    "id":"computing_y4_0029",
+    "dataset":"converted_worksheet",
+    "explanation":"A loop is a programming construct that repeats a block of code multiple times until a condition is met. Functions are reusable blocks of code, variables store data, and arrays store multiple values.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Programming",
+    "year_level":4,
+    "question":"In computing, what do we call a part of the program that runs the same instructions over and over again?",
+    "correct":"Loop",
+    "options":[
+      "Function",
+      "Variable",
+      "Algorithm"
+    ],
+    "id":"computing_y4_0022",
+    "dataset":"converted_worksheet",
+    "explanation":"A loop is a programming construct that repeats a block of code multiple times until a condition is met. Functions are reusable code blocks, variables store data, and algorithms are step-by-step procedures.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Programming",
+    "year_level":4,
+    "question":"In computing, what do we call a section of code that runs over and over again?",
+    "correct":"Loop",
+    "options":[
+      "Function",
+      "Variable",
+      "Algorithm"
+    ],
+    "id":"computing_y4_0015",
+    "dataset":"converted_worksheet",
+    "explanation":"A loop is a programming block that repeats instructions multiple times until a condition is met. Functions are blocks of code that perform specific tasks, variables store data values, and algorithms are step-by-step problem-solving procedures.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Programming",
+    "year_level":4,
+    "question":"In computing, what do we call a section of program code that runs again and again?",
+    "correct":"Loop",
+    "options":[
+      "Function",
+      "Variable",
+      "Array"
+    ],
+    "id":"computing_y4_0008",
+    "dataset":"converted_worksheet",
+    "explanation":"A loop is a programming construct that repeats a block of code multiple times until a condition is met. Functions are reusable blocks of code, variables store data, and arrays store collections of data.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Programming",
+    "year_level":4,
+    "question":"Practice 1: A block of code that repeats itself many times is called a:",
+    "correct":"Loop",
+    "options":[
+      "Variable",
+      "Function",
+      "Sequence"
+    ],
+    "id":"computing_y4_0018",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Loops",
+    "year_level":4,
+    "question":"Practice 1: A loop in coding:",
+    "correct":"Repeats code",
+    "options":[
+      "Deletes code",
+      "Stops code",
+      "Hides code"
+    ],
+    "id":"computing_y4_0006",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Networks",
+    "year_level":4,
+    "question":"Practice 1: A network connects:",
+    "correct":"Multiple computers",
+    "options":[
+      "One computer only",
+      "Printers only",
+      "Phones only"
+    ],
+    "id":"computing_y4_0010",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Variables",
+    "year_level":4,
+    "question":"Practice 1: A variable stores:",
+    "correct":"Data that can change",
+    "options":[
+      "Only numbers",
+      "Only text",
+      "Nothing"
+    ],
+    "id":"computing_y4_0027",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Debugging",
+    "year_level":4,
+    "question":"Practice 1: Debugging means:",
+    "correct":"Finding and fixing errors",
+    "options":[
+      "Writing code",
+      "Deleting code",
+      "Running code"
+    ],
+    "id":"computing_y4_0002",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Online Safety",
+    "year_level":4,
+    "question":"Practice 1: If you see something upsetting online, you should:",
+    "correct":"Tell an adult",
+    "options":[
+      "Ignore it",
+      "Share it",
+      "Reply to it"
+    ],
+    "id":"computing_y4_0014",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Repetition",
+    "year_level":4,
+    "question":"Practice 1: Repetition makes code:",
+    "correct":"More efficient",
+    "options":[
+      "Slower",
+      "Longer",
+      "Harder"
+    ],
+    "id":"computing_y4_0023",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Programming",
+    "year_level":4,
+    "question":"Practice 2: A block of code that repeats itself many times is called a:",
+    "correct":"Loop",
+    "options":[
+      "Variable",
+      "Function",
+      "Sequence"
+    ],
+    "id":"computing_y4_0019",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Loops",
+    "year_level":4,
+    "question":"Practice 2: A loop in coding:",
+    "correct":"Repeats code",
+    "options":[
+      "Deletes code",
+      "Stops code",
+      "Hides code"
+    ],
+    "id":"computing_y4_0007",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Networks",
+    "year_level":4,
+    "question":"Practice 2: A network connects:",
+    "correct":"Multiple computers",
+    "options":[
+      "One computer only",
+      "Printers only",
+      "Phones only"
+    ],
+    "id":"computing_y4_0011",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Variables",
+    "year_level":4,
+    "question":"Practice 2: A variable stores:",
+    "correct":"Data that can change",
+    "options":[
+      "Only numbers",
+      "Only text",
+      "Nothing"
+    ],
+    "id":"computing_y4_0028",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Debugging",
+    "year_level":4,
+    "question":"Practice 2: Debugging means:",
+    "correct":"Finding and fixing errors",
+    "options":[
+      "Writing code",
+      "Deleting code",
+      "Running code"
+    ],
+    "id":"computing_y4_0003",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Online Safety",
+    "year_level":4,
+    "question":"Practice 2: If you see something upsetting online, you should:",
+    "correct":"Tell an trusted grown-up",
+    "options":[
+      "Ignore it",
+      "Share it",
+      "Reply to it"
+    ],
+    "id":"computing_y4_0015",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Repetition",
+    "year_level":4,
+    "question":"Practice 2: Repetition makes code:",
+    "correct":"More efficient",
+    "options":[
+      "Slower",
+      "Longer",
+      "Harder"
+    ],
+    "id":"computing_y4_0024",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Programming",
+    "year_level":4,
+    "question":"Practice 3: A block of code that repeats itself many times is called a:",
+    "correct":"Loop",
+    "options":[
+      "Variable",
+      "Function",
+      "Sequence"
+    ],
+    "id":"computing_y4_0020",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Loops",
+    "year_level":4,
+    "question":"Practice 3: A loop in coding:",
+    "correct":"Repeats code",
+    "options":[
+      "Deletes code",
+      "Stops code",
+      "Hides code"
+    ],
+    "id":"computing_y4_0008",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Networks",
+    "year_level":4,
+    "question":"Practice 3: A network connects:",
+    "correct":"Multiple computers",
+    "options":[
+      "One computer only",
+      "Printers only",
+      "Phones only"
+    ],
+    "id":"computing_y4_0012",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Variables",
+    "year_level":4,
+    "question":"Practice 3: A variable stores:",
+    "correct":"Data that can change",
+    "options":[
+      "Only numbers",
+      "Only text",
+      "Nothing"
+    ],
+    "id":"computing_y4_0029",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Debugging",
+    "year_level":4,
+    "question":"Practice 3: Debugging means:",
+    "correct":"Finding and fixing errors",
+    "options":[
+      "Writing code",
+      "Deleting code",
+      "Running code"
+    ],
+    "id":"computing_y4_0004",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Online Safety",
+    "year_level":4,
+    "question":"Practice 3: If you see something upsetting online, you should:",
+    "correct":"Tell an trusted grown-up",
+    "options":[
+      "Ignore it",
+      "Share it",
+      "Reply to it"
+    ],
+    "id":"computing_y4_0016",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Repetition",
+    "year_level":4,
+    "question":"Practice 3: Repetition makes code:",
+    "correct":"More efficient",
+    "options":[
+      "Slower",
+      "Longer",
+      "Harder"
+    ],
+    "id":"computing_y4_0025",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Programming",
+    "year_level":4,
+    "question":"Practice 4: A block of code that repeats itself many times is called a:",
+    "correct":"Loop",
+    "options":[
+      "Variable",
+      "Function",
+      "Sequence"
+    ],
+    "id":"computing_y4_0021",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Repetition",
+    "year_level":4,
+    "question":"Repetition makes code:",
+    "correct":"More efficient",
+    "options":[
+      "Slower",
+      "Longer",
+      "Harder"
+    ],
+    "id":"computing_y4_0022",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Repetition",
+    "year_level":4,
+    "question":"Repetition makes code: A) more confusing B) run faster C) harder to read D) take longer to write",
+    "correct":"run faster",
+    "options":[
+      "more confusing",
+      "harder to read",
+      "take longer to write"
+    ],
+    "id":"computing_y4_0003",
+    "dataset":"converted_worksheet",
+    "explanation":"Repetition in coding means doing something multiple times, which actually makes the code run faster because it automates tasks instead of writing them out manually each time.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Debugging",
+    "year_level":4,
+    "question":"What does debugging mean in computing?",
+    "correct":"Finding and fixing errors in computer programs",
+    "options":[
+      "Writing new computer programs",
+      "Buying new computers",
+      "Playing video games on the computer"
+    ],
+    "id":"computing_y4_0005",
+    "dataset":"converted_worksheet",
+    "explanation":"Debugging is the process of finding mistakes (errors) in computer code and correcting them so the program works properly.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Debugging",
+    "year_level":4,
+    "question":"What does debugging mean when you are using a computer?",
+    "correct":"Finding and fixing mistakes in computer programs",
+    "options":[
+      "Writing new computer programs",
+      "Creating computer games",
+      "Buying new computers"
+    ],
+    "id":"computing_y4_0026",
+    "dataset":"converted_worksheet",
+    "explanation":"Debugging is the process of finding bugs (mistakes) in computer programs and fixing them so the program works correctly.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Data Handling",
+    "year_level":5,
+    "question":"A database stores:",
+    "correct":"Organized data",
+    "options":[
+      "Only numbers",
+      "Only pictures",
+      "Programs"
+    ],
+    "id":"computing_y5_0009",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Coding",
+    "year_level":5,
+    "question":"A function is:",
+    "correct":"Reusable code",
+    "options":[
+      "An error",
+      "A variable",
+      "A loop"
+    ],
+    "id":"computing_y5_0005",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Abstraction",
+    "year_level":5,
+    "question":"Abstraction in computing means:",
+    "correct":"Showing only the most important parts",
+    "options":[
+      "Hiding all details completely",
+      "Making things more complicated",
+      "Copying exact copies of something"
+    ],
+    "id":"computing_y5_0008",
+    "dataset":"converted_worksheet",
+    "explanation":"Abstraction in computing means showing only the essential features while hiding unnecessary details. It's like looking at a car and knowing it has wheels and an engine without needing to know every internal part.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Abstraction",
+    "year_level":5,
+    "question":"Abstraction means:",
+    "correct":"Hiding unnecessary details",
+    "options":[
+      "Adding more details",
+      "Deleting everything",
+      "Copying code"
+    ],
+    "id":"computing_y5_0001",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Selection",
+    "year_level":5,
+    "question":"An IF statement in coding:",
+    "correct":"Makes decisions",
+    "options":[
+      "Repeats code",
+      "Stores data",
+      "Deletes code"
+    ],
+    "id":"computing_y5_0017",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Data Handling",
+    "year_level":5,
+    "question":"Practice 1: A database stores:",
+    "correct":"Organized data",
+    "options":[
+      "Only numbers",
+      "Only pictures",
+      "Programs"
+    ],
+    "id":"computing_y5_0010",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Coding",
+    "year_level":5,
+    "question":"Practice 1: A function is:",
+    "correct":"Reusable code",
+    "options":[
+      "An error",
+      "A variable",
+      "A loop"
+    ],
+    "id":"computing_y5_0006",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Abstraction",
+    "year_level":5,
+    "question":"Practice 1: Abstraction means:",
+    "correct":"Hiding unnecessary details",
+    "options":[
+      "Adding more details",
+      "Deleting everything",
+      "Copying code"
+    ],
+    "id":"computing_y5_0002",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Selection",
+    "year_level":5,
+    "question":"Practice 1: An IF statement in coding:",
+    "correct":"Makes decisions",
+    "options":[
+      "Repeats code",
+      "Stores data",
+      "Deletes code"
+    ],
+    "id":"computing_y5_0018",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Internet",
+    "year_level":5,
+    "question":"Practice 1: The internet is:",
+    "correct":"A network of networks",
+    "options":[
+      "One computer",
+      "A single website",
+      "A program"
+    ],
+    "id":"computing_y5_0014",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Data Handling",
+    "year_level":5,
+    "question":"Practice 2: A database stores:",
+    "correct":"Organized data",
+    "options":[
+      "Only numbers",
+      "Only pictures",
+      "Programs"
+    ],
+    "id":"computing_y5_0011",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Coding",
+    "year_level":5,
+    "question":"Practice 2: A function is:",
+    "correct":"Reusable code",
+    "options":[
+      "An error",
+      "A variable",
+      "A loop"
+    ],
+    "id":"computing_y5_0007",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Abstraction",
+    "year_level":5,
+    "question":"Practice 2: Abstraction means:",
+    "correct":"Hiding unnecessary details",
+    "options":[
+      "Adding more details",
+      "Deleting everything",
+      "Copying code"
+    ],
+    "id":"computing_y5_0003",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Selection",
+    "year_level":5,
+    "question":"Practice 2: An IF statement in coding:",
+    "correct":"Makes decisions",
+    "options":[
+      "Repeats code",
+      "Stores data",
+      "Deletes code"
+    ],
+    "id":"computing_y5_0019",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Internet",
+    "year_level":5,
+    "question":"Practice 2: The internet is:",
+    "correct":"A network of networks",
+    "options":[
+      "One computer",
+      "A single website",
+      "A program"
+    ],
+    "id":"computing_y5_0015",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Data Handling",
+    "year_level":5,
+    "question":"Practice 3: A database stores:",
+    "correct":"Organized data",
+    "options":[
+      "Only numbers",
+      "Only pictures",
+      "Programs"
+    ],
+    "id":"computing_y5_0012",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Coding",
+    "year_level":5,
+    "question":"Practice 3: A function is:",
+    "correct":"Reusable code",
+    "options":[
+      "An error",
+      "A variable",
+      "A loop"
+    ],
+    "id":"computing_y5_0008",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Abstraction",
+    "year_level":5,
+    "question":"Practice 3: Abstraction means:",
+    "correct":"Hiding unnecessary details",
+    "options":[
+      "Adding more details",
+      "Deleting everything",
+      "Copying code"
+    ],
+    "id":"computing_y5_0004",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Selection",
+    "year_level":5,
+    "question":"Practice 3: An IF statement in coding:",
+    "correct":"Makes decisions",
+    "options":[
+      "Repeats code",
+      "Stores data",
+      "Deletes code"
+    ],
+    "id":"computing_y5_0020",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Internet",
+    "year_level":5,
+    "question":"Practice 3: The internet is:",
+    "correct":"A network of networks",
+    "options":[
+      "One computer",
+      "A single website",
+      "A program"
+    ],
+    "id":"computing_y5_0016",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Internet",
+    "year_level":5,
+    "question":"The internet is:",
+    "correct":"A network of networks",
+    "options":[
+      "One computer",
+      "A single website",
+      "A program"
+    ],
+    "id":"computing_y5_0013",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Internet",
+    "year_level":5,
+    "question":"The internet is: a) a single computer b) a type of software c) a global network of computers d) a local network",
+    "correct":"a global network of computers",
+    "options":[
+      "a single computer",
+      "a type of software",
+      "a local network"
+    ],
+    "id":"computing_y5_0012",
+    "dataset":"converted_worksheet",
+    "explanation":"The internet is a vast global network that connects millions of private and public computers worldwide, allowing them to communicate and share information.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Internet",
+    "year_level":5,
+    "question":"The internet is: a) a type of computer game b) a global network of computers c) a local library service d) a special kind of phone",
+    "correct":"a global network of computers",
+    "options":[
+      "a type of computer game",
+      "a local library service",
+      "a special kind of phone"
+    ],
+    "id":"computing_y5_0017",
+    "dataset":"converted_worksheet",
+    "explanation":"The internet is a vast global network that connects millions of computers worldwide, allowing them to communicate and share information.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Abstraction",
+    "year_level":5,
+    "question":"What does abstraction mean in computing?",
+    "correct":"Showing only the most important parts of something",
+    "options":[
+      "Hiding all the details completely",
+      "Making things more complicated than they need to be",
+      "Creating new technology from scratch"
+    ],
+    "id":"computing_y5_0003",
+    "dataset":"converted_worksheet",
+    "explanation":"Abstraction in computing means focusing on the essential features while ignoring unnecessary details. It's like looking at a map instead of seeing every building - you see what's important for navigation.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Selection",
+    "year_level":5,
+    "question":"What does an IF statement do in programming?",
+    "correct":"Runs a block of code only if a condition is true",
+    "options":[
+      "Runs a block of code every time",
+      "Runs a block of code only if a condition is false",
+      "Stops the program from running"
+    ],
+    "id":"computing_y5_0006",
+    "dataset":"converted_worksheet",
+    "explanation":"An IF statement in coding checks if a condition is true, and if it is, it runs the code inside the brackets. If the condition is false, it skips that code.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Coding",
+    "year_level":5,
+    "question":"What is a function in coding?",
+    "correct":"A block of code that performs a specific task",
+    "options":[
+      "A type of computer virus",
+      "A way to store data on disk",
+      "An animal in the programming forest"
+    ],
+    "id":"computing_y5_0005",
+    "dataset":"converted_worksheet",
+    "explanation":"A function in computing is a reusable block of code that carries out a particular job. It's like a mini-program that you can call upon whenever you need it, making your code more organized and efficient.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Coding",
+    "year_level":5,
+    "question":"What is a function in computing?",
+    "correct":"A block of code that performs a specific task",
+    "options":[
+      "A type of computer virus",
+      "A way to store data permanently",
+      "A method for connecting computers"
+    ],
+    "id":"computing_y5_0010",
+    "dataset":"converted_worksheet",
+    "explanation":"A function in coding is like a reusable recipe that tells the computer how to do something specific. It's a block of code designed to perform one particular job.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Internet",
+    "year_level":5,
+    "question":"What is the internet?",
+    "correct":"a global network of computers",
+    "options":[
+      "a single computer in London",
+      "a phone app for games",
+      "a library with books"
+    ],
+    "id":"computing_y5_0007",
+    "dataset":"converted_worksheet",
+    "explanation":"The internet is a vast network that connects millions of computers worldwide so they can communicate and share information.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Sensors",
+    "year_level":6,
+    "question":"A sensor:",
+    "correct":"Detects physical input",
+    "options":[
+      "Displays output",
+      "Stores data",
+      "Deletes files"
+    ],
+    "id":"computing_y6_0017",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Sensors",
+    "year_level":6,
+    "question":"A sensor: A) detects changes in the environment B) makes things move automatically C) creates electricity from light D) stores information for later use",
+    "correct":"detects changes in the environment",
+    "options":[
+      "makes things move automatically",
+      "creates electricity from light",
+      "stores information for later use"
+    ],
+    "id":"computing_y6_0018",
+    "dataset":"converted_worksheet",
+    "explanation":"A sensor is a device that detects and responds to changes in the environment such as temperature, light, or motion. It's like having a special 'watchful eye' that notices when something changes around it.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Sensors",
+    "year_level":6,
+    "question":"A sensor: A) detects changes in the environment B) makes things move automatically C) creates electricity from sunlight D) replaces batteries in devices",
+    "correct":"detects changes in the environment",
+    "options":[
+      "makes things move automatically",
+      "creates electricity from sunlight",
+      "replaces batteries in devices"
+    ],
+    "id":"computing_y6_0013",
+    "dataset":"converted_worksheet",
+    "explanation":"A sensor is a device that detects and responds to changes in light, temperature, sound, or other physical conditions in its surroundings.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Sensors",
+    "year_level":6,
+    "question":"A sensor: A) detects changes in the environment B) makes things move automatically C) stores computer data permanently D) creates electricity from sunlight",
+    "correct":"detects changes in the environment",
+    "options":[
+      "makes things move automatically",
+      "stores computer data permanently",
+      "creates electricity from sunlight"
+    ],
+    "id":"computing_y6_0008",
+    "dataset":"converted_worksheet",
+    "explanation":"A sensor is a device that detects and responds to changes in light, heat, sound, pressure, or other environmental conditions. It converts these physical changes into electrical signals that can be processed by computers.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Sensors",
+    "year_level":6,
+    "question":"A sensor: detects changes in the environment makes sounds when touched controls lights automatically creates electricity from sunlight",
+    "correct":"detects changes in the environment",
+    "options":[
+      "makes sounds when touched",
+      "controls lights automatically",
+      "creates electricity from sunlight"
+    ],
+    "id":"computing_y6_0003",
+    "dataset":"converted_worksheet",
+    "explanation":"A sensor is a device that detects and responds to changes in things like light, temperature, or movement in the environment around it.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Cybersecurity",
+    "year_level":6,
+    "question":"A strong password should contain uppercase and lowercase letters, numbers and symbols.",
+    "correct":"contain uppercase and lowercase letters, numbers and symbols",
+    "options":[
+      "be easy to remember like your name",
+      "only use lowercase letters",
+      "be the same as your friend's password"
+    ],
+    "id":"computing_y6_0015",
+    "dataset":"converted_worksheet",
+    "explanation":"A strong password needs mixed characters including uppercase and lowercase letters, numbers, and symbols to make it hard for hackers to guess or crack. Simple passwords like names or repeated letters are easy for others to figure out.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Cybersecurity",
+    "year_level":6,
+    "question":"A strong password should:",
+    "correct":"Be long and complex",
+    "options":[
+      "Be simple",
+      "Be your name",
+      "Be '123456'"
+    ],
+    "id":"computing_y6_0013",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Algorithms",
+    "year_level":6,
+    "question":"An efficient algorithm:",
+    "correct":"Uses fewer steps",
+    "options":[
+      "Uses more steps",
+      "Is slower",
+      "Is longer"
+    ],
+    "id":"computing_y6_0001",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Algorithms",
+    "year_level":6,
+    "question":"An efficient algorithm: A) finds the solution quickly B) is written in a simple language C) uses lots of steps to solve problems D) works on any type of computer",
+    "correct":"finds the solution quickly",
+    "options":[
+      "is written in a simple language",
+      "uses lots of steps to solve problems",
+      "works on any type of computer"
+    ],
+    "id":"computing_y6_0004",
+    "dataset":"converted_worksheet",
+    "explanation":"An efficient algorithm is one that solves problems quickly and uses minimal resources. It finds solutions fast rather than taking a long time or using many complicated steps.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Boolean Logic",
+    "year_level":6,
+    "question":"Boolean values are:",
+    "correct":"True or False",
+    "options":[
+      "Numbers",
+      "Text",
+      "Colors"
+    ],
+    "id":"computing_y6_0009",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Binary",
+    "year_level":6,
+    "question":"Computers use binary which has:",
+    "correct":"Two digits: 0 and 1",
+    "options":[
+      "Ten digits",
+      "Twenty-six letters",
+      "Three digits"
+    ],
+    "id":"computing_y6_0005",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Sensors",
+    "year_level":6,
+    "question":"Practice 1: A sensor:",
+    "correct":"Detects physical input",
+    "options":[
+      "Displays output",
+      "Stores data",
+      "Deletes files"
+    ],
+    "id":"computing_y6_0018",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Cybersecurity",
+    "year_level":6,
+    "question":"Practice 1: A strong password should:",
+    "correct":"Be long and complex",
+    "options":[
+      "Be simple",
+      "Be your name",
+      "Be '123456'"
+    ],
+    "id":"computing_y6_0014",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Algorithms",
+    "year_level":6,
+    "question":"Practice 1: An efficient algorithm:",
+    "correct":"Uses fewer steps",
+    "options":[
+      "Uses more steps",
+      "Is slower",
+      "Is longer"
+    ],
+    "id":"computing_y6_0002",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Boolean Logic",
+    "year_level":6,
+    "question":"Practice 1: Boolean values are:",
+    "correct":"True or False",
+    "options":[
+      "Numbers",
+      "Text",
+      "Colors"
+    ],
+    "id":"computing_y6_0010",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Binary",
+    "year_level":6,
+    "question":"Practice 1: Computers use binary which has:",
+    "correct":"Two digits: 0 and 1",
+    "options":[
+      "Ten digits",
+      "Twenty-six letters",
+      "Three digits"
+    ],
+    "id":"computing_y6_0006",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Sensors",
+    "year_level":6,
+    "question":"Practice 2: A sensor:",
+    "correct":"Detects physical input",
+    "options":[
+      "Displays output",
+      "Stores data",
+      "Deletes files"
+    ],
+    "id":"computing_y6_0019",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Cybersecurity",
+    "year_level":6,
+    "question":"Practice 2: A strong password should:",
+    "correct":"Be long and complex",
+    "options":[
+      "Be simple",
+      "Be your name",
+      "Be '123456'"
+    ],
+    "id":"computing_y6_0015",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Algorithms",
+    "year_level":6,
+    "question":"Practice 2: An efficient algorithm:",
+    "correct":"Uses fewer steps",
+    "options":[
+      "Uses more steps",
+      "Is slower",
+      "Is longer"
+    ],
+    "id":"computing_y6_0003",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Boolean Logic",
+    "year_level":6,
+    "question":"Practice 2: Boolean values are:",
+    "correct":"True or False",
+    "options":[
+      "Numbers",
+      "Text",
+      "Colors"
+    ],
+    "id":"computing_y6_0011",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Binary",
+    "year_level":6,
+    "question":"Practice 2: Computers use binary which has:",
+    "correct":"Two digits: 0 and 1",
+    "options":[
+      "Ten digits",
+      "Twenty-six letters",
+      "Three digits"
+    ],
+    "id":"computing_y6_0007",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Sensors",
+    "year_level":6,
+    "question":"Practice 3: A sensor:",
+    "correct":"Detects physical input",
+    "options":[
+      "Displays output",
+      "Stores data",
+      "Deletes files"
+    ],
+    "id":"computing_y6_0020",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Cybersecurity",
+    "year_level":6,
+    "question":"Practice 3: A strong password should:",
+    "correct":"Be long and complex",
+    "options":[
+      "Be simple",
+      "Be your name",
+      "Be '123456'"
+    ],
+    "id":"computing_y6_0016",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Algorithms",
+    "year_level":6,
+    "question":"Practice 3: An efficient algorithm:",
+    "correct":"Uses fewer steps",
+    "options":[
+      "Uses more steps",
+      "Is slower",
+      "Is longer"
+    ],
+    "id":"computing_y6_0004",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Boolean Logic",
+    "year_level":6,
+    "question":"Practice 3: Boolean values are:",
+    "correct":"True or False",
+    "options":[
+      "Numbers",
+      "Text",
+      "Colors"
+    ],
+    "id":"computing_y6_0012",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Binary",
+    "year_level":6,
+    "question":"Practice 3: Computers use binary which has:",
+    "correct":"Two digits: 0 and 1",
+    "options":[
+      "Ten digits",
+      "Twenty-six letters",
+      "Three digits"
+    ],
+    "id":"computing_y6_0008",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Boolean Logic",
+    "year_level":6,
+    "question":"What are Boolean values?",
+    "correct":"True or False",
+    "options":[
+      "0 or 1",
+      "On or Off",
+      "Yes or No"
+    ],
+    "id":"computing_y6_0002",
+    "dataset":"converted_worksheet",
+    "explanation":"Boolean logic uses only two values: True or False. These represent the two possible states in binary logic systems used in computing.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Algorithms",
+    "year_level":6,
+    "question":"What does it mean for an algorithm to be efficient?",
+    "correct":"Completes tasks quickly and accurately",
+    "options":[
+      "Uses lots of complicated steps",
+      "Takes forever to finish",
+      "Makes mistakes often"
+    ],
+    "id":"computing_y6_0009",
+    "dataset":"converted_worksheet",
+    "explanation":"An efficient algorithm is one that solves problems quickly and with few errors. It uses the best possible steps to get the job done in the least amount of time.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Algorithms",
+    "year_level":6,
+    "question":"Which of these best describes an efficient algorithm?",
+    "correct":"Completes tasks quickly and accurately",
+    "options":[
+      "Uses lots of complicated steps",
+      "Takes forever to finish",
+      "Makes mistakes often"
+    ],
+    "id":"computing_y6_0014",
+    "dataset":"converted_worksheet",
+    "explanation":"An efficient algorithm is one that solves problems quickly and correctly without wasting time or resources. It's like finding the fastest way to get from school to home.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Computing",
+    "topic":"Algorithms",
+    "year_level":6,
+    "question":"Which of these describes an efficient algorithm?",
+    "correct":"Completes a task in the shortest time possible",
+    "options":[
+      "Uses the most expensive computer resources",
+      "Has the longest execution time",
+      "Requires no programming knowledge"
+    ],
+    "id":"computing_y6_0019",
+    "dataset":"converted_worksheet",
+    "explanation":"An efficient algorithm is one that solves a problem quickly and uses minimal resources. It completes tasks in the shortest time possible, making it more effective than other methods.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  }
+]

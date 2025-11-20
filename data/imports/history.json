@@ -1,0 +1,2280 @@
+[
+  {
+    "subject":"History",
+    "topic":"Ancient Egypt",
+    "year_level":3,
+    "question":"Ancient Egyptian rulers were called:",
+    "correct":"Pharaohs",
+    "options":[
+      "Kings",
+      "Emperors",
+      "Presidents"
+    ],
+    "id":"history_y3_0001",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Ancient Egypt",
+    "year_level":3,
+    "question":"Ancient Egyptians wrote using:",
+    "correct":"Hieroglyphics",
+    "options":[
+      "Alphabet",
+      "Numbers only",
+      "No writing"
+    ],
+    "id":"history_y3_0003",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Bronze Age",
+    "year_level":3,
+    "question":"Bronze is a mixture of:",
+    "correct":"Copper and tin",
+    "options":[
+      "Iron and gold",
+      "Silver and steel",
+      "Wood and stone"
+    ],
+    "id":"history_y3_0013",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Ancient Egypt",
+    "year_level":3,
+    "question":"How did Ancient Egyptians write their language?",
+    "correct":"Hieroglyphs",
+    "options":[
+      "Papyrus",
+      "Cuneiform",
+      "Runes"
+    ],
+    "id":"history_y3_0016",
+    "dataset":"converted_worksheet",
+    "explanation":"Ancient Egyptians used hieroglyphs, which are picture symbols, to write their language. Papyrus was the writing material they used, cuneiform was used by Mesopotamians, and runes were used by Norse people.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Ancient Egypt",
+    "year_level":3,
+    "question":"How did Ancient Egyptians write their messages and stories?",
+    "correct":"Hieroglyphics",
+    "options":[
+      "Papyrus",
+      "Cuneiform",
+      "Demotic"
+    ],
+    "id":"history_y3_0008",
+    "dataset":"converted_worksheet",
+    "explanation":"Ancient Egyptians used hieroglyphics, which are picture symbols, to write their language. Papyrus was the writing material they used, cuneiform was used by Mesopotamians, and demotic was a later Egyptian script.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Iron Age",
+    "year_level":3,
+    "question":"Iron Age people lived in:",
+    "correct":"Hill forts",
+    "options":[
+      "Castles",
+      "Skyscrapers",
+      "Caves only"
+    ],
+    "id":"history_y3_0017",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Iron Age",
+    "year_level":3,
+    "question":"Iron Age people lived in: A) deserts and mountains B) hills and valleys C) cities and towns D) forests and lakes",
+    "correct":"hills and valleys",
+    "options":[
+      "deserts and mountains",
+      "cities and towns",
+      "forests and lakes"
+    ],
+    "id":"history_y3_0029",
+    "dataset":"converted_worksheet",
+    "explanation":"Iron Age people built their settlements on hills and valleys for protection and good drainage. They chose elevated ground to defend themselves from enemies and animals.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Iron Age",
+    "year_level":3,
+    "question":"Iron Age people lived in: A) deserts and mountains B) hills and valleys C) plains and forests D) oceans and caves",
+    "correct":"hills and valleys",
+    "options":[
+      "deserts and mountains",
+      "plains and forests",
+      "oceans and caves"
+    ],
+    "id":"history_y3_0021",
+    "dataset":"converted_worksheet",
+    "explanation":"Iron Age people built their settlements on hills and valleys for protection and better drainage. They chose elevated ground to defend themselves from enemies and animals.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Iron Age",
+    "year_level":3,
+    "question":"Iron Age people lived in: A) stone castles with towers B) round houses with thatched roofs C) wooden huts with clay floors D) caves under the mountains",
+    "correct":"round houses with thatched roofs",
+    "options":[
+      "stone castles with towers",
+      "wooden huts with clay floors",
+      "caves under the mountains"
+    ],
+    "id":"history_y3_0005",
+    "dataset":"converted_worksheet",
+    "explanation":"Iron Age people built round houses with wooden frames and thatched roofs for their homes. These were sturdy buildings that kept them warm and protected from weather.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Ancient Egypt",
+    "year_level":3,
+    "question":"Practice 1: Ancient Egyptian rulers were called:",
+    "correct":"Pharaohs",
+    "options":[
+      "Kings",
+      "Emperors",
+      "Presidents"
+    ],
+    "id":"history_y3_0004",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Ancient Egypt",
+    "year_level":3,
+    "question":"Practice 1: Ancient Egyptians wrote using:",
+    "correct":"Hieroglyphics",
+    "options":[
+      "Alphabet",
+      "Numbers only",
+      "No writing"
+    ],
+    "id":"history_y3_0006",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Bronze Age",
+    "year_level":3,
+    "question":"Practice 1: Bronze is a mixture of:",
+    "correct":"Copper and tin",
+    "options":[
+      "Iron and gold",
+      "Silver and steel",
+      "Wood and stone"
+    ],
+    "id":"history_y3_0014",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Iron Age",
+    "year_level":3,
+    "question":"Practice 1: Iron Age people lived in:",
+    "correct":"Hill forts",
+    "options":[
+      "Castles",
+      "Skyscrapers",
+      "Caves only"
+    ],
+    "id":"history_y3_0018",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Stone Age",
+    "year_level":3,
+    "question":"Practice 1: Stone Age people were:",
+    "correct":"Hunter-gatherers",
+    "options":[
+      "Farmers only",
+      "City builders",
+      "Factory workers"
+    ],
+    "id":"history_y3_0025",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Stone Age",
+    "year_level":3,
+    "question":"Practice 1: Stonehenge was built in:",
+    "correct":"The Stone Age",
+    "options":[
+      "Roman times",
+      "Victorian era",
+      "Medieval times"
+    ],
+    "id":"history_y3_0026",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Ancient Egypt",
+    "year_level":3,
+    "question":"Practice 1: The pyramids were built as:",
+    "correct":"Tombs",
+    "options":[
+      "Houses",
+      "Shops",
+      "Schools"
+    ],
+    "id":"history_y3_0005",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Stone Age",
+    "year_level":3,
+    "question":"Practice 1: What material did Stone Age people use most to make their tools?",
+    "correct":"Flint\/Stone",
+    "options":[
+      "Metal",
+      "Plastic",
+      "Wood"
+    ],
+    "id":"history_y3_0024",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Ancient Egypt",
+    "year_level":3,
+    "question":"Practice 2: Ancient Egyptian rulers were called:",
+    "correct":"Pharaohs",
+    "options":[
+      "Kings",
+      "Emperors",
+      "Presidents"
+    ],
+    "id":"history_y3_0007",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Ancient Egypt",
+    "year_level":3,
+    "question":"Practice 2: Ancient Egyptians wrote using:",
+    "correct":"Hieroglyphics",
+    "options":[
+      "Alphabet",
+      "Numbers only",
+      "No writing"
+    ],
+    "id":"history_y3_0009",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Bronze Age",
+    "year_level":3,
+    "question":"Practice 2: Bronze is a mixture of:",
+    "correct":"Copper and tin",
+    "options":[
+      "Iron and gold",
+      "Silver and steel",
+      "Wood and stone"
+    ],
+    "id":"history_y3_0015",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Iron Age",
+    "year_level":3,
+    "question":"Practice 2: Iron Age people lived in:",
+    "correct":"Hill forts",
+    "options":[
+      "Castles",
+      "Skyscrapers",
+      "Caves only"
+    ],
+    "id":"history_y3_0019",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Stone Age",
+    "year_level":3,
+    "question":"Practice 2: Stone Age people were:",
+    "correct":"Hunter-gatherers",
+    "options":[
+      "Farmers only",
+      "City builders",
+      "Factory workers"
+    ],
+    "id":"history_y3_0028",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Stone Age",
+    "year_level":3,
+    "question":"Practice 2: Stonehenge was built in:",
+    "correct":"The Stone Age",
+    "options":[
+      "Roman times",
+      "Victorian era",
+      "Medieval times"
+    ],
+    "id":"history_y3_0029",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Ancient Egypt",
+    "year_level":3,
+    "question":"Practice 2: The pyramids were built as:",
+    "correct":"Tombs",
+    "options":[
+      "Houses",
+      "Shops",
+      "Schools"
+    ],
+    "id":"history_y3_0008",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Stone Age",
+    "year_level":3,
+    "question":"Practice 2: What material did Stone Age people use most to make their tools?",
+    "correct":"Flint\/Stone",
+    "options":[
+      "Metal",
+      "Plastic",
+      "Wood"
+    ],
+    "id":"history_y3_0027",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Ancient Egypt",
+    "year_level":3,
+    "question":"Practice 3: Ancient Egyptian rulers were called:",
+    "correct":"Pharaohs",
+    "options":[
+      "Kings",
+      "Emperors",
+      "Presidents"
+    ],
+    "id":"history_y3_0010",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Ancient Egypt",
+    "year_level":3,
+    "question":"Practice 3: Ancient Egyptians wrote using:",
+    "correct":"Hieroglyphics",
+    "options":[
+      "Alphabet",
+      "Numbers only",
+      "No writing"
+    ],
+    "id":"history_y3_0012",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Bronze Age",
+    "year_level":3,
+    "question":"Practice 3: Bronze is a mixture of:",
+    "correct":"Copper and tin",
+    "options":[
+      "Iron and gold",
+      "Silver and steel",
+      "Wood and stone"
+    ],
+    "id":"history_y3_0016",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Iron Age",
+    "year_level":3,
+    "question":"Practice 3: Iron Age people lived in:",
+    "correct":"Hill forts",
+    "options":[
+      "Castles",
+      "Skyscrapers",
+      "Caves only"
+    ],
+    "id":"history_y3_0020",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Stone Age",
+    "year_level":3,
+    "question":"Practice 3: Stone Age people were:",
+    "correct":"Hunter-gatherers",
+    "options":[
+      "Farmers only",
+      "City builders",
+      "Factory workers"
+    ],
+    "id":"history_y3_0031",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Stone Age",
+    "year_level":3,
+    "question":"Practice 3: Stonehenge was built in:",
+    "correct":"The Stone Age",
+    "options":[
+      "Roman times",
+      "Victorian era",
+      "Medieval times"
+    ],
+    "id":"history_y3_0032",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Ancient Egypt",
+    "year_level":3,
+    "question":"Practice 3: The pyramids were built as:",
+    "correct":"Tombs",
+    "options":[
+      "Houses",
+      "Shops",
+      "Schools"
+    ],
+    "id":"history_y3_0011",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Stone Age",
+    "year_level":3,
+    "question":"Practice 3: What material did Stone Age people use most to make their tools?",
+    "correct":"Flint\/Stone",
+    "options":[
+      "Metal",
+      "Plastic",
+      "Wood"
+    ],
+    "id":"history_y3_0030",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Stone Age",
+    "year_level":3,
+    "question":"Stone Age people were:",
+    "correct":"Hunter-gatherers",
+    "options":[
+      "Farmers only",
+      "City builders",
+      "Factory workers"
+    ],
+    "id":"history_y3_0022",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Stone Age",
+    "year_level":3,
+    "question":"Stone Age people were: A) farmers and builders B) hunters and gatherers C) fishermen and traders D) craftsmen and artists",
+    "correct":"hunters and gatherers",
+    "options":[
+      "farmers and builders",
+      "fishermen and traders",
+      "craftsmen and artists"
+    ],
+    "id":"history_y3_0010",
+    "dataset":"converted_worksheet",
+    "explanation":"Stone Age people lived by hunting animals and gathering wild plants, fruits, nuts, and berries. They didn't farm or build permanent houses yet.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Stone Age",
+    "year_level":3,
+    "question":"Stone Age people were: A) the first people to use fire B) very good at making tools from stone C) the first people to grow crops D) the first people to build castles",
+    "correct":"very good at making tools from stone",
+    "options":[
+      "the first people to use fire",
+      "the first people to grow crops",
+      "the first people to build castles"
+    ],
+    "id":"history_y3_0018",
+    "dataset":"converted_worksheet",
+    "explanation":"Stone Age people were skilled at making tools and weapons from stone, which was their main material for creating useful items. While they did use fire and some grew plants, the key skill that defines Stone Age people is their ability to make stone tools.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Stone Age",
+    "year_level":3,
+    "question":"Stone Age people were: Hunters and gatherers, Farmers and builders, Shopkeepers and merchants, Scientists and inventors",
+    "correct":"hunters and gatherers",
+    "options":[
+      "farmers and builders",
+      "shopkeepers and merchants",
+      "scientists and inventors"
+    ],
+    "id":"history_y3_0002",
+    "dataset":"converted_worksheet",
+    "explanation":"Stone Age people lived by hunting animals and gathering food from nature because they didn't know how to grow crops or make tools from metal yet.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Stone Age",
+    "year_level":3,
+    "question":"Stonehenge was built in:",
+    "correct":"The Stone Age",
+    "options":[
+      "Roman times",
+      "Victorian era",
+      "Medieval times"
+    ],
+    "id":"history_y3_0023",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Ancient Egypt",
+    "year_level":3,
+    "question":"The pyramids were built as:",
+    "correct":"Tombs",
+    "options":[
+      "Houses",
+      "Shops",
+      "Schools"
+    ],
+    "id":"history_y3_0002",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Stone Age",
+    "year_level":3,
+    "question":"What material did Stone Age people use most to make their tools?",
+    "correct":"Flint\/Stone",
+    "options":[
+      "Metal",
+      "Plastic",
+      "Wood"
+    ],
+    "id":"history_y3_0021",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Bronze Age",
+    "year_level":3,
+    "question":"What two metals are mixed together to make bronze in the Bronze Age?",
+    "correct":"copper and tin",
+    "options":[
+      "gold and silver",
+      "iron and steel",
+      "lead and zinc"
+    ],
+    "id":"history_y3_0028",
+    "dataset":"converted_worksheet",
+    "explanation":"Bronze is made by mixing copper and tin together. This alloy was much stronger than pure copper and allowed the Bronze Age people to make better tools and weapons.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Bronze Age",
+    "year_level":3,
+    "question":"What two metals are mixed together to make bronze?",
+    "correct":"copper and tin",
+    "options":[
+      "iron and steel",
+      "gold and silver",
+      "lead and zinc"
+    ],
+    "id":"history_y3_0004",
+    "dataset":"converted_worksheet",
+    "explanation":"Bronze is made by mixing copper and tin together. This alloy was very important during the Bronze Age because it was stronger and more useful than pure copper.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Ancient Egypt",
+    "year_level":3,
+    "question":"What were ancient Egyptian rulers called?",
+    "correct":"Pharaohs",
+    "options":[
+      "Kings",
+      "Queens",
+      "Scribes"
+    ],
+    "id":"history_y3_0006",
+    "dataset":"converted_worksheet",
+    "explanation":"Ancient Egyptian rulers were known as Pharaohs. This title was used for the kings who ruled Egypt and was considered to be divine.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Ancient Greece",
+    "year_level":4,
+    "question":"A Greek city-state was called a:",
+    "correct":"Polis",
+    "options":[
+      "Village",
+      "Empire",
+      "Kingdom"
+    ],
+    "id":"history_y4_0003",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Romans",
+    "year_level":4,
+    "question":"A Roman soldier was called a:",
+    "correct":"Legionary",
+    "options":[
+      "Knight",
+      "Viking",
+      "Samurai"
+    ],
+    "id":"history_y4_0016",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Ancient Greece",
+    "year_level":4,
+    "question":"Greek gods lived on Mount:",
+    "correct":"Olympus",
+    "options":[
+      "Everest",
+      "Vesuvius",
+      "Sinai"
+    ],
+    "id":"history_y4_0002",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Ancient Greece",
+    "year_level":4,
+    "question":"Practice 1: A Greek city-state was called a:",
+    "correct":"Polis",
+    "options":[
+      "Village",
+      "Empire",
+      "Kingdom"
+    ],
+    "id":"history_y4_0006",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Romans",
+    "year_level":4,
+    "question":"Practice 1: A Roman soldier was called a:",
+    "correct":"Legionary",
+    "options":[
+      "Knight",
+      "Viking",
+      "Samurai"
+    ],
+    "id":"history_y4_0020",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Ancient Greece",
+    "year_level":4,
+    "question":"Practice 1: Greek gods lived on Mount:",
+    "correct":"Olympus",
+    "options":[
+      "Everest",
+      "Vesuvius",
+      "Sinai"
+    ],
+    "id":"history_y4_0005",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Romans",
+    "year_level":4,
+    "question":"Practice 1: Romans built straight:",
+    "correct":"Roads",
+    "options":[
+      "Rivers",
+      "Mountains",
+      "Forests"
+    ],
+    "id":"history_y4_0019",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Ancient Greece",
+    "year_level":4,
+    "question":"Practice 1: The Olympic Games began in:",
+    "correct":"Ancient Greece",
+    "options":[
+      "Rome",
+      "Egypt",
+      "Britain"
+    ],
+    "id":"history_y4_0004",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Romans",
+    "year_level":4,
+    "question":"Practice 1: The Romans invaded Britain in:",
+    "correct":"43 AD",
+    "options":[
+      "1066 AD",
+      "500 BC",
+      "1500 AD"
+    ],
+    "id":"history_y4_0018",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Romans",
+    "year_level":4,
+    "question":"Practice 1: What was the name of the wall built in the north of England by the Romans?",
+    "correct":"Hadrian's Wall",
+    "options":[
+      "The Great Wall",
+      "The Roman Wall",
+      "Severn's Wall"
+    ],
+    "id":"history_y4_0017",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Ancient Greece",
+    "year_level":4,
+    "question":"Practice 2: A Greek city-state was called a:",
+    "correct":"Polis",
+    "options":[
+      "Village",
+      "Empire",
+      "Kingdom"
+    ],
+    "id":"history_y4_0009",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Romans",
+    "year_level":4,
+    "question":"Practice 2: A Roman soldier was called a:",
+    "correct":"Legionary",
+    "options":[
+      "Knight",
+      "Viking",
+      "Samurai"
+    ],
+    "id":"history_y4_0024",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Ancient Greece",
+    "year_level":4,
+    "question":"Practice 2: Greek gods lived on Mount:",
+    "correct":"Olympus",
+    "options":[
+      "Everest",
+      "Vesuvius",
+      "Sinai"
+    ],
+    "id":"history_y4_0008",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Romans",
+    "year_level":4,
+    "question":"Practice 2: Romans built straight:",
+    "correct":"Roads",
+    "options":[
+      "Rivers",
+      "Mountains",
+      "Forests"
+    ],
+    "id":"history_y4_0023",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Ancient Greece",
+    "year_level":4,
+    "question":"Practice 2: The Olympic Games began in:",
+    "correct":"Ancient Greece",
+    "options":[
+      "Rome",
+      "Egypt",
+      "Britain"
+    ],
+    "id":"history_y4_0007",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Romans",
+    "year_level":4,
+    "question":"Practice 2: The Romans invaded Britain in:",
+    "correct":"43 AD",
+    "options":[
+      "1066 AD",
+      "500 BC",
+      "1500 AD"
+    ],
+    "id":"history_y4_0022",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Romans",
+    "year_level":4,
+    "question":"Practice 2: What was the name of the wall built in the north of England by the Romans?",
+    "correct":"Hadrian's Wall",
+    "options":[
+      "The Great Wall",
+      "The Roman Wall",
+      "Severn's Wall"
+    ],
+    "id":"history_y4_0021",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Ancient Greece",
+    "year_level":4,
+    "question":"Practice 3: A Greek city-state was called a:",
+    "correct":"Polis",
+    "options":[
+      "Village",
+      "Empire",
+      "Kingdom"
+    ],
+    "id":"history_y4_0012",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Romans",
+    "year_level":4,
+    "question":"Practice 3: A Roman soldier was called a:",
+    "correct":"Legionary",
+    "options":[
+      "Knight",
+      "Viking",
+      "Samurai"
+    ],
+    "id":"history_y4_0028",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Ancient Greece",
+    "year_level":4,
+    "question":"Practice 3: Greek gods lived on Mount:",
+    "correct":"Olympus",
+    "options":[
+      "Everest",
+      "Vesuvius",
+      "Sinai"
+    ],
+    "id":"history_y4_0011",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Romans",
+    "year_level":4,
+    "question":"Practice 3: Romans built straight:",
+    "correct":"Roads",
+    "options":[
+      "Rivers",
+      "Mountains",
+      "Forests"
+    ],
+    "id":"history_y4_0027",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Ancient Greece",
+    "year_level":4,
+    "question":"Practice 3: The Olympic Games began in:",
+    "correct":"Ancient Greece",
+    "options":[
+      "Rome",
+      "Egypt",
+      "Britain"
+    ],
+    "id":"history_y4_0010",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Romans",
+    "year_level":4,
+    "question":"Practice 3: The Romans invaded Britain in:",
+    "correct":"43 AD",
+    "options":[
+      "1066 AD",
+      "500 BC",
+      "1500 AD"
+    ],
+    "id":"history_y4_0026",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Romans",
+    "year_level":4,
+    "question":"Practice 3: What was the name of the wall built in the north of England by the Romans?",
+    "correct":"Hadrian's Wall",
+    "options":[
+      "The Great Wall",
+      "The Roman Wall",
+      "Severn's Wall"
+    ],
+    "id":"history_y4_0025",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Romans",
+    "year_level":4,
+    "question":"Romans built straight:",
+    "correct":"Roads",
+    "options":[
+      "Rivers",
+      "Mountains",
+      "Forests"
+    ],
+    "id":"history_y4_0015",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Romans",
+    "year_level":4,
+    "question":"Romans built straight: A) castles B) roads C) ships D) temples",
+    "correct":"roads",
+    "options":[
+      "castles",
+      "ships",
+      "temples"
+    ],
+    "id":"history_y4_0017",
+    "dataset":"converted_worksheet",
+    "explanation":"The Romans were famous for building straight, durable roads across their empire to help armies and trade move quickly. These roads were made of stone and brick and could last hundreds of years.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Ancient Greece",
+    "year_level":4,
+    "question":"The Olympic Games began in which ancient civilisation?",
+    "correct":"Ancient Greece",
+    "options":[
+      "Rome",
+      "Egypt",
+      "Mesopotamia"
+    ],
+    "id":"history_y4_0012",
+    "dataset":"converted_worksheet",
+    "explanation":"The Olympic Games first started in Ancient Greece around 776 BC in the city of Olympia. They were held every four years to honour the Greek god Zeus.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Ancient Greece",
+    "year_level":4,
+    "question":"The Olympic Games began in which ancient civilization?",
+    "correct":"Ancient Greece",
+    "options":[
+      "Rome",
+      "Egypt",
+      "Mesopotamia"
+    ],
+    "id":"history_y4_0005",
+    "dataset":"converted_worksheet",
+    "explanation":"The Olympic Games first began in ancient Greece around 776 BC in the city of Olympia. They were held every four years to honor the Greek god Zeus.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Ancient Greece",
+    "year_level":4,
+    "question":"The Olympic Games began in:",
+    "correct":"Ancient Greece",
+    "options":[
+      "Rome",
+      "Egypt",
+      "Britain"
+    ],
+    "id":"history_y4_0001",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Romans",
+    "year_level":4,
+    "question":"The Romans invaded Britain in:",
+    "correct":"43 AD",
+    "options":[
+      "1066 AD",
+      "500 BC",
+      "1500 AD"
+    ],
+    "id":"history_y4_0014",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Romans",
+    "year_level":4,
+    "question":"What was a Roman soldier called?",
+    "correct":"Centurion",
+    "options":[
+      "Legionary",
+      "Praetorian",
+      "Gladiator"
+    ],
+    "id":"history_y4_0004",
+    "dataset":"converted_worksheet",
+    "explanation":"A centurion was a Roman soldier who led a century of 80 men. While legionaries were the main soldiers and praetorians were elite guards, 'centurion' specifically referred to the officer rank who commanded troops.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Romans",
+    "year_level":4,
+    "question":"What was the name of the wall built in the north of England by the Romans?",
+    "correct":"Hadrian's Wall",
+    "options":[
+      "The Great Wall",
+      "The Roman Wall",
+      "Severn's Wall"
+    ],
+    "id":"history_y4_0013",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Romans",
+    "year_level":4,
+    "question":"What was the name of the wall that the Romans built across northern England?",
+    "correct":"Hadrian's Wall",
+    "options":[
+      "Vespasian's Wall",
+      "Titus's Wall",
+      "Trajan's Wall"
+    ],
+    "id":"history_y4_0008",
+    "dataset":"converted_worksheet",
+    "explanation":"Hadrian's Wall was built by Emperor Hadrian in the 120s AD across northern England to mark the boundary of the Roman Empire. It was a massive fortification made of stone and earth.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Ancient Greece",
+    "year_level":4,
+    "question":"Where did Greek gods live according to ancient Greek beliefs?",
+    "correct":"Olympus",
+    "options":[
+      "Parnassus",
+      "Delphi",
+      "Crete"
+    ],
+    "id":"history_y4_0006",
+    "dataset":"converted_worksheet",
+    "explanation":"Greek gods were believed to live on Mount Olympus, which was considered the home of the twelve main Greek gods including Zeus, Hera, and Poseidon. While other mountains like Parnassus and Delphi were important in Greek mythology, they were not specifically known as the residence of the gods.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Anglo-Saxons",
+    "year_level":5,
+    "question":"Anglo-Saxon kingdoms were ruled by:",
+    "correct":"Kings",
+    "options":[
+      "Pharaohs",
+      "Emperors",
+      "Presidents"
+    ],
+    "id":"history_y5_0002",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Anglo-Saxons",
+    "year_level":5,
+    "question":"Anglo-Saxons came to Britain from:",
+    "correct":"Germany and Denmark",
+    "options":[
+      "France",
+      "Spain",
+      "Italy"
+    ],
+    "id":"history_y5_0001",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Anglo-Saxons",
+    "year_level":5,
+    "question":"Anglo-Saxons came to Britain from: A) France and Spain B) Germany, Denmark and Norway C) Italy and Greece D) Ireland and Scotland",
+    "correct":"Germany, Denmark and Norway",
+    "options":[
+      "France and Spain",
+      "Italy and Greece",
+      "Ireland and Scotland"
+    ],
+    "id":"history_y5_0019",
+    "dataset":"converted_worksheet",
+    "explanation":"The Anglo-Saxons were Germanic tribes who migrated to Britain in the 5th century from northern Europe, specifically from areas that are now Germany, Denmark, and Norway.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Tudors",
+    "year_level":5,
+    "question":"Elizabeth I was the daughter of which Tudor monarch?",
+    "correct":"Henry VIII",
+    "options":[
+      "Edward VI",
+      "Mary I",
+      "Philip II"
+    ],
+    "id":"history_y5_0022",
+    "dataset":"converted_worksheet",
+    "explanation":"Elizabeth I was the daughter of King Henry VIII and his second wife Anne Boleyn. She became queen in 1558 after her half-sister Mary I died.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Tudors",
+    "year_level":5,
+    "question":"Elizabeth I was the daughter of:",
+    "correct":"Henry VIII",
+    "options":[
+      "Henry VII",
+      "Edward VI",
+      "James I"
+    ],
+    "id":"history_y5_0016",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Tudors",
+    "year_level":5,
+    "question":"Henry VIII had how many wives?",
+    "correct":"Six",
+    "options":[
+      "Two",
+      "Four",
+      "Eight"
+    ],
+    "id":"history_y5_0015",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Tudors",
+    "year_level":5,
+    "question":"How many wives did Henry VIII have?",
+    "correct":"Six",
+    "options":[
+      "Five",
+      "Seven",
+      "Four"
+    ],
+    "id":"history_y5_0009",
+    "dataset":"converted_worksheet",
+    "explanation":"Henry VIII had six wives during his reign: Catherine of Aragon, Anne Boleyn, Jane Seymore, Anne of Cleves, Catherine Howard, and Catherine Parr. This is a well-documented historical fact about the English king.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Tudors",
+    "year_level":5,
+    "question":"How many wives did King Henry VIII have during his life?",
+    "correct":"Six",
+    "options":[
+      "Five",
+      "Seven",
+      "Four"
+    ],
+    "id":"history_y5_0003",
+    "dataset":"converted_worksheet",
+    "explanation":"Henry VIII had six wives during his lifetime: Catherine of Aragon, Anne Boleyn, Jane Seymore, Anne of Cleves, Catherine Howard, and Catherine Parr. This is a well-documented historical fact about the English king.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Tudors",
+    "year_level":5,
+    "question":"How many wives did King Henry VIII have during his lifetime?",
+    "correct":"Six",
+    "options":[
+      "Five",
+      "Seven",
+      "Four"
+    ],
+    "id":"history_y5_0015",
+    "dataset":"converted_worksheet",
+    "explanation":"Henry VIII married six women during his lifetime: Catherine of Aragon, Anne Boleyn, Jane Seymore, Anne of Cleves, Catherine Howard, and Catherine Parr. This is a well-documented historical fact about the famous English king.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Mayans",
+    "year_level":5,
+    "question":"Mayans built:",
+    "correct":"Pyramids and temples",
+    "options":[
+      "Castles",
+      "Igloos",
+      "Skyscrapers"
+    ],
+    "id":"history_y5_0010",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Mayans",
+    "year_level":5,
+    "question":"Mayans built: A) castles for protection B) pyramids for religious ceremonies C) schools for children D) roads for trade",
+    "correct":"pyramids for religious ceremonies",
+    "options":[
+      "castles for protection",
+      "schools for children",
+      "roads for trade"
+    ],
+    "id":"history_y5_0012",
+    "dataset":"converted_worksheet",
+    "explanation":"The Maya civilization built impressive pyramids mainly for religious purposes and ceremonies. These were often part of larger temple complexes where they performed rituals and sacrifices to their gods.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Mayans",
+    "year_level":5,
+    "question":"Mayans built: A) castles for protection B) pyramids for their gods and rulers C) schools for children D) temples for trading",
+    "correct":"pyramids for their gods and rulers",
+    "options":[
+      "castles for protection",
+      "schools for children",
+      "temples for trading"
+    ],
+    "id":"history_y5_0018",
+    "dataset":"converted_worksheet",
+    "explanation":"The Maya civilization built impressive pyramids as religious structures dedicated to their gods and rulers. These were often part of larger ceremonial centres with temples on top.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Anglo-Saxons",
+    "year_level":5,
+    "question":"Practice 1: Anglo-Saxon kingdoms were ruled by:",
+    "correct":"Kings",
+    "options":[
+      "Pharaohs",
+      "Emperors",
+      "Presidents"
+    ],
+    "id":"history_y5_0004",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Anglo-Saxons",
+    "year_level":5,
+    "question":"Practice 1: Anglo-Saxons came to Britain from:",
+    "correct":"Germany and Denmark",
+    "options":[
+      "France",
+      "Spain",
+      "Italy"
+    ],
+    "id":"history_y5_0003",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Tudors",
+    "year_level":5,
+    "question":"Practice 1: Elizabeth I was the daughter of:",
+    "correct":"Henry VIII",
+    "options":[
+      "Henry VII",
+      "Edward VI",
+      "James I"
+    ],
+    "id":"history_y5_0018",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Tudors",
+    "year_level":5,
+    "question":"Practice 1: Henry VIII had how many wives?",
+    "correct":"Six",
+    "options":[
+      "Two",
+      "Four",
+      "Eight"
+    ],
+    "id":"history_y5_0017",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Mayans",
+    "year_level":5,
+    "question":"Practice 1: Mayans built:",
+    "correct":"Pyramids and temples",
+    "options":[
+      "Castles",
+      "Igloos",
+      "Skyscrapers"
+    ],
+    "id":"history_y5_0012",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Mayans",
+    "year_level":5,
+    "question":"Practice 1: The Mayan civilization was in:",
+    "correct":"Central America",
+    "options":[
+      "Europe",
+      "Africa",
+      "Australia"
+    ],
+    "id":"history_y5_0011",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Anglo-Saxons",
+    "year_level":5,
+    "question":"Practice 2: Anglo-Saxon kingdoms were ruled by:",
+    "correct":"Kings",
+    "options":[
+      "Pharaohs",
+      "Emperors",
+      "Presidents"
+    ],
+    "id":"history_y5_0006",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Anglo-Saxons",
+    "year_level":5,
+    "question":"Practice 2: Anglo-Saxons came to Britain from:",
+    "correct":"Germany and Denmark",
+    "options":[
+      "France",
+      "Spain",
+      "Italy"
+    ],
+    "id":"history_y5_0005",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Tudors",
+    "year_level":5,
+    "question":"Practice 2: Elizabeth I was the daughter of:",
+    "correct":"Henry VIII",
+    "options":[
+      "Henry VII",
+      "Edward VI",
+      "James I"
+    ],
+    "id":"history_y5_0020",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Tudors",
+    "year_level":5,
+    "question":"Practice 2: Henry VIII had how many wives?",
+    "correct":"Six",
+    "options":[
+      "Two",
+      "Four",
+      "Eight"
+    ],
+    "id":"history_y5_0019",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Mayans",
+    "year_level":5,
+    "question":"Practice 2: Mayans built:",
+    "correct":"Pyramids and temples",
+    "options":[
+      "Castles",
+      "Igloos",
+      "Skyscrapers"
+    ],
+    "id":"history_y5_0014",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Mayans",
+    "year_level":5,
+    "question":"Practice 2: The Mayan civilization was in:",
+    "correct":"Central America",
+    "options":[
+      "Europe",
+      "Africa",
+      "Australia"
+    ],
+    "id":"history_y5_0013",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Anglo-Saxons",
+    "year_level":5,
+    "question":"Practice 3: Anglo-Saxon kingdoms were ruled by:",
+    "correct":"Kings",
+    "options":[
+      "Pharaohs",
+      "Emperors",
+      "Presidents"
+    ],
+    "id":"history_y5_0008",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Anglo-Saxons",
+    "year_level":5,
+    "question":"Practice 3: Anglo-Saxons came to Britain from:",
+    "correct":"Germany and Denmark",
+    "options":[
+      "France",
+      "Spain",
+      "Italy"
+    ],
+    "id":"history_y5_0007",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Tudors",
+    "year_level":5,
+    "question":"Practice 3: Elizabeth I was the daughter of:",
+    "correct":"Henry VIII",
+    "options":[
+      "Henry VII",
+      "Edward VI",
+      "James I"
+    ],
+    "id":"history_y5_0022",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Tudors",
+    "year_level":5,
+    "question":"Practice 3: Henry VIII had how many wives?",
+    "correct":"Six",
+    "options":[
+      "Two",
+      "Four",
+      "Eight"
+    ],
+    "id":"history_y5_0021",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Mayans",
+    "year_level":5,
+    "question":"The Mayan civilization was in:",
+    "correct":"Central America",
+    "options":[
+      "Europe",
+      "Africa",
+      "Australia"
+    ],
+    "id":"history_y5_0009",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Tudors",
+    "year_level":5,
+    "question":"Who was Elizabeth I's father?",
+    "correct":"Henry VIII",
+    "options":[
+      "Edward VI",
+      "Mary I",
+      "Charles II"
+    ],
+    "id":"history_y5_0010",
+    "dataset":"converted_worksheet",
+    "explanation":"Elizabeth I was the daughter of King Henry VIII and his second wife Anne Boleyn. She became queen after her half-sister Mary I died in 1558.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"World War 2",
+    "year_level":6,
+    "question":"Evacuees were children sent to:",
+    "correct":"The countryside",
+    "options":[
+      "Other countries",
+      "Schools",
+      "Factories"
+    ],
+    "id":"history_y6_0015",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"World War 2",
+    "year_level":6,
+    "question":"In which year did World War 2 end?",
+    "correct":"1945",
+    "options":[
+      "1939",
+      "1950",
+      "1940"
+    ],
+    "id":"history_y6_0009",
+    "dataset":"converted_worksheet",
+    "explanation":"World War 2 officially ended in 1945 when Japan surrendered after the atomic bombs were dropped on Hiroshima and Nagasaki, and Germany had already surrendered in 1945.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"World War 2",
+    "year_level":6,
+    "question":"Practice 1: Evacuees were children sent to:",
+    "correct":"The countryside",
+    "options":[
+      "Other countries",
+      "Schools",
+      "Factories"
+    ],
+    "id":"history_y6_0017",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Vikings",
+    "year_level":6,
+    "question":"Practice 1: Practice 1: Vikings came from:",
+    "correct":"Scandinavia",
+    "options":[
+      "Spain",
+      "Greece",
+      "Egypt"
+    ],
+    "id":"history_y6_0013",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Post-1066",
+    "year_level":6,
+    "question":"Practice 1: The Battle of Hastings was in:",
+    "correct":"1066",
+    "options":[
+      "1166",
+      "966",
+      "1666"
+    ],
+    "id":"history_y6_0003",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Vikings",
+    "year_level":6,
+    "question":"Practice 1: Viking boats were called:",
+    "correct":"Longships",
+    "options":[
+      "Galleons",
+      "Steamships",
+      "Submarines"
+    ],
+    "id":"history_y6_0010",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Vikings",
+    "year_level":6,
+    "question":"Practice 1: Vikings came from:",
+    "correct":"Scandinavia",
+    "options":[
+      "Spain",
+      "Greece",
+      "Egypt"
+    ],
+    "id":"history_y6_0009",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Post-1066",
+    "year_level":6,
+    "question":"Practice 1: William the Conqueror was from:",
+    "correct":"Normandy",
+    "options":[
+      "England",
+      "Scotland",
+      "Wales"
+    ],
+    "id":"history_y6_0004",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"World War 2",
+    "year_level":6,
+    "question":"Practice 1: World War 2 ended in:",
+    "correct":"1945",
+    "options":[
+      "1918",
+      "1939",
+      "1950"
+    ],
+    "id":"history_y6_0016",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"World War 2",
+    "year_level":6,
+    "question":"Practice 2: Evacuees were children sent to:",
+    "correct":"The countryside",
+    "options":[
+      "Other countries",
+      "Schools",
+      "Factories"
+    ],
+    "id":"history_y6_0019",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Post-1066",
+    "year_level":6,
+    "question":"Practice 2: The Battle of Hastings was in:",
+    "correct":"1066",
+    "options":[
+      "1166",
+      "966",
+      "1666"
+    ],
+    "id":"history_y6_0005",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Vikings",
+    "year_level":6,
+    "question":"Practice 2: Viking boats were called:",
+    "correct":"Longships",
+    "options":[
+      "Galleons",
+      "Steamships",
+      "Submarines"
+    ],
+    "id":"history_y6_0012",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Vikings",
+    "year_level":6,
+    "question":"Practice 2: Vikings came from:",
+    "correct":"Scandinavia",
+    "options":[
+      "Spain",
+      "Greece",
+      "Egypt"
+    ],
+    "id":"history_y6_0011",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Post-1066",
+    "year_level":6,
+    "question":"Practice 2: William the Conqueror was from:",
+    "correct":"Normandy",
+    "options":[
+      "England",
+      "Scotland",
+      "Wales"
+    ],
+    "id":"history_y6_0006",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"World War 2",
+    "year_level":6,
+    "question":"Practice 2: World War 2 ended in:",
+    "correct":"1945",
+    "options":[
+      "1918",
+      "1939",
+      "1950"
+    ],
+    "id":"history_y6_0018",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Post-1066",
+    "year_level":6,
+    "question":"The Battle of Hastings was fought in which year?",
+    "correct":"1066",
+    "options":[
+      "1067",
+      "1065",
+      "1068"
+    ],
+    "id":"history_y6_0005",
+    "dataset":"converted_worksheet",
+    "explanation":"The Battle of Hastings took place on October 14, 1066 when William the Conqueror defeated King Harold II. This battle was a key moment in English history that led to Norman rule.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Post-1066",
+    "year_level":6,
+    "question":"The Battle of Hastings was in what year?",
+    "correct":"1066",
+    "options":[
+      "1065",
+      "1067",
+      "1068"
+    ],
+    "id":"history_y6_0017",
+    "dataset":"converted_worksheet",
+    "explanation":"The Battle of Hastings took place on October 14, 1066 when William the Conqueror defeated King Harold II. This battle happened in the year 1066, which is why we call it the Norman Conquest.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Post-1066",
+    "year_level":6,
+    "question":"The Battle of Hastings was in:",
+    "correct":"1066",
+    "options":[
+      "1166",
+      "966",
+      "1666"
+    ],
+    "id":"history_y6_0001",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Vikings",
+    "year_level":6,
+    "question":"Viking boats were called:",
+    "correct":"Longships",
+    "options":[
+      "Galleons",
+      "Steamships",
+      "Submarines"
+    ],
+    "id":"history_y6_0008",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Vikings",
+    "year_level":6,
+    "question":"Vikings came from:",
+    "correct":"Scandinavia",
+    "options":[
+      "Spain",
+      "Greece",
+      "Egypt"
+    ],
+    "id":"history_y6_0007",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Vikings",
+    "year_level":6,
+    "question":"What were Viking boats called?",
+    "correct":"longships",
+    "options":[
+      "war ships",
+      "viking ships",
+      "wooden boats"
+    ],
+    "id":"history_y6_0002",
+    "dataset":"converted_worksheet",
+    "explanation":"Viking longships were the famous narrow, fast wooden vessels used by Vikings for raiding and trading. While they were war ships, 'longship' was the specific technical name for their distinctive boats.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"World War 2",
+    "year_level":6,
+    "question":"When did World War 2 end?",
+    "correct":"1945",
+    "options":[
+      "1939",
+      "1950",
+      "1940"
+    ],
+    "id":"history_y6_0003",
+    "dataset":"converted_worksheet",
+    "explanation":"World War 2 officially ended in 1945 when Germany surrendered in May and Japan surrendered in August after the atomic bombs were dropped on Hiroshima and Nagasaki.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Vikings",
+    "year_level":6,
+    "question":"Where did the Vikings come from?",
+    "correct":"Sweden, Norway and Denmark",
+    "options":[
+      "England and France",
+      "Germany and Italy",
+      "Spain and Portugal"
+    ],
+    "id":"history_y6_0001",
+    "dataset":"converted_worksheet",
+    "explanation":"Vikings came from the Scandinavian countries of Sweden, Norway and Denmark between 793-1066 AD. They were skilled seafarers who raided and traded across Europe.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Post-1066",
+    "year_level":6,
+    "question":"Where was William the Conqueror from before he became King of England?",
+    "correct":"Normandy",
+    "options":[
+      "England",
+      "France",
+      "Spain"
+    ],
+    "id":"history_y6_0018",
+    "dataset":"converted_worksheet",
+    "explanation":"William the Conqueror was from Normandy in northern France. He became the first Norman King of England after his victory at the Battle of Hastings in 1066.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Post-1066",
+    "year_level":6,
+    "question":"Where was William the Conqueror from?",
+    "correct":"France",
+    "options":[
+      "England",
+      "Germany",
+      "Spain"
+    ],
+    "id":"history_y6_0012",
+    "dataset":"converted_worksheet",
+    "explanation":"William the Conqueror was born in Normandy, France in 1028. He became the Duke of Normandy and later conquered England in 1066, but he was originally from France.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"Post-1066",
+    "year_level":6,
+    "question":"William the Conqueror was from:",
+    "correct":"Normandy",
+    "options":[
+      "England",
+      "Scotland",
+      "Wales"
+    ],
+    "id":"history_y6_0002",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"History",
+    "topic":"World War 2",
+    "year_level":6,
+    "question":"World War 2 ended in:",
+    "correct":"1945",
+    "options":[
+      "1918",
+      "1939",
+      "1950"
+    ],
+    "id":"history_y6_0014",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  }
+]

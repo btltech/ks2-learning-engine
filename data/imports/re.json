@@ -1,0 +1,2162 @@
+[
+  {
+    "subject":"RE",
+    "topic":"Christianity",
+    "year_level":3,
+    "question":"In RE, what best describes christianity? (3): Q1",
+    "correct":"Correct explanation of christianity",
+    "options":[
+      "Correct explanation of christianity",
+      "Incorrect detail about christianity",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y3_1",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of christianity.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Christianity",
+    "year_level":3,
+    "question":"In RE, what best describes christianity? (3): Q2",
+    "correct":"Correct explanation of christianity",
+    "options":[
+      "Correct explanation of christianity",
+      "Incorrect detail about christianity",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y3_2",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of christianity.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Christianity",
+    "year_level":3,
+    "question":"In RE, what best describes christianity? (3): Q3",
+    "correct":"Correct explanation of christianity",
+    "options":[
+      "Correct explanation of christianity",
+      "Incorrect detail about christianity",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y3_3",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of christianity.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Christianity",
+    "year_level":3,
+    "question":"In RE, what best describes christianity? (3): Q4",
+    "correct":"Correct explanation of christianity",
+    "options":[
+      "Correct explanation of christianity",
+      "Incorrect detail about christianity",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y3_4",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of christianity.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Christianity",
+    "year_level":3,
+    "question":"In RE, what best describes christianity? (3): Q5",
+    "correct":"Correct explanation of christianity",
+    "options":[
+      "Correct explanation of christianity",
+      "Incorrect detail about christianity",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y3_5",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of christianity.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Islam",
+    "year_level":3,
+    "question":"In RE, what best describes islam? (3): Q1",
+    "correct":"Correct explanation of islam",
+    "options":[
+      "Correct explanation of islam",
+      "Incorrect detail about islam",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y3_6",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of islam.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Islam",
+    "year_level":3,
+    "question":"In RE, what best describes islam? (3): Q2",
+    "correct":"Correct explanation of islam",
+    "options":[
+      "Correct explanation of islam",
+      "Incorrect detail about islam",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y3_7",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of islam.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Islam",
+    "year_level":3,
+    "question":"In RE, what best describes islam? (3): Q3",
+    "correct":"Correct explanation of islam",
+    "options":[
+      "Correct explanation of islam",
+      "Incorrect detail about islam",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y3_8",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of islam.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Islam",
+    "year_level":3,
+    "question":"In RE, what best describes islam? (3): Q4",
+    "correct":"Correct explanation of islam",
+    "options":[
+      "Correct explanation of islam",
+      "Incorrect detail about islam",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y3_9",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of islam.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Islam",
+    "year_level":3,
+    "question":"In RE, what best describes islam? (3): Q5",
+    "correct":"Correct explanation of islam",
+    "options":[
+      "Correct explanation of islam",
+      "Incorrect detail about islam",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y3_10",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of islam.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Judaism",
+    "year_level":3,
+    "question":"In RE, what best describes judaism? (3): Q1",
+    "correct":"Correct explanation of judaism",
+    "options":[
+      "Correct explanation of judaism",
+      "Incorrect detail about judaism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y3_11",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of judaism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Judaism",
+    "year_level":3,
+    "question":"In RE, what best describes judaism? (3): Q2",
+    "correct":"Correct explanation of judaism",
+    "options":[
+      "Correct explanation of judaism",
+      "Incorrect detail about judaism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y3_12",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of judaism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Judaism",
+    "year_level":3,
+    "question":"In RE, what best describes judaism? (3): Q3",
+    "correct":"Correct explanation of judaism",
+    "options":[
+      "Correct explanation of judaism",
+      "Incorrect detail about judaism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y3_13",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of judaism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Judaism",
+    "year_level":3,
+    "question":"In RE, what best describes judaism? (3): Q4",
+    "correct":"Correct explanation of judaism",
+    "options":[
+      "Correct explanation of judaism",
+      "Incorrect detail about judaism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y3_14",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of judaism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Judaism",
+    "year_level":3,
+    "question":"In RE, what best describes judaism? (3): Q5",
+    "correct":"Correct explanation of judaism",
+    "options":[
+      "Correct explanation of judaism",
+      "Incorrect detail about judaism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y3_15",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of judaism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Hinduism",
+    "year_level":3,
+    "question":"In RE, what best describes hinduism? (3): Q1",
+    "correct":"Correct explanation of hinduism",
+    "options":[
+      "Correct explanation of hinduism",
+      "Incorrect detail about hinduism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y3_16",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of hinduism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Hinduism",
+    "year_level":3,
+    "question":"In RE, what best describes hinduism? (3): Q2",
+    "correct":"Correct explanation of hinduism",
+    "options":[
+      "Correct explanation of hinduism",
+      "Incorrect detail about hinduism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y3_17",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of hinduism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Hinduism",
+    "year_level":3,
+    "question":"In RE, what best describes hinduism? (3): Q3",
+    "correct":"Correct explanation of hinduism",
+    "options":[
+      "Correct explanation of hinduism",
+      "Incorrect detail about hinduism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y3_18",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of hinduism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Hinduism",
+    "year_level":3,
+    "question":"In RE, what best describes hinduism? (3): Q4",
+    "correct":"Correct explanation of hinduism",
+    "options":[
+      "Correct explanation of hinduism",
+      "Incorrect detail about hinduism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y3_19",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of hinduism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Hinduism",
+    "year_level":3,
+    "question":"In RE, what best describes hinduism? (3): Q5",
+    "correct":"Correct explanation of hinduism",
+    "options":[
+      "Correct explanation of hinduism",
+      "Incorrect detail about hinduism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y3_20",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of hinduism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Places of Worship",
+    "year_level":3,
+    "question":"In RE, what best describes places of worship? (3): Q1",
+    "correct":"Correct explanation of places of worship",
+    "options":[
+      "Correct explanation of places of worship",
+      "Incorrect detail about places of worship",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y3_21",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of places of worship.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Places of Worship",
+    "year_level":3,
+    "question":"In RE, what best describes places of worship? (3): Q2",
+    "correct":"Correct explanation of places of worship",
+    "options":[
+      "Correct explanation of places of worship",
+      "Incorrect detail about places of worship",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y3_22",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of places of worship.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Places of Worship",
+    "year_level":3,
+    "question":"In RE, what best describes places of worship? (3): Q3",
+    "correct":"Correct explanation of places of worship",
+    "options":[
+      "Correct explanation of places of worship",
+      "Incorrect detail about places of worship",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y3_23",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of places of worship.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Places of Worship",
+    "year_level":3,
+    "question":"In RE, what best describes places of worship? (3): Q4",
+    "correct":"Correct explanation of places of worship",
+    "options":[
+      "Correct explanation of places of worship",
+      "Incorrect detail about places of worship",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y3_24",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of places of worship.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Places of Worship",
+    "year_level":3,
+    "question":"In RE, what best describes places of worship? (3): Q5",
+    "correct":"Correct explanation of places of worship",
+    "options":[
+      "Correct explanation of places of worship",
+      "Incorrect detail about places of worship",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y3_25",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of places of worship.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Festivals",
+    "year_level":3,
+    "question":"In RE, what best describes festivals? (3): Q1",
+    "correct":"Correct explanation of festivals",
+    "options":[
+      "Correct explanation of festivals",
+      "Incorrect detail about festivals",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y3_26",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of festivals.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Festivals",
+    "year_level":3,
+    "question":"In RE, what best describes festivals? (3): Q2",
+    "correct":"Correct explanation of festivals",
+    "options":[
+      "Correct explanation of festivals",
+      "Incorrect detail about festivals",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y3_27",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of festivals.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Festivals",
+    "year_level":3,
+    "question":"In RE, what best describes festivals? (3): Q3",
+    "correct":"Correct explanation of festivals",
+    "options":[
+      "Correct explanation of festivals",
+      "Incorrect detail about festivals",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y3_28",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of festivals.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Festivals",
+    "year_level":3,
+    "question":"In RE, what best describes festivals? (3): Q4",
+    "correct":"Correct explanation of festivals",
+    "options":[
+      "Correct explanation of festivals",
+      "Incorrect detail about festivals",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y3_29",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of festivals.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Festivals",
+    "year_level":3,
+    "question":"In RE, what best describes festivals? (3): Q5",
+    "correct":"Correct explanation of festivals",
+    "options":[
+      "Correct explanation of festivals",
+      "Incorrect detail about festivals",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y3_30",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of festivals.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Christianity",
+    "year_level":4,
+    "question":"In RE, what best describes christianity? (4): Q1",
+    "correct":"Correct explanation of christianity",
+    "options":[
+      "Correct explanation of christianity",
+      "Incorrect detail about christianity",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y4_31",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of christianity.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Christianity",
+    "year_level":4,
+    "question":"In RE, what best describes christianity? (4): Q2",
+    "correct":"Correct explanation of christianity",
+    "options":[
+      "Correct explanation of christianity",
+      "Incorrect detail about christianity",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y4_32",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of christianity.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Christianity",
+    "year_level":4,
+    "question":"In RE, what best describes christianity? (4): Q3",
+    "correct":"Correct explanation of christianity",
+    "options":[
+      "Correct explanation of christianity",
+      "Incorrect detail about christianity",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y4_33",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of christianity.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Christianity",
+    "year_level":4,
+    "question":"In RE, what best describes christianity? (4): Q4",
+    "correct":"Correct explanation of christianity",
+    "options":[
+      "Correct explanation of christianity",
+      "Incorrect detail about christianity",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y4_34",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of christianity.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Christianity",
+    "year_level":4,
+    "question":"In RE, what best describes christianity? (4): Q5",
+    "correct":"Correct explanation of christianity",
+    "options":[
+      "Correct explanation of christianity",
+      "Incorrect detail about christianity",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y4_35",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of christianity.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Islam",
+    "year_level":4,
+    "question":"In RE, what best describes islam? (4): Q1",
+    "correct":"Correct explanation of islam",
+    "options":[
+      "Correct explanation of islam",
+      "Incorrect detail about islam",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y4_36",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of islam.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Islam",
+    "year_level":4,
+    "question":"In RE, what best describes islam? (4): Q2",
+    "correct":"Correct explanation of islam",
+    "options":[
+      "Correct explanation of islam",
+      "Incorrect detail about islam",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y4_37",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of islam.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Islam",
+    "year_level":4,
+    "question":"In RE, what best describes islam? (4): Q3",
+    "correct":"Correct explanation of islam",
+    "options":[
+      "Correct explanation of islam",
+      "Incorrect detail about islam",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y4_38",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of islam.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Islam",
+    "year_level":4,
+    "question":"In RE, what best describes islam? (4): Q4",
+    "correct":"Correct explanation of islam",
+    "options":[
+      "Correct explanation of islam",
+      "Incorrect detail about islam",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y4_39",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of islam.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Islam",
+    "year_level":4,
+    "question":"In RE, what best describes islam? (4): Q5",
+    "correct":"Correct explanation of islam",
+    "options":[
+      "Correct explanation of islam",
+      "Incorrect detail about islam",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y4_40",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of islam.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Judaism",
+    "year_level":4,
+    "question":"In RE, what best describes judaism? (4): Q1",
+    "correct":"Correct explanation of judaism",
+    "options":[
+      "Correct explanation of judaism",
+      "Incorrect detail about judaism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y4_41",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of judaism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Judaism",
+    "year_level":4,
+    "question":"In RE, what best describes judaism? (4): Q2",
+    "correct":"Correct explanation of judaism",
+    "options":[
+      "Correct explanation of judaism",
+      "Incorrect detail about judaism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y4_42",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of judaism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Judaism",
+    "year_level":4,
+    "question":"In RE, what best describes judaism? (4): Q3",
+    "correct":"Correct explanation of judaism",
+    "options":[
+      "Correct explanation of judaism",
+      "Incorrect detail about judaism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y4_43",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of judaism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Judaism",
+    "year_level":4,
+    "question":"In RE, what best describes judaism? (4): Q4",
+    "correct":"Correct explanation of judaism",
+    "options":[
+      "Correct explanation of judaism",
+      "Incorrect detail about judaism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y4_44",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of judaism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Judaism",
+    "year_level":4,
+    "question":"In RE, what best describes judaism? (4): Q5",
+    "correct":"Correct explanation of judaism",
+    "options":[
+      "Correct explanation of judaism",
+      "Incorrect detail about judaism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y4_45",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of judaism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Hinduism",
+    "year_level":4,
+    "question":"In RE, what best describes hinduism? (4): Q1",
+    "correct":"Correct explanation of hinduism",
+    "options":[
+      "Correct explanation of hinduism",
+      "Incorrect detail about hinduism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y4_46",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of hinduism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Hinduism",
+    "year_level":4,
+    "question":"In RE, what best describes hinduism? (4): Q2",
+    "correct":"Correct explanation of hinduism",
+    "options":[
+      "Correct explanation of hinduism",
+      "Incorrect detail about hinduism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y4_47",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of hinduism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Hinduism",
+    "year_level":4,
+    "question":"In RE, what best describes hinduism? (4): Q3",
+    "correct":"Correct explanation of hinduism",
+    "options":[
+      "Correct explanation of hinduism",
+      "Incorrect detail about hinduism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y4_48",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of hinduism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Hinduism",
+    "year_level":4,
+    "question":"In RE, what best describes hinduism? (4): Q4",
+    "correct":"Correct explanation of hinduism",
+    "options":[
+      "Correct explanation of hinduism",
+      "Incorrect detail about hinduism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y4_49",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of hinduism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Hinduism",
+    "year_level":4,
+    "question":"In RE, what best describes hinduism? (4): Q5",
+    "correct":"Correct explanation of hinduism",
+    "options":[
+      "Correct explanation of hinduism",
+      "Incorrect detail about hinduism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y4_50",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of hinduism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Places of Worship",
+    "year_level":4,
+    "question":"In RE, what best describes places of worship? (4): Q1",
+    "correct":"Correct explanation of places of worship",
+    "options":[
+      "Correct explanation of places of worship",
+      "Incorrect detail about places of worship",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y4_51",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of places of worship.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Places of Worship",
+    "year_level":4,
+    "question":"In RE, what best describes places of worship? (4): Q2",
+    "correct":"Correct explanation of places of worship",
+    "options":[
+      "Correct explanation of places of worship",
+      "Incorrect detail about places of worship",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y4_52",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of places of worship.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Places of Worship",
+    "year_level":4,
+    "question":"In RE, what best describes places of worship? (4): Q3",
+    "correct":"Correct explanation of places of worship",
+    "options":[
+      "Correct explanation of places of worship",
+      "Incorrect detail about places of worship",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y4_53",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of places of worship.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Places of Worship",
+    "year_level":4,
+    "question":"In RE, what best describes places of worship? (4): Q4",
+    "correct":"Correct explanation of places of worship",
+    "options":[
+      "Correct explanation of places of worship",
+      "Incorrect detail about places of worship",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y4_54",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of places of worship.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Places of Worship",
+    "year_level":4,
+    "question":"In RE, what best describes places of worship? (4): Q5",
+    "correct":"Correct explanation of places of worship",
+    "options":[
+      "Correct explanation of places of worship",
+      "Incorrect detail about places of worship",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y4_55",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of places of worship.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Festivals",
+    "year_level":4,
+    "question":"In RE, what best describes festivals? (4): Q1",
+    "correct":"Correct explanation of festivals",
+    "options":[
+      "Correct explanation of festivals",
+      "Incorrect detail about festivals",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y4_56",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of festivals.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Festivals",
+    "year_level":4,
+    "question":"In RE, what best describes festivals? (4): Q2",
+    "correct":"Correct explanation of festivals",
+    "options":[
+      "Correct explanation of festivals",
+      "Incorrect detail about festivals",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y4_57",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of festivals.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Festivals",
+    "year_level":4,
+    "question":"In RE, what best describes festivals? (4): Q3",
+    "correct":"Correct explanation of festivals",
+    "options":[
+      "Correct explanation of festivals",
+      "Incorrect detail about festivals",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y4_58",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of festivals.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Festivals",
+    "year_level":4,
+    "question":"In RE, what best describes festivals? (4): Q4",
+    "correct":"Correct explanation of festivals",
+    "options":[
+      "Correct explanation of festivals",
+      "Incorrect detail about festivals",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y4_59",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of festivals.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Festivals",
+    "year_level":4,
+    "question":"In RE, what best describes festivals? (4): Q5",
+    "correct":"Correct explanation of festivals",
+    "options":[
+      "Correct explanation of festivals",
+      "Incorrect detail about festivals",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y4_60",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of festivals.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Christianity",
+    "year_level":5,
+    "question":"In RE, what best describes christianity? (5): Q1",
+    "correct":"Correct explanation of christianity",
+    "options":[
+      "Correct explanation of christianity",
+      "Incorrect detail about christianity",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y5_61",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of christianity.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Christianity",
+    "year_level":5,
+    "question":"In RE, what best describes christianity? (5): Q2",
+    "correct":"Correct explanation of christianity",
+    "options":[
+      "Correct explanation of christianity",
+      "Incorrect detail about christianity",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y5_62",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of christianity.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Christianity",
+    "year_level":5,
+    "question":"In RE, what best describes christianity? (5): Q3",
+    "correct":"Correct explanation of christianity",
+    "options":[
+      "Correct explanation of christianity",
+      "Incorrect detail about christianity",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y5_63",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of christianity.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Christianity",
+    "year_level":5,
+    "question":"In RE, what best describes christianity? (5): Q4",
+    "correct":"Correct explanation of christianity",
+    "options":[
+      "Correct explanation of christianity",
+      "Incorrect detail about christianity",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y5_64",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of christianity.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Christianity",
+    "year_level":5,
+    "question":"In RE, what best describes christianity? (5): Q5",
+    "correct":"Correct explanation of christianity",
+    "options":[
+      "Correct explanation of christianity",
+      "Incorrect detail about christianity",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y5_65",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of christianity.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Islam",
+    "year_level":5,
+    "question":"In RE, what best describes islam? (5): Q1",
+    "correct":"Correct explanation of islam",
+    "options":[
+      "Correct explanation of islam",
+      "Incorrect detail about islam",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y5_66",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of islam.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Islam",
+    "year_level":5,
+    "question":"In RE, what best describes islam? (5): Q2",
+    "correct":"Correct explanation of islam",
+    "options":[
+      "Correct explanation of islam",
+      "Incorrect detail about islam",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y5_67",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of islam.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Islam",
+    "year_level":5,
+    "question":"In RE, what best describes islam? (5): Q3",
+    "correct":"Correct explanation of islam",
+    "options":[
+      "Correct explanation of islam",
+      "Incorrect detail about islam",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y5_68",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of islam.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Islam",
+    "year_level":5,
+    "question":"In RE, what best describes islam? (5): Q4",
+    "correct":"Correct explanation of islam",
+    "options":[
+      "Correct explanation of islam",
+      "Incorrect detail about islam",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y5_69",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of islam.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Islam",
+    "year_level":5,
+    "question":"In RE, what best describes islam? (5): Q5",
+    "correct":"Correct explanation of islam",
+    "options":[
+      "Correct explanation of islam",
+      "Incorrect detail about islam",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y5_70",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of islam.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Judaism",
+    "year_level":5,
+    "question":"In RE, what best describes judaism? (5): Q1",
+    "correct":"Correct explanation of judaism",
+    "options":[
+      "Correct explanation of judaism",
+      "Incorrect detail about judaism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y5_71",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of judaism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Judaism",
+    "year_level":5,
+    "question":"In RE, what best describes judaism? (5): Q2",
+    "correct":"Correct explanation of judaism",
+    "options":[
+      "Correct explanation of judaism",
+      "Incorrect detail about judaism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y5_72",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of judaism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Judaism",
+    "year_level":5,
+    "question":"In RE, what best describes judaism? (5): Q3",
+    "correct":"Correct explanation of judaism",
+    "options":[
+      "Correct explanation of judaism",
+      "Incorrect detail about judaism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y5_73",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of judaism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Judaism",
+    "year_level":5,
+    "question":"In RE, what best describes judaism? (5): Q4",
+    "correct":"Correct explanation of judaism",
+    "options":[
+      "Correct explanation of judaism",
+      "Incorrect detail about judaism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y5_74",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of judaism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Judaism",
+    "year_level":5,
+    "question":"In RE, what best describes judaism? (5): Q5",
+    "correct":"Correct explanation of judaism",
+    "options":[
+      "Correct explanation of judaism",
+      "Incorrect detail about judaism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y5_75",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of judaism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Hinduism",
+    "year_level":5,
+    "question":"In RE, what best describes hinduism? (5): Q1",
+    "correct":"Correct explanation of hinduism",
+    "options":[
+      "Correct explanation of hinduism",
+      "Incorrect detail about hinduism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y5_76",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of hinduism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Hinduism",
+    "year_level":5,
+    "question":"In RE, what best describes hinduism? (5): Q2",
+    "correct":"Correct explanation of hinduism",
+    "options":[
+      "Correct explanation of hinduism",
+      "Incorrect detail about hinduism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y5_77",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of hinduism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Hinduism",
+    "year_level":5,
+    "question":"In RE, what best describes hinduism? (5): Q3",
+    "correct":"Correct explanation of hinduism",
+    "options":[
+      "Correct explanation of hinduism",
+      "Incorrect detail about hinduism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y5_78",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of hinduism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Hinduism",
+    "year_level":5,
+    "question":"In RE, what best describes hinduism? (5): Q4",
+    "correct":"Correct explanation of hinduism",
+    "options":[
+      "Correct explanation of hinduism",
+      "Incorrect detail about hinduism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y5_79",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of hinduism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Hinduism",
+    "year_level":5,
+    "question":"In RE, what best describes hinduism? (5): Q5",
+    "correct":"Correct explanation of hinduism",
+    "options":[
+      "Correct explanation of hinduism",
+      "Incorrect detail about hinduism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y5_80",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of hinduism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Places of Worship",
+    "year_level":5,
+    "question":"In RE, what best describes places of worship? (5): Q1",
+    "correct":"Correct explanation of places of worship",
+    "options":[
+      "Correct explanation of places of worship",
+      "Incorrect detail about places of worship",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y5_81",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of places of worship.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Places of Worship",
+    "year_level":5,
+    "question":"In RE, what best describes places of worship? (5): Q2",
+    "correct":"Correct explanation of places of worship",
+    "options":[
+      "Correct explanation of places of worship",
+      "Incorrect detail about places of worship",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y5_82",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of places of worship.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Places of Worship",
+    "year_level":5,
+    "question":"In RE, what best describes places of worship? (5): Q3",
+    "correct":"Correct explanation of places of worship",
+    "options":[
+      "Correct explanation of places of worship",
+      "Incorrect detail about places of worship",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y5_83",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of places of worship.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Places of Worship",
+    "year_level":5,
+    "question":"In RE, what best describes places of worship? (5): Q4",
+    "correct":"Correct explanation of places of worship",
+    "options":[
+      "Correct explanation of places of worship",
+      "Incorrect detail about places of worship",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y5_84",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of places of worship.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Places of Worship",
+    "year_level":5,
+    "question":"In RE, what best describes places of worship? (5): Q5",
+    "correct":"Correct explanation of places of worship",
+    "options":[
+      "Correct explanation of places of worship",
+      "Incorrect detail about places of worship",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y5_85",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of places of worship.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Festivals",
+    "year_level":5,
+    "question":"In RE, what best describes festivals? (5): Q1",
+    "correct":"Correct explanation of festivals",
+    "options":[
+      "Correct explanation of festivals",
+      "Incorrect detail about festivals",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y5_86",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of festivals.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Festivals",
+    "year_level":5,
+    "question":"In RE, what best describes festivals? (5): Q2",
+    "correct":"Correct explanation of festivals",
+    "options":[
+      "Correct explanation of festivals",
+      "Incorrect detail about festivals",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y5_87",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of festivals.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Festivals",
+    "year_level":5,
+    "question":"In RE, what best describes festivals? (5): Q3",
+    "correct":"Correct explanation of festivals",
+    "options":[
+      "Correct explanation of festivals",
+      "Incorrect detail about festivals",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y5_88",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of festivals.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Festivals",
+    "year_level":5,
+    "question":"In RE, what best describes festivals? (5): Q4",
+    "correct":"Correct explanation of festivals",
+    "options":[
+      "Correct explanation of festivals",
+      "Incorrect detail about festivals",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y5_89",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of festivals.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Festivals",
+    "year_level":5,
+    "question":"In RE, what best describes festivals? (5): Q5",
+    "correct":"Correct explanation of festivals",
+    "options":[
+      "Correct explanation of festivals",
+      "Incorrect detail about festivals",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y5_90",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of festivals.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Christianity",
+    "year_level":6,
+    "question":"In RE, what best describes christianity? (6): Q1",
+    "correct":"Correct explanation of christianity",
+    "options":[
+      "Correct explanation of christianity",
+      "Incorrect detail about christianity",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y6_91",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of christianity.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Christianity",
+    "year_level":6,
+    "question":"In RE, what best describes christianity? (6): Q2",
+    "correct":"Correct explanation of christianity",
+    "options":[
+      "Correct explanation of christianity",
+      "Incorrect detail about christianity",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y6_92",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of christianity.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Christianity",
+    "year_level":6,
+    "question":"In RE, what best describes christianity? (6): Q3",
+    "correct":"Correct explanation of christianity",
+    "options":[
+      "Correct explanation of christianity",
+      "Incorrect detail about christianity",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y6_93",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of christianity.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Christianity",
+    "year_level":6,
+    "question":"In RE, what best describes christianity? (6): Q4",
+    "correct":"Correct explanation of christianity",
+    "options":[
+      "Correct explanation of christianity",
+      "Incorrect detail about christianity",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y6_94",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of christianity.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Christianity",
+    "year_level":6,
+    "question":"In RE, what best describes christianity? (6): Q5",
+    "correct":"Correct explanation of christianity",
+    "options":[
+      "Correct explanation of christianity",
+      "Incorrect detail about christianity",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y6_95",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of christianity.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Islam",
+    "year_level":6,
+    "question":"In RE, what best describes islam? (6): Q1",
+    "correct":"Correct explanation of islam",
+    "options":[
+      "Correct explanation of islam",
+      "Incorrect detail about islam",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y6_96",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of islam.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Islam",
+    "year_level":6,
+    "question":"In RE, what best describes islam? (6): Q2",
+    "correct":"Correct explanation of islam",
+    "options":[
+      "Correct explanation of islam",
+      "Incorrect detail about islam",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y6_97",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of islam.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Islam",
+    "year_level":6,
+    "question":"In RE, what best describes islam? (6): Q3",
+    "correct":"Correct explanation of islam",
+    "options":[
+      "Correct explanation of islam",
+      "Incorrect detail about islam",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y6_98",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of islam.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Islam",
+    "year_level":6,
+    "question":"In RE, what best describes islam? (6): Q4",
+    "correct":"Correct explanation of islam",
+    "options":[
+      "Correct explanation of islam",
+      "Incorrect detail about islam",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y6_99",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of islam.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Islam",
+    "year_level":6,
+    "question":"In RE, what best describes islam? (6): Q5",
+    "correct":"Correct explanation of islam",
+    "options":[
+      "Correct explanation of islam",
+      "Incorrect detail about islam",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y6_100",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of islam.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Judaism",
+    "year_level":6,
+    "question":"In RE, what best describes judaism? (6): Q1",
+    "correct":"Correct explanation of judaism",
+    "options":[
+      "Correct explanation of judaism",
+      "Incorrect detail about judaism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y6_101",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of judaism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Judaism",
+    "year_level":6,
+    "question":"In RE, what best describes judaism? (6): Q2",
+    "correct":"Correct explanation of judaism",
+    "options":[
+      "Correct explanation of judaism",
+      "Incorrect detail about judaism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y6_102",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of judaism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Judaism",
+    "year_level":6,
+    "question":"In RE, what best describes judaism? (6): Q3",
+    "correct":"Correct explanation of judaism",
+    "options":[
+      "Correct explanation of judaism",
+      "Incorrect detail about judaism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y6_103",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of judaism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Judaism",
+    "year_level":6,
+    "question":"In RE, what best describes judaism? (6): Q4",
+    "correct":"Correct explanation of judaism",
+    "options":[
+      "Correct explanation of judaism",
+      "Incorrect detail about judaism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y6_104",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of judaism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Judaism",
+    "year_level":6,
+    "question":"In RE, what best describes judaism? (6): Q5",
+    "correct":"Correct explanation of judaism",
+    "options":[
+      "Correct explanation of judaism",
+      "Incorrect detail about judaism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y6_105",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of judaism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Hinduism",
+    "year_level":6,
+    "question":"In RE, what best describes hinduism? (6): Q1",
+    "correct":"Correct explanation of hinduism",
+    "options":[
+      "Correct explanation of hinduism",
+      "Incorrect detail about hinduism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y6_106",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of hinduism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Hinduism",
+    "year_level":6,
+    "question":"In RE, what best describes hinduism? (6): Q2",
+    "correct":"Correct explanation of hinduism",
+    "options":[
+      "Correct explanation of hinduism",
+      "Incorrect detail about hinduism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y6_107",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of hinduism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Hinduism",
+    "year_level":6,
+    "question":"In RE, what best describes hinduism? (6): Q3",
+    "correct":"Correct explanation of hinduism",
+    "options":[
+      "Correct explanation of hinduism",
+      "Incorrect detail about hinduism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y6_108",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of hinduism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Hinduism",
+    "year_level":6,
+    "question":"In RE, what best describes hinduism? (6): Q4",
+    "correct":"Correct explanation of hinduism",
+    "options":[
+      "Correct explanation of hinduism",
+      "Incorrect detail about hinduism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y6_109",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of hinduism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Hinduism",
+    "year_level":6,
+    "question":"In RE, what best describes hinduism? (6): Q5",
+    "correct":"Correct explanation of hinduism",
+    "options":[
+      "Correct explanation of hinduism",
+      "Incorrect detail about hinduism",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y6_110",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of hinduism.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Places of Worship",
+    "year_level":6,
+    "question":"In RE, what best describes places of worship? (6): Q1",
+    "correct":"Correct explanation of places of worship",
+    "options":[
+      "Correct explanation of places of worship",
+      "Incorrect detail about places of worship",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y6_111",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of places of worship.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Places of Worship",
+    "year_level":6,
+    "question":"In RE, what best describes places of worship? (6): Q2",
+    "correct":"Correct explanation of places of worship",
+    "options":[
+      "Correct explanation of places of worship",
+      "Incorrect detail about places of worship",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y6_112",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of places of worship.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Places of Worship",
+    "year_level":6,
+    "question":"In RE, what best describes places of worship? (6): Q3",
+    "correct":"Correct explanation of places of worship",
+    "options":[
+      "Correct explanation of places of worship",
+      "Incorrect detail about places of worship",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y6_113",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of places of worship.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Places of Worship",
+    "year_level":6,
+    "question":"In RE, what best describes places of worship? (6): Q4",
+    "correct":"Correct explanation of places of worship",
+    "options":[
+      "Correct explanation of places of worship",
+      "Incorrect detail about places of worship",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y6_114",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of places of worship.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Places of Worship",
+    "year_level":6,
+    "question":"In RE, what best describes places of worship? (6): Q5",
+    "correct":"Correct explanation of places of worship",
+    "options":[
+      "Correct explanation of places of worship",
+      "Incorrect detail about places of worship",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y6_115",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of places of worship.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Festivals",
+    "year_level":6,
+    "question":"In RE, what best describes festivals? (6): Q1",
+    "correct":"Correct explanation of festivals",
+    "options":[
+      "Correct explanation of festivals",
+      "Incorrect detail about festivals",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y6_116",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of festivals.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Festivals",
+    "year_level":6,
+    "question":"In RE, what best describes festivals? (6): Q2",
+    "correct":"Correct explanation of festivals",
+    "options":[
+      "Correct explanation of festivals",
+      "Incorrect detail about festivals",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y6_117",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of festivals.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Festivals",
+    "year_level":6,
+    "question":"In RE, what best describes festivals? (6): Q3",
+    "correct":"Correct explanation of festivals",
+    "options":[
+      "Correct explanation of festivals",
+      "Incorrect detail about festivals",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y6_118",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of festivals.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Festivals",
+    "year_level":6,
+    "question":"In RE, what best describes festivals? (6): Q4",
+    "correct":"Correct explanation of festivals",
+    "options":[
+      "Correct explanation of festivals",
+      "Incorrect detail about festivals",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y6_119",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of festivals.",
+    "quality_flag":null,
+    "difficulty_score":null
+  },
+  {
+    "subject":"RE",
+    "topic":"Festivals",
+    "year_level":6,
+    "question":"In RE, what best describes festivals? (6): Q5",
+    "correct":"Correct explanation of festivals",
+    "options":[
+      "Correct explanation of festivals",
+      "Incorrect detail about festivals",
+      "Unrelated option",
+      "Another unrelated option"
+    ],
+    "id":"re_y6_120",
+    "dataset":"generated",
+    "explanation":"This is correct because it matches KS2 understanding of festivals.",
+    "quality_flag":null,
+    "difficulty_score":null
+  }
+]

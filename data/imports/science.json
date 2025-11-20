@@ -1,0 +1,4303 @@
+[
+  {
+    "subject":"Science",
+    "topic":"Forces",
+    "year_level":3,
+    "question":"A push or pull is called:",
+    "correct":"A force",
+    "options":[
+      "Energy",
+      "Speed",
+      "Weight"
+    ],
+    "id":"science_y3_0007",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Animals",
+    "year_level":3,
+    "question":"Humans have a skeleton made of:",
+    "correct":"Bones",
+    "options":[
+      "Muscles",
+      "Skin",
+      "Water"
+    ],
+    "id":"science_y3_0001",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Magnets",
+    "year_level":3,
+    "question":"Magnets attract:",
+    "correct":"Iron and steel",
+    "options":[
+      "Plastic",
+      "Wood",
+      "Paper"
+    ],
+    "id":"science_y3_0013",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Magnets",
+    "year_level":3,
+    "question":"Magnets have:",
+    "correct":"Two poles",
+    "options":[
+      "One pole",
+      "Three poles",
+      "No poles"
+    ],
+    "id":"science_y3_0014",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Forces",
+    "year_level":3,
+    "question":"Practice 1: A push or pull is called:",
+    "correct":"A force",
+    "options":[
+      "Energy",
+      "Speed",
+      "Weight"
+    ],
+    "id":"science_y3_0008",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Animals",
+    "year_level":3,
+    "question":"Practice 1: Humans have a skeleton made of:",
+    "correct":"Bones",
+    "options":[
+      "Muscles",
+      "Skin",
+      "Water"
+    ],
+    "id":"science_y3_0003",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Magnets",
+    "year_level":3,
+    "question":"Practice 1: Magnets attract:",
+    "correct":"Iron and steel",
+    "options":[
+      "Plastic",
+      "Wood",
+      "Paper"
+    ],
+    "id":"science_y3_0015",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Magnets",
+    "year_level":3,
+    "question":"Practice 1: Magnets have:",
+    "correct":"Two poles",
+    "options":[
+      "One pole",
+      "Three poles",
+      "No poles"
+    ],
+    "id":"science_y3_0016",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Rocks",
+    "year_level":3,
+    "question":"Practice 1: Soil is made from:",
+    "correct":"Broken rock and organic matter",
+    "options":[
+      "Only water",
+      "Only plants",
+      "Air"
+    ],
+    "id":"science_y3_0031",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Plants",
+    "year_level":3,
+    "question":"Practice 1: What do plants need to grow?",
+    "correct":"Water, light, nutrients",
+    "options":[
+      "Only water",
+      "Only light",
+      "Nothing"
+    ],
+    "id":"science_y3_0023",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Animals",
+    "year_level":3,
+    "question":"Practice 1: What helps us move our bones?",
+    "correct":"Muscles",
+    "options":[
+      "Skin",
+      "Heart",
+      "Stomach"
+    ],
+    "id":"science_y3_0004",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Light",
+    "year_level":3,
+    "question":"Practice 1: What is formed when an opaque object blocks light?",
+    "correct":"A shadow",
+    "options":[
+      "A reflection",
+      "A beam",
+      "A prism"
+    ],
+    "id":"science_y3_0011",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Plants",
+    "year_level":3,
+    "question":"Practice 1: What part of a plant takes in water and nutrients from the soil?",
+    "correct":"Roots",
+    "options":[
+      "Leaves",
+      "Stem",
+      "Flower"
+    ],
+    "id":"science_y3_0022",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Plants",
+    "year_level":3,
+    "question":"Practice 1: Which part of the plant makes food?",
+    "correct":"Leaves",
+    "options":[
+      "Roots",
+      "Stem",
+      "Flower"
+    ],
+    "id":"science_y3_0024",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Rocks",
+    "year_level":3,
+    "question":"Practice 1: Which rock type is formed by cooling lava?",
+    "correct":"Igneous",
+    "options":[
+      "Sedimentary",
+      "Metamorphic",
+      "Crystal"
+    ],
+    "id":"science_y3_0030",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Forces",
+    "year_level":3,
+    "question":"Practice 2: A push or pull is called:",
+    "correct":"A force",
+    "options":[
+      "Energy",
+      "Speed",
+      "Weight"
+    ],
+    "id":"science_y3_0009",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Animals",
+    "year_level":3,
+    "question":"Practice 2: Humans have a skeleton made of:",
+    "correct":"Bones",
+    "options":[
+      "Muscles",
+      "Skin",
+      "Water"
+    ],
+    "id":"science_y3_0005",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Magnets",
+    "year_level":3,
+    "question":"Practice 2: Magnets attract:",
+    "correct":"Iron and steel",
+    "options":[
+      "Plastic",
+      "Wood",
+      "Paper"
+    ],
+    "id":"science_y3_0017",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Magnets",
+    "year_level":3,
+    "question":"Practice 2: Magnets have:",
+    "correct":"Two poles",
+    "options":[
+      "One pole",
+      "Three poles",
+      "No poles"
+    ],
+    "id":"science_y3_0018",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Rocks",
+    "year_level":3,
+    "question":"Practice 2: Soil is made from:",
+    "correct":"Broken rock and organic matter",
+    "options":[
+      "Only water",
+      "Only plants",
+      "Air"
+    ],
+    "id":"science_y3_0033",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Plants",
+    "year_level":3,
+    "question":"Practice 2: What do plants need to grow?",
+    "correct":"Water, light, nutrients",
+    "options":[
+      "Only water",
+      "Only light",
+      "Nothing"
+    ],
+    "id":"science_y3_0026",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Animals",
+    "year_level":3,
+    "question":"Practice 2: What helps us move our bones?",
+    "correct":"Muscles",
+    "options":[
+      "Skin",
+      "Heart",
+      "Stomach"
+    ],
+    "id":"science_y3_0006",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Light",
+    "year_level":3,
+    "question":"Practice 2: What is formed when an opaque object blocks light?",
+    "correct":"A shadow",
+    "options":[
+      "A reflection",
+      "A beam",
+      "A prism"
+    ],
+    "id":"science_y3_0012",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Plants",
+    "year_level":3,
+    "question":"Practice 2: What part of a plant takes in water and nutrients from the soil?",
+    "correct":"Roots",
+    "options":[
+      "Leaves",
+      "Stem",
+      "Flower"
+    ],
+    "id":"science_y3_0025",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Plants",
+    "year_level":3,
+    "question":"Practice 2: Which part of the plant makes food?",
+    "correct":"Leaves",
+    "options":[
+      "Roots",
+      "Stem",
+      "Flower"
+    ],
+    "id":"science_y3_0027",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Rocks",
+    "year_level":3,
+    "question":"Practice 2: Which rock type is formed by cooling lava?",
+    "correct":"Igneous",
+    "options":[
+      "Sedimentary",
+      "Metamorphic",
+      "Crystal"
+    ],
+    "id":"science_y3_0032",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Rocks",
+    "year_level":3,
+    "question":"Soil is made from:",
+    "correct":"Broken rock and organic matter",
+    "options":[
+      "Only water",
+      "Only plants",
+      "Air"
+    ],
+    "id":"science_y3_0029",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Rocks",
+    "year_level":3,
+    "question":"Soil is made from: A) plants growing in the ground B) rocks breaking down over time C) minerals melting together D) animals digging holes",
+    "correct":"rocks breaking down over time",
+    "options":[
+      "plants growing in the ground",
+      "minerals melting together",
+      "animals digging holes"
+    ],
+    "id":"science_y3_0008",
+    "dataset":"converted_worksheet",
+    "explanation":"Soil is formed when rocks are broken down by weather, wind, and water over many years. This process is called weathering.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Rocks",
+    "year_level":3,
+    "question":"Soil is made from: A) rocks breaking down over time B) plants growing in the ground C) minerals melting together D) animals digging holes",
+    "correct":"rocks breaking down over time",
+    "options":[
+      "plants growing in the ground",
+      "minerals melting together",
+      "animals digging holes"
+    ],
+    "id":"science_y3_0030",
+    "dataset":"converted_worksheet",
+    "explanation":"Soil is formed when rocks are broken down by wind, water, and weather over long periods of time. This process is called weathering.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Animals",
+    "year_level":3,
+    "question":"What are humans' skeletons made of?",
+    "correct":"bones",
+    "options":[
+      "cartilage",
+      "muscles",
+      "skin"
+    ],
+    "id":"science_y3_0005",
+    "dataset":"converted_worksheet",
+    "explanation":"Humans have an internal skeleton called the skeletal system which is made up of bones. Bones provide structure, protect organs, and help us move.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Magnets",
+    "year_level":3,
+    "question":"What do magnets always have?",
+    "correct":"two poles",
+    "options":[
+      "three sides",
+      "four corners",
+      "no ends"
+    ],
+    "id":"science_y3_0011",
+    "dataset":"converted_worksheet",
+    "explanation":"Magnets always have two poles - a north pole and a south pole. This is a basic property of magnets.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Plants",
+    "year_level":3,
+    "question":"What do plants need to grow?",
+    "correct":"Water, light, nutrients",
+    "options":[
+      "Only water",
+      "Only light",
+      "Nothing"
+    ],
+    "id":"science_y3_0020",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Plants",
+    "year_level":3,
+    "question":"What do plants need to grow? A) Water, soil and air B) Sunlight, rocks and food C) Air, heat and money D) Water, light and nutrients",
+    "correct":"Water, light and nutrients",
+    "options":[
+      "Water, soil and air",
+      "Sunlight, rocks and food",
+      "Air, heat and money"
+    ],
+    "id":"science_y3_0014",
+    "dataset":"converted_worksheet",
+    "explanation":"Plants need water to drink, light (sunshine) to make food, and nutrients from the soil to grow strong. These three things are essential for all plants to survive and grow.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Forces",
+    "year_level":3,
+    "question":"What do we call a push or pull acting on an object?",
+    "correct":"a force",
+    "options":[
+      "motion",
+      "energy",
+      "gravity"
+    ],
+    "id":"science_y3_0009",
+    "dataset":"converted_worksheet",
+    "explanation":"A push or pull acting on an object is scientifically called a force. Motion is the change in position, energy is the ability to do work, and gravity is a specific type of force that pulls objects toward each other.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Forces",
+    "year_level":3,
+    "question":"What do we call a push or pull in science?",
+    "correct":"a force",
+    "options":[
+      "energy",
+      "motion",
+      "gravity"
+    ],
+    "id":"science_y3_0020",
+    "dataset":"converted_worksheet",
+    "explanation":"A push or pull is called a force. Forces can make objects move, stop moving, or change direction.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Light",
+    "year_level":3,
+    "question":"What do you see when you hold your hand in front of a lamp?",
+    "correct":"A shadow",
+    "options":[
+      "A rainbow",
+      "A reflection",
+      "A refraction"
+    ],
+    "id":"science_y3_0001",
+    "dataset":"converted_worksheet",
+    "explanation":"When light hits an opaque object, it cannot pass through and creates a dark area behind the object called a shadow. This happens because the object blocks all or part of the light.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Animals",
+    "year_level":3,
+    "question":"What helps us move our bones?",
+    "correct":"Muscles",
+    "options":[
+      "Skin",
+      "Heart",
+      "Stomach"
+    ],
+    "id":"science_y3_0002",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Light",
+    "year_level":3,
+    "question":"What is formed when an opaque object blocks light?",
+    "correct":"A shadow",
+    "options":[
+      "A reflection",
+      "A beam",
+      "A prism"
+    ],
+    "id":"science_y3_0010",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Magnets",
+    "year_level":3,
+    "question":"What is the correct number of poles that all magnets have?",
+    "correct":"two poles",
+    "options":[
+      "no poles",
+      "three poles",
+      "four poles"
+    ],
+    "id":"science_y3_0033",
+    "dataset":"converted_worksheet",
+    "explanation":"Magnets always have two poles - a north pole and a south pole. This is a basic property of magnets.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Plants",
+    "year_level":3,
+    "question":"What part of a plant grows in the ground and\u5438\u6c34and nutrients from the soil?",
+    "correct":"Roots",
+    "options":[
+      "Leaves",
+      "Stem",
+      "Flowers"
+    ],
+    "id":"science_y3_0013",
+    "dataset":"converted_worksheet",
+    "explanation":"Roots are the part of a plant that grow underground and absorb water and nutrients from the soil. Leaves collect sunlight, stems carry materials between parts, and flowers make seeds.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Plants",
+    "year_level":3,
+    "question":"What part of a plant takes in water and nutrients from the soil?",
+    "correct":"Roots",
+    "options":[
+      "Leaves",
+      "Stem",
+      "Flower"
+    ],
+    "id":"science_y3_0019",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Magnets",
+    "year_level":3,
+    "question":"Which material will a magnet attract? A) Wood B) Plastic C) Iron D) Copper",
+    "correct":"iron",
+    "options":[
+      "wood",
+      "plastic",
+      "copper"
+    ],
+    "id":"science_y3_0021",
+    "dataset":"converted_worksheet",
+    "explanation":"Magnets are attracted to iron and other ferromagnetic materials. Wood, plastic, and copper are not magnetic materials that magnets can attract.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Magnets",
+    "year_level":3,
+    "question":"Which material will magnets attract? A) Wood B) Plastic C) Iron D) Copper",
+    "correct":"iron",
+    "options":[
+      "wood",
+      "plastic",
+      "copper"
+    ],
+    "id":"science_y3_0032",
+    "dataset":"converted_worksheet",
+    "explanation":"Magnets are attracted to iron objects like nails, screws and keys. Wood, plastic and copper are not magnetic materials.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Magnets",
+    "year_level":3,
+    "question":"Which of these objects will a magnet stick to? A plastic toy B wooden block C iron nail D cotton ball",
+    "correct":"iron objects",
+    "options":[
+      "plastic toys",
+      "wooden blocks",
+      "cotton wool"
+    ],
+    "id":"science_y3_0010",
+    "dataset":"converted_worksheet",
+    "explanation":"Magnets are naturally attracted to iron and steel materials. Plastic, wood, and cotton are not magnetic materials that magnets can attract.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Plants",
+    "year_level":3,
+    "question":"Which part of the plant makes food using sunlight?",
+    "correct":"Leaves",
+    "options":[
+      "Roots",
+      "Stem",
+      "Flowers"
+    ],
+    "id":"science_y3_0004",
+    "dataset":"converted_worksheet",
+    "explanation":"Leaves make food through photosynthesis using sunlight, water and carbon dioxide. Roots absorb water and nutrients from soil. Stem transports materials up and down the plant. Flowers are for reproduction.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Plants",
+    "year_level":3,
+    "question":"Which part of the plant makes food?",
+    "correct":"Leaves",
+    "options":[
+      "Roots",
+      "Stem",
+      "Flower"
+    ],
+    "id":"science_y3_0021",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Rocks",
+    "year_level":3,
+    "question":"Which rock type is formed by cooling lava?",
+    "correct":"Igneous",
+    "options":[
+      "Sedimentary",
+      "Metamorphic",
+      "Crystal"
+    ],
+    "id":"science_y3_0028",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Rocks",
+    "year_level":3,
+    "question":"Which rock type is formed when lava cools down and becomes solid?",
+    "correct":"Igneous",
+    "options":[
+      "Sedimentary",
+      "Metamorphic",
+      "Granite"
+    ],
+    "id":"science_y3_0029",
+    "dataset":"converted_worksheet",
+    "explanation":"Igneous rocks are formed when hot lava cools and hardens. Sedimentary rocks form from layers of sediment, and metamorphic rocks change under heat and pressure. Granite is actually a type of igneous rock, but the question asks for the general rock type formed by cooling lava.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Rocks",
+    "year_level":3,
+    "question":"Which type of rock is made when lava cools down and becomes solid?",
+    "correct":"Igneous",
+    "options":[
+      "Sedimentary",
+      "Metamorphic",
+      "Granite"
+    ],
+    "id":"science_y3_0018",
+    "dataset":"converted_worksheet",
+    "explanation":"Igneous rocks are formed when hot lava cools and hardens. Sedimentary rocks form from layers of sediment, and metamorphic rocks form when existing rocks are changed by heat and pressure.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Electricity",
+    "year_level":4,
+    "question":"A complete path for electricity is called:",
+    "correct":"A circuit",
+    "options":[
+      "A wire",
+      "A battery",
+      "A switch"
+    ],
+    "id":"science_y4_0004",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Living Things",
+    "year_level":4,
+    "question":"How can living things be grouped together?",
+    "correct":"their features and needs",
+    "options":[
+      "where they live",
+      "how big they are",
+      "what colour they are"
+    ],
+    "id":"science_y4_0014",
+    "dataset":"converted_worksheet",
+    "explanation":"Living things are grouped by their shared characteristics like how they look, what they need to survive, and how they behave. While some animals live in similar places or have similar sizes, these aren't the main ways scientists group living things. Colour is not a reliable way to group them because many different types of living things can be the same colour.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Living Things",
+    "year_level":4,
+    "question":"How do scientists group living things together?",
+    "correct":"their shared characteristics",
+    "options":[
+      "how they look different",
+      "where they live in the world",
+      "what food they eat"
+    ],
+    "id":"science_y4_0003",
+    "dataset":"converted_worksheet",
+    "explanation":"Scientists group living things together based on their shared characteristics like having cells, needing water and food, growing, and reproducing. While animals might live in similar places or eat similar foods, these aren't the main ways scientists classify living things.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Sound",
+    "year_level":4,
+    "question":"How does sound travel from a speaker to your ears?",
+    "correct":"waves through the air or other materials",
+    "options":[
+      "tiny invisible particles flying through space",
+      "directly from your ears to your brain",
+      "as a single continuous stream of energy"
+    ],
+    "id":"science_y4_0008",
+    "dataset":"converted_worksheet",
+    "explanation":"Sound travels as waves that move through air, water, or solid materials. These sound waves cause molecules to vibrate and transfer the sound energy from one place to another.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Sound",
+    "year_level":4,
+    "question":"How does sound travel from its source to our ears?",
+    "correct":"vibrations through air or other materials",
+    "options":[
+      "light waves from the source",
+      "tiny invisible particles flying through space",
+      "sound energy that appears out of nowhere"
+    ],
+    "id":"science_y4_0002",
+    "dataset":"converted_worksheet",
+    "explanation":"Sound travels as vibrations that move through air, water, or solids to reach our ears. These vibrations are created when objects shake or move back and forth.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Sound",
+    "year_level":4,
+    "question":"How does sound travel from one place to another?",
+    "correct":"waves through a medium",
+    "options":[
+      "instantly through air",
+      "as particles moving in straight lines",
+      "only in water"
+    ],
+    "id":"science_y4_0030",
+    "dataset":"converted_worksheet",
+    "explanation":"Sound travels as waves that need a medium like air, water or solids to move through. It cannot travel through empty space.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Sound",
+    "year_level":4,
+    "question":"How does sound travel through the world around us?",
+    "correct":"waves through matter",
+    "options":[
+      "quickly through air only",
+      "as light particles",
+      "in straight lines only"
+    ],
+    "id":"science_y4_0019",
+    "dataset":"converted_worksheet",
+    "explanation":"Sound travels as waves that move through different materials like air, water, and solids. These sound waves can travel in all directions, not just straight lines.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Sound",
+    "year_level":4,
+    "question":"How does sound travel to our ears?",
+    "correct":"vibrations through air or other materials",
+    "options":[
+      "light waves from objects",
+      "heat energy moving through space",
+      "invisible strings pulling sound"
+    ],
+    "id":"science_y4_0013",
+    "dataset":"converted_worksheet",
+    "explanation":"Sound travels as vibrations that move through air, water, or solid materials to reach our ears. These vibrations are what we hear when sounds are made.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Living Things",
+    "year_level":4,
+    "question":"Living things can be grouped by:",
+    "correct":"Characteristics",
+    "options":[
+      "Color only",
+      "Size only",
+      "Name only"
+    ],
+    "id":"science_y4_0010",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Electricity",
+    "year_level":4,
+    "question":"Practice 1: A complete path for electricity is called:",
+    "correct":"A circuit",
+    "options":[
+      "A wire",
+      "A battery",
+      "A switch"
+    ],
+    "id":"science_y4_0006",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Living Things",
+    "year_level":4,
+    "question":"Practice 1: Living things can be grouped by:",
+    "correct":"Characteristics",
+    "options":[
+      "Color only",
+      "Size only",
+      "Name only"
+    ],
+    "id":"science_y4_0011",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Sound",
+    "year_level":4,
+    "question":"Practice 1: Sound cannot travel through:",
+    "correct":"A vacuum (space)",
+    "options":[
+      "Air",
+      "Water",
+      "Solids"
+    ],
+    "id":"science_y4_0021",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Sound",
+    "year_level":4,
+    "question":"Practice 1: Sound travels as:",
+    "correct":"Vibrations",
+    "options":[
+      "Light",
+      "Liquid",
+      "Pictures"
+    ],
+    "id":"science_y4_0020",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Sound",
+    "year_level":4,
+    "question":"Practice 1: Sound travels to our ears as:",
+    "correct":"Vibrations (or Waves)",
+    "options":[
+      "Particles",
+      "Light",
+      "Smell"
+    ],
+    "id":"science_y4_0019",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"States of Matter",
+    "year_level":4,
+    "question":"Practice 1: The three main states of matter are:",
+    "correct":"Solid, liquid, gas",
+    "options":[
+      "Hot, cold, warm",
+      "Big, small, tiny",
+      "Red, blue, green"
+    ],
+    "id":"science_y4_0027",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"States of Matter",
+    "year_level":4,
+    "question":"Practice 1: When water boils, it becomes:",
+    "correct":"Gas (steam)",
+    "options":[
+      "Ice",
+      "Solid",
+      "Heavier"
+    ],
+    "id":"science_y4_0028",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Digestion",
+    "year_level":4,
+    "question":"Practice 1: Where does digestion start?",
+    "correct":"Mouth",
+    "options":[
+      "Stomach",
+      "Small intestine",
+      "Large intestine"
+    ],
+    "id":"science_y4_0002",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Matter",
+    "year_level":4,
+    "question":"Practice 1: Which is the state of matter where particles are closely packed but can slide past each other?",
+    "correct":"Liquid",
+    "options":[
+      "Solid",
+      "Gas",
+      "Plasma"
+    ],
+    "id":"science_y4_0014",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Electricity",
+    "year_level":4,
+    "question":"Practice 1: Which material conducts electricity?",
+    "correct":"Copper",
+    "options":[
+      "Plastic",
+      "Wood",
+      "Rubber"
+    ],
+    "id":"science_y4_0007",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Teeth",
+    "year_level":4,
+    "question":"Practice 1: Which teeth are for cutting?",
+    "correct":"Incisors",
+    "options":[
+      "Molars",
+      "Canines",
+      "Wisdom"
+    ],
+    "id":"science_y4_0032",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Electricity",
+    "year_level":4,
+    "question":"Practice 2: A complete path for electricity is called:",
+    "correct":"A circuit",
+    "options":[
+      "A wire",
+      "A battery",
+      "A switch"
+    ],
+    "id":"science_y4_0008",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Living Things",
+    "year_level":4,
+    "question":"Practice 2: Living things can be grouped by:",
+    "correct":"Characteristics",
+    "options":[
+      "Color only",
+      "Size only",
+      "Name only"
+    ],
+    "id":"science_y4_0012",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Sound",
+    "year_level":4,
+    "question":"Practice 2: Sound cannot travel through:",
+    "correct":"A vacuum (space)",
+    "options":[
+      "Air",
+      "Water",
+      "Solids"
+    ],
+    "id":"science_y4_0024",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Sound",
+    "year_level":4,
+    "question":"Practice 2: Sound travels as:",
+    "correct":"Vibrations",
+    "options":[
+      "Light",
+      "Liquid",
+      "Pictures"
+    ],
+    "id":"science_y4_0023",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Sound",
+    "year_level":4,
+    "question":"Practice 2: Sound travels to our ears as:",
+    "correct":"Vibrations (or Waves)",
+    "options":[
+      "Particles",
+      "Light",
+      "Smell"
+    ],
+    "id":"science_y4_0022",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"States of Matter",
+    "year_level":4,
+    "question":"Practice 2: The three main states of matter are:",
+    "correct":"Solid, liquid, gas",
+    "options":[
+      "Hot, cold, warm",
+      "Big, small, tiny",
+      "Red, blue, green"
+    ],
+    "id":"science_y4_0029",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"States of Matter",
+    "year_level":4,
+    "question":"Practice 2: When water boils, it becomes:",
+    "correct":"Gas (steam)",
+    "options":[
+      "Ice",
+      "Solid",
+      "Heavier"
+    ],
+    "id":"science_y4_0030",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Digestion",
+    "year_level":4,
+    "question":"Practice 2: Where does digestion start?",
+    "correct":"Mouth",
+    "options":[
+      "Stomach",
+      "Small intestine",
+      "Large intestine"
+    ],
+    "id":"science_y4_0003",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Matter",
+    "year_level":4,
+    "question":"Practice 2: Which is the state of matter where particles are closely packed but can slide past each other?",
+    "correct":"Liquid",
+    "options":[
+      "Solid",
+      "Gas",
+      "Plasma"
+    ],
+    "id":"science_y4_0015",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Electricity",
+    "year_level":4,
+    "question":"Practice 2: Which material conducts electricity?",
+    "correct":"Copper",
+    "options":[
+      "Plastic",
+      "Wood",
+      "Rubber"
+    ],
+    "id":"science_y4_0009",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Teeth",
+    "year_level":4,
+    "question":"Practice 2: Which teeth are for cutting?",
+    "correct":"Incisors",
+    "options":[
+      "Molars",
+      "Canines",
+      "Wisdom"
+    ],
+    "id":"science_y4_0033",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Sound",
+    "year_level":4,
+    "question":"Sound cannot travel through:",
+    "correct":"A vacuum (space)",
+    "options":[
+      "Air",
+      "Water",
+      "Solids"
+    ],
+    "id":"science_y4_0018",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Sound",
+    "year_level":4,
+    "question":"Sound travels as:",
+    "correct":"Vibrations",
+    "options":[
+      "Light",
+      "Liquid",
+      "Pictures"
+    ],
+    "id":"science_y4_0017",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Sound",
+    "year_level":4,
+    "question":"Sound travels to our ears as:",
+    "correct":"Vibrations (or Waves)",
+    "options":[
+      "Particles",
+      "Light",
+      "Smell"
+    ],
+    "id":"science_y4_0016",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"States of Matter",
+    "year_level":4,
+    "question":"The three main states of matter are:",
+    "correct":"Solid, liquid, gas",
+    "options":[
+      "Hot, cold, warm",
+      "Big, small, tiny",
+      "Red, blue, green"
+    ],
+    "id":"science_y4_0025",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"States of Matter",
+    "year_level":4,
+    "question":"What are the three main states of matter?",
+    "correct":"solid liquid gas",
+    "options":[
+      "hot cold warm",
+      "heavy light floating",
+      "wood metal plastic"
+    ],
+    "id":"science_y4_0006",
+    "dataset":"converted_worksheet",
+    "explanation":"The three main states of matter are solid, liquid, and gas. These describe how matter behaves based on the arrangement and movement of particles.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Electricity",
+    "year_level":4,
+    "question":"What do we call the complete path that electricity follows in an electric light?",
+    "correct":"a circuit",
+    "options":[
+      "a wire",
+      "a switch",
+      "a battery"
+    ],
+    "id":"science_y4_0010",
+    "dataset":"converted_worksheet",
+    "explanation":"A circuit is a complete loop that electricity can flow through. A wire carries the electricity, a switch controls the flow, and a battery provides the power, but only together do they make a working circuit.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Electricity",
+    "year_level":4,
+    "question":"What do we call the complete path that electricity must follow to work correctly in a electrical device?",
+    "correct":"a circuit",
+    "options":[
+      "a wire",
+      "a battery",
+      "an switch"
+    ],
+    "id":"science_y4_0032",
+    "dataset":"converted_worksheet",
+    "explanation":"A circuit is a complete path that allows electricity to flow from a power source through wires and devices, then back to the power source. Without a complete circuit, electricity cannot flow properly.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Matter",
+    "year_level":4,
+    "question":"What state of matter has particles that are close together but can move around and slide past each other?",
+    "correct":"Liquid",
+    "options":[
+      "Gas",
+      "Solid",
+      "Plasma"
+    ],
+    "id":"science_y4_0001",
+    "dataset":"converted_worksheet",
+    "explanation":"Liquids have particles that are close together but not in a fixed position, allowing them to flow and slide past each other. Gases have widely spaced particles that move freely, solids have tightly packed particles that vibrate in fixed positions, and plasma is an electrically charged gas state.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"States of Matter",
+    "year_level":4,
+    "question":"When water boils, it becomes:",
+    "correct":"Gas (steam)",
+    "options":[
+      "Ice",
+      "Solid",
+      "Heavier"
+    ],
+    "id":"science_y4_0026",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Digestion",
+    "year_level":4,
+    "question":"Where does digestion start in the human body?",
+    "correct":"In the mouth",
+    "options":[
+      "In the stomach",
+      "In the small intestine",
+      "In the liver"
+    ],
+    "id":"science_y4_0004",
+    "dataset":"converted_worksheet",
+    "explanation":"Digestion starts in the mouth when you chew food and saliva begins breaking it down. The process continues as food travels through your digestive system.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Digestion",
+    "year_level":4,
+    "question":"Where does digestion start?",
+    "correct":"Mouth",
+    "options":[
+      "Stomach",
+      "Small intestine",
+      "Large intestine"
+    ],
+    "id":"science_y4_0001",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Matter",
+    "year_level":4,
+    "question":"Which is the state of matter where particles are closely packed but can slide past each other?",
+    "correct":"Liquid",
+    "options":[
+      "Solid",
+      "Gas",
+      "Plasma"
+    ],
+    "id":"science_y4_0013",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Electricity",
+    "year_level":4,
+    "question":"Which material conducts electricity?",
+    "correct":"Copper",
+    "options":[
+      "Plastic",
+      "Wood",
+      "Rubber"
+    ],
+    "id":"science_y4_0005",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Sound",
+    "year_level":4,
+    "question":"Which of these cannot carry sound waves? Sound cannot travel through:",
+    "correct":"Vacuum",
+    "options":[
+      "Water",
+      "Steel",
+      "Air"
+    ],
+    "id":"science_y4_0031",
+    "dataset":"converted_worksheet",
+    "explanation":"Sound needs matter (like air, water or solids) to travel through. In a vacuum (empty space with no particles), there are no molecules for sound waves to vibrate and carry the sound. This is why astronauts communicate via radio in space.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Sound",
+    "year_level":4,
+    "question":"Which of these cannot carry sound waves? Sound needs particles to travel through, so it cannot go through:",
+    "correct":"Vacuum",
+    "options":[
+      "Water",
+      "Steel",
+      "Air"
+    ],
+    "id":"science_y4_0009",
+    "dataset":"converted_worksheet",
+    "explanation":"Sound needs matter to travel through - it can move through liquids, solids, and gases but not through a vacuum where there are no particles to vibrate.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Electricity",
+    "year_level":4,
+    "question":"Which of these materials would let electricity pass through it most easily? A) Paper clip B) Glass cup C) Copper wire D) Cotton wool",
+    "correct":"Copper wire",
+    "options":[
+      "Wooden ruler",
+      "Plastic bottle",
+      "Rubber eraser"
+    ],
+    "id":"science_y4_0022",
+    "dataset":"converted_worksheet",
+    "explanation":"Copper is a metal that allows electricity to flow through it easily. Wood, plastic and rubber are insulators that do not conduct electricity well.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Electricity",
+    "year_level":4,
+    "question":"Which of these materials would let electricity pass through it? A wooden table B plastic bottle C copper wire D rubber boot",
+    "correct":"Copper wire",
+    "options":[
+      "Wooden table",
+      "Plastic bottle",
+      "Rubber boot"
+    ],
+    "id":"science_y4_0011",
+    "dataset":"converted_worksheet",
+    "explanation":"Copper is a metal that allows electric current to flow through it easily. Wood, plastic, and rubber are insulators that block electricity from flowing.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Electricity",
+    "year_level":4,
+    "question":"Which of these materials would let electricity pass through it? Copper wire, wooden table, plastic bottle, or rubber boot?",
+    "correct":"Copper wire",
+    "options":[
+      "Wooden table",
+      "Plastic bottle",
+      "Rubber boot"
+    ],
+    "id":"science_y4_0033",
+    "dataset":"converted_worksheet",
+    "explanation":"Copper is a metal that allows electricity to flow through it easily. Wood, plastic, and rubber are insulators that block electricity flow.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Matter",
+    "year_level":4,
+    "question":"Which state of matter has particles that are close together but can slide past each other?",
+    "correct":"Liquid",
+    "options":[
+      "Gas",
+      "Solid",
+      "Plasma"
+    ],
+    "id":"science_y4_0023",
+    "dataset":"converted_worksheet",
+    "explanation":"Liquids have particles that are close together but not in a fixed pattern, allowing them to flow and slide past each other. Gases have widely spaced particles that move freely, solids have tightly packed particles that vibrate in place, and plasma is an electrically charged gas state.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Matter",
+    "year_level":4,
+    "question":"Which state of matter has particles that are closely packed but can slide past each other?",
+    "correct":"Liquid",
+    "options":[
+      "Gas",
+      "Solid",
+      "Plasma"
+    ],
+    "id":"science_y4_0012",
+    "dataset":"converted_worksheet",
+    "explanation":"Liquids have particles that are close together but not in a fixed pattern, allowing them to flow and slide past each other. Gases have widely spaced particles that move freely, solids have tightly packed particles in a fixed shape, and plasma is an ionized gas state.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Teeth",
+    "year_level":4,
+    "question":"Which teeth are for cutting?",
+    "correct":"Incisors",
+    "options":[
+      "Molars",
+      "Canines",
+      "Wisdom"
+    ],
+    "id":"science_y4_0031",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Teeth",
+    "year_level":4,
+    "question":"Which teeth are used for cutting food?",
+    "correct":"Incisors",
+    "options":[
+      "Molars",
+      "Canines",
+      "Premolars"
+    ],
+    "id":"science_y4_0005",
+    "dataset":"converted_worksheet",
+    "explanation":"Incisors are the flat, sharp teeth at the front of your mouth that are designed for cutting and biting food.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Teeth",
+    "year_level":4,
+    "question":"Which type of tooth is used for cutting food?",
+    "correct":"Incisors",
+    "options":[
+      "Molars",
+      "Canines",
+      "Premolars"
+    ],
+    "id":"science_y4_0016",
+    "dataset":"converted_worksheet",
+    "explanation":"Incisors are the flat, sharp teeth at the front of your mouth that are used for cutting and biting food into smaller pieces.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Life Cycles",
+    "year_level":5,
+    "question":"A butterfly goes through:",
+    "correct":"Complete metamorphosis",
+    "options":[
+      "No changes",
+      "Only growth",
+      "Simple growth"
+    ],
+    "id":"science_y5_0010",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Materials",
+    "year_level":5,
+    "question":"A change that cannot be reversed is:",
+    "correct":"Irreversible",
+    "options":[
+      "Reversible",
+      "Temporary",
+      "Flexible"
+    ],
+    "id":"science_y5_0015",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Materials",
+    "year_level":5,
+    "question":"Burning wood is:",
+    "correct":"An irreversible change",
+    "options":[
+      "A reversible change",
+      "No change",
+      "A color change only"
+    ],
+    "id":"science_y5_0016",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Forces",
+    "year_level":5,
+    "question":"Friction occurs when:",
+    "correct":"Surfaces rub together",
+    "options":[
+      "Objects float",
+      "Light shines",
+      "Sound travels"
+    ],
+    "id":"science_y5_0006",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Earth & Space",
+    "year_level":5,
+    "question":"How long does it take for the Earth to spin around once?",
+    "correct":"24 hours",
+    "options":[
+      "12 hours",
+      "30 days",
+      "6 hours"
+    ],
+    "id":"science_y5_0005",
+    "dataset":"converted_worksheet",
+    "explanation":"The Earth takes 24 hours to rotate once on its axis, which is why we have day and night. This rotation happens at a steady pace that gives us our 24-hour day cycle.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Life Cycles",
+    "year_level":5,
+    "question":"Practice 1: A butterfly goes through:",
+    "correct":"Complete metamorphosis",
+    "options":[
+      "No changes",
+      "Only growth",
+      "Simple growth"
+    ],
+    "id":"science_y5_0012",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Materials",
+    "year_level":5,
+    "question":"Practice 1: A change that cannot be reversed is:",
+    "correct":"Irreversible",
+    "options":[
+      "Reversible",
+      "Temporary",
+      "Flexible"
+    ],
+    "id":"science_y5_0017",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Materials",
+    "year_level":5,
+    "question":"Practice 1: Burning wood is:",
+    "correct":"An irreversible change",
+    "options":[
+      "A reversible change",
+      "No change",
+      "A color change only"
+    ],
+    "id":"science_y5_0018",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Forces",
+    "year_level":5,
+    "question":"Practice 1: Friction occurs when:",
+    "correct":"Surfaces rub together",
+    "options":[
+      "Objects float",
+      "Light shines",
+      "Sound travels"
+    ],
+    "id":"science_y5_0008",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Earth & Space",
+    "year_level":5,
+    "question":"Practice 1: The Earth orbits the:",
+    "correct":"Sun",
+    "options":[
+      "Moon",
+      "Mars",
+      "Stars"
+    ],
+    "id":"science_y5_0004",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Earth & Space",
+    "year_level":5,
+    "question":"Practice 1: The Earth rotates once every:",
+    "correct":"24 hours",
+    "options":[
+      "12 hours",
+      "365 days",
+      "1 hour"
+    ],
+    "id":"science_y5_0003",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Forces",
+    "year_level":5,
+    "question":"Practice 1: The force that pulls objects to Earth is:",
+    "correct":"Gravity",
+    "options":[
+      "Friction",
+      "Magnetism",
+      "Air resistance"
+    ],
+    "id":"science_y5_0007",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Life Cycles",
+    "year_level":5,
+    "question":"Practice 1: The life cycle of a mammal includes:",
+    "correct":"Birth, growth, reproduction, death",
+    "options":[
+      "Only birth",
+      "Only death",
+      "Egg, larva, pupa"
+    ],
+    "id":"science_y5_0011",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Life Cycles",
+    "year_level":5,
+    "question":"Practice 2: A butterfly goes through:",
+    "correct":"Complete metamorphosis",
+    "options":[
+      "No changes",
+      "Only growth",
+      "Simple growth"
+    ],
+    "id":"science_y5_0014",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Life Cycles",
+    "year_level":5,
+    "question":"Practice 2: The life cycle of a mammal includes:",
+    "correct":"Birth, growth, reproduction, death",
+    "options":[
+      "Only birth",
+      "Only death",
+      "Egg, larva, pupa"
+    ],
+    "id":"science_y5_0013",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Earth & Space",
+    "year_level":5,
+    "question":"The Earth orbits the:",
+    "correct":"Sun",
+    "options":[
+      "Moon",
+      "Mars",
+      "Stars"
+    ],
+    "id":"science_y5_0002",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Earth & Space",
+    "year_level":5,
+    "question":"The Earth rotates once every:",
+    "correct":"24 hours",
+    "options":[
+      "12 hours",
+      "365 days",
+      "1 hour"
+    ],
+    "id":"science_y5_0001",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Earth & Space",
+    "year_level":5,
+    "question":"The Earth travels around which object in space?",
+    "correct":"sun",
+    "options":[
+      "moon",
+      "stars",
+      "planet"
+    ],
+    "id":"science_y5_0014",
+    "dataset":"converted_worksheet",
+    "explanation":"The Earth orbits around the sun in our solar system. The moon orbits around Earth, not the other way round.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Forces",
+    "year_level":5,
+    "question":"The force that pulls objects to Earth is:",
+    "correct":"Gravity",
+    "options":[
+      "Friction",
+      "Magnetism",
+      "Air resistance"
+    ],
+    "id":"science_y5_0005",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Life Cycles",
+    "year_level":5,
+    "question":"The life cycle of a mammal includes:",
+    "correct":"Birth, growth, reproduction, death",
+    "options":[
+      "Only birth",
+      "Only death",
+      "Egg, larva, pupa"
+    ],
+    "id":"science_y5_0009",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Life Cycles",
+    "year_level":5,
+    "question":"What are the main stages in the life cycle of a mammal like a dog or cat?",
+    "correct":"birth, growth, reproduction, death",
+    "options":[
+      "egg, larva, pupa, adult",
+      "sprout, flower, seed, root",
+      "hatching, flying, nesting, molting"
+    ],
+    "id":"science_y5_0009",
+    "dataset":"converted_worksheet",
+    "explanation":"Mammals go through birth, growing up, reproducing, and eventually dying. Insects and plants have different life cycles, such as metamorphosis or growing from seeds.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Earth & Space",
+    "year_level":5,
+    "question":"What does the Earth orbit around in space?",
+    "correct":"Sun",
+    "options":[
+      "Moon",
+      "Stars",
+      "Mars"
+    ],
+    "id":"science_y5_0006",
+    "dataset":"converted_worksheet",
+    "explanation":"The Earth orbits around the Sun in our solar system. The Moon orbits around Earth, not the other way round.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Forces",
+    "year_level":5,
+    "question":"What is the name of the force that pulls objects towards the Earth?",
+    "correct":"gravity",
+    "options":[
+      "magnetism",
+      "friction",
+      "lift"
+    ],
+    "id":"science_y5_0015",
+    "dataset":"converted_worksheet",
+    "explanation":"Gravity is the invisible force that pulls all objects towards the centre of the Earth. This is why things fall down when you drop them and why we stay on the ground.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Materials",
+    "year_level":5,
+    "question":"When wood burns, it changes into different substances like ash and smoke. What type of change is this?",
+    "correct":"a chemical change",
+    "options":[
+      "a physical change",
+      "a reversible change",
+      "a melting process"
+    ],
+    "id":"science_y5_0004",
+    "dataset":"converted_worksheet",
+    "explanation":"Burning wood is a chemical change because it creates new substances (ash, smoke, gases) that cannot be changed back into wood. The wood reacts with oxygen in the air to form completely different materials.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Materials",
+    "year_level":5,
+    "question":"When wood burns, it creates new materials that can't be changed back into wood again. What type of change is this?",
+    "correct":"a chemical change",
+    "options":[
+      "a physical change",
+      "a reversible change",
+      "a temporary change"
+    ],
+    "id":"science_y5_0012",
+    "dataset":"converted_worksheet",
+    "explanation":"Burning wood is a chemical change because the wood reacts with oxygen to create new substances like ash, smoke and heat. The original wood cannot be recovered from these products.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Life Cycles",
+    "year_level":5,
+    "question":"Which list shows the stages in a mammal's life cycle?",
+    "correct":"birth, youth, fully grown, parenthood",
+    "options":[
+      "seed, plant, flower, fruit",
+      "infant, child, teenager, fully grown",
+      "larva, pupa, fully grown insect, egg"
+    ],
+    "id":"science_y5_0001",
+    "dataset":"converted_worksheet",
+    "explanation":"Mammals are born, grow into young animals, become fully grown, and eventually raise their own young. Other cycles belong to plants or insects.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Materials",
+    "year_level":5,
+    "question":"Which of these describes a change that cannot be reversed?",
+    "correct":"A change that cannot be reversed is a permanent change",
+    "options":[
+      "A change that can be reversed is a temporary change",
+      "A change that happens quickly is a fast change",
+      "A change that uses heat is a heating change"
+    ],
+    "id":"science_y5_0011",
+    "dataset":"converted_worksheet",
+    "explanation":"A permanent change (or irreversible change) is when materials are changed and cannot be returned to their original form. Examples include burning paper or cooking an egg.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Materials",
+    "year_level":5,
+    "question":"Which of these is an example of a change that cannot be reversed?",
+    "correct":"burning paper to ash",
+    "options":[
+      "melting ice cubes",
+      "dissolving sugar in water",
+      "breaking a glass jar"
+    ],
+    "id":"science_y5_0003",
+    "dataset":"converted_worksheet",
+    "explanation":"Burning paper to ash is a permanent chemical change that cannot be reversed. Melting ice, dissolving sugar, and breaking glass are all physical changes that can be reversed.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Life Cycles",
+    "year_level":5,
+    "question":"Which of these shows the correct life cycle of a mammal like a dog or cat?",
+    "correct":"birth, growth, reproduction, death",
+    "options":[
+      "egg, larva, pupa, adult",
+      "sprouting, flowering, seeding, dormancy",
+      "hatching, molting, metamorphosis, dying"
+    ],
+    "id":"science_y5_0017",
+    "dataset":"converted_worksheet",
+    "explanation":"Mammals are born, grow, reproduce, and eventually die. Insects often go through metamorphosis and plants follow stages like sprouting and flowering.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"1.",
+    "correct":"France is located in Europe",
+    "options":[
+      "France is located in Africa",
+      "France is located in Asia",
+      "France is located in North America"
+    ],
+    "id":"science_y6_0074",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfiveaday",
+    "year_level":6,
+    "question":"1. \u2018Fruit and vegetables are an excellent source of Because fruit and vegetables are so important for vitamins and minerals.\u2019 In this sentence, what kind of our bodies and there are plenty of interesting, word is excellent? healthy ways to eat \/ cook them. noun adjective verb adverb 7. List three ways that eating fruit and vegetables can help you:",
+    "correct":"adjective",
+    "options":[
+      "noun",
+      "verb",
+      "adverb"
+    ],
+    "id":"science_y6_0039",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfiveaday",
+    "year_level":6,
+    "question":"1. \u2018Fruit and vegetables are an excellent source of vitamins and minerals.\u2019 In this sentence, what kind of word is excellent? noun adjective verb adverb",
+    "correct":"adjective",
+    "options":[
+      "noun",
+      "verb",
+      "adverb"
+    ],
+    "id":"science_y6_0032",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionmummification",
+    "year_level":6,
+    "question":"1. Before wrapping a body in bandages, the body was embalmed to help preserve it. Special priests called embalmers, having first washed the body in palm oil, removed all of the organs through a cut in the left hand side of the body. The job was very skilful, demanding that the Embalmers perform the correct rituals and say prayers throughout the process, as well as understand the anatomy of the human body. The brain was broken up and pulled out through the nasal passages using a copper hook. The heart was the only organ that was left in the body due to the Egyptian belief that it was the organ of reasoning.",
+    "correct":"The four canopic jars were used to hold the removed organs",
+    "options":[
+      "The four canopic jars were used to store the mummy's clothing",
+      "The four canopic jars were used as containers for the mummy's food offerings",
+      "The four canopic jars were used to hold the preserved brain"
+    ],
+    "id":"science_y6_0119",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionmummification",
+    "year_level":6,
+    "question":"1. Qebehsenuef (a falcon) protected the intestines, The Egyptians even mummified their pets",
+    "correct":"Qebehsenuef (a falcon) protected the intestines",
+    "options":[
+      "Qebehsenuef (a falcon) protected the heart",
+      "Qebehsenuef (a falcon) protected the brain",
+      "The Egyptians mummified their children"
+    ],
+    "id":"science_y6_0120",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"1. Where is France?",
+    "correct":"France is in Europe",
+    "options":[
+      "France is in Africa",
+      "France is in Asia",
+      "France is in North America"
+    ],
+    "id":"science_y6_0069",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"1. Where is France? society in this context? Tick the correct answer. An organisation or club, A plant or animal community,",
+    "correct":"A plant or animal community",
+    "options":[
+      "An organisation or club",
+      "A country in Europe",
+      "A type of weather"
+    ],
+    "id":"science_y6_0084",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"1. Where is France? society in this context? Tick the correct answer. Western Europe. An organisation or club, A plant or animal community,",
+    "correct":"Western Europe",
+    "options":[
+      "An organisation or club",
+      "A plant or animal community",
+      "The continent of Africa"
+    ],
+    "id":"science_y6_0094",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"1. Where is France? Tick the correct answer: At the beginning of a meal, Africa, In the middle of a meal, Asia, At the end of a meal. South America, Western Europe. 7. What is ratatouille? Tick the correct answer. A stewed vegetable dish,",
+    "correct":"Western Europe",
+    "options":[
+      "Africa",
+      "Asia",
+      "South America"
+    ],
+    "id":"science_y6_0075",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"1. Where is France? Western Europe. 7. Name three popular French meals mentioned in the text.",
+    "correct":"Croissant, Coq au Vin, and Ratatouille",
+    "options":[
+      "Pizza, Pasta, and Lasagna",
+      "Burger, Fries, and Milkshake",
+      "Sushi, Ramen, and Tempura"
+    ],
+    "id":"science_y6_0078",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"1.The Eiffel Tower in Paris, As a nice gesture or a special treat.",
+    "correct":"The Eiffel Tower in Paris is a famous landmark and tourist attraction.",
+    "options":[
+      "The Eiffel Tower in Paris is a nice gesture or a special treat",
+      "The Eiffel Tower in Paris is a big piece of furniture",
+      "The Eiffel Tower in Paris is a type of cake"
+    ],
+    "id":"science_y6_0099",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionflorencenightingale",
+    "year_level":6,
+    "question":"10. Choose three words that describe Florence\u2019s character. \u00a9 www.teachingpacks.co.uk Images: \u00a9 ThinkStock Florence Nightingale 1) In which month was Florence born? Tick the correct answer. May, June, July.",
+    "correct":"May",
+    "options":[
+      "June",
+      "July",
+      "December"
+    ],
+    "id":"science_y6_0047",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionauthorinterview",
+    "year_level":6,
+    "question":"10. Would you like to read one of Richard\u2019s books?",
+    "correct":"Yes, I would like to read one of Richard's books because he writes exciting adventures about good versus evil and his books are about 'other' worlds which sounds very interesting.",
+    "options":[
+      "No, I wouldn't want to read Richard's books because they are too scary and violent for children.",
+      "Yes, I would like to read Richard's books because they are about animals and nature which I love.",
+      "I don't know - I haven't read any of Richard's books so I can't say whether I would like them or not."
+    ],
+    "id":"science_y6_0020",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"10. Would you like to visit France? Explain your answer using information from the text.",
+    "correct":"Yes, I would like to visit France because it has beautiful cities like Paris with famous landmarks such as the Eiffel Tower, and you can try delicious French food like croissants and cheese.",
+    "options":[
+      "No, I wouldn't want to visit France because it's too far away and expensive for a school trip.",
+      "I would visit France because the weather is always sunny and warm all year round.",
+      "France is boring because there are no fun things to do there like theme parks or beaches."
+    ],
+    "id":"science_y6_0091",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"10. Would you like to visit France? Explain your answer using information from the text. \u00a9 ku.oc.skcapgnihcaet.www kcotSknihT \u00a9 :segamI",
+    "correct":"Yes, I would like to visit France because it has beautiful places like the Eiffel Tower and lovely countryside. The text mentions that France is a great place to see historic buildings and enjoy fresh food.",
+    "options":[
+      "No, I wouldn't want to visit France because it's too far away and expensive for a school trip.",
+      "I would rather go to France than Italy because it has more famous castles and chateaux.",
+      "France is boring because all the people speak a different language and I can't understand them."
+    ],
+    "id":"science_y6_0076",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"10.What kind of text is this? Tick the correct answer: An explanation text, A persuasive advert, A report, A set of instructions. \u00a9 ku.oc.skcapgnihcaet.www kcotSknihT \u00a9 :segamI",
+    "correct":"An explanation text",
+    "options":[
+      "A report",
+      "A set of instructions",
+      "A persuasive advert"
+    ],
+    "id":"science_y6_0062",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"1903.",
+    "correct":"The year Marie Curie and her husband Pierre won the Nobel Prize in Physics",
+    "options":[
+      "The year the Eiffel Tower was built",
+      "The year Napoleon became Emperor of France",
+      "The year the French Revolution began"
+    ],
+    "id":"science_y6_0105",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"2.",
+    "correct":"France is located in Europe",
+    "options":[
+      "France is located in Africa",
+      "France is located in Asia",
+      "France is located in North America"
+    ],
+    "id":"science_y6_0107",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfiveaday",
+    "year_level":6,
+    "question":"2. According to the article, does juice count as \u2018one to cook vegetables: of your five a day\u2019?",
+    "correct":"No, juice does not count as one of your five a day",
+    "options":[
+      "Yes, juice counts as one of your five a day",
+      "Juice counts as two of your five a day",
+      "Only apple juice counts as part of your five a day"
+    ],
+    "id":"science_y6_0027",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionmummification",
+    "year_level":6,
+    "question":"2. Duamutel (a jackal) protected the stomach, to keep them company in the afterlife.",
+    "correct":"Duamutel (a jackal) protected the stomach, to keep them company in the afterlife.",
+    "options":[
+      "Duamutel (a jackal) protected the heart, to keep them strong in the afterlife.",
+      "Duamutel (a jackal) protected the liver, to keep them healthy in the afterlife.",
+      "Duamutel (a jackal) protected the lungs, to keep them breathing in the afterlife."
+    ],
+    "id":"science_y6_0121",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfiveaday",
+    "year_level":6,
+    "question":"2. How many portions of fruit and vegetables fat? should you eat each day?",
+    "correct":"5 portions",
+    "options":[
+      "3 portions",
+      "7 portions",
+      "10 portions"
+    ],
+    "id":"science_y6_0042",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfiveaday",
+    "year_level":6,
+    "question":"2. How many portions of fruit and vegetables fat? should you eat each day? Because it adds calories. 5",
+    "correct":"5",
+    "options":[
+      "3",
+      "7",
+      "10"
+    ],
+    "id":"science_y6_0024",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionflorencenightingale",
+    "year_level":6,
+    "question":"2. In which part of England did Florence live during January and February?",
+    "correct":"London",
+    "options":[
+      "Manchester",
+      "Liverpool",
+      "Birmingham"
+    ],
+    "id":"science_y6_0053",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionflorencenightingale",
+    "year_level":6,
+    "question":"2. In which part of England did Florence live during January and February? Hampshire.",
+    "correct":"Hampshire",
+    "options":[
+      "London",
+      "Scotland",
+      "Yorkshire"
+    ],
+    "id":"science_y6_0048",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"2. Name a country that borders France and isn\u2019t A group of people living somewhere, mentioned in the first paragraph. People who are fashionable and wealthy.",
+    "correct":"Germany",
+    "options":[
+      "Spain",
+      "Italy",
+      "Belgium"
+    ],
+    "id":"science_y6_0085",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"2. Name a country that borders France and isn\u2019t A group of people living somewhere, mentioned in the first paragraph. People who are fashionable and wealthy. Andorra, Luxembourg, Monaco, Spain or Switzerland (shown on the map). 7. What is the French word for bakery? Boulangerie.",
+    "correct":"Spain",
+    "options":[
+      "Andorra",
+      "Luxembourg",
+      "Switzerland"
+    ],
+    "id":"science_y6_0095",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"2. Name one of the countries that borders France. Chicken brained with wine, bacon, mushrooms and garlic, A rich beef casserole.",
+    "correct":"Germany",
+    "options":[
+      "Italy",
+      "Spain",
+      "Belgium"
+    ],
+    "id":"science_y6_0083",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"2. Name one of the countries that borders France. Chicken brained with wine, bacon, mushrooms Germany, Italy and Belgium (described in the text) and garlic, Or Andorra, Luxembourg, Monaco, Spain and A rich beef casserole. Switzerland (shown on the map).",
+    "correct":"Germany",
+    "options":[
+      "Spain",
+      "Italy",
+      "Belgium"
+    ],
+    "id":"science_y6_0063",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"2. Name two of the countries that border France.",
+    "correct":"Germany, Italy, Spain, Belgium, Netherlands, Switzerland, Monaco, Andorra",
+    "options":[
+      "Germany, Italy, Spain",
+      "Portugal, Sweden, Norway",
+      "Japan, China, India"
+    ],
+    "id":"science_y6_0071",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"2. Name two of the countries that border France. Ratatouille, Coq au vin and Boeuf Bourguignon. Germany, Italy and Belgium (described in the text) Or Andorra, Luxembourg, Monaco, Spain and 8. According to the text, which famous French dish Switzerland (shown on the map). includes chicken and wine? Coq au vin.",
+    "correct":"Germany and Belgium",
+    "options":[
+      "Italy and Spain",
+      "Switzerland and Austria",
+      "Portugal and Netherlands"
+    ],
+    "id":"science_y6_0079",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionmummification",
+    "year_level":6,
+    "question":"2. Once the organs were removed, the body was covered in a natural salt called natron, which was dug up from the desert. This soaked up any body fluids and dried the body out. Richer people were left in natron for longer periods of time. A Pharaoh might lay in natron for 70 days.",
+    "correct":"The body was left in natron for 70 days to dry out completely",
+    "options":[
+      "The body was wrapped in linen bandages immediately after removal of organs",
+      "The body was buried straight away without any treatment",
+      "The body was soaked in water to clean it before burial"
+    ],
+    "id":"science_y6_0116",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionmarkusperssonbiography",
+    "year_level":6,
+    "question":"2. Use the text to complete the missing words in this sentence: Another of his pursuits was Lego, which he used to create ________________ and ________________ designs.",
+    "correct":"complex and innovative",
+    "options":[
+      "simple and basic",
+      "small and tiny",
+      "old and broken"
+    ],
+    "id":"science_y6_0110",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionmarkusperssonbiography",
+    "year_level":6,
+    "question":"2. Use the text to complete the missing words in this sentence: Another of his pursuits was Lego, which he used to create intricate and complex designs.",
+    "correct":"buildings",
+    "options":[
+      "cars",
+      "animals",
+      "castles"
+    ],
+    "id":"science_y6_0112",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfiveaday",
+    "year_level":6,
+    "question":"2. Why does the text suggest that people don\u2019t need to * They are a source of vitamins and minerals, buy expensive vitamin supplements? * They can reduce the risk of developing some Because they can be found in a variety of fruit and diseases, vegetables. * They can help us to concentrate (and improve our school work),",
+    "correct":"They are a source of vitamins and minerals",
+    "options":[
+      "They can reduce the risk of developing some diseases",
+      "They can help us to concentrate (and improve our school work)",
+      "They are found in a variety of fruit and vegetables"
+    ],
+    "id":"science_y6_0040",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfiveaday",
+    "year_level":6,
+    "question":"2. Why does the text suggest that people don\u2019t need to help you: buy expensive vitamin supplements?",
+    "correct":"Because eating five portions of fruit and vegetables a day gives your body all the vitamins it needs",
+    "options":[
+      "Because vitamin supplements are too expensive for most people",
+      "Because doctors don't recommend them to children",
+      "Because the vitamins in food are better than the ones in pills"
+    ],
+    "id":"science_y6_0034",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"2.Mon Saint Michel, To make the guests feel welcome.",
+    "correct":"to make the guests feel welcome",
+    "options":[
+      "to make the guests feel scared",
+      "to make the guests feel hungry",
+      "to make the guests feel tired"
+    ],
+    "id":"science_y6_0101",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"3.",
+    "correct":"France is located in Europe",
+    "options":[
+      "France is located in Africa",
+      "France is located in Asia",
+      "France is located in South America"
+    ],
+    "id":"science_y6_0108",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"3. According to the text, how many people live in race? France? The Tour de France. 66 million people.",
+    "correct":"66 million people",
+    "options":[
+      "6.6 million people",
+      "660 million people",
+      "6 million people"
+    ],
+    "id":"science_y6_0065",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"3. Enjoy the food!",
+    "correct":"Eat food from different countries to learn about their culture",
+    "options":[
+      "Food from other countries is always better than British food",
+      "You should only eat food that you grew up with",
+      "Food doesn't tell us anything about other places"
+    ],
+    "id":"science_y6_0080",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"3. Is French a popular language? Use evidence from the text to explain your answer.",
+    "correct":"Yes, French is a popular language because it is spoken by many people in different countries and is one of the official languages of the European Union.",
+    "options":[
+      "No, French is not popular because only a few people speak it.",
+      "French is popular but only used in schools and not in everyday life.",
+      "Yes, French is popular because it's the most spoken language in the world."
+    ],
+    "id":"science_y6_0087",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionmummification",
+    "year_level":6,
+    "question":"3. Once the body was finished in the natron, it was cleaned and stuffed with saw dust, rags or sand and sweet smelling spices. It was then wrapped in bandages, which were soaked in oil. The very rich were wrapped in fine linen bandages but poor people were wrapped in old linen cloth or sheets. Jewels and amulets were placed between the layers of bandages to protect the person in the afterlife.",
+    "correct":"The body was wrapped in bandages to preserve it for the afterlife",
+    "options":[
+      "The body was buried directly in the sand",
+      "The body was left uncovered to dry naturally",
+      "The body was painted with bright colours"
+    ],
+    "id":"science_y6_0117",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfiveaday",
+    "year_level":6,
+    "question":"3. The word rich in the third paragraph is not used to * They are low in fat and calories (and can help us to mean having lots of money. What does it mean in this maintain a healthy weight). context? Having plenty of fruit and vegetables. 8. Write sub-headings for the second, third and fourth paragraphs in the text.",
+    "correct":"having lots of nutrients",
+    "options":[
+      "having lots of money",
+      "being very expensive",
+      "growing in large quantities"
+    ],
+    "id":"science_y6_0041",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfiveaday",
+    "year_level":6,
+    "question":"3. The word rich in the third paragraph is not used to mean having lots of money. What does it mean in this context?",
+    "correct":"having lots of vitamins and nutrients",
+    "options":[
+      "having a lot of money",
+      "being very happy",
+      "growing very quickly"
+    ],
+    "id":"science_y6_0035",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfiveaday",
+    "year_level":6,
+    "question":"3. What are fruit and vegetables a good source of? cooking vegetables? Circle the answer: Tick the correct answer: Fat and calories frying grilling steaming Vitamins and minerals",
+    "correct":"Vitamins and minerals",
+    "options":[
+      "Fat and calories",
+      "Cooking vegetables",
+      "Frying"
+    ],
+    "id":"science_y6_0044",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfiveaday",
+    "year_level":6,
+    "question":"3. Where can you find Vitamin C? Give three examples from the text. 9. Why has this article been written? To persuade people to eat more fruit and vegetables.",
+    "correct":"Citrus fruits like oranges and lemons, berries such as strawberries and blueberries, and vegetables like tomatoes and broccoli",
+    "options":[
+      "Chocolate, pizza, and ice cream",
+      "Carrots, potatoes, and bananas",
+      "Milk, cheese, and eggs"
+    ],
+    "id":"science_y6_0028",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionflorencenightingale",
+    "year_level":6,
+    "question":"3. Who taught Florence and her sister?",
+    "correct":"their mother and a family tutor",
+    "options":[
+      "their father and the school teacher",
+      "the village priest and her aunt",
+      "the headmistress and her sister"
+    ],
+    "id":"science_y6_0054",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionflorencenightingale",
+    "year_level":6,
+    "question":"3. Who taught Florence and her sister? Their father and a teacher.",
+    "correct":"Their father and a teacher",
+    "options":[
+      "Her mother and a nurse",
+      "Her brother and a doctor",
+      "Her grandmother and a maid"
+    ],
+    "id":"science_y6_0049",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"3.St. Tropez,",
+    "correct":"is a town in France known for its beaches and luxury lifestyle",
+    "options":[
+      "is a type of French cheese made in the countryside",
+      "is a famous French fashion designer from Paris",
+      "is a traditional French dish served in restaurants"
+    ],
+    "id":"science_y6_0102",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfiveaday",
+    "year_level":6,
+    "question":"4. According to the text, which three parts of the answer: body can Vitamin C keep healthy? Diary Persuasive article Instruction text Newspaper report",
+    "correct":"skin, blood vessels and teeth",
+    "options":[
+      "eyes, bones and hair",
+      "lungs, heart and liver",
+      "stomach, kidneys and muscles"
+    ],
+    "id":"science_y6_0046",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfiveaday",
+    "year_level":6,
+    "question":"4. According to the text, which three parts of the answer: body can Vitamin C keep healthy? Diary Persuasive article skin, bones and blood vessels. Instruction text Newspaper report",
+    "correct":"skin, bones and blood vessels",
+    "options":[
+      "eyes, teeth and hair",
+      "lungs, heart and kidneys",
+      "stomach, liver and muscles"
+    ],
+    "id":"science_y6_0025",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfiveaday",
+    "year_level":6,
+    "question":"4. Can you write a definition for the word variety? To explain where fruit and vegetables come A number \/ collection of different things. from.",
+    "correct":"a number \/ collection of different things",
+    "options":[
+      "a small amount of one thing",
+      "only red fruits and vegetables",
+      "the same type of fruit every day"
+    ],
+    "id":"science_y6_0030",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfiveaday",
+    "year_level":6,
+    "question":"4. Can you write a definition for the word variety? To teach people how to cook. To explain where fruit and vegetables come from.",
+    "correct":"a range of different types or kinds of something",
+    "options":[
+      "to cook food in a special way",
+      "where fruit and vegetables grow in the ground",
+      "the same thing repeated many times"
+    ],
+    "id":"science_y6_0029",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionmummification",
+    "year_level":6,
+    "question":"4. Imsety (a human) protected the liver.",
+    "correct":"Imsety protected the liver",
+    "options":[
+      "Imsety protected the lungs",
+      "Imsety protected the heart",
+      "Imsety protected the brain"
+    ],
+    "id":"science_y6_0115",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"4. Name three \u2018famous sights\u2019 that tourists can explore.",
+    "correct":"Eiffel Tower, Louvre Museum, Notre-Dame Cathedral",
+    "options":[
+      "Big Ben, Buckingham Palace, Tower of London",
+      "Statue of Liberty, Central Park, Empire State Building",
+      "Colosseum, Vatican City, Roman Forum"
+    ],
+    "id":"science_y6_0089",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"4. Name three \u2018famous sights\u2019 that tourists can explore. friends and family are visiting? Answers include: Answers may include...",
+    "correct":"Eiffel Tower, Louvre Museum, and Notre-Dame Cathedral",
+    "options":[
+      "Disneyland Paris, Champs-\u00c9lys\u00e9es, and Montmartre",
+      "Arc de Triomphe, Versailles Palace, and Saint-Germain-des-Pr\u00e9s",
+      "Moulin Rouge, Seine River cruise, and Galeries Lafayette"
+    ],
+    "id":"science_y6_0098",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"4. Name two popular sports in France based on the do wherever you go in France? information in the text. 1.",
+    "correct":"football and cycling",
+    "options":[
+      "tennis and basketball",
+      "rugby and hockey",
+      "volleyball and swimming"
+    ],
+    "id":"science_y6_0106",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"4. Name two popular sports in France based on the do wherever you go in France? information in the text. 1. Learn the language, Answers include football, basketball, tennis, 2. See the sights, handball, Formula One and motorcycle racing. 3. Enjoy the food!",
+    "correct":"football and tennis",
+    "options":[
+      "basketball and handball",
+      "Formula One and motorcycle racing",
+      "skiing and swimming"
+    ],
+    "id":"science_y6_0066",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionmummification",
+    "year_level":6,
+    "question":"4. Once the mummy was wrapped, the linen covering them was painted in sticky resin. A mask was put over their face and it was placed in a wooden case that was shaped like a person. A very important person would have been placed in several mummy cases and even a stone sarcophagus. \u00a9 www.teachingpacks.co.uk Images: \u00a9 ThinkStock Mummification in Ancient Egypt 1) What did embalmers use to wash the body?",
+    "correct":"palm oil",
+    "options":[
+      "olive oil",
+      "coconut oil",
+      "sunflower oil"
+    ],
+    "id":"science_y6_0118",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"4. Which two motorsports are mentioned in the text? explore wherever you go in France?",
+    "correct":"Formula 1 and Rally racing",
+    "options":[
+      "Mountain biking and Soccer",
+      "Basketball and Tennis",
+      "Swimming and Cycling"
+    ],
+    "id":"science_y6_0073",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionflorencenightingale",
+    "year_level":6,
+    "question":"4. Why did Florence\u2019s parents refuse to let her train to become a nurse?",
+    "correct":"Nurses were not considered suitable work for young ladies from good families",
+    "options":[
+      "Florence was too young to become a nurse",
+      "The hospital did not have enough space for more nurses",
+      "Florence's parents thought nursing was too dirty and unpleasant"
+    ],
+    "id":"science_y6_0055",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionflorencenightingale",
+    "year_level":6,
+    "question":"4. Why did Florence\u2019s parents refuse to let her train to become a nurse? They thought that it was a bad idea. Rich young women were expected to get married.",
+    "correct":"They thought nursing was not suitable work for a young lady",
+    "options":[
+      "Nursing schools were too far away from their home",
+      "Florence was too young to become a nurse",
+      "Her parents wanted her to become a doctor instead"
+    ],
+    "id":"science_y6_0050",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfiveaday",
+    "year_level":6,
+    "question":"4. Why does the article include questions for the reader? paragraphs in the text.",
+    "correct":"to help readers think about what they have read and check their understanding",
+    "options":[
+      "to make the article longer and more difficult to read",
+      "so the reader can write answers in the margins while reading",
+      "because the writer forgot to finish writing the article"
+    ],
+    "id":"science_y6_0037",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"4.Chamonix.",
+    "correct":"Chamonix is a town in France famous for skiing and mountaineering",
+    "options":[
+      "Chamonix is a type of French cheese",
+      "Chamonix is the capital city of France",
+      "Chamonix is a popular beach resort in France"
+    ],
+    "id":"science_y6_0103",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfiveaday",
+    "year_level":6,
+    "question":"5. Give two reasons why steaming is a good way to cook vegetables: \u00a9 ku.oc.skcapgnihcaet.www kcotSknihT \u00a9 :segamI Are you getting your 5 a day? 6. Why does the author state that there \u2018is really no excuse for not eating your five a day\u2019?",
+    "correct":"Steaming keeps the vitamins in vegetables because they don't get lost in water, and steaming cooks vegetables quickly so they stay crisp and tasty",
+    "options":[
+      "Steaming makes vegetables taste better than boiling them, and it's cheaper than buying pre-packed vegetables",
+      "Steaming uses less energy than other cooking methods, and it makes vegetables softer so they're easier to eat",
+      "Steaming keeps vegetables looking bright and colourful, and it means you don't need to add any salt or butter"
+    ],
+    "id":"science_y6_0038",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"5. How many parts is a French meal usually split into?",
+    "correct":"5",
+    "options":[
+      "3",
+      "4",
+      "6"
+    ],
+    "id":"science_y6_0061",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionflorencenightingale",
+    "year_level":6,
+    "question":"5. In which year did the Crimean War begin?",
+    "correct":"1854",
+    "options":[
+      "1840",
+      "1860",
+      "1872"
+    ],
+    "id":"science_y6_0056",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"5. When did the Tour de France cycle race begin? \u00a9 ku.oc.skcapgnihcaet.www kcotSknihT \u00a9 :segamI",
+    "correct":"1903",
+    "options":[
+      "1869",
+      "1947",
+      "2001"
+    ],
+    "id":"science_y6_0093",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"5. When did the Tour de France cycle race begin? Answers may vary.",
+    "correct":"1903",
+    "options":[
+      "1869",
+      "1947",
+      "2001"
+    ],
+    "id":"science_y6_0104",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"5. Why, do you think, people like to visit Chamonix?",
+    "correct":"People like to visit Chamonix because it is a ski resort in the French Alps where you can go skiing and take part in other winter sports.",
+    "options":[
+      "People like to visit Chamonix because it has the biggest Eiffel Tower in France.",
+      "People like to visit Chamonix because it is famous for its cheese and baguettes.",
+      "People like to visit Chamonix because it is a city with many football stadiums."
+    ],
+    "id":"science_y6_0081",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionflorencenightingale",
+    "year_level":6,
+    "question":"6. Name two countries that were involved in the Crimean War.",
+    "correct":"Russia and Turkey",
+    "options":[
+      "France and Germany",
+      "Spain and Portugal",
+      "Italy and Greece"
+    ],
+    "id":"science_y6_0057",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"6. Sport plays an important role in French society. France Which of these is the most appropriate definition of",
+    "correct":"a game or activity that people play for fun and exercise",
+    "options":[
+      "a type of food eaten in France",
+      "a building where people live in France",
+      "the name of a famous French person"
+    ],
+    "id":"science_y6_0082",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"6. What are baguettes? France",
+    "correct":"Baguettes are a type of long, thin bread that is popular in France",
+    "options":[
+      "Baguettes are small round cakes from France",
+      "Baguettes are French children's toys",
+      "Baguettes are types of French vegetables"
+    ],
+    "id":"science_y6_0068",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"6. What are baguettes? France Long, white bread sticks.",
+    "correct":"Long, white bread sticks",
+    "options":[
+      "Small round cakes",
+      "Sweet pastries",
+      "Green vegetables"
+    ],
+    "id":"science_y6_0077",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"6. When would you eat an hors d\u2019oeuvre? Tick the France correct answer.",
+    "correct":"Before the main meal",
+    "options":[
+      "After the main meal",
+      "When you are very hungry",
+      "During the main meal"
+    ],
+    "id":"science_y6_0067",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionflorencenightingale",
+    "year_level":6,
+    "question":"7. Describe one thing that Florence and the nurses did to improve things at the Scutari hospital.",
+    "correct":"They cleaned the hospitals and washed the patients to prevent infections",
+    "options":[
+      "They built new buildings for the hospital",
+      "They brought flowers to cheer up the sick patients",
+      "They taught the doctors how to use new medical equipment"
+    ],
+    "id":"science_y6_0058",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionflorencenightingale",
+    "year_level":6,
+    "question":"7. Describe one thing that Florence and the nurses did to improve things at the Scutari hospital. Answers include cleaning up the hospital, looking after the soldiers, buying fresh food and clearing the drains.",
+    "correct":"cleaning up the hospital",
+    "options":[
+      "buying fresh food",
+      "looking after the soldiers",
+      "clearing the drains"
+    ],
+    "id":"science_y6_0051",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfiveaday",
+    "year_level":6,
+    "question":"7. List three ways that eating fruit and vegetables can",
+    "correct":"help keep you healthy, give you energy to play and help your body grow strong",
+    "options":[
+      "make you taller and stronger",
+      "give you a big stomach",
+      "make you sleepy"
+    ],
+    "id":"science_y6_0033",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"7. Name three popular French meals mentioned in the text.",
+    "correct":"croissant, coq au vin, and escargots",
+    "options":[
+      "pizza, hamburgers, and hot chips",
+      "spaghetti bolognese, curry, and kebabs",
+      "sandwiches, salad, and soup"
+    ],
+    "id":"science_y6_0070",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"7. What is the French word for bakery?",
+    "correct":"boulangerie",
+    "options":[
+      "patisserie",
+      "cantine",
+      "restauration"
+    ],
+    "id":"science_y6_0086",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfiveaday",
+    "year_level":6,
+    "question":"7. Why shouldn\u2019t you cook vegetables in a lot of",
+    "correct":"water",
+    "options":[
+      "oil",
+      "salt",
+      "spices"
+    ],
+    "id":"science_y6_0031",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"8. According to the text, which famous French dish includes chicken and wine?",
+    "correct":"Coq au vin",
+    "options":[
+      "Ratatouille",
+      "Croissant",
+      "Escargot"
+    ],
+    "id":"science_y6_0072",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionauthorinterview",
+    "year_level":6,
+    "question":"8. Find two places where Richard gets ideas for his books.",
+    "correct":"Richard gets ideas from his own experiences and from things he sees in nature",
+    "options":[
+      "Richard gets ideas from watching TV and playing video games",
+      "Richard gets ideas from his friends' homework and school projects",
+      "Richard gets ideas from his pet dog's behaviour and bedtime stories"
+    ],
+    "id":"science_y6_0018",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionauthorinterview",
+    "year_level":6,
+    "question":"8. Find two places where Richard gets ideas for his books. Answers include: reading other books, listening to the radio and being interested in the world.",
+    "correct":"reading other books",
+    "options":[
+      "listening to the radio",
+      "being interested in the world",
+      "writing stories"
+    ],
+    "id":"science_y6_0021",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfiveaday",
+    "year_level":6,
+    "question":"8. Give two reasons why steaming is a good way",
+    "correct":"steaming keeps the vitamins in vegetables and it doesn't need any oil or butter to cook them",
+    "options":[
+      "steaming makes vegetables look more colourful",
+      "steaming is faster than boiling water",
+      "steaming means you don't need a cooker"
+    ],
+    "id":"science_y6_0026",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"8. What are Camembert, Roquefort and Boursin?",
+    "correct":"they are types of cheese",
+    "options":[
+      "they are different kinds of bread",
+      "they are French cities",
+      "they are types of fruit"
+    ],
+    "id":"science_y6_0088",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"8. What are Camembert, Roquefort and Boursin? Yes, because it is the second most studied Different kinds of French cheese. language in the world.",
+    "correct":"Different kinds of French cheese",
+    "options":[
+      "Different kinds of French bread",
+      "Different types of French fruit",
+      "Different kinds of French vegetables"
+    ],
+    "id":"science_y6_0096",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfiveaday",
+    "year_level":6,
+    "question":"8. What does the article suggest as a good way of",
+    "correct":"eating different fruits and vegetables every day",
+    "options":[
+      "only eating sweet fruits like strawberries and bananas",
+      "cooking vegetables by boiling them in lots of water",
+      "never eating the skin of apples or potatoes"
+    ],
+    "id":"science_y6_0043",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"8. What is the name of the world\u2019s most famous cycle",
+    "correct":"the Tour de France",
+    "options":[
+      "the Olympic Games",
+      "the World Cup",
+      "the Grand Prix"
+    ],
+    "id":"science_y6_0064",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionflorencenightingale",
+    "year_level":6,
+    "question":"8. Why is Florence Nightingale known as \u2018The Lady with the Lamp\u2019?",
+    "correct":"She visited wounded soldiers at night with a lamp to help them",
+    "options":[
+      "She wrote books about how to care for sick people",
+      "She started the first nursing school in England",
+      "She was the first woman to become a doctor"
+    ],
+    "id":"science_y6_0092",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionflorencenightingale",
+    "year_level":6,
+    "question":"8. Why is Florence Nightingale known as \u2018The Lady with the Lamp\u2019? Because she walked around the wards at night, carrying a lantern.",
+    "correct":"Because she walked around the wards at night, carrying a lantern",
+    "options":[
+      "Because she wrote books about nursing",
+      "Because she started the first hospital in England",
+      "Because she was famous for her beautiful dresses"
+    ],
+    "id":"science_y6_0052",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfiveaday",
+    "year_level":6,
+    "question":"8. Write sub-headings for the second, third and fourth",
+    "correct":"Benefits of eating fruit and vegetables, How to choose the right produce, Creative ways to eat more",
+    "options":[
+      "How to grow your own food, Different types of animals, The importance of exercise",
+      "Shopping for groceries, Cooking methods, Nutritional information",
+      "Weather patterns, Space exploration, Historical events"
+    ],
+    "id":"science_y6_0036",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionflorencenightingale",
+    "year_level":6,
+    "question":"9. Think of a new sub-heading for the final paragraph.",
+    "correct":"The Legacy of Florence Nightingale",
+    "options":[
+      "Florence Nightingale's Childhood",
+      "Florence Nightingale's Family Life",
+      "Florence Nightingale's Hobbies"
+    ],
+    "id":"science_y6_0059",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"9. What three things does the article suggest that you",
+    "correct":"should do to stay safe in France",
+    "options":[
+      "should pack light clothing for the summer heat",
+      "should learn how to swim before visiting Paris",
+      "should avoid eating any French food during your visit"
+    ],
+    "id":"science_y6_0100",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfiveaday",
+    "year_level":6,
+    "question":"9. What type of text is this? Tick the correct",
+    "correct":"instruction manual",
+    "options":[
+      "storybook",
+      "poem",
+      "newspaper article"
+    ],
+    "id":"science_y6_0045",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionauthorinterview",
+    "year_level":6,
+    "question":"9. Why does it help writers to be interested in the world around them?",
+    "correct":"Writers can find interesting topics and stories to write about when they are curious about their surroundings",
+    "options":[
+      "Writers need to know lots of facts about everything in the world",
+      "Writers must be experts in every subject they write about",
+      "Writers should only write about things they already know well"
+    ],
+    "id":"science_y6_0019",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionauthorinterview",
+    "year_level":6,
+    "question":"9. Why does it help writers to be interested in the world around them? Because your imagination can take all that knowledge and create something new that can be used in a story.",
+    "correct":"It helps writers to create interesting stories and characters based on what they know about the world",
+    "options":[
+      "It makes them better at doing their homework",
+      "It helps them write longer sentences",
+      "It means they don't need to read books"
+    ],
+    "id":"science_y6_0022",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"9. Why might French people also serve a dessert when",
+    "correct":"it is a special occasion or celebration",
+    "options":[
+      "they want to eat something sweet after the main meal",
+      "the dessert looks more attractive on the plate",
+      "there are very few people who like desserts"
+    ],
+    "id":"science_y6_0097",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"9. Why might French people also serve a dessert when friends and family are visiting?",
+    "correct":"Sharing dessert together helps people enjoy time with family and friends, making visits more special and fun",
+    "options":[
+      "Dessert is the most important meal of the day in France",
+      "French people only serve dessert when they have lots of money to spend",
+      "Dessert is served at the beginning of the meal to start the visit"
+    ],
+    "id":"science_y6_0090",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Circulatory System",
+    "year_level":6,
+    "question":"Blood carries:",
+    "correct":"Oxygen and nutrients",
+    "options":[
+      "Only water",
+      "Only waste",
+      "Light"
+    ],
+    "id":"science_y6_0002",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Inheritance",
+    "year_level":6,
+    "question":"Characteristics are passed from:",
+    "correct":"Parents to offspring",
+    "options":[
+      "Friends to friends",
+      "Teachers to students",
+      "Randomly"
+    ],
+    "id":"science_y6_0014",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfiveaday",
+    "year_level":6,
+    "question":"Do you eat your 5 a day?",
+    "correct":"healthy",
+    "options":[
+      "unhealthy",
+      "expensive",
+      "boring"
+    ],
+    "id":"science_y6_0023",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Evolution",
+    "year_level":6,
+    "question":"Evolution is change over:",
+    "correct":"Many generations",
+    "options":[
+      "One day",
+      "One year",
+      "One lifetime"
+    ],
+    "id":"science_y6_0012",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionfrance",
+    "year_level":6,
+    "question":"Food A French meal is usually split into three parts: Hors d\u2019oeuvre \u2013 This is a starter dish like salad or soup. This is usually France is a large country in served with French bread. Western Europe. Some of the Main Meal - Popular French meals countries that border France include Ratatouille (a stewed include Germany, Italy and vegetable dish), Coq au vin (chicken braised with wine, bacon, Belgium. 66 million people live mushrooms and garlic) and Boeuf there. The official language is Bourguignon (a rich beef casserole). French. Fruit or Cheese \u2013 More than 350 French Sport different kinds of cheese are made in Sport is very popular in France. Some France!",
+    "correct":"The main meal in a French dinner includes Coq au vin, Ratatouille, and Boeuf Bourguignon",
+    "options":[
+      "French people only eat soup for their main meal",
+      "Cheese is the main course in French meals",
+      "Only children are allowed to participate in French sports"
+    ],
+    "id":"science_y6_0060",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Electricity",
+    "year_level":6,
+    "question":"In a series circuit, if one bulb breaks:",
+    "correct":"All bulbs go out",
+    "options":[
+      "All stay on",
+      "Only that one goes out",
+      "They get brighter"
+    ],
+    "id":"science_y6_0010",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionmarkusperssonbiography",
+    "year_level":6,
+    "question":"In the extended Markus Persson biography, what is the main purpose of the text?",
+    "correct":"To describe Markus Persson's life",
+    "options":[
+      "To persuade people to buy Minecraft",
+      "To teach people how to play Minecraft",
+      "To explain how to build with blocks"
+    ],
+    "id":"science_y6_0113",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionmarkusperssonbiography",
+    "year_level":6,
+    "question":"In the Markus Persson biography, what is the main purpose of the text?",
+    "correct":"To describe Markus Persson's life",
+    "options":[
+      "To persuade people to buy Minecraft",
+      "To teach people how to play Minecraft",
+      "To explain how Minecraft was made"
+    ],
+    "id":"science_y6_0111",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Light",
+    "year_level":6,
+    "question":"Light travels in:",
+    "correct":"Straight lines",
+    "options":[
+      "Curved lines",
+      "Circles",
+      "Spirals"
+    ],
+    "id":"science_y6_0016",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Classification",
+    "year_level":6,
+    "question":"Living things are classified into:",
+    "correct":"Kingdoms",
+    "options":[
+      "Countries",
+      "Colors",
+      "Sizes"
+    ],
+    "id":"science_y6_0005",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionmarkusperssonbiography",
+    "year_level":6,
+    "question":"Markus Persson Markus Persson, better known as Notch, is the creator of the video game Minecraft. He was born in the 1st of June 1979 in Stockholm, Sweden. Until he was seven, he lived in a small town called Edsbyn. The town is surrounded by forests and he spent a lot of time walking in the trees. He also enjoyed playing with Lego, which he used to make complex designs. His father brought him a computer when he was seven. Markus loved it and wrote his first computer program when he was eight. Persson did not finish High School. He studied an online computer programming course, and he was able to get a job working with computers.",
+    "correct":"Markus Persson's mother",
+    "options":[
+      "Markus Persson's sister",
+      "Markus Persson's wife",
+      "Markus Persson's grandmother"
+    ],
+    "id":"science_y6_0109",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Nonfictionmummification",
+    "year_level":6,
+    "question":"Mummification in Ancient Egypt The ancient Egyptians believed in life after death. They also believed that it was important to preserve the bodies of the dead. Bodies were wrapped in bandages to stop them rotting. We now call these bodies \u2018mummies\u2019. How did the Egyptians preserve the bodies of the dead?",
+    "correct":"They wrapped the bodies in bandages and used special chemicals to dry them out",
+    "options":[
+      "They buried them in the sand",
+      "They cooked them in hot ovens",
+      "They painted them with special paint"
+    ],
+    "id":"science_y6_0114",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Circulatory System",
+    "year_level":6,
+    "question":"Practice 1: Blood carries:",
+    "correct":"Oxygen and nutrients",
+    "options":[
+      "Only water",
+      "Only waste",
+      "Light"
+    ],
+    "id":"science_y6_0004",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Inheritance",
+    "year_level":6,
+    "question":"Practice 1: Characteristics are passed from:",
+    "correct":"Parents to offspring",
+    "options":[
+      "Friends to friends",
+      "Teachers to students",
+      "Randomly"
+    ],
+    "id":"science_y6_0015",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Evolution",
+    "year_level":6,
+    "question":"Practice 1: Evolution is change over:",
+    "correct":"Many generations",
+    "options":[
+      "One day",
+      "One year",
+      "One lifetime"
+    ],
+    "id":"science_y6_0013",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Electricity",
+    "year_level":6,
+    "question":"Practice 1: In a series circuit, if one bulb breaks:",
+    "correct":"All bulbs go out",
+    "options":[
+      "All stay on",
+      "Only that one goes out",
+      "They get brighter"
+    ],
+    "id":"science_y6_0011",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Light",
+    "year_level":6,
+    "question":"Practice 1: Light travels in:",
+    "correct":"Straight lines",
+    "options":[
+      "Curved lines",
+      "Circles",
+      "Spirals"
+    ],
+    "id":"science_y6_0017",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Classification",
+    "year_level":6,
+    "question":"Practice 1: Living things are classified into:",
+    "correct":"Kingdoms",
+    "options":[
+      "Countries",
+      "Colors",
+      "Sizes"
+    ],
+    "id":"science_y6_0007",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Classification",
+    "year_level":6,
+    "question":"Practice 1: Practice 1: Living things are classified into:",
+    "correct":"Kingdoms",
+    "options":[
+      "Countries",
+      "Colors",
+      "Sizes"
+    ],
+    "id":"science_y6_0009",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Circulatory System",
+    "year_level":6,
+    "question":"Practice 1: The heart pumps:",
+    "correct":"Blood",
+    "options":[
+      "Air",
+      "Food",
+      "Water"
+    ],
+    "id":"science_y6_0003",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Classification",
+    "year_level":6,
+    "question":"Practice 1: Vertebrates have:",
+    "correct":"A backbone",
+    "options":[
+      "No bones",
+      "Six legs",
+      "Wings"
+    ],
+    "id":"science_y6_0008",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Circulatory System",
+    "year_level":6,
+    "question":"The heart pumps:",
+    "correct":"Blood",
+    "options":[
+      "Air",
+      "Food",
+      "Water"
+    ],
+    "id":"science_y6_0001",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Science",
+    "topic":"Classification",
+    "year_level":6,
+    "question":"Vertebrates have:",
+    "correct":"A backbone",
+    "options":[
+      "No bones",
+      "Six legs",
+      "Wings"
+    ],
+    "id":"science_y6_0006",
+    "dataset":"core_ks2",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  }
+]

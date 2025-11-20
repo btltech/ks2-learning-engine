@@ -1,0 +1,512 @@
+[
+  {
+    "subject":"Other",
+    "topic":"Daily Dozen 10",
+    "year_level":6,
+    "question":"1 Daily Dozen: Maths",
+    "correct":"60",
+    "options":[
+      "12",
+      "30",
+      "45"
+    ],
+    "id":"other_y6_0001",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Other",
+    "topic":"Daily Dozen 10",
+    "year_level":6,
+    "question":"1. Add the number of sides on a pentagon to the number of sides on an octagon.",
+    "correct":"13",
+    "options":[
+      "10",
+      "15",
+      "12"
+    ],
+    "id":"other_y6_0011",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Other",
+    "topic":"Daily Dozen 10",
+    "year_level":6,
+    "question":"1. Josh is watching Beauty and the Beast. At the end of the film it says MCMXCI. What year was the film made?",
+    "correct":"1991",
+    "options":[
+      "1919",
+      "2001",
+      "1891"
+    ],
+    "id":"other_y6_0013",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Other",
+    "topic":"Daily Dozen 10",
+    "year_level":6,
+    "question":"1. Write eight thousand and eighty as a numeral.",
+    "correct":"8080",
+    "options":[
+      "80080",
+      "800080",
+      "8800"
+    ],
+    "id":"other_y6_0010",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Other",
+    "topic":"Daily Dozen 10",
+    "year_level":6,
+    "question":"1. Write seven thousand and eight as a numeral.",
+    "correct":"7008",
+    "options":[
+      "708",
+      "7800",
+      "70008"
+    ],
+    "id":"other_y6_0008",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Other",
+    "topic":"Daily Dozen 10",
+    "year_level":6,
+    "question":"1. Write seventy-eight thousand and eight as a numeral.",
+    "correct":"78,008",
+    "options":[
+      "78,080",
+      "78,800",
+      "7,808"
+    ],
+    "id":"other_y6_0014",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Other",
+    "topic":"Daily Dozen 10",
+    "year_level":6,
+    "question":"10. How many faces has a square based pyramid?",
+    "correct":"5",
+    "options":[
+      "4",
+      "6",
+      "8"
+    ],
+    "id":"other_y6_0006",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Other",
+    "topic":"Daily Dozen 10",
+    "year_level":6,
+    "question":"10. How many lines of symmetry has a rectangle?",
+    "correct":"2",
+    "options":[
+      "4",
+      "1",
+      "0"
+    ],
+    "id":"other_y6_0015",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Other",
+    "topic":"Daily Dozen 10",
+    "year_level":6,
+    "question":"11. Put the following in order:",
+    "correct":"Put the following in order: 1, 2, 3, 4, 5",
+    "options":[
+      "Put the following in order: 5, 4, 3, 2, 1",
+      "Put the following in order: 3, 1, 4, 2, 5",
+      "Put the following in order: 2, 4, 1, 5, 3"
+    ],
+    "id":"other_y6_0012",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Other",
+    "topic":"Daily Dozen 10",
+    "year_level":6,
+    "question":"11. Put the following in order: (No items provided)",
+    "correct":"Put the following in order",
+    "options":[
+      "Arrange these items from smallest to largest",
+      "Write down all the numbers you can think of",
+      "List your favourite toys alphabetically"
+    ],
+    "id":"other_y6_0012",
+    "dataset":"converted_worksheet",
+    "explanation":"The original prompt is incomplete and lacks specific items to order, making it impossible to determine what should be ordered or in what sequence.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Other",
+    "topic":"Daily Dozen 10",
+    "year_level":6,
+    "question":"2. Add two thirds to three quarters.",
+    "correct":"1 5\/12",
+    "options":[
+      "1 1\/4",
+      "5\/7",
+      "11\/12"
+    ],
+    "id":"other_y6_0004",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Other",
+    "topic":"Daily Dozen 10",
+    "year_level":6,
+    "question":"2. What number does the Roman Numeral CXVI represent?",
+    "correct":"116",
+    "options":[
+      "106",
+      "126",
+      "115"
+    ],
+    "id":"other_y6_0007",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Other",
+    "topic":"Daily Dozen 10",
+    "year_level":6,
+    "question":"7. Divide the sides on a hexagon by the sides on a triangle.",
+    "correct":"2",
+    "options":[
+      "3",
+      "4",
+      "5"
+    ],
+    "id":"other_y6_0002",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Other",
+    "topic":"Daily Dozen 10",
+    "year_level":6,
+    "question":"8. How many vertices has a cuboid?",
+    "correct":"8",
+    "options":[
+      "6",
+      "12",
+      "4"
+    ],
+    "id":"other_y6_0003",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Other",
+    "topic":"Daily Dozen 10",
+    "year_level":6,
+    "question":"9. How many lines of symmetry has an equilateral triangle.",
+    "correct":"3",
+    "options":[
+      "1",
+      "2",
+      "6"
+    ],
+    "id":"other_y6_0005",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Other",
+    "topic":"Daily Dozen 10",
+    "year_level":6,
+    "question":"9. What decimal is equal to \u00be?",
+    "correct":"0.75",
+    "options":[
+      "0.25",
+      "0.50",
+      "0.33"
+    ],
+    "id":"other_y6_0009",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Other",
+    "topic":"Daily Dozen 10",
+    "year_level":6,
+    "question":"How many corners does a cuboid have?",
+    "correct":"8",
+    "options":[
+      "6",
+      "12",
+      "4"
+    ],
+    "id":"other_y6_0003",
+    "dataset":"converted_worksheet",
+    "explanation":"A cuboid has 8 vertices (corners). You can count them by looking at each corner where three faces meet - there are 8 such corners on a cuboid.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Other",
+    "topic":"Daily Dozen 10",
+    "year_level":6,
+    "question":"How many faces does a square based pyramid have?",
+    "correct":"5",
+    "options":[
+      "4",
+      "6",
+      "8"
+    ],
+    "id":"other_y6_0006",
+    "dataset":"converted_worksheet",
+    "explanation":"A square based pyramid has 5 faces - 1 square base and 4 triangular faces that meet at the top point.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Other",
+    "topic":"Daily Dozen 10",
+    "year_level":6,
+    "question":"How many lines of symmetry does a rectangle have?",
+    "correct":"2",
+    "options":[
+      "4",
+      "1",
+      "0"
+    ],
+    "id":"other_y6_0015",
+    "dataset":"converted_worksheet",
+    "explanation":"A rectangle has 2 lines of symmetry - one vertical line through the middle and one horizontal line through the middle. These lines divide the rectangle into identical halves.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Other",
+    "topic":"Daily Dozen 10",
+    "year_level":6,
+    "question":"How many lines of symmetry does an equilateral triangle have?",
+    "correct":"3",
+    "options":[
+      "1",
+      "2",
+      "6"
+    ],
+    "id":"other_y6_0005",
+    "dataset":"converted_worksheet",
+    "explanation":"An equilateral triangle has 3 lines of symmetry - one through each vertex and the midpoint of the opposite side. Each line divides the triangle into two identical halves.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Other",
+    "topic":"Daily Dozen 10",
+    "year_level":6,
+    "question":"How many sides are there altogether on a pentagon and an octagon?",
+    "correct":"13",
+    "options":[
+      "12",
+      "15",
+      "14"
+    ],
+    "id":"other_y6_0011",
+    "dataset":"converted_worksheet",
+    "explanation":"A pentagon has 5 sides and an octagon has 8 sides. 5 + 8 = 13.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Other",
+    "topic":"Daily Dozen 10",
+    "year_level":6,
+    "question":"Josh is watching Beauty and the Beast. At the end of the film it says MCMXCI. What year was the film made?",
+    "correct":"1991",
+    "options":[
+      "1891",
+      "2001",
+      "1981"
+    ],
+    "id":"other_y6_0013",
+    "dataset":"converted_worksheet",
+    "explanation":"MCMXCI is Roman numerals for 1991. Beauty and the Beast was released in 1991 by Disney.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Other",
+    "topic":"Daily Dozen 10",
+    "year_level":6,
+    "question":"What decimal is equal to three quarters?",
+    "correct":"0.75",
+    "options":[
+      "0.25",
+      "0.34",
+      "7.5"
+    ],
+    "id":"other_y6_0009",
+    "dataset":"converted_worksheet",
+    "explanation":"Three quarters (\u00be) equals 0.75 in decimal form. You can calculate this by dividing 3 by 4.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Other",
+    "topic":"Daily Dozen 10",
+    "year_level":6,
+    "question":"What is seventy-eight thousand and eight written as a numeral?",
+    "correct":"78008",
+    "options":[
+      "7808",
+      "70808",
+      "780008"
+    ],
+    "id":"other_y6_0014",
+    "dataset":"converted_worksheet",
+    "explanation":"Seventy-eight thousand and eight = 78,000 + 8 = 78,008. The number has five digits with 78 in the thousands place and 8 in the units place.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Other",
+    "topic":"Daily Dozen 10",
+    "year_level":6,
+    "question":"What is the answer when you add two thirds to three quarters?",
+    "correct":"1 5\/12",
+    "options":[
+      "5\/7",
+      "6\/12",
+      "1 1\/4"
+    ],
+    "id":"other_y6_0004",
+    "dataset":"converted_worksheet",
+    "explanation":"To add 2\/3 and 3\/4, we need to find a common denominator. The least common multiple of 3 and 4 is 12. So 2\/3 = 8\/12 and 3\/4 = 9\/12. Adding these gives 17\/12 which equals 1 5\/12.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Other",
+    "topic":"Daily Dozen 10",
+    "year_level":6,
+    "question":"What is the numeral for eight thousand and eighty?",
+    "correct":"8080",
+    "options":[
+      "8800",
+      "8008",
+      "808"
+    ],
+    "id":"other_y6_0010",
+    "dataset":"converted_worksheet",
+    "explanation":"Eight thousand is 8000 and eighty is 80, so eight thousand and eighty is 8080. The digit 8 appears in the thousands place (8000), the tens place (80), and there are no hundreds or units digits.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Other",
+    "topic":"Daily Dozen 10",
+    "year_level":6,
+    "question":"What is the numeral for seven thousand and eight?",
+    "correct":"7008",
+    "options":[
+      "708",
+      "7800",
+      "70008"
+    ],
+    "id":"other_y6_0008",
+    "dataset":"converted_worksheet",
+    "explanation":"Seven thousand and eight means 7000 + 8 = 7008. The numeral has four digits: seven thousands, zero hundreds, zero tens, and eight units.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Other",
+    "topic":"Daily Dozen 10",
+    "year_level":6,
+    "question":"What is the result when you divide the number of sides on a hexagon by the number of sides on a triangle?",
+    "correct":"2",
+    "options":[
+      "3",
+      "4",
+      "6"
+    ],
+    "id":"other_y6_0002",
+    "dataset":"converted_worksheet",
+    "explanation":"A hexagon has 6 sides and a triangle has 3 sides. 6 divided by 3 equals 2.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Other",
+    "topic":"Daily Dozen 10",
+    "year_level":6,
+    "question":"What number is represented by the Roman numeral CXVI?",
+    "correct":"116",
+    "options":[
+      "106",
+      "126",
+      "115"
+    ],
+    "id":"other_y6_0007",
+    "dataset":"converted_worksheet",
+    "explanation":"CXVI = 100 + 10 + 5 + 1 = 116. C = 100, X = 10, V = 5, I = 1",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Other",
+    "topic":"Daily Dozen 10",
+    "year_level":6,
+    "question":"Which of these is a correct statement about the Daily Dozen Maths activity? A) It involves solving 12 math problems every day B) It's a spelling competition C) It's a science experiment D) It's a physical education class",
+    "correct":"A",
+    "options":[
+      "B",
+      "C",
+      "D"
+    ],
+    "id":"other_y6_0001",
+    "dataset":"converted_worksheet",
+    "explanation":"This question asks about the daily dozen maths topic but provides no specific question or answer options to evaluate.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  }
+]

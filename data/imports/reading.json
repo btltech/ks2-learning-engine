@@ -1,0 +1,1005 @@
+[
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"1. For how long had George been travelling when he arrived in the small town? Many months. 7. How many pieces did George\u2019s spear break into? A thousand.",
+    "correct":"Many months",
+    "options":[
+      "A few weeks",
+      "Several days",
+      "One year"
+    ],
+    "id":"reading_y6_0009",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"1. Look in the first paragraph. Can you find a word (and other similar emotions). that is used to describe the dragon? Terrible.",
+    "correct":"terrible",
+    "options":[
+      "fierce",
+      "brave",
+      "friendly"
+    ],
+    "id":"reading_y6_0002",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"1. Look in the first paragraph. Can you find a word that is used to describe the dragon?",
+    "correct":"scary",
+    "options":[
+      "friendly",
+      "small",
+      "sleepy"
+    ],
+    "id":"reading_y6_0005",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"1. Write two pieces of information that we are told about George in the first paragraph.",
+    "correct":"George was very brave and he had a big sword",
+    "options":[
+      "George was afraid of dragons and hid behind his mother",
+      "George lived in a small cottage with his family",
+      "George liked to draw pictures of knights and castles"
+    ],
+    "id":"reading_y6_0015",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"1. Write two pieces of information that we are told about similar words). George in the first paragraph. * He had been travelling for many months. 7. How did the dragon manage to defeat George the * He was a Christian. second time he attacked? * He entered the town gates. It poured venom onto his armour, splitting it in two. * He met a poor man who told him about the dragon. 8. What was the weakest part of the dragon\u2019s body? Under its wing where there were no scales.",
+    "correct":"It poured venom onto his armour, splitting it in two",
+    "options":[
+      "He used a magic sword to cut off the dragon's head",
+      "The dragon flew away because he was scared",
+      "George built a big wall to keep the dragon out"
+    ],
+    "id":"reading_y6_0021",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"10. How do we know that the people were happy",
+    "correct":"The people were happy because they were dancing and singing in the streets",
+    "options":[
+      "The people were sad because George had hurt the dragon",
+      "The people were angry because George had taken their gold",
+      "The people were scared because the dragon was big"
+    ],
+    "id":"reading_y6_0008",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"10. How was George feeling when he returned to the town?",
+    "correct":"George was feeling proud and happy when he returned to the town",
+    "options":[
+      "George was feeling scared and worried about what people would think",
+      "George was feeling sad and disappointed that no one celebrated his bravery",
+      "George was feeling angry because the dragon had destroyed his house"
+    ],
+    "id":"reading_y6_0020",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"10. Which two words were used to show how the people felt about George\u2019s actions?",
+    "correct":"amazed and proud",
+    "options":[
+      "scared and angry",
+      "sad and disappointed",
+      "confused and bored"
+    ],
+    "id":"reading_y6_0028",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"11. How would you describe George?",
+    "correct":"brave and kind",
+    "options":[
+      "lazy and selfish",
+      "scared and mean",
+      "tall and strong"
+    ],
+    "id":"reading_y6_0030",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"2. The dragon had been terrorising the town. 8. What do we know about the tree where George Which of these words has a similar meaning to sheltered? \u2018terrorising\u2019? entertaining helping scaring visiting 9. How might George have been feeling after his second attack on the dragon failed?",
+    "correct":"scaring",
+    "options":[
+      "entertaining",
+      "helping",
+      "visiting"
+    ],
+    "id":"reading_y6_0006",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"2. The dragon had been terrorising the town. Which of these words has a similar meaning to 8. What do we know about the tree where George \u2018terrorising\u2019? sheltered? It was an enchanted orange tree. entertaining helping scaring visiting 9. How might George have been feeling after his second attack on the dragon failed? Tired, scared",
+    "correct":"scaring",
+    "options":[
+      "helping",
+      "entertaining",
+      "visiting"
+    ],
+    "id":"reading_y6_0010",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"2. The dragon was terrorising the inhabitants. Which of these words is most similar in meaning to \u2018inhabitants\u2019? 8. What was the weakest part of the dragon\u2019s body? aliens houses residents crowds",
+    "correct":"residents",
+    "options":[
+      "aliens",
+      "houses",
+      "crowds"
+    ],
+    "id":"reading_y6_0017",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"2. The dragon was terrorising the inhabitants. Which of these words is most similar in meaning to 9. How do we know that George was determined to defeat \u2018inhabitants\u2019? the dragon? He attacked the dragon three times. aliens houses residents crowds 10. How was George feeling when he returned to the town? Triumphant.",
+    "correct":"residents",
+    "options":[
+      "inhabitants",
+      "crowds",
+      "aliens"
+    ],
+    "id":"reading_y6_0022",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"3. In the second paragraph, which word is used to describe the dragon? fearsome. 11. Can you think of another story with a similar theme and describe how they are alike? Answers may vary.",
+    "correct":"fearsome",
+    "options":[
+      "scary",
+      "big",
+      "friendly"
+    ],
+    "id":"reading_y6_0023",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"3. In the second paragraph, which word is used to the dragon? describe the dragon?",
+    "correct":"describe",
+    "options":[
+      "explain",
+      "show",
+      "tell"
+    ],
+    "id":"reading_y6_0019",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"3. What was George\u2019s reward for killing the dragon?",
+    "correct":"a golden crown",
+    "options":[
+      "a bag of gold coins",
+      "a magic wand",
+      "his own house"
+    ],
+    "id":"reading_y6_0027",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"3. Why did the king need George\u2019s help?",
+    "correct":"The king needed George's help to defeat the dangerous dragon that was threatening his kingdom and people.",
+    "options":[
+      "The king needed George's help to find his lost crown in the forest",
+      "The king needed George's help to catch a runaway horse",
+      "The king needed George's help to cook the biggest feast for his birthday"
+    ],
+    "id":"reading_y6_0007",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"3. Why did the king need George\u2019s help? Because (and other similar emotions). his daughter was the only maiden left to be sacrificed. 10. How do we know that the people were happy with George when he returned? They were",
+    "correct":"his daughter was the only maiden left to be sacrificed",
+    "options":[
+      "he needed someone to help him with his taxes",
+      "his horse had gone missing and he couldn't find it",
+      "the village was running out of food for the winter"
+    ],
+    "id":"reading_y6_0011",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"4. The word maiden has a number of different delighted and impressed by his bravery. They meanings: became Christians too. * A young girl or woman, * A horse that has never won a race, 11. How would you describe George? Brave, * Trying something for the first time. fearless (and other positive qualities). Which of these is the most appropriate meaning of \u2018maiden\u2019 in this story? 12. Can you think of another story in which the main character defeats a horrible creature?",
+    "correct":"A young girl or woman",
+    "options":[
+      "A horse that has never won a race",
+      "Trying something for the first time",
+      "A dragon that has never been defeated"
+    ],
+    "id":"reading_y6_0012",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"4. What protected the dragon from George\u2019s spear?",
+    "correct":"the dragon's scales",
+    "options":[
+      "the dragon's thick skin",
+      "George's strong arm",
+      "a magic shield"
+    ],
+    "id":"reading_y6_0029",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"4. What protected the dragon from George\u2019s spear? Its scales. 11. How would you describe George? Brave, fearless (and other positive qualities).",
+    "correct":"Its scales",
+    "options":[
+      "Its wings",
+      "Its fire breath",
+      "Its big teeth"
+    ],
+    "id":"reading_y6_0003",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"4. What word does the author use to tell us that it is impossible to break the dragon\u2019s scales?impenetrable. 12. What do you think would have happened to George if he hadn\u2019t discovered the enchanted orange tree?",
+    "correct":"impenetrable",
+    "options":[
+      "unbreakable",
+      "inflexible",
+      "invincible"
+    ],
+    "id":"reading_y6_0024",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"5. How do we know that George\u2019s spear was completely Explain your reasons. Answers may vary. destroyed by the dragon? It broke into a thousand pieces. Version 3 \u00a9 www.teachingpacks.co.uk",
+    "correct":"It broke into a thousand pieces",
+    "options":[
+      "The dragon breathed fire on it",
+      "George dropped it in the river",
+      "It was too heavy for George to carry"
+    ],
+    "id":"reading_y6_0025",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"5. Where did the dragon live?",
+    "correct":"afraid",
+    "options":[
+      "happy",
+      "brave",
+      "angry"
+    ],
+    "id":"reading_y6_0013",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"6. How did the dragon defend itself when George attacked the second time?",
+    "correct":"it charged at him",
+    "options":[
+      "it flew away quickly",
+      "it breathed fire at him",
+      "it hid behind a tree"
+    ],
+    "id":"reading_y6_0004",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"7. How did the dragon manage to defeat George the second time he attacked?",
+    "correct":"The dragon used his magic breath to make George's sword turn into a rubber duck",
+    "options":[
+      "The dragon flew away because he was scared of George",
+      "George tricked the dragon by pretending to be a tiny mouse",
+      "The dragon caught George with his tail and took him home as a pet"
+    ],
+    "id":"reading_y6_0016",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"8. How many times did George attack the dragon in",
+    "correct":"three times",
+    "options":[
+      "once",
+      "five times",
+      "twelve times"
+    ],
+    "id":"reading_y6_0014",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"9. How did George manage to defeat the dragon?",
+    "correct":"George used his courage and clever thinking to outsmart the dragon, possibly by finding a way to make the dragon laugh or by using a trick to escape",
+    "options":[
+      "George fought the dragon with a sword and shield",
+      "George asked his friends for help to fight the dragon together",
+      "George ran away quickly before the dragon could catch him"
+    ],
+    "id":"reading_y6_0026",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"9. How do we know that George was determined to defeat",
+    "correct":"He kept trying even when he fell off his horse",
+    "options":[
+      "He had a very big sword",
+      "The dragon was too scary to fight",
+      "His friends told him to be brave"
+    ],
+    "id":"reading_y6_0018",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"9. How do we know that George was determined to defeat the dragon? George kept trying even when he failed.",
+    "correct":"He kept trying even when he failed",
+    "options":[
+      "He had a big sword",
+      "The dragon was scared of him",
+      "He ran away quickly"
+    ],
+    "id":"reading_y6_0018",
+    "dataset":"converted_worksheet",
+    "explanation":"George showed determination by continuing his efforts despite initial failures, which is the key sign of someone who is determined to defeat the dragon.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictionsplidge",
+    "year_level":6,
+    "question":"An extract from Splidge the Cragflinger (by Richard Vobes) The crags were kept in \u2018traps\u2019 while they waited to take part. During the games, a small door lifted up to let the creatures out. The cragflingers would then try to catch the animals and fling them at the target. Splidge stopped at the first trap. He didn\u2019t know which crag was hidden in which trap but a small peep hole on the top enabled him to look inside. Splidge moved up the line peeking into each one. One of the crags growled and spun round, snapping its pointed teeth at Splidge the moment he peered in. Splidge jumped back and was relieved the monster couldn\u2019t get out. Splidge\u2019s crag had to be in the final trap.",
+    "correct":"A small sliding door that lifted up at the front",
+    "options":[
+      "A big wooden gate",
+      "The sound of trumpets",
+      "Doreen's shouting"
+    ],
+    "id":"reading_y6_0031",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Mypredictionchart",
+    "year_level":6,
+    "question":"Book Title - Name - What might happen?",
+    "correct":"The student should write predictions about what might happen in the story, then later write about what actually happened. For example: What might happen? The main character might go on an adventure. What did happen? The main character went on a magical journey to find a treasure.",
+    "options":[
+      "The student should only write about what happened in the story without making any predictions",
+      "The student should draw pictures of all the characters instead of writing words",
+      "The student should write about their own personal experiences rather than the book"
+    ],
+    "id":"reading_y6_0032",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Puzzlingpictures",
+    "year_level":6,
+    "question":"Describe these people. Where are they?",
+    "correct":"The man is celebrating his birthday with friends and family. He is smiling and holding a cake, showing he feels happy and excited about the celebration.",
+    "options":[
+      "The man is sad because he lost his pet dog",
+      "The man is at work in an office building",
+      "The man is sleeping in bed"
+    ],
+    "id":"reading_y6_0033",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"How did George defeat the dragon when he attacked for the second time?",
+    "correct":"George used his sword to cut off the dragon's tail",
+    "options":[
+      "The dragon breathed fire and George ran away",
+      "George threw a rock at the dragon's eye",
+      "George hid behind a tree while the dragon flew past"
+    ],
+    "id":"reading_y6_0016",
+    "dataset":"converted_worksheet",
+    "explanation":"In the story, George uses his sword to cut off the dragon's tail during their second fight, which weakens the dragon significantly.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"How did George manage to defeat the dragon in the story?",
+    "correct":"He used his wit and tricked the dragon",
+    "options":[
+      "He fought the dragon with a sword",
+      "He ran away from the dragon",
+      "The dragon gave up on its own"
+    ],
+    "id":"reading_y6_0026",
+    "dataset":"converted_worksheet",
+    "explanation":"In the story of George and the Dragon, George outsmarted the dragon rather than fighting it directly. He used clever thinking to overcome the challenge.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"How do we know that George's spear was completely destroyed by the dragon?",
+    "correct":"It broke into a thousand pieces",
+    "options":[
+      "The dragon ate it",
+      "George dropped it in the river",
+      "It turned to stone"
+    ],
+    "id":"reading_y6_0025",
+    "dataset":"converted_worksheet",
+    "explanation":"In the story, George's spear was destroyed by the dragon and broken into a thousand pieces as evidence of its power.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"How do we know that the people were happy after George defeated the dragon in the story?",
+    "correct":"They celebrated with music and dancing",
+    "options":[
+      "They built a new castle",
+      "They went to the market",
+      "They planted flowers"
+    ],
+    "id":"reading_y6_0008",
+    "dataset":"converted_worksheet",
+    "explanation":"In the story, when George defeated the dragon, the people showed their happiness through celebration with music and dancing, which is a common way communities celebrate heroic victories.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"How long had George been travelling when he arrived in the small town?",
+    "correct":"Many months",
+    "options":[
+      "A few weeks",
+      "Several days",
+      "A year"
+    ],
+    "id":"reading_y6_0009",
+    "dataset":"converted_worksheet",
+    "explanation":"According to the story, George had been travelling for many months before he arrived in the small town.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"How many times did George attack the dragon in the story?",
+    "correct":"Three times",
+    "options":[
+      "Five times",
+      "Once",
+      "Ten times"
+    ],
+    "id":"reading_y6_0014",
+    "dataset":"converted_worksheet",
+    "explanation":"In the story of George and the Dragon, George attacked the dragon three times using his sword before finally defeating it.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"How was George feeling when he returned to the town after saving it from the dragon?",
+    "correct":"Relieved and proud",
+    "options":[
+      "Scared and angry",
+      "Sad and lonely",
+      "Bored and tired"
+    ],
+    "id":"reading_y6_0020",
+    "dataset":"converted_worksheet",
+    "explanation":"George felt relieved because he had saved the town from the dragon, and proud of his brave actions. The story shows him returning with a sense of accomplishment after helping everyone.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"How would you describe George from the story about George and the Dragon?",
+    "correct":"Brave and kind",
+    "options":[
+      "Mean and selfish",
+      "Scared and lazy",
+      "Funny and silly"
+    ],
+    "id":"reading_y6_0030",
+    "dataset":"converted_worksheet",
+    "explanation":"George shows bravery by facing the dragon and kindness by helping others, making him a hero character in the story.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"Look at the first paragraph of George and the Dragon. What word is used to describe the dragon? Terrible.",
+    "correct":"Terrible",
+    "options":[
+      "Brave",
+      "Friendly",
+      "Small"
+    ],
+    "id":"reading_y6_0002",
+    "dataset":"converted_worksheet",
+    "explanation":"The question asks for a word from the first paragraph that describes the dragon. Based on the original prompt, 'Terrible' is the correct answer as it's explicitly stated as the word used to describe the dragon in the story.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"Look at the first paragraph of George and the Dragon. Which word describes what the dragon looks like?",
+    "correct":"fierce",
+    "options":[
+      "sleepy",
+      "friendly",
+      "small"
+    ],
+    "id":"reading_y6_0005",
+    "dataset":"converted_worksheet",
+    "explanation":"In the first paragraph of George and the Dragon, the word 'fierce' is used to describe the dragon's appearance and nature.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"One day, a Christian called Saint George arrived in a small Luckily, he rolled under an enchanted orange tree. The tree town. He met a poor man who told him about a terrible protected him from the dragon and he rested until he was dragon. The dragon was frightening the people of the town. ready to fight again. The dragon had made the villagers sacrifice a beautiful maiden Saint George attacked the dragon with his sword but the every day to keep him happy. Now the only maiden that was dragon poured venom onto George\u2019s armour and it split in left was the king\u2019s daughter. The town had to find a brave two. Saint George rested under the enchanted orange tree knight to slay the dragon. again.",
+    "correct":"Sad and disappointed",
+    "options":[
+      "Very angry",
+      "Really excited",
+      "So proud"
+    ],
+    "id":"reading_y6_0001",
+    "dataset":"year6_past_sats",
+    "explanation":null,
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"The dragon had been terrorising the town. Which of these words has a similar meaning to 'terrorising'?",
+    "correct":"scaring",
+    "options":[
+      "entertaining",
+      "helping",
+      "visiting"
+    ],
+    "id":"reading_y6_0010",
+    "dataset":"converted_worksheet",
+    "explanation":"The word 'terrorising' means frightening or scaring people. In the story, the dragon was scaring the townspeople by attacking them and their homes.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"The dragon was terrorising the inhabitants. Which of these words is most similar in meaning to 'inhabitants'?",
+    "correct":"residents",
+    "options":[
+      "aliens",
+      "houses",
+      "crowds"
+    ],
+    "id":"reading_y6_0017",
+    "dataset":"converted_worksheet",
+    "explanation":"Inhabitants means the people who live in a place. Residents are people who live in a particular area or building, which is the same meaning as inhabitants. Aliens are from outer space, houses are buildings, and crowds are groups of people together - none of these match the meaning of inhabitants.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"What did George get as a prize after he killed the dragon in the fairy tale?",
+    "correct":"A castle and a princess",
+    "options":[
+      "A shiny sword",
+      "A bag of gold coins",
+      "A magic spell"
+    ],
+    "id":"reading_y6_0027",
+    "dataset":"converted_worksheet",
+    "explanation":"In the traditional story, George was rewarded with a castle and a princess for his bravery in killing the dragon.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"What information is given about George in the first paragraph of the story?",
+    "correct":"He had been travelling for many months",
+    "options":[
+      "He was a Christian",
+      "He entered the town gates",
+      "He met a poor man who told him about the dragon"
+    ],
+    "id":"reading_y6_0021",
+    "dataset":"converted_worksheet",
+    "explanation":"The question asks for information about George in the first paragraph. The text clearly states 'He had been travelling for many months' as the first piece of information about George.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"What is the most appropriate meaning of 'maiden' in the story about George and the dragon?",
+    "correct":"A young girl or woman",
+    "options":[
+      "A horse that has never won a race",
+      "Trying something for the first time",
+      "A dragon that has never been defeated"
+    ],
+    "id":"reading_y6_0012",
+    "dataset":"converted_worksheet",
+    "explanation":"In the story about George and the dragon, 'maiden' refers to a young woman or girl - specifically the princess who was being held captive by the dragon. This is the most appropriate meaning from the context of the tale.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"What protected the dragon from George's spear in the story about George and the dragon?",
+    "correct":"Its scales",
+    "options":[
+      "Its claws",
+      "Its fire breath",
+      "Its size"
+    ],
+    "id":"reading_y6_0003",
+    "dataset":"converted_worksheet",
+    "explanation":"In the story, the dragon's scales protected it from George's spear attacks because they were very tough and hard to pierce.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"What protected the dragon from George's spear?",
+    "correct":"His scales",
+    "options":[
+      "His wings",
+      "His breath",
+      "His claws"
+    ],
+    "id":"reading_y6_0029",
+    "dataset":"converted_worksheet",
+    "explanation":"In the story, the dragon's scales were thick and hard, making them resistant to George's spear attacks. The other body parts mentioned don't provide protection against weapons in this context.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"What two things do we learn about George in the first paragraph of the story?",
+    "correct":"George is very brave and he has a sword",
+    "options":[
+      "George is afraid of dragons and runs away",
+      "George lives in a castle with his family",
+      "George is small and weak"
+    ],
+    "id":"reading_y6_0015",
+    "dataset":"converted_worksheet",
+    "explanation":"The first paragraph tells us that George is brave enough to face the dragon and that he carries a sword for protection.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"What word does the author use to tell us that it is impossible to break the dragon's scales in the story about George and the dragon?",
+    "correct":"impenetrable",
+    "options":[
+      "unbreakable",
+      "invincible",
+      "strong"
+    ],
+    "id":"reading_y6_0024",
+    "dataset":"converted_worksheet",
+    "explanation":"The author uses 'impenetrable' to describe the dragon's scales, meaning nothing can break through or go through them. This word shows how impossible it would be for George to harm the dragon with his sword.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"What word in the second paragraph describes how the dragon looked?",
+    "correct":"fierce",
+    "options":[
+      "friendly",
+      "small",
+      "sleepy"
+    ],
+    "id":"reading_y6_0019",
+    "dataset":"converted_worksheet",
+    "explanation":"In the story George and the Dragon, the second paragraph describes the dragon as fierce and scary to help George feel brave.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"What word in the second paragraph describes the dragon in George and the Dragon?",
+    "correct":"fearsome",
+    "options":[
+      "friendly",
+      "small",
+      "happy"
+    ],
+    "id":"reading_y6_0023",
+    "dataset":"converted_worksheet",
+    "explanation":"In the second paragraph of George and the Dragon, the word 'fearsome' is used to describe the dragon's appearance and nature.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"Which of these words has a similar meaning to 'terrorising' in the sentence 'The dragon had been terrorising the town'? A) entertaining B) helping C) scaring D) visiting",
+    "correct":"scaring",
+    "options":[
+      "entertaining",
+      "helping",
+      "visiting"
+    ],
+    "id":"reading_y6_0006",
+    "dataset":"converted_worksheet",
+    "explanation":"The word 'terrorising' means frightening or scaring people. In the story, the dragon was scaring the townspeople by attacking them.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"Which two words did the villagers use to describe George after he defeated the dragon?",
+    "correct":"brave and clever",
+    "options":[
+      "angry and scared",
+      "happy and proud",
+      "tired and sad"
+    ],
+    "id":"reading_y6_0028",
+    "dataset":"converted_worksheet",
+    "explanation":"In the story, the people called George 'brave' and 'clever' because he faced the dragon to save the village.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"Why did George have to go on the quest to face the dragon? Because",
+    "correct":"his daughter was the only maiden left to be sacrificed",
+    "options":[
+      "he had brought back a magical sword",
+      "the dragon was now his pet",
+      "he had found treasure in the cave"
+    ],
+    "id":"reading_y6_0011",
+    "dataset":"converted_worksheet",
+    "explanation":"In the story, George needed to help because the king's daughter was the last remaining maiden who would be sacrificed to the dragon, which is why he volunteered for the dangerous mission.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  },
+  {
+    "subject":"Reading",
+    "topic":"Fictiongeorgeandthedragon",
+    "year_level":6,
+    "question":"Why did the king need George's help in the story about George and the Dragon?",
+    "correct":"The dragon was destroying the kingdom",
+    "options":[
+      "George was the king's best friend",
+      "The king needed someone to carry his heavy crown",
+      "George could speak to animals"
+    ],
+    "id":"reading_y6_0007",
+    "dataset":"converted_worksheet",
+    "explanation":"In the story, George helped the king because a fierce dragon was terrorizing and destroying the kingdom, so the king asked for George's help to stop it.",
+    "quality_flag":"good",
+    "difficulty_score":null
+  }
+]
