@@ -11,9 +11,9 @@ interface SubjectSelectorProps {
 const SubjectSelector: React.FC<SubjectSelectorProps> = ({ onSelect, progress }) => {
   return (
     <div className="text-center w-full">
-      <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-8 tracking-tight animate-fadeInDown">What would you like to learn today?</h2>
+      <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-6 sm:mb-8 tracking-tight animate-fadeInDown">What would you like to learn today?</h2>
       <div 
-        className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto"
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto"
         role="list"
         aria-label="Subject selection"
       >

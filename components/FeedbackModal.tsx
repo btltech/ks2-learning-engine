@@ -54,12 +54,12 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ quizResults, studentAge, 
       aria-modal="true"
       aria-labelledby="feedback-title"
     >
-      <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-2xl w-full text-center transform transition-all animate-pop-in max-h-[90vh] overflow-y-auto">
-        <SparklesIcon className="h-16 w-16 text-yellow-400 mx-auto mb-4" aria-hidden="true"/>
-        <h2 id="feedback-title" className="text-3xl font-extrabold text-gray-800">Quiz Complete!</h2>
+      <div className="bg-white rounded-2xl shadow-2xl p-4 sm:p-8 max-w-2xl w-full text-center transform transition-all animate-pop-in max-h-[90vh] overflow-y-auto">
+        <SparklesIcon className="h-12 w-12 sm:h-16 sm:w-16 text-yellow-400 mx-auto mb-4" aria-hidden="true"/>
+        <h2 id="feedback-title" className="text-2xl sm:text-3xl font-extrabold text-gray-800">Quiz Complete!</h2>
         
         <div 
-          className="bg-yellow-100 text-yellow-800 font-bold px-4 py-2 rounded-full inline-block my-4 text-lg"
+          className="bg-yellow-100 text-yellow-800 font-bold px-4 py-2 rounded-full inline-block my-4 text-base sm:text-lg"
           role="status"
           aria-label={`You earned ${pointsEarned} points`}
         >
@@ -67,7 +67,7 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ quizResults, studentAge, 
         </div>
 
         <p 
-          className="text-5xl font-bold my-2" 
+          className="text-4xl sm:text-5xl font-bold my-2" 
           style={{color: percentage > 70 ? '#10B981' : percentage > 40 ? '#F59E0B' : '#EF4444'}}
           role="status"
           aria-label={`Your score: ${score} out of ${total} correct`}
@@ -85,16 +85,18 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ quizResults, studentAge, 
         {nextDifficultySuggestion && (
           <div className="mb-6 p-4 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-lg border border-purple-200">
             <p className="text-sm text-gray-700 font-semibold mb-2">📊 Difficulty Recommendation</p>
-            <div className="flex items-center gap-2">
-              <span className="text-gray-600">Next Time:</span>
-              <span className={`px-3 py-1 rounded-full font-bold text-white ${
-                nextDifficultySuggestion === 'Easy' ? 'bg-green-500' :
-                nextDifficultySuggestion === 'Hard' ? 'bg-red-500' :
-                'bg-yellow-500'
-              }`}>
-                {nextDifficultySuggestion}
-              </span>
-              <span className="text-xs text-gray-600 ml-2">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2">
+              <div className="flex items-center gap-2">
+                <span className="text-gray-600">Next Time:</span>
+                <span className={`px-3 py-1 rounded-full font-bold text-white ${
+                  nextDifficultySuggestion === 'Easy' ? 'bg-green-500' :
+                  nextDifficultySuggestion === 'Hard' ? 'bg-red-500' :
+                  'bg-yellow-500'
+                }`}>
+                  {nextDifficultySuggestion}
+                </span>
+              </div>
+              <span className="text-xs text-gray-600 sm:ml-2">
                 {nextDifficultySuggestion === 'Easy' && '💪 You got this! Try Easy mode to build confidence.' }
                 {nextDifficultySuggestion === 'Hard' && '🚀 You\'re ready for a challenge!' }
                 {nextDifficultySuggestion === 'Medium' && '⚡ Keep the balance and push yourself!' }
@@ -142,18 +144,18 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ quizResults, studentAge, 
             <p className="text-lg text-green-600 font-bold my-8" role="status">Wow, a perfect score! You're a superstar!</p>
         )}
 
-        <div className="flex justify-center gap-4 mt-8">
+        <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mt-6 sm:mt-8">
           <button
             onClick={onRetry}
             aria-label="Retry the quiz"
-            className="px-6 py-3 bg-blue-500 text-white font-bold rounded-full shadow-lg hover:bg-blue-600 transform hover:scale-105 transition-transform"
+            className="w-full sm:w-auto px-6 py-3 bg-blue-500 text-white font-bold rounded-full shadow-lg hover:bg-blue-600 transform hover:scale-105 transition-transform"
           >
             Try Again
           </button>
           <button
             onClick={onNewTopic}
             aria-label="Choose a new topic"
-            className="px-6 py-3 bg-gray-200 text-gray-800 font-bold rounded-full shadow-lg hover:bg-gray-300 transform hover:scale-105 transition-transform"
+            className="w-full sm:w-auto px-6 py-3 bg-gray-200 text-gray-800 font-bold rounded-full shadow-lg hover:bg-gray-300 transform hover:scale-105 transition-transform"
           >
             New Topic
           </button>

@@ -44,20 +44,27 @@ const TopicSelector: React.FC<TopicSelectorProps> = ({ subject, studentAge, onSe
   const completedTopics = progress[subject.name] || [];
 
   return (
-    <div className="w-full max-w-5xl mx-auto text-center">
-      <button 
-        onClick={onBack} 
-        className="absolute top-24 left-4 sm:left-8 flex items-center text-gray-600 hover:text-gray-900 hover:bg-gray-100 px-3 py-2 rounded-lg font-semibold transition-all duration-200"
-        aria-label="Go back to subject selection"
-      >
-        <ArrowLeftIcon className="h-5 w-5 mr-2" aria-hidden="true"/>
-        Back to Subjects
-      </button>
-      <div className="flex items-center justify-center gap-4 mb-4">
-         <subject.icon className={`h-12 w-12 ${subject.color}`} aria-hidden="true" />
-         <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight">{subject.name}</h2>
+    <div className="w-full max-w-5xl mx-auto text-center relative">
+      <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between mb-6 sm:mb-8 relative">
+        <button 
+          onClick={onBack} 
+          className="mb-4 sm:mb-0 sm:absolute sm:left-0 flex items-center text-gray-600 hover:text-gray-900 hover:bg-gray-100 px-3 py-2 rounded-lg font-semibold transition-all duration-200"
+          aria-label="Go back to subject selection"
+        >
+          <ArrowLeftIcon className="h-5 w-5 mr-2" aria-hidden="true"/>
+          Back
+        </button>
+        
+        <div className="flex items-center justify-center gap-3 sm:gap-4 w-full">
+           <subject.icon className={`h-10 w-10 sm:h-12 sm:w-12 ${subject.color}`} aria-hidden="true" />
+           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 tracking-tight">{subject.name}</h2>
+        </div>
+        
+        {/* Spacer for centering on desktop */}
+        <div className="hidden sm:block w-20"></div>
       </div>
-      <p className="text-lg text-gray-600 mb-8 font-medium">Pick a topic to explore! We'll adjust the challenge just for you.</p>
+
+      <p className="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8 font-medium px-4">Pick a topic to explore! We'll adjust the challenge just for you.</p>
       
       <div role="main" aria-live="polite" aria-busy={loading}>
       {loading ? (

@@ -167,8 +167,8 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
   const isLastQuestion = currentQuestionIndex === questions.length - 1;
 
   return (
-    <div className="w-full max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-[0_20px_25px_-5px_rgba(0,0,0,0.1),0_10px_10px_-5px_rgba(0,0,0,0.04)] border border-gray-100" role="main">
-      <div className="mb-6" role="status" aria-live="polite">
+    <div className="w-full max-w-3xl mx-auto bg-white p-4 sm:p-8 rounded-2xl shadow-[0_20px_25px_-5px_rgba(0,0,0,0.1),0_10px_10px_-5px_rgba(0,0,0,0.04)] border border-gray-100" role="main">
+      <div className="mb-4 sm:mb-6" role="status" aria-live="polite">
         <p className="text-sm font-bold text-blue-600 mb-2">Question {currentQuestionIndex + 1} of {questions.length}</p>
         <div className="w-full bg-gray-200 rounded-full h-3 mt-2 overflow-hidden" role="progressbar" aria-valuenow={currentQuestionIndex + 1} aria-valuemin={1} aria-valuemax={questions.length}>
             <div className="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-500" style={{ width: `${((currentQuestionIndex + 1) / questions.length) * 100}%` }}></div>
@@ -184,9 +184,9 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
               </span>
             </div>
           )}
-          <h3 className="text-2xl font-bold text-gray-800">{currentQuestion.question}</h3>
+          <h3 className="text-xl sm:text-2xl font-bold text-gray-800">{currentQuestion.question}</h3>
         </div>
-        <div className="flex gap-2 ml-4">
+        <div className="flex gap-2 ml-2 sm:ml-4">
           <button 
             onClick={() => isSpeaking ? cancel() : speak(currentQuestion.question)}
             className="p-2 text-blue-500 hover:bg-blue-50 rounded-full transition-colors"
@@ -227,7 +227,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
             role="radio"
             aria-checked={selectedOption === option}
             aria-label={`Option: ${option}`}
-            className={`w-full text-left p-4 rounded-xl border-2 transition-all duration-200 text-lg font-semibold
+            className={`w-full text-left p-3 sm:p-4 rounded-xl border-2 transition-all duration-200 text-base sm:text-lg font-semibold
               ${selectedOption === option 
                 ? 'bg-gradient-to-r from-blue-500 to-blue-600 border-blue-600 text-white scale-105 shadow-lg shadow-blue-500/40' 
                 : 'bg-blue-50 border-blue-200 text-gray-700 hover:bg-blue-100 hover:border-blue-400 hover:shadow-md'
@@ -237,13 +237,13 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
           </button>
         ))}
       </div>
-      <div className="mt-8 text-right">
+      <div className="mt-6 sm:mt-8 text-right">
         <button
           onClick={() => handleNextQuestion(false)}
           disabled={!selectedOption}
           aria-label={isLastQuestion ? 'Finish quiz and see results' : 'Go to next question'}
           aria-disabled={!selectedOption}
-          className="px-8 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-bold text-lg rounded-xl shadow-lg shadow-green-500/40 hover:shadow-xl hover:shadow-green-500/50 active:scale-95 transition-all duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:shadow-none disabled:active:scale-100"
+          className="w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-bold text-lg rounded-xl shadow-lg shadow-green-500/40 hover:shadow-xl hover:shadow-green-500/50 active:scale-95 transition-all duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:shadow-none disabled:active:scale-100"
         >
           {isLastQuestion ? 'Finish Quiz' : 'Next Question'}
         </button>

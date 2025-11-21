@@ -89,15 +89,15 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
     <div className="w-full max-w-4xl mx-auto">
        <button 
          onClick={onBack} 
-         className="flex items-center text-gray-600 hover:text-gray-900 font-semibold transition-colors mb-6"
+         className="flex items-center text-gray-600 hover:text-gray-900 font-semibold transition-colors mb-4 sm:mb-6"
          aria-label="Go back to topic selection"
        >
         <ArrowLeftIcon className="h-5 w-5 mr-2" aria-hidden="true"/>
         Back to Topics
       </button>
-      <article className="bg-white p-8 rounded-2xl shadow-xl" role="main" aria-live="polite" aria-busy={loading}>
+      <article className="bg-white p-4 sm:p-8 rounded-2xl shadow-xl" role="main" aria-live="polite" aria-busy={loading}>
         <div className="flex justify-between items-start mb-2">
-          <h2 className="text-4xl font-extrabold text-gray-800">{topic}</h2>
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-gray-800">{topic}</h2>
           <div className="flex items-center gap-2">
             {isLanguageSubject && !loading && !error && (
               <button
@@ -176,11 +176,11 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
           </div>
       </article>
       {!loading && !error && (
-        <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
+        <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
           <button
             onClick={() => onStartQuiz('standard')}
             aria-label="Start the quiz for this lesson"
-            className="px-10 py-4 bg-green-500 text-white font-bold text-xl rounded-full shadow-lg hover:bg-green-600 transform hover:scale-105 transition-transform duration-300"
+            className="px-6 py-3 sm:px-10 sm:py-4 bg-green-500 text-white font-bold text-lg sm:text-xl rounded-full shadow-lg hover:bg-green-600 transform hover:scale-105 transition-transform duration-300"
           >
             Ready for a Quiz?
           </button>
@@ -188,9 +188,9 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
           <button
             onClick={() => onStartQuiz('speed')}
             aria-label="Start a speed challenge"
-            className="px-10 py-4 bg-orange-500 text-white font-bold text-xl rounded-full shadow-lg hover:bg-orange-600 transform hover:scale-105 transition-transform duration-300 flex items-center justify-center"
+            className="px-6 py-3 sm:px-10 sm:py-4 bg-orange-500 text-white font-bold text-lg sm:text-xl rounded-full shadow-lg hover:bg-orange-600 transform hover:scale-105 transition-transform duration-300 flex items-center justify-center"
           >
-            <BoltIcon className="h-6 w-6 mr-2" />
+            <BoltIcon className="h-5 w-5 sm:h-6 sm:w-6 mr-2" />
             Speed Challenge!
           </button>
         </div>

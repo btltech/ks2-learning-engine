@@ -25,29 +25,29 @@ const Header: React.FC<HeaderProps> = ({
 }) => {
   return (
     <header className="bg-gradient-to-r from-white via-white to-blue-50/30 backdrop-blur-xl bg-white/80 border-b border-gray-200/50 shadow-sm w-full sticky top-0 z-40" role="banner">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+      <div className="container mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
           <button 
             onClick={onHomeClick} 
-            className="flex items-center space-x-3 group"
+            className="flex items-center space-x-2 sm:space-x-3 group"
             aria-label="Go to home page"
           >
-            <AcademicCapIcon className="h-10 w-10 text-blue-500 group-hover:text-blue-600 transition-colors" aria-hidden="true" />
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors hidden sm:block tracking-tight">
+            <AcademicCapIcon className="h-8 w-8 sm:h-10 sm:w-10 text-blue-500 group-hover:text-blue-600 transition-colors" aria-hidden="true" />
+            <h1 className="text-xl sm:text-3xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors hidden sm:block tracking-tight">
               KS2 Learning
             </h1>
           </button>
 
           {/* Right Side Actions */}
-            <div className="flex items-center gap-2 sm:gap-4">
+            <div className="flex items-center gap-1 sm:gap-4">
               {user.role === 'admin' && <EmbeddingSelector />}
               {user.role === 'admin' && <TTSDemo />}
 
             {/* Badges Display - Students only */}
             {user.role === 'student' && (
               <div 
-                className="hidden sm:flex items-center space-x-1 bg-gradient-to-r from-blue-50 to-blue-100 text-blue-800 font-semibold px-4 py-2 rounded-full shadow-sm border border-blue-200/50 cursor-help hover:shadow-md transition-shadow"
+                className="hidden md:flex items-center space-x-1 bg-gradient-to-r from-blue-50 to-blue-100 text-blue-800 font-semibold px-4 py-2 rounded-full shadow-sm border border-blue-200/50 cursor-help hover:shadow-md transition-shadow"
                 role="status"
                 aria-label={`Badges earned: ${user.badges?.length || 0}`}
                 title={`Badges: ${user.badges?.map(b => b.name).join(', ') || 'None yet'}`}
@@ -60,25 +60,25 @@ const Header: React.FC<HeaderProps> = ({
             {/* Streak Display - Students only */}
             {user.role === 'student' && (
               <div 
-                className="flex items-center space-x-1 bg-gradient-to-r from-orange-50 to-orange-100 text-orange-800 font-semibold px-4 py-2 rounded-full shadow-sm border border-orange-200/50 hover:shadow-md transition-shadow"
+                className="flex items-center space-x-1 bg-gradient-to-r from-orange-50 to-orange-100 text-orange-800 font-semibold px-2 sm:px-4 py-1 sm:py-2 rounded-full shadow-sm border border-orange-200/50 hover:shadow-md transition-shadow"
                 role="status"
                 aria-label={`Current streak: ${user.streak || 0} days`}
                 title="Daily Streak"
               >
-                <FireIcon className="h-6 w-6 text-orange-500" aria-hidden="true" />
-                <span className="text-lg">{user.streak || 0}</span>
+                <FireIcon className="h-5 w-5 sm:h-6 sm:w-6 text-orange-500" aria-hidden="true" />
+                <span className="text-sm sm:text-lg">{user.streak || 0}</span>
               </div>
             )}
 
             {/* Points Display - Students only */}
             {user.role === 'student' && (
               <div 
-                className="flex items-center space-x-2 bg-gradient-to-r from-yellow-50 to-yellow-100 text-yellow-800 font-semibold px-4 py-2 rounded-full shadow-sm border border-yellow-200/50 hover:shadow-md transition-shadow"
+                className="flex items-center space-x-1 sm:space-x-2 bg-gradient-to-r from-yellow-50 to-yellow-100 text-yellow-800 font-semibold px-2 sm:px-4 py-1 sm:py-2 rounded-full shadow-sm border border-yellow-200/50 hover:shadow-md transition-shadow"
                 role="status"
                 aria-label={`Total points: ${user.totalPoints}`}
               >
-                <StarIcon className="h-6 w-6 text-yellow-500" aria-hidden="true" />
-                <span className="text-lg">{user.totalPoints}</span>
+                <StarIcon className="h-5 w-5 sm:h-6 sm:w-6 text-yellow-500" aria-hidden="true" />
+                <span className="text-sm sm:text-lg">{user.totalPoints}</span>
               </div>
             )}
 
@@ -86,10 +86,10 @@ const Header: React.FC<HeaderProps> = ({
             {user.role === 'student' && (
               <button
                 onClick={onOpenLeaderboard}
-                className="p-2 text-gray-600 hover:text-yellow-600 hover:bg-yellow-100 rounded-lg transition-all duration-200 hover:shadow-md"
+                className="p-1.5 sm:p-2 text-gray-600 hover:text-yellow-600 hover:bg-yellow-100 rounded-lg transition-all duration-200 hover:shadow-md"
                 title="Leaderboard"
               >
-                <TrophyIcon className="h-8 w-8" />
+                <TrophyIcon className="h-6 w-6 sm:h-8 sm:w-8" />
               </button>
             )}
 
@@ -97,10 +97,10 @@ const Header: React.FC<HeaderProps> = ({
             {user.role === 'student' && (
               <button
                 onClick={onOpenProgress}
-                className="p-2 text-gray-600 hover:text-green-600 hover:bg-green-100 rounded-lg transition-all duration-200 hover:shadow-md"
+                className="p-1.5 sm:p-2 text-gray-600 hover:text-green-600 hover:bg-green-100 rounded-lg transition-all duration-200 hover:shadow-md"
                 title="My Progress"
               >
-                <ChartBarIcon className="h-8 w-8" />
+                <ChartBarIcon className="h-6 w-6 sm:h-8 sm:w-8" />
               </button>
             )}
 
@@ -108,10 +108,10 @@ const Header: React.FC<HeaderProps> = ({
             {user.role === 'student' && (
               <button
                 onClick={onOpenStore}
-                className="p-2 text-gray-600 hover:text-orange-500 hover:bg-orange-100 rounded-lg transition-all duration-200 hover:shadow-md"
+                className="p-1.5 sm:p-2 text-gray-600 hover:text-orange-500 hover:bg-orange-100 rounded-lg transition-all duration-200 hover:shadow-md"
                 title="Open Store"
               >
-                <ShoppingBagIcon className="h-8 w-8" />
+                <ShoppingBagIcon className="h-6 w-6 sm:h-8 sm:w-8" />
               </button>
             )}
 
@@ -125,7 +125,7 @@ const Header: React.FC<HeaderProps> = ({
             </button>
 
             {/* User Profile / Logout */}
-            <div className="flex items-center gap-3 pl-4 border-l border-gray-200">
+            <div className="flex items-center gap-2 sm:gap-3 pl-2 sm:pl-4 border-l border-gray-200">
               <div className="flex flex-col items-end hidden lg:flex">
                 <span className="font-semibold text-gray-900">{user.name}</span>
                 <span className="text-xs text-gray-500 capitalize">{user.role}</span>
@@ -133,7 +133,7 @@ const Header: React.FC<HeaderProps> = ({
               
               <div className="relative group">
                 <div 
-                  className={`w-10 h-10 rounded-full border-2 border-blue-200 flex items-center justify-center text-xl cursor-pointer transition-all group-hover:scale-110 group-hover:shadow-lg ${user.avatarConfig.color}`}
+                  className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-blue-200 flex items-center justify-center text-lg sm:text-xl cursor-pointer transition-all group-hover:scale-110 group-hover:shadow-lg ${user.avatarConfig.color}`}
                 >
                   {/* Simple avatar representation */}
                   {user.avatarConfig.accessory === 'glasses' && '👓'}

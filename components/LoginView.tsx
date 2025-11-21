@@ -30,16 +30,16 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-400 to-purple-500 p-4">
-      <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md animate-pop-in">
-        <div className="text-center mb-8">
-          <div className="w-24 h-24 bg-blue-100 rounded-full mx-auto mb-4 flex items-center justify-center text-4xl">
+      <div className="bg-white rounded-2xl shadow-2xl p-6 sm:p-8 w-full max-w-md animate-pop-in">
+        <div className="text-center mb-6 sm:mb-8">
+          <div className="w-20 h-20 sm:w-24 sm:h-24 bg-blue-100 rounded-full mx-auto mb-4 flex items-center justify-center text-3xl sm:text-4xl">
             🤖
           </div>
-          <h1 className="text-3xl font-bold text-gray-800">Welcome to KS2 Learning!</h1>
-          <p className="text-gray-600 mt-2">Your AI-powered learning buddy</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">Welcome to KS2 Learning!</h1>
+          <p className="text-gray-600 mt-2 text-sm sm:text-base">Your AI-powered learning buddy</p>
         </div>
 
-        <form onSubmit={handleLogin} className="space-y-6">
+        <form onSubmit={handleLogin} className="space-y-5 sm:space-y-6">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">What's your name?</label>
             <input
@@ -54,30 +54,30 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">I am a...</label>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
               <button
                 type="button"
                 onClick={() => setRole('student')}
-                className={`p-4 rounded-xl border-2 transition-all ${
+                className={`p-3 sm:p-4 rounded-xl border-2 transition-all ${
                   role === 'student'
                     ? 'border-blue-500 bg-blue-50 text-blue-700'
                     : 'border-gray-200 hover:border-blue-200'
                 }`}
               >
                 <span className="text-2xl block mb-1">🎓</span>
-                <span className="font-bold">Student</span>
+                <span className="font-bold text-sm sm:text-base">Student</span>
               </button>
               <button
                 type="button"
                 onClick={() => setRole('parent')}
-                className={`p-4 rounded-xl border-2 transition-all ${
+                className={`p-3 sm:p-4 rounded-xl border-2 transition-all ${
                   role === 'parent'
                     ? 'border-purple-500 bg-purple-50 text-purple-700'
                     : 'border-gray-200 hover:border-purple-200'
                 }`}
               >
                 <span className="text-2xl block mb-1">👨‍👩‍👧</span>
-                <span className="font-bold">Parent</span>
+                <span className="font-bold text-sm sm:text-base">Parent</span>
               </button>
             </div>
           </div>
@@ -85,7 +85,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
           {role === 'student' && (
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">How old are you?</label>
-              <div className="grid grid-cols-5 gap-2">
+              <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
                 {[7, 8, 9, 10, 11].map((ageOption) => (
                   <button
                     key={ageOption}
