@@ -3,11 +3,11 @@ import { useUser } from '../context/UserContext';
 import { TrophyIcon, FireIcon, StarIcon } from '@heroicons/react/24/solid';
 
 // Mock data for leaderboard
-const MOCK_LEADERBOARD = [
-  { id: '2', name: 'Sarah', points: 1250, avatar: '🦊', streak: 5, isCurrentUser: false },
-  { id: '3', name: 'Mike', points: 980, avatar: '🦁', streak: 3, isCurrentUser: false },
-  { id: '4', name: 'Emma', points: 850, avatar: '🐼', streak: 12, isCurrentUser: false },
-  { id: '5', name: 'Leo', points: 720, avatar: '🐯', streak: 2, isCurrentUser: false },
+const MOCK_LEADERBOARD: { id: string; name: string; points: number; avatar: string; streak: number; isCurrentUser: boolean }[] = [
+  // { id: '2', name: 'Sarah', points: 1250, avatar: '🦊', streak: 5, isCurrentUser: false },
+  // { id: '3', name: 'Mike', points: 980, avatar: '🦁', streak: 3, isCurrentUser: false },
+  // { id: '4', name: 'Emma', points: 850, avatar: '🐼', streak: 12, isCurrentUser: false },
+  // { id: '5', name: 'Leo', points: 720, avatar: '🐯', streak: 2, isCurrentUser: false },
 ];
 
 interface LeaderboardViewProps {
@@ -43,7 +43,7 @@ const LeaderboardView: React.FC<LeaderboardViewProps> = ({ onBack }) => {
         <div className="bg-gradient-to-r from-yellow-400 to-orange-500 p-6 text-white text-center">
           <TrophyIcon className="h-16 w-16 mx-auto mb-2 text-yellow-100" />
           <h1 className="text-3xl font-bold">Leaderboard</h1>
-          <p className="opacity-90">See how you compare with friends!</p>
+          <p className="opacity-90">Track your progress!</p>
         </div>
 
         <div className="p-4">
