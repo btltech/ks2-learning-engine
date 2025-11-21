@@ -25,6 +25,7 @@ interface UserContextType {
   selectedChildId: string | null;
   selectChild: (childId: string) => void;
   getChildData: (childId: string) => UserProfile | null;
+  registerChild: (childProfile: UserProfile) => void;
   linkChildToParent: (parentCode: string, childId: string) => boolean;
   generateParentCode: () => string;
 }
@@ -163,9 +164,9 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
       
       const currentSubjectMastery = prev.mastery[subject] || {};
       // Simple moving average for mastery or just replace? 
-      // Let's do a weighted average: 70% old, 30% new to smooth it out
+      // Let's do a weighted average: 50% old, 50% new to make progress feel faster
       const oldScore = currentSubjectMastery[topic] || 0;
-      const newMasteryScore = oldScore === 0 ? score : Math.round((oldScore * 0.7) + (score * 0.3));
+      const newMasteryScore = oldScore === 0 ? score : Math.round((oldScore * 0.5) + (score * 0.5));
 
       return {
         ...prev,
@@ -425,6 +426,26 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return childData ? JSON.parse(childData) : null;
   };
 
+  const registerChild = (childProfile: UserProfile) => {
+    if (user?.role === 'parent') {
+      // Save child profile to local storage
+      localStorage.setItem(`ks2_child_${childProfile.id}`, JSON.stringify(childProfile));
+      
+      // Link to parent
+      setUser(prev => {
+        if (!prev) return null;
+        const currentChildren = prev.childrenIds || [];
+        if (!currentChildren.includes(childProfile.id)) {
+          return {
+            ...prev,
+            childrenIds: [...currentChildren, childProfile.id]
+          };
+        }
+        return prev;
+      });
+    }
+  };
+
   const linkChildToParent = (parentCode: string, childId: string): boolean => {
     // In a real app, this would validate the parent code
     // For now, we'll just check if it's a valid format
@@ -477,6 +498,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
       selectedChildId,
       selectChild,
       getChildData,
+      registerChild,
       linkChildToParent,
       generateParentCode
     }}>
