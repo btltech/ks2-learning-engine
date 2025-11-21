@@ -15,6 +15,9 @@ export default defineConfig(({ mode }) => {
         VitePWA({
           registerType: 'autoUpdate',
           includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
+          workbox: {
+            maximumFileSizeToCacheInBytes: 30 * 1024 * 1024, // 30 MB
+          },
           manifest: {
             name: 'KS2 Learning Engine',
             short_name: 'KS2 Learn',
