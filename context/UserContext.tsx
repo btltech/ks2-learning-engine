@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { UserProfile, Badge, Difficulty, QuizSession, WeeklyProgress } from '../types';
+import { leaderboardService } from '../services/leaderboardService';
 
 interface UserContextType {
   user: UserProfile | null;
@@ -115,6 +116,8 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     if (user) {
       localStorage.setItem('ks2_user', JSON.stringify(user));
+      // Sync to global leaderboard
+      leaderboardService.submitScore(user);
     }
   }, [user]);
 
