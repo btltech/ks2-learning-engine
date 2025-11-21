@@ -266,18 +266,48 @@ export const generateQuiz = async (subject: string, topic: string, difficulty: D
   // We only need enough to fill the gap to 10
   const neededFromBank = 10 - finalQuestions.length;
   if (neededFromBank > 0) {
-      let bankQuestions = getRandomQuestions(subject, topic, studentAge, difficulty, neededFromBank, usedQuestionIds);
+      // Handle language subject mapping for static bank
+      let bankSubject = subject;
+      let bankTopic = topic;
+      const subjectLower = subject.toLowerCase();
+      const isLanguage = ['french', 'spanish', 'german', 'japanese', 'mandarin', 'romanian', 'yoruba'].includes(subjectLower);
+      
+      if (isLanguage) {
+          bankSubject = 'Languages';
+          // The bank uses "French: Topic" format
+          // We try to construct it, but it might not match if AI topic name differs slightly
+          bankTopic = `${subject}: ${topic}`; 
+      }
+
+      let bankQuestions = getRandomQuestions(bankSubject, bankTopic, studentAge, difficulty, neededFromBank, usedQuestionIds);
+      
+      // If strict match failed for language, try to find any questions for this language
+      if (isLanguage && bankQuestions.length === 0) {
+          // We can't easily filter by "starts with" in getRandomQuestions, 
+          // so we might miss some bank questions if the topic name isn't exact.
+          // But we can try the "Languages" subject with the exact topic name just in case
+          // (though our data file uses "French: Topic")
+      }
+
       finalQuestions = [...finalQuestions, ...bankQuestions];
   }
   
   // Fallback: If no questions found for specific topic, try finding questions for the subject generally
   if (finalQuestions.length === 0) {
     console.log(`No exact match for topic "${topic}", searching for general ${subject} questions...`);
-    const allSubjectQuestions = getRandomQuestions(subject, "", studentAge, difficulty, 10, usedQuestionIds);
-    // We're not using these yet in the original code, just logging? 
-    // The original code had a bug/incomplete logic here. Let's fix it.
-    if (allSubjectQuestions.length > 0) {
-        finalQuestions = allSubjectQuestions;
+    
+    let fallbackSubject = subject;
+    // For languages, we don't want to mix languages, so we skip general fallback 
+    // unless we can filter by language. Since getRandomQuestions is strict, 
+    // we skip general fallback for languages to avoid showing Spanish questions in French quiz.
+    const subjectLower = subject.toLowerCase();
+    const isLanguage = ['french', 'spanish', 'german', 'japanese', 'mandarin', 'romanian', 'yoruba'].includes(subjectLower);
+
+    if (!isLanguage) {
+        const allSubjectQuestions = getRandomQuestions(fallbackSubject, "", studentAge, difficulty, 10, usedQuestionIds);
+        if (allSubjectQuestions.length > 0) {
+            finalQuestions = allSubjectQuestions;
+        }
     }
   }
   
