@@ -283,10 +283,22 @@ export const generateQuiz = async (subject: string, topic: string, difficulty: D
       
       // If strict match failed for language, try to find any questions for this language
       if (isLanguage && bankQuestions.length === 0) {
-          // We can't easily filter by "starts with" in getRandomQuestions, 
-          // so we might miss some bank questions if the topic name isn't exact.
-          // But we can try the "Languages" subject with the exact topic name just in case
-          // (though our data file uses "French: Topic")
+          // Fetch ALL questions for "Languages" subject
+          const allLanguageQuestions = getRandomQuestions(bankSubject, "", studentAge, difficulty, 50, usedQuestionIds);
+          
+          // Filter for the specific language (e.g. "French")
+          // The bank topics are like "French: Greetings", so we check if topic starts with "French"
+          const languagePrefix = subject + ":";
+          const specificLanguageQuestions = allLanguageQuestions.filter(q => 
+              q.topic.startsWith(languagePrefix) || q.topic.includes(subject)
+          );
+          
+          if (specificLanguageQuestions.length > 0) {
+              console.log(`Found ${specificLanguageQuestions.length} general ${subject} questions in bank`);
+              // Shuffle and take what we need
+              const shuffled = specificLanguageQuestions.sort(() => Math.random() - 0.5);
+              bankQuestions = shuffled.slice(0, neededFromBank);
+          }
       }
 
       finalQuestions = [...finalQuestions, ...bankQuestions];

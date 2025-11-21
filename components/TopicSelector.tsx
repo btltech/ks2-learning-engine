@@ -92,7 +92,7 @@ const TopicSelector: React.FC<TopicSelectorProps> = ({ subject, studentAge, onSe
             // Note: Cache key might need adjustment if we want to show offline status for specific difficulties, 
             // but since difficulty is dynamic now, maybe just check Medium as a proxy or remove specific difficulty check?
             // For now, we'll check Medium as a default.
-            const lessonCacheKey = createCacheKey('lesson', subject.name, topic, Difficulty.Medium, '9');
+            const lessonCacheKey = createCacheKey('lesson', subject.name, topic, Difficulty.Medium, studentAge.toString());
             return (
               <button
                 key={topic}
