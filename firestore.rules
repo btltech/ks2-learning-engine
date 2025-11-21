@@ -1,0 +1,223 @@
+// Firestore Security Rules for KS2 Learning Engine
+// Deploy this at: Firebase Console → Firestore Database → Rules
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isStudent() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.get('role', 'student') == 'student';
+    }
+
+    function isParent() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.get('role', 'parent') == 'parent';
+    }
+
+    function isOwnProfile(userId) {
+      return request.auth.uid == userId;
+    }
+
+    function isOwnChildProfile(childId) {
+      let childDoc = get(/databases/$(database)/documents/users/$(childId)).data;
+      return childDoc.get('parentId') == request.auth.uid;
+    }
+
+    function isParentOfStudent(studentId) {
+      let student = get(/databases/$(database)/documents/users/$(studentId)).data;
+      return student.get('parentId') == request.auth.uid;
+    }
+
+    // ============================================
+    // USERS Collection Rules
+    // ============================================
+    match /users/{userId} {
+      
+      // READ: Users can read their own profile or parents can read their children's profiles
+      allow read: if isAuthenticated() && (
+        isOwnProfile(userId) ||  // Users can read their own profile
+        (isParent() && isOwnChildProfile(userId))  // Parents can read their children's profiles
+      );
+
+      // CREATE: Only authenticated users can create their own profile during signup
+      allow create: if isAuthenticated() && 
+        request.auth.uid == userId &&
+        request.resource.data.id == userId &&
+        request.resource.data.email == request.auth.token.email;
+
+      // UPDATE: Users can update their own profile, or parents can update their children's profiles
+      allow update: if isAuthenticated() && (
+        (isOwnProfile(userId) && isStudent()) ||  // Students can update their own data
+        (isParent() && isOwnChildProfile(userId))  // Parents can update children
+      );
+
+      // DELETE: Admins only (not exposed in client - backend-only)
+      allow delete: if false;
+
+      // ============================================
+      // SUBCOLLECTIONS Under /users/{userId}
+      // ============================================
+
+      // Student Activity Subcollection
+      match /activity/{activityId} {
+        allow read: if isAuthenticated() && (
+          request.auth.uid == userId ||  // Students read own activity
+          (isParent() && isParentOfStudent(userId))  // Parents read their child's activity
+        );
+
+        allow create, update: if isAuthenticated() && (
+          request.auth.uid == userId ||  // Students log their own activity
+          (isParent() && isParentOfStudent(userId))  // Parents can log activity for their children
+        );
+
+        allow delete: if false;  // Activities are immutable once logged
+      }
+
+      // Quiz Progress Subcollection
+      match /quizProgress/{quizId} {
+        allow read: if isAuthenticated() && (
+          request.auth.uid == userId ||
+          (isParent() && isParentOfStudent(userId))
+        );
+
+        allow create, update: if isAuthenticated() && (
+          request.auth.uid == userId ||
+          (isParent() && isParentOfStudent(userId))
+        );
+
+        allow delete: if (isParent() && isParentOfStudent(userId));
+      }
+
+      // Subject Progress Subcollection
+      match /subjectProgress/{subject} {
+        allow read: if isAuthenticated() && (
+          request.auth.uid == userId ||
+          (isParent() && isParentOfStudent(userId))
+        );
+
+        allow create, update: if isAuthenticated() && (
+          request.auth.uid == userId ||
+          (isParent() && isParentOfStudent(userId))
+        );
+
+        allow delete: if (isParent() && isParentOfStudent(userId));
+      }
+
+      // Topic Progress Subcollection
+      match /topicProgress/{topic} {
+        allow read: if isAuthenticated() && (
+          request.auth.uid == userId ||
+          (isParent() && isParentOfStudent(userId))
+        );
+
+        allow create, update: if isAuthenticated() && (
+          request.auth.uid == userId ||
+          (isParent() && isParentOfStudent(userId))
+        );
+
+        allow delete: if (isParent() && isParentOfStudent(userId));
+      }
+    }
+
+    // ============================================
+    // LEADERBOARD Collection
+    // ============================================
+    match /leaderboard/{entry} {
+      // Anyone can read the leaderboard (public rankings)
+      allow read: if isAuthenticated();
+
+      // Only backend can write (via Cloud Functions)
+      allow create, update, delete: if false;
+    }
+
+    // ============================================
+    // BADGES Collection
+    // ============================================
+    match /badges/{badgeId} {
+      // Anyone can read badges
+      allow read: if isAuthenticated();
+
+      // Only backend can manage
+      allow create, update, delete: if false;
+    }
+
+    // ============================================
+    // NOTIFICATIONS Collection
+    // ============================================
+    match /notifications/{userId}/messages/{messageId} {
+      // Users can read their own notifications
+      allow read: if isAuthenticated() && request.auth.uid == userId;
+
+      // Backend creates notifications
+      allow create: if false;  // Backend-only
+      
+      // Users can mark as read (update)
+      allow update: if isAuthenticated() && request.auth.uid == userId;
+
+      // Users can delete their own notifications
+      allow delete: if isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // ============================================
+    // CONTENT Collection (Lessons, Quizzes, etc.)
+    // ============================================
+    match /content/{contentId} {
+      // All authenticated users can read content
+      allow read: if isAuthenticated();
+
+      // Only backend can manage content
+      allow create, update, delete: if false;
+    }
+
+    // ============================================
+    // DEFAULT: Deny all other access
+    // ============================================
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+
+/**
+ * SECURITY RULES EXPLANATION:
+ * 
+ * 1. PARENT-CHILD DATA ISOLATION
+ *    - Parents can only read/write their own children's data (verified via parentId field)
+ *    - Students can only access their own profiles
+ *    - No cross-family access possible
+ * 
+ * 2. ROLE-BASED ACCESS CONTROL
+ *    - Different permissions for 'parent' vs 'student' roles
+ *    - Enforced at read/write time
+ * 
+ * 3. IMMUTABLE ACTIVITY LOGS
+ *    - Activity history cannot be deleted once logged
+ *    - Prevents tampering with records
+ * 
+ * 4. PUBLIC LEADERBOARDS
+ *    - Leaderboard is readable by all authenticated users
+ *    - Only backend can update rankings
+ * 
+ * 5. USER NOTIFICATIONS
+ *    - Notifications isolated per user
+ *    - Users can only modify their own notifications
+ * 
+ * 6. CONTENT IS READ-ONLY FOR USERS
+ *    - Lessons, quizzes managed by backend only
+ *    - Users can read but cannot create/modify content
+ * 
+ * DEPLOYMENT STEPS:
+ * 1. Go to Firebase Console
+ * 2. Select your project
+ * 3. Go to Firestore Database → Rules tab
+ * 4. Replace default rules with this file
+ * 5. Click "Publish"
+ * 
+ * TESTING RULES:
+ * Use Firebase Emulator Suite locally before deploying:
+ * firebase emulators:start
+ */

@@ -61,10 +61,10 @@ export const generateCoquiAudio = async (text: string, options?: { speakerIndex?
 
   return new Promise((resolve) => {
     const timeoutId = setTimeout(() => {
-      console.error('TTS Worker timed out');
-      errorListeners.forEach(cb => cb('TTS request timed out: the network may be slow.'));
+      console.warn('TTS Worker timed out - falling back to alternative');
+      errorListeners.forEach(cb => cb('TTS processing delayed'));
       resolve(null);
-    }, 30000); // 30s timeout
+    }, 60000); // 60s timeout - increased for initial model load
 
     const handleMessage = (event: MessageEvent) => {
       const { type, buffer, error } = event.data;

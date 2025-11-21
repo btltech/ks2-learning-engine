@@ -12,10 +12,12 @@ import OfflineIndicator from './components/OfflineIndicator';
 import LoginView from './components/LoginView';
 import StoreView from './components/StoreView';
 import ParentDashboard from './components/ParentDashboard';
+import ParentMonitoringDashboard from './components/ParentMonitoringDashboard';
 import LeaderboardView from './components/LeaderboardView';
 import ProgressView from './components/ProgressView';
+import { ToastProvider } from './components/Toast';
 import { useUser } from './context/UserContext';
-import { Difficulty, Subject, QuizResult, ProgressData, UserProfile } from './types';
+import { Difficulty, Subject, QuizResult, ProgressData, UserProfile, QuizSession } from './types';
 import { SUBJECTS } from './constants';
 
 // Wrapper for protected routes - currently not used but kept for future auth implementation
@@ -28,7 +30,7 @@ import { SUBJECTS } from './constants';
 // };
 
 const AppContent: React.FC = () => {
-  const { user, logout, checkStreak, addPoints, updateMastery, updateAge, setUser } = useUser();
+  const { user, logout, checkStreak, addPoints, updateMastery, updateAge, setUser, recordQuizSession, addTimeSpent, suggestNextDifficulty } = useUser();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -44,6 +46,9 @@ const AppContent: React.FC = () => {
   const [quizResults, setQuizResults] = useState<QuizResult[]>([]);
   const [pointsEarned, setPointsEarned] = useState<number>(0);
   const [showFeedback, setShowFeedback] = useState(false);
+  const [currentDifficulty, setCurrentDifficulty] = useState<Difficulty>(Difficulty.Medium);
+  const [nextDifficultySuggestion, setNextDifficultySuggestion] = useState<Difficulty | null>(null);
+  const [quizStartTime] = useState<number>(Date.now());
 
   // Check streak on mount
   useEffect(() => {
@@ -107,14 +112,36 @@ const AppContent: React.FC = () => {
   const handleQuizSubmit = (results: QuizResult[]) => {
     const correctAnswers = results.filter(r => r.isCorrect).length;
     const earned = correctAnswers * 10;
+    const scorePercentage = (correctAnswers / results.length) * 100;
+    const timeSpentSeconds = Date.now() - quizStartTime;
+    
     setPointsEarned(earned);
     setQuizResults(results);
     
     // Update Context
     addPoints(earned);
+    
     if (currentSubject && currentTopic) {
-      const scorePercentage = (correctAnswers / results.length) * 100;
       updateMastery(currentSubject.name, currentTopic, scorePercentage);
+      
+      // Record quiz session for analytics
+      const quizSession: QuizSession = {
+        id: `quiz_${Date.now()}`,
+        subject: currentSubject.name,
+        topic: currentTopic,
+        difficulty: currentDifficulty,
+        score: scorePercentage,
+        completedAt: new Date().toISOString(),
+        timeSpent: timeSpentSeconds
+      };
+      recordQuizSession(quizSession);
+      
+      // Track time spent on this subject
+      addTimeSpent(currentSubject.name, Math.round(timeSpentSeconds / 60));
+      
+      // Get difficulty recommendation for next attempt
+      const suggestedDifficulty = suggestNextDifficulty(currentSubject.name, currentTopic);
+      setNextDifficultySuggestion(suggestedDifficulty);
     }
 
     setShowFeedback(true);
@@ -132,6 +159,12 @@ const AppContent: React.FC = () => {
     return <LoginView onLogin={handleLoginWrapper} />;
   }
 
+  // Parent view - show monitoring dashboard
+  if (user.role === 'parent') {
+    return <ParentMonitoringDashboard onLogout={logout} />;
+  }
+
+  // Student view - show learning interface
   return (
     <div className="min-h-screen flex flex-col items-center bg-slate-50 text-gray-800">
       <OfflineIndicator />
@@ -151,8 +184,6 @@ const AppContent: React.FC = () => {
           <Route path="/" element={
             <SubjectSelector 
               onSelect={(s) => navigate(`/subject/${encodeURIComponent(s.name)}`)} 
-              studentAge={studentAge} 
-              onAgeChange={updateAge} 
               progress={progress}
             />
           } />
@@ -205,14 +236,17 @@ const AppContent: React.FC = () => {
       <GuideAvatar 
         message={getGuideMessage()} 
         studentAge={studentAge}
+        studentName={user?.name}
         context={currentSubject && currentTopic ? { subject: currentSubject.name, topic: currentTopic } : undefined}
+        quizScore={showFeedback && quizResults.length > 0 ? Math.round((quizResults.filter(r => r.isCorrect).length / quizResults.length) * 100) : undefined}
       />
 
       {showFeedback && currentSubject && currentTopic && (
         <FeedbackModal 
           quizResults={quizResults} 
           studentAge={studentAge} 
-          pointsEarned={pointsEarned} 
+          pointsEarned={pointsEarned}
+          nextDifficultySuggestion={nextDifficultySuggestion || undefined}
           onRetry={() => {
             setShowFeedback(false);
             // Stay on quiz page or reload it?
@@ -231,7 +265,7 @@ const AppContent: React.FC = () => {
       {showStore && (
         <StoreView 
           user={user} 
-          onUpdateUser={() => {}} // Handled by context now
+          onUpdateUser={setUser}
           onClose={() => setShowStore(false)} 
         />
       )}
@@ -322,6 +356,7 @@ const LanguageLessonWrapper = ({ studentAge, difficulty }: { studentAge: number,
 const LanguageQuizWrapper = ({ studentAge, difficulty, onSubmit }: { studentAge: number, difficulty: Difficulty, onSubmit: (results: QuizResult[]) => void }) => {
   const { language, topicName } = useParams();
   const { search } = useLocation();
+  const { user } = useUser();
   const mode = new URLSearchParams(search).get('mode') === 'speed' ? 'speed' : 'standard';
   
   if (!language || !topicName) return <Navigate to="/" />;
@@ -331,7 +366,8 @@ const LanguageQuizWrapper = ({ studentAge, difficulty, onSubmit }: { studentAge:
       subject={decodeURIComponent(language)} 
       topic={decodeURIComponent(topicName)} 
       difficulty={difficulty} 
-      studentAge={studentAge} 
+      studentAge={studentAge}
+      studentName={user?.name}
       onSubmit={onSubmit} 
       mode={mode}
     />
@@ -360,6 +396,7 @@ const LessonRouteWrapper = ({ studentAge, difficulty }: { studentAge: number, di
 const QuizRouteWrapper = ({ studentAge, difficulty, onSubmit }: { studentAge: number, difficulty: Difficulty, onSubmit: (results: QuizResult[]) => void }) => {
   const { subjectName, topicName } = useParams();
   const { search } = useLocation();
+  const { user } = useUser();
   const mode = new URLSearchParams(search).get('mode') === 'speed' ? 'speed' : 'standard';
   
   if (!subjectName || !topicName) return <Navigate to="/" />;
@@ -369,7 +406,8 @@ const QuizRouteWrapper = ({ studentAge, difficulty, onSubmit }: { studentAge: nu
       subject={decodeURIComponent(subjectName)} 
       topic={decodeURIComponent(topicName)} 
       difficulty={difficulty} 
-      studentAge={studentAge} 
+      studentAge={studentAge}
+      studentName={user?.name}
       onSubmit={onSubmit} 
       mode={mode}
     />
@@ -377,7 +415,11 @@ const QuizRouteWrapper = ({ studentAge, difficulty, onSubmit }: { studentAge: nu
 };
 
 const App: React.FC = () => {
-  return <AppContent />;
+  return (
+    <ToastProvider>
+      <AppContent />
+    </ToastProvider>
+  );
 };
 
 export default App;

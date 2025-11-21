@@ -24,6 +24,7 @@ const StoreView: React.FC<StoreViewProps> = ({ user, onUpdateUser, onClose }) =>
       onUpdateUser(updatedUser);
     } catch (error) {
       console.error('Purchase failed', error);
+      // Show error message to user or handle gracefully
     } finally {
       setBuyingItem(null);
     }

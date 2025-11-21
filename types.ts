@@ -87,6 +87,46 @@ export interface UserProfile {
       [topic: string]: number; // 0-100 score
     }
   };
+  // New fields for enhanced learning
+  timeSpentLearning: {
+    [subject: string]: number; // Total minutes per subject
+  };
+  quizHistory: QuizSession[]; // Track quiz performance over time
+  preferredDifficulty: Difficulty; // Auto-adjust difficulty based on performance
+  weeklyGoal?: number; // Target minutes per week
+  weeklyProgress?: WeeklyProgress; // Track weekly learning
+  // Parent-specific fields
+  parentId?: string; // Link child to parent
+  childrenIds?: string[]; // Parent's children
+  parentCode?: string; // Unique code for linking children
+  childCode?: string; // Each student gets a code for parent linking
+}
+
+export interface QuizSession {
+  id: string;
+  subject: string;
+  topic: string;
+  difficulty: Difficulty;
+  score: number; // Percentage
+  completedAt: string; // ISO date string
+  timeSpent: number; // in seconds
+}
+
+export interface WeeklyProgress {
+  week: string; // ISO week date
+  minutesLearned: number;
+  quizzesTaken: number;
+  averageScore: number;
+  goalMet: boolean;
+}
+
+export interface ChildProfile {
+  id: string;
+  name: string;
+  age: number;
+  parentId: string;
+  createdAt: string;
+  lastActive: string;
 }
 
 export interface AvatarConfig {
@@ -114,4 +154,26 @@ export interface ParentStats {
     activity: string;
     score?: number;
   }[];
+}
+
+export type ActivityType = 'quiz_completed' | 'lesson_started' | 'badge_earned' | 'streak_updated' | 'topic_mastered';
+
+export interface Activity {
+  id: string;
+  userId: string;
+  type: ActivityType;
+  subject?: string;
+  topic?: string;
+  score?: number;
+  description: string;
+  timestamp: Date;
+  points?: number;
+}
+
+export interface BadgeInfo {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  earnedAt: Date;
 }

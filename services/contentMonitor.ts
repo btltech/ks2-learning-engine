@@ -21,14 +21,15 @@ class ContentMonitor {
       this.logs = this.logs.slice(-this.maxLogs);
     }
 
-    // Log to console for monitoring
-    console.warn('[Content Validation]', {
-      type: log.type,
-      subject: log.subject,
-      topic: log.topic,
-      issues: log.validationIssues,
-      blocked: log.wasBlocked
-    });
+    // Only log blocked content to avoid console spam
+    if (log.wasBlocked) {
+      console.warn('[Content Validation - Blocked]', {
+        type: log.type,
+        subject: log.subject,
+        topic: log.topic,
+        issues: log.validationIssues
+      });
+    }
 
     // In production, you could send this to an analytics service
     // or monitoring dashboard to track content quality

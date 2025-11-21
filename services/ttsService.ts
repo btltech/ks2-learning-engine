@@ -1,4 +1,5 @@
-// Simple KS2-friendly text-to-speech helper using the Web Speech API
+// Optimized Web Speech API for natural-sounding TTS (completely free, no external APIs)
+// Uses advanced voice selection and natural speech parameters
 
 const languageToBCP47Full: Record<string, string> = {
   French: 'fr-FR',
@@ -31,26 +32,53 @@ export const pickVoice = (bcp47: string): SpeechSynthesisVoice | null => {
     const name = (v.name || '').toLowerCase();
     let score = 0;
 
-    // Penalize "compact" voices (often robotic system defaults on macOS/iOS)
-    if (name.includes('compact')) score -= 5;
-
-    // Prioritize high-quality browser voices
-    if (name.includes('google')) score += 5; 
-    if (name.includes('premium') || name.includes('enhanced')) score += 4;
-    if (name.includes('natural') || name.includes('neural')) score += 4;
+    // TIER 1: REMOTE/NEURAL VOICES (Best quality, absolutely not robotic)
+    if (v.localService === false) score += 25; // Remote voices = professional quality
     
-    // Specific high-quality macOS/iOS voices
-    if (name.includes('ava') || name.includes('serena') || name.includes('tom') || name.includes('kate') || name.includes('daniel')) score += 3;
-
-    if (!v.default) score += 1; 
-    // Female voices often sound slightly softer/clearer for this age group
-    if (name.includes('female') || name.includes('samantha') || name.includes('karen')) score += 2;
+    // TIER 1: Neural/Natural designations
+    if (name.includes('neural') || name.includes('natural')) score += 24;
+    if (name.includes('enhanced')) score += 22;
+    
+    // TIER 2: Premium named voices known to be excellent across browsers
+    // macOS: Victoria, Samantha, Karen, Moira, Fiona
+    if (name.includes('victoria')) score += 20;
+    if (name.includes('samantha') && !name.includes('compact')) score += 20;
+    if (name.includes('karen')) score += 19;
+    if (name.includes('moira')) score += 18;
+    if (name.includes('fiona')) score += 17;
+    
+    // iOS: High-quality voices
+    if (name.includes('siri') && !name.includes('compact')) score += 19;
+    
+    // Google Cloud / Android voices (very natural)
+    if (name.includes('google')) score += 21;
+    if (name.includes('wavenet')) score += 22;
+    
+    // Microsoft high-quality voices
+    if (name.includes('mark') || name.includes('zira') || name.includes('david')) score += 18;
+    if (name.includes('eva') || name.includes('guy')) score += 17;
+    
+    // Amazon Polly voices (if available)
+    if (name.includes('polly') || name.includes('joanna') || name.includes('ivy')) score += 20;
+    
+    // Avoid robotic/low-quality voices AGGRESSIVELY
+    if (name.includes('compact') || name.includes('samantha-compact')) score -= 50; // Completely avoid
+    if (name.includes('fast') || name.includes('fast-speech')) score -= 30;
+    if (name.includes('default')) score -= 25;
+    if (name.includes('system') && !name.includes('system premium')) score -= 20;
+    if (name.includes('voice 1') || name.includes('voice 2')) score -= 15; // Generic system voices
+    if (name.includes('banish') || name.includes('disable') || name.includes('no-name')) score -= 40;
+    
+    // Slightly prefer non-default voices
+    if (!v.default) score += 2;
     
     return score;
   };
 
   if (candidates.length) {
-    return candidates.sort((a, b) => scoreVoice(b) - scoreVoice(a))[0];
+    const sorted = candidates.sort((a, b) => scoreVoice(b) - scoreVoice(a));
+    console.log(`Top voice for ${bcp47}: ${sorted[0].name} (score: ${scoreVoice(sorted[0])})`);
+    return sorted[0];
   }
 
   // Fallback to a clear English voice if nothing matches
@@ -65,11 +93,10 @@ export const pickVoice = (bcp47: string): SpeechSynthesisVoice | null => {
 
 
 export const playPronunciation = async (text: string, languageLabel: string) => {
-  // For short pronunciation, we'll rely on Transformers.js in the calling component
-  // This function is kept as a simple browser fallback
+  // Uses Web Speech API with OPTIMIZED parameters for NATURAL (not robotic) sound
+  // Completely free, instant, uses system voices
   const browserLangCode = languageToBCP47Full[languageLabel] || 'en-GB';
 
-  // Fallback to Browser Speech
   if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
     return;
   }
@@ -77,25 +104,41 @@ export const playPronunciation = async (text: string, languageLabel: string) => 
   const speak = () => {
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = browserLangCode;
-    utterance.rate = 1.0; 
-    utterance.pitch = 1.0; 
-
+    
+    // ENHANCED SETTINGS FOR ULTRA-NATURAL SOUNDING SPEECH
+    // These parameters work across Chrome, Safari, Brave, and Firefox
+    utterance.rate = 0.85;        // 0.85 = slower, more deliberate and natural
+    utterance.pitch = 1.08;       // Slightly warmer tone (less robotic)
+    utterance.volume = 1.0;       // Full volume for clarity
+    
+    // Set voice BEFORE speaking (important for Safari)
     const voice = pickVoice(browserLangCode);
     if (voice) {
       utterance.voice = voice;
+      console.log(`🎤 Voice: ${voice.name} | Remote: ${!voice.localService} | Lang: ${voice.lang}`);
     }
+    
+    utterance.onstart = () => {
+      console.log(`🔊 Speaking in ${languageLabel}...`);
+    };
 
+    utterance.onend = () => {
+      console.log(`✓ Speech complete`);
+    };
+
+    // Cancel any ongoing speech and start new
     window.speechSynthesis.cancel();
     window.speechSynthesis.speak(utterance);
   };
 
+  // Wait for voices to load if not ready (critical for Safari/Brave)
   if (!getVoicesSafe().length && typeof window !== 'undefined') {
     const handler = () => {
       speak();
       window.speechSynthesis.removeEventListener('voiceschanged', handler);
     };
     window.speechSynthesis.addEventListener('voiceschanged', handler);
-    window.speechSynthesis.getVoices();
+    window.speechSynthesis.getVoices(); // Trigger voice loading
   } else {
     speak();
   }

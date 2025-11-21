@@ -7,10 +7,13 @@ import { useTTS } from '../hooks/useTTS';
 interface GuideAvatarProps {
   message: string;
   studentAge: number;
+  studentName?: string;
   context?: { subject?: string; topic?: string };
+  quizScore?: number; // Performance feedback
+  onTopicExplanation?: (explanation: string) => void;
 }
 
-const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, context }) => {
+const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentName, context, quizScore, onTopicExplanation }) => {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
   const [inputMessage, setInputMessage] = useState('');
@@ -73,7 +76,7 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, context 
 
     try {
       // Add MiRa's response
-      const response = await askMiRa(userMessage.message, studentAge, context);
+      const response = await askMiRa(userMessage.message, studentAge, studentName, context);
       
       const botMessage: ChatMessage = {
         id: Date.now().toString(),
@@ -112,7 +115,8 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, context 
               context.subject, 
               context.topic, 
               studentAge, 
-              {} // We'll need to pass mastery data from props later
+              {}, // We'll need to pass mastery data from props later
+              studentName
             );
           } else {
             response = "I'd love to show you how subjects connect! What subject and topic are you working on right now?";
@@ -124,7 +128,8 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, context 
               context.subject, 
               context.topic, 
               studentAge, 
-              {} // We'll need to pass mastery data from props later
+              {}, // We'll need to pass mastery data from props later
+              studentName
             );
           } else {
             response = "Project ideas are so much fun! What subject and topic would you like project suggestions for?";
@@ -136,7 +141,9 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, context 
               context.subject, 
               context.topic, 
               'Medium', // Default difficulty
-              studentAge
+              studentAge,
+              undefined,
+              studentName
             );
           } else {
             response = "Extra practice is a great idea! What subject and topic do you want to practice more?";
@@ -144,6 +151,21 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, context 
           break;
         case 'hint':
           response = "I'd be happy to give you a hint! What question are you stuck on? Can you tell me the question and the options?";
+          break;
+        case 'explain':
+          if (context?.subject && context?.topic) {
+            response = await generateConceptReinforcement(
+              context.subject,
+              context.topic,
+              'Easy',
+              studentAge,
+              undefined,
+              studentName
+            );
+            onTopicExplanation?.(response);
+          } else {
+            response = "I'd love to explain a topic! Which subject and topic would you like me to explain?";
+          }
           break;
         default:
           response = "That's a great idea! What would you like help with?";
@@ -170,6 +192,33 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, context 
       setIsTyping(false);
     }
   };
+
+  // Generate encouraging message based on quiz score
+  useEffect(() => {
+    if (quizScore !== undefined && quizScore !== null && chatMessages.length === 0) {
+      let encouragement = '';
+      if (quizScore >= 90) {
+        encouragement = `🌟 Outstanding work, ${studentName || 'learner'}! You scored ${quizScore}%! You're absolutely crushing it! Keep up this amazing momentum!`;
+      } else if (quizScore >= 80) {
+        encouragement = `🎉 Great job, ${studentName || 'learner'}! You scored ${quizScore}%! That's excellent progress! You're really getting the hang of this!`;
+      } else if (quizScore >= 70) {
+        encouragement = `👍 Nice work, ${studentName || 'learner'}! You scored ${quizScore}%! You're on the right track! A little more practice and you'll master this!`;
+      } else if (quizScore >= 50) {
+        encouragement = `💪 Good effort, ${studentName || 'learner'}! You scored ${quizScore}%. Learning takes time, and you're making progress! Let's practice more together! 📚`;
+      } else {
+        encouragement = `🤝 Don't worry, ${studentName || 'learner'}! You scored ${quizScore}%. Everyone starts somewhere! Let me help you understand this better. Want me to explain the tricky parts?`;
+      }
+
+      const encouragingMessage: ChatMessage = {
+        id: Date.now().toString(),
+        sender: 'mira',
+        message: encouragement,
+        timestamp: Date.now()
+      };
+      
+      setChatMessages([encouragingMessage]);
+    }
+  }, [quizScore, studentName]);
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -275,6 +324,13 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, context 
                   disabled={isTyping}
                 >
                   🔗 Subject Links
+                </button>
+                <button
+                  onClick={() => handleQuickAction('explain')}
+                  className="text-xs bg-cyan-100 hover:bg-cyan-200 text-cyan-700 px-3 py-2 rounded-md transition-colors"
+                  disabled={isTyping}
+                >
+                  📖 Explain Topic
                 </button>
                 <button
                   onClick={() => handleQuickAction('projects')}

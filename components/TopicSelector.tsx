@@ -47,7 +47,7 @@ const TopicSelector: React.FC<TopicSelectorProps> = ({ subject, studentAge, onSe
     <div className="w-full max-w-5xl mx-auto text-center">
       <button 
         onClick={onBack} 
-        className="absolute top-24 left-4 sm:left-8 flex items-center text-gray-600 hover:text-gray-900 font-semibold transition-colors"
+        className="absolute top-24 left-4 sm:left-8 flex items-center text-gray-600 hover:text-gray-900 hover:bg-gray-100 px-3 py-2 rounded-lg font-semibold transition-all duration-200"
         aria-label="Go back to subject selection"
       >
         <ArrowLeftIcon className="h-5 w-5 mr-2" aria-hidden="true"/>
@@ -55,9 +55,9 @@ const TopicSelector: React.FC<TopicSelectorProps> = ({ subject, studentAge, onSe
       </button>
       <div className="flex items-center justify-center gap-4 mb-4">
          <subject.icon className={`h-12 w-12 ${subject.color}`} aria-hidden="true" />
-         <h2 className="text-4xl font-extrabold text-gray-800">{subject.name}</h2>
+         <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight">{subject.name}</h2>
       </div>
-      <p className="text-lg text-gray-600 mb-6">Pick a topic to explore! We'll adjust the challenge just for you.</p>
+      <p className="text-lg text-gray-600 mb-8 font-medium">Pick a topic to explore! We'll adjust the challenge just for you.</p>
       
       <div role="main" aria-live="polite" aria-busy={loading}>
       {loading ? (
@@ -68,7 +68,7 @@ const TopicSelector: React.FC<TopicSelectorProps> = ({ subject, studentAge, onSe
             <p className="text-red-600 font-semibold text-lg mb-4">{error}</p>
             <button
               onClick={fetchTopics}
-              className="px-6 py-3 bg-red-500 text-white font-bold rounded-full shadow-lg hover:bg-red-600 transform hover:scale-105 transition-transform"
+              className="px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold rounded-xl shadow-lg shadow-red-500/40 hover:shadow-xl hover:shadow-red-500/60 active:scale-95 transition-all duration-200"
             >
               Try Again
             </button>
@@ -92,12 +92,16 @@ const TopicSelector: React.FC<TopicSelectorProps> = ({ subject, studentAge, onSe
                 onClick={() => onSelect(topic)}
                 role="listitem"
                 aria-label={`${topic}${isCompleted ? ' - completed' : ''}`}
-                className={`p-4 rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 text-left font-semibold text-lg flex flex-col ${subject.bgColor} ${subject.color.replace('text-','hover:bg-').replace('600','-200')} focus:outline-none focus:ring-4 focus:ring-opacity-50 ${subject.color.replace('text-', 'focus:ring-')}`}
+                className={`p-4 rounded-xl shadow-md hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 text-left font-semibold text-lg flex flex-col group relative overflow-hidden
+              
+              before:absolute before:inset-0 before:bg-gradient-to-tr before:from-white/10 before:to-transparent before:opacity-0 group-hover:before:opacity-100 before:transition-opacity before:duration-300
+              
+              ${subject.bgColor} ${subject.color.replace('text-','hover:bg-').replace('600','-200')} focus:outline-none focus:ring-4 focus:ring-opacity-50 ${subject.color.replace('text-', 'focus:ring-')} animate-fadeInUp`}
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className="flex-1">{topic}</span>
+                  <span className="flex-1 relative text-gray-900">{topic}</span>
                   {isCompleted && (
-                    <CheckCircleIcon className="h-6 w-6 text-green-500 shrink-0" aria-hidden="true" />
+                    <CheckCircleIcon className="h-6 w-6 text-green-500 shrink-0 relative" aria-hidden="true" />
                   )}
                 </div>
                 <OfflineBadge cacheKey={lessonCacheKey} />

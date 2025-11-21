@@ -10,6 +10,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
   const [name, setName] = useState('');
   const [role, setRole] = useState<'student' | 'parent'>('student');
   const [age, setAge] = useState<number>(9);
+  const [parentCode, setParentCode] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -100,6 +101,21 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
                   </button>
                 ))}
               </div>
+            </div>
+          )}
+
+          {role === 'student' && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Parent Code (Optional)</label>
+              <p className="text-xs text-gray-500 mb-2">If your parent created an account, ask them for their code to link your account</p>
+              <input
+                type="text"
+                value={parentCode}
+                onChange={(e) => setParentCode(e.target.value.toUpperCase())}
+                maxLength={6}
+                placeholder="e.g., ABC123"
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all font-mono text-center text-lg font-bold"
+              />
             </div>
           )}
 

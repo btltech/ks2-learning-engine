@@ -10,9 +10,10 @@ interface FeedbackModalProps {
   pointsEarned: number;
   onRetry: () => void;
   onNewTopic: () => void;
+  nextDifficultySuggestion?: string;
 }
 
-const FeedbackModal: React.FC<FeedbackModalProps> = ({ quizResults, studentAge, pointsEarned, onRetry, onNewTopic }) => {
+const FeedbackModal: React.FC<FeedbackModalProps> = ({ quizResults, studentAge, pointsEarned, onRetry, onNewTopic, nextDifficultySuggestion }) => {
   const [explanations, setExplanations] = useState<Explanation[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -79,6 +80,28 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ quizResults, studentAge, 
                 style={{ width: `${percentage}%` }}
             ></div>
         </div>
+
+        {/* Difficulty Recommendation */}
+        {nextDifficultySuggestion && (
+          <div className="mb-6 p-4 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-lg border border-purple-200">
+            <p className="text-sm text-gray-700 font-semibold mb-2">📊 Difficulty Recommendation</p>
+            <div className="flex items-center gap-2">
+              <span className="text-gray-600">Next Time:</span>
+              <span className={`px-3 py-1 rounded-full font-bold text-white ${
+                nextDifficultySuggestion === 'Easy' ? 'bg-green-500' :
+                nextDifficultySuggestion === 'Hard' ? 'bg-red-500' :
+                'bg-yellow-500'
+              }`}>
+                {nextDifficultySuggestion}
+              </span>
+              <span className="text-xs text-gray-600 ml-2">
+                {nextDifficultySuggestion === 'Easy' && '💪 You got this! Try Easy mode to build confidence.' }
+                {nextDifficultySuggestion === 'Hard' && '🚀 You\'re ready for a challenge!' }
+                {nextDifficultySuggestion === 'Medium' && '⚡ Keep the balance and push yourself!' }
+              </span>
+            </div>
+          </div>
+        )}
 
         {incorrectAnswers.length > 0 && (
           <section className="text-left my-8 p-4 bg-gray-50 rounded-lg" aria-labelledby="review-heading">

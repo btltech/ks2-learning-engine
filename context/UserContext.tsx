@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { UserProfile, Badge } from '../types';
+import { UserProfile, Badge, Difficulty, QuizSession, WeeklyProgress } from '../types';
 
 interface UserContextType {
   user: UserProfile | null;
@@ -10,11 +10,22 @@ interface UserContextType {
   addPoints: (amount: number) => void;
   updateMastery: (subject: string, topic: string, score: number) => void;
   checkStreak: () => void;
+  recordQuizSession: (session: QuizSession) => void;
+  addTimeSpent: (subject: string, minutes: number) => void;
+  updateWeeklyProgress: () => WeeklyProgress | null;
+  getPerformanceTrends: (subject?: string) => { avgScore: number; trend: 'improving' | 'stable' | 'declining' };
+  suggestNextDifficulty: (subject: string, topic: string) => Difficulty;
   settings: {
     aiFallbackEnabled: boolean;
     adaptiveChallengeEnabled: boolean;
   };
   updateSettings: (settings: Partial<{ aiFallbackEnabled: boolean; adaptiveChallengeEnabled: boolean }>) => void;
+  // Multi-child support
+  selectedChildId: string | null;
+  selectChild: (childId: string) => void;
+  getChildData: (childId: string) => UserProfile | null;
+  linkChildToParent: (parentCode: string, childId: string) => boolean;
+  generateParentCode: () => string;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -38,15 +49,46 @@ const INITIAL_USER: UserProfile = {
   badges: [],
   streak: 0,
   lastLoginDate: new Date().toISOString(),
-  mastery: {}
+  mastery: {},
+  timeSpentLearning: {},
+  quizHistory: [],
+  preferredDifficulty: Difficulty.Medium,
+  weeklyGoal: 180, // 3 hours per week
+  weeklyProgress: {
+    week: new Date().toISOString().split('T')[0],
+    minutesLearned: 0,
+    quizzesTaken: 0,
+    averageScore: 0,
+    goalMet: false
+  }
 };
 
 export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<UserProfile | null>(null);
+  const [selectedChildId, setSelectedChildId] = useState<string | null>(null);
   const [settings, setSettings] = useState({
     aiFallbackEnabled: true,
     adaptiveChallengeEnabled: true,
   });
+
+  // Migrate legacy user data to include new fields
+  const migrateUserData = (user: any): UserProfile => {
+    return {
+      ...user,
+      badges: user.badges || [],
+      timeSpentLearning: user.timeSpentLearning || {},
+      quizHistory: user.quizHistory || [],
+      preferredDifficulty: user.preferredDifficulty || Difficulty.Medium,
+      weeklyGoal: user.weeklyGoal || 180,
+      weeklyProgress: user.weeklyProgress || {
+        week: new Date().toISOString().split('T')[0],
+        minutesLearned: 0,
+        quizzesTaken: 0,
+        averageScore: 0,
+        goalMet: false
+      }
+    };
+  };
 
   // Load from local storage on mount
   useEffect(() => {
@@ -54,11 +96,8 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const savedSettings = localStorage.getItem('ks2_settings');
     if (savedUser) {
       const parsedUser = JSON.parse(savedUser);
-      // Migration: Ensure badges array exists for legacy users
-      if (!parsedUser.badges) {
-        parsedUser.badges = [];
-      }
-      setUser(parsedUser);
+      // Migration: Ensure all fields exist for legacy users
+      setUser(migrateUserData(parsedUser));
     } else {
       // For demo purposes, auto-login a default user if none exists
       // In a real app, we'd start with null and show a login screen
@@ -236,8 +275,211 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setSettings(prev => ({ ...prev, ...partial }));
   };
 
+  // Record quiz session for learning analytics
+  const recordQuizSession = (session: QuizSession) => {
+    if (!user || !user.quizHistory) return;
+    
+    setUser(prev => {
+      if (!prev || !prev.quizHistory) return prev;
+      
+      const updatedHistory = [...prev.quizHistory, session];
+      
+      // Auto-adjust difficulty based on performance
+      let newDifficulty = prev.preferredDifficulty || Difficulty.Medium;
+      if (session.score < 50) {
+        newDifficulty = Difficulty.Easy;
+      } else if (session.score >= 85) {
+        newDifficulty = Difficulty.Hard;
+      }
+      
+      return {
+        ...prev,
+        quizHistory: updatedHistory,
+        preferredDifficulty: newDifficulty
+      };
+    });
+  };
+
+  // Track time spent learning per subject
+  const addTimeSpent = (subject: string, minutes: number) => {
+    if (!user || !user.timeSpentLearning) return;
+    
+    setUser(prev => {
+      if (!prev || !prev.timeSpentLearning) return prev;
+      
+      const currentTime = prev.timeSpentLearning[subject] || 0;
+      
+      return {
+        ...prev,
+        timeSpentLearning: {
+          ...prev.timeSpentLearning,
+          [subject]: currentTime + minutes
+        }
+      };
+    });
+  };
+
+  // Calculate weekly progress
+  const updateWeeklyProgress = (): WeeklyProgress | null => {
+    if (!user || !user.quizHistory) return null;
+    
+    const now = new Date();
+    const weekStart = new Date(now);
+    weekStart.setDate(weekStart.getDate() - weekStart.getDay()); // Start of week (Sunday)
+    
+    const weekQuizzes = user.quizHistory.filter(quiz => {
+      const quizDate = new Date(quiz.completedAt);
+      return quizDate >= weekStart;
+    });
+    
+    const weekMinutes = weekQuizzes.reduce((sum, q) => sum + (q.timeSpent / 60), 0);
+    const avgScore = weekQuizzes.length > 0
+      ? Math.round(weekQuizzes.reduce((sum, q) => sum + q.score, 0) / weekQuizzes.length)
+      : 0;
+    
+    const goal = user.weeklyGoal || 180;
+    const goalMet = weekMinutes >= goal;
+    
+    const weekProgress: WeeklyProgress = {
+      week: weekStart.toISOString().split('T')[0],
+      minutesLearned: Math.round(weekMinutes),
+      quizzesTaken: weekQuizzes.length,
+      averageScore: avgScore,
+      goalMet
+    };
+    
+    setUser(prev => prev ? { ...prev, weeklyProgress: weekProgress } : null);
+    
+    return weekProgress;
+  };
+
+  // Get performance trends
+  const getPerformanceTrends = (subject?: string) => {
+    if (!user || !user.quizHistory) {
+      return { avgScore: 0, trend: 'stable' as const };
+    }
+    
+    const relevantQuizzes = subject
+      ? user.quizHistory.filter(q => q.subject === subject)
+      : user.quizHistory;
+    
+    if (relevantQuizzes.length === 0) {
+      return { avgScore: 0, trend: 'stable' as const };
+    }
+    
+    // Calculate trend from last 3 quizzes
+    const recentQuizzes = relevantQuizzes.slice(-3);
+    const olderQuizzes = relevantQuizzes.slice(-6, -3);
+    
+    const recentAvg = recentQuizzes.reduce((sum, q) => sum + q.score, 0) / recentQuizzes.length;
+    const olderAvg = olderQuizzes.length > 0
+      ? olderQuizzes.reduce((sum, q) => sum + q.score, 0) / olderQuizzes.length
+      : recentAvg;
+    
+    const avgScore = Math.round(recentAvg);
+    const diff = recentAvg - olderAvg;
+    
+    let trend: 'improving' | 'stable' | 'declining' = 'stable';
+    if (diff > 5) trend = 'improving';
+    if (diff < -5) trend = 'declining';
+    
+    return { avgScore, trend };
+  };
+
+  // Suggest next difficulty based on recent performance
+  const suggestNextDifficulty = (subject: string, topic: string): Difficulty => {
+    if (!user || !user.quizHistory) return Difficulty.Medium;
+    
+    const recentQuizzes = user.quizHistory
+      .filter(q => q.subject === subject && q.topic === topic)
+      .slice(-3);
+    
+    if (recentQuizzes.length === 0) return user.preferredDifficulty;
+    
+    const avgScore = recentQuizzes.reduce((sum, q) => sum + q.score, 0) / recentQuizzes.length;
+    
+    if (avgScore >= 85) return Difficulty.Hard;
+    if (avgScore < 50) return Difficulty.Easy;
+    return Difficulty.Medium;
+  };
+
+  // Multi-child support functions
+  const generateParentCode = (): string => {
+    return Math.random().toString(36).substring(2, 8).toUpperCase();
+  };
+
+  const selectChild = (childId: string) => {
+    if (user?.role === 'parent' && user.childrenIds?.includes(childId)) {
+      setSelectedChildId(childId);
+      // Load the child's data if needed
+      const childData = localStorage.getItem(`ks2_child_${childId}`);
+      if (childData) {
+        // In a real app, we'd load the child's data for monitoring
+        console.log('Monitoring child:', childId);
+      }
+    }
+  };
+
+  const getChildData = (childId: string): UserProfile | null => {
+    const childData = localStorage.getItem(`ks2_child_${childId}`);
+    return childData ? JSON.parse(childData) : null;
+  };
+
+  const linkChildToParent = (parentCode: string, childId: string): boolean => {
+    // In a real app, this would validate the parent code
+    // For now, we'll just check if it's a valid format
+    if (!parentCode || parentCode.length < 4) return false;
+
+    const childData = getChildData(childId);
+    if (!childData) return false;
+
+    // Link child to parent
+    if (user?.role === 'parent') {
+      setUser(prev => {
+        if (!prev) return null;
+        return {
+          ...prev,
+          childrenIds: [...(prev.childrenIds || []), childId],
+          parentCode: prev.parentCode || generateParentCode()
+        };
+      });
+
+      // Update child profile with parent link
+      const updatedChildData = {
+        ...childData,
+        parentId: user.id
+      };
+      localStorage.setItem(`ks2_child_${childId}`, JSON.stringify(updatedChildData));
+      
+      return true;
+    }
+    return false;
+  };
+
   return (
-    <UserContext.Provider value={{ user, login, logout, setUser: setUserProfile, updateAge, addPoints, updateMastery, checkStreak, settings, updateSettings }}>
+    <UserContext.Provider value={{ 
+      user, 
+      login, 
+      logout, 
+      setUser: setUserProfile, 
+      updateAge, 
+      addPoints, 
+      updateMastery, 
+      checkStreak,
+      recordQuizSession,
+      addTimeSpent,
+      updateWeeklyProgress,
+      getPerformanceTrends,
+      suggestNextDifficulty,
+      settings, 
+      updateSettings,
+      // Multi-child functions
+      selectedChildId,
+      selectChild,
+      getChildData,
+      linkChildToParent,
+      generateParentCode
+    }}>
       {children}
     </UserContext.Provider>
   );

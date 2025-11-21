@@ -14,7 +14,7 @@ const ParentDashboard: React.FC<ParentDashboardProps> = ({ onClose }) => {
   const [learningInsights, setLearningInsights] = useState<string>('');
   const [isGeneratingReport, setIsGeneratingReport] = useState(false);
   const [isGeneratingInsights, setIsGeneratingInsights] = useState(false);
-  const { settings, updateSettings, user } = useUser();
+  const { settings, updateSettings, user, getPerformanceTrends, updateWeeklyProgress } = useUser();
 
   useEffect(() => {
     // In a real app, this would be an async call
@@ -26,7 +26,7 @@ const ParentDashboard: React.FC<ParentDashboardProps> = ({ onClose }) => {
     if (!user) return;
     setIsGeneratingReport(true);
     try {
-      const report = await generateProgressReport(user, user.age);
+      const report = await generateProgressReport(user, user.age, user.name);
       setProgressReport(report);
     } catch (error) {
       console.error('Error generating progress report:', error);
@@ -41,7 +41,7 @@ const ParentDashboard: React.FC<ParentDashboardProps> = ({ onClose }) => {
     setIsGeneratingInsights(true);
     try {
       // We'll need to get recent quiz results - for now using empty array
-      const insights = await generateLearningInsights(user, [], user.age);
+      const insights = await generateLearningInsights(user, [], user.age, user.name);
       setLearningInsights(insights);
     } catch (error) {
       console.error('Error generating learning insights:', error);
@@ -149,6 +149,101 @@ const ParentDashboard: React.FC<ParentDashboardProps> = ({ onClose }) => {
               <p className="text-gray-500 mt-2">Recommended for extra practice.</p>
             </div>
           </div>
+
+          {/* Time Spent Learning Per Subject */}
+          {user?.timeSpentLearning && Object.keys(user.timeSpentLearning).length > 0 && (
+            <div className="bg-white p-6 rounded-xl border border-gray-200">
+              <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                ⏱️ Time Spent Learning (by Subject)
+              </h3>
+              <div className="space-y-3">
+                {Object.entries(user.timeSpentLearning).map(([subject, minutes]) => {
+                  const minutesNum = typeof minutes === 'number' ? minutes : 0;
+                  return (
+                    <div key={subject} className="flex items-center justify-between">
+                      <div className="flex items-center gap-3 flex-1">
+                        <span className="font-semibold text-gray-700 w-24">{subject}</span>
+                        <div className="flex-1 bg-gray-200 rounded-full h-6 overflow-hidden">
+                          <div
+                            className="bg-gradient-to-r from-blue-500 to-purple-500 h-full transition-all duration-300"
+                            style={{
+                              width: `${Math.min((minutesNum / 300) * 100, 100)}%`
+                            }}
+                          />
+                        </div>
+                      </div>
+                      <span className="text-gray-600 font-bold ml-4">{Math.round(minutesNum)} min</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Weekly Progress & Goals */}
+          {user?.weeklyProgress && (
+            <div className="bg-white p-6 rounded-xl border border-gray-200">
+              <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                📅 Weekly Progress
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                  <p className="text-sm text-gray-600">Minutes This Week</p>
+                  <p className="text-3xl font-bold text-blue-600">{user.weeklyProgress.minutesLearned}</p>
+                  <p className="text-xs text-gray-500 mt-1">Goal: {user.weeklyGoal} mins</p>
+                </div>
+                <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
+                  <p className="text-sm text-gray-600">Quizzes This Week</p>
+                  <p className="text-3xl font-bold text-purple-600">{user.weeklyProgress.quizzesTaken}</p>
+                  <p className="text-xs text-gray-500 mt-1">Avg: {user.weeklyProgress.averageScore}%</p>
+                </div>
+                <div className={`p-4 rounded-lg border ${user.weeklyProgress.goalMet ? 'bg-green-50 border-green-200' : 'bg-orange-50 border-orange-200'}`}>
+                  <p className="text-sm text-gray-600">Weekly Goal</p>
+                  <p className={`text-3xl font-bold ${user.weeklyProgress.goalMet ? 'text-green-600' : 'text-orange-600'}`}>
+                    {user.weeklyProgress.goalMet ? '✅' : `${Math.round((user.weeklyProgress.minutesLearned / (user.weeklyGoal || 180)) * 100)}%`}
+                  </p>
+                  <p className="text-xs text-gray-500 mt-1">{user.weeklyProgress.goalMet ? 'Goal Met!' : 'Keep going!'}</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Performance Trends */}
+          {user && (
+            <div className="bg-white p-6 rounded-xl border border-gray-200">
+              <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                📈 Performance Trends
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg border border-blue-200">
+                  <p className="text-sm text-gray-700 font-semibold mb-2">Overall Performance</p>
+                  <div className="flex items-end gap-2">
+                    <div className="text-3xl font-bold text-blue-600">
+                      {getPerformanceTrends().avgScore}%
+                    </div>
+                    <div className="text-sm font-semibold mb-1" style={{
+                      color: getPerformanceTrends().trend === 'improving' ? '#10b981' : 
+                             getPerformanceTrends().trend === 'declining' ? '#ef4444' : '#f59e0b'
+                    }}>
+                      {getPerformanceTrends().trend === 'improving' ? '📈 Improving' :
+                       getPerformanceTrends().trend === 'declining' ? '📉 Declining' : '➡️ Stable'}
+                    </div>
+                  </div>
+                </div>
+                <div className="p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-lg border border-green-200">
+                  <p className="text-sm text-gray-700 font-semibold mb-2">Total Quizzes Taken</p>
+                  <div className="flex items-end gap-2">
+                    <div className="text-3xl font-bold text-green-600">
+                      {user.quizHistory?.length || 0}
+                    </div>
+                    <div className="text-sm text-gray-600 mb-1">
+                      Streak: {user.streak} days 🔥
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Recent Activity */}
           <div>

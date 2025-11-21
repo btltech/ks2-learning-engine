@@ -1,4 +1,4 @@
-import { UserProfile, ParentStats, StoreItem } from '../types';
+import { UserProfile, ParentStats, StoreItem, Difficulty } from '../types';
 
 // Mock user data
 const MOCK_USER: UserProfile = {
@@ -14,10 +14,13 @@ const MOCK_USER: UserProfile = {
   badges: [],
   streak: 0,
   lastLoginDate: new Date().toISOString(),
-  mastery: {}
+  mastery: {},
+  timeSpentLearning: {},
+  quizHistory: [],
+  preferredDifficulty: Difficulty.Medium
 };
 
-const STORAGE_KEY = 'ks2_user_profile';
+const STORAGE_KEY = 'ks2_user'; // Match UserContext storage key
 
 export const authService = {
   // Simulate login
