@@ -155,16 +155,21 @@ const AppContent: React.FC = () => {
     return "Let's learn!";
   };
 
-  if (!user) {
-    return <LoginView onLogin={handleLoginWrapper} />;
-  }
-
   // Parent view - show monitoring dashboard
-  if (user.role === 'parent') {
+  if (user?.role === 'parent') {
     return <ParentMonitoringDashboard onLogout={logout} />;
   }
 
   // Student view - show learning interface
+  if (!user) {
+    // Show login page
+    return (
+      <ToastProvider>
+        <LoginView onLogin={handleLoginWrapper} />
+      </ToastProvider>
+    );
+  }
+
   return (
     <div className="min-h-screen flex flex-col items-center bg-slate-50 text-gray-800">
       <OfflineIndicator />
@@ -181,6 +186,8 @@ const AppContent: React.FC = () => {
 
       <main className="flex-grow w-full container mx-auto p-4 sm:p-6 lg:p-8 flex items-center justify-center">
         <Routes>
+          <Route path="/login" element={<LoginView onLogin={handleLoginWrapper} />} />
+          
           <Route path="/" element={
             <SubjectSelector 
               onSelect={(s) => navigate(`/subject/${encodeURIComponent(s.name)}`)} 
@@ -230,6 +237,9 @@ const AppContent: React.FC = () => {
               onSubmit={handleQuizSubmit}
             />
           } />
+          
+          {/* Redirect to login if accessing dashboard without auth */}
+          <Route path="*" element={!user ? <Navigate to="/login" /> : <Navigate to="/" />} />
         </Routes>
       </main>
 
