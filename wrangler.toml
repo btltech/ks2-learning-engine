@@ -4,14 +4,6 @@
 name = "ks2-learning-engine"
 pages_build_output_dir = "dist"
 
-[build]
-command = "npm run build"
-cwd = "./"
-
-[build.environment]
-NODE_VERSION = "18"
-NPM_VERSION = "10"
-
 [env.production]
 name = "production"
 
