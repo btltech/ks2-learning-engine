@@ -73,6 +73,12 @@ const AppContent: React.FC = () => {
     return match ? decodeURIComponent(match[1]) : undefined;
   };
 
+  // Helper to get language from URL
+  const getLanguageFromUrl = (path: string): string | undefined => {
+    const match = path.match(/\/subject\/Languages\/([^/]+)/);
+    return match ? decodeURIComponent(match[1]) : undefined;
+  };
+
   // Derive progress from user mastery
   const getProgressFromMastery = (): ProgressData => {
     if (!user) return {};
@@ -87,6 +93,7 @@ const AppContent: React.FC = () => {
 
   const currentSubject = getSubjectFromUrl(location.pathname);
   const currentTopic = getTopicFromUrl(location.pathname);
+  const currentLanguage = getLanguageFromUrl(location.pathname);
 
   // Smart Difficulty Logic
   const getRecommendedDifficulty = (subject: string, topic: string): Difficulty => {
@@ -267,7 +274,11 @@ const AppContent: React.FC = () => {
           }} 
           onNewTopic={() => {
             setShowFeedback(false);
-            navigate(`/subject/${encodeURIComponent(currentSubject.name)}`);
+            if (currentSubject.name === 'Languages' && currentLanguage) {
+              navigate(`/subject/Languages/${encodeURIComponent(currentLanguage)}`);
+            } else {
+              navigate(`/subject/${encodeURIComponent(currentSubject.name)}`);
+            }
           }} 
         />
       )}
