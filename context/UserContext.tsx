@@ -98,12 +98,9 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const parsedUser = JSON.parse(savedUser);
       // Migration: Ensure all fields exist for legacy users
       setUser(migrateUserData(parsedUser));
-    } else {
-      // For demo purposes, auto-login a default user if none exists
-      // In a real app, we'd start with null and show a login screen
-      setUser(INITIAL_USER);
-    }
-
+    } 
+    // Removed auto-login for default user to ensure Login page is shown
+    
     if (savedSettings) {
       try {
         const parsedSettings = JSON.parse(savedSettings);

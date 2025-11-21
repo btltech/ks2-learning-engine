@@ -28,13 +28,16 @@ export const authService = {
     // In a real app, this would call an API
     return new Promise((resolve) => {
       setTimeout(() => {
-        const stored = localStorage.getItem(STORAGE_KEY);
-        if (stored) {
-          resolve(JSON.parse(stored));
-          return;
-        }
-
-        const newUser = { ...MOCK_USER, name, role, age: age || 9 };
+        // Always create a new user session on explicit login
+        const newUser = { 
+          ...MOCK_USER, 
+          id: `user-${Date.now()}`, // Generate unique ID
+          name, 
+          role, 
+          age: age || 9,
+          lastLoginDate: new Date().toISOString()
+        };
+        
         localStorage.setItem(STORAGE_KEY, JSON.stringify(newUser));
         resolve(newUser);
       }, 800); // Fake network delay
