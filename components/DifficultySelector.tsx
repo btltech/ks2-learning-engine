@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Difficulty } from '../types';
+import { useGameSounds } from '../hooks/useGameSounds';
 
 interface DifficultySelectorProps {
   selectedDifficulty: Difficulty;
@@ -14,6 +15,13 @@ const difficulties = [
 ];
 
 const DifficultySelector: React.FC<DifficultySelectorProps> = ({ selectedDifficulty, onSelectDifficulty }) => {
+    const { playClick } = useGameSounds();
+
+    const handleSelect = (level: Difficulty) => {
+        playClick();
+        onSelectDifficulty(level);
+    };
+
     return (
         <div 
             className="flex justify-center space-x-2 sm:space-x-4 my-6"
@@ -23,7 +31,7 @@ const DifficultySelector: React.FC<DifficultySelectorProps> = ({ selectedDifficu
             {difficulties.map(({level, color, ring}) => (
                 <button
                     key={level}
-                    onClick={() => onSelectDifficulty(level)}
+                    onClick={() => handleSelect(level)}
                     role="radio"
                     aria-checked={selectedDifficulty === level}
                     aria-label={`${level} difficulty`}

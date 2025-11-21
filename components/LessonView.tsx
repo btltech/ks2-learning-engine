@@ -6,6 +6,7 @@ import LoadingSpinner from './LoadingSpinner';
 import { Skeleton } from './Skeleton';
 import { useTTS } from '../hooks/useTTS';
 import { ArrowLeftIcon, SpeakerWaveIcon, StopIcon, BoltIcon } from '@heroicons/react/24/solid';
+import { useGameSounds } from '../hooks/useGameSounds';
 
 // A simple markdown to HTML converter
 const Markdown: React.FC<{ content: string }> = ({ content }) => {
@@ -39,6 +40,7 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
   const [error, setError] = useState<string | null>(null);
     const { speak, cancel, isSpeaking, isLoading: isTTSLoading, progress: ttsProgress, errorMessage: ttsError, needsGesture, setNeedsGesture } = useTTS();
   const isLanguageSubject = ['French','Spanish','German','Japanese','Mandarin','Romanian','Yoruba','Languages'].includes(subject);
+  const { playClick } = useGameSounds();
 
   // Stop speaking when unmounting or changing lesson
   useEffect(() => {
@@ -46,6 +48,7 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
   }, [cancel, lesson]);
 
   const handleSpeak = () => {
+    playClick();
     if (isSpeaking) {
       cancel();
     } else {
@@ -57,6 +60,16 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
         .replace(/\n/g, '. '); // Replace newlines with pauses
       speak(textToRead);
     }
+  };
+
+  const handleBack = () => {
+    playClick();
+    onBack();
+  };
+
+  const handleStartQuiz = (mode: 'standard' | 'speed') => {
+    playClick();
+    onStartQuiz(mode);
   };
 
   const fetchLesson = useCallback(async () => {
@@ -88,7 +101,7 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
   return (
     <div className="w-full max-w-4xl mx-auto">
        <button 
-         onClick={onBack} 
+         onClick={handleBack} 
          className="flex items-center text-gray-600 hover:text-gray-900 font-semibold transition-colors mb-4 sm:mb-6"
          aria-label="Go back to topic selection"
        >
@@ -101,7 +114,10 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
           <div className="flex items-center gap-2">
             {isLanguageSubject && !loading && !error && (
               <button
-                onClick={() => speak(topic)}
+                onClick={() => {
+                  playClick();
+                  speak(topic);
+                }}
                 disabled={isTTSLoading}
                 className="p-3 rounded-full bg-emerald-100 text-emerald-700 hover:bg-opacity-80 transition-colors disabled:opacity-50"
                 title="Hear how to say this topic"
@@ -178,7 +194,7 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
       {!loading && !error && (
         <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
           <button
-            onClick={() => onStartQuiz('standard')}
+            onClick={() => handleStartQuiz('standard')}
             aria-label="Start the quiz for this lesson"
             className="px-6 py-3 sm:px-10 sm:py-4 bg-green-500 text-white font-bold text-lg sm:text-xl rounded-full shadow-lg hover:bg-green-600 transform hover:scale-105 transition-transform duration-300"
           >
@@ -186,7 +202,7 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
           </button>
           
           <button
-            onClick={() => onStartQuiz('speed')}
+            onClick={() => handleStartQuiz('speed')}
             aria-label="Start a speed challenge"
             className="px-6 py-3 sm:px-10 sm:py-4 bg-orange-500 text-white font-bold text-lg sm:text-xl rounded-full shadow-lg hover:bg-orange-600 transform hover:scale-105 transition-transform duration-300 flex items-center justify-center"
           >

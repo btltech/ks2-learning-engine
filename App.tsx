@@ -1,24 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { Routes, Route, useNavigate, useLocation, useParams, Navigate } from 'react-router-dom';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import SubjectSelector from './components/SubjectSelector';
 import LanguageSelector from './components/LanguageSelector';
 import TopicSelector from './components/TopicSelector';
-import LessonView from './components/LessonView';
-import QuizView from './components/QuizView';
 import FeedbackModal from './components/FeedbackModal';
 import GuideAvatar from './components/GuideAvatar';
 import OfflineIndicator from './components/OfflineIndicator';
 import LoginView from './components/LoginView';
-import StoreView from './components/StoreView';
-import ParentDashboard from './components/ParentDashboard';
-import ParentMonitoringDashboard from './components/ParentMonitoringDashboard';
-import LeaderboardView from './components/LeaderboardView';
-import ProgressView from './components/ProgressView';
+import LoadingSpinner from './components/LoadingSpinner';
 import { ToastProvider } from './components/Toast';
 import { useUser } from './context/UserContext';
 import { Difficulty, Subject, QuizResult, ProgressData, UserProfile, QuizSession } from './types';
 import { SUBJECTS } from './constants';
+
+// Lazy loaded components
+const LessonView = lazy(() => import('./components/LessonView'));
+const QuizView = lazy(() => import('./components/QuizView'));
+const StoreView = lazy(() => import('./components/StoreView'));
+const ParentDashboard = lazy(() => import('./components/ParentDashboard'));
+const ParentMonitoringDashboard = lazy(() => import('./components/ParentMonitoringDashboard'));
+const LeaderboardView = lazy(() => import('./components/LeaderboardView'));
+const ProgressView = lazy(() => import('./components/ProgressView'));
 
 // Wrapper for protected routes - currently not used but kept for future auth implementation
 // const RequireAuth: React.FC<{ children: React.ReactElement }> = ({ children }) => {
@@ -164,7 +168,11 @@ const AppContent: React.FC = () => {
 
   // Parent view - show monitoring dashboard
   if (user?.role === 'parent') {
-    return <ParentMonitoringDashboard onLogout={logout} />;
+    return (
+      <Suspense fallback={<LoadingSpinner />}>
+        <ParentMonitoringDashboard onLogout={logout} />
+      </Suspense>
+    );
   }
 
   // Student view - show learning interface
@@ -192,62 +200,64 @@ const AppContent: React.FC = () => {
       />
 
       <main className="flex-grow w-full container mx-auto p-4 sm:p-6 lg:p-8 flex items-center justify-center">
-        <Routes>
-          <Route path="/login" element={<LoginView onLogin={handleLoginWrapper} />} />
-          
-          <Route path="/" element={
-            <SubjectSelector 
-              onSelect={(s) => navigate(`/subject/${encodeURIComponent(s.name)}`)} 
-              progress={progress}
-            />
-          } />
-          
-          {/* Specific Routes for Languages */}
-          <Route path="/subject/Languages" element={
-            <LanguageSelector 
-              onSelect={(lang) => navigate(`/subject/Languages/${encodeURIComponent(lang)}`)}
-              onBack={() => navigate('/')}
-            />
-          } />
-          
-          <Route path="/subject/Languages/:language" element={<LanguageTopicWrapper studentAge={studentAge} progress={progress} />} />
-          
-          <Route path="/subject/Languages/:language/topic/:topicName" element={
-            <LanguageLessonWrapper 
-              studentAge={studentAge} 
-              difficulty={difficulty}
-            />
-          } />
+        <Suspense fallback={<LoadingSpinner />}>
+          <Routes>
+            <Route path="/login" element={<LoginView onLogin={handleLoginWrapper} />} />
+            
+            <Route path="/" element={
+              <SubjectSelector 
+                onSelect={(s) => navigate(`/subject/${encodeURIComponent(s.name)}`)} 
+                progress={progress}
+              />
+            } />
+            
+            {/* Specific Routes for Languages */}
+            <Route path="/subject/Languages" element={
+              <LanguageSelector 
+                onSelect={(lang) => navigate(`/subject/Languages/${encodeURIComponent(lang)}`)}
+                onBack={() => navigate('/')}
+              />
+            } />
+            
+            <Route path="/subject/Languages/:language" element={<LanguageTopicWrapper studentAge={studentAge} progress={progress} />} />
+            
+            <Route path="/subject/Languages/:language/topic/:topicName" element={
+              <LanguageLessonWrapper 
+                studentAge={studentAge} 
+                difficulty={difficulty}
+              />
+            } />
 
-          <Route path="/subject/Languages/:language/topic/:topicName/quiz" element={
-            <LanguageQuizWrapper 
-              studentAge={studentAge} 
-              difficulty={difficulty}
-              onSubmit={handleQuizSubmit}
-            />
-          } />
+            <Route path="/subject/Languages/:language/topic/:topicName/quiz" element={
+              <LanguageQuizWrapper 
+                studentAge={studentAge} 
+                difficulty={difficulty}
+                onSubmit={handleQuizSubmit}
+              />
+            } />
 
-          {/* Generic Routes for other subjects */}
-          <Route path="/subject/:subjectName" element={<SubjectRouteWrapper studentAge={studentAge} progress={progress} />} />
-          
-          <Route path="/subject/:subjectName/topic/:topicName" element={
-            <LessonRouteWrapper 
-              studentAge={studentAge} 
-              difficulty={difficulty}
-            />
-          } />
+            {/* Generic Routes for other subjects */}
+            <Route path="/subject/:subjectName" element={<SubjectRouteWrapper studentAge={studentAge} progress={progress} />} />
+            
+            <Route path="/subject/:subjectName/topic/:topicName" element={
+              <LessonRouteWrapper 
+                studentAge={studentAge} 
+                difficulty={difficulty}
+              />
+            } />
 
-          <Route path="/subject/:subjectName/topic/:topicName/quiz" element={
-            <QuizRouteWrapper 
-              studentAge={studentAge} 
-              difficulty={difficulty}
-              onSubmit={handleQuizSubmit}
-            />
-          } />
-          
-          {/* Redirect to login if accessing dashboard without auth */}
-          <Route path="*" element={!user ? <Navigate to="/login" /> : <Navigate to="/" />} />
-        </Routes>
+            <Route path="/subject/:subjectName/topic/:topicName/quiz" element={
+              <QuizRouteWrapper 
+                studentAge={studentAge} 
+                difficulty={difficulty}
+                onSubmit={handleQuizSubmit}
+              />
+            } />
+            
+            {/* Redirect to login if accessing dashboard without auth */}
+            <Route path="*" element={!user ? <Navigate to="/login" /> : <Navigate to="/" />} />
+          </Routes>
+        </Suspense>
       </main>
 
       <GuideAvatar 
@@ -284,27 +294,39 @@ const AppContent: React.FC = () => {
       )}
 
       {showStore && (
-        <StoreView 
-          user={user} 
-          onUpdateUser={setUser}
-          onClose={() => setShowStore(false)} 
-        />
+        <Suspense fallback={<LoadingSpinner />}>
+          <StoreView 
+            user={user} 
+            onUpdateUser={setUser}
+            onClose={() => setShowStore(false)} 
+          />
+        </Suspense>
       )}
 
       {showParentDashboard && (
-        <ParentDashboard onClose={() => setShowParentDashboard(false)} />
+        <Suspense fallback={<LoadingSpinner />}>
+          <ParentDashboard onClose={() => setShowParentDashboard(false)} />
+        </Suspense>
       )}
 
       {showLeaderboard && (
-        <LeaderboardView onBack={() => setShowLeaderboard(false)} />
+        <Suspense fallback={<LoadingSpinner />}>
+          <LeaderboardView onBack={() => setShowLeaderboard(false)} />
+        </Suspense>
       )}
 
       {showProgress && (
-        <ProgressView onBack={() => setShowProgress(false)} />
+        <Suspense fallback={<LoadingSpinner />}>
+          <ProgressView onBack={() => setShowProgress(false)} />
+        </Suspense>
       )}
+
+      <Footer />
     </div>
   );
 };
+
+
 
 // Route Wrappers to handle params
 const SubjectRouteWrapper = ({ studentAge, progress }: { studentAge: number, progress: ProgressData }) => {

@@ -5,6 +5,7 @@ import { offlineManager } from '../services/offlineManager';
 import LoadingSpinner from './LoadingSpinner';
 import { Skeleton } from './Skeleton';
 import { useTTS } from '../hooks/useTTS';
+import { useGameSounds } from '../hooks/useGameSounds';
 import { SpeakerWaveIcon, StopIcon, LightBulbIcon } from '@heroicons/react/24/solid';
 
 interface QuizViewProps {
@@ -25,6 +26,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
   const [selectedAnswers, setSelectedAnswers] = useState<string[]>([]);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const { speak, cancel, isSpeaking } = useTTS();
+  const { playClick } = useGameSounds();
   const [timeLeft, setTimeLeft] = useState(15);
   const [currentHint, setCurrentHint] = useState<string>('');
   const [isGettingHint, setIsGettingHint] = useState(false);
@@ -129,6 +131,11 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
     }
   };
 
+  const handleOptionSelect = (option: string) => {
+    playClick();
+    setSelectedOption(option);
+  };
+
   if (loading) {
     return (
       <div className="w-full max-w-3xl mx-auto">
@@ -223,7 +230,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
         {currentQuestion.options.map((option, index) => (
           <button
             key={index}
-            onClick={() => setSelectedOption(option)}
+            onClick={() => handleOptionSelect(option)}
             role="radio"
             aria-checked={selectedOption === option}
             aria-label={`Option: ${option}`}

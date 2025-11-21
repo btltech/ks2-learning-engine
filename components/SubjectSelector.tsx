@@ -2,6 +2,7 @@ import React from 'react';
 import { SUBJECTS } from '../constants';
 import type { Subject, ProgressData } from '../types';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
+import { useGameSounds } from '../hooks/useGameSounds';
 
 interface SubjectSelectorProps {
   onSelect: (subject: Subject) => void;
@@ -9,6 +10,13 @@ interface SubjectSelectorProps {
 }
 
 const SubjectSelector: React.FC<SubjectSelectorProps> = ({ onSelect, progress }) => {
+  const { playClick } = useGameSounds();
+
+  const handleSelect = (subject: Subject) => {
+    playClick();
+    onSelect(subject);
+  };
+
   return (
     <div className="text-center w-full">
       <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-6 sm:mb-8 tracking-tight animate-fadeInDown">What would you like to learn today?</h2>
@@ -22,7 +30,7 @@ const SubjectSelector: React.FC<SubjectSelectorProps> = ({ onSelect, progress })
           return (
             <button
               key={subject.name}
-              onClick={() => onSelect(subject)}
+              onClick={() => handleSelect(subject)}
               role="listitem"
               aria-label={`${subject.name}${isCompleted ? ' - topics completed' : ''}`}
               className={`group relative overflow-hidden flex flex-col items-center justify-center p-6 rounded-2xl transform transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-opacity-50 ${subject.bgColor}

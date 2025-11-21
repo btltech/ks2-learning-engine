@@ -1,8 +1,9 @@
-import React from 'react';
-import { AcademicCapIcon, StarIcon, ShoppingBagIcon, ChartBarIcon, ArrowRightOnRectangleIcon, FireIcon, TrophyIcon } from '@heroicons/react/24/solid';
+import React, { useState, useRef, useEffect } from 'react';
+import { AcademicCapIcon, StarIcon, ShoppingBagIcon, ChartBarIcon, ArrowRightOnRectangleIcon, FireIcon, TrophyIcon, UserCircleIcon } from '@heroicons/react/24/solid';
 import EmbeddingSelector from './EmbeddingSelector';
 import TTSDemo from './TTSDemo';
 import { UserProfile } from '../types';
+import { useGameSounds } from '../hooks/useGameSounds';
 
 interface HeaderProps {
   onHomeClick: () => void;
@@ -23,13 +24,32 @@ const Header: React.FC<HeaderProps> = ({
   onOpenProgress,
   onLogout 
 }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const { playClick } = useGameSounds();
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleNavClick = (action: () => void) => {
+    playClick();
+    action();
+  };
+
   return (
     <header className="bg-gradient-to-r from-white via-white to-blue-50/30 backdrop-blur-xl bg-white/80 border-b border-gray-200/50 shadow-sm w-full sticky top-0 z-40" role="banner">
       <div className="container mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
           <button 
-            onClick={onHomeClick} 
+            onClick={() => handleNavClick(onHomeClick)} 
             className="flex items-center space-x-2 sm:space-x-3 group"
             aria-label="Go to home page"
           >
@@ -85,7 +105,7 @@ const Header: React.FC<HeaderProps> = ({
             {/* Leaderboard Button - Students only */}
             {user.role === 'student' && (
               <button
-                onClick={onOpenLeaderboard}
+                onClick={() => handleNavClick(onOpenLeaderboard)}
                 className="p-1.5 sm:p-2 text-gray-600 hover:text-yellow-600 hover:bg-yellow-100 rounded-lg transition-all duration-200 hover:shadow-md"
                 title="Leaderboard"
               >
@@ -96,7 +116,7 @@ const Header: React.FC<HeaderProps> = ({
             {/* Progress Button - Students only */}
             {user.role === 'student' && (
               <button
-                onClick={onOpenProgress}
+                onClick={() => handleNavClick(onOpenProgress)}
                 className="p-1.5 sm:p-2 text-gray-600 hover:text-green-600 hover:bg-green-100 rounded-lg transition-all duration-200 hover:shadow-md"
                 title="My Progress"
               >
@@ -107,7 +127,7 @@ const Header: React.FC<HeaderProps> = ({
             {/* Store Button - Students only */}
             {user.role === 'student' && (
               <button
-                onClick={onOpenStore}
+                onClick={() => handleNavClick(onOpenStore)}
                 className="p-1.5 sm:p-2 text-gray-600 hover:text-orange-500 hover:bg-orange-100 rounded-lg transition-all duration-200 hover:shadow-md"
                 title="Open Store"
               >
@@ -115,9 +135,9 @@ const Header: React.FC<HeaderProps> = ({
               </button>
             )}
 
-            {/* Parent Dashboard (Only visible to parents or via secret click?) - For now visible to all for demo */}
+            {/* Parent Dashboard (Desktop) */}
             <button
-              onClick={onOpenParentDashboard}
+              onClick={() => handleNavClick(onOpenParentDashboard)}
               className="p-2 text-gray-600 hover:text-purple-600 hover:bg-purple-100 rounded-lg transition-all duration-200 hover:shadow-md hidden md:block"
               title="Parent Dashboard"
             >
@@ -125,15 +145,21 @@ const Header: React.FC<HeaderProps> = ({
             </button>
 
             {/* User Profile / Logout */}
-            <div className="flex items-center gap-2 sm:gap-3 pl-2 sm:pl-4 border-l border-gray-200">
+            <div className="flex items-center gap-2 sm:gap-3 pl-2 sm:pl-4 border-l border-gray-200" ref={menuRef}>
               <div className="flex flex-col items-end hidden lg:flex">
                 <span className="font-semibold text-gray-900">{user.name}</span>
                 <span className="text-xs text-gray-500 capitalize">{user.role}</span>
               </div>
               
-              <div className="relative group">
-                <div 
-                  className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-blue-200 flex items-center justify-center text-lg sm:text-xl cursor-pointer transition-all group-hover:scale-110 group-hover:shadow-lg ${user.avatarConfig.color}`}
+              <div className="relative">
+                <button 
+                  onClick={() => {
+                    playClick();
+                    setIsMenuOpen(!isMenuOpen);
+                  }}
+                  className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-blue-200 flex items-center justify-center text-lg sm:text-xl cursor-pointer transition-all hover:scale-110 hover:shadow-lg ${user.avatarConfig.color}`}
+                  aria-label="User menu"
+                  aria-expanded={isMenuOpen}
                 >
                   {/* Simple avatar representation */}
                   {user.avatarConfig.accessory === 'glasses' && '👓'}
@@ -141,18 +167,36 @@ const Header: React.FC<HeaderProps> = ({
                   {user.avatarConfig.accessory === 'crown' && '👑'}
                   {user.avatarConfig.accessory === 'bow' && '🎀'}
                   {!user.avatarConfig.accessory && '😊'}
-                </div>
+                </button>
                 
-                {/* Dropdown for logout */}
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform origin-top-right z-50 border border-gray-100">
-                  <button
-                    onClick={onLogout}
-                    className="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 flex items-center gap-2 transition-colors rounded-lg mx-2"
-                  >
-                    <ArrowRightOnRectangleIcon className="h-5 w-5" />
-                    Logout
-                  </button>
-                </div>
+                {/* Dropdown Menu */}
+                {isMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl py-2 transform origin-top-right z-50 border border-gray-100 animate-fade-in-down">
+                    <div className="px-4 py-2 border-b border-gray-100 lg:hidden">
+                      <p className="font-semibold text-gray-900">{user.name}</p>
+                      <p className="text-xs text-gray-500 capitalize">{user.role}</p>
+                    </div>
+                    
+                    <button
+                      onClick={() => {
+                        handleNavClick(onOpenParentDashboard);
+                        setIsMenuOpen(false);
+                      }}
+                      className="w-full text-left px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700 flex items-center gap-2 transition-colors md:hidden"
+                    >
+                      <span className="text-xl">👨‍👩‍👧</span>
+                      Parent Dashboard
+                    </button>
+
+                    <button
+                      onClick={() => handleNavClick(onLogout)}
+                      className="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 flex items-center gap-2 transition-colors"
+                    >
+                      <ArrowRightOnRectangleIcon className="h-5 w-5" />
+                      Logout
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </div>

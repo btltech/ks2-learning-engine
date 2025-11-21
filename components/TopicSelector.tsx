@@ -6,6 +6,7 @@ import { createCacheKey } from '../services/cacheService';
 import LoadingSpinner from './LoadingSpinner';
 import OfflineBadge from './OfflineBadge';
 import { ArrowLeftIcon, CheckCircleIcon } from '@heroicons/react/24/solid';
+import { useGameSounds } from '../hooks/useGameSounds';
 
 interface TopicSelectorProps {
   subject: Subject;
@@ -19,6 +20,7 @@ const TopicSelector: React.FC<TopicSelectorProps> = ({ subject, studentAge, onSe
   const [topics, setTopics] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { playClick } = useGameSounds();
 
   const fetchTopics = useCallback(async () => {
     setLoading(true);
@@ -43,11 +45,21 @@ const TopicSelector: React.FC<TopicSelectorProps> = ({ subject, studentAge, onSe
   
   const completedTopics = progress[subject.name] || [];
 
+  const handleSelect = (topic: string) => {
+    playClick();
+    onSelect(topic);
+  };
+
+  const handleBack = () => {
+    playClick();
+    onBack();
+  };
+
   return (
     <div className="w-full max-w-5xl mx-auto text-center relative">
       <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between mb-6 sm:mb-8 relative">
         <button 
-          onClick={onBack} 
+          onClick={handleBack} 
           className="mb-4 sm:mb-0 sm:absolute sm:left-0 flex items-center text-gray-600 hover:text-gray-900 hover:bg-gray-100 px-3 py-2 rounded-lg font-semibold transition-all duration-200"
           aria-label="Go back to subject selection"
         >
@@ -96,7 +108,7 @@ const TopicSelector: React.FC<TopicSelectorProps> = ({ subject, studentAge, onSe
             return (
               <button
                 key={topic}
-                onClick={() => onSelect(topic)}
+                onClick={() => handleSelect(topic)}
                 role="listitem"
                 aria-label={`${topic}${isCompleted ? ' - completed' : ''}`}
                 className={`p-4 rounded-xl shadow-md hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 text-left font-semibold text-lg flex flex-col group relative overflow-hidden

@@ -3,6 +3,7 @@ import { generateFeedback } from '../services/geminiService';
 import LoadingSpinner from './LoadingSpinner';
 import { SparklesIcon, CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import type { QuizResult, Explanation } from '../types';
+import { useGameSounds } from '../hooks/useGameSounds';
 
 interface FeedbackModalProps {
   quizResults: QuizResult[];
@@ -17,6 +18,7 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ quizResults, studentAge, 
   const [explanations, setExplanations] = useState<Explanation[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { playSuccess, playIncorrect } = useGameSounds();
 
   const score = quizResults.filter(r => r.isCorrect).length;
   const total = quizResults.length;
@@ -27,6 +29,14 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ quizResults, studentAge, 
   );
 
   const percentage = total > 0 ? Math.round((score / total) * 100) : 0;
+
+  useEffect(() => {
+    if (percentage >= 70) {
+      playSuccess();
+    } else if (percentage < 40) {
+      playIncorrect();
+    }
+  }, [percentage, playSuccess, playIncorrect]);
 
   const fetchFeedback = useCallback(async () => {
     setLoading(true);

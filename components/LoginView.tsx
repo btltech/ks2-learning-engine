@@ -12,10 +12,21 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
   const [age, setAge] = useState<number>(9);
   const [parentCode, setParentCode] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim()) return;
+    setError(null);
+
+    if (!name.trim()) {
+      setError('Please enter your name to continue.');
+      return;
+    }
+
+    if (role === 'student' && parentCode && parentCode.length !== 6) {
+      setError('Parent code must be exactly 6 characters.');
+      return;
+    }
 
     setLoading(true);
     try {
@@ -23,6 +34,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
       onLogin(user);
     } catch (error) {
       console.error('Login failed', error);
+      setError('Something went wrong. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -38,6 +50,12 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">Welcome to KS2 Learning!</h1>
           <p className="text-gray-600 mt-2 text-sm sm:text-base">Your AI-powered learning buddy</p>
         </div>
+
+        {error && (
+          <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm font-medium text-center">
+            {error}
+          </div>
+        )}
 
         <form onSubmit={handleLogin} className="space-y-5 sm:space-y-6">
           <div>
