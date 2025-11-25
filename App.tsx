@@ -11,9 +11,22 @@ import OfflineIndicator from './components/OfflineIndicator';
 import LoginView from './components/LoginView';
 import LoadingSpinner from './components/LoadingSpinner';
 import { ToastProvider } from './components/Toast';
+import { DailyChallengeCard, AchievementsGallery, StreakMilestone } from './components/DailyChallenge';
+import { ReviewMode, ReviewSummary, ReviewDueBadge } from './components/ReviewMode';
+import { AccessibilitySettingsModal, AccessibilityButton, initializeAccessibility, SkipToMainContent } from './components/AccessibilitySettings';
+import { QuizBattleMode } from './components/QuizBattle';
+import { LearningPathsView } from './components/LearningPaths';
 import { useUser } from './context/UserContext';
 import { Difficulty, Subject, QuizResult, ProgressData, UserProfile, QuizSession } from './types';
 import { SUBJECTS } from './constants';
+import HomeView from './components/HomeView';
+import { spacedRepetitionService } from './services/spacedRepetitionService';
+import { dailyChallengeService, DailyChallenge } from './services/dailyChallengeService';
+
+// Initialize accessibility features
+if (typeof window !== 'undefined') {
+  initializeAccessibility();
+}
 
 // Lazy loaded components
 const LessonView = lazy(() => import('./components/LessonView'));
@@ -23,6 +36,7 @@ const ParentDashboard = lazy(() => import('./components/ParentDashboard'));
 const ParentMonitoringDashboard = lazy(() => import('./components/ParentMonitoringDashboard'));
 const LeaderboardView = lazy(() => import('./components/LeaderboardView'));
 const ProgressView = lazy(() => import('./components/ProgressView'));
+const TeacherDashboard = lazy(() => import('./components/TeacherDashboard'));
 
 // Wrapper for protected routes - currently not used but kept for future auth implementation
 // const RequireAuth: React.FC<{ children: React.ReactElement }> = ({ children }) => {
@@ -34,7 +48,7 @@ const ProgressView = lazy(() => import('./components/ProgressView'));
 // };
 
 const AppContent: React.FC = () => {
-  const { user, logout, checkStreak, addPoints, updateMastery, updateAge, setUser, recordQuizSession, addTimeSpent, suggestNextDifficulty } = useUser();
+  const { user, logout, checkStreak, addPoints, updateMastery, updateAge, setUser, recordQuizSession, addTimeSpent, suggestNextDifficulty, currentChild } = useUser();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -42,6 +56,16 @@ const AppContent: React.FC = () => {
   const [showParentDashboard, setShowParentDashboard] = useState(false);
   const [showLeaderboard, setShowLeaderboard] = useState(false);
   const [showProgress, setShowProgress] = useState(false);
+  
+  // New feature states
+  const [showAccessibilitySettings, setShowAccessibilitySettings] = useState(false);
+  const [showReviewMode, setShowReviewMode] = useState(false);
+  const [showReviewSummary, setShowReviewSummary] = useState(false);
+  const [reviewResults, setReviewResults] = useState<any>(null);
+  const [showAchievements, setShowAchievements] = useState(false);
+  const [showQuizBattle, setShowQuizBattle] = useState(false);
+  const [showLearningPaths, setShowLearningPaths] = useState(false);
+  const [showTeacherDashboard, setShowTeacherDashboard] = useState(false);
   
   // Use age from user profile, default to 9 if not set
   const studentAge = user?.age || 9;
@@ -153,9 +177,38 @@ const AppContent: React.FC = () => {
       // Get difficulty recommendation for next attempt
       const suggestedDifficulty = suggestNextDifficulty(currentSubject.name, currentTopic);
       setNextDifficultySuggestion(suggestedDifficulty);
+      
+      // Add wrong answers to spaced repetition
+      results.forEach((result) => {
+        if (!result.isCorrect) {
+          spacedRepetitionService.addWrongAnswer(
+            currentSubject.name,
+            currentTopic,
+            result.question,
+            result.options[parseInt(result.correctAnswer, 10)] || result.correctAnswer
+          );
+        }
+      });
+      
+      // Update daily challenge progress
+      dailyChallengeService.completeChallenge(scorePercentage);
+      
+      // Update achievements
+      dailyChallengeService.updateStreakAchievements(user?.streak || 0);
     }
 
     setShowFeedback(true);
+  };
+  
+  // Handle starting a daily challenge
+  const handleStartDailyChallenge = (challenge: DailyChallenge) => {
+    navigate(`/subject/${encodeURIComponent(challenge.subject)}/topic/${encodeURIComponent(challenge.topic)}/quiz`);
+  };
+  
+  // Handle starting a lesson from learning paths
+  const handleStartLearningPathLesson = (subject: string, topic: string, difficulty: Difficulty) => {
+    setShowLearningPaths(false);
+    navigate(`/subject/${encodeURIComponent(subject)}/topic/${encodeURIComponent(topic)}`);
   };
 
   const getGuideMessage = () => {
@@ -187,6 +240,7 @@ const AppContent: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-slate-50 text-gray-800">
+      <SkipToMainContent />
       <OfflineIndicator />
       
       <Header 
@@ -205,8 +259,13 @@ const AppContent: React.FC = () => {
             <Route path="/login" element={<LoginView onLogin={handleLoginWrapper} />} />
             
             <Route path="/" element={
-              <SubjectSelector 
-                onSelect={(s) => navigate(`/subject/${encodeURIComponent(s.name)}`)} 
+              <HomeView
+                onSelectSubject={(s) => navigate(`/subject/${encodeURIComponent(s.name)}`)}
+                onStartDailyChallenge={handleStartDailyChallenge}
+                onOpenReviewMode={() => setShowReviewMode(true)}
+                onOpenQuizBattle={() => setShowQuizBattle(true)}
+                onOpenLearningPaths={() => setShowLearningPaths(true)}
+                onOpenAchievements={() => setShowAchievements(true)}
                 progress={progress}
               />
             } />
@@ -318,6 +377,59 @@ const AppContent: React.FC = () => {
       {showProgress && (
         <Suspense fallback={<LoadingSpinner />}>
           <ProgressView onBack={() => setShowProgress(false)} />
+        </Suspense>
+      )}
+
+      {/* New Feature Modals */}
+      {showAccessibilitySettings && (
+        <AccessibilitySettingsModal onClose={() => setShowAccessibilitySettings(false)} />
+      )}
+
+      {showReviewMode && (
+        <ReviewMode 
+          onComplete={(results) => {
+            setReviewResults(results);
+            setShowReviewMode(false);
+            setShowReviewSummary(true);
+          }}
+          onClose={() => setShowReviewMode(false)}
+        />
+      )}
+
+      {showReviewSummary && reviewResults && (
+        <ReviewSummary 
+          results={reviewResults}
+          onClose={() => {
+            setShowReviewSummary(false);
+            setReviewResults(null);
+          }}
+        />
+      )}
+
+      {showAchievements && (
+        <AchievementsGallery onClose={() => setShowAchievements(false)} />
+      )}
+
+      {showQuizBattle && (
+        <QuizBattleMode 
+          onClose={() => setShowQuizBattle(false)}
+          onComplete={(won, points) => {
+            if (points > 0) addPoints(points);
+            setShowQuizBattle(false);
+          }}
+        />
+      )}
+
+      {showLearningPaths && (
+        <LearningPathsView 
+          onStartLesson={handleStartLearningPathLesson}
+          onClose={() => setShowLearningPaths(false)}
+        />
+      )}
+
+      {showTeacherDashboard && (
+        <Suspense fallback={<LoadingSpinner />}>
+          <TeacherDashboard onClose={() => setShowTeacherDashboard(false)} />
         </Suspense>
       )}
 

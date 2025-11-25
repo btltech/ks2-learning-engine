@@ -1,9 +1,9 @@
 import { UserProfile, ParentStats, StoreItem, Difficulty } from '../types';
 
-// Mock user data
-const MOCK_USER: UserProfile = {
+// Default user template for new account creation
+const DEFAULT_USER_TEMPLATE: UserProfile = {
   id: 'user-123',
-  name: 'Alex',
+  name: '',
   role: 'student',
   age: 9,
   totalPoints: 0,
@@ -23,14 +23,14 @@ const MOCK_USER: UserProfile = {
 const STORAGE_KEY = 'ks2_user'; // Match UserContext storage key
 
 export const authService = {
-  // Simulate login
+  // Create new user account
   login: async (name: string, role: 'student' | 'parent', age?: number): Promise<UserProfile> => {
     // In a real app, this would call an API
     return new Promise((resolve) => {
       setTimeout(() => {
-        // Always create a new user session on explicit login
+        // Create a new user profile
         const newUser = { 
-          ...MOCK_USER, 
+          ...DEFAULT_USER_TEMPLATE, 
           id: `user-${Date.now()}`, // Generate unique ID
           name, 
           role, 
@@ -40,7 +40,7 @@ export const authService = {
         
         localStorage.setItem(STORAGE_KEY, JSON.stringify(newUser));
         resolve(newUser);
-      }, 800); // Fake network delay
+      }, 500); // Short delay for UX
     });
   },
 
@@ -94,19 +94,65 @@ export const authService = {
     return authService.updateUser({ avatarConfig: newAvatarConfig });
   },
 
-  // Mock Parent Stats
+  // Get real parent stats from stored user data
   getParentStats: (): ParentStats => {
+    const user = authService.getCurrentUser();
+    if (!user) {
+      return {
+        totalTimeSpent: 0,
+        quizzesTaken: 0,
+        averageScore: 0,
+        strongestSubject: '',
+        weakestSubject: '',
+        recentActivity: []
+      };
+    }
+
+    // Calculate stats from real user data
+    const quizHistory = user.quizHistory || [];
+    const totalTimeSpent = Object.values(user.timeSpentLearning || {}).reduce((sum, time) => sum + time, 0);
+    const quizzesTaken = quizHistory.length;
+    const averageScore = quizzesTaken > 0 
+      ? Math.round(quizHistory.reduce((sum, q) => sum + q.score, 0) / quizzesTaken)
+      : 0;
+    
+    // Find strongest and weakest subjects from mastery
+    const mastery = user.mastery || {};
+    const subjects = Object.entries(mastery);
+    let strongestSubject = '';
+    let weakestSubject = '';
+    
+    if (subjects.length > 0) {
+      const sorted = subjects.sort((a, b) => {
+        const avgA = Object.values(a[1] || {}).reduce((s, v) => s + v, 0) / Math.max(Object.keys(a[1] || {}).length, 1);
+        const avgB = Object.values(b[1] || {}).reduce((s, v) => s + v, 0) / Math.max(Object.keys(b[1] || {}).length, 1);
+        return avgB - avgA;
+      });
+      strongestSubject = sorted[0]?.[0] || '';
+      weakestSubject = sorted[sorted.length - 1]?.[0] || '';
+    }
+
+    // Format recent activity from quiz history
+    const recentActivity = quizHistory.slice(-5).reverse().map((quiz) => {
+      const date = new Date(quiz.completedAt);
+      const today = new Date();
+      const diffDays = Math.floor((today.getTime() - date.getTime()) / (1000 * 60 * 60 * 24));
+      let dateStr = diffDays === 0 ? 'Today' : diffDays === 1 ? 'Yesterday' : `${diffDays} days ago`;
+      
+      return {
+        date: dateStr,
+        activity: `Completed ${quiz.topic} Quiz`,
+        score: quiz.score
+      };
+    });
+
     return {
-      totalTimeSpent: 145,
-      quizzesTaken: 12,
-      averageScore: 85,
-      strongestSubject: 'Maths',
-      weakestSubject: 'History',
-      recentActivity: [
-        { date: 'Today', activity: 'Completed Fractions Quiz', score: 90 },
-        { date: 'Yesterday', activity: 'Read Ancient Egypt Lesson' },
-        { date: '2 days ago', activity: 'Completed Grammar Quiz', score: 80 },
-      ]
+      totalTimeSpent,
+      quizzesTaken,
+      averageScore,
+      strongestSubject,
+      weakestSubject,
+      recentActivity
     };
   }
 };

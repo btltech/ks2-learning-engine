@@ -12,12 +12,79 @@ interface ParentMonitoringDashboardProps {
 }
 
 const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ onLogout }) => {
-  const { user, selectedChildId, selectChild, linkChildToParent, generateParentCode } = useUser();
+  const { user, currentChild, linkedChildren, selectedChildId, selectChild, linkChildToParent, generateParentCode } = useUser();
   const [activeTab, setActiveTab] = useState<'overview' | 'progress' | 'insights' | 'reports' | 'leaderboard' | 'settings'>('overview');
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   const [notifications, setNotifications] = useState<Notification[]>([]);
 
-  // Sample notifications - in production, these would come from real-time listeners
+  // Get real child data from context
+  const selectedChild = currentChild || linkedChildren?.[0] || null;
+  
+  // Calculate real student data from the selected child
+  const studentData = useMemo(() => {
+    if (!selectedChild) {
+      return {
+        name: 'No child selected',
+        totalPointsEarned: 0,
+        currentStreak: 0,
+        badges: 0,
+        subjects: {} as Record<string, { progress: number; lastActive: string; topicsMastered: number }>,
+        recentActivity: [] as Array<{ date: string; activity: string; score?: number }>
+      };
+    }
+
+    // Calculate subject progress from mastery data
+    const mastery = selectedChild.mastery || {};
+    const subjects: Record<string, { progress: number; lastActive: string; topicsMastered: number }> = {};
+    
+    Object.entries(mastery).forEach(([subject, topics]) => {
+      const topicValues = Object.values(topics || {});
+      const avgProgress = topicValues.length > 0 
+        ? Math.round(topicValues.reduce((sum, val) => sum + val, 0) / topicValues.length)
+        : 0;
+      const mastered = topicValues.filter(v => v >= 80).length;
+      
+      subjects[subject] = {
+        progress: avgProgress,
+        lastActive: 'Recently', // Would need activity tracking for accurate data
+        topicsMastered: mastered
+      };
+    });
+
+    // Get recent activity from quiz history
+    const quizHistory = selectedChild.quizHistory || [];
+    const recentActivity = quizHistory.slice(-5).reverse().map((quiz) => {
+      const date = new Date(quiz.completedAt);
+      const today = new Date();
+      const diffDays = Math.floor((today.getTime() - date.getTime()) / (1000 * 60 * 60 * 24));
+      const dateStr = diffDays === 0 ? 'Today' : diffDays === 1 ? 'Yesterday' : `${diffDays} days ago`;
+      
+      return {
+        date: dateStr,
+        activity: `Completed ${quiz.topic} Quiz`,
+        score: quiz.score
+      };
+    });
+
+    return {
+      name: selectedChild.name || 'Learner',
+      totalPointsEarned: selectedChild.totalPoints || 0,
+      currentStreak: selectedChild.streak || 0,
+      badges: selectedChild.badges?.length || 0,
+      subjects,
+      recentActivity
+    };
+  }, [selectedChild]);
+
+  // Format children for selector
+  const childrenForSelector = useMemo(() => {
+    return (linkedChildren || []).map(child => ({
+      id: child.id,
+      name: child.name || 'Child',
+      age: child.age || 9
+    }));
+  }, [linkedChildren]);
+
   const addNotification = (notif: Omit<Notification, 'id' | 'timestamp'>) => {
     const newNotif: Notification = {
       id: Date.now().toString(),
@@ -29,32 +96,6 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
 
   const handleDismissNotification = (id: string) => {
     setNotifications((prev) => prev.filter((n) => n.id !== id));
-  };
-
-  // Mock children for demo
-  const mockChildren = [
-    { id: 'child-1', name: 'Alex', age: 9 },
-    { id: 'child-2', name: 'Sarah', age: 11 }
-  ];
-
-  // Mock student data - in a real app, this would come from props or API
-  const studentData = {
-    name: 'Alex',
-    totalPointsEarned: 320,
-    currentStreak: 5,
-    badges: 7,
-    subjects: {
-      'Maths': { progress: 75, lastActive: 'Today', topicsMastered: 5 },
-      'English': { progress: 68, lastActive: '2 days ago', topicsMastered: 3 },
-      'Science': { progress: 82, lastActive: 'Today', topicsMastered: 6 },
-      'History': { progress: 45, lastActive: '5 days ago', topicsMastered: 1 },
-    },
-    recentActivity: [
-      { date: 'Today', activity: 'Completed Fractions Quiz', score: 90 },
-      { date: 'Today', activity: 'Read Photosynthesis Lesson' },
-      { date: 'Yesterday', activity: 'Completed Grammar Quiz', score: 85 },
-      { date: '2 days ago', activity: 'Completed Victorian Era Quiz', score: 72 },
-    ]
   };
 
   const handleResetActivity = () => {
@@ -105,7 +146,7 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
       <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Child Selector */}
         <ChildSelector
-          children={mockChildren}
+          children={childrenForSelector}
           selectedChildId={selectedChildId}
           onSelectChild={selectChild}
           onAddChild={(code) => {
@@ -192,14 +233,16 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
               <SubjectProgressCharts
                 subjects={['Maths', 'English', 'Science', 'History', 'Geography', 'PE']}
                 studentName={studentData.name}
+                childMastery={selectedChild?.mastery}
               />
             </div>
 
             {/* Activity Log Sidebar */}
             <div>
               <ParentActivityLog
-                childId="child-1"
+                childId={selectedChild?.id || 'default'}
                 childName={studentData.name}
+                childData={selectedChild}
               />
             </div>
           </div>
@@ -208,36 +251,47 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
         {activeTab === 'progress' && (
           <div className="bg-white rounded-xl shadow-md p-8">
             <h3 className="text-2xl font-bold text-gray-800 mb-6">Learning Progress</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {Object.entries(studentData.subjects).map(([subject, data]) => (
-                <div key={subject} className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6 border border-blue-100">
-                  <h4 className="text-xl font-bold text-gray-800 mb-4">{subject}</h4>
-                  <div className="space-y-3">
-                    <div>
-                      <div className="flex justify-between mb-2">
-                        <span className="text-sm font-medium text-gray-600">Mastery Level</span>
-                        <span className="text-sm font-bold text-blue-600">{data.progress}%</span>
-                      </div>
-                      <div className="w-full bg-gray-300 rounded-full h-2">
-                        <div
-                          className="bg-blue-500 h-2 rounded-full"
-                          style={{ width: `${data.progress}%` }}
-                        />
+            {Object.keys(studentData.subjects).length === 0 ? (
+              <div className="text-center py-12 text-gray-500">
+                <p className="text-5xl mb-4">📚</p>
+                <p className="text-lg">No subject progress yet.</p>
+                <p className="text-sm">Progress will appear here as your child completes quizzes.</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {Object.entries(studentData.subjects).map(([subject, subjectData]) => {
+                  const data = subjectData as { progress: number; lastActive: string; topicsMastered: number };
+                  return (
+                    <div key={subject} className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6 border border-blue-100">
+                      <h4 className="text-xl font-bold text-gray-800 mb-4">{subject}</h4>
+                      <div className="space-y-3">
+                        <div>
+                          <div className="flex justify-between mb-2">
+                            <span className="text-sm font-medium text-gray-600">Mastery Level</span>
+                            <span className="text-sm font-bold text-blue-600">{data.progress}%</span>
+                          </div>
+                          <div className="w-full bg-gray-300 rounded-full h-2">
+                            <div
+                              className="bg-blue-500 h-2 rounded-full"
+                              style={{ width: `${data.progress}%` }}
+                            />
+                          </div>
+                        </div>
+                        <p className="text-sm text-gray-600">✓ {data.topicsMastered} topics mastered</p>
+                        <p className="text-sm text-gray-600">Last active: {data.lastActive}</p>
                       </div>
                     </div>
-                    <p className="text-sm text-gray-600">✓ {data.topicsMastered} topics mastered</p>
-                    <p className="text-sm text-gray-600">Last active: {data.lastActive}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         )}
 
         {activeTab === 'leaderboard' && (
           <AgeGroupedLeaderboard
-            studentId="child-1"
-            studentAge={10}
+            studentId={selectedChild?.id || 'default'}
+            studentAge={selectedChild?.age || 9}
             limit={10}
           />
         )}
@@ -245,20 +299,49 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
         {activeTab === 'insights' && (
           <div className="bg-white rounded-xl shadow-md p-8">
             <h3 className="text-2xl font-bold text-gray-800 mb-6">Learning Insights</h3>
-            <div className="space-y-6">
-              <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded">
-                <p className="font-bold text-blue-900 mb-2">💡 Strength Area</p>
-                <p className="text-blue-800">{studentData.name} is showing excellent progress in <strong>Science</strong> with 82% mastery. Consider encouraging deeper exploration with advanced topics!</p>
+            {Object.keys(studentData.subjects).length === 0 ? (
+              <div className="text-center py-12 text-gray-500">
+                <p className="text-5xl mb-4">🔍</p>
+                <p className="text-lg">No insights available yet.</p>
+                <p className="text-sm">Complete some quizzes to see personalized learning insights.</p>
               </div>
-              <div className="bg-amber-50 border-l-4 border-amber-500 p-6 rounded">
-                <p className="font-bold text-amber-900 mb-2">⚠️ Areas for Support</p>
-                <p className="text-amber-800"><strong>History</strong> is an area where {studentData.name} could use more focus (45% mastery). Try encouraging more practice quizzes and interactive lessons.</p>
+            ) : (
+              <div className="space-y-6">
+                {(() => {
+                  const subjects = Object.entries(studentData.subjects)
+                    .map(([name, data]) => ({ name, progress: (data as { progress: number }).progress }))
+                    .sort((a, b) => b.progress - a.progress);
+                  const strongest = subjects[0];
+                  const weakest = subjects[subjects.length - 1];
+                  
+                  return (
+                    <>
+                      {strongest && strongest.progress > 0 && (
+                        <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded">
+                          <p className="font-bold text-blue-900 mb-2">💡 Strength Area</p>
+                          <p className="text-blue-800">{studentData.name} is showing excellent progress in <strong>{strongest.name}</strong> with {strongest.progress}% mastery. Consider encouraging deeper exploration with advanced topics!</p>
+                        </div>
+                      )}
+                      {weakest && weakest.progress < strongest?.progress && (
+                        <div className="bg-amber-50 border-l-4 border-amber-500 p-6 rounded">
+                          <p className="font-bold text-amber-900 mb-2">⚠️ Areas for Support</p>
+                          <p className="text-amber-800"><strong>{weakest.name}</strong> is an area where {studentData.name} could use more focus ({weakest.progress}% mastery). Try encouraging more practice quizzes and interactive lessons.</p>
+                        </div>
+                      )}
+                      <div className="bg-green-50 border-l-4 border-green-500 p-6 rounded">
+                        <p className="font-bold text-green-900 mb-2">🎯 Recommendation</p>
+                        <p className="text-green-800">
+                          {studentData.currentStreak > 0 
+                            ? `Your child is maintaining a ${studentData.currentStreak}-day streak! Keep encouraging consistent learning.`
+                            : 'Encourage your child to start a learning streak by completing activities daily!'
+                          } Consider setting a weekly learning goal to maintain momentum.
+                        </p>
+                      </div>
+                    </>
+                  );
+                })()}
               </div>
-              <div className="bg-green-50 border-l-4 border-green-500 p-6 rounded">
-                <p className="font-bold text-green-900 mb-2">🎯 Recommendation</p>
-                <p className="text-green-800">Your child is maintaining a {studentData.currentStreak}-day streak! Keep encouraging consistent learning. Consider setting a weekly learning goal to maintain momentum.</p>
-              </div>
-            </div>
+            )}
           </div>
         )}
 

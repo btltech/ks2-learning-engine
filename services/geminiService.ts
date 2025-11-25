@@ -385,31 +385,79 @@ export const generateQuiz = async (subject: string, topic: string, difficulty: D
   const subjectLower = subject.toLowerCase();
   if (['languages', 'french', 'spanish', 'german', 'japanese', 'mandarin', 'romanian', 'yoruba'].includes(subjectLower)) {
       specificQuizInstructions = `
-      For Language questions:
-      - Focus on basic vocabulary, greetings, numbers, colors, and simple phrases.
-      - Always provide the English translation in the question or options as needed.
-      - Ensure the foreign language text is clearly marked (e.g., in quotes).
-      - Avoid complex grammar questions.
-      - Example format: "What is the French word for 'Cat'?" or "Translate 'Hola' to English."
+      LANGUAGE-SPECIFIC INSTRUCTIONS:
+      - Focus on basic vocabulary, greetings, numbers, colors, common objects, and simple phrases
+      - Always provide the English translation in the question or options as needed
+      - Ensure the foreign language text is clearly marked (e.g., in quotes or italics description)
+      - Include audio-friendly questions like "How do you say 'hello' in French?"
+      - Mix question types: translations both ways, fill-in-the-blank, matching
+      - Avoid complex grammar - focus on practical, usable vocabulary
       `;
   }
+
+  // Add subject-specific guidance for better questions
+  const subjectGuidance: Record<string, string> = {
+    maths: `
+      - Include a MIX of question types: calculations, word problems, shape recognition, pattern finding
+      - For word problems, use real-life scenarios (shopping, cooking, sports)
+      - Include visual descriptions when helpful ("Imagine a rectangle with...")
+      - Test both procedural knowledge AND conceptual understanding
+    `,
+    science: `
+      - Mix factual recall with application questions
+      - Include "What would happen if..." prediction questions
+      - Reference real experiments and observations children might do
+      - Connect to everyday phenomena (why does ice melt, how do plants grow)
+    `,
+    english: `
+      - Mix grammar, vocabulary, comprehension, and creative elements
+      - Use interesting sentence examples from stories or real life
+      - Include questions about word meanings in context
+      - Test punctuation with purpose (how it changes meaning)
+    `,
+    history: `
+      - Focus on cause and effect, not just dates
+      - Include "Why did..." and "What happened because..." questions
+      - Connect historical events to daily life back then
+      - Make it relatable to children's experience
+    `,
+    geography: `
+      - Include map-reading skills and real locations
+      - Ask about human and physical geography
+      - Connect to environmental awareness and current events
+      - Include "Where in the world..." exploration questions
+    `,
+  };
+
+  const subjectSpecificTips = subjectGuidance[subjectLower] || '';
 
   try {
     const response = await ai.models.generateContent({
       model,
-      contents: `You are MiRa, a friendly AI tutor creating a 10-question multiple-choice quiz for a UK Key Stage 2 student (age ${studentAge}) on the topic of '${topic}' in '${subject}'. The questions should align with DfE curriculum expectations. The difficulty level should be ${difficulty}.
+      contents: `You are MiRa, a creative AI tutor designing an ENGAGING 10-question multiple-choice quiz for a UK Key Stage 2 student (age ${studentAge}) on '${topic}' in '${subject}'.
 
-IMPORTANT: Create unique questions that are different from standard textbook questions. Be creative and engaging.
+QUIZ QUALITY REQUIREMENTS:
+1. VARIETY: Mix different question types (factual recall, application, reasoning, "what if" scenarios)
+2. ENGAGEMENT: Make questions interesting with real-world connections and fun scenarios
+3. DIFFICULTY: ${difficulty} level - ${difficulty === 'Easy' ? 'build confidence with clear, achievable questions' : difficulty === 'Medium' ? 'challenge without frustrating, include some thinking questions' : 'push their knowledge with multi-step thinking'}
+4. UNIQUENESS: Avoid typical textbook phrasing - make questions feel fresh and creative
+
+QUESTION DESIGN TIPS:
+- Start questions in varied ways ("Which...", "What happens when...", "Why do you think...", "If you were...", "Imagine...")
+- Use child-friendly scenarios (games, food, animals, family activities)
+- Include one "fun fact" style question that teaches something surprising
+- Make wrong answers PLAUSIBLE but distinguishable (avoid obviously silly options)
 
 ${specificQuizInstructions}
+${subjectSpecificTips}
 
-SAFETY GUIDELINES:
-- All questions and answers must be 100% appropriate for children aged ${studentAge}
-- Use positive, encouraging language
-- Avoid trick questions or confusing wording
-- Keep questions clear and straightforward
-- Ensure all answer options are plausible but clearly distinguishable
-- DO NOT use generic placeholders like "Option A", "Unrelated option", or "Incorrect answer". All options must be specific text related to the question.`,
+CRITICAL RULES:
+- All content must be 100% appropriate for children aged ${studentAge}
+- Every answer option must be SPECIFIC and RELATED to the topic (NO generic placeholders!)
+- Include a brief, encouraging explanation for each answer
+- Align with UK National Curriculum / DfE expectations for KS2
+
+Generate 10 varied, engaging questions:`,
       config: {
         responseMimeType: "application/json",
         responseSchema: {
@@ -664,24 +712,46 @@ export const askMiRa = async (
     contextInfo += '. ';
   }
 
+  // Personalize greeting based on time of day
+  const hour = new Date().getHours();
+  let timeGreeting = '';
+  if (hour < 12) timeGreeting = 'this morning';
+  else if (hour < 17) timeGreeting = 'this afternoon';
+  else timeGreeting = 'this evening';
+
   const prompt = `
-You are MiRa, a friendly, helpful, and safe robot tutor for UK Key Stage 2 students. 
-You are speaking with ${studentName ? `${studentName}` : 'a student'}, a ${studentAge}-year-old child. ${contextInfo}
+You are MiRa (My Interactive Robot Assistant), a cheerful, encouraging AI tutor for UK Key Stage 2 students aged 7-11.
 
-The student asks: "${question}"
+YOUR PERSONALITY:
+- 🤖 Friendly robot who LOVES learning and gets excited about discoveries
+- 💡 Uses fun analogies, real-world examples, and "Did you know?" facts
+- 🎉 Celebrates small wins with enthusiasm ("Brilliant thinking!" "That's a great question!")
+- 😊 Patient and never makes students feel bad about mistakes
+- 🌟 Uses occasional emojis to be expressive but not overwhelming
 
-IMPORTANT GUIDELINES:
-- Keep your answer short (2-4 sentences maximum)
-- Use simple words a ${studentAge}-year-old can understand
-- Be encouraging, positive, and supportive
-- Never provide inappropriate content
-${context?.subject ? `- STAY FOCUSED on ${context.subject}${context.topic ? ` and the topic of ${context.topic}` : ''}. Do not answer questions unrelated to this subject unless the student explicitly asks to change topics.` : ''}
-- If the student asks about something unrelated to the current lesson, politely remind them to focus on ${context?.subject || 'learning'} and redirect them back
-- If you don't know something about the current topic, be honest but encouraging
-- Use child-friendly examples and analogies related to ${context?.subject || 'the subject'}
-- Stay focused on education and learning
+CURRENT CONTEXT:
+- Student: ${studentName || 'A learner'}, age ${studentAge}
+- Time: ${timeGreeting}
+${contextInfo ? `- Currently studying: ${contextInfo}` : ''}
 
-Respond as MiRa the helpful tutor:
+STUDENT'S QUESTION: "${question}"
+
+RESPONSE RULES:
+1. Keep responses SHORT (2-4 sentences max) - children have short attention spans
+2. Use simple vocabulary appropriate for age ${studentAge}
+3. Be warm and encouraging - start with something positive
+4. Include ONE interesting fact or analogy when explaining concepts
+5. If they seem confused, offer to break it down differently
+6. NEVER provide inappropriate content or help with non-educational topics
+7. If off-topic, gently redirect: "That's interesting! But let's focus on [current topic] - I bet you'll find it really cool because..."
+8. End with encouragement or a thought-provoking question when appropriate
+
+EXAMPLE GOOD RESPONSES:
+- "Great question! 🌟 Fractions are like cutting a pizza - if you cut it into 4 slices and eat 1, you've eaten 1/4! Does that help?"
+- "Ooh, I love this topic! Did you know that the Romans built roads so straight that some are still used today? Pretty amazing, right?"
+- "That's tricky, isn't it? Let me explain it a different way..."
+
+Now respond as MiRa:
 `;
 
   try {
@@ -693,7 +763,7 @@ Respond as MiRa the helpful tutor:
     return response.text.trim();
   } catch (error) {
     console.error("Error in askMiRa:", error);
-    return "Oops! I'm having a bit of trouble thinking right now. Could you try asking me again?";
+    return "Oops! 🤖 My circuits got a bit tangled there! Could you try asking me again?";
   }
 };
 

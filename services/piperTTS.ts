@@ -36,7 +36,6 @@ export const initPiperTTS = async (language: string = 'en-US'): Promise<boolean>
 
   // For now, disable Piper and use Web Speech API as primary
   // Piper TTS has environment-specific issues that need resolution
-  console.log(`🎤 Using optimized Web Speech API for TTS (natural voices, no downloads needed)`);
   usePiperTTS = false;
   return true;
 };
@@ -60,11 +59,8 @@ export const generatePiperAudio = async (
     // Initialize if needed
     const initialized = await initPiperTTS(language);
     if (!initialized) {
-      console.warn('TTS not available');
       return null;
     }
-
-    console.log(`🎤 Generating natural speech via Web Speech API...`);
 
     // Use optimized Web Speech API instead
     const languageLabel = languageCodeToLabel[language] || 'English';
@@ -73,8 +69,7 @@ export const generatePiperAudio = async (
     // Return a placeholder to indicate success
     // (Web Speech API plays audio directly, doesn't return a URL)
     return 'web-speech-api';
-  } catch (error) {
-    console.error('TTS error:', error);
+  } catch {
     return null;
   }
 };

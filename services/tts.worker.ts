@@ -25,7 +25,7 @@ const getSpeakerEmbeddings = async () => {
     throw new Error('Speaker embeddings file is unexpectedly small');
   }
   if (data.length % 512 !== 0) {
-    console.warn('Speaker embeddings length is not an exact 512*n; last vector may be incomplete; dropping trailing values');
+    // Embeddings length is not exact 512*n; dropping trailing values
   }
   const totalVectors = Math.floor(data.length / 512);
   speakerEmbeddingsList = [];
@@ -55,7 +55,6 @@ const getSpeakerEmbeddings = async () => {
 const getSpeakerEmbeddingByIndex = async (idx: number) => {
   const list = await getSpeakerEmbeddings();
   if (idx < 0 || idx >= list.length) {
-    console.warn(`Requested speaker embedding index ${idx} is out of range. Using 0 instead.`);
     idx = 0;
   }
   const embeddingVec = list[idx];
@@ -70,7 +69,6 @@ const getSpeakerEmbeddingByIndex = async (idx: number) => {
 const initialize = async () => {
   if (synthesizer) return;
   
-  console.log('Worker: Initializing TTS model...');
   try {
     synthesizer = await pipeline(
       'text-to-speech',
@@ -81,10 +79,8 @@ const initialize = async () => {
         }
       }
     );
-    console.log('Worker: TTS model initialized');
   } catch (err) {
     // Reset initPromise in the main thread so a retry is possible
-    console.error('Failed to initialize TTS model in worker:', err);
     throw err;
   }
 };
@@ -145,7 +141,6 @@ self.addEventListener('message', async (event) => {
 
       const embeddings = await getSpeakerEmbeddingByIndex(typeof event.data.speakerIndex === 'number' ? event.data.speakerIndex : 0);
       
-      console.log('Worker: Generating speech...');
       const output = await synthesizer(text, { 
         speaker_embeddings: embeddings
       });
@@ -166,7 +161,6 @@ self.addEventListener('message', async (event) => {
     } catch (error: any) {
       // Clear the init promise so subsequent attempts can retry initialization
       initPromise = null;
-      console.error('Worker error:', error);
       self.postMessage({ type: 'error', error: error.message || String(error) });
     }
   }

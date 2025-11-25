@@ -23,6 +23,8 @@ interface UserContextType {
   updateSettings: (settings: Partial<{ aiFallbackEnabled: boolean; adaptiveChallengeEnabled: boolean }>) => void;
   // Multi-child support
   selectedChildId: string | null;
+  currentChild: UserProfile | null;
+  linkedChildren: UserProfile[];
   selectChild: (childId: string) => void;
   getChildData: (childId: string) => UserProfile | null;
   registerChild: (childProfile: UserProfile) => void;
@@ -68,6 +70,7 @@ const INITIAL_USER: UserProfile = {
 export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<UserProfile | null>(null);
   const [selectedChildId, setSelectedChildId] = useState<string | null>(null);
+  const [linkedChildren, setLinkedChildren] = useState<UserProfile[]>([]);
   const [settings, setSettings] = useState({
     aiFallbackEnabled: true,
     adaptiveChallengeEnabled: true,
@@ -119,8 +122,29 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
       localStorage.setItem('ks2_user', JSON.stringify(user));
       // Sync to global leaderboard
       leaderboardService.submitScore(user);
+      
+      // Load linked children for parent users
+      if (user.role === 'parent' && user.childrenIds && user.childrenIds.length > 0) {
+        const children: UserProfile[] = [];
+        user.childrenIds.forEach(childId => {
+          const childData = localStorage.getItem(`ks2_child_${childId}`);
+          if (childData) {
+            children.push(JSON.parse(childData));
+          }
+        });
+        setLinkedChildren(children);
+        // Auto-select first child if none selected
+        if (!selectedChildId && children.length > 0) {
+          setSelectedChildId(children[0].id);
+        }
+      } else {
+        setLinkedChildren([]);
+      }
     }
   }, [user]);
+
+  // Compute current child from selectedChildId
+  const currentChild = linkedChildren.find(c => c.id === selectedChildId) || null;
 
   useEffect(() => {
     localStorage.setItem('ks2_settings', JSON.stringify(settings));
@@ -416,7 +440,6 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const childData = localStorage.getItem(`ks2_child_${childId}`);
       if (childData) {
         // In a real app, we'd load the child's data for monitoring
-        console.log('Monitoring child:', childId);
       }
     }
   };
@@ -496,6 +519,8 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
       updateSettings,
       // Multi-child functions
       selectedChildId,
+      currentChild,
+      linkedChildren,
       selectChild,
       getChildData,
       registerChild,

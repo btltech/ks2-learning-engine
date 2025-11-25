@@ -6,7 +6,8 @@ import LoadingSpinner from './LoadingSpinner';
 import { Skeleton } from './Skeleton';
 import { useTTS } from '../hooks/useTTS';
 import { useGameSounds } from '../hooks/useGameSounds';
-import { SpeakerWaveIcon, StopIcon, LightBulbIcon } from '@heroicons/react/24/solid';
+import { useVoiceInput, parseAnswerOption } from '../hooks/useVoiceInput';
+import { SpeakerWaveIcon, StopIcon, LightBulbIcon, MicrophoneIcon } from '@heroicons/react/24/solid';
 
 interface QuizViewProps {
   subject: string;
@@ -30,6 +31,63 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
   const [timeLeft, setTimeLeft] = useState(15);
   const [currentHint, setCurrentHint] = useState<string>('');
   const [isGettingHint, setIsGettingHint] = useState(false);
+
+  // Voice input for hands-free quiz answering
+  const handleVoiceCommand = useCallback((command: string) => {
+    const currentQuestion = questions[currentQuestionIndex];
+    if (!currentQuestion) return;
+    
+    // Handle answer selection
+    if (command === 'selectA' && currentQuestion.options[0]) {
+      setSelectedOption(currentQuestion.options[0]);
+      playClick();
+    } else if (command === 'selectB' && currentQuestion.options[1]) {
+      setSelectedOption(currentQuestion.options[1]);
+      playClick();
+    } else if (command === 'selectC' && currentQuestion.options[2]) {
+      setSelectedOption(currentQuestion.options[2]);
+      playClick();
+    } else if (command === 'selectD' && currentQuestion.options[3]) {
+      setSelectedOption(currentQuestion.options[3]);
+      playClick();
+    } else if (command === 'next' || command === 'submit') {
+      if (selectedOption) {
+        handleNextQuestion();
+      }
+    } else if (command === 'repeat') {
+      speak(currentQuestion.question);
+    } else if (command === 'hint') {
+      handleGetHint();
+    }
+  }, [questions, currentQuestionIndex, selectedOption, playClick, speak]);
+
+  const { 
+    isListening, 
+    transcript, 
+    interimTranscript,
+    error: voiceError, 
+    isSupported: voiceSupported,
+    startListening, 
+    stopListening 
+  } = useVoiceInput({ 
+    language: 'en-GB',
+    onCommand: handleVoiceCommand
+  });
+
+  // Process voice transcript for direct answer selection
+  useEffect(() => {
+    if (transcript && questions[currentQuestionIndex]) {
+      const answerOption = parseAnswerOption(transcript);
+      if (answerOption) {
+        const optionIndex = answerOption.charCodeAt(0) - 65; // A=0, B=1, etc.
+        const currentQuestion = questions[currentQuestionIndex];
+        if (currentQuestion.options[optionIndex]) {
+          setSelectedOption(currentQuestion.options[optionIndex]);
+          playClick();
+        }
+      }
+    }
+  }, [transcript, questions, currentQuestionIndex, playClick]);
 
   // Timer for speed mode
   useEffect(() => {
@@ -201,6 +259,20 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
           >
             {isSpeaking ? <StopIcon className="h-6 w-6" /> : <SpeakerWaveIcon className="h-6 w-6" />}
           </button>
+          {voiceSupported && (
+            <button
+              onClick={() => isListening ? stopListening() : startListening()}
+              className={`p-2 rounded-full transition-colors ${
+                isListening 
+                  ? 'bg-red-100 text-red-600 animate-pulse' 
+                  : 'text-purple-500 hover:bg-purple-50'
+              }`}
+              aria-label={isListening ? "Stop voice input" : "Answer by voice"}
+              title="Say 'A', 'B', 'C', or 'D' to select an answer"
+            >
+              <MicrophoneIcon className="h-6 w-6" />
+            </button>
+          )}
           <button
             onClick={handleGetHint}
             disabled={isGettingHint}
@@ -212,6 +284,21 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
           </button>
         </div>
       </div>
+
+      {/* Voice Input Status */}
+      {isListening && (
+        <div className="mb-4 p-3 bg-purple-50 border border-purple-200 rounded-lg">
+          <div className="flex items-center">
+            <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse mr-3" />
+            <p className="text-sm text-purple-700 font-medium">
+              Listening... Say "A", "B", "C", or "D" to select an answer
+            </p>
+          </div>
+          {interimTranscript && (
+            <p className="text-xs text-purple-500 mt-1 italic">Hearing: "{interimTranscript}"</p>
+          )}
+        </div>
+      )}
 
       {/* Hint Display */}
       {currentHint && (

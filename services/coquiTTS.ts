@@ -16,7 +16,6 @@ export const initCoquiTTS = async (): Promise<boolean> => {
   if (worker) return true;
   
   try {
-    console.log('Initializing TTS Worker...');
     worker = new Worker(new URL('./tts.worker.ts', import.meta.url), { type: 'module' });
     
     worker.onmessage = (event) => {
@@ -28,18 +27,15 @@ export const initCoquiTTS = async (): Promise<boolean> => {
       if (type === 'progress') {
         if (data.status === 'progress') {
           const pct = Math.round(data.progress || 0);
-          console.log(`Worker loading model: ${data.file} - ${pct}%`);
           progressListeners.forEach((cb) => cb({ file: data.file, progress: pct, status: 'loading' }));
         }
       } else if (type === 'error') {
-        console.error('Worker error:', error);
         errorListeners.forEach((cb) => cb(error));
       }
     };
     
     return true;
-  } catch (error) {
-    console.error('Failed to initialize TTS worker:', error);
+  } catch {
     return false;
   }
 };
@@ -55,13 +51,11 @@ export const generateCoquiAudio = async (text: string, options?: { speakerIndex?
   }
   
   if (!worker) {
-    console.error('TTS Worker not initialized');
     return null;
   }
 
   return new Promise((resolve) => {
     const timeoutId = setTimeout(() => {
-      console.warn('TTS Worker timed out - falling back to alternative');
       errorListeners.forEach(cb => cb('TTS processing delayed'));
       resolve(null);
     }, 60000); // 60s timeout - increased for initial model load
@@ -76,16 +70,13 @@ export const generateCoquiAudio = async (text: string, options?: { speakerIndex?
         try {
           const blob = new Blob([buffer], { type: 'audio/wav' });
           const url = URL.createObjectURL(blob);
-          console.log('Audio generated successfully via Worker');
           resolve(url);
-        } catch (e) {
-          console.error('Error creating blob from worker data:', e);
+        } catch {
           resolve(null);
         }
       } else if (type === 'error') {
         clearTimeout(timeoutId);
         worker!.removeEventListener('message', handleMessage);
-        console.error('Worker reported error:', error);
         errorListeners.forEach(cb => cb(error));
         resolve(null);
       }

@@ -13,13 +13,11 @@ class OfflineManager {
   private handleOnline = () => {
     this.isOnline = true;
     this.notifyListeners();
-    console.log('[Offline Manager] Connection restored');
   };
 
   private handleOffline = () => {
     this.isOnline = false;
     this.notifyListeners();
-    console.log('[Offline Manager] Connection lost - switching to offline mode');
   };
 
   private notifyListeners() {

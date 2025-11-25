@@ -1,69 +1,76 @@
 import React, { useMemo } from 'react';
 import { CheckCircleIcon, SparklesIcon, FireIcon, StarIcon, TrophyIcon, ClockIcon } from '@heroicons/react/24/solid';
-import { useRealtimeStudentActivity } from '../hooks/useRealtimeListeners';
-import { UserProfile } from '../types';
+import { useRealtimeStudentActivity, useRealtimeChildProfile } from '../hooks/useRealtimeListeners';
+import { UserProfile, QuizSession } from '../types';
+
+interface ActivityItem {
+  id: string;
+  timestamp: Date;
+  type: 'quiz_complete' | 'lesson_complete' | 'badge_earned' | 'streak_milestone';
+  title: string;
+  description: string;
+  icon: string;
+  points: number;
+  subject: string;
+}
 
 interface ParentActivityLogProps {
   childId: string;
   childName: string;
+  childData?: UserProfile | null;
 }
 
-const ParentActivityLog: React.FC<ParentActivityLogProps> = ({ childId, childName }) => {
+const ParentActivityLog: React.FC<ParentActivityLogProps> = ({ childId, childName, childData }) => {
   const { lastUpdate, pointsGained, loading, error } = useRealtimeStudentActivity(childId);
+  const { childData: realtimeChildData } = useRealtimeChildProfile(childId);
+  
+  // Use provided childData or realtime data
+  const child = childData || realtimeChildData;
 
-  // Mock activity history - in real app, this would come from Firestore
-  const activityHistory = useMemo(() => [
-    {
-      id: 'activity-1',
-      timestamp: new Date(Date.now() - 5 * 60000), // 5 mins ago
-      type: 'quiz_complete',
-      title: 'Completed Fractions Quiz',
-      description: 'Score: 92% | Earned 45 points',
-      icon: '✅',
-      points: 45,
-      subject: 'Maths',
-    },
-    {
-      id: 'activity-2',
-      timestamp: new Date(Date.now() - 15 * 60000), // 15 mins ago
-      type: 'lesson_complete',
-      title: 'Completed Photosynthesis Lesson',
-      description: 'Video lesson - 8 minutes | Earned 20 points',
-      icon: '📖',
-      points: 20,
-      subject: 'Science',
-    },
-    {
-      id: 'activity-3',
-      timestamp: new Date(Date.now() - 1 * 60 * 60000), // 1 hour ago
-      type: 'badge_earned',
-      title: 'Badge Unlocked: Math Master',
-      description: 'Earned badge for 80% mastery in Mathematics',
-      icon: '🏅',
-      points: 0,
-      subject: 'Maths',
-    },
-    {
-      id: 'activity-4',
-      timestamp: new Date(Date.now() - 3 * 60 * 60000), // 3 hours ago
-      type: 'streak_milestone',
-      title: 'Streak Milestone: 7 Days!',
-      description: 'Maintained learning streak for 7 consecutive days',
-      icon: '🔥',
-      points: 50,
-      subject: 'General',
-    },
-    {
-      id: 'activity-5',
-      timestamp: new Date(Date.now() - 1 * 24 * 60 * 60000), // 1 day ago
-      type: 'quiz_complete',
-      title: 'Completed Victorian Era Quiz',
-      description: 'Score: 78% | Earned 35 points',
-      icon: '✅',
-      points: 35,
-      subject: 'History',
-    },
-  ], []);
+  // Build real activity history from quiz history and badges
+  const activityHistory = useMemo((): ActivityItem[] => {
+    if (!child) return [];
+    
+    const activities: ActivityItem[] = [];
+    
+    // Add quiz completions from quiz history
+    const quizHistory = child.quizHistory || [];
+    quizHistory.forEach((quiz: QuizSession, index: number) => {
+      const points = Math.round(quiz.score * 0.5); // Approximate points from score
+      activities.push({
+        id: `quiz-${quiz.completedAt}-${index}`,
+        timestamp: new Date(quiz.completedAt),
+        type: 'quiz_complete',
+        title: `Completed ${quiz.topic} Quiz`,
+        description: `Score: ${quiz.score}% | Earned ${points} points`,
+        icon: '✅',
+        points,
+        subject: quiz.subject,
+      });
+    });
+    
+    // Add badge earning events
+    const badges = child.badges || [];
+    badges.forEach((badge, index) => {
+      if (badge.earnedAt) {
+        activities.push({
+          id: `badge-${badge.id}-${index}`,
+          timestamp: new Date(badge.earnedAt),
+          type: 'badge_earned',
+          title: `Badge Unlocked: ${badge.name}`,
+          description: badge.description,
+          icon: badge.icon || '🏅',
+          points: 0,
+          subject: 'General',
+        });
+      }
+    });
+    
+    // Sort by timestamp (newest first) and limit to recent
+    return activities
+      .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
+      .slice(0, 10);
+  }, [child]);
 
   const formatTime = (date: Date) => {
     const now = new Date();

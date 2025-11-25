@@ -137,10 +137,15 @@ export interface AvatarConfig {
 export interface StoreItem {
   id: string;
   name: string;
-  type: 'color' | 'accessory';
+  type: 'color' | 'accessory' | 'background' | 'title' | 'effect';
   cost: number;
   value: string; // The actual CSS class or color code
   icon: string; // Emoji or icon name
+  description?: string; // Item description
+  rarity?: 'common' | 'rare' | 'epic' | 'legendary';
+  requiresAchievement?: string; // Achievement ID required to unlock
+  isLimited?: boolean; // Limited time item
+  previewColor?: string; // Actual hex color for preview
 }
 
 export interface ParentStats {

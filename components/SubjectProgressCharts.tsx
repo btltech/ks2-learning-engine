@@ -1,35 +1,50 @@
 import React, { useMemo } from 'react';
 import { ChartBarIcon, AcademicCapIcon, SparklesIcon, ArrowTrendingUpIcon } from '@heroicons/react/24/solid';
+import { useUser } from '../context/UserContext';
 
 interface SubjectProgressChartsProps {
   subjects: string[];
   studentName?: string;
   minMasteryScore?: number;
+  childMastery?: Record<string, Record<string, number>>;
 }
+
+// Subject color mapping
+const SUBJECT_COLORS: Record<string, string> = {
+  'Maths': 'from-blue-400 to-blue-600',
+  'English': 'from-purple-400 to-purple-600',
+  'Science': 'from-green-400 to-green-600',
+  'History': 'from-orange-400 to-orange-600',
+  'Geography': 'from-red-400 to-red-600',
+  'PE': 'from-pink-400 to-pink-600',
+};
 
 const SubjectProgressCharts: React.FC<SubjectProgressChartsProps> = ({
   subjects,
   studentName = 'Student',
   minMasteryScore = 0,
+  childMastery,
 }) => {
-  // Mock data for subjects with progress bars
-  const mockSubjectData = useMemo(() => {
-    return {
-      'Maths': { progress: 82, topics: 15, mastered: 12, color: 'from-blue-400 to-blue-600' },
-      'English': { progress: 68, topics: 18, mastered: 10, color: 'from-purple-400 to-purple-600' },
-      'Science': { progress: 75, topics: 20, mastered: 14, color: 'from-green-400 to-green-600' },
-      'History': { progress: 45, topics: 12, mastered: 4, color: 'from-orange-400 to-orange-600' },
-      'Geography': { progress: 60, topics: 14, mastered: 8, color: 'from-red-400 to-red-600' },
-      'PE': { progress: 55, topics: 8, mastered: 4, color: 'from-pink-400 to-pink-600' },
-    };
-  }, []);
+  const { user } = useUser();
+  
+  // Use provided childMastery or fall back to current user's mastery
+  const mastery = childMastery || user?.mastery || {};
 
+  // Calculate real subject data from mastery
   const getSubjectData = (subject: string) => {
-    return mockSubjectData[subject as keyof typeof mockSubjectData] || {
-      progress: 0,
-      topics: 0,
-      mastered: 0,
-      color: 'from-gray-400 to-gray-600',
+    const subjectMastery = mastery[subject] || {};
+    const topicValues = Object.values(subjectMastery) as number[];
+    const totalTopics = topicValues.length;
+    const progress = totalTopics > 0 
+      ? Math.round(topicValues.reduce((sum: number, val: number) => sum + val, 0) / totalTopics)
+      : 0;
+    const mastered = topicValues.filter((v: number) => v >= 80).length;
+    
+    return {
+      progress,
+      topics: totalTopics,
+      mastered,
+      color: SUBJECT_COLORS[subject] || 'from-gray-400 to-gray-600',
     };
   };
 
@@ -57,6 +72,30 @@ const SubjectProgressCharts: React.FC<SubjectProgressChartsProps> = ({
     if (progress >= 25) return { label: 'Beginner', color: 'bg-orange-500' };
     return { label: 'Starting', color: 'bg-red-500' };
   };
+
+  // Show empty state when there's no progress data yet
+  const hasProgress = totalTopics > 0;
+
+  if (!hasProgress) {
+    return (
+      <div className="bg-white rounded-xl shadow-md p-8 text-center">
+        <div className="text-6xl mb-4">📚</div>
+        <h3 className="text-2xl font-bold text-gray-800 mb-4">No Progress Yet</h3>
+        <p className="text-gray-600 mb-4">
+          {studentName} hasn't completed any quizzes yet. Progress will appear here once they start learning!
+        </p>
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-left">
+          <p className="font-bold text-blue-800 mb-2">💡 How to get started:</p>
+          <ul className="text-blue-700 text-sm space-y-1">
+            <li>• Select a subject from the main menu</li>
+            <li>• Choose a topic to learn about</li>
+            <li>• Complete a lesson and take a quiz</li>
+            <li>• Progress will be tracked automatically!</li>
+          </ul>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-8">
