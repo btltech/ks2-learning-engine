@@ -21,10 +21,22 @@ import { SUBJECTS } from './constants';
 import HomeView from './components/HomeView';
 import { spacedRepetitionService } from './services/spacedRepetitionService';
 import { dailyChallengeService, DailyChallenge } from './services/dailyChallengeService';
+import { initializeGoogleCloudTTS } from './services/googleCloudTTS';
+import { ttsConfigManager } from './services/ttsConfigManager';
 
 // Initialize accessibility features
 if (typeof window !== 'undefined') {
   initializeAccessibility();
+  
+  // Initialize Google Cloud TTS if API key is available
+  const apiKey = (import.meta as unknown as { env: { VITE_GOOGLE_CLOUD_TTS_API_KEY?: string } }).env?.VITE_GOOGLE_CLOUD_TTS_API_KEY;
+  if (apiKey) {
+    initializeGoogleCloudTTS(apiKey);
+    ttsConfigManager.setGoogleCloudApiKey(apiKey);
+    console.log('✓ Google Cloud TTS initialized successfully');
+  } else {
+    console.info('ℹ Google Cloud TTS API key not configured. Using Web Speech API as fallback.');
+  }
 }
 
 // Lazy loaded components
