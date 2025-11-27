@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useTTS } from '../hooks/useTTS';
+import { useTTSEnhanced } from '../hooks/useTTSEnhanced';
 import TTSSettings from './TTSSettings';
 import type { TTSConfig } from '../services/ttsConfigManager';
 
@@ -17,13 +17,17 @@ export const GoogleCloudTTSExample: React.FC<GoogleCloudTTSExampleProps> = ({
   const {
     speak,
     cancel,
+    switchProvider,
     isSpeaking,
     isLoading,
     progress,
     errorMessage,
-    needsGesture,
-    setNeedsGesture
-  } = useTTS(language);
+    activeProvider,
+    googleCloudAvailable,
+    availableProviders
+  } = useTTSEnhanced(language, {
+    googleCloudApiKey: (import.meta as unknown as { env: { VITE_GOOGLE_CLOUD_TTS_API_KEY?: string } }).env?.VITE_GOOGLE_CLOUD_TTS_API_KEY
+  });
 
   const handleSpeak = async () => {
     if (testText.trim()) {
@@ -49,8 +53,8 @@ export const GoogleCloudTTSExample: React.FC<GoogleCloudTTSExampleProps> = ({
       <div className="mb-6">
         <h2 className="text-2xl font-bold text-gray-800 mb-2">Text-to-Speech Demo</h2>
         <p className="text-gray-600">
-          Language: <span className="font-semibold">{language}</span> |
-          Provider: <span className="font-semibold">Web Speech</span>
+          Language: <span className="font-semibold">{language}</span> | 
+          Provider: <span className="font-semibold">{activeProvider === 'google-cloud' ? 'Google Cloud' : activeProvider === 'web-speech' ? 'Web Speech' : 'Piper'}</span>
         </p>
       </div>
 
@@ -79,6 +83,12 @@ export const GoogleCloudTTSExample: React.FC<GoogleCloudTTSExampleProps> = ({
         {errorMessage && (
           <div className="mt-2 p-2 bg-red-100 border border-red-300 text-red-700 rounded text-sm">
             ⚠ {errorMessage}
+          </div>
+        )}
+
+        {googleCloudAvailable && !errorMessage && (
+          <div className="mt-2 p-2 bg-green-100 border border-green-300 text-green-700 rounded text-sm">
+            ✓ Google Cloud TTS is ready
           </div>
         )}
       </div>
@@ -142,6 +152,36 @@ export const GoogleCloudTTSExample: React.FC<GoogleCloudTTSExampleProps> = ({
         </button>
       </div>
 
+      {/* Provider Selection */}
+      {availableProviders.length > 1 && (
+        <div className="mb-6">
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            TTS Provider
+          </label>
+          <div className="flex gap-2">
+            {availableProviders.map(provider => (
+              <button
+                key={provider}
+                onClick={() => handleSwitchProvider(provider as 'web-speech' | 'google-cloud' | 'piper')}
+                className={`px-3 py-2 rounded-lg font-medium transition-colors ${
+                  activeProvider === provider
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                }`}
+                disabled={isSpeaking || isLoading}
+              >
+                {provider === 'google-cloud' ? '☁️ Google Cloud' :
+                 provider === 'web-speech' ? '🎙️ Web Speech' :
+                 '🎵 Piper'}
+              </button>
+            ))}
+          </div>
+          <p className="text-xs text-gray-600 mt-2">
+            Click to switch between available TTS providers
+          </p>
+        </div>
+      )}
+
       {/* Settings Button */}
       <div className="mb-6">
         <button
@@ -156,10 +196,11 @@ export const GoogleCloudTTSExample: React.FC<GoogleCloudTTSExampleProps> = ({
       <div className="p-4 bg-gray-50 border border-gray-200 rounded-lg">
         <h3 className="font-medium text-gray-800 mb-2">ℹ️ Information</h3>
         <ul className="text-sm text-gray-700 space-y-1">
-          <li>• <strong>Web Speech API</strong>: Built-in browser text-to-speech</li>
-          <li>• Works in all modern browsers without API keys</li>
-          <li>• Supports multiple languages and voices</li>
-          <li>• Fast and reliable for basic text-to-speech needs</li>
+          <li>• <strong>Google Cloud TTS</strong>: Premium neural voices with high quality</li>
+          <li>• <strong>Web Speech API</strong>: Free, built-in browser TTS (fallback)</li>
+          <li>• <strong>Piper TTS</strong>: Open-source offline text-to-speech</li>
+          <li>• All 17 languages supported with native voices</li>
+          <li>• Audio is automatically cached for improved performance</li>
         </ul>
       </div>
 

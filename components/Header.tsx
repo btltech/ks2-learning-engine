@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { AcademicCapIcon, StarIcon, ShoppingBagIcon, ChartBarIcon, ArrowRightOnRectangleIcon, FireIcon, TrophyIcon } from '@heroicons/react/24/solid';
 import EmbeddingSelector from './EmbeddingSelector';
+import TTSDemo from './TTSDemo';
 import { UserProfile } from '../types';
 import { useGameSounds } from '../hooks/useGameSounds';
 
@@ -65,6 +66,7 @@ const Header: React.FC<HeaderProps> = ({
           {/* Right Side Actions */}
             <div className="flex items-center gap-1 sm:gap-4">
               {user.role === 'admin' && <EmbeddingSelector />}
+              {user.role === 'admin' && <TTSDemo />}
 
             {/* Badges Display - Students only */}
             {user.role === 'student' && (

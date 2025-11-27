@@ -3,31 +3,8 @@
  * Uses hosted Piper models per language and caches them in OPFS after first load.
  */
 
-import { download, predict } from '@mintplex-labs/piper-tts-web';
+import { download, predict, TtsSession, ONNX_BASE as PIPER_ONNX_BASE } from '@mintplex-labs/piper-tts-web';
 import type { ProgressCallback, VoiceId } from '@mintplex-labs/piper-tts-web/dist/types';
-
-// Configure ONNX Runtime for cross-origin isolation
-if (typeof window !== 'undefined' && 'crossOriginIsolated' in window) {
-  // Set ONNX Runtime environment for threading when cross-origin isolated
-  if ((window as any).crossOriginIsolated) {
-    (window as any).ort = {
-      env: {
-        wasm: {
-          numThreads: 4, // Use 4 threads when cross-origin isolated
-        }
-      }
-    };
-  } else {
-    // Disable threading when not cross-origin isolated
-    (window as any).ort = {
-      env: {
-        wasm: {
-          numThreads: 1, // Single thread fallback
-        }
-      }
-    };
-  }
-}
 
 export type PiperPlayback = {
   audio: HTMLAudioElement;
@@ -63,35 +40,7 @@ const FALLBACK_VOICE: VoiceId = 'en_GB-southern_english_female-low';
 const downloadedVoices = new Set<VoiceId>();
 let piperDisabled: string | null = null;
 
-// Check if WebAssembly threading is supported
-const checkWebAssemblySupport = (): boolean => {
-  try {
-    if (typeof WebAssembly !== 'object') return false;
-    if (!WebAssembly.validate(new Uint8Array([0, 97, 115, 109, 1, 0, 0, 0]))) return false;
-    return true;
-  } catch {
-    return false;
-  }
-};
-
-// Initialize Piper compatibility check
-const initializePiperCompatibility = () => {
-  if (!checkWebAssemblySupport()) {
-    piperDisabled = 'WebAssembly not supported';
-    return;
-  }
-
-  // Check if we're in a secure context (required for some WebAssembly features)
-  if (typeof window !== 'undefined' && !window.isSecureContext) {
-    piperDisabled = 'Secure context required for WebAssembly';
-    return;
-  }
-};
-
-// Run compatibility check
-initializePiperCompatibility();
-
-const toProgressPct = (progress: { total: number; loaded: number }) => {
+const toProgressPct = (progress: { total: number; loaded: number }) => { 
   if (!progress.total) return 0;
   return Math.min(99, Math.round((progress.loaded / progress.total) * 100));
 };
@@ -104,7 +53,6 @@ const resolveVoice = (languageLabel?: string): VoiceId => {
 
 const ensureVoiceDownloaded = async (voiceId: VoiceId, onProgress?: ProgressListener) => {
   if (piperDisabled) {
-    console.warn('Piper TTS disabled:', piperDisabled);
     return false;
   }
   if (downloadedVoices.has(voiceId)) return true;
@@ -116,7 +64,7 @@ const ensureVoiceDownloaded = async (voiceId: VoiceId, onProgress?: ProgressList
     return true;
   } catch (error) {
     console.error('Piper download failed:', error);
-    piperDisabled = `Download failed: ${error instanceof Error ? error.message : 'Unknown error'}`;
+    piperDisabled = 'Piper download failed';
     return false;
   }
 };
@@ -162,7 +110,7 @@ export const generatePiperAudio = async (
     return { audio, cleanup };
   } catch (error) {
     console.error('Piper synthesis failed:', error);
-    piperDisabled = `Synthesis failed: ${error instanceof Error ? error.message : 'Unknown error'}`;
+    piperDisabled = 'Piper synthesis failed';
     return null;
   }
 };
@@ -172,4 +120,22 @@ export const isPiperReady = (): boolean => downloadedVoices.size > 0;
 export const resetPiper = () => {
   downloadedVoices.clear();
   piperDisabled = null;
+};
+
+// Override default ONNX CDN path to match the local installed onnxruntime-web version
+try {
+  // prefer CDN version 1.23.2 (matches local node_modules onnxruntime-web v1.23.2)
+  const ONNX_CDN_BASE = 'https://cdnjs.cloudflare.com/ajax/libs/onnxruntime-web/1.23.2/';
+  // If a TtsSession class is exported, set its WASM locations to a compatible ONNX base
+  if (typeof TtsSession !== 'undefined' && TtsSession && typeof TtsSession.WASM_LOCATIONS === 'object') {
+    TtsSession.WASM_LOCATIONS = {
+      ...TtsSession.WASM_LOCATIONS,
+      onnxWasm: ONNX_CDN_BASE,
+    };
+    console.info('Piper: Overriding ONNX base to', TtsSession.WASM_LOCATIONS.onnxWasm);
+  } else {
+    console.info('Piper: TtsSession WASM override not applied - TtsSession not defined');
+  }
+} catch (e) {
+  console.error('Piper: Failed to set ONNX base override', e);
 };

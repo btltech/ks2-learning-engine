@@ -4,7 +4,7 @@ import { generateLesson } from '../services/geminiService';
 import { offlineManager } from '../services/offlineManager';
 import LoadingSpinner from './LoadingSpinner';
 import { Skeleton } from './Skeleton';
-import { useTTS } from '../hooks/useTTS';
+import { useTTSEnhanced } from '../hooks/useTTSEnhanced';
 import { ArrowLeftIcon, SpeakerWaveIcon, StopIcon, BoltIcon } from '@heroicons/react/24/solid';
 import { useGameSounds } from '../hooks/useGameSounds';
 
@@ -42,7 +42,9 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
   // Detect language for native pronunciation
   const isLanguageSubject = ['French','Spanish','German','Japanese','Mandarin','Romanian','Yoruba','Languages'].includes(subject);
   const detectedLanguage = isLanguageSubject ? subject : 'English';
-  const { speak, cancel, isSpeaking, isLoading: isTTSLoading, progress: ttsProgress, errorMessage: ttsError, needsGesture, setNeedsGesture } = useTTS(detectedLanguage);
+  const { speak, cancel, isSpeaking, isLoading: isTTSLoading, progress: ttsProgress, errorMessage: ttsError, needsGesture, setNeedsGesture } = useTTSEnhanced(detectedLanguage, {
+    googleCloudApiKey: (import.meta as unknown as { env: { VITE_GOOGLE_CLOUD_TTS_API_KEY?: string } }).env?.VITE_GOOGLE_CLOUD_TTS_API_KEY
+  });
   
   const { playClick } = useGameSounds();
 
