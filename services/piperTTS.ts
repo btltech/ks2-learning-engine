@@ -49,6 +49,8 @@ const languageCodeToLabel: Record<string, string> = {
   'de-DE': 'German',
   'zh-CN': 'Mandarin',
   'ro-RO': 'Romanian',
+  'ja-JP': 'Japanese',
+  'yo-NG': 'Yoruba',
 };
 
 export const generatePiperAudio = async (
