@@ -41,12 +41,12 @@ const GOOGLE_CLOUD_VOICES: Record<string, {
   }>;
 }> = {
   English: {
-    languageCode: 'en-US',
+    languageCode: 'en-GB',
     voices: [
-      { name: 'en-US-Studio-O', gender: 'FEMALE', naturalness: 'high' },
-      { name: 'en-US-Studio-M', gender: 'MALE', naturalness: 'high' },
-      { name: 'en-US-Neural2-C', gender: 'FEMALE', naturalness: 'high' },
-      { name: 'en-US-Neural2-A', gender: 'MALE', naturalness: 'high' }
+      { name: 'en-GB-Studio-C', gender: 'FEMALE', naturalness: 'high' },
+      { name: 'en-GB-Studio-B', gender: 'MALE', naturalness: 'high' },
+      { name: 'en-GB-Neural2-C', gender: 'FEMALE', naturalness: 'high' },
+      { name: 'en-GB-Neural2-B', gender: 'MALE', naturalness: 'high' }
     ]
   },
   French: {

@@ -4,8 +4,8 @@ import { ttsConfigManager } from '../services/ttsConfigManager';
 import { getSupportedLanguages, getAvailableVoices } from '../services/googleCloudTTS';
 
 export const GoogleCloudTTSTestComponent: React.FC = () => {
-  const { speak, isSpeaking, switchProvider, activeProvider, availableProviders, errorMessage } = useTTSEnhanced('English');
   const [selectedLanguage, setSelectedLanguage] = useState('English');
+  const { speak, isSpeaking, switchProvider, activeProvider, availableProviders, errorMessage } = useTTSEnhanced(selectedLanguage);
   const [testText, setTestText] = useState('Hello! This is a test of Google Cloud Text-to-Speech.');
   const [voiceGender, setVoiceGender] = useState<'MALE' | 'FEMALE'>('FEMALE');
   const [speakingRate, setSpeakingRate] = useState(1.0);
