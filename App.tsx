@@ -48,6 +48,7 @@ const ParentMonitoringDashboard = lazy(() => import('./components/ParentMonitori
 const LeaderboardView = lazy(() => import('./components/LeaderboardView'));
 const ProgressView = lazy(() => import('./components/ProgressView'));
 const TeacherDashboard = lazy(() => import('./components/TeacherDashboard'));
+const GoogleCloudTTSTest = lazy(() => import('./components/GoogleCloudTTSTest'));
 
 // Wrapper for protected routes - currently not used but kept for future auth implementation
 // const RequireAuth: React.FC<{ children: React.ReactElement }> = ({ children }) => {
@@ -457,6 +458,10 @@ const AppContent: React.FC = () => {
           <TeacherDashboard onClose={() => setShowTeacherDashboard(false)} />
         </Suspense>
       )}
+
+      <Suspense fallback={null}>
+        <GoogleCloudTTSTest />
+      </Suspense>
 
       <Footer />
     </div>
