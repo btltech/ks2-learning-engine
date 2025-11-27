@@ -26,8 +26,7 @@ export const GoogleCloudTTSExample: React.FC<GoogleCloudTTSExampleProps> = ({
     googleCloudAvailable,
     availableProviders
   } = useTTSEnhanced(language, {
-    googleCloudApiKey: (import.meta as unknown as { env: { VITE_GOOGLE_CLOUD_TTS_API_KEY?: string } }).env?.VITE_GOOGLE_CLOUD_TTS_API_KEY,
-    preferGoogleCloud: true
+    googleCloudApiKey: (import.meta as unknown as { env: { VITE_GOOGLE_CLOUD_TTS_API_KEY?: string } }).env?.VITE_GOOGLE_CLOUD_TTS_API_KEY
   });
 
   const handleSpeak = async () => {

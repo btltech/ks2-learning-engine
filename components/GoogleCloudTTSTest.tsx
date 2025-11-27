@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useTTSEnhanced } from '../hooks/useTTSEnhanced';
-import { ttsConfigManager } from '../services/ttsConfigManager';
 import { getSupportedLanguages, getAvailableVoices } from '../services/googleCloudTTS';
 
 export const GoogleCloudTTSTestComponent: React.FC = () => {
   const [selectedLanguage, setSelectedLanguage] = useState('English');
-  const { speak, isSpeaking, switchProvider, activeProvider, availableProviders, errorMessage } = useTTSEnhanced(selectedLanguage);
+  const { speak, isSpeaking, errorMessage, googleCloudAvailable } = useTTSEnhanced(selectedLanguage, {
+    googleCloudApiKey: (import.meta as unknown as { env: { VITE_GOOGLE_CLOUD_TTS_API_KEY?: string } }).env?.VITE_GOOGLE_CLOUD_TTS_API_KEY
+  });
   const [testText, setTestText] = useState('Hello! This is a test of Google Cloud Text-to-Speech.');
   const [voiceGender, setVoiceGender] = useState<'MALE' | 'FEMALE'>('FEMALE');
   const [speakingRate, setSpeakingRate] = useState(1.0);
@@ -18,7 +19,7 @@ export const GoogleCloudTTSTestComponent: React.FC = () => {
 
   useEffect(() => {
     // Check if Google Cloud TTS is configured
-    const isConfigured = ttsConfigManager.isGoogleCloudConfigured();
+    const isConfigured = googleCloudAvailable;
     setGoogleCloudConfigured(isConfigured);
     
     // Get supported languages
@@ -26,9 +27,8 @@ export const GoogleCloudTTSTestComponent: React.FC = () => {
     setSupportedLanguages(langs);
     
     addLog(`Google Cloud TTS Status: ${isConfigured ? '✓ Configured' : '✗ Not configured'}`);
-    addLog(`Active Provider: ${activeProvider}`);
-    addLog(`Available Providers: ${availableProviders.join(', ')}`);
-  }, [activeProvider, availableProviders]);
+    addLog('Provider: Google Cloud TTS (Only)');
+  }, [googleCloudAvailable]);
 
   const addLog = (message: string) => {
     setLogs(prev => [...prev, `[${new Date().toLocaleTimeString()}] ${message}`]);
@@ -36,25 +36,11 @@ export const GoogleCloudTTSTestComponent: React.FC = () => {
 
   const handleSpeak = async () => {
     addLog(`Speaking: "${testText}" in ${selectedLanguage} (${voiceGender})`);
-    await speak(testText, undefined, {
+    await speak(testText, {
       gender: voiceGender,
       speakingRate,
       pitch,
       volume
-    });
-  };
-
-  const handleSwitchProvider = (provider: string) => {
-    addLog(`Switching to ${provider}...`);
-    switchProvider(provider as 'web-speech' | 'google-cloud' | 'piper');
-  };
-
-  const handleUpdateSettings = () => {
-    addLog(`Updated audio settings: speed=${speakingRate}, pitch=${pitch}, volume=${volume}`);
-    ttsConfigManager.updateAudioSettings({
-      speakingRate,
-      pitch,
-      volumeGain: volume
     });
   };
 
@@ -84,11 +70,10 @@ export const GoogleCloudTTSTestComponent: React.FC = () => {
         <div className="text-xs text-gray-600 space-y-1">
           <div>
             <span className={googleCloudConfigured ? 'text-green-600' : 'text-orange-600'}>
-              {googleCloudConfigured ? '✓' : '⚠'} Google Cloud: {googleCloudConfigured ? 'Ready' : 'Not Configured'}
+              {googleCloudConfigured ? '✓' : '⚠'} Google Cloud TTS: {googleCloudConfigured ? 'Ready' : 'Not Configured'}
             </span>
           </div>
-          <div>Provider: <span className="font-semibold">{activeProvider}</span></div>
-          <div>Available: {availableProviders.join(' → ')}</div>
+          <div>Provider: <span className="font-semibold">Google Cloud TTS (Only)</span></div>
         </div>
       </div>
 
@@ -204,33 +189,6 @@ export const GoogleCloudTTSTestComponent: React.FC = () => {
               onChange={(e) => setVolume(parseInt(e.target.value))}
               className="w-full"
             />
-          </div>
-
-          <button
-            onClick={handleUpdateSettings}
-            className="w-full mt-2 bg-blue-500 hover:bg-blue-600 text-white text-xs py-1 rounded"
-          >
-            Apply Settings
-          </button>
-        </div>
-
-        {/* Provider Switching */}
-        <div className="bg-purple-50 p-2 rounded">
-          <label className="block text-xs font-medium text-gray-700 mb-2">Switch Provider</label>
-          <div className="flex gap-1 flex-wrap">
-            {availableProviders.map(provider => (
-              <button
-                key={provider}
-                onClick={() => handleSwitchProvider(provider)}
-                className={`text-xs px-2 py-1 rounded transition-colors ${
-                  activeProvider === provider
-                    ? 'bg-purple-600 text-white'
-                    : 'bg-purple-200 text-purple-700 hover:bg-purple-300'
-                }`}
-              >
-                {provider}
-              </button>
-            ))}
           </div>
         </div>
 

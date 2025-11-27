@@ -24,8 +24,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
   const isLanguageSubject = subject === 'Languages';
   const detectedLanguage = isLanguageSubject ? topic.split(':')[0] : 'English';
   const { speak, cancel, isSpeaking } = useTTSEnhanced(detectedLanguage, {
-    googleCloudApiKey: (import.meta as unknown as { env: { VITE_GOOGLE_CLOUD_TTS_API_KEY?: string } }).env?.VITE_GOOGLE_CLOUD_TTS_API_KEY,
-    preferGoogleCloud: true
+    googleCloudApiKey: (import.meta as unknown as { env: { VITE_GOOGLE_CLOUD_TTS_API_KEY?: string } }).env?.VITE_GOOGLE_CLOUD_TTS_API_KEY
   });
   
   const [questions, setQuestions] = useState<QuizQuestion[]>([]);
