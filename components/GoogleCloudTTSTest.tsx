@@ -36,7 +36,12 @@ export const GoogleCloudTTSTestComponent: React.FC = () => {
 
   const handleSpeak = async () => {
     addLog(`Speaking: "${testText}" in ${selectedLanguage} (${voiceGender})`);
-    await speak(testText);
+    await speak(testText, undefined, {
+      gender: voiceGender,
+      speakingRate,
+      pitch,
+      volume
+    });
   };
 
   const handleSwitchProvider = (provider: string) => {

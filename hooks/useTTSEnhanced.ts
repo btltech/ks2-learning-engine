@@ -38,6 +38,13 @@ const resolveLocale = (languageHint?: string) => {
   return LANGUAGE_LOCALE_MAP[key] || { locale: 'en-GB', label: 'English' };
 };
 
+interface SpeakOptions {
+  gender?: 'MALE' | 'FEMALE';
+  speakingRate?: number;
+  pitch?: number;
+  volume?: number;
+}
+
 /**
  * Enhanced TTS hook supporting both Web Speech API and Google Cloud TTS
  */
@@ -74,7 +81,7 @@ export const useTTSEnhanced = (
   }, [options?.googleCloudApiKey, options?.preferGoogleCloud]);
 
   const speak = useCallback(
-    async (text: string, provider?: TTSProvider) => {
+    async (text: string, provider?: TTSProvider, speakOptions?: SpeakOptions) => {
       const { label } = resolveLocale(language);
       const cleanText = text.replace(/[*#_`]/g, '');
       const effectiveProvider = provider || activeProvider;
@@ -90,9 +97,9 @@ export const useTTSEnhanced = (
           setProgress(30);
 
           const success = await speakWithGoogleCloud(cleanText, label, {
-            gender: 'FEMALE',
-            speakingRate: 0.95,
-            pitch: 0
+            gender: speakOptions?.gender || 'FEMALE',
+            speakingRate: speakOptions?.speakingRate || 1.0,
+            pitch: speakOptions?.pitch || 0
           });
 
           if (success) {
