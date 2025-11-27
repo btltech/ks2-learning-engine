@@ -137,7 +137,7 @@ export const TTSSettings: React.FC<TTSSettingsProps> = ({ onClose, onConfigChang
             <h3 className="text-lg font-semibold mb-4 text-gray-800">Default Provider</h3>
             <select
               value={config.defaultProvider}
-              onChange={e => handleDefaultProviderChange(e.target.value as any)}
+              onChange={e => handleDefaultProviderChange(e.target.value as 'web-speech' | 'google-cloud' | 'piper')}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="web-speech">Web Speech API</option>

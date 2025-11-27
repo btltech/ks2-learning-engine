@@ -18,7 +18,6 @@ export const GoogleCloudTTSTestComponent: React.FC = () => {
 
   useEffect(() => {
     // Check if Google Cloud TTS is configured
-    const config = ttsConfigManager.getConfig();
     const isConfigured = ttsConfigManager.isGoogleCloudConfigured();
     setGoogleCloudConfigured(isConfigured);
     

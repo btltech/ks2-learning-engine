@@ -101,7 +101,7 @@ class TTSConfigManager {
   /**
    * Update provider configuration
    */
-  updateProvider(provider: keyof TTSConfig['providers'], config: Partial<any>) {
+  updateProvider(provider: keyof TTSConfig['providers'], config: Partial<Record<string, unknown>>) {
     this.config.providers[provider] = {
       ...this.config.providers[provider],
       ...config
@@ -135,7 +135,7 @@ class TTSConfigManager {
         return 'piper';
       });
 
-    return (providers[0] as any) || this.config.defaultProvider;
+    return (providers[0] as typeof this.config.defaultProvider) || this.config.defaultProvider;
   }
 
   /**
