@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { ChartBarIcon, AcademicCapIcon, FireIcon, StarIcon, ArrowLeftIcon, Cog6ToothIcon, TrashIcon, BellIcon } from '@heroicons/react/24/solid';
+import { AcademicCapIcon, FireIcon, StarIcon, Cog6ToothIcon, TrashIcon } from '@heroicons/react/24/solid';
 import ChildSelector from './ChildSelector';
 import ParentActivityLog from './ParentActivityLog';
 import ProgressNotifications, { Notification } from './ProgressNotifications';
@@ -12,7 +12,7 @@ interface ParentMonitoringDashboardProps {
 }
 
 const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ onLogout }) => {
-  const { user, currentChild, linkedChildren, selectedChildId, selectChild, linkChildToParent, generateParentCode } = useUser();
+  const { user, currentChild, linkedChildren, selectedChildId, selectChild, linkChildToParent } = useUser();
   const [activeTab, setActiveTab] = useState<'overview' | 'progress' | 'insights' | 'reports' | 'leaderboard' | 'settings'>('overview');
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -84,15 +84,6 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
       age: child.age || 9
     }));
   }, [linkedChildren]);
-
-  const addNotification = (notif: Omit<Notification, 'id' | 'timestamp'>) => {
-    const newNotif: Notification = {
-      id: Date.now().toString(),
-      timestamp: new Date(),
-      ...notif,
-    };
-    setNotifications((prev) => [newNotif, ...prev]);
-  };
 
   const handleDismissNotification = (id: string) => {
     setNotifications((prev) => prev.filter((n) => n.id !== id));

@@ -21,7 +21,7 @@ interface ParentActivityLogProps {
 }
 
 const ParentActivityLog: React.FC<ParentActivityLogProps> = ({ childId, childName, childData }) => {
-  const { lastUpdate, pointsGained, loading, error } = useRealtimeStudentActivity(childId);
+  const { lastUpdate } = useRealtimeStudentActivity(childId);
   const { childData: realtimeChildData } = useRealtimeChildProfile(childId);
   
   // Use provided childData or realtime data
@@ -131,7 +131,7 @@ const ParentActivityLog: React.FC<ParentActivityLogProps> = ({ childId, childNam
 
       {/* Activity List */}
       <div className="space-y-0">
-        {activityHistory.map((activity, idx) => (
+        {activityHistory.map((activity, _idx) => (
           <div
             key={activity.id}
             className="flex gap-4 p-4 hover:bg-gray-50 transition-colors border-l-4 border-gray-200 hover:border-l-4 hover:border-purple-500"

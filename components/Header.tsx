@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { AcademicCapIcon, StarIcon, ShoppingBagIcon, ChartBarIcon, ArrowRightOnRectangleIcon, FireIcon, TrophyIcon, UserCircleIcon } from '@heroicons/react/24/solid';
+import { AcademicCapIcon, StarIcon, ShoppingBagIcon, ChartBarIcon, ArrowRightOnRectangleIcon, FireIcon, TrophyIcon } from '@heroicons/react/24/solid';
 import EmbeddingSelector from './EmbeddingSelector';
 import TTSDemo from './TTSDemo';
 import { UserProfile } from '../types';
@@ -43,14 +43,18 @@ const Header: React.FC<HeaderProps> = ({
     action();
   };
 
+  const avatarColor = user.avatarConfig.color || '';
+  const avatarColorClass = avatarColor && !avatarColor.startsWith('#') ? avatarColor : 'bg-indigo-100 text-indigo-800';
+  const avatarStyle = avatarColor.startsWith('#') ? { backgroundColor: avatarColor, color: '#fff' } : undefined;
+
   return (
-    <header className="bg-gradient-to-r from-white via-white to-blue-50/30 backdrop-blur-xl bg-white/80 border-b border-gray-200/50 shadow-sm w-full sticky top-0 z-40" role="banner">
-      <div className="container mx-auto px-3 sm:px-6 lg:px-8">
+    <header className="bg-gradient-to-r from-white via-white to-blue-50/30 backdrop-blur-xl bg-white/80 border-b border-gray-200/50 shadow-sm w-full sticky top-0 z-40 safe-area-top" role="banner">
+      <div className="mobile-shell">
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
           <button 
             onClick={() => handleNavClick(onHomeClick)} 
-            className="flex items-center space-x-2 sm:space-x-3 group"
+            className="flex items-center space-x-2 sm:space-x-3 group touch-target px-2"
             aria-label="Go to home page"
           >
             <AcademicCapIcon className="h-8 w-8 sm:h-10 sm:w-10 text-blue-500 group-hover:text-blue-600 transition-colors" aria-hidden="true" />
@@ -106,7 +110,7 @@ const Header: React.FC<HeaderProps> = ({
             {user.role === 'student' && (
               <button
                 onClick={() => handleNavClick(onOpenLeaderboard)}
-                className="p-1.5 sm:p-2 text-gray-600 hover:text-yellow-600 hover:bg-yellow-100 rounded-lg transition-all duration-200 hover:shadow-md"
+                className="touch-target text-gray-600 hover:text-yellow-600 hover:bg-yellow-100 rounded-xl transition-all duration-200 hover:shadow-md"
                 title="Leaderboard"
               >
                 <TrophyIcon className="h-6 w-6 sm:h-8 sm:w-8" />
@@ -117,7 +121,7 @@ const Header: React.FC<HeaderProps> = ({
             {user.role === 'student' && (
               <button
                 onClick={() => handleNavClick(onOpenProgress)}
-                className="p-1.5 sm:p-2 text-gray-600 hover:text-green-600 hover:bg-green-100 rounded-lg transition-all duration-200 hover:shadow-md"
+                className="touch-target text-gray-600 hover:text-green-600 hover:bg-green-100 rounded-xl transition-all duration-200 hover:shadow-md"
                 title="My Progress"
               >
                 <ChartBarIcon className="h-6 w-6 sm:h-8 sm:w-8" />
@@ -128,7 +132,7 @@ const Header: React.FC<HeaderProps> = ({
             {user.role === 'student' && (
               <button
                 onClick={() => handleNavClick(onOpenStore)}
-                className="p-1.5 sm:p-2 text-gray-600 hover:text-orange-500 hover:bg-orange-100 rounded-lg transition-all duration-200 hover:shadow-md"
+                className="touch-target text-gray-600 hover:text-orange-500 hover:bg-orange-100 rounded-xl transition-all duration-200 hover:shadow-md"
                 title="Open Store"
               >
                 <ShoppingBagIcon className="h-6 w-6 sm:h-8 sm:w-8" />
@@ -138,7 +142,7 @@ const Header: React.FC<HeaderProps> = ({
             {/* Parent Dashboard (Desktop) */}
             <button
               onClick={() => handleNavClick(onOpenParentDashboard)}
-              className="p-2 text-gray-600 hover:text-purple-600 hover:bg-purple-100 rounded-lg transition-all duration-200 hover:shadow-md hidden md:block"
+              className="touch-target text-gray-600 hover:text-purple-600 hover:bg-purple-100 rounded-xl transition-all duration-200 hover:shadow-md hidden md:block"
               title="Parent Dashboard"
             >
               <span className="text-2xl">👨‍👩‍👧</span>
@@ -157,7 +161,8 @@ const Header: React.FC<HeaderProps> = ({
                     playClick();
                     setIsMenuOpen(!isMenuOpen);
                   }}
-                  className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-blue-200 flex items-center justify-center text-lg sm:text-xl cursor-pointer transition-all hover:scale-110 hover:shadow-lg ${user.avatarConfig.color}`}
+                  className={`relative h-11 w-11 sm:h-12 sm:w-12 rounded-full border-2 border-blue-200 flex items-center justify-center text-lg sm:text-xl cursor-pointer transition-all hover:scale-110 hover:shadow-lg ${avatarColorClass}`}
+                  style={avatarStyle}
                   aria-label="User menu"
                   aria-expanded={isMenuOpen}
                 >
@@ -182,7 +187,7 @@ const Header: React.FC<HeaderProps> = ({
                         handleNavClick(onOpenParentDashboard);
                         setIsMenuOpen(false);
                       }}
-                      className="w-full text-left px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700 flex items-center gap-2 transition-colors md:hidden"
+                      className="w-full text-left px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-700 flex items-center gap-2 transition-colors md:hidden"
                     >
                       <span className="text-xl">👨‍👩‍👧</span>
                       Parent Dashboard
@@ -190,7 +195,7 @@ const Header: React.FC<HeaderProps> = ({
 
                     <button
                       onClick={() => handleNavClick(onLogout)}
-                      className="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 flex items-center gap-2 transition-colors"
+                      className="w-full text-left px-4 py-3 text-red-600 hover:bg-red-50 flex items-center gap-2 transition-colors"
                     >
                       <ArrowRightOnRectangleIcon className="h-5 w-5" />
                       Logout

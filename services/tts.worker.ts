@@ -5,7 +5,6 @@ env.allowLocalModels = false;
 env.allowRemoteModels = true;
 
 let synthesizer: any = null;
-let speakerEmbeddings: any = null;
 let speakerEmbeddingsList: Float32Array[] | null = null;
 
 // Singleton initialization promise to handle concurrent requests
@@ -43,12 +42,7 @@ const getSpeakerEmbeddings = async () => {
   }
   // Notify main thread about how many embeddings are available
   // We can't postMessage unless self is defined; in workers it is available
-  try {
-    // @ts-ignore
-    self.postMessage({ type: 'embeddings_info', count: speakerEmbeddingsList.length });
-  } catch (e) {
-    // Not fatal; ignore
-  }
+  self.postMessage({ type: 'embeddings_info', count: speakerEmbeddingsList.length });
   return speakerEmbeddingsList;
 };
 
@@ -69,20 +63,15 @@ const getSpeakerEmbeddingByIndex = async (idx: number) => {
 const initialize = async () => {
   if (synthesizer) return;
   
-  try {
-    synthesizer = await pipeline(
-      'text-to-speech',
-      'Xenova/speecht5_tts',
-      {
-        progress_callback: (data: any) => {
-          self.postMessage({ type: 'progress', data });
-        }
+  synthesizer = await pipeline(
+    'text-to-speech',
+    'Xenova/speecht5_tts',
+    {
+      progress_callback: (data: any) => {
+        self.postMessage({ type: 'progress', data });
       }
-    );
-  } catch (err) {
-    // Reset initPromise in the main thread so a retry is possible
-    throw err;
-  }
+    }
+  );
 };
 
 function createWavFile(audioData: Float32Array, sampleRate: number): ArrayBuffer {
@@ -155,7 +144,7 @@ self.addEventListener('message', async (event) => {
       
       // Send the buffer back to main thread
       // We use the second argument to transfer ownership of the buffer for performance
-      // @ts-ignore - Worker postMessage signature is different from Window
+      // @ts-expect-error - Worker postMessage signature is different from Window
       self.postMessage({ type: 'complete', buffer: wavBuffer }, [wavBuffer]);
       
     } catch (error: any) {

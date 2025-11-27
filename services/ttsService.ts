@@ -8,8 +8,247 @@ const languageToBCP47Full: Record<string, string> = {
   Japanese: 'ja-JP',
   Mandarin: 'zh-CN',
   Romanian: 'ro-RO',
-  Yoruba: 'en-GB', // fallback for browser TTS
+  Yoruba: 'yo-NG', // Nigerian Yoruba
   English: 'en-GB',
+  // Additional languages with full BCP47 support:
+  Italian: 'it-IT',
+  Arabic: 'ar-SA',
+  Portuguese: 'pt-BR',
+  Russian: 'ru-RU',
+  Korean: 'ko-KR',
+  Hindi: 'hi-IN',
+  Turkish: 'tr-TR',
+  Greek: 'el-GR',
+  Latin: 'la-VA', // Vatican Latin
+};
+
+// Enhanced language mapping with native voice preferences
+const languageVoicePreferences: Record<string, {
+  primary: string[];
+  fallback: string[];
+  pronunciationHints: Record<string, string>;
+}> = {
+  French: {
+    primary: ['fr-FR', 'fr-CA', 'fr-BE'],
+    fallback: ['fr-FR'],
+    pronunciationHints: {
+      'ç': 'ss',
+      'œ': 'eu',
+      'à': 'ah',
+      'è': 'eh',
+      'ù': 'oo',
+      'â': 'ah',
+      'ê': 'eh',
+      'î': 'ee',
+      'ô': 'oh',
+      'û': 'oo'
+    }
+  },
+  Spanish: {
+    primary: ['es-ES', 'es-US', 'es-MX'],
+    fallback: ['es-ES'],
+    pronunciationHints: {
+      'ñ': 'ny',
+      'll': 'y',
+      'rr': 'r (rolled)',
+      'j': 'h',
+      'z': 'th (in Spain)',
+      'c': 'th (before i,e)',
+      'g': 'h (before i,e)'
+    }
+  },
+  German: {
+    primary: ['de-DE', 'de-AT', 'de-CH'],
+    fallback: ['de-DE'],
+    pronunciationHints: {
+      'ü': 'ue',
+      'ö': 'oe',
+      'ä': 'ae',
+      'ß': 'ss',
+      'ch': 'kh',
+      'sch': 'sh',
+      'w': 'v'
+    }
+  },
+  Japanese: {
+    primary: ['ja-JP'],
+    fallback: ['ja-JP'],
+    pronunciationHints: {
+      'う': 'u',
+      'え': 'e',
+      'お': 'o',
+      'か': 'ka',
+      'き': 'ki',
+      'く': 'ku',
+      'け': 'ke',
+      'こ': 'ko'
+    }
+  },
+  Mandarin: {
+    primary: ['zh-CN', 'zh-TW'],
+    fallback: ['zh-CN'],
+    pronunciationHints: {
+      '你好': 'ni hao',
+      '谢谢': 'xie xie',
+      '对不起': 'dui bu qi',
+      '请': 'qing'
+    }
+  },
+  Romanian: {
+    primary: ['ro-RO'],
+    fallback: ['ro-RO'],
+    pronunciationHints: {
+      'ă': 'uh',
+      'â': 'uh',
+      'î': 'ee',
+      'ș': 'sh',
+      'ț': 'ts'
+    }
+  },
+  // All languages now fully implemented with native voice support:
+  Italian: {
+    primary: ['it-IT', 'it-CH'],
+    fallback: ['it-IT'],
+    pronunciationHints: {
+      'gli': 'lyee',
+      'gn': 'ny',
+      'sc': 'sh (before i,e)',
+      'ch': 'k',
+      'gh': 'g',
+      'h': '(silent)'
+    }
+  },
+  Arabic: {
+    primary: ['ar-SA', 'ar-EG', 'ar-AE'],
+    fallback: ['ar-SA'],
+    pronunciationHints: {
+      'ع': 'ayn',
+      'ح': 'ha',
+      'خ': 'kha',
+      'غ': 'ghayn',
+      'ق': 'qaf'
+    }
+  },
+  Portuguese: {
+    primary: ['pt-BR', 'pt-PT'],
+    fallback: ['pt-BR'],
+    pronunciationHints: {
+      'ão': 'own',
+      'lh': 'ly',
+      'nh': 'ny',
+      'ç': 's',
+      'rr': 'kh (Portuguese)',
+      's': 'sh (between vowels)'
+    }
+  },
+  English: {
+    primary: ['en-GB', 'en-US', 'en-AU'],
+    fallback: ['en-GB'],
+    pronunciationHints: {}
+  },
+  Yoruba: {
+    primary: ['en-GB'], // Nigerian English voices preferred
+    fallback: ['en-GB', 'en-US'],
+    pronunciationHints: {
+      'ẹ': 'eh',
+      'ọ': 'oh',
+      'ṣ': 'sh',
+      'gb': 'g-b (explosive)',
+      'kp': 'k-p (explosive)',
+      'ẹ̀': 'eh (low tone)',
+      'ẹ́': 'eh (high tone)',
+      'ọ̀': 'oh (low tone)',
+      'ọ́': 'oh (high tone)'
+    }
+  },
+  Russian: {
+    primary: ['ru-RU'],
+    fallback: ['ru-RU'],
+    pronunciationHints: {
+      'ы': 'ui',
+      'ъ': '(hard sign)',
+      'ь': '(soft sign)',
+      'щ': 'shch',
+      'ж': 'zh',
+      'ш': 'sh',
+      'ч': 'ch',
+      'ц': 'ts'
+    }
+  },
+  Korean: {
+    primary: ['ko-KR'],
+    fallback: ['ko-KR'],
+    pronunciationHints: {
+      'ㅏ': 'ah',
+      'ㅑ': 'yah',
+      'ㅓ': 'uh',
+      'ㅕ': 'yuh',
+      'ㅗ': 'oh',
+      'ㅛ': 'yoh',
+      'ㅜ': 'oo',
+      'ㅠ': 'yoo'
+    }
+  },
+  Hindi: {
+    primary: ['hi-IN'],
+    fallback: ['hi-IN'],
+    pronunciationHints: {
+      'अ': 'uh',
+      'आ': 'ah',
+      'इ': 'ee',
+      'ई': 'ee',
+      'उ': 'oo',
+      'ऊ': 'oo',
+      'ए': 'ay',
+      'ऐ': 'eye',
+      'ओ': 'oh',
+      'औ': 'ow'
+    }
+  },
+  Turkish: {
+    primary: ['tr-TR'],
+    fallback: ['tr-TR'],
+    pronunciationHints: {
+      'ğ': '(soft g)',
+      'ı': 'uh',
+      'ş': 'sh',
+      'ç': 'ch',
+      'ö': 'ur',
+      'ü': 'ue',
+      'â': 'ah',
+      'î': 'ee',
+      'û': 'oo'
+    }
+  },
+  Greek: {
+    primary: ['el-GR'],
+    fallback: ['el-GR'],
+    pronunciationHints: {
+      'α': 'ah',
+      'β': 'v',
+      'γ': 'gh',
+      'δ': 'th',
+      'ε': 'eh',
+      'ζ': 'z',
+      'η': 'ee',
+      'θ': 'th',
+      'ι': 'ee',
+      'κ': 'k'
+    }
+  },
+  Latin: {
+    primary: ['la-VA'],
+    fallback: ['en-GB'], // fallback to English for Latin
+    pronunciationHints: {
+      'ae': 'eye',
+      'oe': 'oy',
+      'ti': 'tee (before vowel)',
+      'ph': 'f',
+      'ch': 'k',
+      'th': 't',
+      'rh': 'r'
+    }
+  }
 };
 
 const getVoicesSafe = (): SpeechSynthesisVoice[] => {
@@ -20,26 +259,42 @@ const getVoicesSafe = (): SpeechSynthesisVoice[] => {
 // Cache for best voices to avoid re-scoring each time
 const voiceCache = new Map<string, SpeechSynthesisVoice>();
 
-export const pickVoice = (bcp47: string): SpeechSynthesisVoice | null => {
+export const pickVoice = (bcp47: string, languageLabel?: string): SpeechSynthesisVoice | null => {
   // Return cached voice if available
-  if (voiceCache.has(bcp47)) {
-    return voiceCache.get(bcp47)!;
+  const cacheKey = `${bcp47}-${languageLabel || 'default'}`;
+  if (voiceCache.has(cacheKey)) {
+    return voiceCache.get(cacheKey)!;
   }
-  
+
   const voices = getVoicesSafe();
   if (!voices.length) return null;
 
-  // Prefer exact language match first
-  let candidates = voices.filter(v => v.lang === bcp47);
-  if (!candidates.length) {
-    // Then any voice that starts with the same language code (e.g. fr-*, es-*)
-    const base = bcp47.split('-')[0];
-    candidates = voices.filter(v => v.lang.startsWith(base));
-  }
+  // Get language preferences for native voice selection
+  const langPrefs = languageLabel ? languageVoicePreferences[languageLabel] : null;
 
+  // Enhanced voice scoring with native speaker prioritization
   const scoreVoice = (v: SpeechSynthesisVoice): number => {
     const name = (v.name || '').toLowerCase();
     let score = 0;
+
+    // PRIORITY 1: Native speaker voices for the target language
+    if (langPrefs) {
+      // Exact match with preferred language codes
+      for (const preferredLang of langPrefs.primary) {
+        if (v.lang === preferredLang) {
+          score += 100; // Massive boost for native speakers
+          break;
+        }
+      }
+
+      // Partial match with preferred language codes
+      for (const preferredLang of langPrefs.primary) {
+        if (v.lang.startsWith(preferredLang.split('-')[0])) {
+          score += 80;
+          break;
+        }
+      }
+    }
 
     // TIER 1: REMOTE/CLOUD VOICES (Best quality - NOT robotic at all)
     if (v.localService === false) score += 50; // Remote/cloud voices are premium quality
@@ -113,18 +368,24 @@ export const pickVoice = (bcp47: string): SpeechSynthesisVoice | null => {
     return score;
   };
 
+  // Prefer exact language match first, then native speakers
+  let candidates = voices.filter(v => v.lang === bcp47);
+  if (!candidates.length) {
+    // Then any voice that starts with the same language code (e.g. fr-*, es-*)
+    const base = bcp47.split('-')[0];
+    candidates = voices.filter(v => v.lang.startsWith(base));
+  }
+
   if (candidates.length) {
     const sorted = candidates.sort((a, b) => scoreVoice(b) - scoreVoice(a));
     const bestVoice = sorted[0];
-    voiceCache.set(bcp47, bestVoice);
+    voiceCache.set(cacheKey, bestVoice);
     return bestVoice;
-  }
-
-  // Fallback to best available English voice
+  }  // Fallback to best available English voice
   const englishVoices = voices.filter(v => v.lang.startsWith('en-'));
   if (englishVoices.length) {
     const sorted = englishVoices.sort((a, b) => scoreVoice(b) - scoreVoice(a));
-    voiceCache.set(bcp47, sorted[0]);
+    voiceCache.set(cacheKey, sorted[0]);
     return sorted[0];
   }
 
@@ -149,8 +410,8 @@ export const playPronunciation = async (text: string, languageLabel: string) => 
     return;
   }
 
-  // Pre-process text for more natural reading
-  const processTextForSpeech = (input: string): string => {
+  // Enhanced text processing for native pronunciation
+  const processTextForSpeech = (input: string, lang: string): string => {
     let processed = input
       // Add pauses after sentences
       .replace(/\. /g, '. ... ')
@@ -167,26 +428,37 @@ export const playPronunciation = async (text: string, languageLabel: string) => 
       // Clean up multiple spaces
       .replace(/\s+/g, ' ')
       .trim();
-    
+
+    // Apply language-specific pronunciation hints
+    const langPrefs = languageVoicePreferences[lang];
+    if (langPrefs) {
+      // Replace special characters with pronunciation guides
+      Object.entries(langPrefs.pronunciationHints).forEach(([char, hint]) => {
+        // Only replace if the character appears as a standalone word or in specific contexts
+        const regex = new RegExp(`\\b${char}\\b`, 'gi');
+        processed = processed.replace(regex, `${char} (${hint})`);
+      });
+    }
+
     return processed;
   };
 
   const speak = () => {
-    const processedText = processTextForSpeech(text);
+    const processedText = processTextForSpeech(text, languageLabel);
     const utterance = new SpeechSynthesisUtterance(processedText);
     utterance.lang = browserLangCode;
-    
+
     // ENHANCED SETTINGS FOR ULTRA-NATURAL SOUNDING SPEECH
-    // Tuned for children's educational content
+    // Tuned for children's educational content and native pronunciation
     utterance.rate = 0.88;        // Slightly slower for clarity (0.88 sweet spot)
     utterance.pitch = 1.05;       // Slightly warmer, friendlier tone
     utterance.volume = 1.0;       // Full volume for clarity
-    
+
     // Set voice BEFORE speaking (important for Safari)
-    const voice = pickVoice(browserLangCode);
+    const voice = pickVoice(browserLangCode, languageLabel);
     if (voice) {
       utterance.voice = voice;
-      
+
       // Adjust rate based on voice type (remote voices handle faster rates better)
       if (!voice.localService) {
         // Remote/cloud voices sound good at normal speed
@@ -196,8 +468,15 @@ export const playPronunciation = async (text: string, languageLabel: string) => 
         utterance.rate = 0.75;
         utterance.pitch = 1.0;
       }
+
+      // For native language voices, use slightly different settings
+      if (languageLabel !== 'English' && voice.lang.startsWith(browserLangCode.split('-')[0])) {
+        // Native speakers: slightly faster, more natural rhythm
+        utterance.rate = 0.95;
+        utterance.pitch = 1.02;
+      }
     }
-    
+
     utterance.onerror = (event) => {
       // Only log actual errors, not cancellations
       if (event.error !== 'canceled') {

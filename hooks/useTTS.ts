@@ -1,7 +1,8 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useCallback } from 'react';
 import { generatePiperAudio, initPiperTTS } from '../services/piperTTS';
+import { playPronunciation } from '../services/ttsService';
 
-export const useTTS = () => {
+export const useTTS = (language?: string) => {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState<number | null>(null);
@@ -20,7 +21,7 @@ export const useTTS = () => {
 
     try {
       // Initialize TTS service
-      const initialized = await initPiperTTS();
+      const initialized = await initPiperTTS(language);
       if (!initialized) {
         setErrorMessage('TTS not available');
         setIsLoading(false);
@@ -29,15 +30,15 @@ export const useTTS = () => {
 
       setProgress(30);
 
-      // Generate audio with fallback Web Speech API
-      const result = await generatePiperAudio(cleanText);
+      // Generate audio with enhanced language support
+      const result = await generatePiperAudio(cleanText, language);
       setProgress(70);
 
       if (result) {
         setIsSpeaking(true);
         setProgress(90);
         setIsLoading(false);
-        
+
         // Web Speech API handles audio playback internally
         // Set a timeout to mark speaking as done after estimated speech duration
         const estimatedDuration = Math.max(2000, cleanText.length * 50);
@@ -55,7 +56,7 @@ export const useTTS = () => {
       setProgress(null);
       setErrorMessage(String(error));
     }
-  }, []);
+  }, [language]);
 
   const cancel = useCallback(() => {
     if (typeof window !== 'undefined' && 'speechSynthesis' in window) {

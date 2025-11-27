@@ -34,6 +34,7 @@ export const SUBJECTS: Subject[] = [
 ];
 
 export const LANGUAGES = [
+  { name: 'English', flag: '🇬🇧', greeting: 'Hello' },
   { name: 'French', flag: '🇫🇷', greeting: 'Bonjour' },
   { name: 'Spanish', flag: '🇪🇸', greeting: 'Hola' },
   { name: 'German', flag: '🇩🇪', greeting: 'Hallo' },
@@ -41,4 +42,14 @@ export const LANGUAGES = [
   { name: 'Mandarin', flag: '🇨🇳', greeting: 'Ni Hao' },
   { name: 'Romanian', flag: '🇷🇴', greeting: 'Salut' },
   { name: 'Yoruba', flag: '🇳🇬', greeting: 'Bawo' },
+  // All additional languages now fully implemented with TTS support:
+  { name: 'Italian', flag: '🇮🇹', greeting: 'Ciao' },
+  { name: 'Arabic', flag: '🇸🇦', greeting: 'Marhaba' },
+  { name: 'Portuguese', flag: '🇵🇹', greeting: 'Olá' },
+  { name: 'Russian', flag: '🇷🇺', greeting: 'Privet' },
+  { name: 'Korean', flag: '🇰🇷', greeting: 'Annyeonghaseyo' },
+  { name: 'Hindi', flag: '🇮🇳', greeting: 'Namaste' },
+  { name: 'Turkish', flag: '🇹🇷', greeting: 'Merhaba' },
+  { name: 'Greek', flag: '🇬🇷', greeting: 'Yassas' },
+  { name: 'Latin', flag: '🏛️', greeting: 'Salve' },
 ];

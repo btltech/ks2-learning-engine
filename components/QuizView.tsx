@@ -20,13 +20,17 @@ interface QuizViewProps {
 }
 
 const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, studentAge, studentName, onSubmit, mode = 'standard' }) => {
+  // Detect if this is a language subject and extract the language
+  const isLanguageSubject = subject === 'Languages';
+  const detectedLanguage = isLanguageSubject ? topic.split(':')[0] : 'English';
+  const { speak, cancel, isSpeaking } = useTTS(detectedLanguage);
+  
   const [questions, setQuestions] = useState<QuizQuestion[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<string[]>([]);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const { speak, cancel, isSpeaking } = useTTS();
   const { playClick } = useGameSounds();
   const [timeLeft, setTimeLeft] = useState(15);
   const [currentHint, setCurrentHint] = useState<string>('');
@@ -65,7 +69,6 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
     isListening, 
     transcript, 
     interimTranscript,
-    error: voiceError, 
     isSupported: voiceSupported,
     startListening, 
     stopListening 

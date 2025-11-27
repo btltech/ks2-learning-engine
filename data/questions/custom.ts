@@ -1,4 +1,4 @@
-import { BankQuestion, Difficulty } from '../../types';
+import { BankQuestion } from '../../types';
 
 export const customQuestions: BankQuestion[] = [
   // Add your questions here

@@ -1,9 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { getTopicsForSubject, generateQuiz } from './geminiService';
-import { GoogleGenAI } from '@google/genai';
-import { getDocs, addDoc, limit } from 'firebase/firestore';
-import { offlineManager } from './offlineManager';
+import { getDocs, addDoc } from 'firebase/firestore';
 import { Difficulty } from '../types';
+
+// Mock environment
+vi.stubEnv('VITE_GEMINI_API_KEY', 'test-api-key');
 
 // Mock GoogleGenAI
 const { mockGenerateContent } = vi.hoisted(() => {
@@ -13,10 +14,12 @@ const { mockGenerateContent } = vi.hoisted(() => {
 vi.mock('@google/genai', () => {
   return {
     GoogleGenAI: class {
-      models = {
-        generateContent: mockGenerateContent
-      };
-      constructor(config: any) {}
+      constructor(_config: any) {}
+      get models() {
+        return {
+          generateContent: mockGenerateContent
+        };
+      }
     },
     Type: {
       OBJECT: 'OBJECT',
@@ -25,6 +28,50 @@ vi.mock('@google/genai', () => {
     }
   };
 });
+
+// Mock Firebase
+vi.mock('firebase/firestore', () => ({
+  getFirestore: vi.fn(),
+  collection: vi.fn(),
+  addDoc: vi.fn(),
+  getDocs: vi.fn(),
+  query: vi.fn(),
+  where: vi.fn(),
+  limit: vi.fn(),
+}));
+
+// Mock offlineManager
+vi.mock('./offlineManager', () => ({
+  offlineManager: {
+    checkOnlineStatus: vi.fn().mockReturnValue(true)
+  }
+}));
+
+// Mock cacheService
+vi.mock('./cacheService', () => ({
+  createCacheKey: vi.fn().mockReturnValue('test-key'),
+  getFromCache: vi.fn().mockReturnValue(null),
+  setInCache: vi.fn()
+}));
+
+// Mock contentMonitor
+vi.mock('./contentMonitor', () => ({
+  contentMonitor: {
+    logValidationIssue: vi.fn()
+  }
+}));
+
+// Mock questionTracker
+vi.mock('./questionTracker', () => ({
+  getUsedQuestions: vi.fn().mockReturnValue([]),
+  markQuestionsAsUsed: vi.fn(),
+  resetUsedQuestions: vi.fn()
+}));
+
+// Mock questionBank
+vi.mock('../data/questionBank', () => ({
+  getRandomQuestions: vi.fn().mockReturnValue([])
+}));
 
 // Mock offlineManager
 vi.mock('./offlineManager', () => ({

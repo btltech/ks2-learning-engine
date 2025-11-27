@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { UserGroupIcon, ArrowRightOnRectangleIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/solid';
+import { UserGroupIcon, ArrowRightOnRectangleIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import { firebaseAuthService } from '../services/firebaseAuthService';
 import { UserProfile } from '../types';
 

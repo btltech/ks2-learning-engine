@@ -6,6 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="KS2 Learning Engine - An interactive educational platform for UK Key Stage 2 students to learn and practice various subjects." />
     <title>KS2 Learning Engine - Interactive Learning for UK Primary Students</title>
+    <script>
+      tailwind.config = {
+        theme: {
+          container: {
+            center: true,
+            padding: {
+              DEFAULT: "1rem",
+              sm: "1.25rem",
+              md: "1.5rem",
+              lg: "2rem",
+              xl: "2.5rem",
+            },
+          },
+          extend: {
+            screens: {
+              xs: "360px",
+              mobile: "480px",
+              "mobile-lg": "560px",
+              tablet: "768px",
+              laptop: "1024px",
+              desktop: "1280px",
+            },
+            borderRadius: {
+              "2.5xl": "1.375rem",
+              "fluid": "clamp(0.9rem, 1vw + 0.75rem, 1.5rem)",
+            },
+            boxShadow: {
+              lifted: "0 12px 45px rgba(15, 23, 42, 0.12)",
+              subtle: "0 8px 24px rgba(15, 23, 42, 0.06)",
+            },
+            spacing: {
+              18: "4.5rem",
+              "safe": "env(safe-area-inset-bottom)",
+            },
+            maxWidth: {
+              "screen-content": "1200px",
+            },
+          },
+        },
+      };
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -191,6 +232,74 @@
       *:focus-visible {
         outline: 3px solid #3b82f6;
         outline-offset: 2px;
+      }
+      /* Touch-friendly + mobile utility layer */
+      :root {
+        --mobile-gutter: clamp(1rem, 3vw, 1.5rem);
+        --card-radius: 18px;
+        --card-shadow-strong: 0 12px 45px rgba(15, 23, 42, 0.12);
+        --card-shadow-soft: 0 8px 24px rgba(15, 23, 42, 0.06);
+      }
+      .mobile-shell {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-left: var(--mobile-gutter);
+        padding-right: var(--mobile-gutter);
+      }
+      .touch-card {
+        border-radius: var(--card-radius);
+        background: rgba(255, 255, 255, 0.92);
+        box-shadow: var(--card-shadow-soft);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+      .touch-target {
+        min-height: 48px;
+        min-width: 48px;
+        padding: 0.75rem 1rem;
+        border-radius: 14px;
+        touch-action: manipulation;
+        transition: transform 120ms ease, box-shadow 180ms ease;
+      }
+      .touch-target:active {
+        transform: translateY(1px);
+      }
+      .touch-scroll {
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+        scrollbar-width: thin;
+        scroll-behavior: smooth;
+      }
+      .safe-area-top { padding-top: env(safe-area-inset-top); }
+      .safe-area-bottom { padding-bottom: max(env(safe-area-inset-bottom), 1rem); }
+      .content-visibility-auto {
+        content-visibility: auto;
+        contain-intrinsic-size: 1px 600px;
+      }
+      @media (max-width: 767px) {
+        .stack-mobile {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 0.75rem;
+        }
+        .mobile-fluid {
+          margin-left: -0.5rem;
+          margin-right: -0.5rem;
+          padding-left: var(--mobile-gutter);
+          padding-right: var(--mobile-gutter);
+        }
+      }
+      @media (pointer: coarse) {
+        .touch-text-lg { font-size: 1.05rem; }
+        .touch-only-shadow { box-shadow: var(--card-shadow-strong); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.001ms !important;
+        }
       }
     </style>
   <script type="importmap">

@@ -7,10 +7,6 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { useUser } from '../context/UserContext';
-import { spacedRepetitionService } from '../services/spacedRepetitionService';
-import { dailyChallengeService } from '../services/dailyChallengeService';
-import { learningPathsService } from '../services/learningPathsService';
 
 interface Student {
   id: string;
@@ -54,27 +50,12 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onClose }) =
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const [view, setView] = useState<'overview' | 'students' | 'assignments' | 'reports'>('overview');
   const [timeRange, setTimeRange] = useState<'week' | 'month' | 'term'>('week');
-  const [classCode, setClassCode] = useState<string>('');
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     // In production, this would fetch students from Firebase based on teacher's class
     // For now, we start with an empty array - no mock data
     setStudents([]);
-    
-    // Generate a class code for students to join
-    setClassCode(generateClassCode());
   }, []);
-
-  // Generate a unique class code
-  const generateClassCode = (): string => {
-    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-    let code = '';
-    for (let i = 0; i < 6; i++) {
-      code += chars[Math.floor(Math.random() * chars.length)];
-    }
-    return code;
-  };
 
   // Calculate stats from actual student data
   const classStats: ClassStats = {
@@ -566,7 +547,7 @@ const AssignmentsView: React.FC<{ students: Student[] }> = ({ students }) => {
 };
 
 // Reports View
-const ReportsView: React.FC<{ stats: ClassStats; students: Student[] }> = ({ stats, students }) => {
+const ReportsView: React.FC<{ stats: ClassStats; students: Student[] }> = ({ _stats, _students }) => {
   return (
     <div className="space-y-6">
       <div className="bg-white rounded-xl p-6 shadow">

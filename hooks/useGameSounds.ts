@@ -13,7 +13,6 @@ import {
   playSparkle,
   initAudio,
   setMasterVolume,
-  getMasterVolume,
 } from '../services/audioSynthesizer';
 
 /**

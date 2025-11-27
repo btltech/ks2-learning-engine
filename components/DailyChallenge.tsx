@@ -5,7 +5,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { dailyChallengeService, DailyChallenge, Achievement, STREAK_MILESTONES } from '../services/dailyChallengeService';
+import { dailyChallengeService, DailyChallenge, Achievement } from '../services/dailyChallengeService';
 import { useUser } from '../context/UserContext';
 
 interface DailyChallengeCardProps {
@@ -42,7 +42,7 @@ export const DailyChallengeCard: React.FC<DailyChallengeCardProps> = ({ onStartC
   const isCompleted = challenge.isCompleted;
 
   return (
-    <div className="bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl p-6 text-white shadow-lg mb-6">
+    <div className="bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl mobile-lg:rounded-3xl p-5 sm:p-6 text-white shadow-lg touch-only-shadow mb-6">
       <div className="flex items-start justify-between">
         <div>
           <div className="flex items-center gap-2 mb-2">
@@ -73,14 +73,14 @@ export const DailyChallengeCard: React.FC<DailyChallengeCardProps> = ({ onStartC
       {/* Action Button */}
       <div className="mt-4">
         {isCompleted ? (
-          <div className="flex items-center justify-center gap-2 bg-white/20 rounded-lg py-3">
+          <div className="flex items-center justify-center gap-2 bg-white/20 rounded-lg py-3 px-3 mobile:px-4">
             <span className="text-xl">✅</span>
             <span className="font-medium">Challenge Complete! Score: {challenge.scoreAchieved}%</span>
           </div>
         ) : (
           <button
             onClick={handleStartChallenge}
-            className="w-full bg-white text-orange-600 font-bold py-3 rounded-lg hover:bg-amber-50 transition-colors"
+            className="w-full bg-white text-orange-600 font-bold rounded-lg hover:bg-amber-50 transition-colors touch-target shadow-subtle hover:shadow-lifted"
           >
             Start Challenge
           </button>
@@ -144,7 +144,6 @@ export const AchievementsGallery: React.FC<AchievementsGalleryProps> = ({ onClos
   const [achievements, setAchievements] = useState<Achievement[]>([]);
 
   useEffect(() => {
-    const userId = currentChild?.id || 'default';
     setAchievements(dailyChallengeService.getAllAchievements());
   }, [currentChild?.id]);
 
@@ -175,7 +174,7 @@ export const AchievementsGallery: React.FC<AchievementsGalleryProps> = ({ onClos
         </div>
 
         {/* Achievements Grid */}
-        <div className="flex-1 overflow-y-auto p-6">
+        <div className="flex-1 overflow-y-auto p-6 touch-scroll">
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {achievements.map(achievement => (
               <div

@@ -12,12 +12,12 @@
  */
 
 let usePiperTTS = true;
-let isInitializing = false;
+const isInitializing = false;
 
 // Import Web Speech API as fallback
 import { playPronunciation } from './ttsService';
 
-export const initPiperTTS = async (language: string = 'en-US'): Promise<boolean> => {
+export const initPiperTTS = async (_language: string = 'en-US'): Promise<boolean> => {
   // Piper requires model files that may fail to load in some environments
   // We'll use Web Speech API as a reliable fallback
   if (!usePiperTTS) {
@@ -62,10 +62,10 @@ export const generatePiperAudio = async (
       return null;
     }
 
-    // Use optimized Web Speech API instead
+    // Use optimized Web Speech API instead with language support
     const languageLabel = languageCodeToLabel[language] || 'English';
     await playPronunciation(text, languageLabel);
-    
+
     // Return a placeholder to indicate success
     // (Web Speech API plays audio directly, doesn't return a URL)
     return 'web-speech-api';

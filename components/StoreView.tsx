@@ -60,12 +60,13 @@ const StoreView: React.FC<StoreViewProps> = ({ user, onUpdateUser, onClose }) =>
       case 'price-high':
         filtered = [...filtered].sort((a, b) => b.cost - a.cost);
         break;
-      case 'rarity':
+      case 'rarity': {
         const rarityOrder = { common: 0, rare: 1, epic: 2, legendary: 3 };
         filtered = [...filtered].sort((a, b) => 
           (rarityOrder[b.rarity || 'common']) - (rarityOrder[a.rarity || 'common'])
         );
         break;
+      }
     }
     
     return filtered;
@@ -121,7 +122,6 @@ const StoreView: React.FC<StoreViewProps> = ({ user, onUpdateUser, onClose }) =>
   };
 
   const renderColorPreview = (item: StoreItem) => {
-    const isGradient = item.previewColor?.includes('gradient');
     return (
       <div 
         className={`w-14 h-14 rounded-full border-4 border-white shadow-lg transition-transform hover:scale-110 ${

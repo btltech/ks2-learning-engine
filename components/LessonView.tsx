@@ -38,8 +38,12 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
   const [lesson, setLesson] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-    const { speak, cancel, isSpeaking, isLoading: isTTSLoading, progress: ttsProgress, errorMessage: ttsError, needsGesture, setNeedsGesture } = useTTS();
+  
+  // Detect language for native pronunciation
   const isLanguageSubject = ['French','Spanish','German','Japanese','Mandarin','Romanian','Yoruba','Languages'].includes(subject);
+  const detectedLanguage = isLanguageSubject ? subject : 'English';
+  const { speak, cancel, isSpeaking, isLoading: isTTSLoading, progress: ttsProgress, errorMessage: ttsError, needsGesture, setNeedsGesture } = useTTS(detectedLanguage);
+  
   const { playClick } = useGameSounds();
 
   // Stop speaking when unmounting or changing lesson

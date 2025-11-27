@@ -1101,3 +1101,8 @@ export const importedQuestions: BankQuestion[] = [
     difficulty: Difficulty.Medium,
     difficulty_score: null,
     question: "In Citizenship, what best describes democracy? (3): Q1",
+    options: ["A system where people vote for leaders", "A system where one person makes all decisions", "A system where decisions are made by chance"],
+    correctAnswer: "A system where people vote for leaders",
+    explanation: "Democracy is a system of government where people have the power to choose their leaders through voting."
+  }
+];

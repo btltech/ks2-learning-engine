@@ -13,7 +13,13 @@ import { offlineManager } from './offlineManager';
 import { getRandomQuestions } from '../data/questionBank';
 import { getUsedQuestions, markQuestionsAsUsed, resetUsedQuestions } from './questionTracker';
 
-const ai = new GoogleGenAI({ apiKey: (import.meta as any).env.VITE_GEMINI_API_KEY as string });
+const LANGUAGE_SUBJECTS = ['french', 'spanish', 'german', 'japanese', 'mandarin', 'romanian', 'yoruba'];
+
+const apiKey = (import.meta as any).env.VITE_GEMINI_API_KEY as string;
+// if (!apiKey) {
+//   throw new Error('VITE_GEMINI_API_KEY is not set. Please configure your environment variables.');
+// }
+const ai = new GoogleGenAI({ apiKey: apiKey || 'test-key' });
 
 const model = 'gemini-2.5-flash';
 
@@ -33,6 +39,7 @@ export const getTopicsForSubject = async (subject: string, studentAge: number): 
 
   let contents = '';
   const subjectLower = subject.toLowerCase();
+  const isSpecificLanguage = LANGUAGE_SUBJECTS.includes(subjectLower);
 
   if (subjectLower === 'computing' || subjectLower === 'coding') {
     contents = `List 30 key topics for an introduction to Computing for a ${studentAge}-year-old UK Key Stage 2 student. Focus on foundational concepts using block-based coding (like Scratch), an introduction to Python (e.g., variables, loops, simple commands), and digital literacy (e.g., internet safety, how the internet works). Ensure topics are aligned with the UK Department for Education (DfE) computing curriculum.
@@ -51,10 +58,21 @@ IMPORTANT: Content must be appropriate for children aged ${studentAge}. Use simp
     - "Mandarin: Family"
     - "Yoruba: Common Phrases"
     - "Romanian: Food"
-    
+
     Focus on vocabulary and basic conversation. Ensure topics are aligned with the UK DfE curriculum standards where applicable, or beginner levels for the other languages.
 
     IMPORTANT: Content must be appropriate for children aged ${studentAge}. Use simple, encouraging language.`;
+  } else if (isSpecificLanguage) {
+    const languageLabel = subject.charAt(0).toUpperCase() + subject.slice(1);
+    contents = `List 20 beginner-friendly topics for learning ${languageLabel} for a ${studentAge}-year-old UK Key Stage 2 student.
+
+RULES:
+- Keep each topic short and clear (e.g., "Greetings", "Numbers 1-20", "Colors", "Family", "Food", "School")
+- Focus on practical vocabulary and simple phrases a child can use
+- DO NOT prefix the topic with the language name (just the topic text)
+- Avoid grammar-heavy or abstract topics; keep it fun and usable
+
+IMPORTANT: Content must be appropriate for children aged ${studentAge}. Use simple, encouraging language.`;
   } else if (subjectLower === 'pe') {
     contents = `List 30 key theoretical topics for Physical Education (PE) for a ${studentAge}-year-old UK Key Stage 2 student. Focus on health, fitness, body awareness, and rules of sports (e.g., 'Healthy Eating', 'Muscles and Bones', 'Importance of Exercise', 'Rules of Football'). Do not include practical activities that require physical movement right now.
 
@@ -255,7 +273,7 @@ export const generateQuiz = async (subject: string, topic: string, difficulty: D
              finalQuestions = [...availableFirebaseQuestions];
         }
     }
-  } catch (error) {
+  } catch {
       // Firebase permissions not configured or network issue - app will use local bank and AI
       if (process.env.NODE_ENV === 'development') {
         console.debug("Firebase fetch skipped (permissions or network issue)");
@@ -308,7 +326,7 @@ export const generateQuiz = async (subject: string, topic: string, difficulty: D
   if (finalQuestions.length === 0) {
     console.log(`No exact match for topic "${topic}", searching for general ${subject} questions...`);
     
-    let fallbackSubject = subject;
+    const fallbackSubject = subject;
     // For languages, we don't want to mix languages, so we skip general fallback 
     // unless we can filter by language. Since getRandomQuestions is strict, 
     // we skip general fallback for languages to avoid showing Spanish questions in French quiz.

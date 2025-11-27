@@ -1,8 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ChatBubbleLeftRightIcon, XMarkIcon, ChevronUpIcon, ChevronDownIcon, PaperAirplaneIcon } from '@heroicons/react/24/solid';
-import { askMiRa, generateSubjectConnections, generateProjectSuggestions, generateQuizHint, generateConceptReinforcement } from '../services/geminiService';
-import { ChatMessage } from '../types';
-import { useTTS } from '../hooks/useTTS';
+import { XMarkIcon, ChevronDownIcon, PaperAirplaneIcon } from '@heroicons/react/24/solid';
+import { askMiRa, generateSubjectConnections, generateProjectSuggestions, generateConceptReinforcement } from '../services/geminiService';
 
 interface GuideAvatarProps {
   message: string;

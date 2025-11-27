@@ -4,7 +4,6 @@
  * Handles real-time 1v1 quiz battles using Firebase Realtime Database
  */
 
-import { db, collection, getDocs, addDoc, query, where, limit } from './firebase';
 import { Difficulty, QuizQuestion } from '../types';
 
 export type BattleStatus = 'waiting' | 'ready' | 'in_progress' | 'completed' | 'cancelled';

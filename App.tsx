@@ -2,7 +2,6 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { Routes, Route, useNavigate, useLocation, useParams, Navigate } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import SubjectSelector from './components/SubjectSelector';
 import LanguageSelector from './components/LanguageSelector';
 import TopicSelector from './components/TopicSelector';
 import FeedbackModal from './components/FeedbackModal';
@@ -11,9 +10,9 @@ import OfflineIndicator from './components/OfflineIndicator';
 import LoginView from './components/LoginView';
 import LoadingSpinner from './components/LoadingSpinner';
 import { ToastProvider } from './components/Toast';
-import { DailyChallengeCard, AchievementsGallery, StreakMilestone } from './components/DailyChallenge';
-import { ReviewMode, ReviewSummary, ReviewDueBadge } from './components/ReviewMode';
-import { AccessibilitySettingsModal, AccessibilityButton, initializeAccessibility, SkipToMainContent } from './components/AccessibilitySettings';
+import { AchievementsGallery } from './components/DailyChallenge';
+import { ReviewMode, ReviewSummary } from './components/ReviewMode';
+import { AccessibilitySettingsModal, initializeAccessibility, SkipToMainContent } from './components/AccessibilitySettings';
 import { QuizBattleMode } from './components/QuizBattle';
 import { LearningPathsView } from './components/LearningPaths';
 import { useUser } from './context/UserContext';
@@ -48,7 +47,7 @@ const TeacherDashboard = lazy(() => import('./components/TeacherDashboard'));
 // };
 
 const AppContent: React.FC = () => {
-  const { user, logout, checkStreak, addPoints, updateMastery, updateAge, setUser, recordQuizSession, addTimeSpent, suggestNextDifficulty, currentChild } = useUser();
+  const { user, logout, checkStreak, addPoints, updateMastery, setUser, recordQuizSession, addTimeSpent, suggestNextDifficulty } = useUser();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -74,7 +73,6 @@ const AppContent: React.FC = () => {
   const [quizResults, setQuizResults] = useState<QuizResult[]>([]);
   const [pointsEarned, setPointsEarned] = useState<number>(0);
   const [showFeedback, setShowFeedback] = useState(false);
-  const [currentDifficulty, setCurrentDifficulty] = useState<Difficulty>(Difficulty.Medium);
   const [nextDifficultySuggestion, setNextDifficultySuggestion] = useState<Difficulty | null>(null);
   const [quizStartTime] = useState<number>(Date.now());
 
@@ -122,6 +120,16 @@ const AppContent: React.FC = () => {
   const currentSubject = getSubjectFromUrl(location.pathname);
   const currentTopic = getTopicFromUrl(location.pathname);
   const currentLanguage = getLanguageFromUrl(location.pathname);
+  const subjectKey = currentLanguage || currentSubject?.name;
+
+  const parseDifficultyFromSearch = (search: string): Difficulty | null => {
+    const param = new URLSearchParams(search).get('difficulty');
+    return param && Object.values(Difficulty).includes(param as Difficulty)
+      ? param as Difficulty
+      : null;
+  };
+
+  const urlDifficulty = parseDifficultyFromSearch(location.search);
 
   // Smart Difficulty Logic
   const getRecommendedDifficulty = (subject: string, topic: string): Difficulty => {
@@ -135,9 +143,11 @@ const AppContent: React.FC = () => {
     return Difficulty.Medium;
   };
 
-  const difficulty = (currentSubject && currentTopic) 
-    ? getRecommendedDifficulty(currentSubject.name, currentTopic) 
-    : Difficulty.Medium;
+  const difficulty = urlDifficulty
+    ? urlDifficulty
+    : (subjectKey && currentTopic) 
+      ? getRecommendedDifficulty(subjectKey, currentTopic) 
+      : Difficulty.Medium;
 
   const handleLoginWrapper = (userProfile: UserProfile) => {
     // Set the user in context and localStorage
@@ -157,14 +167,15 @@ const AppContent: React.FC = () => {
     addPoints(earned);
     
     if (currentSubject && currentTopic) {
-      updateMastery(currentSubject.name, currentTopic, scorePercentage);
+      const trackedSubject = subjectKey || currentSubject.name;
+      updateMastery(trackedSubject, currentTopic, scorePercentage);
       
       // Record quiz session for analytics
       const quizSession: QuizSession = {
         id: `quiz_${Date.now()}`,
-        subject: currentSubject.name,
+        subject: trackedSubject,
         topic: currentTopic,
-        difficulty: currentDifficulty,
+        difficulty,
         score: scorePercentage,
         completedAt: new Date().toISOString(),
         timeSpent: timeSpentSeconds
@@ -172,17 +183,17 @@ const AppContent: React.FC = () => {
       recordQuizSession(quizSession);
       
       // Track time spent on this subject
-      addTimeSpent(currentSubject.name, Math.round(timeSpentSeconds / 60));
+      addTimeSpent(trackedSubject, Math.round(timeSpentSeconds / 60));
       
       // Get difficulty recommendation for next attempt
-      const suggestedDifficulty = suggestNextDifficulty(currentSubject.name, currentTopic);
+      const suggestedDifficulty = suggestNextDifficulty(trackedSubject, currentTopic);
       setNextDifficultySuggestion(suggestedDifficulty);
       
       // Add wrong answers to spaced repetition
       results.forEach((result) => {
         if (!result.isCorrect) {
           spacedRepetitionService.addWrongAnswer(
-            currentSubject.name,
+            trackedSubject,
             currentTopic,
             result.question,
             result.options[parseInt(result.correctAnswer, 10)] || result.correctAnswer
@@ -202,13 +213,14 @@ const AppContent: React.FC = () => {
   
   // Handle starting a daily challenge
   const handleStartDailyChallenge = (challenge: DailyChallenge) => {
-    navigate(`/subject/${encodeURIComponent(challenge.subject)}/topic/${encodeURIComponent(challenge.topic)}/quiz`);
+    const path = `/subject/${encodeURIComponent(challenge.subject)}/topic/${encodeURIComponent(challenge.topic)}/quiz?difficulty=${challenge.difficulty}`;
+    navigate(path);
   };
   
   // Handle starting a lesson from learning paths
-  const handleStartLearningPathLesson = (subject: string, topic: string, difficulty: Difficulty) => {
+  const handleStartLearningPathLesson = (subject: string, topic: string, _difficulty: Difficulty) => {
     setShowLearningPaths(false);
-    navigate(`/subject/${encodeURIComponent(subject)}/topic/${encodeURIComponent(topic)}`);
+    navigate(`/subject/${encodeURIComponent(subject)}/topic/${encodeURIComponent(topic)}?difficulty=${_difficulty}`);
   };
 
   const getGuideMessage = () => {
@@ -253,77 +265,79 @@ const AppContent: React.FC = () => {
         onLogout={logout}
       />
 
-      <main className="flex-grow w-full container mx-auto p-4 sm:p-6 lg:p-8 flex items-center justify-center">
-        <Suspense fallback={<LoadingSpinner />}>
-          <Routes>
-            <Route path="/login" element={<LoginView onLogin={handleLoginWrapper} />} />
-            
-            <Route path="/" element={
-              <HomeView
-                onSelectSubject={(s) => navigate(`/subject/${encodeURIComponent(s.name)}`)}
-                onStartDailyChallenge={handleStartDailyChallenge}
-                onOpenReviewMode={() => setShowReviewMode(true)}
-                onOpenQuizBattle={() => setShowQuizBattle(true)}
-                onOpenLearningPaths={() => setShowLearningPaths(true)}
-                onOpenAchievements={() => setShowAchievements(true)}
-                progress={progress}
-              />
-            } />
-            
-            {/* Specific Routes for Languages */}
-            <Route path="/subject/Languages" element={
-              <LanguageSelector 
-                onSelect={(lang) => navigate(`/subject/Languages/${encodeURIComponent(lang)}`)}
-                onBack={() => navigate('/')}
-              />
-            } />
-            
-            <Route path="/subject/Languages/:language" element={<LanguageTopicWrapper studentAge={studentAge} progress={progress} />} />
-            
-            <Route path="/subject/Languages/:language/topic/:topicName" element={
-              <LanguageLessonWrapper 
-                studentAge={studentAge} 
-                difficulty={difficulty}
-              />
-            } />
+      <main className="flex-grow w-full content-visibility-auto safe-area-bottom">
+        <div className="mobile-shell py-4 mobile:py-5 sm:py-6 lg:py-8">
+          <Suspense fallback={<LoadingSpinner />}>
+            <Routes>
+              <Route path="/login" element={<LoginView onLogin={handleLoginWrapper} />} />
+              
+              <Route path="/" element={
+                <HomeView
+                  onSelectSubject={(s) => navigate(`/subject/${encodeURIComponent(s.name)}`)}
+                  onStartDailyChallenge={handleStartDailyChallenge}
+                  onOpenReviewMode={() => setShowReviewMode(true)}
+                  onOpenQuizBattle={() => setShowQuizBattle(true)}
+                  onOpenLearningPaths={() => setShowLearningPaths(true)}
+                  onOpenAchievements={() => setShowAchievements(true)}
+                  progress={progress}
+                />
+              } />
+              
+              {/* Specific Routes for Languages */}
+              <Route path="/subject/Languages" element={
+                <LanguageSelector 
+                  onSelect={(lang) => navigate(`/subject/Languages/${encodeURIComponent(lang)}`)}
+                  onBack={() => navigate('/')}
+                />
+              } />
+              
+              <Route path="/subject/Languages/:language" element={<LanguageTopicWrapper studentAge={studentAge} progress={progress} />} />
+              
+              <Route path="/subject/Languages/:language/topic/:topicName" element={
+                <LanguageLessonWrapper 
+                  studentAge={studentAge} 
+                  difficulty={difficulty}
+                />
+              } />
 
-            <Route path="/subject/Languages/:language/topic/:topicName/quiz" element={
-              <LanguageQuizWrapper 
-                studentAge={studentAge} 
-                difficulty={difficulty}
-                onSubmit={handleQuizSubmit}
-              />
-            } />
+              <Route path="/subject/Languages/:language/topic/:topicName/quiz" element={
+                <LanguageQuizWrapper 
+                  studentAge={studentAge} 
+                  difficulty={difficulty}
+                  onSubmit={handleQuizSubmit}
+                />
+              } />
 
-            {/* Generic Routes for other subjects */}
-            <Route path="/subject/:subjectName" element={<SubjectRouteWrapper studentAge={studentAge} progress={progress} />} />
-            
-            <Route path="/subject/:subjectName/topic/:topicName" element={
-              <LessonRouteWrapper 
-                studentAge={studentAge} 
-                difficulty={difficulty}
-              />
-            } />
+              {/* Generic Routes for other subjects */}
+              <Route path="/subject/:subjectName" element={<SubjectRouteWrapper studentAge={studentAge} progress={progress} />} />
+              
+              <Route path="/subject/:subjectName/topic/:topicName" element={
+                <LessonRouteWrapper 
+                  studentAge={studentAge} 
+                  difficulty={difficulty}
+                />
+              } />
 
-            <Route path="/subject/:subjectName/topic/:topicName/quiz" element={
-              <QuizRouteWrapper 
-                studentAge={studentAge} 
-                difficulty={difficulty}
-                onSubmit={handleQuizSubmit}
-              />
-            } />
-            
-            {/* Redirect to login if accessing dashboard without auth */}
-            <Route path="*" element={!user ? <Navigate to="/login" /> : <Navigate to="/" />} />
-          </Routes>
-        </Suspense>
+              <Route path="/subject/:subjectName/topic/:topicName/quiz" element={
+                <QuizRouteWrapper 
+                  studentAge={studentAge} 
+                  difficulty={difficulty}
+                  onSubmit={handleQuizSubmit}
+                />
+              } />
+              
+              {/* Redirect to login if accessing dashboard without auth */}
+              <Route path="*" element={!user ? <Navigate to="/login" /> : <Navigate to="/" />} />
+            </Routes>
+          </Suspense>
+        </div>
       </main>
 
       <GuideAvatar 
         message={getGuideMessage()} 
         studentAge={studentAge}
         studentName={user?.name}
-        context={currentSubject && currentTopic ? { subject: currentSubject.name, topic: currentTopic } : undefined}
+        context={subjectKey && currentTopic ? { subject: subjectKey, topic: currentTopic } : undefined}
         quizScore={showFeedback && quizResults.length > 0 ? Math.round((quizResults.filter(r => r.isCorrect).length / quizResults.length) * 100) : undefined}
       />
 
@@ -335,11 +349,10 @@ const AppContent: React.FC = () => {
           nextDifficultySuggestion={nextDifficultySuggestion || undefined}
           onRetry={() => {
             setShowFeedback(false);
-            // Stay on quiz page or reload it?
-            // Actually we are on the quiz page, so just closing modal might show old quiz.
-            // Better to navigate back to lesson or reload quiz.
-            // For now, let's go back to lesson
-            navigate(`/subject/${encodeURIComponent(currentSubject.name)}/topic/${encodeURIComponent(currentTopic)}`);
+            const retryPath = currentSubject.name === 'Languages' && currentLanguage
+              ? `/subject/Languages/${encodeURIComponent(currentLanguage)}/topic/${encodeURIComponent(currentTopic)}`
+              : `/subject/${encodeURIComponent(currentSubject.name)}/topic/${encodeURIComponent(currentTopic)}`;
+            navigate(retryPath);
           }} 
           onNewTopic={() => {
             setShowFeedback(false);
@@ -489,7 +502,7 @@ const LanguageTopicWrapper = ({ studentAge, progress: _progress }: { studentAge:
   );
 };
 
-const LanguageLessonWrapper = ({ studentAge, difficulty }: { studentAge: number, difficulty: Difficulty }) => {
+const LanguageLessonWrapper = ({ studentAge, difficulty: _difficulty }: { studentAge: number, difficulty: Difficulty }) => {
   const { language, topicName } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -500,7 +513,7 @@ const LanguageLessonWrapper = ({ studentAge, difficulty }: { studentAge: number,
     <LessonView 
       subject={decodeURIComponent(language)} 
       topic={decodeURIComponent(topicName)} 
-      difficulty={difficulty} 
+      difficulty={_difficulty} 
       studentAge={studentAge} 
       onStartQuiz={(mode = 'standard') => navigate(`${location.pathname}/quiz?mode=${mode}`)} 
       onBack={() => navigate(`/subject/Languages/${language}`)} 

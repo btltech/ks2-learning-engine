@@ -329,7 +329,7 @@ export const playLevelUpSound = () => {
 
   // Final chord (C major)
   const chordNotes = [523.25, 659.25, 783.99]; // C5, E5, G5
-  chordNotes.forEach((freq, i) => {
+  chordNotes.forEach((freq, _i) => {
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
     

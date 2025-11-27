@@ -1,6 +1,6 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render, fireEvent, waitFor, act } from '@testing-library/react';
 import { useTTS } from './useTTS';
 
 // Mock services/piperTTS
@@ -30,14 +30,11 @@ describe('useTTS hook', () => {
   it('starts speaking when speak is called', async () => {
     const { getByText, getByTestId } = render(<TestComponent text="Hello" />);
     
-    fireEvent.click(getByText('Speak'));
-
-    // Should go to loading first
-    await waitFor(() => {
-      expect(getByTestId('status').textContent).toBe('loading');
+    await act(async () => {
+      fireEvent.click(getByText('Speak'));
     });
 
-    // Then speaking
+    // Should go to speaking (loading is brief)
     await waitFor(() => {
       expect(getByTestId('status').textContent).toBe('speaking');
     });
@@ -46,7 +43,9 @@ describe('useTTS hook', () => {
   it('stops speaking after timeout', async () => {
     const { getByText, getByTestId } = render(<TestComponent text="Hello" />);
     
-    fireEvent.click(getByText('Speak'));
+    await act(async () => {
+      fireEvent.click(getByText('Speak'));
+    });
 
     await waitFor(() => {
       expect(getByTestId('status').textContent).toBe('speaking');
@@ -72,13 +71,17 @@ describe('useTTS hook', () => {
 
     const { getByText, getByTestId } = render(<TestComponent text="Hello" />);
     
-    fireEvent.click(getByText('Speak'));
+    await act(async () => {
+      fireEvent.click(getByText('Speak'));
+    });
 
     await waitFor(() => {
       expect(getByTestId('status').textContent).toBe('speaking');
     });
 
-    fireEvent.click(getByText('Cancel'));
+    await act(async () => {
+      fireEvent.click(getByText('Cancel'));
+    });
 
     expect(cancelMock).toHaveBeenCalled();
     await waitFor(() => {

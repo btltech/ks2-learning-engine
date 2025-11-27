@@ -3,7 +3,7 @@ import { useTTS } from '../hooks/useTTS';
 
 const TTSDemo: React.FC = () => {
   const [text, setText] = useState('Hello from Kasita!');
-  const { speak, cancel, isSpeaking, isLoading, progress, errorMessage, needsGesture, setNeedsGesture } = useTTS();
+  const { speak, cancel, isLoading, progress, errorMessage, needsGesture, setNeedsGesture } = useTTS();
 
   return (
     <div className="p-6 border rounded-md bg-white shadow-md">

@@ -8,7 +8,7 @@ import React, { useState, useEffect } from 'react';
 import { spacedRepetitionService, ReviewItem } from '../services/spacedRepetitionService';
 import { useUser } from '../context/UserContext';
 import { generateQuiz } from '../services/geminiService';
-import { QuizQuestion, Difficulty } from '../types';
+import { QuizQuestion } from '../types';
 
 interface ReviewModeProps {
   onComplete: (results: ReviewResults) => void;
@@ -43,7 +43,6 @@ export const ReviewMode: React.FC<ReviewModeProps> = ({ onComplete, onClose }) =
 
   const initializeReview = async () => {
     setLoading(true);
-    const userId = currentChild?.id || 'default';
     
     // Get items due for review
     const dueItems = spacedRepetitionService.getDueItems().slice(0, 10);

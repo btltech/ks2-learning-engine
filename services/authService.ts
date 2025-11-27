@@ -137,7 +137,7 @@ export const authService = {
       const date = new Date(quiz.completedAt);
       const today = new Date();
       const diffDays = Math.floor((today.getTime() - date.getTime()) / (1000 * 60 * 60 * 24));
-      let dateStr = diffDays === 0 ? 'Today' : diffDays === 1 ? 'Yesterday' : `${diffDays} days ago`;
+      const dateStr = diffDays === 0 ? 'Today' : diffDays === 1 ? 'Yesterday' : `${diffDays} days ago`;
       
       return {
         date: dateStr,

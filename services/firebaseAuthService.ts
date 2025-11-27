@@ -190,7 +190,6 @@ export const firebaseAuthService = {
 
       const childDoc = childDocs.docs[0];
       const childId = childDoc.id;
-      const childData = childDoc.data() as UserProfile;
 
       // Update parent's childrenIds
       const parentDocRef = doc(db, 'users', parentId);

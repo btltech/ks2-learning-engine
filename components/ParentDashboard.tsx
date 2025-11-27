@@ -14,7 +14,7 @@ const ParentDashboard: React.FC<ParentDashboardProps> = ({ onClose }) => {
   const [learningInsights, setLearningInsights] = useState<string>('');
   const [isGeneratingReport, setIsGeneratingReport] = useState(false);
   const [isGeneratingInsights, setIsGeneratingInsights] = useState(false);
-  const { settings, updateSettings, user, getPerformanceTrends, updateWeeklyProgress } = useUser();
+  const { user, getPerformanceTrends } = useUser();
 
   useEffect(() => {
     // In a real app, this would be an async call

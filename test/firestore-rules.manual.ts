@@ -6,17 +6,11 @@ import {
   collection,
   doc,
   getDoc,
-  query,
-  where,
   getDocs,
   setDoc,
-  updateDoc,
-  deleteDoc,
-  writeBatch,
-  DocumentData
+  deleteDoc
 } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: process.env.VITE_FIREBASE_API_KEY,
@@ -28,7 +22,6 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
 const db = getFirestore(app);
 
 /**
@@ -142,7 +135,7 @@ async function testLeaderboardReadable() {
     'Leaderboard is readable by authenticated users',
     async () => {
       const leaderboardRef = collection(db, 'leaderboard');
-      const snapshot = await getDocs(leaderboardRef);
+      await getDocs(leaderboardRef);
       // Should succeed - leaderboard is public readable
       return;
     },
@@ -155,7 +148,7 @@ async function testContentReadable() {
     'Content is readable by authenticated users',
     async () => {
       const contentRef = collection(db, 'content');
-      const snapshot = await getDocs(contentRef);
+      await getDocs(contentRef);
       // Should succeed - content is readable
       return;
     },

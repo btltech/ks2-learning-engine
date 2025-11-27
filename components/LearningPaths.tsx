@@ -15,7 +15,7 @@ interface LearningPathsProps {
 }
 
 export const LearningPathsView: React.FC<LearningPathsProps> = ({ onStartLesson, onClose }) => {
-  const { currentChild, mastery } = useUser();
+  const { currentChild } = useUser();
   const [paths, setPaths] = useState<LearningPath[]>([]);
   const [selectedPath, setSelectedPath] = useState<LearningPath | null>(null);
   const [view, setView] = useState<'list' | 'detail' | 'certificates'>('list');
@@ -33,12 +33,6 @@ export const LearningPathsView: React.FC<LearningPathsProps> = ({ onStartLesson,
   const filteredPaths = paths.filter(path => 
     filter === 'all' || path.subject === filter
   );
-
-  const handleStartPath = (path: LearningPath) => {
-    learningPathsService.startPath(path.id);
-    setSelectedPath(learningPathsService.getPath(path.id));
-    setView('detail');
-  };
 
   const handleStartStep = (step: LearningPathStep) => {
     onStartLesson(step.subject, step.topic, step.difficulty);
@@ -115,7 +109,6 @@ export const LearningPathsView: React.FC<LearningPathsProps> = ({ onStartLesson,
   // Path Detail View
   if (view === 'detail' && selectedPath) {
     const nextStep = learningPathsService.getNextStep(selectedPath.id);
-    const progress = learningPathsService.getPathProgress(selectedPath.id);
     const progressPercent = (selectedPath.completedSteps / selectedPath.totalSteps) * 100;
 
     return (

@@ -8,7 +8,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { multiplayerBattleService, QuizBattle, BattlePlayer } from '../services/multiplayerBattleService';
 import { useUser } from '../context/UserContext';
 import { generateQuiz } from '../services/geminiService';
-import { QuizQuestion, Difficulty } from '../types';
+import { Difficulty } from '../types';
 
 interface QuizBattleProps {
   onClose: () => void;
@@ -58,7 +58,7 @@ export const QuizBattleMode: React.FC<QuizBattleProps> = ({ onClose, onComplete 
 
       setBattle(newBattle);
       setView('waiting');
-    } catch (err) {
+    } catch {
       setError('Failed to create battle. Please try again.');
     } finally {
       setLoading(false);
@@ -97,7 +97,7 @@ export const QuizBattleMode: React.FC<QuizBattleProps> = ({ onClose, onComplete 
       } else {
         setError('Battle not found or already started');
       }
-    } catch (err) {
+    } catch {
       setError('Failed to join battle');
     } finally {
       setLoading(false);
@@ -333,9 +333,6 @@ export const QuizBattleMode: React.FC<QuizBattleProps> = ({ onClose, onComplete 
   // Battle View
   if (view === 'battle' && battle) {
     const currentQuestion = battle.questions[currentQuestionIndex];
-    const myPlayer = battle.players.host.id === (currentChild?.id || 'player1')
-      ? battle.players.host
-      : battle.players.challenger;
 
     return (
       <div className="fixed inset-0 bg-gradient-to-br from-purple-900 to-indigo-900 flex flex-col z-50">

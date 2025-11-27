@@ -6,8 +6,7 @@ import {
   query, 
   orderBy, 
   limit, 
-  Timestamp,
-  getDoc
+  Timestamp
 } from 'firebase/firestore';
 import { db } from './firebase';
 import { UserProfile } from '../types';

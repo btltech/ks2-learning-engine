@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { TrophyIcon, AcademicCapIcon, SparklesIcon } from '@heroicons/react/24/solid';
 import { useRealtimeLeaderboard } from '../hooks/useRealtimeListeners';
-import { UserProfile } from '../types';
 
 interface AgeGroupedLeaderboardProps {
   studentId?: string;
@@ -148,7 +147,7 @@ const AgeGroupedLeaderboard: React.FC<AgeGroupedLeaderboardProps> = ({
                       : 'bg-gradient-to-br from-blue-400 to-blue-600 text-white'
                   }`}
                 >
-                  {rank <= 3 ? getMedalEmoji(rank).replace(/[🥇🥈🥉]/g, (m) => m) : rank}
+                  {rank <= 3 ? getMedalEmoji(rank).replace(/[🥇🥈🥉]/gu, (m) => m) : rank}
                 </div>
 
                 {/* Student Info */}

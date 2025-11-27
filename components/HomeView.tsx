@@ -4,7 +4,7 @@
  * Enhanced home screen with daily challenges, quick actions, and subject selection
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 import SubjectSelector from './SubjectSelector';
 import { DailyChallengeCard, StreakMilestone } from './DailyChallenge';
 import { ReviewDueBadge } from './ReviewMode';
@@ -36,7 +36,7 @@ const HomeView: React.FC<HomeViewProps> = ({
   const userId = currentChild?.id || user?.id || 'default';
 
   return (
-    <div className="w-full max-w-6xl mx-auto" id="main-content">
+    <div className="w-full max-w-screen-content mx-auto touch-card p-4 mobile:p-5 sm:p-6 md:p-8 content-visibility-auto" id="main-content">
       {/* Welcome & Streak Section */}
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-gray-900 mb-4">
@@ -52,7 +52,7 @@ const HomeView: React.FC<HomeViewProps> = ({
       <DailyChallengeCard onStartChallenge={onStartDailyChallenge} />
 
       {/* Quick Actions */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+      <div className="grid grid-cols-1 mobile:grid-cols-2 laptop:grid-cols-4 gap-3 mobile:gap-4 mb-6">
         <QuickActionButton
           icon="📚"
           label="Review Mode"
@@ -116,7 +116,7 @@ const QuickActionButton: React.FC<QuickActionButtonProps> = ({
   return (
     <button
       onClick={onClick}
-      className={`${color} p-4 rounded-xl text-left transition-all hover:shadow-md`}
+      className={`${color} touch-target w-full rounded-xl mobile:rounded-2xl text-left transition-all shadow-subtle hover:shadow-lifted active:translate-y-[1px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500`}
     >
       <div className="text-2xl mb-1">{icon}</div>
       <div className="font-bold text-sm">{label}</div>

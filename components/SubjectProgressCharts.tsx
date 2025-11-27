@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react';
-import { ChartBarIcon, AcademicCapIcon, SparklesIcon, ArrowTrendingUpIcon } from '@heroicons/react/24/solid';
+import { ChartBarIcon, SparklesIcon, ArrowTrendingUpIcon } from '@heroicons/react/24/solid';
 import { useUser } from '../context/UserContext';
 
 interface SubjectProgressChartsProps {
   subjects: string[];
   studentName?: string;
-  minMasteryScore?: number;
+  _minMasteryScore?: number;
   childMastery?: Record<string, Record<string, number>>;
 }
 
@@ -22,7 +22,7 @@ const SUBJECT_COLORS: Record<string, string> = {
 const SubjectProgressCharts: React.FC<SubjectProgressChartsProps> = ({
   subjects,
   studentName = 'Student',
-  minMasteryScore = 0,
+  _minMasteryScore = 0,
   childMastery,
 }) => {
   const { user } = useUser();
