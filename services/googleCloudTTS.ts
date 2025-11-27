@@ -7,7 +7,7 @@ interface GoogleCloudTTSConfig {
 }
 
 interface SynthesisRequest {
-  input: { text: string };
+  input: { text?: string; ssml?: string };
   voice: {
     languageCode: string;
     name: string;
@@ -19,6 +19,7 @@ interface SynthesisRequest {
     speakingRate?: number;
     pitch?: number;
     volumeGainDb?: number;
+    effectsProfileUri?: string[];
   };
 }
 
@@ -192,6 +193,23 @@ const getVoiceForLanguage = (language: string, gender: 'MALE' | 'FEMALE' = 'FEMA
 };
 
 /**
+ * Convert plain text to SSML with natural prosody for better speech quality
+ */
+const convertToSSML = (text: string): string => {
+  // Add SSML tags for more natural speech
+  // Break text into sentences for better pause placement
+  const sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
+  
+  const ssmlSentences = sentences.map((sentence: string) => {
+    const trimmed = sentence.trim();
+    // Add slight emphasis and break between sentences for naturalness
+    return `<s>${trimmed}</s>`;
+  }).join('<break time="500ms"/>');
+
+  return `<speak>${ssmlSentences}</speak>`;
+};
+
+/**
  * Synthesize text to speech using Google Cloud TTS
  */
 export const synthesizeGoogleCloudTTS = async (
@@ -209,7 +227,7 @@ export const synthesizeGoogleCloudTTS = async (
   }
 
   // Check cache
-  const cacheKey = `${language}-${text}`;
+  const cacheKey = `${language}-${text}-${options?.speakingRate || 1}-${options?.pitch || 0}`;
   if (audioCache.has(cacheKey)) {
     return audioCache.get(cacheKey)!;
   }
@@ -221,8 +239,11 @@ export const synthesizeGoogleCloudTTS = async (
       return null;
     }
 
+    // Use SSML for more natural speech prosody
+    const ssml = convertToSSML(text);
+
     const request: SynthesisRequest = {
-      input: { text },
+      input: { ssml },
       voice: {
         languageCode: voice.languageCode,
         name: voice.name,
@@ -231,9 +252,12 @@ export const synthesizeGoogleCloudTTS = async (
       audioConfig: {
         audioEncoding: 'MP3',
         sampleRateHertz: 24000,
-        speakingRate: options?.speakingRate || 0.95,
-        pitch: options?.pitch || 0,
-        volumeGainDb: 0
+        // Better defaults for natural speech
+        speakingRate: options?.speakingRate !== undefined ? options.speakingRate : 1.0,
+        pitch: options?.pitch !== undefined ? options.pitch : 0,
+        volumeGainDb: 0,
+        // Add audio profiles for telephony or speaker enhancement
+        effectsProfileUri: ['projects/speakeasy-stage/locations/global/effectsProfiles/small-bluetooth-speaker-class-device']
       }
     };
 

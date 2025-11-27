@@ -7,8 +7,8 @@ export const GoogleCloudTTSTestComponent: React.FC = () => {
   const { speak, isSpeaking, switchProvider, activeProvider, availableProviders, errorMessage } = useTTSEnhanced('English');
   const [selectedLanguage, setSelectedLanguage] = useState('English');
   const [testText, setTestText] = useState('Hello! This is a test of Google Cloud Text-to-Speech.');
-  const [voiceGender, setVoiceGender] = useState<'MALE' | 'FEMALE'>('MALE');
-  const [speakingRate, setSpeakingRate] = useState(1);
+  const [voiceGender, setVoiceGender] = useState<'MALE' | 'FEMALE'>('FEMALE');
+  const [speakingRate, setSpeakingRate] = useState(1.0);
   const [pitch, setPitch] = useState(0);
   const [volume, setVolume] = useState(0);
   const [showLogs, setShowLogs] = useState(false);
@@ -132,6 +132,30 @@ export const GoogleCloudTTSTestComponent: React.FC = () => {
 
         {/* Audio Settings */}
         <div className="space-y-2 bg-gray-50 p-2 rounded">
+          <div className="flex gap-1 mb-2">
+            <button
+              onClick={() => { setSpeakingRate(0.9); setPitch(0); setVolume(0); }}
+              className="text-xs px-2 py-1 rounded bg-blue-100 text-blue-700 hover:bg-blue-200"
+              title="Slower, more natural speech"
+            >
+              Natural Slow
+            </button>
+            <button
+              onClick={() => { setSpeakingRate(1.0); setPitch(0); setVolume(0); }}
+              className="text-xs px-2 py-1 rounded bg-blue-100 text-blue-700 hover:bg-blue-200"
+              title="Normal natural speech"
+            >
+              Natural Normal
+            </button>
+            <button
+              onClick={() => { setSpeakingRate(1.1); setPitch(2); setVolume(2); }}
+              className="text-xs px-2 py-1 rounded bg-blue-100 text-blue-700 hover:bg-blue-200"
+              title="Faster with more expression"
+            >
+              Natural Fast
+            </button>
+          </div>
+
           <div>
             <label className="text-xs font-medium text-gray-700">
               Speaking Rate: {speakingRate.toFixed(1)}x
