@@ -38,6 +38,7 @@ const LANGUAGE_VOICE_MAP: Record<string, VoiceId> = {
 const FALLBACK_VOICE: VoiceId = 'en_GB-southern_english_female-low';
 
 const downloadedVoices = new Set<VoiceId>();
+let piperDisabled: string | null = null;
 
 const toProgressPct = (progress: { total: number; loaded: number }) => {
   if (!progress.total) return 0;
@@ -51,6 +52,9 @@ const resolveVoice = (languageLabel?: string): VoiceId => {
 };
 
 const ensureVoiceDownloaded = async (voiceId: VoiceId, onProgress?: ProgressListener) => {
+  if (piperDisabled) {
+    return false;
+  }
   if (downloadedVoices.has(voiceId)) return true;
   try {
     await download(voiceId, (progress => {
@@ -60,11 +64,13 @@ const ensureVoiceDownloaded = async (voiceId: VoiceId, onProgress?: ProgressList
     return true;
   } catch (error) {
     console.error('Piper download failed:', error);
+    piperDisabled = 'Piper download failed';
     return false;
   }
 };
 
 export const initPiperTTS = async (languageLabel?: string, onProgress?: ProgressListener): Promise<boolean> => {
+  if (piperDisabled) return false;
   const voiceId = resolveVoice(languageLabel);
   return ensureVoiceDownloaded(voiceId, onProgress);
 };
@@ -77,6 +83,8 @@ export const generatePiperAudio = async (
   languageLabel?: string,
   onProgress?: ProgressListener
 ): Promise<PiperPlayback | null> => {
+  if (piperDisabled) return null;
+
   const voiceId = resolveVoice(languageLabel);
   const ready = await ensureVoiceDownloaded(voiceId, onProgress);
   if (!ready) return null;
@@ -102,6 +110,7 @@ export const generatePiperAudio = async (
     return { audio, cleanup };
   } catch (error) {
     console.error('Piper synthesis failed:', error);
+    piperDisabled = 'Piper synthesis failed';
     return null;
   }
 };
@@ -110,4 +119,5 @@ export const isPiperReady = (): boolean => downloadedVoices.size > 0;
 
 export const resetPiper = () => {
   downloadedVoices.clear();
+  piperDisabled = null;
 };

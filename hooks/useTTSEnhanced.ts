@@ -71,10 +71,20 @@ export const useTTSEnhanced = (language?: string, _options?: Record<string, unkn
     // Try Piper first (natural accent, hosted models cached locally)
     try {
       setProgress(20);
-      const ready = await initPiperTTS(label, pct => setProgress(Math.max(20, Math.min(40, pct))));
-      if (ready) {
-        const playback = await generatePiperAudio(cleanText, label, pct => setProgress(Math.max(40, Math.min(85, pct))));
-        if (playback) {
+
+      // Race Piper against a timeout so we can fall back quickly if downloads hang
+      await Promise.race([
+        (async () => {
+          const ready = await initPiperTTS(label, pct => setProgress(Math.max(20, Math.min(40, pct))));
+          if (!ready) {
+            throw new Error('Piper model download failed');
+          }
+
+          const playback = await generatePiperAudio(cleanText, label, pct => setProgress(Math.max(40, Math.min(85, pct))));
+          if (!playback) {
+            throw new Error('Piper synthesis failed');
+          }
+
           activePlaybackRef.current = playback;
           setActiveProvider('piper');
           setIsSpeaking(true);
@@ -86,9 +96,12 @@ export const useTTSEnhanced = (language?: string, _options?: Record<string, unkn
             setProgress(null);
             activePlaybackRef.current = null;
           }, { once: true });
-          return;
-        }
-      }
+        })(),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('Piper timeout')), 8000))
+      ]);
+
+      // If Piper succeeded, stop here
+      if (activePlaybackRef.current) return;
     } catch (error) {
       console.error('Piper TTS error:', error);
       if (error instanceof DOMException && error.name === 'NotAllowedError') {
