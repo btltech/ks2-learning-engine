@@ -197,17 +197,39 @@ const getVoiceForLanguage = (language: string, gender: 'MALE' | 'FEMALE' = 'FEMA
  * Convert plain text to SSML with natural prosody for better speech quality
  */
 const convertToSSML = (text: string): string => {
-  // Add SSML tags for more natural speech
-  // Break text into sentences for better pause placement
-  const sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
-  
-  const ssmlSentences = sentences.map((sentence: string) => {
-    const trimmed = sentence.trim();
-    // Add slight emphasis and break between sentences for naturalness
-    return `<s>${trimmed}</s>`;
-  }).join('<break time="500ms"/>');
+  // Clean up the text first
+  let cleanText = text
+    .replace(/\s+/g, ' ') // Normalize whitespace
+    .replace(/[""]/g, '"') // Normalize quotes
+    .trim();
 
-  return `<speak>${ssmlSentences}</speak>`;
+  // Split into sentences for better prosody
+  const sentences = cleanText.match(/[^.!?]+[.!?]+/g) || [cleanText];
+
+  const ssmlSentences = sentences.map((sentence: string, index: number) => {
+    let trimmed = sentence.trim();
+
+    // Add emphasis for questions
+    if (trimmed.endsWith('?')) {
+      trimmed = `<prosody pitch="+2st">${trimmed}</prosody>`;
+    }
+
+    // Add slight emphasis for exclamations
+    if (trimmed.endsWith('!')) {
+      trimmed = `<prosody volume="+1dB">${trimmed}</prosody>`;
+    }
+
+    // Wrap in sentence tag for natural pauses
+    trimmed = `<s>${trimmed}</s>`;
+
+    // Add appropriate break between sentences
+    // Shorter break for questions, longer for statements
+    const breakTime = trimmed.includes('<prosody pitch="+2st">') ? '300ms' : '400ms';
+    return index < sentences.length - 1 ? `${trimmed}<break time="${breakTime}"/>` : trimmed;
+  });
+
+  // Add overall speak tag with natural speech settings
+  return `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="en-US">${ssmlSentences.join('')}</speak>`;
 };
 
 /**
@@ -253,12 +275,15 @@ export const synthesizeGoogleCloudTTS = async (
       audioConfig: {
         audioEncoding: 'MP3',
         sampleRateHertz: 24000,
-        // Better defaults for natural speech
-        speakingRate: options?.speakingRate !== undefined ? options.speakingRate : 1.0,
+        // Optimized settings for natural, human-like speech
+        speakingRate: options?.speakingRate !== undefined ? options.speakingRate : 0.95, // Slightly slower for clarity
         pitch: options?.pitch !== undefined ? options.pitch : 0,
         volumeGainDb: 0,
-        // Add audio profiles for high-fidelity playback
-        effectsProfileUri: ['headphone-class-device']
+        // Enhanced audio profiles for high-fidelity, natural playback
+        effectsProfileUri: [
+          'headphone-class-device',
+          'small-bluetooth-speaker-class-device'
+        ]
       }
     };
 
