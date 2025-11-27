@@ -43,9 +43,10 @@ const GOOGLE_CLOUD_VOICES: Record<string, {
   English: {
     languageCode: 'en-US',
     voices: [
+      { name: 'en-US-Studio-O', gender: 'FEMALE', naturalness: 'high' },
+      { name: 'en-US-Studio-M', gender: 'MALE', naturalness: 'high' },
       { name: 'en-US-Neural2-C', gender: 'FEMALE', naturalness: 'high' },
-      { name: 'en-US-Neural2-A', gender: 'MALE', naturalness: 'high' },
-      { name: 'en-US-Neural2-E', gender: 'FEMALE', naturalness: 'high' }
+      { name: 'en-US-Neural2-A', gender: 'MALE', naturalness: 'high' }
     ]
   },
   French: {
@@ -256,8 +257,8 @@ export const synthesizeGoogleCloudTTS = async (
         speakingRate: options?.speakingRate !== undefined ? options.speakingRate : 1.0,
         pitch: options?.pitch !== undefined ? options.pitch : 0,
         volumeGainDb: 0,
-        // Add audio profiles for telephony or speaker enhancement
-        effectsProfileUri: ['projects/speakeasy-stage/locations/global/effectsProfiles/small-bluetooth-speaker-class-device']
+        // Add audio profiles for high-fidelity playback
+        effectsProfileUri: ['headphone-class-device']
       }
     };
 
