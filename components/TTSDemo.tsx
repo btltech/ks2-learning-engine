@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { useTTS } from '../hooks/useTTS';
+import { useTTSEnhanced } from '../hooks/useTTSEnhanced';
 
 const TTSDemo: React.FC = () => {
   const [text, setText] = useState('Hello from Kasita!');
-  const { speak, cancel, isLoading, progress, errorMessage, needsGesture, setNeedsGesture } = useTTS();
+  const { speak, cancel, isLoading, progress, errorMessage, needsGesture, setNeedsGesture } = useTTSEnhanced(undefined, {
+    googleCloudApiKey: (import.meta as unknown as { env: { VITE_GOOGLE_CLOUD_TTS_API_KEY?: string } }).env?.VITE_GOOGLE_CLOUD_TTS_API_KEY,
+    preferGoogleCloud: true
+  });
 
   return (
     <div className="p-6 border rounded-md bg-white shadow-md">
