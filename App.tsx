@@ -21,22 +21,13 @@ import { SUBJECTS } from './constants';
 import HomeView from './components/HomeView';
 import { spacedRepetitionService } from './services/spacedRepetitionService';
 import { dailyChallengeService, DailyChallenge } from './services/dailyChallengeService';
-import { initializeGoogleCloudTTS } from './services/googleCloudTTS';
 import { ttsConfigManager } from './services/ttsConfigManager';
 
 // Initialize accessibility features
 if (typeof window !== 'undefined') {
   initializeAccessibility();
   
-  // Initialize Google Cloud TTS if API key is available
-  const apiKey = (import.meta as unknown as { env: { VITE_GOOGLE_CLOUD_TTS_API_KEY?: string } }).env?.VITE_GOOGLE_CLOUD_TTS_API_KEY;
-  if (apiKey) {
-    initializeGoogleCloudTTS(apiKey);
-    ttsConfigManager.setGoogleCloudApiKey(apiKey);
-    console.log('✓ Google Cloud TTS initialized successfully');
-  } else {
-    console.info('ℹ Google Cloud TTS API key not configured. Using Web Speech API as fallback.');
-  }
+  // Google Cloud TTS integration has been removed; keep ttsConfigManager available for UI settings
 }
 
 // Lazy loaded components
@@ -48,7 +39,7 @@ const ParentMonitoringDashboard = lazy(() => import('./components/ParentMonitori
 const LeaderboardView = lazy(() => import('./components/LeaderboardView'));
 const ProgressView = lazy(() => import('./components/ProgressView'));
 const TeacherDashboard = lazy(() => import('./components/TeacherDashboard'));
-const GoogleCloudTTSTest = lazy(() => import('./components/GoogleCloudTTSTest'));
+// Removed GoogleCloudTTSTest component - not used anymore
 
 // Wrapper for protected routes - currently not used but kept for future auth implementation
 // const RequireAuth: React.FC<{ children: React.ReactElement }> = ({ children }) => {
@@ -459,9 +450,7 @@ const AppContent: React.FC = () => {
         </Suspense>
       )}
 
-      <Suspense fallback={null}>
-        <GoogleCloudTTSTest />
-      </Suspense>
+      {/* Google Cloud TTS test UI removed */}
 
       <Footer />
     </div>
