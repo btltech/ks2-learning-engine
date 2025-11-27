@@ -227,8 +227,8 @@ export const synthesizeGoogleCloudTTS = async (
     return null;
   }
 
-  // Check cache
-  const cacheKey = `${language}-${text}-${options?.speakingRate || 1}-${options?.pitch || 0}`;
+  // Check cache - include gender in key to prevent wrong voice from being served
+  const cacheKey = `${language}-${text}-${options?.gender || 'FEMALE'}-${options?.speakingRate || 1}-${options?.pitch || 0}`;
   if (audioCache.has(cacheKey)) {
     return audioCache.get(cacheKey)!;
   }
