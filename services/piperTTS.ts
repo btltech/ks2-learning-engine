@@ -1,85 +1,113 @@
 /**
- * Piper TTS Service - Natural-sounding, free, open-source text-to-speech
- * Runs entirely in the browser, no API keys needed
- * Falls back to Web Speech API if Piper fails to initialize
- * 
- * Why Piper?
- * - Completely FREE and open-source
- * - Much more NATURAL sounding than Web Speech API
- * - FAST (1-3 seconds per phrase)
- * - Runs locally in browser (no server calls)
- * - Supports multiple languages
+ * Piper TTS Service - Natural, free, runs in-browser
+ * Uses hosted Piper models per language and caches them in OPFS after first load.
  */
 
-let usePiperTTS = true;
-const isInitializing = false;
+import { download, predict } from '@mintplex-labs/piper-tts-web';
+import type { ProgressCallback, VoiceId } from '@mintplex-labs/piper-tts-web/dist/types';
 
-// Import Web Speech API as fallback
-import { playPronunciation } from './ttsService';
+export type PiperPlayback = {
+  audio: HTMLAudioElement;
+  cleanup: () => void;
+};
 
-export const initPiperTTS = async (_language: string = 'en-US'): Promise<boolean> => {
-  // Piper requires model files that may fail to load in some environments
-  // We'll use Web Speech API as a reliable fallback
-  if (!usePiperTTS) {
-    return true; // Use fallback
-  }
+type ProgressListener = (progress: number) => void;
 
-  if (isInitializing) {
-    // Wait for initialization to complete
-    let retries = 0;
-    while (isInitializing && retries < 30) {
-      await new Promise(resolve => setTimeout(resolve, 100));
-      retries++;
-    }
+// Map friendly language labels to Piper voice IDs (choose clear, neutral voices)
+const LANGUAGE_VOICE_MAP: Record<string, VoiceId> = {
+  english: 'en_GB-southern_english_female-low',
+  'en-gb': 'en_GB-southern_english_female-low',
+  'en-us': 'en_US-amy-medium',
+  french: 'fr_FR-siwis-medium',
+  spanish: 'es_ES-carlfm-x_low',
+  german: 'de_DE-kerstin-low',
+  italian: 'it_IT-riccardo-x_low',
+  portuguese: 'pt_BR-edresson-low',
+  mandarin: 'zh_CN-huayan-medium',
+  chinese: 'zh_CN-huayan-medium',
+  russian: 'ru_RU-irina-medium',
+  arabic: 'ar_JO-kareem-low',
+  turkish: 'tr_TR-fettah-medium',
+  romanian: 'ro_RO-mihai-medium',
+  ukrainian: 'uk_UA-ukrainian_tts-medium',
+  vietnamese: 'vi_VN-vais1000-medium',
+  dutch: 'nl_NL-mls-medium',
+  polish: 'pl_PL-gosia-medium',
+};
+
+const FALLBACK_VOICE: VoiceId = 'en_GB-southern_english_female-low';
+
+const downloadedVoices = new Set<VoiceId>();
+
+const toProgressPct = (progress: { total: number; loaded: number }) => {
+  if (!progress.total) return 0;
+  return Math.min(99, Math.round((progress.loaded / progress.total) * 100));
+};
+
+const resolveVoice = (languageLabel?: string): VoiceId => {
+  if (!languageLabel) return FALLBACK_VOICE;
+  const key = languageLabel.toLowerCase();
+  return LANGUAGE_VOICE_MAP[key] || FALLBACK_VOICE;
+};
+
+const ensureVoiceDownloaded = async (voiceId: VoiceId, onProgress?: ProgressListener) => {
+  if (downloadedVoices.has(voiceId)) return true;
+  try {
+    await download(voiceId, (progress => {
+      onProgress?.(toProgressPct(progress));
+    }) as ProgressCallback);
+    downloadedVoices.add(voiceId);
     return true;
+  } catch (error) {
+    console.error('Piper download failed:', error);
+    return false;
   }
-
-  // For now, disable Piper and use Web Speech API as primary
-  // Piper TTS has environment-specific issues that need resolution
-  usePiperTTS = false;
-  return true;
 };
 
-// Map language codes to language labels for ttsService
-const languageCodeToLabel: Record<string, string> = {
-  'en-US': 'English',
-  'en-GB': 'English',
-  'fr-FR': 'French',
-  'es-ES': 'Spanish',
-  'de-DE': 'German',
-  'zh-CN': 'Mandarin',
-  'ro-RO': 'Romanian',
-  'ja-JP': 'Japanese',
-  'yo-NG': 'Yoruba',
+export const initPiperTTS = async (languageLabel?: string, onProgress?: ProgressListener): Promise<boolean> => {
+  const voiceId = resolveVoice(languageLabel);
+  return ensureVoiceDownloaded(voiceId, onProgress);
 };
 
+/**
+ * Generate and play Piper audio. Returns playback handle so callers can stop/cleanup.
+ */
 export const generatePiperAudio = async (
   text: string,
-  language: string = 'en-US'
-): Promise<string | null> => {
+  languageLabel?: string,
+  onProgress?: ProgressListener
+): Promise<PiperPlayback | null> => {
+  const voiceId = resolveVoice(languageLabel);
+  const ready = await ensureVoiceDownloaded(voiceId, onProgress);
+  if (!ready) return null;
+
   try {
-    // Initialize if needed
-    const initialized = await initPiperTTS(language);
-    if (!initialized) {
-      return null;
-    }
+    const blob = await predict({ text, voiceId }, (progress => {
+      onProgress?.(toProgressPct(progress));
+    }) as ProgressCallback);
 
-    // Use optimized Web Speech API instead with language support
-    const languageLabel = languageCodeToLabel[language] || 'English';
-    await playPronunciation(text, languageLabel);
+    const url = URL.createObjectURL(blob);
+    const audio = new Audio(url);
+    audio.playbackRate = 1;
 
-    // Return a placeholder to indicate success
-    // (Web Speech API plays audio directly, doesn't return a URL)
-    return 'web-speech-api';
-  } catch {
+    await audio.play();
+
+    const cleanup = () => {
+      audio.pause();
+      URL.revokeObjectURL(url);
+    };
+
+    audio.addEventListener('ended', cleanup, { once: true });
+
+    return { audio, cleanup };
+  } catch (error) {
+    console.error('Piper synthesis failed:', error);
     return null;
   }
 };
 
-export const isPiperReady = (): boolean => {
-  return true; // Web Speech API is always ready
-};
+export const isPiperReady = (): boolean => downloadedVoices.size > 0;
 
 export const resetPiper = () => {
-  // No cleanup needed for Web Speech API
+  downloadedVoices.clear();
 };

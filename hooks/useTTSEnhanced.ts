@@ -1,5 +1,6 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { playPronunciation } from '../services/ttsService';
+import { generatePiperAudio, initPiperTTS, type PiperPlayback } from '../services/piperTTS';
 
 const LANGUAGE_LOCALE_MAP: Record<string, { locale: string; label: string }> = {
   english: { locale: 'en-GB', label: 'English' },
@@ -30,52 +31,104 @@ const resolveLocale = (languageHint?: string) => {
 };
 
 /**
- * Simple TTS hook using Web Speech API
+ * TTS hook that prefers Piper (hosted models, free) with Web Speech fallback.
+ * Second parameter kept for compatibility; currently unused.
  */
-export const useTTSEnhanced = (language?: string) => {
+export const useTTSEnhanced = (language?: string, _options?: Record<string, unknown>) => {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState<number | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [needsGesture, setNeedsGesture] = useState(false);
+  const [activeProvider, setActiveProvider] = useState<'piper' | 'web-speech'>('piper');
+  const activePlaybackRef = useRef<PiperPlayback | null>(null);
+  const cancelTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const speak = useCallback(
-    async (text: string) => {
-      const { label } = resolveLocale(language);
-      const cleanText = text.replace(/[*#_`]/g, '');
+  useEffect(() => {
+    return () => {
+      if (cancelTimerRef.current) {
+        clearTimeout(cancelTimerRef.current);
+      }
+      if (activePlaybackRef.current) {
+        activePlaybackRef.current.cleanup();
+        activePlaybackRef.current = null;
+      }
+      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    };
+  }, []);
 
-      setIsLoading(true);
-      setProgress(10);
-      setErrorMessage(null);
-      setNeedsGesture(false);
+  const speak = useCallback(async (text: string) => {
+    const { label } = resolveLocale(language);
+    const cleanText = text.replace(/[*#_`]/g, '');
 
-      try {
-        setProgress(30);
-        await playPronunciation(cleanText, label);
-        setIsSpeaking(true);
-        setProgress(90);
-        setIsLoading(false);
+    setIsLoading(true);
+    setProgress(10);
+    setErrorMessage(null);
+    setNeedsGesture(false);
 
-        const estimatedDuration = Math.max(2000, cleanText.length * 50);
-        setTimeout(() => {
-          setIsSpeaking(false);
-          setProgress(null);
-        }, estimatedDuration);
-      } catch (error) {
-        console.error('TTS error:', error);
-        setIsLoading(false);
-        setProgress(null);
-        if (error instanceof DOMException && error.name === 'NotAllowedError') {
-          setNeedsGesture(true);
-        } else {
-          setErrorMessage(String(error));
+    // Try Piper first (natural accent, hosted models cached locally)
+    try {
+      setProgress(20);
+      const ready = await initPiperTTS(label, pct => setProgress(Math.max(20, Math.min(40, pct))));
+      if (ready) {
+        const playback = await generatePiperAudio(cleanText, label, pct => setProgress(Math.max(40, Math.min(85, pct))));
+        if (playback) {
+          activePlaybackRef.current = playback;
+          setActiveProvider('piper');
+          setIsSpeaking(true);
+          setIsLoading(false);
+          setProgress(95);
+
+          playback.audio.addEventListener('ended', () => {
+            setIsSpeaking(false);
+            setProgress(null);
+            activePlaybackRef.current = null;
+          }, { once: true });
+          return;
         }
       }
-    },
-    [language]
-  );
+    } catch (error) {
+      console.error('Piper TTS error:', error);
+      if (error instanceof DOMException && error.name === 'NotAllowedError') {
+        setNeedsGesture(true);
+      }
+      setErrorMessage(String(error));
+      setActiveProvider('web-speech');
+    }
+
+    // Fallback to Web Speech API
+    try {
+      setActiveProvider('web-speech');
+      setProgress(70);
+      await playPronunciation(cleanText, label);
+      setIsSpeaking(true);
+      setIsLoading(false);
+      setProgress(95);
+
+      const estimatedDuration = Math.max(2000, cleanText.length * 45);
+      cancelTimerRef.current = setTimeout(() => {
+        setIsSpeaking(false);
+        setProgress(null);
+      }, estimatedDuration);
+    } catch (fallbackError) {
+      console.error('Web Speech TTS error:', fallbackError);
+      setIsLoading(false);
+      setProgress(null);
+      setErrorMessage(String(fallbackError));
+    }
+  }, [language]);
 
   const cancel = useCallback(() => {
+    if (cancelTimerRef.current) {
+      clearTimeout(cancelTimerRef.current);
+      cancelTimerRef.current = null;
+    }
+    if (activePlaybackRef.current) {
+      activePlaybackRef.current.cleanup();
+      activePlaybackRef.current = null;
+    }
     if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
       window.speechSynthesis.cancel();
     }
@@ -86,6 +139,14 @@ export const useTTSEnhanced = (language?: string) => {
     setNeedsGesture(false);
   }, []);
 
+  const switchProvider = useCallback((provider: 'piper' | 'web-speech' | 'google-cloud') => {
+    if (provider === 'web-speech') {
+      setActiveProvider('web-speech');
+    } else {
+      setActiveProvider('piper');
+    }
+  }, []);
+
   return {
     speak,
     cancel,
@@ -94,13 +155,12 @@ export const useTTSEnhanced = (language?: string) => {
     progress,
     errorMessage,
     needsGesture,
-    setNeedsGesture
+    setNeedsGesture,
+    googleCloudAvailable: false, // Legacy prop kept for compatibility
+    activeProvider,
+    availableProviders: ['piper', 'web-speech'] as const,
+    switchProvider
   };
-};
-
-// Keep the original useTTS hook for backward compatibility
-export const useTTS = (language?: string) => {
-  return useTTSEnhanced(language);
 };
 
 export default useTTSEnhanced;
