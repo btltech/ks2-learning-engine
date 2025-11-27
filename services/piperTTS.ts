@@ -39,6 +39,7 @@ const FALLBACK_VOICE: VoiceId = 'en_GB-southern_english_female-low';
 
 const downloadedVoices = new Set<VoiceId>();
 let piperDisabled: string | null = null;
+let triedOnnxCdnFallback = false;
 
 const toProgressPct = (progress: { total: number; loaded: number }) => { 
   if (!progress.total) return 0;
@@ -64,7 +65,28 @@ const ensureVoiceDownloaded = async (voiceId: VoiceId, onProgress?: ProgressList
     return true;
   } catch (error) {
     console.error('Piper download failed:', error);
-    piperDisabled = 'Piper download failed';
+    const message = error instanceof Error ? error.message : String(error);
+    if (!triedOnnxCdnFallback && /Failed to fetch|404|not found|Failed to fetch dynamically imported module/i.test(message)) {
+      triedOnnxCdnFallback = true;
+      try {
+        const ONNX_CDN_BASE = 'https://cdnjs.cloudflare.com/ajax/libs/onnxruntime-web/1.23.2/';
+        if (typeof TtsSession !== 'undefined' && TtsSession && typeof TtsSession.WASM_LOCATIONS === 'object') {
+          TtsSession.WASM_LOCATIONS = {
+            ...TtsSession.WASM_LOCATIONS,
+            onnxWasm: ONNX_CDN_BASE
+          };
+          console.info('Piper: Retrying download using ONNX CDN base', ONNX_CDN_BASE);
+        }
+        await download(voiceId, (progress => {
+          onProgress?.(toProgressPct(progress));
+        }) as ProgressCallback);
+        downloadedVoices.add(voiceId);
+        return true;
+      } catch (inner) {
+        console.warn('Piper: CDN fallback retry failed', inner);
+      }
+    }
+    piperDisabled = `Download failed: ${error instanceof Error ? error.message : 'Unknown error'}`;
     return false;
   }
 };
@@ -126,11 +148,14 @@ export const resetPiper = () => {
 try {
   // prefer CDN version 1.23.2 (matches local node_modules onnxruntime-web v1.23.2)
   const ONNX_CDN_BASE = 'https://cdnjs.cloudflare.com/ajax/libs/onnxruntime-web/1.23.2/';
+  // If we're running locally in dev mode (vite), prefer the local node_modules path so Vite resolves files
+  const LOCAL_ORT_BASE = '/@modules/onnxruntime-web/dist/';
   // If a TtsSession class is exported, set its WASM locations to a compatible ONNX base
   if (typeof TtsSession !== 'undefined' && TtsSession && typeof TtsSession.WASM_LOCATIONS === 'object') {
+    const base = typeof window !== 'undefined' && window.location && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? LOCAL_ORT_BASE : ONNX_CDN_BASE;
     TtsSession.WASM_LOCATIONS = {
       ...TtsSession.WASM_LOCATIONS,
-      onnxWasm: ONNX_CDN_BASE,
+      onnxWasm: base,
     };
     console.info('Piper: Overriding ONNX base to', TtsSession.WASM_LOCATIONS.onnxWasm);
   } else {
