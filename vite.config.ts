@@ -10,6 +10,10 @@ export default defineConfig(({ mode }) => {
         port: 3000,
         host: '0.0.0.0',
         strictPort: false,
+        headers: {
+          'Cross-Origin-Embedder-Policy': 'require-corp',
+          'Cross-Origin-Opener-Policy': 'same-origin',
+        },
       },
       plugins: [
         react(),

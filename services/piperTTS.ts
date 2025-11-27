@@ -6,6 +6,29 @@
 import { download, predict } from '@mintplex-labs/piper-tts-web';
 import type { ProgressCallback, VoiceId } from '@mintplex-labs/piper-tts-web/dist/types';
 
+// Configure ONNX Runtime for cross-origin isolation
+if (typeof window !== 'undefined' && 'crossOriginIsolated' in window) {
+  // Set ONNX Runtime environment for threading when cross-origin isolated
+  if ((window as any).crossOriginIsolated) {
+    (window as any).ort = {
+      env: {
+        wasm: {
+          numThreads: 4, // Use 4 threads when cross-origin isolated
+        }
+      }
+    };
+  } else {
+    // Disable threading when not cross-origin isolated
+    (window as any).ort = {
+      env: {
+        wasm: {
+          numThreads: 1, // Single thread fallback
+        }
+      }
+    };
+  }
+}
+
 export type PiperPlayback = {
   audio: HTMLAudioElement;
   cleanup: () => void;
@@ -40,6 +63,34 @@ const FALLBACK_VOICE: VoiceId = 'en_GB-southern_english_female-low';
 const downloadedVoices = new Set<VoiceId>();
 let piperDisabled: string | null = null;
 
+// Check if WebAssembly threading is supported
+const checkWebAssemblySupport = (): boolean => {
+  try {
+    if (typeof WebAssembly !== 'object') return false;
+    if (!WebAssembly.validate(new Uint8Array([0, 97, 115, 109, 1, 0, 0, 0]))) return false;
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+// Initialize Piper compatibility check
+const initializePiperCompatibility = () => {
+  if (!checkWebAssemblySupport()) {
+    piperDisabled = 'WebAssembly not supported';
+    return;
+  }
+
+  // Check if we're in a secure context (required for some WebAssembly features)
+  if (typeof window !== 'undefined' && !window.isSecureContext) {
+    piperDisabled = 'Secure context required for WebAssembly';
+    return;
+  }
+};
+
+// Run compatibility check
+initializePiperCompatibility();
+
 const toProgressPct = (progress: { total: number; loaded: number }) => {
   if (!progress.total) return 0;
   return Math.min(99, Math.round((progress.loaded / progress.total) * 100));
@@ -53,6 +104,7 @@ const resolveVoice = (languageLabel?: string): VoiceId => {
 
 const ensureVoiceDownloaded = async (voiceId: VoiceId, onProgress?: ProgressListener) => {
   if (piperDisabled) {
+    console.warn('Piper TTS disabled:', piperDisabled);
     return false;
   }
   if (downloadedVoices.has(voiceId)) return true;
@@ -64,7 +116,7 @@ const ensureVoiceDownloaded = async (voiceId: VoiceId, onProgress?: ProgressList
     return true;
   } catch (error) {
     console.error('Piper download failed:', error);
-    piperDisabled = 'Piper download failed';
+    piperDisabled = `Download failed: ${error instanceof Error ? error.message : 'Unknown error'}`;
     return false;
   }
 };
@@ -110,7 +162,7 @@ export const generatePiperAudio = async (
     return { audio, cleanup };
   } catch (error) {
     console.error('Piper synthesis failed:', error);
-    piperDisabled = 'Piper synthesis failed';
+    piperDisabled = `Synthesis failed: ${error instanceof Error ? error.message : 'Unknown error'}`;
     return null;
   }
 };
