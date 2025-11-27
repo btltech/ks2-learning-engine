@@ -172,6 +172,11 @@ export const initializeGoogleCloudTTS = (apiKey: string, projectId?: string) => 
 };
 
 /**
+ * Check if Google Cloud TTS has been configured with an API key
+ */
+export const isGoogleCloudConfigured = () => Boolean(googleCloudConfig?.apiKey);
+
+/**
  * Get configured voice for language
  */
 const getVoiceForLanguage = (language: string, gender: 'MALE' | 'FEMALE' = 'FEMALE') => {
@@ -320,7 +325,7 @@ export const synthesizeGoogleCloudTTS = async (
 /**
  * Play audio from base64 encoded MP3
  */
-export const playGoogleCloudAudio = (audioBase64: string) => {
+export const playGoogleCloudAudio = async (audioBase64: string) => {
   try {
     const binaryString = atob(audioBase64);
     const bytes = new Uint8Array(binaryString.length);
@@ -333,7 +338,9 @@ export const playGoogleCloudAudio = (audioBase64: string) => {
 
     const audio = new Audio(url);
     audio.playbackRate = 1;
-    audio.play();
+
+    // Await playback so callers can detect autoplay/gesture failures
+    await audio.play();
 
     // Clean up after playing
     audio.addEventListener('ended', () => {
@@ -362,8 +369,8 @@ export const speakWithGoogleCloud = async (
   try {
     const audioBase64 = await synthesizeGoogleCloudTTS(text, language, options);
     if (audioBase64) {
-      playGoogleCloudAudio(audioBase64);
-      return true;
+      const audio = await playGoogleCloudAudio(audioBase64);
+      return !!audio;
     }
     return false;
   } catch (error) {
@@ -396,6 +403,7 @@ export const getAvailableVoices = (language: string) => {
 
 export default {
   initializeGoogleCloudTTS,
+  isGoogleCloudConfigured,
   synthesizeGoogleCloudTTS,
   playGoogleCloudAudio,
   speakWithGoogleCloud,

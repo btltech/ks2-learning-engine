@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useTTSEnhanced } from '../hooks/useTTSEnhanced';
+import { useTTS } from '../hooks/useTTS';
 import { getSupportedLanguages, getAvailableVoices } from '../services/googleCloudTTS';
 
 export const GoogleCloudTTSTestComponent: React.FC = () => {
   const [selectedLanguage, setSelectedLanguage] = useState('English');
-  const { speak, isSpeaking, errorMessage, googleCloudAvailable } = useTTSEnhanced(selectedLanguage, {
-    googleCloudApiKey: (import.meta as unknown as { env: { VITE_GOOGLE_CLOUD_TTS_API_KEY?: string } }).env?.VITE_GOOGLE_CLOUD_TTS_API_KEY
-  });
+  const { speak, isSpeaking, errorMessage } = useTTS(selectedLanguage);
   const [testText, setTestText] = useState('Hello! This is a test of Google Cloud Text-to-Speech.');
   const [voiceGender, setVoiceGender] = useState<'MALE' | 'FEMALE'>('FEMALE');
   const [speakingRate, setSpeakingRate] = useState(1.0);
@@ -18,30 +16,20 @@ export const GoogleCloudTTSTestComponent: React.FC = () => {
   const [supportedLanguages, setSupportedLanguages] = useState<string[]>([]);
 
   useEffect(() => {
-    // Check if Google Cloud TTS is configured
-    const isConfigured = googleCloudAvailable;
-    setGoogleCloudConfigured(isConfigured);
-    
     // Get supported languages
     const langs = getSupportedLanguages();
     setSupportedLanguages(langs);
     
-    addLog(`Google Cloud TTS Status: ${isConfigured ? '✓ Configured' : '✗ Not configured'}`);
-    addLog('Provider: Google Cloud TTS (Only)');
-  }, [googleCloudAvailable]);
+    addLog('Using Web Speech API');
+  }, []);
 
   const addLog = (message: string) => {
     setLogs(prev => [...prev, `[${new Date().toLocaleTimeString()}] ${message}`]);
   };
 
   const handleSpeak = async () => {
-    addLog(`Speaking: "${testText}" in ${selectedLanguage} (${voiceGender})`);
-    await speak(testText, {
-      gender: voiceGender,
-      speakingRate,
-      pitch,
-      volume
-    });
+    addLog(`Speaking: "${testText}" in ${selectedLanguage}`);
+    await speak(testText);
   };
 
   const handleClearCache = () => {
@@ -69,11 +57,11 @@ export const GoogleCloudTTSTestComponent: React.FC = () => {
       <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
         <div className="text-xs text-gray-600 space-y-1">
           <div>
-            <span className={googleCloudConfigured ? 'text-green-600' : 'text-orange-600'}>
-              {googleCloudConfigured ? '✓' : '⚠'} Google Cloud TTS: {googleCloudConfigured ? 'Ready' : 'Not Configured'}
+            <span className="text-green-600">
+              ✓ Web Speech API: Ready
             </span>
           </div>
-          <div>Provider: <span className="font-semibold">Google Cloud TTS (Only)</span></div>
+          <div>Provider: <span className="font-semibold">Web Speech API</span></div>
         </div>
       </div>
 

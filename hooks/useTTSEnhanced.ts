@@ -1,11 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
-import { speakWithGoogleCloud, initializeGoogleCloudTTS } from '../services/googleCloudTTS';
-
-type TTSProvider = 'google-cloud';
-
-interface UseTTSEnhancedOptions {
-  googleCloudApiKey?: string;
-}
+import { playPronunciation } from '../services/ttsService';
 
 const LANGUAGE_LOCALE_MAP: Record<string, { locale: string; label: string }> = {
   english: { locale: 'en-GB', label: 'English' },
@@ -35,51 +29,18 @@ const resolveLocale = (languageHint?: string) => {
   return LANGUAGE_LOCALE_MAP[key] || { locale: 'en-GB', label: 'English' };
 };
 
-interface SpeakOptions {
-  gender?: 'MALE' | 'FEMALE';
-  speakingRate?: number;
-  pitch?: number;
-  volume?: number;
-}
-
 /**
- * Google Cloud TTS Only Hook - No fallbacks
+ * Simple TTS hook using Web Speech API
  */
-export const useTTSEnhanced = (
-  language?: string,
-  options?: UseTTSEnhancedOptions
-) => {
+export const useTTSEnhanced = (language?: string) => {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState<number | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [needsGesture, setNeedsGesture] = useState(false);
-  const [googleCloudAvailable, setGoogleCloudAvailable] = useState(false);
-
-  // Initialize Google Cloud TTS if API key provided
-  useEffect(() => {
-    if (options?.googleCloudApiKey) {
-      try {
-        initializeGoogleCloudTTS(options.googleCloudApiKey);
-        setGoogleCloudAvailable(true);
-      } catch (error) {
-        console.error('Failed to initialize Google Cloud TTS:', error);
-        setGoogleCloudAvailable(false);
-        setErrorMessage('Google Cloud TTS initialization failed. Check your API key.');
-      }
-    } else {
-      setGoogleCloudAvailable(false);
-      setErrorMessage('Google Cloud API key not provided');
-    }
-  }, [options?.googleCloudApiKey]);
 
   const speak = useCallback(
-    async (text: string, speakOptions?: SpeakOptions) => {
-      if (!googleCloudAvailable) {
-        setErrorMessage('Google Cloud TTS not available. Please check your API key.');
-        return;
-      }
-
+    async (text: string) => {
       const { label } = resolveLocale(language);
       const cleanText = text.replace(/[*#_`]/g, '');
 
@@ -89,41 +50,32 @@ export const useTTSEnhanced = (
       setNeedsGesture(false);
 
       try {
-        // Use ONLY Google Cloud TTS - no fallbacks
         setProgress(30);
+        await playPronunciation(cleanText, label);
+        setIsSpeaking(true);
+        setProgress(90);
+        setIsLoading(false);
 
-        const success = await speakWithGoogleCloud(cleanText, label, {
-          gender: speakOptions?.gender || 'FEMALE',
-          speakingRate: speakOptions?.speakingRate || 0.95,
-          pitch: speakOptions?.pitch || 0
-        });
-
-        if (success) {
-          setIsSpeaking(true);
-          setProgress(90);
-          setIsLoading(false);
-
-          const estimatedDuration = Math.max(2000, cleanText.length * 50);
-          setTimeout(() => {
-            setIsSpeaking(false);
-            setProgress(null);
-          }, estimatedDuration);
-        } else {
-          setIsLoading(false);
-          setErrorMessage('Failed to generate Google Cloud audio. Check your internet connection and API key.');
-        }
+        const estimatedDuration = Math.max(2000, cleanText.length * 50);
+        setTimeout(() => {
+          setIsSpeaking(false);
+          setProgress(null);
+        }, estimatedDuration);
       } catch (error) {
-        console.error('Google Cloud TTS error:', error);
+        console.error('TTS error:', error);
         setIsLoading(false);
         setProgress(null);
-        setErrorMessage(`TTS Error: ${String(error)}`);
+        if (error instanceof DOMException && error.name === 'NotAllowedError') {
+          setNeedsGesture(true);
+        } else {
+          setErrorMessage(String(error));
+        }
       }
     },
-    [language, googleCloudAvailable]
+    [language]
   );
 
   const cancel = useCallback(() => {
-    // Cancel any ongoing audio playback
     if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
       window.speechSynthesis.cancel();
     }
@@ -142,16 +94,13 @@ export const useTTSEnhanced = (
     progress,
     errorMessage,
     needsGesture,
-    setNeedsGesture,
-    googleCloudAvailable,
-    availableProviders: ['google-cloud'] as TTSProvider[]
+    setNeedsGesture
   };
 };
 
-// Keep the original useTTS hook for backward compatibility - but force Google Cloud
+// Keep the original useTTS hook for backward compatibility
 export const useTTS = (language?: string) => {
-  const apiKey = (import.meta as unknown as { env: { VITE_GOOGLE_CLOUD_TTS_API_KEY?: string } }).env?.VITE_GOOGLE_CLOUD_TTS_API_KEY;
-  return useTTSEnhanced(language, { googleCloudApiKey: apiKey });
+  return useTTSEnhanced(language);
 };
 
 export default useTTSEnhanced;

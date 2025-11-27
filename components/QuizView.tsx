@@ -4,7 +4,7 @@ import { generateQuiz, generateQuizHint } from '../services/geminiService';
 import { offlineManager } from '../services/offlineManager';
 import LoadingSpinner from './LoadingSpinner';
 import { Skeleton } from './Skeleton';
-import { useTTSEnhanced } from '../hooks/useTTSEnhanced';
+import { useTTS } from '../hooks/useTTS';
 import { useGameSounds } from '../hooks/useGameSounds';
 import { useVoiceInput, parseAnswerOption } from '../hooks/useVoiceInput';
 import { SpeakerWaveIcon, StopIcon, LightBulbIcon, MicrophoneIcon } from '@heroicons/react/24/solid';
@@ -23,9 +23,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
   // Detect if this is a language subject and extract the language
   const isLanguageSubject = subject === 'Languages';
   const detectedLanguage = isLanguageSubject ? topic.split(':')[0] : 'English';
-  const { speak, cancel, isSpeaking } = useTTSEnhanced(detectedLanguage, {
-    googleCloudApiKey: (import.meta as unknown as { env: { VITE_GOOGLE_CLOUD_TTS_API_KEY?: string } }).env?.VITE_GOOGLE_CLOUD_TTS_API_KEY
-  });
+  const { speak, cancel, isSpeaking } = useTTS(detectedLanguage);
   
   const [questions, setQuestions] = useState<QuizQuestion[]>([]);
   const [loading, setLoading] = useState(true);
