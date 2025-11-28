@@ -69,7 +69,7 @@ const ensureVoiceDownloaded = async (voiceId: VoiceId, onProgress?: ProgressList
     if (!triedOnnxCdnFallback && /Failed to fetch|404|not found|Failed to fetch dynamically imported module/i.test(message)) {
       triedOnnxCdnFallback = true;
       try {
-        const ONNX_CDN_BASE = 'https://cdnjs.cloudflare.com/ajax/libs/onnxruntime-web/1.23.2/';
+        const ONNX_CDN_BASE = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.23.2/dist/';
         if (typeof TtsSession !== 'undefined' && TtsSession && typeof TtsSession.WASM_LOCATIONS === 'object') {
           TtsSession.WASM_LOCATIONS = {
             ...TtsSession.WASM_LOCATIONS,
@@ -152,7 +152,7 @@ try {
   const LOCAL_ORT_BASE = '/@modules/onnxruntime-web/dist/';
   // If a TtsSession class is exported, set its WASM locations to a compatible ONNX base
   if (typeof TtsSession !== 'undefined' && TtsSession && typeof TtsSession.WASM_LOCATIONS === 'object') {
-    const base = typeof window !== 'undefined' && window.location && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? LOCAL_ORT_BASE : ONNX_CDN_BASE;
+    const base = typeof window !== 'undefined' && window.location && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? LOCAL_ORT_BASE : 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.23.2/dist/';
     TtsSession.WASM_LOCATIONS = {
       ...TtsSession.WASM_LOCATIONS,
       onnxWasm: base,
