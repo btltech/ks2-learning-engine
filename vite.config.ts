@@ -13,7 +13,12 @@ export default defineConfig(({ mode }) => {
       },
       plugins: [
         react(),
-        VitePWA({
+        // Only register the PWA plugin in production builds. During development
+        // the service worker would intercept Vite dev client requests and cause
+        // precache/no-route issues for dev-only assets (/@vite/client etc). By
+        // adding PWA plugin only for production we avoid those errors while
+        // keeping PWA for actual builds.
+        ...(mode === 'production' ? [VitePWA({
           registerType: 'autoUpdate',
           includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
           workbox: {
@@ -45,7 +50,7 @@ export default defineConfig(({ mode }) => {
               }
             ]
           }
-        })
+        })] : []),
       ],
       define: {
         'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
