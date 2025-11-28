@@ -402,102 +402,81 @@ if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
 
 
 export const playPronunciation = async (text: string, languageLabel: string) => {
-  // Uses Web Speech API with OPTIMIZED parameters for NATURAL (not robotic) sound
-  // Completely free, instant, uses system voices
+  // Uses Web Speech API with tuned voice selection and pacing for a more human sound
   const browserLangCode = languageToBCP47Full[languageLabel] || 'en-GB';
 
   if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
     return;
   }
 
-  // Enhanced text processing for native pronunciation
-  const processTextForSpeech = (input: string, lang: string): string => {
-    let processed = input
-      // Add pauses after sentences
-      .replace(/\. /g, '. ... ')
-      .replace(/\? /g, '? ... ')
-      .replace(/! /g, '! ... ')
-      // Add slight pauses after commas
-      .replace(/, /g, ', .. ')
-      // Handle numbers for natural reading
-      .replace(/(\d+)/g, ' $1 ')
-      // Handle common abbreviations
+  // Prep text: break into sentences, soften abbreviations, trim noise
+  const normalizeText = (input: string): string[] => {
+    const sanitized = input
+      .replace(/\s+/g, ' ')
       .replace(/e\.g\./gi, 'for example')
       .replace(/i\.e\./gi, 'that is')
       .replace(/etc\./gi, 'etcetera')
-      // Clean up multiple spaces
-      .replace(/\s+/g, ' ')
       .trim();
 
-    // Apply language-specific pronunciation hints
-    const langPrefs = languageVoicePreferences[lang];
-    if (langPrefs) {
-      // Replace special characters with pronunciation guides
-      Object.entries(langPrefs.pronunciationHints).forEach(([char, hint]) => {
-        // Only replace if the character appears as a standalone word or in specific contexts
-        const regex = new RegExp(`\\b${char}\\b`, 'gi');
-        processed = processed.replace(regex, `${char} (${hint})`);
-      });
-    }
+    const sentences = sanitized.split(/(?<=[.!?])\s+/).filter(Boolean);
+    return sentences.length ? sentences : [sanitized];
+  };
 
+  const applyPronunciationHints = (sentence: string, lang: string): string => {
+    const langPrefs = languageVoicePreferences[lang];
+    if (!langPrefs) return sentence;
+    let processed = sentence;
+    Object.entries(langPrefs.pronunciationHints).forEach(([char, hint]) => {
+      const regex = new RegExp(`\\b${char}\\b`, 'gi');
+      processed = processed.replace(regex, `${char} (${hint})`);
+    });
     return processed;
   };
 
-  const speak = () => {
-    const processedText = processTextForSpeech(text, languageLabel);
-    const utterance = new SpeechSynthesisUtterance(processedText);
+  const sentences = normalizeText(text).map(s => applyPronunciationHints(s, languageLabel));
+
+  // Choose the best available voice once per call
+  const voice = pickVoice(browserLangCode, languageLabel);
+
+  // Base settings tuned per voice type (slightly quicker to avoid sluggish speech)
+  const baseRate = !voice || voice.localService ? 0.98 : 1.02;
+  const basePitch = 1.0;
+
+  const speakQueue = (parts: string[]) => {
+    if (!parts.length) return;
+
+    const part = parts.shift()!;
+    const utterance = new SpeechSynthesisUtterance(part);
     utterance.lang = browserLangCode;
+    if (voice) utterance.voice = voice;
 
-    // ENHANCED SETTINGS FOR ULTRA-NATURAL SOUNDING SPEECH
-    // Tuned for children's educational content and native pronunciation
-    utterance.rate = 0.88;        // Slightly slower for clarity (0.88 sweet spot)
-    utterance.pitch = 1.05;       // Slightly warmer, friendlier tone
-    utterance.volume = 1.0;       // Full volume for clarity
-
-    // Set voice BEFORE speaking (important for Safari)
-    const voice = pickVoice(browserLangCode, languageLabel);
-    if (voice) {
-      utterance.voice = voice;
-
-      // Adjust rate based on voice type (remote voices handle faster rates better)
-      if (!voice.localService) {
-        // Remote/cloud voices sound good at normal speed
-        utterance.rate = 0.92;
-      } else if (voice.name.toLowerCase().includes('compact')) {
-        // If we somehow get a compact voice, slow it way down
-        utterance.rate = 0.75;
-        utterance.pitch = 1.0;
-      }
-
-      // For native language voices, use slightly different settings
-      if (languageLabel !== 'English' && voice.lang.startsWith(browserLangCode.split('-')[0])) {
-        // Native speakers: slightly faster, more natural rhythm
-        utterance.rate = 0.95;
-        utterance.pitch = 1.02;
-      }
-    }
+    // Subtle variation to avoid robotic cadence
+    const jitter = () => (Math.random() * 0.02) - 0.01;
+    utterance.rate = Math.max(0.9, baseRate + jitter());
+    utterance.pitch = Math.max(0.94, basePitch + jitter());
+    utterance.volume = 1.0;
 
     utterance.onerror = (event) => {
-      // Only log actual errors, not cancellations
       if (event.error !== 'canceled') {
         console.error('Speech error:', event.error);
       }
     };
 
-    // Cancel any ongoing speech and start new
+    utterance.onend = () => speakQueue(parts);
+
     window.speechSynthesis.cancel();
     window.speechSynthesis.speak(utterance);
   };
 
-  // Wait for voices to load if not ready (critical for Safari/Brave)
+  // If voices aren’t ready, wait then speak
   if (!getVoicesSafe().length && typeof window !== 'undefined') {
     const handler = () => {
-      speak();
+      speakQueue([...sentences]);
       window.speechSynthesis.removeEventListener('voiceschanged', handler);
     };
     window.speechSynthesis.addEventListener('voiceschanged', handler);
-    window.speechSynthesis.getVoices(); // Trigger voice loading
+    window.speechSynthesis.getVoices();
   } else {
-    speak();
+    speakQueue([...sentences]);
   }
 };

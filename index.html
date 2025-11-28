@@ -21,6 +21,9 @@
       }
       body {
         font-family: 'Inter', 'Nunito', sans-serif;
+        background: radial-gradient(circle at 20% 20%, #eef2ff 0, #eef2ff 22%, #f8fafc 55%), radial-gradient(circle at 80% 0%, #e0f2fe 0, #e0f2fe 15%, #f8fafc 45%), linear-gradient(180deg, #f8fafc 0%, #f1f5f9 45%, #f8fafc 100%);
+        color: #0f172a;
+        min-height: 100vh;
       }
       @keyframes float {
         0% { transform: translateY(0px); }
@@ -195,14 +198,15 @@
       }
       /* Touch-friendly + mobile utility layer */
       :root {
-        --mobile-gutter: clamp(1rem, 3vw, 1.5rem);
+        --mobile-gutter: clamp(1rem, 3vw, 1.75rem);
         --card-radius: 18px;
-        --card-shadow-strong: 0 12px 45px rgba(15, 23, 42, 0.12);
-        --card-shadow-soft: 0 8px 24px rgba(15, 23, 42, 0.06);
+        --card-shadow-strong: 0 16px 48px rgba(15, 23, 42, 0.14);
+        --card-shadow-soft: 0 10px 28px rgba(15, 23, 42, 0.08);
+        --max-shell: min(1320px, 96vw);
       }
       .mobile-shell {
         width: 100%;
-        max-width: 1200px;
+        max-width: var(--max-shell);
         margin: 0 auto;
         padding-left: var(--mobile-gutter);
         padding-right: var(--mobile-gutter);
@@ -236,6 +240,16 @@
       .content-visibility-auto {
         content-visibility: auto;
         contain-intrinsic-size: 1px 600px;
+      }
+      .page-shell {
+        max-width: var(--max-shell);
+        margin: 0 auto;
+        padding: clamp(1rem, 2vw, 2rem);
+      }
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: clamp(0.75rem, 1.5vw, 1.5rem);
       }
       @media (max-width: 767px) {
         .stack-mobile {

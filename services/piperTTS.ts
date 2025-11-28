@@ -3,8 +3,8 @@
  * Uses hosted Piper models per language and caches them in OPFS after first load.
  */
 
-import { download, predict, TtsSession, ONNX_BASE as PIPER_ONNX_BASE } from '@mintplex-labs/piper-tts-web';
-import type { ProgressCallback, VoiceId } from '@mintplex-labs/piper-tts-web/dist/types';
+import { download, predict, TtsSession } from '@mintplex-labs/piper-tts-web';
+import type { ProgressCallback, VoiceId } from '@mintplex-labs/piper-tts-web';
 
 export type PiperPlayback = {
   audio: HTMLAudioElement;
@@ -39,6 +39,7 @@ const FALLBACK_VOICE: VoiceId = 'en_GB-southern_english_female-low';
 
 const downloadedVoices = new Set<VoiceId>();
 let piperDisabled: string | null = null;
+
 let triedOnnxCdnFallback = false;
 
 const toProgressPct = (progress: { total: number; loaded: number }) => { 
@@ -146,16 +147,19 @@ export const resetPiper = () => {
 
 // Override default ONNX CDN path to match the local installed onnxruntime-web version
 try {
-  // prefer CDN version 1.23.2 (matches local node_modules onnxruntime-web v1.23.2)
-  const ONNX_CDN_BASE = 'https://cdnjs.cloudflare.com/ajax/libs/onnxruntime-web/1.23.2/';
-  // If we're running locally in dev mode (vite), prefer the local node_modules path so Vite resolves files
-  const LOCAL_ORT_BASE = '/@modules/onnxruntime-web/dist/';
-  // If a TtsSession class is exported, set its WASM locations to a compatible ONNX base
   if (typeof TtsSession !== 'undefined' && TtsSession && typeof TtsSession.WASM_LOCATIONS === 'object') {
-    const base = typeof window !== 'undefined' && window.location && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? LOCAL_ORT_BASE : 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.23.2/dist/';
+    // Serve WASM assets locally from public/ to avoid CDN failures and ad-blockers
+    const LOCAL_ONNX_BASE = '/onnxruntime/';
+    const LOCAL_PIPER_BASE = '/piper-wasm/piper_phonemize';
+    
+    // Use local public assets if on localhost, otherwise fallback to jsDelivr CDN
+    const ONNX_CDN_BASE = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.23.2/dist/';
+    const onnxBase = typeof window !== 'undefined' && window.location && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? LOCAL_ONNX_BASE : ONNX_CDN_BASE;
+    
     TtsSession.WASM_LOCATIONS = {
-      ...TtsSession.WASM_LOCATIONS,
-      onnxWasm: base,
+      onnxWasm: onnxBase,
+      piperData: `${LOCAL_PIPER_BASE}.data`,
+      piperWasm: `${LOCAL_PIPER_BASE}.wasm`
     };
     console.info('Piper: Overriding ONNX base to', TtsSession.WASM_LOCATIONS.onnxWasm);
   } else {

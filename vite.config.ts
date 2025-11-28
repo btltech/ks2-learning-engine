@@ -59,6 +59,7 @@ export default defineConfig(({ mode }) => {
       resolve: {
         alias: {
           '@': path.resolve(__dirname, '.'),
+          '/@modules/onnxruntime-web': path.resolve(__dirname, 'node_modules/onnxruntime-web'),
         }
       },
       test: {

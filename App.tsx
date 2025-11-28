@@ -255,7 +255,7 @@ const AppContent: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center bg-slate-50 text-gray-800">
+    <div className="min-h-screen flex flex-col items-center bg-transparent text-gray-800">
       <SkipToMainContent />
       <OfflineIndicator />
       
@@ -270,7 +270,7 @@ const AppContent: React.FC = () => {
       />
 
       <main className="flex-grow w-full content-visibility-auto safe-area-bottom">
-        <div className="mobile-shell py-4 mobile:py-5 sm:py-6 lg:py-8">
+        <div className="mobile-shell py-4 mobile:py-5 sm:py-6 lg:py-10">
           <Suspense fallback={<LoadingSpinner />}>
             <Routes>
               <Route path="/login" element={<LoginView onLogin={handleLoginWrapper} />} />
