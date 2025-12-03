@@ -23,7 +23,9 @@ import {
 } from 'firebase/database';
 import { Difficulty, QuizQuestion } from '../types';
 
-// Firebase Configuration
+// Firebase Configuration - hardcoded database URL for europe-west1 region
+const DATABASE_URL = 'https://ks2-learning-engine-default-rtdb.europe-west1.firebasedatabase.app';
+
 const firebaseConfig = {
   apiKey: (import.meta as any).env.VITE_FIREBASE_API_KEY,
   authDomain: (import.meta as any).env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -31,12 +33,23 @@ const firebaseConfig = {
   storageBucket: (import.meta as any).env.VITE_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: (import.meta as any).env.VITE_FIREBASE_MESSAGING_SENDER_ID,
   appId: (import.meta as any).env.VITE_FIREBASE_APP_ID,
-  databaseURL: (import.meta as any).env.VITE_FIREBASE_DATABASE_URL || `https://${(import.meta as any).env.VITE_FIREBASE_PROJECT_ID}-default-rtdb.europe-west1.firebasedatabase.app`,
+  databaseURL: DATABASE_URL,
 };
 
+console.log('[RealtimeBattle] Database URL:', DATABASE_URL);
+
 // Initialize Firebase (reuse existing app if available)
-const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig, 'realtimeBattle');
-const database = getDatabase(app);
+let app;
+try {
+  app = getApp();
+  console.log('[RealtimeBattle] Using existing Firebase app');
+} catch {
+  app = initializeApp(firebaseConfig);
+  console.log('[RealtimeBattle] Initialized new Firebase app');
+}
+
+// Get database with explicit URL to ensure correct region
+const database = getDatabase(app, DATABASE_URL);
 
 // Types
 export type BattleStatus = 'waiting' | 'ready' | 'countdown' | 'in_progress' | 'completed' | 'cancelled';
@@ -161,66 +174,78 @@ class RealtimeBattleService {
     challengerName: string,
     challengerAvatarColor: string
   ): Promise<RealtimeBattle | null> {
-    // Look up battle ID from code
-    const codeRef = ref(database, `battleCodes/${battleCode}`);
-    const codeSnapshot = await get(codeRef);
-    
-    if (!codeSnapshot.exists()) {
-      console.log(`[RealtimeBattle] Battle code ${battleCode} not found`);
+    try {
+      console.log(`[RealtimeBattle] Attempting to join battle with code: ${battleCode}`);
+      
+      // Look up battle ID from code
+      const codeRef = ref(database, `battleCodes/${battleCode}`);
+      const codeSnapshot = await get(codeRef);
+      
+      console.log(`[RealtimeBattle] Code lookup result:`, codeSnapshot.exists(), codeSnapshot.val());
+      
+      if (!codeSnapshot.exists()) {
+        console.log(`[RealtimeBattle] Battle code ${battleCode} not found in database`);
+        return null;
+      }
+
+      const { battleId } = codeSnapshot.val();
+      console.log(`[RealtimeBattle] Found battleId: ${battleId}`);
+      
+      const battleRef = ref(database, `battles/${battleId}`);
+      const battleSnapshot = await get(battleRef);
+
+      if (!battleSnapshot.exists()) {
+        console.log(`[RealtimeBattle] Battle ${battleId} not found`);
+        return null;
+      }
+
+      const battle: RealtimeBattle = battleSnapshot.val();
+      console.log(`[RealtimeBattle] Battle status: ${battle.status}, has challenger: ${!!battle.challenger}`);
+
+      // Check if battle is joinable
+      if (battle.status !== 'waiting') {
+        console.log(`[RealtimeBattle] Battle ${battleCode} is not waiting (${battle.status})`);
+        return null;
+      }
+
+      if (battle.challenger) {
+        console.log(`[RealtimeBattle] Battle ${battleCode} already has a challenger`);
+        return null;
+      }
+
+      // Add challenger
+      const challenger: BattlePlayer = {
+        id: challengerId,
+        name: challengerName,
+        avatarColor: challengerAvatarColor,
+        score: 0,
+        currentQuestion: 0,
+        answers: [],
+        isReady: false,
+        isConnected: true,
+        lastSeen: Date.now(),
+      };
+
+      await update(battleRef, {
+        challenger,
+        status: 'ready',
+      });
+
+      this.currentBattleId = battleId;
+      this.currentPlayerId = challengerId;
+
+      // Setup presence tracking
+      this.setupPresence(battleId, challengerId, 'challenger');
+
+      console.log(`[RealtimeBattle] Successfully joined battle ${battleCode}`);
+      
+      // Get updated battle
+      const updatedSnapshot = await get(battleRef);
+      return updatedSnapshot.val();
+    } catch (error) {
+      console.error(`[RealtimeBattle] Error joining battle:`, error);
       return null;
     }
-
-    const { battleId } = codeSnapshot.val();
-    const battleRef = ref(database, `battles/${battleId}`);
-    const battleSnapshot = await get(battleRef);
-
-    if (!battleSnapshot.exists()) {
-      console.log(`[RealtimeBattle] Battle ${battleId} not found`);
-      return null;
-    }
-
-    const battle: RealtimeBattle = battleSnapshot.val();
-
-    // Check if battle is joinable
-    if (battle.status !== 'waiting') {
-      console.log(`[RealtimeBattle] Battle ${battleCode} is not waiting (${battle.status})`);
-      return null;
-    }
-
-    if (battle.challenger) {
-      console.log(`[RealtimeBattle] Battle ${battleCode} already has a challenger`);
-      return null;
-    }
-
-    // Add challenger
-    const challenger: BattlePlayer = {
-      id: challengerId,
-      name: challengerName,
-      avatarColor: challengerAvatarColor,
-      score: 0,
-      currentQuestion: 0,
-      answers: [],
-      isReady: false,
-      isConnected: true,
-      lastSeen: Date.now(),
-    };
-
-    await update(battleRef, {
-      challenger,
-      status: 'ready',
-    });
-
-    this.currentBattleId = battleId;
-    this.currentPlayerId = challengerId;
-
-    // Setup presence tracking
-    this.setupPresence(battleId, challengerId, 'challenger');
-
-    console.log(`[RealtimeBattle] Joined battle ${battleCode}`);
-    
-    // Get updated battle
-    const updatedSnapshot = await get(battleRef);
-    return updatedSnapshot.val();
   }
 
   /**
