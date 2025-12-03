@@ -31,7 +31,7 @@ const firebaseConfig = {
   storageBucket: (import.meta as any).env.VITE_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: (import.meta as any).env.VITE_FIREBASE_MESSAGING_SENDER_ID,
   appId: (import.meta as any).env.VITE_FIREBASE_APP_ID,
-  databaseURL: `https://${(import.meta as any).env.VITE_FIREBASE_PROJECT_ID}-default-rtdb.firebaseio.com`,
+  databaseURL: (import.meta as any).env.VITE_FIREBASE_DATABASE_URL || `https://${(import.meta as any).env.VITE_FIREBASE_PROJECT_ID}-default-rtdb.europe-west1.firebasedatabase.app`,
 };
 
 // Initialize Firebase (reuse existing app if available)
