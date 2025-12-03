@@ -8,7 +8,21 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { multiplayerBattleService, QuizBattle, BattlePlayer } from '../services/multiplayerBattleService';
 import { useUser } from '../context/UserContext';
 import { generateQuiz } from '../services/geminiService';
-import { Difficulty } from '../types';
+import { Difficulty, QuizQuestion } from '../types';
+
+// Battle-specific question type where correctAnswer is an index
+interface BattleQuestion {
+  id?: string;
+  question: string;
+  options: string[];
+  correctAnswer: number; // Index of correct option
+  explanation?: string;
+}
+
+// Extended battle type for local use
+interface LocalQuizBattle extends Omit<QuizBattle, 'questions'> {
+  questions: BattleQuestion[];
+}
 
 interface QuizBattleProps {
   onClose: () => void;
@@ -20,7 +34,7 @@ type BattleView = 'menu' | 'create' | 'join' | 'waiting' | 'battle' | 'results';
 export const QuizBattleMode: React.FC<QuizBattleProps> = ({ onClose, onComplete }) => {
   const { user, addPoints } = useUser();
   const [view, setView] = useState<BattleView>('menu');
-  const [battle, setBattle] = useState<QuizBattle | null>(null);
+  const [battle, setBattle] = useState<LocalQuizBattle | null>(null);
   const [battleCode, setBattleCode] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -46,16 +60,23 @@ export const QuizBattleMode: React.FC<QuizBattleProps> = ({ onClose, onComplete 
         user?.age || 9
       );
 
-      // Transform questions to battle format (correctAnswer as index)
-      const questions = rawQuestions.map(q => ({
-        ...q,
-        correctAnswer: q.options.findIndex(opt => opt === q.correctAnswer)
-      }));
-
-      if (questions.length === 0) {
+      if (!rawQuestions || rawQuestions.length === 0) {
         setError('Could not generate quiz questions. Please try again.');
+        setLoading(false);
         return;
       }
+
+      // Transform questions to battle format (correctAnswer as index)
+      const questions: BattleQuestion[] = rawQuestions.map(q => {
+        const correctIndex = q.options.findIndex(opt => opt === q.correctAnswer);
+        return {
+          ...q,
+          // If answer not found in options, default to first option (shouldn't happen)
+          correctAnswer: correctIndex >= 0 ? correctIndex : 0
+        };
+      });
+
+      console.log('Quiz Battle: Generated', questions.length, 'questions');
 
       const newBattle = await multiplayerBattleService.createBattle(
         user?.id || 'player1',
@@ -64,10 +85,16 @@ export const QuizBattleMode: React.FC<QuizBattleProps> = ({ onClose, onComplete 
         'Maths',
         'Mixed',
         Difficulty.Medium,
-        questions as any
+        questions as unknown as QuizQuestion[]
       );
 
-      setBattle(newBattle);
+      // Cast to local battle type with numeric correctAnswer
+      const localBattle: LocalQuizBattle = {
+        ...newBattle,
+        questions
+      };
+      
+      setBattle(localBattle);
       setView('waiting');
       
       // Auto-add a bot opponent after a short delay for solo play
@@ -79,7 +106,11 @@ export const QuizBattleMode: React.FC<QuizBattleProps> = ({ onClose, onComplete 
           '#EC4899'
         );
         if (botBattle) {
-          setBattle(botBattle);
+          // Preserve our local questions with numeric correctAnswer
+          setBattle(prev => prev ? {
+            ...botBattle,
+            questions: prev.questions
+          } : null);
         }
       }, 2000);
     } catch {
@@ -108,7 +139,19 @@ export const QuizBattleMode: React.FC<QuizBattleProps> = ({ onClose, onComplete 
       );
 
       if (joinedBattle) {
-        setBattle(joinedBattle);
+        // Transform questions to battle format with numeric correctAnswer
+        const battleQuestions: BattleQuestion[] = joinedBattle.questions.map(q => {
+          const correctIndex = q.options.findIndex(opt => opt === q.correctAnswer);
+          return {
+            ...q,
+            correctAnswer: correctIndex >= 0 ? correctIndex : 0
+          };
+        });
+        
+        setBattle({
+          ...joinedBattle,
+          questions: battleQuestions
+        });
         setView('waiting');
         
         // Mark as ready after a brief delay
@@ -173,10 +216,13 @@ export const QuizBattleMode: React.FC<QuizBattleProps> = ({ onClose, onComplete 
       timeMs
     );
 
-    // Update local battle state
+    // Update local battle state (preserve our questions)
     const updatedBattle = multiplayerBattleService.getBattle(battle.id);
     if (updatedBattle) {
-      setBattle(updatedBattle);
+      setBattle(prev => prev ? {
+        ...updatedBattle,
+        questions: prev.questions
+      } : null);
     }
   }, [battle, currentQuestionIndex, answerStartTime, showResult, user?.id]);
 
@@ -216,10 +262,13 @@ export const QuizBattleMode: React.FC<QuizBattleProps> = ({ onClose, onComplete 
           Math.floor(botDelay)
         );
         
-        // Update battle state
+        // Update battle state (preserve our questions)
         const updatedBattle = multiplayerBattleService.getBattle(battle.id);
         if (updatedBattle) {
-          setBattle(updatedBattle);
+          setBattle(prev => prev ? {
+            ...updatedBattle,
+            questions: prev.questions
+          } : null);
         }
       }, botDelay);
       
@@ -238,7 +287,10 @@ export const QuizBattleMode: React.FC<QuizBattleProps> = ({ onClose, onComplete 
           battle.players.host.id
         );
         if (startedBattle) {
-          setBattle(startedBattle);
+          setBattle(prev => prev ? {
+            ...startedBattle,
+            questions: prev.questions
+          } : null);
           setView('battle');
         }
       }, 2000);
