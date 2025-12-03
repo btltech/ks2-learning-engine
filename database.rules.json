@@ -1,0 +1,34 @@
+{
+  "rules": {
+    "battles": {
+      "$battleId": {
+        // Anyone can read a battle (needed for joining)
+        ".read": true,
+        // Only authenticated users or anyone (for demo) can write
+        ".write": true,
+        // Validate battle structure
+        ".validate": "newData.hasChildren(['id', 'battleCode', 'subject', 'status', 'questions', 'host', 'createdAt'])",
+        
+        "host": {
+          ".validate": "newData.hasChildren(['id', 'name', 'score', 'isReady'])"
+        },
+        "challenger": {
+          ".validate": "newData.hasChildren(['id', 'name', 'score', 'isReady'])"
+        },
+        "questions": {
+          ".validate": "newData.isArray()"
+        },
+        "status": {
+          ".validate": "newData.val() == 'waiting' || newData.val() == 'ready' || newData.val() == 'countdown' || newData.val() == 'in_progress' || newData.val() == 'completed' || newData.val() == 'cancelled'"
+        }
+      }
+    },
+    "battleCodes": {
+      "$code": {
+        ".read": true,
+        ".write": true,
+        ".validate": "newData.hasChildren(['battleId', 'createdAt'])"
+      }
+    }
+  }
+}

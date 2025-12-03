@@ -13,7 +13,7 @@ import { ToastProvider } from './components/Toast';
 import { AchievementsGallery } from './components/DailyChallenge';
 import { ReviewMode, ReviewSummary } from './components/ReviewMode';
 import { AccessibilitySettingsModal, initializeAccessibility, SkipToMainContent } from './components/AccessibilitySettings';
-import { QuizBattleMode } from './components/QuizBattle';
+import { QuizBattleMode } from './components/QuizBattleRealtime';
 import { LearningPathsView } from './components/LearningPaths';
 import { useUser } from './context/UserContext';
 import { Difficulty, Subject, QuizResult, ProgressData, UserProfile, QuizSession } from './types';
