@@ -430,6 +430,138 @@ class AvatarCustomizationService {
     };
     this.saveState();
   }
+
+  /**
+   * Sync with store purchases from user profile
+   * Maps store item IDs to avatar item IDs and unlocks them
+   */
+  syncWithStorePurchases(userUnlockedItems: string[]): string[] {
+    const newlyUnlocked: string[] = [];
+    
+    // Map store item IDs to avatar item IDs
+    const storeToAvatarMapping: Record<string, string> = {
+      // Colors
+      'color-blue': 'color_blue',
+      'color-green': 'color_green',
+      'color-purple': 'color_purple',
+      'color-orange': 'color_orange',
+      'color-pink': 'color_pink',
+      'color-gold': 'color_gold',
+      'color-rainbow': 'color_rainbow',
+      'color-red': 'color_blue', // Map red to blue (not in avatar system)
+      'color-cyan': 'color_blue',
+      'color-emerald': 'color_green',
+      'color-galaxy': 'color_rainbow',
+      'color-diamond': 'color_rainbow',
+      
+      // Hats/Accessories from store
+      'acc-glasses': 'acc_glasses',
+      'acc-sunglasses': 'acc_sunglasses',
+      'acc-monocle': 'acc_monocle',
+      'acc-bow': 'acc_bowtie',
+      'acc-crown': 'hat_crown',
+      'acc-wizard-hat': 'hat_wizard',
+      'acc-party-hat': 'hat_party',
+      'acc-viking': 'hat_viking',
+      'acc-halo': 'effect_sparkle',
+      'acc-trophy': 'acc_trophy',
+      'acc-medal': 'acc_medal',
+      
+      // Effects
+      'effect-sparkle': 'effect_sparkle',
+      'effect-bubbles': 'effect_sparkle',
+      'effect-fire': 'effect_fire',
+      'effect-lightning': 'effect_lightning',
+      'effect-rainbow-trail': 'effect_confetti',
+      
+      // Backgrounds
+      'bg-stars': 'bg_stars',
+      'bg-forest': 'bg_forest',
+      'bg-ocean': 'bg_ocean',
+      'bg-space': 'bg_space',
+      'bg-rainbow': 'bg_rainbow',
+      'bg-galaxy': 'bg_galaxy',
+    };
+
+    userUnlockedItems.forEach(storeItemId => {
+      const avatarItemId = storeToAvatarMapping[storeItemId];
+      if (avatarItemId && !this.state.unlockedItems.includes(avatarItemId)) {
+        // Verify the avatar item exists
+        const avatarItem = AVATAR_ITEMS.find(i => i.id === avatarItemId);
+        if (avatarItem) {
+          this.state.unlockedItems.push(avatarItemId);
+          newlyUnlocked.push(avatarItemId);
+        }
+      }
+      
+      // Also add the store item ID directly if it matches an avatar item
+      if (!this.state.unlockedItems.includes(storeItemId)) {
+        const directMatch = AVATAR_ITEMS.find(i => i.id === storeItemId);
+        if (directMatch) {
+          this.state.unlockedItems.push(storeItemId);
+          newlyUnlocked.push(storeItemId);
+        }
+      }
+    });
+
+    if (newlyUnlocked.length > 0) {
+      this.saveState();
+    }
+
+    return newlyUnlocked;
+  }
+
+  /**
+   * Get store item IDs that are unlocked in avatar system
+   * Used for reverse sync
+   */
+  getUnlockedStoreItemIds(): string[] {
+    const avatarToStoreMapping: Record<string, string> = {
+      'color_blue': 'color-blue',
+      'color_green': 'color-green',
+      'color_purple': 'color-purple',
+      'color_orange': 'color-orange',
+      'color_pink': 'color-pink',
+      'color_gold': 'color-gold',
+      'color_rainbow': 'color-rainbow',
+      'acc_glasses': 'acc-glasses',
+      'acc_sunglasses': 'acc-sunglasses',
+      'acc_monocle': 'acc-monocle',
+      'acc_bowtie': 'acc-bow',
+      'hat_crown': 'acc-crown',
+      'hat_wizard': 'acc-wizard-hat',
+      'hat_party': 'acc-party-hat',
+      'hat_viking': 'acc-viking',
+      'acc_trophy': 'acc-trophy',
+      'acc_medal': 'acc-medal',
+      'effect_sparkle': 'effect-sparkle',
+      'effect_fire': 'effect-fire',
+      'effect_lightning': 'effect-lightning',
+      'effect_confetti': 'effect-rainbow-trail',
+      'bg_stars': 'bg-stars',
+      'bg_forest': 'bg-forest',
+      'bg_ocean': 'bg-ocean',
+      'bg_space': 'bg-space',
+      'bg_rainbow': 'bg-rainbow',
+      'bg_galaxy': 'bg-galaxy',
+    };
+
+    return this.state.unlockedItems
+      .map(id => avatarToStoreMapping[id])
+      .filter((id): id is string => !!id);
+  }
+
+  /**
+   * Add unlocked items directly (for store purchases or rewards)
+   */
+  addUnlockedItems(itemIds: string[]): void {
+    itemIds.forEach(id => {
+      if (!this.state.unlockedItems.includes(id)) {
+        this.state.unlockedItems.push(id);
+      }
+    });
+    this.saveState();
+  }
 }
 
 export const avatarCustomizationService = new AvatarCustomizationService();

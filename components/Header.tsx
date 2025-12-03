@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { AcademicCapIcon, StarIcon, ShoppingBagIcon, ChartBarIcon, ArrowRightOnRectangleIcon, FireIcon, TrophyIcon } from '@heroicons/react/24/solid';
-import EmbeddingSelector from './EmbeddingSelector';
 import TTSDemo from './TTSDemo';
+import AvatarDisplay from './AvatarDisplay';
 import { UserProfile } from '../types';
 import { useGameSounds } from '../hooks/useGameSounds';
 
@@ -12,6 +12,7 @@ interface HeaderProps {
   onOpenParentDashboard: () => void;
   onOpenLeaderboard: () => void;
   onOpenProgress: () => void;
+  onOpenAvatar?: () => void;
   onLogout: () => void;
 }
 
@@ -22,6 +23,7 @@ const Header: React.FC<HeaderProps> = ({
   onOpenParentDashboard,
   onOpenLeaderboard,
   onOpenProgress,
+  onOpenAvatar,
   onLogout 
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -43,10 +45,6 @@ const Header: React.FC<HeaderProps> = ({
     action();
   };
 
-  const avatarColor = user.avatarConfig.color || '';
-  const avatarColorClass = avatarColor && !avatarColor.startsWith('#') ? avatarColor : 'bg-indigo-100 text-indigo-800';
-  const avatarStyle = avatarColor.startsWith('#') ? { backgroundColor: avatarColor, color: '#fff' } : undefined;
-
   return (
     <header className="bg-gradient-to-r from-white via-white to-blue-50/30 backdrop-blur-xl bg-white/80 border-b border-gray-200/50 shadow-sm w-full sticky top-0 z-40 safe-area-top" role="banner">
       <div className="mobile-shell">
@@ -65,7 +63,6 @@ const Header: React.FC<HeaderProps> = ({
 
           {/* Right Side Actions */}
             <div className="flex items-center gap-1 sm:gap-4">
-              {user.role === 'admin' && <EmbeddingSelector />}
               {user.role === 'admin' && <TTSDemo />}
 
             {/* Badges Display - Students only */}
@@ -161,17 +158,15 @@ const Header: React.FC<HeaderProps> = ({
                     playClick();
                     setIsMenuOpen(!isMenuOpen);
                   }}
-                  className={`relative h-11 w-11 sm:h-12 sm:w-12 rounded-full border-2 border-blue-200 flex items-center justify-center text-lg sm:text-xl cursor-pointer transition-all hover:scale-110 hover:shadow-lg ${avatarColorClass}`}
-                  style={avatarStyle}
+                  className="relative hover:scale-110 transition-transform"
                   aria-label="User menu"
                   aria-expanded={isMenuOpen}
                 >
-                  {/* Simple avatar representation */}
-                  {user.avatarConfig.accessory === 'glasses' && '👓'}
-                  {user.avatarConfig.accessory === 'hat' && '🤠'}
-                  {user.avatarConfig.accessory === 'crown' && '👑'}
-                  {user.avatarConfig.accessory === 'bow' && '🎀'}
-                  {!user.avatarConfig.accessory && '😊'}
+                  <AvatarDisplay 
+                    size="sm" 
+                    showEffects={false}
+                    className="border-2 border-blue-200 shadow-md"
+                  />
                 </button>
                 
                 {/* Dropdown Menu */}
@@ -192,6 +187,19 @@ const Header: React.FC<HeaderProps> = ({
                       <span className="text-xl">👨‍👩‍👧</span>
                       Parent Dashboard
                     </button>
+
+                    {onOpenAvatar && user.role === 'student' && (
+                      <button
+                        onClick={() => {
+                          handleNavClick(onOpenAvatar);
+                          setIsMenuOpen(false);
+                        }}
+                        className="w-full text-left px-4 py-3 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 flex items-center gap-2 transition-colors"
+                      >
+                        <span className="text-xl">🎨</span>
+                        Customize Avatar
+                      </button>
+                    )}
 
                     <button
                       onClick={() => handleNavClick(onLogout)}

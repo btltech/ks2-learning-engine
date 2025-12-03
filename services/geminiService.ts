@@ -833,7 +833,8 @@ SUBJECT-BY-SUBJECT BREAKDOWN:
 ${subjects.map(subject => {
   const topics = masteryData[subject];
   const topicList = Object.entries(topics).map(([topic, score]) => `${topic}: ${score}%`).join(', ');
-  const avgScore = Object.values(topics).reduce((a: number, b: number) => a + b, 0) / Object.values(topics).length;
+  const topicValues = Object.values(topics) as number[];
+  const avgScore = topicValues.length > 0 ? topicValues.reduce((a, b) => a + b, 0) / topicValues.length : 0;
   return `${subject}: Average ${avgScore.toFixed(1)}% (${Object.keys(topics).length} topics) - ${topicList}`;
 }).join('\n')}
 

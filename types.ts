@@ -110,6 +110,11 @@ export interface QuizSession {
   score: number; // Percentage
   completedAt: string; // ISO date string
   timeSpent: number; // in seconds
+  // Optional analytics fields
+  totalQuestions?: number;
+  correctAnswers?: number;
+  xpEarned?: number;
+  date?: string; // ISO date string for analytics
 }
 
 export interface WeeklyProgress {

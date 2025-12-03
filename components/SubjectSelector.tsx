@@ -18,33 +18,34 @@ const SubjectSelector: React.FC<SubjectSelectorProps> = ({ onSelect, progress })
   };
 
   return (
-    <div className="text-center w-full">
-      <h2 className="text-3xl mobile:text-4xl laptop:text-5xl font-bold text-gray-900 mb-6 sm:mb-8 tracking-tight animate-fadeInDown">What would you like to learn today?</h2>
+    <div className="w-full">
       <div 
-        className="grid grid-cols-1 mobile:grid-cols-2 laptop:grid-cols-3 gap-4 mobile:gap-5 laptop:gap-6 max-w-4xl mx-auto"
+        className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4"
         role="list"
         aria-label="Subject selection"
       >
         {SUBJECTS.map((subject, index) => {
-          const isCompleted = progress[subject.name] && progress[subject.name].length > 0;
+          const completedTopics = progress[subject.name]?.length || 0;
+          const isCompleted = completedTopics > 0;
+          
           return (
             <button
               key={subject.name}
               onClick={() => handleSelect(subject)}
               role="listitem"
-              aria-label={`${subject.name}${isCompleted ? ' - topics completed' : ''}`}
-              className={`group relative overflow-hidden flex flex-col items-center justify-center p-6 rounded-2xl transform transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-opacity-50 ${subject.bgColor}
-              
-              before:absolute before:inset-0 before:bg-gradient-to-tr before:from-white/10 before:to-transparent before:opacity-0 group-hover:before:opacity-100 before:transition-opacity before:duration-300
-              
-              hover:shadow-2xl hover:shadow-${subject.color.split('-')[1]}-300/30 shadow-lg hover:-translate-y-2 ${subject.color.replace('text-', 'focus:ring-')} animate-fadeInUp`}
-              style={{ animationDelay: `${index * 100}ms` }}
+              aria-label={`${subject.name}${isCompleted ? ` - ${completedTopics} topics completed` : ''}`}
+              className={`group relative overflow-hidden flex flex-col items-center justify-center p-4 sm:p-5 rounded-xl sm:rounded-2xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 ${subject.bgColor}
+              hover:shadow-lg hover:-translate-y-1 ${subject.color.replace('text-', 'focus:ring-')} animate-fadeInUp`}
+              style={{ animationDelay: `${index * 50}ms` }}
             >
               {isCompleted && (
-                <CheckCircleIcon className="absolute top-3 right-3 h-7 w-7 text-green-500 bg-white rounded-full" aria-hidden="true" />
+                <div className="absolute top-2 right-2 flex items-center gap-1 bg-green-500 text-white text-xs px-2 py-0.5 rounded-full">
+                  <CheckCircleIcon className="h-3 w-3" />
+                  <span>{completedTopics}</span>
+                </div>
               )}
-              <subject.icon className={`relative h-16 w-16 mb-3 ${subject.color} transition-transform group-hover:scale-110`} aria-hidden="true" />
-              <span className="relative text-xl font-bold text-gray-800">{subject.name}</span>
+              <subject.icon className={`h-10 w-10 sm:h-12 sm:w-12 mb-2 ${subject.color} transition-transform group-hover:scale-110`} aria-hidden="true" />
+              <span className="text-sm sm:text-base font-bold text-gray-800 text-center">{subject.name}</span>
             </button>
           );
         })}

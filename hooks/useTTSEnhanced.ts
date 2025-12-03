@@ -1,6 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
-import { playPronunciation } from '../services/ttsService';
-import { generatePiperAudio, initPiperTTS, type PiperPlayback } from '../services/piperTTS';
+import { speakNaturally, stopSpeaking, speakCelebration, speakAsMiRa } from '../services/naturalTTS';
 
 const LANGUAGE_LOCALE_MAP: Record<string, { locale: string; label: string }> = {
   english: { locale: 'en-GB', label: 'English' },
@@ -31,8 +30,13 @@ const resolveLocale = (languageHint?: string) => {
 };
 
 /**
- * TTS hook that prefers Piper (hosted models, free) with Web Speech fallback.
- * Second parameter kept for compatibility; currently unused.
+ * Enhanced TTS hook with natural, expressive voices
+ * 
+ * Features:
+ * - Context-aware expression (excitement, encouragement)
+ * - Natural prosody and pacing
+ * - Smart voice selection
+ * - MiRa personality mode
  */
 export const useTTSEnhanced = (language?: string, _options?: Record<string, unknown>) => {
   const [isSpeaking, setIsSpeaking] = useState(false);
@@ -40,8 +44,6 @@ export const useTTSEnhanced = (language?: string, _options?: Record<string, unkn
   const [progress, setProgress] = useState<number | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [needsGesture, setNeedsGesture] = useState(false);
-  const [activeProvider, setActiveProvider] = useState<'piper' | 'web-speech'>('piper');
-  const activePlaybackRef = useRef<PiperPlayback | null>(null);
   const cancelTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -49,87 +51,48 @@ export const useTTSEnhanced = (language?: string, _options?: Record<string, unkn
       if (cancelTimerRef.current) {
         clearTimeout(cancelTimerRef.current);
       }
-      if (activePlaybackRef.current) {
-        activePlaybackRef.current.cleanup();
-        activePlaybackRef.current = null;
-      }
-      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-      }
+      stopSpeaking();
     };
   }, []);
 
-  const speak = useCallback(async (text: string) => {
+  const speak = useCallback(async (text: string, options?: { 
+    celebratory?: boolean; 
+    asMiRa?: boolean 
+  }) => {
     const { label } = resolveLocale(language);
     const cleanText = text.replace(/[*#_`]/g, '');
 
     setIsLoading(true);
-    setProgress(10);
+    setProgress(30);
     setErrorMessage(null);
     setNeedsGesture(false);
 
-    // Try Piper first (natural accent, hosted models cached locally)
     try {
-      setProgress(20);
-
-      // Race Piper against a timeout so we can fall back quickly if downloads hang
-      await Promise.race([
-        (async () => {
-          const ready = await initPiperTTS(label, pct => setProgress(Math.max(20, Math.min(40, pct))));
-          if (!ready) {
-            throw new Error('Piper model download failed');
-          }
-
-          const playback = await generatePiperAudio(cleanText, label, pct => setProgress(Math.max(40, Math.min(85, pct))));
-          if (!playback) {
-            throw new Error('Piper synthesis failed');
-          }
-
-          activePlaybackRef.current = playback;
-          setActiveProvider('piper');
-          setIsSpeaking(true);
-          setIsLoading(false);
-          setProgress(95);
-
-          playback.audio.addEventListener('ended', () => {
-            setIsSpeaking(false);
-            setProgress(null);
-            activePlaybackRef.current = null;
-          }, { once: true });
-        })(),
-        new Promise((_, reject) => setTimeout(() => reject(new Error('Piper timeout')), 8000))
-      ]);
-
-      // If Piper succeeded, stop here
-      if (activePlaybackRef.current) return;
+      setProgress(50);
+      setIsSpeaking(true);
+      
+      // Choose speaking style based on options
+      if (options?.asMiRa) {
+        await speakAsMiRa(cleanText, label);
+      } else if (options?.celebratory) {
+        await speakCelebration(cleanText, label);
+      } else {
+        await speakNaturally(cleanText, label);
+      }
+      
+      setProgress(100);
+      setIsLoading(false);
+      setIsSpeaking(false);
+      setProgress(null);
     } catch (error) {
-      console.error('Piper TTS error:', error);
+      console.error('TTS error:', error);
       if (error instanceof DOMException && error.name === 'NotAllowedError') {
         setNeedsGesture(true);
       }
-      setErrorMessage(String(error));
-      setActiveProvider('web-speech');
-    }
-
-    // Fallback to Web Speech API
-    try {
-      setActiveProvider('web-speech');
-      setProgress(70);
-      await playPronunciation(cleanText, label);
-      setIsSpeaking(true);
       setIsLoading(false);
-      setProgress(95);
-
-      const estimatedDuration = Math.max(2000, cleanText.length * 45);
-      cancelTimerRef.current = setTimeout(() => {
-        setIsSpeaking(false);
-        setProgress(null);
-      }, estimatedDuration);
-    } catch (fallbackError) {
-      console.error('Web Speech TTS error:', fallbackError);
-      setIsLoading(false);
+      setIsSpeaking(false);
       setProgress(null);
-      setErrorMessage(String(fallbackError));
+      setErrorMessage(String(error));
     }
   }, [language]);
 
@@ -138,13 +101,7 @@ export const useTTSEnhanced = (language?: string, _options?: Record<string, unkn
       clearTimeout(cancelTimerRef.current);
       cancelTimerRef.current = null;
     }
-    if (activePlaybackRef.current) {
-      activePlaybackRef.current.cleanup();
-      activePlaybackRef.current = null;
-    }
-    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-    }
+    stopSpeaking();
 
     setIsSpeaking(false);
     setProgress(null);
@@ -152,12 +109,8 @@ export const useTTSEnhanced = (language?: string, _options?: Record<string, unkn
     setNeedsGesture(false);
   }, []);
 
-  const switchProvider = useCallback((provider: 'piper' | 'web-speech' | 'google-cloud') => {
-    if (provider === 'web-speech') {
-      setActiveProvider('web-speech');
-    } else {
-      setActiveProvider('piper');
-    }
+  const switchProvider = useCallback((_provider: 'web-speech' | 'google-cloud' | 'piper') => {
+    // Natural TTS uses enhanced Web Speech API
   }, []);
 
   return {
@@ -169,9 +122,9 @@ export const useTTSEnhanced = (language?: string, _options?: Record<string, unkn
     errorMessage,
     needsGesture,
     setNeedsGesture,
-    googleCloudAvailable: false, // Legacy prop kept for compatibility
-    activeProvider,
-    availableProviders: ['piper', 'web-speech'] as const,
+    googleCloudAvailable: false,
+    activeProvider: 'web-speech' as const,
+    availableProviders: ['web-speech'] as const,
     switchProvider
   };
 };

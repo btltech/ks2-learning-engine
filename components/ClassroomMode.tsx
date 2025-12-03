@@ -4,6 +4,24 @@ import { QuizQuestion, Difficulty } from '../types';
 import { generateQuiz } from '../services/geminiService';
 import { SUBJECTS } from '../constants';
 
+// Subject topics mapping for classroom mode
+const SUBJECT_TOPICS: Record<string, string[]> = {
+  'English': ['Reading Comprehension', 'Grammar', 'Spelling', 'Creative Writing', 'Vocabulary'],
+  'Maths': ['Addition', 'Subtraction', 'Multiplication', 'Division', 'Fractions', 'Decimals', 'Geometry', 'Time'],
+  'Science': ['Living Things', 'Materials', 'Forces', 'Light', 'Sound', 'Earth and Space', 'Animals', 'Plants'],
+  'History': ['Romans', 'Victorians', 'World War II', 'Ancient Egypt', 'Tudor Period', 'Anglo-Saxons'],
+  'Geography': ['Maps', 'UK Regions', 'Rivers', 'Mountains', 'Climate', 'Continents'],
+  'Art': ['Drawing', 'Painting', 'Sculpture', 'Colour Theory', 'Famous Artists'],
+  'Computing': ['Coding Basics', 'Algorithms', 'Internet Safety', 'Digital Literacy'],
+  'Languages': ['French Basics', 'Spanish Basics', 'German Basics'],
+  'Music': ['Rhythm', 'Instruments', 'Composers', 'Music Notation'],
+  'PE': ['Sports Rules', 'Fitness', 'Team Games', 'Athletics'],
+  'PSHE': ['Health', 'Relationships', 'Safety', 'Wellbeing'],
+  'D&T': ['Design Process', 'Materials', 'Food Technology', 'Structures'],
+  'Religious Education': ['Christianity', 'Islam', 'Judaism', 'Hinduism', 'Festivals'],
+  'Citizenship': ['Rights', 'Responsibilities', 'Community', 'Democracy']
+};
+
 interface ClassroomModeProps {
   userId: string;
   userName: string;
@@ -245,7 +263,7 @@ const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeach
 
   // Create Session View
   if (viewMode === 'create') {
-    const subjectInfo = selectedSubject ? SUBJECTS[selectedSubject as keyof typeof SUBJECTS] : null;
+    const subjectInfo = selectedSubject ? SUBJECTS.find(s => s.name === selectedSubject) : null;
 
     return (
       <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 p-4">
@@ -281,24 +299,23 @@ const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeach
               <div>
                 <label className="text-white/80 text-sm mb-1 block">Subject</label>
                 <div className="grid grid-cols-2 gap-2">
-                  {Object.entries(SUBJECTS).map(([key, subject]) => (
+                  {SUBJECTS.map((subject) => (
                     <button
-                      key={key}
-                      onClick={() => { setSelectedSubject(key); setSelectedTopic(''); }}
+                      key={subject.name}
+                      onClick={() => { setSelectedSubject(subject.name); setSelectedTopic(''); }}
                       className={`p-3 rounded-xl text-left transition-all ${
-                        selectedSubject === key
+                        selectedSubject === subject.name
                           ? 'bg-white/30 ring-2 ring-white'
                           : 'bg-white/10 hover:bg-white/20'
                       }`}
                     >
-                      <span className="text-2xl mr-2">{subject.icon}</span>
                       <span className="text-white font-medium">{subject.name}</span>
                     </button>
                   ))}
                 </div>
               </div>
 
-              {subjectInfo && (
+              {selectedSubject && SUBJECT_TOPICS[selectedSubject] && (
                 <div>
                   <label className="text-white/80 text-sm mb-1 block">Topic</label>
                   <select
@@ -307,7 +324,7 @@ const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeach
                     className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white appearance-none cursor-pointer"
                   >
                     <option value="" className="bg-gray-800">Select a topic</option>
-                    {subjectInfo.topics.map(topic => (
+                    {SUBJECT_TOPICS[selectedSubject].map(topic => (
                       <option key={topic} value={topic} className="bg-gray-800">{topic}</option>
                     ))}
                   </select>
@@ -401,7 +418,7 @@ const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeach
 
   // Waiting Room View
   if (viewMode === 'waiting' && session) {
-    const students = Object.values(session.students || {});
+    const students: ClassroomStudent[] = Object.values(session.students || {}) as ClassroomStudent[];
 
     return (
       <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 p-4">

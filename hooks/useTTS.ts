@@ -1,6 +1,5 @@
 import { useState, useCallback } from 'react';
-import { generatePiperAudio, initPiperTTS } from '../services/piperTTS';
-import { playPronunciation } from '../services/ttsService';
+import { speakNaturally, stopSpeaking, speakCelebration } from '../services/naturalTTS';
 
 const LANGUAGE_LOCALE_MAP: Record<string, { locale: string; label: string }> = {
   english: { locale: 'en-GB', label: 'English' },
@@ -28,61 +27,42 @@ export const useTTS = (language?: string) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [needsGesture, setNeedsGesture] = useState(false);
 
-  const speak = useCallback(async (text: string) => {
-    const { locale, label } = resolveLocale(language);
+  const speak = useCallback(async (text: string, celebratory?: boolean) => {
+    const { label } = resolveLocale(language);
     // Strip markdown symbols for better reading
     const cleanText = text.replace(/[*#_`]/g, '');
 
-    // Use optimized Web Speech API TTS (FREE, NATURAL, INSTANT)
     setIsLoading(true);
-    setProgress(10);
+    setProgress(30);
     setErrorMessage(null);
     setNeedsGesture(false);
 
     try {
-      // Initialize TTS service
-      const initialized = await initPiperTTS(locale);
-      if (!initialized) {
-        setErrorMessage('TTS not available');
-        setIsLoading(false);
-        return;
-      }
-
-      setProgress(30);
-
-      // Generate audio with enhanced language support
-      const result = await generatePiperAudio(cleanText, locale);
-      setProgress(70);
-
-      if (result) {
-        setIsSpeaking(true);
-        setProgress(90);
-        setIsLoading(false);
-
-        // Web Speech API handles audio playback internally
-        // Set a timeout to mark speaking as done after estimated speech duration
-        const estimatedDuration = Math.max(2000, cleanText.length * 50);
-        setTimeout(() => {
-          setIsSpeaking(false);
-          setProgress(null);
-        }, estimatedDuration);
+      setProgress(50);
+      setIsSpeaking(true);
+      
+      // Use celebration voice for positive feedback
+      if (celebratory) {
+        await speakCelebration(cleanText, label);
       } else {
-        setIsLoading(false);
-        setErrorMessage('Failed to generate audio');
+        await speakNaturally(cleanText, label);
       }
+      
+      setProgress(100);
+      setIsLoading(false);
+      setIsSpeaking(false);
+      setProgress(null);
     } catch (error) {
       console.error('TTS error:', error);
       setIsLoading(false);
+      setIsSpeaking(false);
       setProgress(null);
       setErrorMessage(String(error));
     }
   }, [language]);
 
   const cancel = useCallback(() => {
-    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-    }
-
+    stopSpeaking();
     setIsSpeaking(false);
     setProgress(null);
     setErrorMessage(null);

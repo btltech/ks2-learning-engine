@@ -3,6 +3,7 @@ import { XMarkIcon, ChevronDownIcon, PaperAirplaneIcon, MicrophoneIcon } from '@
 import { askMiRa, generateSubjectConnections, generateProjectSuggestions, generateConceptReinforcement } from '../services/geminiService';
 import { ChatMessage, Difficulty } from '../types';
 import { voiceCommandService, VoiceCommand } from '../services/voiceCommandService';
+import AvatarDisplay from './AvatarDisplay';
 
 interface GuideAvatarProps {
   message: string;
@@ -55,44 +56,46 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
       voiceCommandService.stopListening();
       setIsListening(false);
     } else {
-      voiceCommandService.startListening(
-        (command) => {
-          // Handle the recognized command
-          setIsListening(false);
-          
-          if (command.type === 'chat') {
-            // Send as a chat message
-            setInputMessage(command.rawText);
-            setTimeout(() => handleSendMessage(), 100);
-          } else if (onVoiceCommand) {
-            // Pass command to parent for navigation/actions
-            onVoiceCommand(command);
-          } else {
-            // Handle basic commands internally
-            const responseMessage = `I heard you say: "${command.rawText}". `;
-            const botMessage: ChatMessage = {
-              id: Date.now().toString(),
-              sender: 'mira',
-              message: responseMessage + (command.type === 'help' 
-                ? "You can ask me to start a quiz, explain a topic, or just chat!"
-                : `I'll help you with that ${command.type}!`),
-              timestamp: Date.now(),
-            };
-            setChatMessages(prev => [...prev, botMessage]);
-          }
-        },
-        (error) => {
-          console.error('Voice error:', error);
-          setIsListening(false);
-          const errorMessage: ChatMessage = {
+      // Set up callbacks before starting
+      voiceCommandService.onResult((command) => {
+        // Handle the recognized command
+        setIsListening(false);
+        
+        if (command.type === 'chat') {
+          // Send as a chat message
+          setInputMessage(command.rawText);
+          setTimeout(() => handleSendMessage(), 100);
+        } else if (onVoiceCommand) {
+          // Pass command to parent for navigation/actions
+          onVoiceCommand(command);
+        } else {
+          // Handle basic commands internally
+          const responseMessage = `I heard you say: "${command.rawText}". `;
+          const botMessage: ChatMessage = {
             id: Date.now().toString(),
             sender: 'mira',
-            message: "I couldn't hear you clearly. Can you try again or type your question?",
+            message: responseMessage + (command.type === 'help' 
+              ? "You can ask me to start a quiz, explain a topic, or just chat!"
+              : `I'll help you with that ${command.type}!`),
             timestamp: Date.now(),
           };
-          setChatMessages(prev => [...prev, errorMessage]);
+          setChatMessages(prev => [...prev, botMessage]);
         }
-      );
+      });
+      
+      voiceCommandService.onError((error) => {
+        console.error('Voice error:', error);
+        setIsListening(false);
+        const errorMessage: ChatMessage = {
+          id: Date.now().toString(),
+          sender: 'mira',
+          message: "I couldn't hear you clearly. Can you try again or type your question?",
+          timestamp: Date.now(),
+        };
+        setChatMessages(prev => [...prev, errorMessage]);
+      });
+      
+      voiceCommandService.startListening();
       setIsListening(true);
       
       // Show listening feedback
@@ -305,18 +308,7 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
           {/* Chat Header */}
           <div className="bg-gradient-to-r from-blue-500 to-purple-500 text-white p-4 rounded-t-2xl flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10">
-                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                  <g transform="translate(0, 5)">
-                    <line x1="50" y1="10" x2="50" y2="0" stroke="white" strokeWidth="2" />
-                    <circle cx="50" cy="10" r="3" fill="white" />
-                    <rect x="30" y="15" width="40" height="30" rx="10" fill="white" opacity="0.9" />
-                    <circle cx="50" cy="30" r="8" fill="#1e293b" />
-                    <circle cx="50" cy="30" r="4" fill="white" className="animate-pulse" />
-                    <rect x="20" y="45" width="60" height="40" rx="15" fill="white" opacity="0.8" />
-                  </g>
-                </svg>
-              </div>
+              <AvatarDisplay size="md" showEffects={false} />
               <div>
                 <h3 className="font-bold text-lg">MiRa</h3>
                 <p className="text-xs opacity-90">Your Learning Buddy</p>
@@ -336,10 +328,17 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
             {chatMessages.map((msg) => (
               <div
                 key={msg.id}
-                className={`flex ${msg.sender === 'student' ? 'justify-end' : 'justify-start'}`}
+                className={`flex items-end gap-2 ${msg.sender === 'student' ? 'justify-end' : 'justify-start'}`}
               >
+                {/* MiRa Avatar on left */}
+                {msg.sender !== 'student' && (
+                  <div className="flex-shrink-0">
+                    <AvatarDisplay size="sm" showEffects={false} />
+                  </div>
+                )}
+                
                 <div
-                  className={`max-w-[80%] rounded-2xl px-4 py-2 ${
+                  className={`max-w-[75%] rounded-2xl px-4 py-2 ${
                     msg.sender === 'student'
                       ? 'bg-blue-500 text-white rounded-br-none'
                       : 'bg-white text-gray-800 shadow-md rounded-bl-none'
@@ -350,11 +349,21 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
                   </p>
                   <p className="text-sm whitespace-pre-wrap">{msg.message}</p>
                 </div>
+                
+                {/* User icon on right */}
+                {msg.sender === 'student' && (
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
+                    <span className="text-sm">👤</span>
+                  </div>
+                )}
               </div>
             ))}
             
             {isTyping && (
-              <div className="flex justify-start">
+              <div className="flex items-end gap-2 justify-start">
+                <div className="flex-shrink-0">
+                  <AvatarDisplay size="sm" showEffects={false} />
+                </div>
                 <div className="bg-white text-gray-800 shadow-md rounded-2xl rounded-bl-none px-4 py-2">
                   <p className="text-sm font-semibold mb-1 opacity-75">MiRa</p>
                   <div className="flex space-x-2">
@@ -470,17 +479,15 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
         </div>
       )} */}
 
-      {/* Avatar Button */}
+      {/* Avatar Button - Shows user's customized avatar */}
       <button
         onClick={handleAvatarClick}
         onKeyDown={handleAvatarKeyDown}
-        className="w-16 h-16 animate-float hover:scale-110 transition-transform cursor-pointer focus:outline-none focus:ring-4 focus:ring-blue-400 rounded-full shadow-lg bg-white border-2 border-blue-100"
+        className="w-16 h-16 animate-float hover:scale-110 transition-transform cursor-pointer focus:outline-none focus:ring-4 focus:ring-blue-400 rounded-full shadow-lg bg-white border-2 border-blue-100 overflow-hidden"
         aria-label={isChatOpen ? 'Close chat with MiRa' : 'Chat with MiRa'}
         title={isChatOpen ? 'Close MiRa' : 'Open MiRa'}
       >
-        <div className="flex flex-col items-center justify-center h-full w-full">
-          <div className="text-3xl">🤖</div>
-        </div>
+        <AvatarDisplay size="lg" showEffects={true} />
       </button>
     </div>
   );

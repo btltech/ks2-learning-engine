@@ -73,11 +73,7 @@ const AppContent: React.FC = () => {
   const [showQuizBattle, setShowQuizBattle] = useState(false);
   const [showLearningPaths, setShowLearningPaths] = useState(false);
   const [showTeacherDashboard, setShowTeacherDashboard] = useState(false);
-  const [showClassroom, setShowClassroom] = useState(false);
   const [showAnalytics, setShowAnalytics] = useState(false);
-  const [showStreakRewards, setShowStreakRewards] = useState(false);
-  const [showAvatarCustomization, setShowAvatarCustomization] = useState(false);
-  const [showMiniGames, setShowMiniGames] = useState(false);
   
   // Use age from user profile, default to 9 if not set
   const studentAge = user?.age || 9;
@@ -293,6 +289,7 @@ const AppContent: React.FC = () => {
         onOpenParentDashboard={() => setShowParentDashboard(true)}
         onOpenLeaderboard={() => setShowLeaderboard(true)}
         onOpenProgress={() => setShowProgress(true)}
+        onOpenAvatar={() => navigate('/avatar')}
         onLogout={logout}
       />
 
@@ -310,11 +307,11 @@ const AppContent: React.FC = () => {
                   onOpenQuizBattle={() => setShowQuizBattle(true)}
                   onOpenLearningPaths={() => setShowLearningPaths(true)}
                   onOpenAchievements={() => setShowAchievements(true)}
-                  onOpenClassroom={() => setShowClassroom(true)}
+                  onOpenClassroom={() => navigate('/classroom')}
                   onOpenAnalytics={() => setShowAnalytics(true)}
-                  onOpenStreakRewards={() => setShowStreakRewards(true)}
-                  onOpenAvatarCustomization={() => setShowAvatarCustomization(true)}
-                  onOpenMiniGames={() => setShowMiniGames(true)}
+                  onOpenStreakRewards={() => navigate('/rewards')}
+                  onOpenAvatarCustomization={() => navigate('/avatar')}
+                  onOpenMiniGames={() => navigate('/games')}
                   progress={progress}
                 />
               } />
@@ -359,6 +356,38 @@ const AppContent: React.FC = () => {
                   studentAge={studentAge} 
                   difficulty={difficulty}
                   onSubmit={handleQuizSubmit}
+                />
+              } />
+
+              {/* Full Page Feature Routes */}
+              <Route path="/games" element={
+                <MiniGames
+                  onClose={() => navigate('/')}
+                  onXpEarned={(xp) => addPoints(xp)}
+                />
+              } />
+              
+              <Route path="/avatar" element={
+                <AvatarCustomization
+                  currentXp={user?.points || 0}
+                  currentStreak={user?.streak || 0}
+                  onClose={() => navigate('/')}
+                />
+              } />
+              
+              <Route path="/rewards" element={
+                <StreakRewards
+                  onClose={() => navigate('/')}
+                  onXpEarned={(xp) => addPoints(xp)}
+                />
+              } />
+              
+              <Route path="/classroom" element={
+                <ClassroomMode
+                  userId={user?.id || ''}
+                  userName={user?.name || ''}
+                  isTeacher={user?.role === 'teacher'}
+                  onExit={() => navigate('/')}
                 />
               } />
               
@@ -482,39 +511,8 @@ const AppContent: React.FC = () => {
         </Suspense>
       )}
 
-      {showClassroom && (
-        <ClassroomMode
-          userId={user.id}
-          userName={user.name}
-          isTeacher={user.role === 'teacher'}
-          onExit={() => setShowClassroom(false)}
-        />
-      )}
-
       {showAnalytics && (
         <AnalyticsDashboard onClose={() => setShowAnalytics(false)} />
-      )}
-
-      {showStreakRewards && (
-        <StreakRewards
-          onClose={() => setShowStreakRewards(false)}
-          onXpEarned={(xp) => addPoints(xp)}
-        />
-      )}
-
-      {showAvatarCustomization && (
-        <AvatarCustomization
-          currentXp={user.points}
-          currentStreak={user.streak}
-          onClose={() => setShowAvatarCustomization(false)}
-        />
-      )}
-
-      {showMiniGames && (
-        <MiniGames
-          onClose={() => setShowMiniGames(false)}
-          onXpEarned={(xp) => addPoints(xp)}
-        />
       )}
 
       {/* Google Cloud TTS test UI removed */}

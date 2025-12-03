@@ -4,6 +4,8 @@
  * Handles speech recognition and voice command parsing for MiRa
  */
 
+import type { ISpeechRecognition, SpeechRecognitionEvent, SpeechRecognitionErrorEvent } from '../types/speechRecognition.d';
+
 export interface VoiceCommand {
   type: 'quiz' | 'explain' | 'help' | 'navigate' | 'chat' | 'battle' | 'unknown';
   subject?: string;
@@ -54,8 +56,9 @@ const COMMAND_PATTERNS = {
 };
 
 class VoiceCommandService {
-  private recognition: SpeechRecognition | null = null;
+  private recognition: ISpeechRecognition | null = null;
   private isListening = false;
+  private hasResult = false;
   private onResultCallback: ((command: VoiceCommand) => void) | null = null;
   private onErrorCallback: ((error: string) => void) | null = null;
   private onStatusCallback: ((status: 'listening' | 'stopped' | 'processing') => void) | null = null;
@@ -67,40 +70,91 @@ class VoiceCommandService {
   private initializeSpeechRecognition(): void {
     if (typeof window === 'undefined') return;
 
-    const SpeechRecognition = window.SpeechRecognition || (window as any).webkitSpeechRecognition;
+    const SpeechRecognitionConstructor = window.SpeechRecognition || window.webkitSpeechRecognition;
     
-    if (!SpeechRecognition) {
+    if (!SpeechRecognitionConstructor) {
       console.warn('[VoiceCommand] Speech recognition not supported');
       return;
     }
 
-    this.recognition = new SpeechRecognition();
+    this.recognition = new SpeechRecognitionConstructor();
     this.recognition.continuous = false;
-    this.recognition.interimResults = false;
+    this.recognition.interimResults = true; // Enable interim results for better feedback
     this.recognition.lang = 'en-GB';
     this.recognition.maxAlternatives = 1;
 
-    this.recognition.onresult = (event) => {
-      const transcript = event.results[0][0].transcript;
-      const confidence = event.results[0][0].confidence;
-      
-      console.log('[VoiceCommand] Heard:', transcript, 'Confidence:', confidence);
-      
-      const command = this.parseCommand(transcript, confidence);
-      this.onResultCallback?.(command);
-      this.onStatusCallback?.('stopped');
+    this.recognition.onstart = () => {
+      console.log('[VoiceCommand] Recognition started');
+      this.isListening = true;
+      this.hasResult = false;
+      this.onStatusCallback?.('listening');
     };
 
-    this.recognition.onerror = (event) => {
+    this.recognition.onresult = (event: SpeechRecognitionEvent) => {
+      // Get the latest result
+      const resultIndex = event.results.length - 1;
+      const result = event.results[resultIndex];
+      
+      if (result.isFinal) {
+        const transcript = result[0].transcript;
+        const confidence = result[0].confidence;
+        
+        console.log('[VoiceCommand] Final result:', transcript, 'Confidence:', confidence);
+        
+        this.hasResult = true;
+        const command = this.parseCommand(transcript, confidence);
+        this.onResultCallback?.(command);
+        this.onStatusCallback?.('stopped');
+      } else {
+        // Interim result - show processing status
+        console.log('[VoiceCommand] Interim:', result[0].transcript);
+        this.onStatusCallback?.('processing');
+      }
+    };
+
+    this.recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
       console.error('[VoiceCommand] Error:', event.error);
-      this.onErrorCallback?.(event.error);
-      this.onStatusCallback?.('stopped');
       this.isListening = false;
+      
+      // Provide user-friendly error messages
+      let errorMessage = event.error;
+      switch (event.error) {
+        case 'no-speech':
+          errorMessage = "I didn't hear anything. Please try speaking again.";
+          break;
+        case 'audio-capture':
+          errorMessage = "Couldn't access microphone. Please check your settings.";
+          break;
+        case 'not-allowed':
+          errorMessage = "Microphone permission denied. Please allow microphone access.";
+          break;
+        case 'network':
+          errorMessage = "Network error. Please check your connection.";
+          break;
+        case 'aborted':
+          // User cancelled - don't show error
+          this.onStatusCallback?.('stopped');
+          return;
+      }
+      
+      this.onErrorCallback?.(errorMessage);
+      this.onStatusCallback?.('stopped');
     };
 
     this.recognition.onend = () => {
+      console.log('[VoiceCommand] Recognition ended, hasResult:', this.hasResult);
       this.isListening = false;
+      
+      // If we ended without a result and no error was fired, notify user
+      if (!this.hasResult) {
+        this.onErrorCallback?.("I didn't catch that. Please try again.");
+      }
+      
       this.onStatusCallback?.('stopped');
+    };
+
+    this.recognition.onspeechend = () => {
+      console.log('[VoiceCommand] Speech ended');
     };
   }
 
@@ -169,22 +223,45 @@ class VoiceCommandService {
    * Start listening for voice commands
    */
   startListening(): boolean {
+    // Reinitialize if recognition was destroyed
     if (!this.recognition) {
-      this.onErrorCallback?.('Speech recognition not supported');
+      this.initializeSpeechRecognition();
+    }
+    
+    if (!this.recognition) {
+      this.onErrorCallback?.('Speech recognition not supported on this device');
       return false;
     }
 
     if (this.isListening) {
+      console.log('[VoiceCommand] Already listening');
       return true;
     }
 
     try {
+      // Reset state
+      this.hasResult = false;
       this.recognition.start();
-      this.isListening = true;
-      this.onStatusCallback?.('listening');
+      console.log('[VoiceCommand] Starting recognition...');
       return true;
-    } catch (error) {
+    } catch (error: any) {
       console.error('[VoiceCommand] Failed to start:', error);
+      
+      // If already started, try to abort and restart
+      if (error.name === 'InvalidStateError') {
+        try {
+          this.recognition.abort();
+          setTimeout(() => {
+            this.hasResult = false;
+            this.recognition?.start();
+          }, 100);
+          return true;
+        } catch (e) {
+          console.error('[VoiceCommand] Restart failed:', e);
+        }
+      }
+      
+      this.onErrorCallback?.('Failed to start voice recognition. Please try again.');
       return false;
     }
   }

@@ -1,4 +1,5 @@
 import { UserProfile, ParentStats, StoreItem, Difficulty } from '../types';
+import { avatarCustomizationService } from './avatarCustomizationService';
 
 // Default user template for new account creation
 const DEFAULT_USER_TEMPLATE: UserProfile = {
@@ -21,6 +22,44 @@ const DEFAULT_USER_TEMPLATE: UserProfile = {
 };
 
 const STORAGE_KEY = 'ks2_user'; // Match UserContext storage key
+
+// Map store item IDs to avatar item IDs
+const mapStoreToAvatarId = (storeItemId: string): string | null => {
+  const mapping: Record<string, string> = {
+    // Colors
+    'color-blue': 'color_blue',
+    'color-green': 'color_green',
+    'color-purple': 'color_purple',
+    'color-orange': 'color_orange',
+    'color-pink': 'color_pink',
+    'color-gold': 'color_gold',
+    'color-rainbow': 'color_rainbow',
+    // Accessories
+    'acc-glasses': 'acc_glasses',
+    'acc-sunglasses': 'acc_sunglasses',
+    'acc-monocle': 'acc_monocle',
+    'acc-bow': 'acc_bowtie',
+    'acc-crown': 'hat_crown',
+    'acc-wizard-hat': 'hat_wizard',
+    'acc-party-hat': 'hat_party',
+    'acc-viking': 'hat_viking',
+    'acc-trophy': 'acc_trophy',
+    'acc-medal': 'acc_medal',
+    // Effects
+    'effect-sparkle': 'effect_sparkle',
+    'effect-fire': 'effect_fire',
+    'effect-lightning': 'effect_lightning',
+    'effect-rainbow-trail': 'effect_confetti',
+    // Backgrounds
+    'bg-stars': 'bg_stars',
+    'bg-forest': 'bg_forest',
+    'bg-ocean': 'bg_ocean',
+    'bg-space': 'bg_space',
+    'bg-rainbow': 'bg_rainbow',
+    'bg-galaxy': 'bg_galaxy',
+  };
+  return mapping[storeItemId] || null;
+};
 
 export const authService = {
   // Create new user account
@@ -77,6 +116,9 @@ export const authService = {
       unlockedItems: [...user.unlockedItems, item.id]
     };
 
+    // Also sync to avatar customization service
+    avatarCustomizationService.syncWithStorePurchases([...user.unlockedItems, item.id]);
+
     return authService.updateUser(updates);
   },
 
@@ -89,6 +131,13 @@ export const authService = {
       newAvatarConfig.color = item.value;
     } else if (item.type === 'accessory') {
       newAvatarConfig.accessory = item.value;
+    }
+
+    // Also equip in avatar customization service for proper MiRa display
+    // Map store item types to avatar categories
+    const avatarItemId = mapStoreToAvatarId(item.id);
+    if (avatarItemId) {
+      avatarCustomizationService.equipItem(avatarItemId);
     }
 
     return authService.updateUser({ avatarConfig: newAvatarConfig });

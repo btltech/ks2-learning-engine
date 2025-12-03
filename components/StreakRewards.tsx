@@ -108,16 +108,18 @@ const StreakRewards: React.FC<StreakRewardsProps> = ({ onClose, onXpEarned }) =>
       <div className="max-w-md mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
-          <div>
+          <button
+            onClick={onClose}
+            className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-xl text-white transition-all"
+          >
+            <span>←</span>
+            <span>Back</span>
+          </button>
+          <div className="text-center flex-1">
             <h1 className="text-2xl font-bold text-white">🔥 Streaks & Rewards</h1>
             <p className="text-white/60">Keep learning every day!</p>
           </div>
-          <button
-            onClick={onClose}
-            className="p-2 bg-white/10 hover:bg-white/20 rounded-xl text-white transition-all"
-          >
-            ✕
-          </button>
+          <div className="w-20" /> {/* Spacer for centering */}
         </div>
 
         {/* Streak Display */}

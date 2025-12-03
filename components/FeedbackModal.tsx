@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { generateFeedback } from '../services/geminiService';
 import LoadingSpinner from './LoadingSpinner';
-import { SparklesIcon, CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid';
+import { SparklesIcon, CheckCircleIcon, XCircleIcon, SpeakerWaveIcon } from '@heroicons/react/24/solid';
 import type { QuizResult, Explanation } from '../types';
 import { useGameSounds } from '../hooks/useGameSounds';
+import { speakNaturally, speakCelebration, stopSpeaking } from '../services/naturalTTS';
 
 interface FeedbackModalProps {
   quizResults: QuizResult[];
@@ -33,10 +34,35 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ quizResults, studentAge, 
   useEffect(() => {
     if (percentage >= 70) {
       playSuccess();
-    } else if (percentage < 40) {
+      // Speak celebration message
+      const messages = [
+        `Amazing work! You got ${score} out of ${total} correct!`,
+        `Fantastic! ${score} out of ${total}! You're doing brilliantly!`,
+        `Wow! ${score} out of ${total}! You're a superstar!`,
+        `Brilliant! ${percentage}% correct! Keep up the great work!`
+      ];
+      const message = messages[Math.floor(Math.random() * messages.length)];
+      setTimeout(() => speakCelebration(message), 500);
+    } else if (percentage >= 40) {
+      // Encouraging message for medium scores
+      const messages = [
+        `Good effort! You got ${score} out of ${total}. Keep practicing!`,
+        `Nice try! ${score} out of ${total}. You're getting better!`,
+        `Well done for trying! Let's review the ones you missed.`
+      ];
+      const message = messages[Math.floor(Math.random() * messages.length)];
+      setTimeout(() => speakNaturally(message), 500);
+    } else {
       playIncorrect();
+      // Supportive message for low scores
+      setTimeout(() => {
+        speakNaturally("Don't worry! Everyone learns at their own pace. Let's look at the explanations together.");
+      }, 500);
     }
-  }, [percentage, playSuccess, playIncorrect]);
+    
+    // Cleanup: stop speaking when modal closes
+    return () => stopSpeaking();
+  }, [percentage, playSuccess, playIncorrect, score, total]);
 
   const fetchFeedback = useCallback(async () => {
     setLoading(true);
@@ -138,8 +164,15 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ quizResults, studentAge, 
                         <span className="text-gray-500">Correct answer: <span className="font-semibold">{result.correctAnswer}</span></span>
                       </div>
                       {explanation && (
-                         <div className="mt-2 p-3 bg-blue-50 rounded-md text-blue-800 font-semibold">
-                            {explanation}
+                         <div className="mt-2 p-3 bg-blue-50 rounded-md text-blue-800 font-semibold flex items-start gap-2">
+                            <button
+                              onClick={() => speakNaturally(`The correct answer is ${result.correctAnswer}. ${explanation}`)}
+                              className="shrink-0 p-1 hover:bg-blue-100 rounded-full transition-colors"
+                              title="Listen to explanation"
+                            >
+                              <SpeakerWaveIcon className="h-5 w-5 text-blue-600" />
+                            </button>
+                            <span>{explanation}</span>
                         </div>
                       )}
                     </li>

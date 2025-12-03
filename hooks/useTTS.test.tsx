@@ -3,11 +3,19 @@ import React from 'react';
 import { render, fireEvent, waitFor, act } from '@testing-library/react';
 import { useTTS } from './useTTS';
 
-// Mock services/piperTTS
-vi.mock('../services/piperTTS', () => ({
-  initPiperTTS: vi.fn(async () => true),
-  generatePiperAudio: vi.fn(async () => 'web-speech-api'),
-}));
+// Mock window.speechSynthesis for testing
+const mockSpeak = vi.fn();
+const mockCancel = vi.fn();
+
+Object.defineProperty(window, 'speechSynthesis', {
+  value: {
+    speak: mockSpeak,
+    cancel: mockCancel,
+    getVoices: vi.fn(() => []),
+  },
+  writable: true,
+  configurable: true,
+});
 
 const TestComponent: React.FC<{ text: string }> = ({ text }) => {
   const { speak, cancel, isSpeaking, isLoading, progress, errorMessage } = useTTS();

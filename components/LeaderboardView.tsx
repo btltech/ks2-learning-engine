@@ -3,6 +3,7 @@ import { useUser } from '../context/UserContext';
 import { leaderboardService, LeaderboardEntry } from '../services/leaderboardService';
 import { TrophyIcon, FireIcon, StarIcon } from '@heroicons/react/24/solid';
 import LoadingSpinner from './LoadingSpinner';
+import AvatarDisplay from './AvatarDisplay';
 
 interface LeaderboardViewProps {
   onBack: () => void;
@@ -68,9 +69,16 @@ const LeaderboardView: React.FC<LeaderboardViewProps> = ({ onBack }) => {
                     {index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : index + 1}
                   </div>
                   
-                  <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-2xl shadow-sm mr-4 border-2 border-gray-100">
-                    {player.avatar === 'blue' ? '👤' : player.avatar}
-                  </div>
+                  {/* Show custom avatar for current user, emoji for others */}
+                  {isCurrentUser ? (
+                    <div className="mr-4">
+                      <AvatarDisplay size="sm" showEffects={false} />
+                    </div>
+                  ) : (
+                    <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-indigo-100 rounded-full flex items-center justify-center text-2xl shadow-sm mr-4 border-2 border-gray-100">
+                      {player.avatar === 'blue' ? '🧑‍🎓' : player.avatar || '👤'}
+                    </div>
+                  )}
 
                   <div className="flex-grow">
                     <h3 className={`font-bold text-lg ${isCurrentUser ? 'text-blue-700' : 'text-gray-800'}`}>

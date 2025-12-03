@@ -5,6 +5,7 @@ import {
   AvatarCategory, 
   AvatarConfig 
 } from '../services/avatarCustomizationService';
+import { useUser } from '../context/UserContext';
 
 interface AvatarCustomizationProps {
   currentXp: number;
@@ -19,6 +20,7 @@ const AvatarCustomization: React.FC<AvatarCustomizationProps> = ({
   onClose,
   onAvatarChange,
 }) => {
+  const { user } = useUser();
   const [activeCategory, setActiveCategory] = useState<AvatarCategory>('character');
   const [config, setConfig] = useState(avatarCustomizationService.getConfig());
   const [unlockedItems, setUnlockedItems] = useState<string[]>([]);
@@ -26,7 +28,15 @@ const AvatarCustomization: React.FC<AvatarCustomizationProps> = ({
   const [showUnlockModal, setShowUnlockModal] = useState<AvatarItem | null>(null);
 
   useEffect(() => {
-    // Check for new unlocks
+    // Sync with store purchases from user profile
+    if (user?.unlockedItems) {
+      const storeUnlocks = avatarCustomizationService.syncWithStorePurchases(user.unlockedItems);
+      if (storeUnlocks.length > 0) {
+        console.log('Synced store purchases to avatar system:', storeUnlocks);
+      }
+    }
+    
+    // Check for new unlocks based on XP and streak
     const unlocked = avatarCustomizationService.checkAllUnlocks(currentXp, currentStreak);
     if (unlocked.length > 0) {
       setNewUnlocks(unlocked);
@@ -34,7 +44,7 @@ const AvatarCustomization: React.FC<AvatarCustomizationProps> = ({
       if (item) setShowUnlockModal(item);
     }
     setUnlockedItems(avatarCustomizationService.getUnlockedItems().map(i => i.id));
-  }, [currentXp, currentStreak]);
+  }, [currentXp, currentStreak, user?.unlockedItems]);
 
   const categories: { id: AvatarCategory; label: string; icon: string }[] = [
     { id: 'character', label: 'Character', icon: '👤' },
@@ -116,16 +126,18 @@ const AvatarCustomization: React.FC<AvatarCustomizationProps> = ({
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
-          <div>
+          <button
+            onClick={onClose}
+            className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-xl text-white transition-all"
+          >
+            <span>←</span>
+            <span>Back</span>
+          </button>
+          <div className="text-center flex-1">
             <h1 className="text-2xl font-bold text-white">✨ Avatar Customization</h1>
             <p className="text-white/60">Personalize your character!</p>
           </div>
-          <button
-            onClick={onClose}
-            className="p-2 bg-white/10 hover:bg-white/20 rounded-xl text-white transition-all"
-          >
-            ✕
-          </button>
+          <div className="w-20" /> {/* Spacer for centering */}
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
@@ -190,6 +202,16 @@ const AvatarCustomization: React.FC<AvatarCustomizationProps> = ({
                 <p className="text-white/40 text-xs">
                   {unlockedItems.length} / {avatarCustomizationService.getAllItems().length} items unlocked
                 </p>
+              </div>
+
+              {/* Avatar uses */}
+              <div className="mt-4 pt-4 border-t border-white/10">
+                <p className="text-white/50 text-xs text-center">Your avatar appears in:</p>
+                <div className="flex justify-center gap-3 mt-2 text-xs text-white/70">
+                  <span>🏆 Leaderboard</span>
+                  <span>👤 Profile</span>
+                  <span>⚔️ Battles</span>
+                </div>
               </div>
             </div>
           </div>

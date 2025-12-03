@@ -406,7 +406,9 @@ class StreakRewardsService {
     }));
 
     // Keep active weekly challenges or generate new ones
-    const existingWeekly = this.challenges.filter(c => 
+    // Use empty array if this.challenges is not yet initialized
+    const existingChallenges = this.challenges || [];
+    const existingWeekly = existingChallenges.filter(c => 
       c.type === 'weekly' && new Date(c.endDate) > today && !c.claimed
     );
 
