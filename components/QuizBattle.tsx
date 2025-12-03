@@ -18,7 +18,7 @@ interface QuizBattleProps {
 type BattleView = 'menu' | 'create' | 'join' | 'waiting' | 'battle' | 'results';
 
 export const QuizBattleMode: React.FC<QuizBattleProps> = ({ onClose, onComplete }) => {
-  const { currentChild, addPoints } = useUser();
+  const { user, addPoints } = useUser();
   const [view, setView] = useState<BattleView>('menu');
   const [battle, setBattle] = useState<QuizBattle | null>(null);
   const [battleCode, setBattleCode] = useState('');
@@ -39,25 +39,49 @@ export const QuizBattleMode: React.FC<QuizBattleProps> = ({ onClose, onComplete 
     
     try {
       // Generate questions for the battle
-      const questions = await generateQuiz(
+      const rawQuestions = await generateQuiz(
         'Maths',
         'Mixed',
         Difficulty.Medium,
-        5
+        user?.age || 9
       );
 
+      // Transform questions to battle format (correctAnswer as index)
+      const questions = rawQuestions.map(q => ({
+        ...q,
+        correctAnswer: q.options.findIndex(opt => opt === q.correctAnswer)
+      }));
+
+      if (questions.length === 0) {
+        setError('Could not generate quiz questions. Please try again.');
+        return;
+      }
+
       const newBattle = await multiplayerBattleService.createBattle(
-        currentChild?.id || 'player1',
-        currentChild?.name || 'Player 1',
+        user?.id || 'player1',
+        user?.name || 'Player 1',
         '#8B5CF6',
         'Maths',
         'Mixed',
         Difficulty.Medium,
-        questions
+        questions as any
       );
 
       setBattle(newBattle);
       setView('waiting');
+      
+      // Auto-add a bot opponent after a short delay for solo play
+      setTimeout(async () => {
+        const botBattle = await multiplayerBattleService.joinBattle(
+          newBattle.battleCode,
+          'bot_opponent',
+          'MiRa Bot 🤖',
+          '#EC4899'
+        );
+        if (botBattle) {
+          setBattle(botBattle);
+        }
+      }, 2000);
     } catch {
       setError('Failed to create battle. Please try again.');
     } finally {
@@ -78,8 +102,8 @@ export const QuizBattleMode: React.FC<QuizBattleProps> = ({ onClose, onComplete 
     try {
       const joinedBattle = await multiplayerBattleService.joinBattle(
         battleCode.toUpperCase(),
-        currentChild?.id || 'player2',
-        currentChild?.name || 'Player 2',
+        user?.id || 'player2',
+        user?.name || 'Player 2',
         '#EC4899'
       );
 
@@ -91,7 +115,7 @@ export const QuizBattleMode: React.FC<QuizBattleProps> = ({ onClose, onComplete 
         setTimeout(() => {
           multiplayerBattleService.setPlayerReady(
             joinedBattle.id,
-            currentChild?.id || 'player2'
+            user?.id || 'player2'
           );
         }, 1000);
       } else {
@@ -143,7 +167,7 @@ export const QuizBattleMode: React.FC<QuizBattleProps> = ({ onClose, onComplete 
     // Submit answer to battle service
     multiplayerBattleService.submitAnswer(
       battle.id,
-      currentChild?.id || 'player1',
+      user?.id || 'player1',
       currentQuestionIndex,
       isCorrect,
       timeMs
@@ -154,7 +178,7 @@ export const QuizBattleMode: React.FC<QuizBattleProps> = ({ onClose, onComplete 
     if (updatedBattle) {
       setBattle(updatedBattle);
     }
-  }, [battle, currentQuestionIndex, answerStartTime, showResult, currentChild?.id]);
+  }, [battle, currentQuestionIndex, answerStartTime, showResult, user?.id]);
 
   // Move to next question
   const handleNextQuestion = () => {
@@ -171,11 +195,44 @@ export const QuizBattleMode: React.FC<QuizBattleProps> = ({ onClose, onComplete 
     }
   };
 
-  // Simulate opponent (for demo - in production this would be real-time)
+  // Simulate bot opponent answering questions
+  useEffect(() => {
+    if (view === 'battle' && battle && !showResult) {
+      // Bot answers after a random delay (2-5 seconds)
+      const botDelay = 2000 + Math.random() * 3000;
+      const botTimer = setTimeout(() => {
+        const currentQuestion = battle.questions[currentQuestionIndex];
+        // Bot has 70% chance to answer correctly
+        const botCorrect = Math.random() < 0.7;
+        const botAnswerIndex = botCorrect 
+          ? currentQuestion.correctAnswer 
+          : (currentQuestion.correctAnswer + 1 + Math.floor(Math.random() * 3)) % 4;
+        
+        multiplayerBattleService.submitAnswer(
+          battle.id,
+          'bot_opponent',
+          currentQuestionIndex,
+          botCorrect,
+          Math.floor(botDelay)
+        );
+        
+        // Update battle state
+        const updatedBattle = multiplayerBattleService.getBattle(battle.id);
+        if (updatedBattle) {
+          setBattle(updatedBattle);
+        }
+      }, botDelay);
+      
+      return () => clearTimeout(botTimer);
+    }
+  }, [view, battle, currentQuestionIndex, showResult]);
+
+  // Start battle when both players ready (including bot)
   useEffect(() => {
     if (view === 'waiting' && battle?.status === 'ready') {
-      // Auto-start after brief delay
+      // Mark bot as ready and start battle
       setTimeout(() => {
+        multiplayerBattleService.setPlayerReady(battle.id, 'bot_opponent');
         const startedBattle = multiplayerBattleService.setPlayerReady(
           battle.id,
           battle.players.host.id
@@ -216,7 +273,7 @@ export const QuizBattleMode: React.FC<QuizBattleProps> = ({ onClose, onComplete 
           </div>
 
           {/* Battle History */}
-          <BattleHistory userId={currentChild?.id || 'default'} />
+          <BattleHistory userId={user?.id || 'default'} />
         </div>
       </BattleModal>
     );
@@ -444,10 +501,10 @@ export const QuizBattleMode: React.FC<QuizBattleProps> = ({ onClose, onComplete 
 
   // Results View
   if (view === 'results' && battle) {
-    const myPlayer = battle.players.host.id === (currentChild?.id || 'player1')
+    const myPlayer = battle.players.host.id === (user?.id || 'player1')
       ? battle.players.host
       : battle.players.challenger;
-    const opponent = battle.players.host.id === (currentChild?.id || 'player1')
+    const opponent = battle.players.host.id === (user?.id || 'player1')
       ? battle.players.challenger
       : battle.players.host;
     
