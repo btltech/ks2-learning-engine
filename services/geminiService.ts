@@ -16,10 +16,10 @@ import { getUsedQuestions, markQuestionsAsUsed, resetUsedQuestions } from './que
 const LANGUAGE_SUBJECTS = ['french', 'spanish', 'german', 'japanese', 'mandarin', 'romanian', 'yoruba'];
 
 const apiKey = (import.meta as any).env.VITE_GEMINI_API_KEY as string;
-// if (!apiKey) {
-//   throw new Error('VITE_GEMINI_API_KEY is not set. Please configure your environment variables.');
-// }
-const ai = new GoogleGenAI({ apiKey: apiKey || 'test-key' });
+if (!apiKey) {
+  console.warn('⚠️ VITE_GEMINI_API_KEY is not set. AI features will not work. Please configure your environment variables.');
+}
+const ai = new GoogleGenAI({ apiKey: apiKey || '' });
 
 const model = 'gemini-2.5-flash';
 

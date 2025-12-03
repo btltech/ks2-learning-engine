@@ -21,13 +21,10 @@ import { SUBJECTS } from './constants';
 import HomeView from './components/HomeView';
 import { spacedRepetitionService } from './services/spacedRepetitionService';
 import { dailyChallengeService, DailyChallenge } from './services/dailyChallengeService';
-import { ttsConfigManager } from './services/ttsConfigManager';
 
 // Initialize accessibility features
 if (typeof window !== 'undefined') {
   initializeAccessibility();
-  
-  // Google Cloud TTS integration has been removed; keep ttsConfigManager available for UI settings
 }
 
 // Lazy loaded components

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { type QuizQuestion, type Difficulty, type QuizResult } from '../types';
 import { generateQuiz, generateQuizHint } from '../services/geminiService';
 import { offlineManager } from '../services/offlineManager';
@@ -37,6 +37,8 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
   const [timeLeft, setTimeLeft] = useState(15);
   const [currentHint, setCurrentHint] = useState<string>('');
   const [isGettingHint, setIsGettingHint] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const lastProcessedTranscript = useRef<string>('');
 
   // Voice input for hands-free quiz answering
   const handleVoiceCommand = useCallback((command: string) => {
@@ -81,7 +83,9 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
 
   // Process voice transcript for direct answer selection
   useEffect(() => {
-    if (transcript && questions[currentQuestionIndex]) {
+    // Prevent processing the same transcript twice
+    if (transcript && transcript !== lastProcessedTranscript.current && questions[currentQuestionIndex]) {
+      lastProcessedTranscript.current = transcript;
       const answerOption = parseAnswerOption(transcript);
       if (answerOption) {
         const optionIndex = answerOption.charCodeAt(0) - 65; // A=0, B=1, etc.
@@ -96,20 +100,36 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
 
   // Timer for speed mode
   useEffect(() => {
+    // Clear any existing timer first
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+    
     if (mode === 'speed' && !loading && !error && questions.length > 0) {
       setTimeLeft(15);
-      const timer = setInterval(() => {
+      timerRef.current = setInterval(() => {
         setTimeLeft((prev) => {
           if (prev <= 1) {
-            clearInterval(timer);
-            handleNextQuestion(true); // Force next on timeout
+            if (timerRef.current) {
+              clearInterval(timerRef.current);
+              timerRef.current = null;
+            }
+            // Use setTimeout to avoid state update during render
+            setTimeout(() => handleNextQuestion(true), 0);
             return 0;
           }
           return prev - 1;
         });
       }, 1000);
-      return () => clearInterval(timer);
     }
+    
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+    };
   }, [currentQuestionIndex, mode, loading, error, questions.length]);
 
   // Stop speaking when question changes

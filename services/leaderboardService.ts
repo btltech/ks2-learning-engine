@@ -47,6 +47,10 @@ export const leaderboardService = {
 
     } catch (error) {
       console.error('Error submitting score to leaderboard:', error);
+      // Log specific Firebase permission errors to help debugging
+      if (error instanceof Error && error.message.includes('permission')) {
+        console.warn('⚠️ Leaderboard sync failed: Firebase permissions not configured. See FIREBASE_PERMISSIONS_FIX.md');
+      }
       // Fail silently so we don't disrupt the user experience
     }
   },

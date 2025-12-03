@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { XMarkIcon, ChevronDownIcon, PaperAirplaneIcon } from '@heroicons/react/24/solid';
 import { askMiRa, generateSubjectConnections, generateProjectSuggestions, generateConceptReinforcement } from '../services/geminiService';
+import { ChatMessage, Difficulty } from '../types';
 
 interface GuideAvatarProps {
   message: string;
@@ -138,7 +139,7 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
             response = await generateConceptReinforcement(
               context.subject, 
               context.topic, 
-              'Medium', // Default difficulty
+              Difficulty.Medium,
               studentAge,
               undefined,
               studentName
@@ -155,7 +156,7 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
             response = await generateConceptReinforcement(
               context.subject,
               context.topic,
-              'Easy',
+              Difficulty.Easy,
               studentAge,
               undefined,
               studentName
