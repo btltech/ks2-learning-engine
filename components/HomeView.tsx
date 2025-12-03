@@ -19,6 +19,11 @@ interface HomeViewProps {
   onOpenQuizBattle: () => void;
   onOpenLearningPaths: () => void;
   onOpenAchievements: () => void;
+  onOpenClassroom?: () => void;
+  onOpenAnalytics?: () => void;
+  onOpenStreakRewards?: () => void;
+  onOpenAvatarCustomization?: () => void;
+  onOpenMiniGames?: () => void;
   progress: ProgressData;
 }
 
@@ -29,6 +34,11 @@ const HomeView: React.FC<HomeViewProps> = ({
   onOpenQuizBattle,
   onOpenLearningPaths,
   onOpenAchievements,
+  onOpenClassroom,
+  onOpenAnalytics,
+  onOpenStreakRewards,
+  onOpenAvatarCustomization,
+  onOpenMiniGames,
   progress,
 }) => {
   const { user, currentChild } = useUser();
@@ -52,7 +62,7 @@ const HomeView: React.FC<HomeViewProps> = ({
       <DailyChallengeCard onStartChallenge={onStartDailyChallenge} />
 
       {/* Quick Actions */}
-      <div className="grid grid-cols-1 mobile:grid-cols-2 laptop:grid-cols-4 gap-3 mobile:gap-4 mb-6">
+      <div className="grid grid-cols-2 mobile:grid-cols-3 laptop:grid-cols-4 gap-3 mobile:gap-4 mb-6">
         <QuickActionButton
           icon="📚"
           label="Review Mode"
@@ -81,6 +91,51 @@ const HomeView: React.FC<HomeViewProps> = ({
           onClick={onOpenAchievements}
           color="bg-amber-100 text-amber-700 hover:bg-amber-200"
         />
+        {onOpenMiniGames && (
+          <QuickActionButton
+            icon="🎮"
+            label="Mini Games"
+            description="Learn with fun"
+            onClick={onOpenMiniGames}
+            color="bg-cyan-100 text-cyan-700 hover:bg-cyan-200"
+          />
+        )}
+        {onOpenStreakRewards && (
+          <QuickActionButton
+            icon="🔥"
+            label="Streaks"
+            description="Daily rewards"
+            onClick={onOpenStreakRewards}
+            color="bg-orange-100 text-orange-700 hover:bg-orange-200"
+          />
+        )}
+        {onOpenAvatarCustomization && (
+          <QuickActionButton
+            icon="✨"
+            label="Avatar"
+            description="Customize look"
+            onClick={onOpenAvatarCustomization}
+            color="bg-indigo-100 text-indigo-700 hover:bg-indigo-200"
+          />
+        )}
+        {onOpenAnalytics && (
+          <QuickActionButton
+            icon="📊"
+            label="Analytics"
+            description="Track progress"
+            onClick={onOpenAnalytics}
+            color="bg-blue-100 text-blue-700 hover:bg-blue-200"
+          />
+        )}
+        {onOpenClassroom && (
+          <QuickActionButton
+            icon="🏫"
+            label="Classroom"
+            description="Join session"
+            onClick={onOpenClassroom}
+            color="bg-violet-100 text-violet-700 hover:bg-violet-200"
+          />
+        )}
       </div>
 
       {/* Review Due Badge */}

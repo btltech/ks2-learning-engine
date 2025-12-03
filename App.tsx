@@ -15,7 +15,14 @@ import { ReviewMode, ReviewSummary } from './components/ReviewMode';
 import { AccessibilitySettingsModal, initializeAccessibility, SkipToMainContent } from './components/AccessibilitySettings';
 import { QuizBattleMode } from './components/QuizBattleRealtime';
 import { LearningPathsView } from './components/LearningPaths';
+import ClassroomMode from './components/ClassroomMode';
+import AnalyticsDashboard from './components/AnalyticsDashboard';
+import StreakRewards from './components/StreakRewards';
+import AvatarCustomization from './components/AvatarCustomization';
+import MiniGames from './components/MiniGames';
 import { useUser } from './context/UserContext';
+import { streakRewardsService } from './services/streakRewardsService';
+import { analyticsService } from './services/analyticsService';
 import { Difficulty, Subject, QuizResult, ProgressData, UserProfile, QuizSession } from './types';
 import { SUBJECTS } from './constants';
 import HomeView from './components/HomeView';
@@ -66,6 +73,11 @@ const AppContent: React.FC = () => {
   const [showQuizBattle, setShowQuizBattle] = useState(false);
   const [showLearningPaths, setShowLearningPaths] = useState(false);
   const [showTeacherDashboard, setShowTeacherDashboard] = useState(false);
+  const [showClassroom, setShowClassroom] = useState(false);
+  const [showAnalytics, setShowAnalytics] = useState(false);
+  const [showStreakRewards, setShowStreakRewards] = useState(false);
+  const [showAvatarCustomization, setShowAvatarCustomization] = useState(false);
+  const [showMiniGames, setShowMiniGames] = useState(false);
   
   // Use age from user profile, default to 9 if not set
   const studentAge = user?.age || 9;
@@ -81,6 +93,8 @@ const AppContent: React.FC = () => {
   useEffect(() => {
     if (user) {
       checkStreak();
+      // Check daily login for streak rewards
+      streakRewardsService.checkDailyLogin();
     }
   }, [user?.id]); // Run when user changes/loads
 
@@ -183,6 +197,22 @@ const AppContent: React.FC = () => {
       };
       recordQuizSession(quizSession);
       
+      // Also record to analytics service
+      analyticsService.recordSession({
+        ...quizSession,
+        totalQuestions: results.length,
+        correctAnswers: correctAnswers,
+        xpEarned: earned,
+        date: new Date().toISOString(),
+      });
+      
+      // Update challenge progress
+      streakRewardsService.updateChallengeProgress('complete_quizzes', 1, trackedSubject);
+      streakRewardsService.updateChallengeProgress('score_points', earned, trackedSubject);
+      if (scorePercentage >= 80) {
+        streakRewardsService.updateChallengeProgress('perfect_scores', 1, trackedSubject);
+      }
+      
       // Track time spent on this subject
       addTimeSpent(trackedSubject, Math.round(timeSpentSeconds / 60));
       
@@ -280,6 +310,11 @@ const AppContent: React.FC = () => {
                   onOpenQuizBattle={() => setShowQuizBattle(true)}
                   onOpenLearningPaths={() => setShowLearningPaths(true)}
                   onOpenAchievements={() => setShowAchievements(true)}
+                  onOpenClassroom={() => setShowClassroom(true)}
+                  onOpenAnalytics={() => setShowAnalytics(true)}
+                  onOpenStreakRewards={() => setShowStreakRewards(true)}
+                  onOpenAvatarCustomization={() => setShowAvatarCustomization(true)}
+                  onOpenMiniGames={() => setShowMiniGames(true)}
                   progress={progress}
                 />
               } />
@@ -445,6 +480,41 @@ const AppContent: React.FC = () => {
         <Suspense fallback={<LoadingSpinner />}>
           <TeacherDashboard onClose={() => setShowTeacherDashboard(false)} />
         </Suspense>
+      )}
+
+      {showClassroom && (
+        <ClassroomMode
+          userId={user.id}
+          userName={user.name}
+          isTeacher={user.role === 'teacher'}
+          onExit={() => setShowClassroom(false)}
+        />
+      )}
+
+      {showAnalytics && (
+        <AnalyticsDashboard onClose={() => setShowAnalytics(false)} />
+      )}
+
+      {showStreakRewards && (
+        <StreakRewards
+          onClose={() => setShowStreakRewards(false)}
+          onXpEarned={(xp) => addPoints(xp)}
+        />
+      )}
+
+      {showAvatarCustomization && (
+        <AvatarCustomization
+          currentXp={user.points}
+          currentStreak={user.streak}
+          onClose={() => setShowAvatarCustomization(false)}
+        />
+      )}
+
+      {showMiniGames && (
+        <MiniGames
+          onClose={() => setShowMiniGames(false)}
+          onXpEarned={(xp) => addPoints(xp)}
+        />
       )}
 
       {/* Google Cloud TTS test UI removed */}

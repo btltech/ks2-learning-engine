@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { XMarkIcon, ChevronDownIcon, PaperAirplaneIcon } from '@heroicons/react/24/solid';
+import { XMarkIcon, ChevronDownIcon, PaperAirplaneIcon, MicrophoneIcon } from '@heroicons/react/24/solid';
 import { askMiRa, generateSubjectConnections, generateProjectSuggestions, generateConceptReinforcement } from '../services/geminiService';
 import { ChatMessage, Difficulty } from '../types';
+import { voiceCommandService, VoiceCommand } from '../services/voiceCommandService';
 
 interface GuideAvatarProps {
   message: string;
@@ -10,14 +11,17 @@ interface GuideAvatarProps {
   context?: { subject?: string; topic?: string };
   quizScore?: number; // Performance feedback
   onTopicExplanation?: (explanation: string) => void;
+  onVoiceCommand?: (command: VoiceCommand) => void;
 }
 
-const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentName, context, quizScore, onTopicExplanation }) => {
+const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentName, context, quizScore, onTopicExplanation, onVoiceCommand }) => {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [showQuickActions, setShowQuickActions] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const [voiceSupported] = useState(voiceCommandService.isSupported());
   const chatEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -39,8 +43,68 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
     // Cleanup function to prevent memory leaks
     return () => {
       setIsTyping(false);
+      if (isListening) {
+        voiceCommandService.stopListening();
+      }
     };
-  }, []);
+  }, [isListening]);
+
+  // Voice command handling
+  const handleVoiceToggle = () => {
+    if (isListening) {
+      voiceCommandService.stopListening();
+      setIsListening(false);
+    } else {
+      voiceCommandService.startListening(
+        (command) => {
+          // Handle the recognized command
+          setIsListening(false);
+          
+          if (command.type === 'chat') {
+            // Send as a chat message
+            setInputMessage(command.rawText);
+            setTimeout(() => handleSendMessage(), 100);
+          } else if (onVoiceCommand) {
+            // Pass command to parent for navigation/actions
+            onVoiceCommand(command);
+          } else {
+            // Handle basic commands internally
+            const responseMessage = `I heard you say: "${command.rawText}". `;
+            const botMessage: ChatMessage = {
+              id: Date.now().toString(),
+              sender: 'mira',
+              message: responseMessage + (command.type === 'help' 
+                ? "You can ask me to start a quiz, explain a topic, or just chat!"
+                : `I'll help you with that ${command.type}!`),
+              timestamp: Date.now(),
+            };
+            setChatMessages(prev => [...prev, botMessage]);
+          }
+        },
+        (error) => {
+          console.error('Voice error:', error);
+          setIsListening(false);
+          const errorMessage: ChatMessage = {
+            id: Date.now().toString(),
+            sender: 'mira',
+            message: "I couldn't hear you clearly. Can you try again or type your question?",
+            timestamp: Date.now(),
+          };
+          setChatMessages(prev => [...prev, errorMessage]);
+        }
+      );
+      setIsListening(true);
+      
+      // Show listening feedback
+      const listeningMessage: ChatMessage = {
+        id: Date.now().toString(),
+        sender: 'mira',
+        message: "🎤 I'm listening... Speak now!",
+        timestamp: Date.now(),
+      };
+      setChatMessages(prev => [...prev, listeningMessage]);
+    }
+  };
 
   const handleAvatarClick = () => {
     setIsChatOpen(prev => {
@@ -370,6 +434,21 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
                 aria-label="Type your question"
                 disabled={isTyping}
               />
+              {voiceSupported && (
+                <button
+                  onClick={handleVoiceToggle}
+                  disabled={isTyping}
+                  className={`p-3 rounded-full transition-colors ${
+                    isListening 
+                      ? 'bg-red-500 text-white animate-pulse' 
+                      : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+                  } disabled:opacity-50`}
+                  aria-label={isListening ? 'Stop listening' : 'Start voice input'}
+                  title={isListening ? 'Stop listening' : 'Speak to MiRa'}
+                >
+                  <MicrophoneIcon className="h-5 w-5" />
+                </button>
+              )}
               <button
                 onClick={handleSendMessage}
                 disabled={!inputMessage.trim() || isTyping}
