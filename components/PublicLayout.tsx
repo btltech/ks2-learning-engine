@@ -24,9 +24,9 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
             onClick={() => navigate('/')}
             className="flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600 rounded-lg p-2"
           >
-            {/* Emoji with white background and strong border for excellent color separation */}
+            {/* Emoji with white background and blue border for excellent color separation */}
             <span 
-              className={`text-3xl bg-white ${RADIUS.full} w-14 h-14 flex items-center justify-center shadow-lg border-4 border-white ring-2 ring-blue-300`}
+              className={`text-3xl bg-white ${RADIUS.full} w-14 h-14 flex items-center justify-center shadow-lg border-4 border-blue-600`}
               role="img" 
               aria-label="KS2 Learning"
             >
