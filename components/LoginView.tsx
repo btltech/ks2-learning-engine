@@ -221,14 +221,14 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
 
   if (checkingAuth) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-400 to-purple-500">
-        <div className="text-white text-xl">Loading...</div>
+      <div className="flex items-center justify-center py-20">
+        <div className="text-gray-600 text-xl">Loading...</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-400 to-purple-500 p-4">
+    <div className="flex items-center justify-center p-4 py-12">
       <div className="bg-white rounded-2xl shadow-2xl p-6 sm:p-8 w-full max-w-md animate-pop-in">
         <div className="text-center mb-6 sm:mb-8">
           <div className="w-20 h-20 sm:w-24 sm:h-24 bg-blue-100 rounded-full mx-auto mb-4 flex items-center justify-center text-3xl sm:text-4xl">
