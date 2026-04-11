@@ -47,10 +47,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
       <main className="flex-grow w-full">
         {children}
       </main>
-Footer */}
-      <Footer />
 
-      {/* 
       {/* Cookie Consent Banner */}
       <CookieBanner />
     </div>
