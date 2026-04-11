@@ -6,8 +6,7 @@ import { useGameSounds } from '../hooks/useGameSounds';
 import { UIModeBadge } from './UIModeBadge';
 import { hasRole } from '../utils/roles';
 
-// Lazy load language switcher and adaptive dashboard
-const LanguageSwitcher = lazy(() => import('./LanguageSwitcher'));
+// Lazy load adaptive dashboard
 const AdaptiveDashboard = lazy(() => import('./AdaptiveDashboard'));
 
 interface HeaderProps {
@@ -73,11 +72,6 @@ const Header: React.FC<HeaderProps> = ({
 
           {/* Right Side Actions */}
             <div className="flex items-center gap-1 sm:gap-4">
-            {/* Language Switcher */}
-            <Suspense fallback={<div className="w-24 h-10" />}>
-              <LanguageSwitcher />
-            </Suspense>
-            
             {/* Badges Display - Students only */}
               {hasRole(user, 'student') && (
               <div 
