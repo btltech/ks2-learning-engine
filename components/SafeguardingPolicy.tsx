@@ -41,7 +41,7 @@ const SafeguardingPolicy: React.FC = () => {
         </p>
         <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-4">
           <p className="font-bold text-red-900">Safeguarding Contact</p>
-          <p className="text-red-800">Email: <a href="mailto:safeguarding@ks2learning.com" className="underline">safeguarding@ks2learning.com</a></p>
+          <p className="text-red-800">Email: <a href="mailto:safeguarding@demiwuraks2.co.uk" className="underline">safeguarding@demiwuraks2.co.uk</a></p>
           <p className="text-red-800">We respond to safeguarding reports within 24 hours.</p>
         </div>
 

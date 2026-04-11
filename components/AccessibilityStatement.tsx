@@ -47,8 +47,8 @@ const AccessibilityStatement: React.FC = () => {
           We welcome feedback on accessibility. If you encounter barriers or need assistance:
         </p>
         <p className="text-gray-700">
-          Email: <a href="mailto:accessibility@ks2learning.com" className="text-blue-600 hover:underline">
-            accessibility@ks2learning.com
+          Email: <a href="mailto:accessibility@demiwuraks2.co.uk" className="text-blue-600 hover:underline">
+            accessibility@demiwuraks2.co.uk
           </a>
         </p>
       </div>

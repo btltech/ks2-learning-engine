@@ -309,7 +309,7 @@ Events triggered:
 - 10,000 requests per day per school
 
 ## Support
-Contact: api-support@ks2learning.com
+Contact: api-support@demiwuraks2.co.uk
     `.trim();
   }
   

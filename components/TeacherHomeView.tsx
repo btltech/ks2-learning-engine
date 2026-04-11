@@ -274,7 +274,10 @@ export const TeacherHomeView: React.FC<TeacherHomeViewProps> = ({
             <h3 className="font-semibold text-gray-800">Need Help Getting Started?</h3>
             <p className="text-sm text-gray-600">Check out our teacher guides and tutorials</p>
           </div>
-          <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors">
+          <button 
+            onClick={() => window.location.href = '/teacher-guide'}
+            className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors"
+          >
             View Guides
           </button>
         </div>

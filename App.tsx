@@ -87,6 +87,7 @@ const HowItWorks = lazy(() => import('./components/HowItWorks'));
 const HelpCenter = lazy(() => import('./components/HelpCenter'));
 const ContactPage = lazy(() => import('./components/ContactPage'));
 const GettingStarted = lazy(() => import('./components/GettingStarted'));
+const AdminGuide = lazy(() => import('./components/AdminGuide'));
 
 // Wrapper for protected routes - currently not used but kept for future auth implementation
 // const RequireAuth: React.FC<{ children: React.ReactElement }> = ({ children }) => {
@@ -674,6 +675,7 @@ const AppContent: React.FC = () => {
               <Route path="/help" element={<HelpCenter />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/getting-started" element={<GettingStarted />} />
+              <Route path="/admin-guide" element={<AdminGuide />} />
               
               {/* Redirect to login if accessing dashboard without auth */}
               <Route path="*" element={!user ? <Navigate to="/login" /> : <Navigate to="/" />} />

@@ -43,8 +43,8 @@ const CookiePolicy: React.FC = () => {
         <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">Contact</h3>
         <p className="text-gray-700">
           Cookie-related questions? Email{' '}
-          <a href="mailto:privacy@ks2learning.com" className="text-blue-600 hover:underline">
-            privacy@ks2learning.com
+          <a href="mailto:privacy@demiwuraks2.co.uk" className="text-blue-600 hover:underline">
+            privacy@demiwuraks2.co.uk
           </a>
         </p>
       </div>

@@ -43,8 +43,8 @@ const TermsOfService: React.FC = () => {
         <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">Contact</h3>
         <p className="text-gray-700">
           Questions about these terms? Email{' '}
-          <a href="mailto:legal@ks2learning.com" className="text-blue-600 hover:underline">
-            legal@ks2learning.com
+          <a href="mailto:legal@demiwuraks2.co.uk" className="text-blue-600 hover:underline">
+            legal@demiwuraks2.co.uk
           </a>
         </p>
       </div>

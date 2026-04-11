@@ -386,6 +386,23 @@ service cloud.firestore {
     }
 
     // ============================================
+    // CONTACT SUBMISSIONS Collection Rules
+    // ============================================
+    match /contactSubmissions/{submissionId} {
+      // Anyone can submit a contact form (allows both authenticated and unauthenticated)
+      allow create: if true;
+      
+      // Only admins can read contact submissions
+      allow read: if isAdmin();
+      
+      // Only admins can update status/notes on submissions
+      allow update: if isAdmin();
+      
+      // No one can delete (preserve all contact history)
+      allow delete: if false;
+    }
+
+    // ============================================
     // DEFAULT: Deny all other access
     // ============================================
     match /{document=**} {

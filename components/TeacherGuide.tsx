@@ -61,8 +61,8 @@ const TeacherGuide: React.FC = () => {
         <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">Support</h3>
         <p className="text-gray-700">
           For teacher-specific support:{' '}
-          <a href="mailto:teachers@ks2learning.com" className="text-blue-600 hover:underline">
-            teachers@ks2learning.com
+          <a href="mailto:teachers@demiwuraks2.co.uk" className="text-blue-600 hover:underline">
+            teachers@demiwuraks2.co.uk
           </a>
         </p>
       </div>

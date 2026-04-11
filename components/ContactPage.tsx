@@ -1,23 +1,41 @@
 import React, { useState } from 'react';
 import InfoPage from './InfoPage';
 import { RADIUS, SHADOWS } from '../constants';
+import { submitContactForm } from '../services/contactFormService';
 
 const ContactPage: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    userType: 'parent',
+    userType: 'parent' as 'parent' | 'teacher' | 'student' | 'admin' | 'other',
     subject: '',
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In production, send to backend
-    console.log('Contact form:', formData);
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 5000);
+    setSubmitting(true);
+    setError(null);
+    
+    try {
+      await submitContactForm(formData);
+      setSubmitted(true);
+      setFormData({
+        name: '',
+        email: '',
+        userType: 'parent',
+        subject: '',
+        message: ''
+      });
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to submit. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -40,6 +58,13 @@ const ContactPage: React.FC = () => {
           <div className={`bg-green-50 border-l-4 border-green-500 ${RADIUS.card} p-4 mb-6`}>
             <p className="font-bold text-green-900">✅ Message Sent!</p>
             <p className="text-green-700">We'll get back to you within 24 hours.</p>
+          </div>
+        )}
+
+        {error && (
+          <div className={`bg-red-50 border-l-4 border-red-500 ${RADIUS.card} p-4 mb-6`}>
+            <p className="font-bold text-red-900">❌ Error</p>
+            <p className="text-red-700">{error}</p>
           </div>
         )}
 
@@ -120,9 +145,10 @@ const ContactPage: React.FC = () => {
 
           <button
             type="submit"
-            className={`bg-blue-600 text-white px-6 py-3 ${RADIUS.button} font-bold hover:bg-blue-700 motion-safe:transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 ${SHADOWS.secondary}`}
+            disabled={submitting}
+            className={`bg-blue-600 text-white px-6 py-3 ${RADIUS.button} font-bold hover:bg-blue-700 motion-safe:transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 ${SHADOWS.secondary} disabled:bg-gray-400 disabled:cursor-not-allowed`}
           >
-            Send Message
+            {submitting ? 'Sending...' : 'Send Message'}
           </button>
         </form>
 
@@ -130,16 +156,16 @@ const ContactPage: React.FC = () => {
         <div className="space-y-3">
           <div className={`${RADIUS.card} ${SHADOWS.secondary} p-4 bg-white`}>
             <p className="font-bold text-gray-900">📧 General Support</p>
-            <a href="mailto:support@ks2learning.com" className="text-blue-600 hover:underline">support@ks2learning.com</a>
+            <a href="mailto:support@demiwuraks2.co.uk" className="text-blue-600 hover:underline">support@demiwuraks2.co.uk</a>
           </div>
           <div className={`${RADIUS.card} ${SHADOWS.secondary} p-4 bg-white`}>
             <p className="font-bold text-gray-900">🛡️ Safeguarding Concerns</p>
-            <a href="mailto:safeguarding@ks2learning.com" className="text-blue-600 hover:underline">safeguarding@ks2learning.com</a>
+            <a href="mailto:safeguarding@demiwuraks2.co.uk" className="text-blue-600 hover:underline">safeguarding@demiwuraks2.co.uk</a>
             <p className="text-sm text-red-600 mt-1">24-hour response for urgent concerns</p>
           </div>
           <div className={`${RADIUS.card} ${SHADOWS.secondary} p-4 bg-white`}>
             <p className="font-bold text-gray-900">🔒 Privacy & Data</p>
-            <a href="mailto:privacy@ks2learning.com" className="text-blue-600 hover:underline">privacy@ks2learning.com</a>
+            <a href="mailto:privacy@demiwuraks2.co.uk" className="text-blue-600 hover:underline">privacy@demiwuraks2.co.uk</a>
           </div>
         </div>
       </div>

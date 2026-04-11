@@ -78,7 +78,7 @@ const HelpCenter: React.FC = () => {
         <h3 className="text-xl font-bold text-gray-900 mt-8 mb-3">Contact Support</h3>
         <div className={`bg-green-50 border-l-4 border-green-500 ${RADIUS.card} p-4`}>
           <p className="font-bold text-green-900">Need More Help?</p>
-          <p className="text-gray-700 mt-2">Email us at: <a href="mailto:support@ks2learning.com" className="text-blue-600 hover:underline">support@ks2learning.com</a></p>
+          <p className="text-gray-700 mt-2">Email us at: <a href="mailto:support@demiwuraks2.co.uk" className="text-blue-600 hover:underline">support@demiwuraks2.co.uk</a></p>
           <p className="text-gray-700 text-sm mt-1">We typically respond within 24 hours (Monday-Friday).</p>
         </div>
       </div>
