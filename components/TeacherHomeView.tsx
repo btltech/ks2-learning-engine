@@ -10,7 +10,6 @@
  */
 
 import React, { useMemo, useState } from 'react';
-import Footer from './Footer';
 import { useUser } from '../context/UserContext';
 import { teacherAnalyticsService } from '../services/teacherAnalyticsService';
 
@@ -282,9 +281,6 @@ export const TeacherHomeView: React.FC<TeacherHomeViewProps> = ({
           </button>
         </div>
       </div>
-
-      {/* Footer */}
-      <Footer userRole="teacher" />
     </div>
   );
 };
