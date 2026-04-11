@@ -55,6 +55,7 @@ export default {
         'fadeInDown': 'fadeInDown 0.4s ease-out',
         'scaleIn': 'scaleIn 0.3s ease-out',
         'slideUp': 'slideUp 0.3s ease-out',
+        'shimmer': 'shimmer 2s linear infinite', // Fix #6: Better loading states
       },
       keyframes: {
         fadeIn: {
@@ -77,11 +78,19 @@ export default {
           '0%': { opacity: '0', transform: 'translateY(10px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
+        shimmer: { // Fix #6: Shimmer animation for loading states
+          '0%': { backgroundPosition: '-200% 0' },
+          '100%': { backgroundPosition: '200% 0' },
+        },
       },
     },
   },
   plugins: [
     plugin(({ addVariant, addUtilities, theme }) => {
+      // Fix #5: Reduced motion support
+      addVariant("motion-safe", "@media (prefers-reduced-motion: no-preference)");
+      addVariant("motion-reduce", "@media (prefers-reduced-motion: reduce)");
+      
       addVariant("touch", "@media (pointer: coarse)");
       addVariant("notouch", "@media (pointer: fine)");
       addVariant("mobile-only", "@media (max-width: 767px)");

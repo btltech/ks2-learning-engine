@@ -54,3 +54,121 @@ export const LANGUAGES = [
   { name: 'Greek', flag: '🇬🇷', greeting: 'Yassas' },
   { name: 'Latin', flag: '🏛️', greeting: 'Salve' },
 ];
+
+// Design System Tokens (Fix #2)
+export const GRADIENTS = {
+  primary: 'from-blue-500 to-purple-600',
+  success: 'from-green-500 to-teal-600',
+  warning: 'from-orange-500 to-amber-600',
+  danger: 'from-red-500 to-pink-600',
+  info: 'from-cyan-500 to-blue-600',
+  purple: 'from-purple-600 to-pink-600',
+  emerald: 'from-emerald-600 to-teal-600',
+  indigo: 'from-indigo-500 to-purple-600',
+  violet: 'from-violet-500 to-purple-600',
+} as const;
+
+// Shadow Hierarchy (Fix #1)
+export const SHADOWS = {
+  primary: 'shadow-xl', // Main actions, featured cards
+  secondary: 'shadow-md', // Standard cards, secondary actions
+  tertiary: 'shadow-sm', // Info cards, low priority
+  none: 'shadow-none',
+} as const;
+
+// Border Radius Hierarchy (Fix #8)
+export const RADIUS = {
+  container: 'rounded-2xl', // Major containers, sections
+  card: 'rounded-xl', // Cards, panels
+  button: 'rounded-lg', // Buttons, inputs
+  small: 'rounded-md', // Small elements, tags
+  full: 'rounded-full', // Pills, avatars
+} as const;
+
+// Subject Color Intent System (Fix #7)
+export const SUBJECT_COLORS = {
+  'English': { 
+    gradient: 'from-red-500 to-rose-600',
+    bg: 'bg-red-100',
+    text: 'text-red-600',
+    ring: 'ring-red-500',
+    intent: 'literacy',
+  },
+  'Maths': {
+    gradient: 'from-blue-500 to-indigo-600',
+    bg: 'bg-blue-100',
+    text: 'text-blue-600',
+    ring: 'ring-blue-500',
+    intent: 'logic',
+  },
+  'Science': {
+    gradient: 'from-green-500 to-emerald-600',
+    bg: 'bg-green-100',
+    text: 'text-green-600',
+    ring: 'ring-green-500',
+    intent: 'exploration',
+  },
+  'History': {
+    gradient: 'from-amber-500 to-yellow-600',
+    bg: 'bg-yellow-100',
+    text: 'text-yellow-600',
+    ring: 'ring-yellow-500',
+    intent: 'time',
+  },
+  'Geography': {
+    gradient: 'from-purple-500 to-violet-600',
+    bg: 'bg-purple-100',
+    text: 'text-purple-600',
+    ring: 'ring-purple-500',
+    intent: 'world',
+  },
+  'Art': {
+    gradient: 'from-orange-500 to-amber-600',
+    bg: 'bg-orange-100',
+    text: 'text-orange-600',
+    ring: 'ring-orange-500',
+    intent: 'creativity',
+  },
+  'Computing': {
+    gradient: 'from-indigo-500 to-blue-600',
+    bg: 'bg-indigo-100',
+    text: 'text-indigo-600',
+    ring: 'ring-indigo-500',
+    intent: 'tech',
+  },
+  'Languages': {
+    gradient: 'from-pink-500 to-rose-600',
+    bg: 'bg-pink-100',
+    text: 'text-pink-600',
+    ring: 'ring-pink-500',
+    intent: 'communication',
+  },
+  'Music': {
+    gradient: 'from-teal-500 to-cyan-600',
+    bg: 'bg-teal-100',
+    text: 'text-teal-600',
+    ring: 'ring-teal-500',
+    intent: 'rhythm',
+  },
+  'PE': {
+    gradient: 'from-rose-500 to-pink-600',
+    bg: 'bg-rose-100',
+    text: 'text-rose-600',
+    ring: 'ring-rose-500',
+    intent: 'movement',
+  },
+  'PSHE': {
+    gradient: 'from-cyan-500 to-teal-600',
+    bg: 'bg-cyan-100',
+    text: 'text-cyan-600',
+    ring: 'ring-cyan-500',
+    intent: 'wellbeing',
+  },
+  'D&T': {
+    gradient: 'from-slate-500 to-gray-600',
+    bg: 'bg-slate-100',
+    text: 'text-slate-600',
+    ring: 'ring-slate-500',
+    intent: 'making',
+  },
+} as const;

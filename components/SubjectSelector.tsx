@@ -1,5 +1,5 @@
 import React from 'react';
-import { SUBJECTS } from '../constants';
+import { SUBJECTS, RADIUS, SUBJECT_COLORS } from '../constants';
 import type { Subject, ProgressData } from '../types';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { useGameSounds } from '../hooks/useGameSounds';
@@ -27,6 +27,7 @@ const SubjectSelector: React.FC<SubjectSelectorProps> = ({ onSelect, progress })
         {SUBJECTS.map((subject, index) => {
           const completedTopics = progress[subject.name]?.length || 0;
           const isCompleted = completedTopics > 0;
+          const colorScheme = SUBJECT_COLORS[subject.name as keyof typeof SUBJECT_COLORS];
           
           return (
             <button
@@ -34,8 +35,8 @@ const SubjectSelector: React.FC<SubjectSelectorProps> = ({ onSelect, progress })
               onClick={() => handleSelect(subject)}
               role="listitem"
               aria-label={`${subject.name}${isCompleted ? ` - ${completedTopics} topics completed` : ''}`}
-              className={`group relative overflow-hidden flex flex-col items-center justify-center p-4 sm:p-5 rounded-xl sm:rounded-2xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 ${subject.bgColor}
-              hover:shadow-lg hover:-translate-y-1 ${subject.color.replace('text-', 'focus:ring-')} animate-fadeInUp`}
+              className={`group relative overflow-hidden flex flex-col items-center justify-center p-4 sm:p-5 ${RADIUS.card} transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${subject.bgColor}
+              motion-safe:hover:shadow-lg motion-safe:hover:-translate-y-1 ${subject.color.replace('text-', 'focus-visible:ring-')} motion-safe:animate-fadeInUp`}
               style={{ animationDelay: `${index * 50}ms` }}
             >
               {isCompleted && (
@@ -44,7 +45,7 @@ const SubjectSelector: React.FC<SubjectSelectorProps> = ({ onSelect, progress })
                   <span>{completedTopics}</span>
                 </div>
               )}
-              <subject.icon className={`h-10 w-10 sm:h-12 sm:w-12 mb-2 ${subject.color} transition-transform group-hover:scale-110`} aria-hidden="true" />
+              <subject.icon className={`h-10 w-10 sm:h-12 sm:w-12 mb-2 ${subject.color} transition-transform motion-safe:group-hover:scale-110`} aria-hidden="true" />
               <span className="text-sm sm:text-base font-bold text-gray-800 text-center">{subject.name}</span>
             </button>
           );

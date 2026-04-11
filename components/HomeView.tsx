@@ -9,9 +9,11 @@ import SubjectSelector from './SubjectSelector';
 import { DailyChallengeCard, StreakMilestone } from './DailyChallenge';
 import { ReviewDueBadge } from './ReviewMode';
 import { GamesLockOverlay } from './GamesLockOverlay';
+import { CardSkeleton } from './SkeletonLoader';
 import { useUser } from '../context/UserContext';
 import { Subject, ProgressData } from '../types';
 import { DailyChallenge } from '../services/dailyChallengeService';
+import { GRADIENTS, SHADOWS, RADIUS } from '../constants';
 
 // Phase 2: Lazy load new widgets
 const FriendsOnlineWidget = lazy(() => import('./FriendsOnlineWidget'));
@@ -129,14 +131,14 @@ const HomeView: React.FC<HomeViewProps> = ({
                   label="Review Mode"
                   description="Practice weak areas"
                   onClick={onOpenReviewMode}
-                  gradient="from-purple-500 to-indigo-600"
+                  gradient={GRADIENTS.purple}
                 />
                 <ActionCard
                   icon="🎯"
                   label="Learning Paths"
                   description="Structured courses"
                   onClick={onOpenLearningPaths}
-                  gradient="from-emerald-500 to-teal-600"
+                  gradient={GRADIENTS.emerald}
                 />
                 {onOpenSATsPractice && (
                   <ActionCard
@@ -144,7 +146,7 @@ const HomeView: React.FC<HomeViewProps> = ({
                     label="SATs Practice"
                     description="Year 6 Exam Prep"
                     onClick={onOpenSATsPractice}
-                    gradient="from-blue-600 to-indigo-700"
+                    gradient={GRADIENTS.primary}
                   />
                 )}
                 {onOpenClassroom && (
@@ -153,7 +155,7 @@ const HomeView: React.FC<HomeViewProps> = ({
                     label="Classroom"
                     description="Join a session"
                     onClick={onOpenClassroom}
-                    gradient="from-violet-500 to-purple-600"
+                    gradient={GRADIENTS.violet}
                   />
                 )}
               </div>
@@ -176,7 +178,7 @@ const HomeView: React.FC<HomeViewProps> = ({
                   label="Quiz Battle"
                   description="Challenge friends"
                   onClick={onOpenQuizBattle}
-                  gradient="from-pink-500 to-rose-600"
+                  gradient={GRADIENTS.danger}
                   featured
                 />
                 {onOpenMiniGames && (
@@ -196,7 +198,7 @@ const HomeView: React.FC<HomeViewProps> = ({
                           : 'Fun learning games'
                       }
                       onClick={onOpenMiniGames}
-                      gradient="from-cyan-500 to-blue-600"
+                      gradient={GRADIENTS.info}
                       featured
                     />
                   )
@@ -207,7 +209,7 @@ const HomeView: React.FC<HomeViewProps> = ({
                     label="Art Studio"
                     description="Draw & learn art"
                     onClick={onOpenArtStudio}
-                    gradient="from-purple-500 to-pink-600"
+                    gradient={GRADIENTS.purple}
                     featured
                   />
                 )}
@@ -217,7 +219,7 @@ const HomeView: React.FC<HomeViewProps> = ({
                     label="Daily Rewards"
                     description="Claim your prizes"
                     onClick={onOpenStreakRewards}
-                    gradient="from-orange-500 to-red-600"
+                    gradient={GRADIENTS.warning}
                   />
                 )}
               </div>
@@ -232,7 +234,7 @@ const HomeView: React.FC<HomeViewProps> = ({
                     label="Avatar"
                     description="Customize your look"
                     onClick={onOpenAvatarCustomization}
-                    gradient="from-indigo-500 to-purple-600"
+                    gradient={GRADIENTS.indigo}
                   />
                 )}
                 <ActionCard
@@ -240,7 +242,7 @@ const HomeView: React.FC<HomeViewProps> = ({
                   label="Achievements"
                   description="View your badges"
                   onClick={onOpenAchievements}
-                  gradient="from-amber-500 to-yellow-600"
+                  gradient={GRADIENTS.warning}
                 />
               </div>
             </SectionCard>
@@ -256,13 +258,13 @@ const HomeView: React.FC<HomeViewProps> = ({
 
             {/* Phase 2: New Widgets Row */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <React.Suspense fallback={<div className="bg-white rounded-xl shadow-md p-4 animate-pulse h-48" />}>
+              <React.Suspense fallback={<CardSkeleton shadow="secondary" />}>
                 <FriendsOnlineWidget />
               </React.Suspense>
-              <React.Suspense fallback={<div className="bg-white rounded-xl shadow-md p-4 animate-pulse h-48" />}>
+              <React.Suspense fallback={<CardSkeleton shadow="secondary" />}>
                 <SkillProgressWidget />
               </React.Suspense>
-              <React.Suspense fallback={<div className="bg-white rounded-xl shadow-md p-4 animate-pulse h-48" />}>
+              <React.Suspense fallback={<CardSkeleton shadow="secondary" />}>
                 <NextCertificateWidget />
               </React.Suspense>
             </div>
@@ -357,9 +359,9 @@ interface TabButtonProps {
 const TabButton: React.FC<TabButtonProps> = ({ active, onClick, icon, label }) => (
   <button
     onClick={onClick}
-    className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all ${
+    className={`flex items-center gap-2 px-5 py-2.5 ${RADIUS.button} font-semibold text-sm transition-all motion-safe:hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 ${
       active
-        ? 'bg-white text-gray-900 shadow-md'
+        ? `bg-white text-gray-900 ${SHADOWS.secondary}`
         : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
     }`}
   >
@@ -376,7 +378,7 @@ interface SectionCardProps {
 }
 
 const SectionCard: React.FC<SectionCardProps> = ({ title, subtitle, children }) => (
-  <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+  <div className={`bg-white ${RADIUS.container} ${SHADOWS.tertiary} border border-gray-100 overflow-hidden`}>
     <div className="px-5 py-4 border-b border-gray-100">
       <h2 className="text-lg font-bold text-gray-900">{title}</h2>
       <p className="text-sm text-gray-500">{subtitle}</p>
@@ -400,7 +402,9 @@ interface ActionCardProps {
 const ActionCard: React.FC<ActionCardProps> = ({ icon, label, description, onClick, gradient, featured }) => (
   <button
     onClick={onClick}
-    className={`relative overflow-hidden p-4 rounded-xl text-left transition-all hover:scale-[1.02] hover:shadow-lg active:scale-[0.98] ${
+    className={`relative overflow-hidden p-4 ${RADIUS.card} text-left transition-all ${
+      featured ? `motion-safe:hover:scale-105 ${SHADOWS.primary}` : `motion-safe:hover:scale-[1.02] ${SHADOWS.secondary}`
+    } motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 ${
       featured ? 'col-span-1 sm:col-span-1' : ''
     }`}
   >
@@ -420,7 +424,7 @@ interface StatCardProps {
   label: string;
   color: string;
 }
-
+${RADIUS.card}
 const StatCard: React.FC<StatCardProps> = ({ icon, value, label, color }) => (
   <div className={`${color} rounded-xl p-4 text-center`}>
     <span className="text-2xl block mb-1">{icon}</span>
