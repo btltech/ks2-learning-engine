@@ -88,6 +88,7 @@ const HelpCenter = lazy(() => import('./components/HelpCenter'));
 const ContactPage = lazy(() => import('./components/ContactPage'));
 const GettingStarted = lazy(() => import('./components/GettingStarted'));
 const AdminGuide = lazy(() => import('./components/AdminGuide'));
+const PublicLayout = lazy(() => import('./components/PublicLayout').then(m => ({ default: m.PublicLayout })));
 
 // Wrapper for protected routes - currently not used but kept for future auth implementation
 // const RequireAuth: React.FC<{ children: React.ReactElement }> = ({ children }) => {
@@ -403,9 +404,26 @@ const AppContent: React.FC = () => {
     }
   };
 
-  // Student view - show learning interface
-  if (!user) {
-    // Show login page
+  // Public routes that don't require authentication
+  const publicRoutes = [
+    '/privacy-policy',
+    '/terms-of-service',
+    '/cookie-policy',
+    '/safeguarding',
+    '/accessibility',
+    '/parent-guide',
+    '/teacher-guide',
+    '/how-it-works',
+    '/help',
+    '/contact',
+    '/getting-started',
+    '/admin-guide'
+  ];
+
+  const isPublicRoute = publicRoutes.includes(location.pathname);
+
+  // If user is not logged in and trying to access a protected route, show login
+  if (!user && !isPublicRoute) {
     return (
       <ToastProvider>
         <LoginView onLogin={handleLoginWrapper} />
@@ -413,7 +431,34 @@ const AppContent: React.FC = () => {
     );
   }
 
-  if (hasRole(user, 'parent') && location.pathname === '/parent-monitoring') {
+  // If user is not logged in but accessing a public route, show public layout
+  if (!user && isPublicRoute) {
+    return (
+      <ToastProvider>
+        <Suspense fallback={<LoadingSpinner />}>
+          <PublicLayout>
+            <Routes>
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms-of-service" element={<TermsOfService />} />
+              <Route path="/cookie-policy" element={<CookiePolicy />} />
+              <Route path="/safeguarding" element={<SafeguardingPolicy />} />
+              <Route path="/accessibility" element={<AccessibilityInfo />} />
+              <Route path="/parent-guide" element={<ParentGuide />} />
+              <Route path="/teacher-guide" element={<TeacherGuide />} />
+              <Route path="/how-it-works" element={<HowItWorks />} />
+              <Route path="/help" element={<HelpCenter />} />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route path="/getting-started" element={<GettingStarted />} />
+              <Route path="/admin-guide" element={<AdminGuide />} />
+            </Routes>
+          </PublicLayout>
+        </Suspense>
+      </ToastProvider>
+    );
+  }
+
+  // Special case: Parent monitoring dashboard (full-screen)
+  if (user && hasRole(user, 'parent') && location.pathname === '/parent-monitoring') {
     return (
       <Suspense fallback={<LoadingSpinner />}>
         <ParentMonitoringDashboard onLogout={logout} />
