@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GRADIENTS, SHADOWS, RADIUS } from '../constants';
 import { CookieBanner } from './CookieBanner';
+import Footer from './Footer';
 
 interface PublicLayoutProps {
   children: React.ReactNode;
@@ -48,12 +49,8 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
         {children}
       </main>
 
-      {/* Simple Footer */}
-      <footer className="bg-gray-100 border-t border-gray-200 py-6 mt-12">
-        <div className="max-w-7xl mx-auto px-4 text-center text-sm text-gray-600">
-          <p>&copy; 2026 KS2 Learning Engine. All rights reserved.</p>
-        </div>
-      </footer>
+      {/* Footer with all navigation links */}
+      <Footer />
 
       {/* Cookie Consent Banner */}
       <CookieBanner />
