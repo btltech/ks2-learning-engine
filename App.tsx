@@ -423,6 +423,14 @@ const AppContent: React.FC = () => {
 
   const isPublicRoute = publicRoutes.includes(location.pathname);
 
+  // DEBUG LOGGING - Remove after fixing
+  console.log('[PUBLIC ROUTE DEBUG]', {
+    pathname: location.pathname,
+    isPublicRoute,
+    hasUser: !!user,
+    userEmail: user?.email
+  });
+
   // If user is not logged in and trying to access a protected route, show login
   if (!user && !isPublicRoute) {
     return (
