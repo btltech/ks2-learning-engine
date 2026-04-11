@@ -27,10 +27,10 @@ describe('ContentValidator', () => {
     });
 
     it('should reject content with hate speech', () => {
-      const content = 'This content promotes racism and discrimination against other people based on their background.';
+      const content = 'This content promotes nazi ideology and white supremacist views which are completely inappropriate.';
       const result = validateContentForChildren(content);
       expect(result.isValid).toBe(false);
-      expect(result.issues.some(i => i.includes('racism') || i.includes('discrimination'))).toBe(true);
+      expect(result.issues.some(i => i.includes('nazi') || i.includes('supremacist'))).toBe(true);
     });
 
     it('should reject content with drug references', () => {
@@ -48,9 +48,10 @@ describe('ContentValidator', () => {
     });
 
     it('should reject harmful patterns', () => {
-      const content = 'Here is how to harm other people and hurt them in various ways that nobody should know about.';
+      const content = 'Here is how to murder someone and get away with it, a detailed guide that should never exist.';
       const result = validateContentForChildren(content);
       expect(result.isValid).toBe(false);
+      expect(result.issues.some(i => i.includes('harmful pattern'))).toBe(true);
     });
 
     it('should reject content that is too short', () => {
@@ -78,6 +79,20 @@ describe('ContentValidator', () => {
       const content = 'The United Kingdom (UK) includes England, Scotland, Wales, and Northern Ireland. London is the capital city.';
       const result = validateContentForChildren(content);
       expect(result.isValid).toBe(true);
+    });
+
+    it('should accept educational content about sensitive social topics', () => {
+      const content = 'This lesson teaches students about racism and discrimination in history and why treating everyone with respect is important.';
+      const result = validateContentForChildren(content);
+      expect(result.isValid).toBe(true);
+      expect(result.issues).toHaveLength(0);
+    });
+
+    it('should accept educational content about bullying prevention', () => {
+      const content = 'If you see someone being bullied, tell a trusted adult. Being kind and standing up for others is important.';
+      const result = validateContentForChildren(content);
+      expect(result.isValid).toBe(true);
+      expect(result.issues).toHaveLength(0);
     });
   });
 
