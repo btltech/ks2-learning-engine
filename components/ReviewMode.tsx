@@ -86,7 +86,8 @@ export const ReviewMode: React.FC<ReviewModeProps> = ({ onComplete, onClose }) =
     if (showResult || !currentQuestion) return;
     
     setSelectedAnswer(answerIndex);
-    const correct = answerIndex === currentQuestion.correctAnswer;
+    const selectedOption = currentQuestion.options[answerIndex];
+    const correct = selectedOption === currentQuestion.correctAnswer;
     setIsCorrect(correct);
     setShowResult(true);
 
@@ -238,7 +239,7 @@ export const ReviewMode: React.FC<ReviewModeProps> = ({ onComplete, onClose }) =
                   let buttonClass = "w-full p-4 rounded-xl text-left transition-all ";
                   
                   if (showResult) {
-                    if (index === currentQuestion.correctAnswer) {
+                    if (option === currentQuestion.correctAnswer) {
                       buttonClass += "bg-green-500 text-white";
                     } else if (index === selectedAnswer && !isCorrect) {
                       buttonClass += "bg-red-500 text-white";
@@ -278,6 +279,11 @@ export const ReviewMode: React.FC<ReviewModeProps> = ({ onComplete, onClose }) =
                       {isCorrect ? 'Correct!' : 'Not quite right'}
                     </span>
                   </div>
+                  {!isCorrect && (
+                    <p className="text-white font-medium text-sm mb-2">
+                      The correct answer is: <span className="font-bold">{currentQuestion.correctAnswer}</span>
+                    </p>
+                  )}
                   <p className="text-white/80 text-sm">
                     {currentQuestion.explanation}
                   </p>
