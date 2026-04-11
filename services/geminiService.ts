@@ -1,6 +1,6 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { getAuth } from 'firebase/auth';
-import { db, collection, getDocs, addDoc, query, where, limit } from './firebase';
+import { db, collection, getDocs, addDoc, query, where, limit, Timestamp } from './firebase';
 import type { QuizQuestion, QuizResult, Explanation, QuestionType, CognitiveLevel } from '../types';
 import { QuestionType as QType, CognitiveLevel as CLevel, Difficulty } from '../types';
 import { createCacheKey, getFromCache, setInCache } from './cacheService';
@@ -1130,19 +1130,18 @@ Generate 10 varied, engaging questions:`,
                     questionType: q.questionType || QType.MultipleChoice,
                     cognitiveLevel: q.cognitiveLevel,
                     acceptableAnswers: q.acceptableAnswers || [],
-                createdAt: new Date(),
+                createdAt: Timestamp.now(),
                 createdBy
                 });
-                console.log("Saved new unique question to Cloud Bank");
+                console.log("✅ Saved new unique question to Cloud Bank");
             } else {
-                console.log("Skipped saving duplicate question to Cloud Bank");
+                console.log("⏭️ Skipped duplicate question (already in Cloud Bank)");
             }
         } catch (e) {
-            // Firebase write permissions may not be configured for public access
-            // App continues to work with local cache and AI-generated content
-            if (process.env.NODE_ENV === 'development') {
-                console.debug("Firebase save skipped (permissions or network issue):", (e as Error).message);
-            }
+            // Log errors so we can debug save failures
+            console.error("❌ Failed to save question to Cloud Bank:", (e as Error).message);
+            console.error("Question data:", { subject, topic, difficulty: adaptedDifficulty, age: studentAge });
+            // App continues to work with local cache even if Cloud Bank save fails
         }
     }
     

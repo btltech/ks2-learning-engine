@@ -321,8 +321,8 @@ service cloud.firestore {
       }
 
       function isValidCloudBankCreate() {
-        return isNonAnonymousAuth() &&
-          // Ownership / attribution
+        return isAuthenticated() &&
+          // Ownership / attribution (authenticated users including anonymous can contribute)
           request.resource.data.createdBy == request.auth.uid &&
           // Basic required fields
           request.resource.data.subject is string &&
