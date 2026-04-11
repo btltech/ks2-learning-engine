@@ -4,6 +4,13 @@
 name = "ks2-learning-engine"
 pages_build_output_dir = "dist"
 
+# Optional: bind a KV namespace for persistent rate limiting across cold starts.
+# Steps to enable:
+#   1. Create a KV namespace in the Cloudflare dashboard (Workers & Pages → KV)
+#   2. Bind it to the Pages project under Settings → Functions → KV namespace bindings
+#      with the variable name RATE_LIMIT_KV
+# Without this binding, rate limiting falls back to in-memory (resets on cold start).
+
 [env.production]
 name = "production"
 

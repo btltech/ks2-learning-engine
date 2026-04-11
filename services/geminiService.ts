@@ -164,6 +164,29 @@ const createProxyAI = () => ({
 const ai = USE_PROXY ? createProxyAI() : new GoogleGenAI({ apiKey: apiKey || '' });
 
 const model = 'gemini-2.5-flash';
+// Cheaper model for lightweight requests (topic listing, hints)
+const topicsModel = 'gemini-2.0-flash';
+// Cache version tied to the AI model — changing the model busts stale cached content
+const CACHE_MODEL_VERSION = model;
+
+/**
+ * Retry an async operation with exponential backoff.
+ * Retries up to `maxRetries` times on transient errors. Delays: 1s, 2s, 4s…
+ */
+async function withRetry<T>(fn: () => Promise<T>, maxRetries = 3): Promise<T> {
+  let lastError: unknown;
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      return await fn();
+    } catch (err) {
+      lastError = err;
+      if (attempt < maxRetries) {
+        await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, attempt - 1)));
+      }
+    }
+  }
+  throw lastError;
+}
 
 export const getTopicsForSubject = async (subject: string, studentAge: number): Promise<string[]> => {
   const cacheKey = createCacheKey('topics', subject, studentAge.toString());
@@ -177,7 +200,7 @@ export const getTopicsForSubject = async (subject: string, studentAge: number): 
 
   // 2. Check Shared Cache (Firestore)
   if (offlineManager.checkOnlineStatus()) {
-    const sharedTopicsRaw = await getFromSharedCache<any>(cacheKey);
+    const sharedTopicsRaw = await getFromSharedCache<any>(cacheKey, CACHE_MODEL_VERSION);
     const sharedTopics = sanitizeSharedTopics(sharedTopicsRaw);
     if (sharedTopics) {
       const validation = validateTopicsList(sharedTopics);
@@ -266,8 +289,8 @@ IMPORTANT: Content must be appropriate for children aged ${studentAge}. Use simp
   }
 
   try {
-    const response = await ai.models.generateContent({
-      model,
+    const response = await withRetry(() => ai.models.generateContent({
+      model: topicsModel,
       contents,
       config: {
         responseMimeType: "application/json",
@@ -282,7 +305,7 @@ IMPORTANT: Content must be appropriate for children aged ${studentAge}. Use simp
           required: ['topics'],
         },
       },
-    });
+    }));
 
     const jsonResponse = JSON.parse(response.text);
     const topics = jsonResponse.topics || [];
@@ -306,9 +329,9 @@ IMPORTANT: Content must be appropriate for children aged ${studentAge}. Use simp
     
     setInCache(cacheKey, topics);
     
-    // Save to Shared Cache
+    // Save to Shared Cache (with model version so stale content is busted on model upgrade)
     if (offlineManager.checkOnlineStatus()) {
-      setInSharedCache(cacheKey, topics);
+      setInSharedCache(cacheKey, topics, CACHE_MODEL_VERSION);
     }
     
     return topics;
@@ -330,7 +353,7 @@ export const generateLesson = async (subject: string, topic: string, difficulty:
   
   // 2. Check Shared Cache
   if (offlineManager.checkOnlineStatus()) {
-    const sharedLessonRaw = await getFromSharedCache<any>(cacheKey);
+    const sharedLessonRaw = await getFromSharedCache<any>(cacheKey, CACHE_MODEL_VERSION);
     const sharedLesson = sanitizeSharedLesson(sharedLessonRaw);
     if (sharedLesson) {
       const validation = validateLesson(sharedLesson);
@@ -404,10 +427,10 @@ Output using clean markdown with only those 5 headings.`;
 
 
   try {
-    const response = await ai.models.generateContent({
+    const response = await withRetry(() => ai.models.generateContent({
       model,
       contents,
-    });
+    }));
     const lessonText = response.text;
     
     // Validate lesson content
@@ -430,9 +453,9 @@ Output using clean markdown with only those 5 headings.`;
     
     setInCache(cacheKey, validation.sanitizedContent || lessonText);
     
-    // Save to Shared Cache
+    // Save to Shared Cache (model-versioned)
     if (offlineManager.checkOnlineStatus()) {
-      setInSharedCache(cacheKey, validation.sanitizedContent || lessonText);
+      setInSharedCache(cacheKey, validation.sanitizedContent || lessonText, CACHE_MODEL_VERSION);
     }
 
     return validation.sanitizedContent || lessonText;
@@ -447,7 +470,8 @@ export const generateQuiz = async (
   topic: string, 
   difficulty: Difficulty, 
   studentAge: number,
-  studentQuizHistory?: Array<{ score: number; difficulty: string }>
+  studentQuizHistory?: Array<{ score: number; difficulty: string }>,
+  studentProfile?: import('./adaptiveLearningEngine').StudentPerformanceProfile
 ): Promise<QuizQuestion[]> => {
   // ADAPTIVE DIFFICULTY: Adjust based on student performance
   const adaptedDifficulty = studentQuizHistory 
@@ -470,7 +494,7 @@ export const generateQuiz = async (
 
   // Check Shared Cache
   if (offlineManager.checkOnlineStatus()) {
-    const sharedQuizRaw = await getFromSharedCache<any>(cacheKey);
+    const sharedQuizRaw = await getFromSharedCache<any>(cacheKey, CACHE_MODEL_VERSION);
     const sharedQuiz = sanitizeSharedQuiz(sharedQuizRaw);
     if (sharedQuiz && sharedQuiz.length >= 10) {
       console.log(`Shared cache hit for quiz: ${subject} - ${topic}`);
@@ -868,7 +892,7 @@ export const generateQuiz = async (
   const sessionId = Date.now().toString(36);
 
   try {
-    const response = await ai.models.generateContent({
+    const response = await withRetry(() => ai.models.generateContent({
       model,
       contents: `You are MiRa, a creative AI tutor designing an ENGAGING 10-question quiz for a UK Key Stage 2 student (age ${studentAge}) on '${topic}' in '${subject}'.
 
@@ -884,7 +908,15 @@ QUIZ QUALITY REQUIREMENTS:
 3. DIFFICULTY: ${adaptedDifficulty} level - ${adaptedDifficulty === 'Easy' ? 'build confidence with clear, achievable questions' : adaptedDifficulty === 'Medium' ? 'challenge without frustrating, include some thinking questions' : 'push their knowledge with multi-step thinking'}
 4. UNIQUENESS: Every question must feel FRESH and DIFFERENT - avoid textbook phrasing
 5. WRONG ANSWERS: Use PLAUSIBLE distractors based on common misconceptions (not silly options)
-
+${studentProfile ? `
+STUDENT ADAPTIVE PROFILE (personalise questions to this student):
+- Learning level: ${studentProfile.currentLevel}/10
+- Learning pace: ${studentProfile.learningPace}
+- Weak areas (prioritise these): ${studentProfile.weaknessAreas.length > 0 ? studentProfile.weaknessAreas.join(', ') : 'none identified'}
+- Strong areas: ${studentProfile.strengthAreas.length > 0 ? studentProfile.strengthAreas.join(', ') : 'none identified'}
+- Recommended difficulty: ${studentProfile.recommendedDifficulty}
+Please include at least 2-3 questions targeting the student's weak areas if relevant to this topic.
+` : ''}
 ${questionTypeGuidance}
 
 WRONG ANSWER DESIGN (CRITICAL):
@@ -949,7 +981,7 @@ Generate 10 varied, engaging questions:`,
           required: ['quiz'],
         },
       },
-    });
+    }));
     
     const jsonResponse = JSON.parse(response.text);
     const quizQuestions = jsonResponse.quiz || [];
@@ -1087,9 +1119,9 @@ Generate 10 varied, engaging questions:`,
     };
     setInCache(cacheKey, aiCacheData);
     
-    // Save to Shared Cache (Whole Quiz)
+    // Save to Shared Cache (model-versioned)
     if (offlineManager.checkOnlineStatus()) {
-      setInSharedCache(cacheKey, combinedQuestions);
+      setInSharedCache(cacheKey, combinedQuestions, CACHE_MODEL_VERSION);
     }
 
     console.log(`Generated ${filteredAIQuestions.length} new AI questions, combined with ${finalQuestions.length} existing questions`);
@@ -1152,6 +1184,20 @@ Generate 10 varied, engaging questions:`,
     if (finalQuestions.length > 0) {
       console.log(`Returning ${finalQuestions.length} bank questions (error fallback)`);
       return finalQuestions;
+    }
+    // Emergency fallback: try any questions for this subject (any topic)
+    const subjectLowerFb = subject.toLowerCase();
+    const isLangFb = ['french', 'spanish', 'german', 'japanese', 'mandarin', 'romanian', 'yoruba'].includes(subjectLowerFb);
+    if (!isLangFb) {
+      try {
+        const emergencyQs = await getRandomQuestions(subject, '', studentAge, adaptedDifficulty, 10, []);
+        if (emergencyQs.length > 0) {
+          console.log(`Emergency fallback: ${emergencyQs.length} general ${subject} questions`);
+          return emergencyQs.slice(0, 10);
+        }
+      } catch {
+        // ignore
+      }
     }
     return [];
   }

@@ -1,6 +1,8 @@
 import { db, doc, getDoc, setDoc } from './firebase';
 
 const CACHE_COLLECTION = 'content_cache';
+// Default version — callers should pass the model name so stale content is
+// automatically invalidated whenever the AI model is upgraded.
 const CACHE_VERSION = '1.0.0';
 
 // TTL in milliseconds (e.g., 30 days for shared content)
@@ -15,9 +17,10 @@ interface SharedCacheEntry<T> {
 /**
  * Retrieves data from the shared Firestore cache.
  * @param key - The unique cache key.
- * @returns The cached data or null if not found/expired.
+ * @param version - Cache version; pass the AI model name so a model upgrade busts stale content.
+ * @returns The cached data or null if not found/expired/version mismatch.
  */
-export const getFromSharedCache = async <T>(key: string): Promise<T | null> => {
+export const getFromSharedCache = async <T>(key: string, version = CACHE_VERSION): Promise<T | null> => {
   try {
     // Sanitize key for Firestore document ID (alphanumeric + hyphens only)
     const docId = key.replace(/[^a-zA-Z0-9-]/g, '_');
@@ -32,8 +35,8 @@ export const getFromSharedCache = async <T>(key: string): Promise<T | null> => {
         return null;
       }
 
-      // Check Version
-      if (entry.version !== CACHE_VERSION) {
+      // Check Version — if the model has changed, cached content is stale
+      if (entry.version !== version) {
         return null;
       }
 
@@ -51,8 +54,9 @@ export const getFromSharedCache = async <T>(key: string): Promise<T | null> => {
  * Saves data to the shared Firestore cache.
  * @param key - The unique cache key.
  * @param data - The data to cache.
+ * @param version - Cache version; pass the AI model name to tie cache entries to a specific model.
  */
-export const setInSharedCache = async <T>(key: string, data: T): Promise<void> => {
+export const setInSharedCache = async <T>(key: string, data: T, version = CACHE_VERSION): Promise<void> => {
   try {
     const docId = key.replace(/[^a-zA-Z0-9-]/g, '_');
     const docRef = doc(db, CACHE_COLLECTION, docId);
@@ -60,7 +64,7 @@ export const setInSharedCache = async <T>(key: string, data: T): Promise<void> =
     const entry: SharedCacheEntry<T> = {
       data,
       timestamp: Date.now(),
-      version: CACHE_VERSION
+      version,
     };
 
     await setDoc(docRef, entry);

@@ -15,6 +15,7 @@ import { gamesUnlockService } from './services/gamesUnlockService';
 import { Difficulty, Subject, QuizResult, ProgressData, UserProfile, QuizSession } from './types';
 import { SUBJECTS } from './constants';
 import { spacedRepetitionService } from './services/spacedRepetitionService';
+import { adaptiveLearningEngine } from './services/adaptiveLearningEngine';
 import { dailyChallengeService, DailyChallenge } from './services/dailyChallengeService';
 import { Artwork, DrawingLesson } from './data/artResources';
 import { firebaseAuthService } from './services/firebaseAuthService';
@@ -165,6 +166,8 @@ const AppContent: React.FC = () => {
       checkStreak();
       // Check daily login for streak rewards
       streakRewardsService.checkDailyLogin();
+      // Sync spaced repetition data from Firestore (cross-device)
+      void spacedRepetitionService.initForUser(user.id);
     }
   }, [user?.id]); // Run when user changes/loads
 
@@ -274,6 +277,11 @@ const AppContent: React.FC = () => {
         timeSpent: timeSpentSeconds
       };
       recordQuizSession(quizSession);
+      
+      // Save to adaptive engine's localStorage store for same-device profiling
+      if (user?.id) {
+        adaptiveLearningEngine.saveSession(user.id, quizSession);
+      }
       
       // Also record to analytics service
       analyticsService.recordSession({

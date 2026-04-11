@@ -3,7 +3,12 @@
  * 
  * Implements SM-2 algorithm for optimal learning retention
  * Tracks wrong answers and resurfaces difficult topics at optimal intervals
+ *
+ * Cross-device: call initForUser(userId) after login to sync from Firestore.
  */
+
+import { db } from './firebase';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 export interface ReviewItem {
   id: string;
@@ -76,9 +81,39 @@ const calculateNextReview = (
 
 class SpacedRepetitionService {
   private items: Map<string, ReviewItem> = new Map();
+  private currentUserId: string | null = null;
+  private firestoreSyncEnabled = false;
 
   constructor() {
     this.loadFromStorage();
+  }
+
+  /**
+   * Call after user login to load spaced repetition data from Firestore
+   * (cross-device sync) and merge with any local data.
+   */
+  async initForUser(userId: string): Promise<void> {
+    this.currentUserId = userId;
+    try {
+      const docRef = doc(db, 'users', userId, 'spacedRepetition', 'data');
+      const snap = await getDoc(docRef);
+      if (snap.exists()) {
+        const remote = snap.data() as Record<string, ReviewItem>;
+        // Merge: keep whichever record has more repetitions (more up-to-date)
+        Object.entries(remote).forEach(([id, remoteItem]) => {
+          const local = this.items.get(id);
+          if (!local || remoteItem.repetitions >= local.repetitions) {
+            this.items.set(id, remoteItem);
+          }
+        });
+        this.saveLocal();
+        console.log(`[SpacedRep] Synced ${Object.keys(remote).length} items from Firestore for user ${userId}`);
+      }
+      this.firestoreSyncEnabled = true;
+    } catch (err) {
+      console.warn('[SpacedRep] Firestore sync failed (will use local data):', err);
+      this.firestoreSyncEnabled = false;
+    }
   }
 
   private loadFromStorage(): void {
@@ -94,12 +129,25 @@ class SpacedRepetitionService {
     }
   }
 
-  private saveToStorage(): void {
+  private saveLocal(): void {
     try {
       const obj = Object.fromEntries(this.items);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(obj));
     } catch (error) {
       console.error('Error saving spaced repetition data:', error);
+    }
+  }
+
+  private saveToStorage(): void {
+    this.saveLocal();
+    // Async Firestore write — fire-and-forget, errors are non-fatal
+    if (this.firestoreSyncEnabled && this.currentUserId) {
+      const userId = this.currentUserId;
+      const obj = Object.fromEntries(this.items);
+      const docRef = doc(db, 'users', userId, 'spacedRepetition', 'data');
+      setDoc(docRef, obj).catch((err) =>
+        console.warn('[SpacedRep] Firestore write failed:', err)
+      );
     }
   }
 

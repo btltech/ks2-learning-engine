@@ -47,9 +47,9 @@ class AdaptiveLearningEngine {
       return this.getDefaultProfile(studentId);
     }
     
-    // Calculate current level (1-10 scale)
+    // Calculate current level (1-10 scale) using a granular scoring curve
     const averageScore = sessions.reduce((sum, s) => sum + s.score, 0) / sessions.length;
-    const currentLevel = Math.max(1, Math.min(10, Math.floor((averageScore / 10))));
+    const currentLevel = this.scoreToLevel(averageScore);
     
     // Determine learning pace
     const recentSessions = sessions.slice(-5);
@@ -275,7 +275,50 @@ class AdaptiveLearningEngine {
   }
   
   // Helper methods
+  /**
+   * Save a completed quiz session to localStorage (used by App.tsx after each quiz).
+   * This populates the engine with real data so analysis is accurate.
+   */
+  public saveSession(studentId: string, session: {
+    subject: string; topic: string; score: number;
+    difficulty: string; timeSpent: number; totalQuestions?: number;
+  }): void {
+    const key = `ks2_quiz_sessions_${studentId}`;
+    try {
+      const saved = localStorage.getItem(key);
+      const sessions: any[] = saved ? JSON.parse(saved) : [];
+      sessions.push({ ...session, date: new Date().toISOString() });
+      // Keep the last 200 sessions to avoid key bloat
+      localStorage.setItem(key, JSON.stringify(sessions.slice(-200)));
+    } catch {
+      // ignore storage errors
+    }
+  }
+
   private getRecentSessions(studentId: string): any[] {
+    // 1. Primary: read from user profile quizHistory (kept in ks2_user which is Firestore-synced,
+    //    so data survives device switches when the user logs in on a new device).
+    try {
+      const savedUser = localStorage.getItem('ks2_user');
+      if (savedUser) {
+        const user = JSON.parse(savedUser) as { quizHistory?: any[] };
+        const quizHistory = Array.isArray(user.quizHistory) ? user.quizHistory : [];
+        if (quizHistory.length > 0) {
+          return quizHistory.slice(-this.PERFORMANCE_WINDOW).map((s: any) => ({
+            subject: s.subject,
+            topic: s.topic,
+            score: s.score,
+            difficulty: s.difficulty,
+            timeSpent: s.timeSpent || 0,
+            totalQuestions: s.totalQuestions || 10,
+            date: s.completedAt || s.date || new Date().toISOString(),
+          }));
+        }
+      }
+    } catch {
+      // fall through to legacy key
+    }
+    // 2. Legacy fallback: engine-specific key populated by saveSession()
     const key = `ks2_quiz_sessions_${studentId}`;
     const data = localStorage.getItem(key);
     const sessions = data ? JSON.parse(data) : [];
@@ -312,6 +355,23 @@ class AdaptiveLearningEngine {
     if (averageScore >= 75) return 'Medium';
     if (averageScore < 60) return 'Easy';
     return 'Medium';
+  }
+
+  /**
+   * Maps an average score percentage to a 1–10 proficiency level.
+   * More granular than the old Math.floor(score/10) formula.
+   */
+  private scoreToLevel(avgScore: number): number {
+    if (avgScore >= 95) return 10;
+    if (avgScore >= 88) return 9;
+    if (avgScore >= 80) return 8;
+    if (avgScore >= 72) return 7;
+    if (avgScore >= 64) return 6;
+    if (avgScore >= 55) return 5;
+    if (avgScore >= 45) return 4;
+    if (avgScore >= 35) return 3;
+    if (avgScore >= 20) return 2;
+    return 1;
   }
   
   private recommendNextTopics(sessions: any[], masteryScores: { [topic: string]: number }): string[] {

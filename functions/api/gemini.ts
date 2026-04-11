@@ -18,12 +18,15 @@ interface Env {
   FIREBASE_PROJECT_ID?: string;
   VITE_FIREBASE_PROJECT_ID?: string;
   ALLOWED_ORIGINS?: string; // comma-separated
+  /** Optional Cloudflare KV namespace binding for persistent rate limiting.
+   *  When bound, rate limit state survives cold starts. Falls back to in-memory. */
+  RATE_LIMIT_KV?: KVNamespace;
 }
 
-// Simple in-memory rate limiter (resets on cold start, but provides basic protection)
+// In-memory fallback (resets on cold start — used when KV is not bound)
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
-const RATE_LIMIT = 20; // requests per window (per uid+ip)
-const RATE_WINDOW = 60 * 1000; // 1 minute window
+const RATE_LIMIT = 20; // requests per window
+const RATE_WINDOW = 60 * 1000; // 1 minute
 
 const ALLOWED_MODELS = new Set([
   'gemini-2.5-flash',
@@ -35,21 +38,46 @@ const jwks = createRemoteJWKSet(
   new URL('https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com')
 );
 
-function checkRateLimit(ip: string): { allowed: boolean; remaining: number } {
+/** Rate-limit key via KV (persistent across cold starts). */
+async function checkRateLimitKV(kv: KVNamespace, key: string): Promise<{ allowed: boolean; remaining: number }> {
   const now = Date.now();
-  const record = rateLimitMap.get(ip);
-  
-  if (!record || now > record.resetTime) {
-    rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_WINDOW });
+  const stored = await kv.get(key, 'json') as { count: number; resetTime: number } | null;
+  if (!stored || now > stored.resetTime) {
+    await kv.put(key, JSON.stringify({ count: 1, resetTime: now + RATE_WINDOW }), { expirationTtl: 120 });
     return { allowed: true, remaining: RATE_LIMIT - 1 };
   }
-  
+  if (stored.count >= RATE_LIMIT) {
+    return { allowed: false, remaining: 0 };
+  }
+  const updated = { count: stored.count + 1, resetTime: stored.resetTime };
+  await kv.put(key, JSON.stringify(updated), { expirationTtl: 120 });
+  return { allowed: true, remaining: RATE_LIMIT - updated.count };
+}
+
+/** Rate-limit key via in-memory Map (resets on cold start). */
+function checkRateLimitMemory(key: string): { allowed: boolean; remaining: number } {
+  const now = Date.now();
+  const record = rateLimitMap.get(key);
+  if (!record || now > record.resetTime) {
+    rateLimitMap.set(key, { count: 1, resetTime: now + RATE_WINDOW });
+    return { allowed: true, remaining: RATE_LIMIT - 1 };
+  }
   if (record.count >= RATE_LIMIT) {
     return { allowed: false, remaining: 0 };
   }
-  
   record.count++;
   return { allowed: true, remaining: RATE_LIMIT - record.count };
+}
+
+async function checkRateLimit(env: Env, key: string): Promise<{ allowed: boolean; remaining: number }> {
+  if (env.RATE_LIMIT_KV) {
+    try {
+      return await checkRateLimitKV(env.RATE_LIMIT_KV, key);
+    } catch {
+      // KV error — fall through to in-memory
+    }
+  }
+  return checkRateLimitMemory(key);
 }
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
@@ -136,9 +164,9 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     );
   }
 
-  // Rate limiting
+  // Rate limiting (KV-backed when bound, in-memory fallback)
   const clientIP = request.headers.get('CF-Connecting-IP') || request.headers.get('X-Forwarded-For') || 'unknown';
-  const rateCheck = checkRateLimit(`${uid}:${clientIP}`);
+  const rateCheck = await checkRateLimit(env, `${uid}:${clientIP}`);
   
   if (!rateCheck.allowed) {
     return new Response(

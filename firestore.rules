@@ -162,6 +162,19 @@ service cloud.firestore {
         allow read: if isAuthenticated() && request.auth.uid == userId;
         allow create, update, delete: if false;
       }
+
+      // Spaced Repetition Data (SM-2 algorithm state, synced cross-device)
+      match /spacedRepetition/{docId} {
+        allow read: if isAuthenticated() && (
+          request.auth.uid == userId ||
+          isParentOfStudent(userId)
+        );
+        allow create, update: if isAuthenticated() && (
+          request.auth.uid == userId ||
+          isParentOfStudent(userId)
+        );
+        allow delete: if isAuthenticated() && request.auth.uid == userId;
+      }
     }
 
     // ============================================

@@ -1,6 +1,8 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { type QuizQuestion, type Difficulty, type QuizResult, QuestionType, MatchingPair, DragDropItem, DragDropZone } from '../types';
 import { generateQuiz, generateQuizHint } from '../services/geminiService';
+import { adaptiveLearningEngine } from '../services/adaptiveLearningEngine';
+import { useUser } from '../context/UserContext';
 import { recordQuizAttempts } from '../services/questionPerformance';
 import { offlineManager } from '../services/offlineManager';
 import LoadingSpinner from './LoadingSpinner';
@@ -67,6 +69,14 @@ interface QuizViewProps {
 }
 
 const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, studentAge, studentName, onSubmit, mode = 'standard' }) => {
+  const { user } = useUser();
+
+  // Build adaptive profile from current user's quiz history (already Firestore-synced via UserContext)
+  const studentProfile = useMemo(() => {
+    if (!user?.id) return undefined;
+    return adaptiveLearningEngine.analyzeStudent(user.id);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user?.id, user?.quizHistory?.length]);
   // Detect if this is a language subject and extract the language
   const isLanguageSubject = subject === 'Languages';
   const detectedLanguage = isLanguageSubject ? topic.split(':')[0] : 'English';
@@ -201,7 +211,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
     setSelectedAnswers([]);
     setSelectedOption(null);
     try {
-      const generatedQuestions = await generateQuiz(subject, topic, difficulty, studentAge);
+      const generatedQuestions = await generateQuiz(subject, topic, difficulty, studentAge, undefined, studentProfile);
       if (!generatedQuestions || generatedQuestions.length === 0) {
         setError('We couldn\'t create quiz questions right now. Please try again.');
       } else {
