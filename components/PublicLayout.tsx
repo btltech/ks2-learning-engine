@@ -18,7 +18,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
       {/* Simple Header */}
-      <header className={`${GRADIENTS.primary} ${SHADOWS.large} sticky top-0 z-50`}>
+      <header className={`bg-gradient-to-r ${GRADIENTS.primary} ${SHADOWS.large} sticky top-0 z-50`}>
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <button
             onClick={() => navigate('/')}
