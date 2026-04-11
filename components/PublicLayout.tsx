@@ -2,7 +2,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GRADIENTS, SHADOWS, RADIUS } from '../constants';
 import { CookieBanner } from './CookieBanner';
-import Footer from './Footer';
 
 interface PublicLayoutProps {
   children: React.ReactNode;
