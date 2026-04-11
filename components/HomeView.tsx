@@ -4,13 +4,27 @@
  * Organized home screen with clear sections for learning, fun, and progress
  */
 
-import React, { useState } from 'react';
+import React, { useState, lazy } from 'react';
 import SubjectSelector from './SubjectSelector';
 import { DailyChallengeCard, StreakMilestone } from './DailyChallenge';
 import { ReviewDueBadge } from './ReviewMode';
+import { GamesLockOverlay } from './GamesLockOverlay';
 import { useUser } from '../context/UserContext';
 import { Subject, ProgressData } from '../types';
 import { DailyChallenge } from '../services/dailyChallengeService';
+
+// Phase 2: Lazy load new widgets
+const FriendsOnlineWidget = lazy(() => import('./FriendsOnlineWidget'));
+const SkillProgressWidget = lazy(() => import('./SkillProgressWidget'));
+const NextCertificateWidget = lazy(() => import('./NextCertificateWidget'));
+
+interface GamesUnlockStatus {
+  isUnlocked: boolean;
+  gamesRemaining: number;
+  requiredCorrect: number;
+  totalQuestions: number;
+  lastQuiz?: { correct: number; total: number; passed: boolean; at: string };
+}
 
 interface HomeViewProps {
   onSelectSubject: (subject: Subject) => void;
@@ -24,7 +38,11 @@ interface HomeViewProps {
   onOpenStreakRewards?: () => void;
   onOpenAvatarCustomization?: () => void;
   onOpenMiniGames?: () => void;
+  onOpenArtStudio?: () => void;
+  onOpenCurriculumCoverage?: () => void;
+  onOpenSATsPractice?: () => void;
   progress: ProgressData;
+  gamesUnlockStatus?: GamesUnlockStatus;
 }
 
 type ActiveTab = 'learn' | 'play' | 'progress';
@@ -41,7 +59,11 @@ const HomeView: React.FC<HomeViewProps> = ({
   onOpenStreakRewards,
   onOpenAvatarCustomization,
   onOpenMiniGames,
+  onOpenArtStudio,
+  onOpenCurriculumCoverage,
+  onOpenSATsPractice,
   progress,
+  gamesUnlockStatus,
 }) => {
   const { user, currentChild } = useUser();
   const streak = currentChild?.streak || user?.streak || 0;
@@ -116,6 +138,15 @@ const HomeView: React.FC<HomeViewProps> = ({
                   onClick={onOpenLearningPaths}
                   gradient="from-emerald-500 to-teal-600"
                 />
+                {onOpenSATsPractice && (
+                  <ActionCard
+                    icon="📝"
+                    label="SATs Practice"
+                    description="Year 6 Exam Prep"
+                    onClick={onOpenSATsPractice}
+                    gradient="from-blue-600 to-indigo-700"
+                  />
+                )}
                 {onOpenClassroom && (
                   <ActionCard
                     icon="🏫"
@@ -149,12 +180,34 @@ const HomeView: React.FC<HomeViewProps> = ({
                   featured
                 />
                 {onOpenMiniGames && (
+                  gamesUnlockStatus && !gamesUnlockStatus.isUnlocked ? (
+                    <GamesLockOverlay
+                      requiredCorrect={gamesUnlockStatus.requiredCorrect}
+                      totalQuestions={gamesUnlockStatus.totalQuestions}
+                      lastQuiz={gamesUnlockStatus.lastQuiz}
+                    />
+                  ) : (
+                    <ActionCard
+                      icon="🎮"
+                      label="Mini Games"
+                      description={
+                        gamesUnlockStatus
+                          ? `Fun learning games (${gamesUnlockStatus.gamesRemaining} left)`
+                          : 'Fun learning games'
+                      }
+                      onClick={onOpenMiniGames}
+                      gradient="from-cyan-500 to-blue-600"
+                      featured
+                    />
+                  )
+                )}
+                {onOpenArtStudio && (
                   <ActionCard
-                    icon="🎮"
-                    label="Mini Games"
-                    description="Fun learning games"
-                    onClick={onOpenMiniGames}
-                    gradient="from-cyan-500 to-blue-600"
+                    icon="🎨"
+                    label="Art Studio"
+                    description="Draw & learn art"
+                    onClick={onOpenArtStudio}
+                    gradient="from-purple-500 to-pink-600"
                     featured
                   />
                 )}
@@ -201,6 +254,19 @@ const HomeView: React.FC<HomeViewProps> = ({
               <StreakMilestone streak={streak} />
             )}
 
+            {/* Phase 2: New Widgets Row */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <React.Suspense fallback={<div className="bg-white rounded-xl shadow-md p-4 animate-pulse h-48" />}>
+                <FriendsOnlineWidget />
+              </React.Suspense>
+              <React.Suspense fallback={<div className="bg-white rounded-xl shadow-md p-4 animate-pulse h-48" />}>
+                <SkillProgressWidget />
+              </React.Suspense>
+              <React.Suspense fallback={<div className="bg-white rounded-xl shadow-md p-4 animate-pulse h-48" />}>
+                <NextCertificateWidget />
+              </React.Suspense>
+            </div>
+
             {/* Progress & Analytics */}
             <SectionCard title="📈 Your Progress" subtitle="Track your learning journey">
               <div className="grid grid-cols-2 gap-3">
@@ -211,6 +277,16 @@ const HomeView: React.FC<HomeViewProps> = ({
                     description="Detailed stats"
                     onClick={onOpenAnalytics}
                     gradient="from-blue-500 to-indigo-600"
+                    featured
+                  />
+                )}
+                {onOpenCurriculumCoverage && (
+                  <ActionCard
+                    icon="📋"
+                    label="Curriculum"
+                    description="DfE Objectives"
+                    onClick={onOpenCurriculumCoverage}
+                    gradient="from-teal-500 to-emerald-600"
                     featured
                   />
                 )}

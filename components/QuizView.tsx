@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { type QuizQuestion, type Difficulty, type QuizResult } from '../types';
+import { type QuizQuestion, type Difficulty, type QuizResult, QuestionType, MatchingPair, DragDropItem, DragDropZone } from '../types';
 import { generateQuiz, generateQuizHint } from '../services/geminiService';
+import { recordQuizAttempts } from '../services/questionPerformance';
 import { offlineManager } from '../services/offlineManager';
 import LoadingSpinner from './LoadingSpinner';
 import { Skeleton } from './Skeleton';
@@ -8,6 +9,52 @@ import { useTTSEnhanced } from '../hooks/useTTSEnhanced';
 import { useGameSounds } from '../hooks/useGameSounds';
 import { useVoiceInput, parseAnswerOption } from '../hooks/useVoiceInput';
 import { SpeakerWaveIcon, StopIcon, LightBulbIcon, MicrophoneIcon } from '@heroicons/react/24/solid';
+import { DrawingCanvas } from './DrawingCanvas';
+import { MatchingQuestion } from './MatchingQuestion';
+import { DragDropQuestion } from './DragDropQuestion';
+
+const normalizeAnswerText = (value?: string | null): string => (value ?? '').trim().toLowerCase();
+
+const resolveMultipleChoiceAnswer = (question: QuizQuestion): string | undefined => {
+  if (!question.correctAnswer) return undefined;
+  const trimmedAnswer = question.correctAnswer.trim();
+  const normalizedCorrect = normalizeAnswerText(trimmedAnswer);
+
+  if (question.options && question.options.length > 0) {
+    const exactMatch = question.options.find(option => normalizeAnswerText(option) === normalizedCorrect);
+    if (exactMatch) {
+      return exactMatch;
+    }
+
+    const parsedIndex = Number(trimmedAnswer);
+    if (!Number.isNaN(parsedIndex)) {
+      if (question.options[parsedIndex]) {
+        return question.options[parsedIndex];
+      }
+      const oneBasedIndex = parsedIndex - 1;
+      if (question.options[oneBasedIndex]) {
+        return question.options[oneBasedIndex];
+      }
+    }
+
+    const letterMatch = trimmedAnswer.match(/^([A-Za-z])/);
+    if (letterMatch) {
+      const letterIndex = letterMatch[1].toUpperCase().charCodeAt(0) - 65;
+      if (letterIndex >= 0 && letterIndex < question.options.length) {
+        return question.options[letterIndex];
+      }
+    }
+  }
+
+  return trimmedAnswer;
+};
+
+const isMultipleChoiceAnswerCorrect = (question: QuizQuestion, userAnswer: string): boolean => {
+  if (!question.correctAnswer || !userAnswer) return false;
+  const resolvedAnswer = resolveMultipleChoiceAnswer(question);
+  if (!resolvedAnswer) return false;
+  return normalizeAnswerText(resolvedAnswer) === normalizeAnswerText(userAnswer);
+};
 
 interface QuizViewProps {
   subject: string;
@@ -33,12 +80,20 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<string[]>([]);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [fillInBlankAnswer, setFillInBlankAnswer] = useState<string>('');
+  const [drawingData, setDrawingData] = useState<string | null>(null);
+  const [matchingCompleted, setMatchingCompleted] = useState<boolean>(false);
+  const [matchingResult, setMatchingResult] = useState<{ isCorrect: boolean; matches: Record<string, string> } | null>(null);
+  const [dragDropCompleted, setDragDropCompleted] = useState<boolean>(false);
+  const [dragDropResult, setDragDropResult] = useState<{ isCorrect: boolean; placements: Record<string, string> } | null>(null);
   const { playClick } = useGameSounds();
   const [timeLeft, setTimeLeft] = useState(15);
   const [currentHint, setCurrentHint] = useState<string>('');
   const [isGettingHint, setIsGettingHint] = useState(false);
+  const [questionStartTime, setQuestionStartTime] = useState<number>(Date.now());
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const lastProcessedTranscript = useRef<string>('');
+  const fillInBlankInputRef = useRef<HTMLInputElement>(null);
 
   // Voice input for hands-free quiz answering
   const handleVoiceCommand = useCallback((command: string) => {
@@ -116,6 +171,8 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
               timerRef.current = null;
             }
             // Use setTimeout to avoid state update during render
+            // Ensure component is still mounted before calling handleNextQuestion
+            // Note: handleNextQuestion should ideally be wrapped in useCallback or check mounted state
             setTimeout(() => handleNextQuestion(true), 0);
             return 0;
           }
@@ -130,7 +187,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
         timerRef.current = null;
       }
     };
-  }, [currentQuestionIndex, mode, loading, error, questions.length]);
+  }, [mode, loading, error, questions.length]);
 
   // Stop speaking when question changes
   useEffect(() => {
@@ -167,26 +224,101 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
   }, [fetchQuiz]);
 
   const handleNextQuestion = (isTimeout = false) => {
-    // If timeout, treat as no answer (or wrong)
-    const answerToRecord = isTimeout ? '' : selectedOption;
+    const currentQuestion = questions[currentQuestionIndex];
+    const questionType = currentQuestion?.questionType || QuestionType.MultipleChoice;
+    
+    // Get the answer based on question type
+    let answerToRecord: string;
+    if (isTimeout) {
+      answerToRecord = '';
+    } else if (questionType === QuestionType.FillInBlank) {
+      answerToRecord = fillInBlankAnswer.trim();
+    } else if (questionType === QuestionType.Drawing) {
+      answerToRecord = drawingData || 'No drawing submitted';
+    } else if (questionType === QuestionType.Matching) {
+      answerToRecord = matchingResult ? JSON.stringify(matchingResult.matches) : '';
+    } else if (questionType === QuestionType.DragAndDrop) {
+      answerToRecord = dragDropResult ? JSON.stringify(dragDropResult.placements) : '';
+    } else {
+      answerToRecord = selectedOption || '';
+    }
+    
+    // Calculate time spent on this question
+    const timeSpent = (Date.now() - questionStartTime) / 1000;
     
     if (answerToRecord || isTimeout) {
-      const newAnswers = [...selectedAnswers, answerToRecord || ''];
+      const newAnswers = [...selectedAnswers, answerToRecord];
       setSelectedAnswers(newAnswers);
       setSelectedOption(null);
+      setFillInBlankAnswer('');
+      setDrawingData(null);
+      setMatchingCompleted(false);
+      setMatchingResult(null);
+      setDragDropCompleted(false);
+      setDragDropResult(null);
+      setQuestionStartTime(Date.now());
 
       if (currentQuestionIndex < questions.length - 1) {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
         setCurrentHint(''); // Clear hint for new question
       } else {
-        // Final submission
-        const results: QuizResult[] = questions.map((q, index) => ({
-          question: q.question,
-          options: q.options,
-          correctAnswer: q.correctAnswer,
-          userAnswer: newAnswers[index],
-          isCorrect: q.correctAnswer === newAnswers[index],
-        }));
+        // Final submission - check answers and record performance
+        const results: QuizResult[] = questions.map((q, index) => {
+          const userAnswer = newAnswers[index];
+          let isCorrect: boolean;
+          
+          // Check correctness based on question type
+          if (q.questionType === QuestionType.FillInBlank) {
+            // Case-insensitive match, also check acceptable answers
+            const normalizedAnswer = userAnswer.toLowerCase().trim();
+            isCorrect = normalizedAnswer === q.correctAnswer.toLowerCase().trim() ||
+              (q.acceptableAnswers?.some(a => a.toLowerCase().trim() === normalizedAnswer) ?? false);
+          } else if (q.questionType === QuestionType.Drawing) {
+            isCorrect = true; // Drawings are always marked as correct for now
+          } else if (q.questionType === QuestionType.Matching) {
+            // Check if matching was submitted and correct
+            try {
+              const matches = userAnswer ? JSON.parse(userAnswer) : {};
+              isCorrect = q.matchingPairs?.every(pair => matches[pair.left] === pair.right) ?? false;
+            } catch {
+              isCorrect = false;
+            }
+          } else if (q.questionType === QuestionType.DragAndDrop) {
+            // Check if drag-drop was submitted and correct
+            try {
+              const placements = userAnswer ? JSON.parse(userAnswer) : {};
+              // For now, check if all placements match expected zones
+              isCorrect = Object.keys(placements).length === (q.dragItems?.length ?? 0);
+            } catch {
+              isCorrect = false;
+            }
+          } else {
+            isCorrect = isMultipleChoiceAnswerCorrect(q, userAnswer);
+          }
+          
+          return {
+            id: q.id,
+            question: q.question,
+            options: q.options,
+            correctAnswer: q.correctAnswer,
+            userAnswer,
+            isCorrect,
+          };
+        });
+        
+        // Record question performance for analytics
+        recordQuizAttempts(
+          results.map((r, idx) => ({
+            id: r.id,
+            question: r.question,
+            isCorrect: r.isCorrect,
+            timeToAnswer: idx === currentQuestionIndex ? timeSpent : undefined
+          })),
+          subject,
+          topic,
+          difficulty
+        );
+        
         onSubmit(results);
       }
     }
@@ -338,30 +470,173 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
         </div>
       )}
 
-      <div className="space-y-4" role="radiogroup" aria-label="Quiz answer options">
-        {currentQuestion.options.map((option, index) => (
-          <button
-            key={index}
-            onClick={() => handleOptionSelect(option)}
-            role="radio"
-            aria-checked={selectedOption === option}
-            aria-label={`Option: ${option}`}
-            className={`w-full text-left p-3 sm:p-4 rounded-xl border-2 transition-all duration-200 text-base sm:text-lg font-semibold
-              ${selectedOption === option 
-                ? 'bg-gradient-to-r from-blue-500 to-blue-600 border-blue-600 text-white scale-105 shadow-lg shadow-blue-500/40' 
-                : 'bg-blue-50 border-blue-200 text-gray-700 hover:bg-blue-100 hover:border-blue-400 hover:shadow-md'
-              }`}
-          >
-            {option}
-          </button>
-        ))}
-      </div>
+      {/* Question Type Badge */}
+      {currentQuestion.questionType && currentQuestion.questionType !== QuestionType.MultipleChoice && (
+        <div className="mb-4 flex items-center gap-2">
+          <span className={`text-xs font-bold px-3 py-1 rounded-full ${
+            currentQuestion.questionType === QuestionType.TrueFalse 
+              ? 'bg-purple-100 text-purple-700'
+              : currentQuestion.questionType === QuestionType.FillInBlank
+              ? 'bg-green-100 text-green-700'
+              : currentQuestion.questionType === QuestionType.Matching
+              ? 'bg-cyan-100 text-cyan-700'
+              : currentQuestion.questionType === QuestionType.DragAndDrop
+              ? 'bg-pink-100 text-pink-700'
+              : 'bg-orange-100 text-orange-700'
+          }`}>
+            {currentQuestion.questionType === QuestionType.TrueFalse && '✓✗ True or False'}
+            {currentQuestion.questionType === QuestionType.FillInBlank && '✏️ Fill in the Blank'}
+            {currentQuestion.questionType === QuestionType.Ordering && '🔢 Put in Order'}
+            {currentQuestion.questionType === QuestionType.Drawing && '🎨 Drawing Challenge'}
+            {currentQuestion.questionType === QuestionType.Matching && '🔗 Match the Pairs'}
+            {currentQuestion.questionType === QuestionType.DragAndDrop && '📦 Drag and Drop'}
+          </span>
+          {currentQuestion.cognitiveLevel && (
+            <span className="text-xs text-gray-500 italic">
+              ({currentQuestion.cognitiveLevel})
+            </span>
+          )}
+        </div>
+      )}
+
+      {/* Multiple Choice / True-False Options */}
+      {(currentQuestion.questionType === QuestionType.MultipleChoice || 
+        currentQuestion.questionType === QuestionType.TrueFalse ||
+        !currentQuestion.questionType) && currentQuestion.options && currentQuestion.options.length > 0 && (
+        <div className="space-y-4" role="radiogroup" aria-label="Quiz answer options">
+          {currentQuestion.options.map((option, index) => (
+            <button
+              key={index}
+              onClick={() => handleOptionSelect(option)}
+              role="radio"
+              aria-checked={selectedOption === option}
+              aria-label={`Option: ${option}`}
+              className={`w-full text-left p-3 sm:p-4 rounded-xl border-2 transition-all duration-200 text-base sm:text-lg font-semibold
+                ${selectedOption === option 
+                  ? currentQuestion.questionType === QuestionType.TrueFalse
+                    ? option === 'True'
+                      ? 'bg-gradient-to-r from-green-500 to-green-600 border-green-600 text-white scale-105 shadow-lg shadow-green-500/40'
+                      : 'bg-gradient-to-r from-red-500 to-red-600 border-red-600 text-white scale-105 shadow-lg shadow-red-500/40'
+                    : 'bg-gradient-to-r from-blue-500 to-blue-600 border-blue-600 text-white scale-105 shadow-lg shadow-blue-500/40'
+                  : currentQuestion.questionType === QuestionType.TrueFalse
+                    ? option === 'True'
+                      ? 'bg-green-50 border-green-200 text-gray-700 hover:bg-green-100 hover:border-green-400 hover:shadow-md'
+                      : 'bg-red-50 border-red-200 text-gray-700 hover:bg-red-100 hover:border-red-400 hover:shadow-md'
+                    : 'bg-blue-50 border-blue-200 text-gray-700 hover:bg-blue-100 hover:border-blue-400 hover:shadow-md'
+                }`}
+            >
+              {currentQuestion.questionType === QuestionType.TrueFalse && (
+                <span className="mr-2">{option === 'True' ? '✓' : '✗'}</span>
+              )}
+              {option}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* Fill in the Blank Input */}
+      {currentQuestion.questionType === QuestionType.FillInBlank && (
+        <div className="space-y-4">
+          <div className="relative">
+            <input
+              ref={fillInBlankInputRef}
+              type="text"
+              value={fillInBlankAnswer}
+              onChange={(e) => setFillInBlankAnswer(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && fillInBlankAnswer.trim()) {
+                  handleNextQuestion(false);
+                }
+              }}
+              placeholder="Type your answer here..."
+              className="w-full p-4 text-lg border-2 border-green-200 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-200 outline-none transition-all bg-green-50"
+              autoFocus
+            />
+            {fillInBlankAnswer && (
+              <button
+                onClick={() => setFillInBlankAnswer('')}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              >
+                ✕
+              </button>
+            )}
+          </div>
+          <p className="text-sm text-gray-500 text-center">
+            💡 Type your answer and press Enter or click Next
+          </p>
+        </div>
+      )}
+
+      {/* Drawing Canvas */}
+      {currentQuestion.questionType === QuestionType.Drawing && (
+        <div className="space-y-4">
+          <DrawingCanvas 
+            onSave={(data) => setDrawingData(data)} 
+            width={600} 
+            height={400} 
+          />
+          <p className="text-sm text-gray-500 text-center">
+            🎨 Draw your answer above and click Submit Drawing!
+          </p>
+        </div>
+      )}
+
+      {/* Matching Question */}
+      {currentQuestion.questionType === QuestionType.Matching && currentQuestion.matchingPairs && (
+        <MatchingQuestion
+          pairs={currentQuestion.matchingPairs}
+          onComplete={(isCorrect, matches) => {
+            setMatchingCompleted(true);
+            setMatchingResult({ isCorrect, matches });
+          }}
+        />
+      )}
+
+      {/* Drag and Drop Question */}
+      {currentQuestion.questionType === QuestionType.DragAndDrop && currentQuestion.dragItems && currentQuestion.dropZones && (
+        <DragDropQuestion
+          items={currentQuestion.dragItems.map((content, idx) => ({
+            id: `item-${idx}`,
+            content,
+            correctZoneId: currentQuestion.dropZones?.[idx] || `zone-${idx}`
+          }))}
+          zones={[...new Set(currentQuestion.dropZones)].map((label, idx) => ({
+            id: label,
+            label
+          }))}
+          onComplete={(isCorrect, placements) => {
+            setDragDropCompleted(true);
+            setDragDropResult({ isCorrect, placements });
+          }}
+        />
+      )}
+
       <div className="mt-6 sm:mt-8 text-right">
         <button
           onClick={() => handleNextQuestion(false)}
-          disabled={!selectedOption}
+          disabled={
+            currentQuestion.questionType === QuestionType.FillInBlank 
+              ? !fillInBlankAnswer.trim()
+              : currentQuestion.questionType === QuestionType.Drawing
+              ? !drawingData
+              : currentQuestion.questionType === QuestionType.Matching
+              ? !matchingCompleted
+              : currentQuestion.questionType === QuestionType.DragAndDrop
+              ? !dragDropCompleted
+              : !selectedOption
+          }
           aria-label={isLastQuestion ? 'Finish quiz and see results' : 'Go to next question'}
-          aria-disabled={!selectedOption}
+          aria-disabled={
+            currentQuestion.questionType === QuestionType.FillInBlank 
+              ? !fillInBlankAnswer.trim()
+              : currentQuestion.questionType === QuestionType.Drawing
+              ? !drawingData
+              : currentQuestion.questionType === QuestionType.Matching
+              ? !matchingCompleted
+              : currentQuestion.questionType === QuestionType.DragAndDrop
+              ? !dragDropCompleted
+              : !selectedOption
+          }
           className="w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-bold text-lg rounded-xl shadow-lg shadow-green-500/40 hover:shadow-xl hover:shadow-green-500/50 active:scale-95 transition-all duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:shadow-none disabled:active:scale-100"
         >
           {isLastQuestion ? 'Finish Quiz' : 'Next Question'}

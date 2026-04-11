@@ -22,6 +22,37 @@ const SUBJECT_TOPICS: Record<string, string[]> = {
   'Citizenship': ['Rights', 'Responsibilities', 'Community', 'Democracy']
 };
 
+const normalizeAnswerText = (value?: string): string => (value ?? '').trim().toLowerCase();
+
+const resolveCorrectOptionIndex = (question: QuizQuestion): number => {
+  if (!question || !question.options?.length) return -1;
+  const normalizedCorrect = normalizeAnswerText(question.correctAnswer);
+  if (normalizedCorrect) {
+    const exactMatch = question.options.findIndex(option => normalizeAnswerText(option) === normalizedCorrect);
+    if (exactMatch >= 0) return exactMatch;
+  }
+
+  const trimmed = question.correctAnswer?.trim();
+  if (!trimmed) return -1;
+
+  const parsedIndex = Number(trimmed);
+  if (!Number.isNaN(parsedIndex)) {
+    if (question.options[parsedIndex]) return parsedIndex;
+    const oneBasedIndex = parsedIndex - 1;
+    if (question.options[oneBasedIndex]) return oneBasedIndex;
+  }
+
+  const letterMatch = trimmed.match(/^([A-Za-z])/);
+  if (letterMatch) {
+    const letterIndex = letterMatch[1].toUpperCase().charCodeAt(0) - 65;
+    if (letterIndex >= 0 && letterIndex < question.options.length) {
+      return letterIndex;
+    }
+  }
+
+  return -1;
+};
+
 interface ClassroomModeProps {
   userId: string;
   userName: string;
@@ -195,7 +226,8 @@ const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeach
     setHasAnswered(true);
 
     const question = session.questions[session.currentQuestionIndex];
-    const isCorrect = answerIndex === question.correctAnswer;
+    const correctIndex = resolveCorrectOptionIndex(question);
+    const isCorrect = answerIndex >= 0 && answerIndex === correctIndex;
     const timeMs = session.questionStartTime 
       ? Date.now() - session.questionStartTime 
       : 30000;
@@ -502,6 +534,7 @@ const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeach
   if (viewMode === 'active' && session && session.currentQuestionIndex >= 0) {
     const question = session.questions[session.currentQuestionIndex];
     const leaderboard = getLeaderboard();
+    const correctAnswerIndex = resolveCorrectOptionIndex(question);
 
     return (
       <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 p-4">
@@ -527,7 +560,7 @@ const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeach
                   let buttonClass = 'w-full py-4 px-6 rounded-xl text-left transition-all ';
                   
                   if (hasAnswered) {
-                    if (index === question.correctAnswer) {
+                    if (index === correctAnswerIndex) {
                       buttonClass += 'bg-green-500 text-white';
                     } else if (index === selectedAnswer) {
                       buttonClass += 'bg-red-500 text-white';

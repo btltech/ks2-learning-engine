@@ -6,6 +6,7 @@ const DEFAULT_USER_TEMPLATE: UserProfile = {
   id: 'user-123',
   name: '',
   role: 'student',
+  roles: ['student'],
   age: 9,
   totalPoints: 0,
   avatarConfig: {
@@ -73,6 +74,7 @@ export const authService = {
           id: `user-${Date.now()}`, // Generate unique ID
           name, 
           role, 
+          roles: [role],
           age: age || 9,
           lastLoginDate: new Date().toISOString()
         };

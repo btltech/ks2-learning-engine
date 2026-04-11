@@ -51,6 +51,12 @@ export interface StruggleTopic {
   suggestion: string;
 }
 
+export interface FeatureUsage {
+  feature: string;
+  timestamp: string;
+  details?: any;
+}
+
 export interface WeeklyReport {
   weekStart: string;
   weekEnd: string;
@@ -87,10 +93,12 @@ export interface AnalyticsSummary {
 // Storage keys
 const ANALYTICS_KEY = 'ks2_analytics_data';
 const SESSIONS_KEY = 'ks2_session_history';
+const FEATURE_USAGE_KEY = 'ks2_feature_usage';
 
 class AnalyticsService {
   private sessions: QuizSession[] = [];
   private dailyData: Map<string, DailyActivity> = new Map();
+  private featureUsage: FeatureUsage[] = [];
 
   constructor() {
     this.loadData();
@@ -108,6 +116,11 @@ class AnalyticsService {
         const parsed = JSON.parse(storedDaily);
         this.dailyData = new Map(Object.entries(parsed.dailyData || {}));
       }
+
+      const storedFeatures = localStorage.getItem(FEATURE_USAGE_KEY);
+      if (storedFeatures) {
+        this.featureUsage = JSON.parse(storedFeatures);
+      }
     } catch (e) {
       console.error('[Analytics] Error loading data:', e);
     }
@@ -120,9 +133,34 @@ class AnalyticsService {
         dailyData: Object.fromEntries(this.dailyData),
         lastUpdated: new Date().toISOString(),
       }));
+      localStorage.setItem(FEATURE_USAGE_KEY, JSON.stringify(this.featureUsage.slice(-1000))); // Keep last 1000 events
     } catch (e) {
       console.error('[Analytics] Error saving data:', e);
     }
+  }
+
+  /**
+   * Track usage of a specific feature
+   */
+  trackFeatureUsage(feature: string, details?: any): void {
+    this.featureUsage.push({
+      feature,
+      timestamp: new Date().toISOString(),
+      details
+    });
+    this.saveData();
+  }
+
+  /**
+   * Track when a quiz is abandoned
+   */
+  trackQuizAbandonment(subject: string, topic: string, questionsAnswered: number, totalQuestions: number): void {
+    this.trackFeatureUsage('quiz_abandoned', {
+      subject,
+      topic,
+      progress: questionsAnswered / totalQuestions,
+      questionsAnswered
+    });
   }
 
   /**
@@ -507,13 +545,40 @@ class AnalyticsService {
   }
 
   /**
+   * Get summary of feature usage
+   */
+  getFeatureUsageStats(): Record<string, number> {
+    const stats: Record<string, number> = {};
+    this.featureUsage.forEach(event => {
+      stats[event.feature] = (stats[event.feature] || 0) + 1;
+    });
+    return stats;
+  }
+
+  /**
+   * Export all analytics data as JSON
+   */
+  exportAnalyticsData(): string {
+    const data = {
+      sessions: this.sessions,
+      dailyActivity: Object.fromEntries(this.dailyData),
+      featureUsage: this.featureUsage,
+      summary: this.getSummary(),
+      exportedAt: new Date().toISOString()
+    };
+    return JSON.stringify(data, null, 2);
+  }
+
+  /**
    * Clear all analytics data
    */
   clearData(): void {
     this.sessions = [];
     this.dailyData.clear();
+    this.featureUsage = [];
     localStorage.removeItem(ANALYTICS_KEY);
     localStorage.removeItem(SESSIONS_KEY);
+    localStorage.removeItem(FEATURE_USAGE_KEY);
   }
 }
 

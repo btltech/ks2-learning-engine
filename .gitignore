@@ -32,3 +32,9 @@ dist-ssr
 # Firebase
 .firebaserc
 firebase-debug.log
+
+# Firebase Admin SDK service account keys (NEVER commit)
+serviceAccountKey.json
+firebase-admin-key.json
+demiwuraks2-firebase-adminsdk*.json
+ks2-learning-engine-firebase-adminsdk-*.json

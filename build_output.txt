@@ -1,0 +1,8 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project KS2LearningEngine.xcodeproj -scheme KS2LearningEngine -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 14,OS=16.2" build
+
+Build settings from command line:
+    SDKROOT = iphonesimulator26.2
+
+2026-01-11 17:02:58.988 xcodebuild[54540:16567651] Writing error result bundle to /var/folders/fb/26sq945j14s_463_dmb6r55r0000gp/T/ResultBundle_2026-11-01_17-02-0058.xcresult
+xcodebuild: error: 'KS2LearningEngine.xcodeproj' does not exist.

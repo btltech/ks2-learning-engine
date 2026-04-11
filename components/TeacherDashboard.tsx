@@ -7,6 +7,8 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { useUser } from '../context/UserContext';
+import { ClassData, teacherAnalyticsService } from '../services/teacherAnalyticsService';
 
 interface Student {
   id: string;
@@ -45,17 +47,61 @@ interface TeacherDashboardProps {
 }
 
 export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onClose }) => {
-  // Start with empty students array - would be populated from Firebase/backend
+  const { user } = useUser();
   const [students, setStudents] = useState<Student[]>([]);
+  const [classes, setClasses] = useState<ClassData[]>([]);
+  const [selectedClassId, setSelectedClassId] = useState<string>('');
+  const [newClassName, setNewClassName] = useState('');
+  const [newClassGrade, setNewClassGrade] = useState('Year 5');
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const [view, setView] = useState<'overview' | 'students' | 'assignments' | 'reports'>('overview');
   const [timeRange, setTimeRange] = useState<'week' | 'month' | 'term'>('week');
 
   useEffect(() => {
-    // In production, this would fetch students from Firebase based on teacher's class
-    // For now, we start with an empty array - no mock data
-    setStudents([]);
-  }, []);
+    if (!user?.id) return;
+    const savedClasses = teacherAnalyticsService.getClasses(user.id);
+    setClasses(savedClasses);
+    setSelectedClassId((current) => current || savedClasses[0]?.classId || '');
+  }, [user?.id]);
+
+  useEffect(() => {
+    if (!user?.id || !selectedClassId) {
+      setStudents([]);
+      return;
+    }
+
+    const classData = classes.find((candidate) => candidate.classId === selectedClassId);
+    if (!classData) {
+      setStudents([]);
+      return;
+    }
+
+    const nextStudents = classData.students.map((studentId): Student => {
+      const progress = teacherAnalyticsService.getStudentProgress(studentId);
+      return {
+        id: studentId,
+        name: progress.studentName,
+        age: Number(progress.grade.replace(/\D/g, '')) || 10,
+        avatarColor: '#6366f1',
+        points: 0,
+        streak: 0,
+        lastActive: progress.lastActive === 'Never' ? new Date().toISOString() : progress.lastActive,
+        subjectMastery: progress.subjectMastery,
+        quizzesCompleted: progress.totalQuizzes,
+        averageScore: Math.round(progress.averageScore),
+      };
+    });
+    setStudents(nextStudents);
+  }, [classes, selectedClassId, user?.id]);
+
+  const handleCreateClass = () => {
+    if (!user?.id || !newClassName.trim()) return;
+    const created = teacherAnalyticsService.createClass(user.id, newClassName.trim(), newClassGrade);
+    const savedClasses = teacherAnalyticsService.getClasses(user.id);
+    setClasses(savedClasses);
+    setSelectedClassId(created.classId);
+    setNewClassName('');
+  };
 
   // Calculate stats from actual student data
   const classStats: ClassStats = {
@@ -121,6 +167,56 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onClose }) =
       {/* Main Content */}
       <div className="flex-1 overflow-auto p-6">
         <div className="max-w-7xl mx-auto">
+          <div className="bg-white rounded-xl p-4 shadow mb-6 flex flex-col lg:flex-row lg:items-end gap-4">
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-700 mb-1">Active Class</label>
+              <select
+                value={selectedClassId}
+                onChange={(e) => setSelectedClassId(e.target.value)}
+                className="w-full p-3 border rounded-lg"
+              >
+                {classes.length === 0 ? (
+                  <option value="">No classes yet</option>
+                ) : (
+                  classes.map((classData) => (
+                    <option key={classData.classId} value={classData.classId}>
+                      {classData.className} · {classData.grade} · {classData.students.length} students
+                    </option>
+                  ))
+                )}
+              </select>
+            </div>
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-700 mb-1">Create Class</label>
+              <input
+                value={newClassName}
+                onChange={(e) => setNewClassName(e.target.value)}
+                placeholder="e.g. Year 5 Maple"
+                className="w-full p-3 border rounded-lg"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Year</label>
+              <select
+                value={newClassGrade}
+                onChange={(e) => setNewClassGrade(e.target.value)}
+                className="w-full p-3 border rounded-lg"
+              >
+                <option>Year 3</option>
+                <option>Year 4</option>
+                <option>Year 5</option>
+                <option>Year 6</option>
+              </select>
+            </div>
+            <button
+              onClick={handleCreateClass}
+              disabled={!newClassName.trim()}
+              className="bg-indigo-600 disabled:bg-indigo-300 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700"
+            >
+              Create Class
+            </button>
+          </div>
+
           {view === 'overview' && (
             <OverviewView stats={classStats} students={students} timeRange={timeRange} setTimeRange={setTimeRange} />
           )}
@@ -227,7 +323,13 @@ const OverviewView: React.FC<{
         <div className="bg-white rounded-xl p-6 shadow">
           <h3 className="text-lg font-bold text-gray-900 mb-4">🏆 Top Performers</h3>
           <div className="space-y-3">
-            {stats.topPerformers.map((student, index) => (
+            {stats.topPerformers.length === 0 ? (
+              <div className="text-center py-8 text-gray-500">
+                <div className="text-4xl mb-2">🏁</div>
+                <p>No class results yet</p>
+                <p className="text-sm">Learner performance appears after students complete quizzes.</p>
+              </div>
+            ) : stats.topPerformers.map((student, index) => (
               <div key={student.id} className="flex items-center gap-3">
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold ${
                   index === 0 ? 'bg-yellow-500' : index === 1 ? 'bg-gray-400' : 'bg-amber-700'
@@ -258,7 +360,13 @@ const OverviewView: React.FC<{
         <div className="bg-white rounded-xl p-6 shadow">
           <h3 className="text-lg font-bold text-gray-900 mb-4">📋 Recent Activity</h3>
           <div className="space-y-3">
-            {stats.recentActivity.map((activity) => (
+            {stats.recentActivity.length === 0 ? (
+              <div className="text-center py-8 text-gray-500">
+                <div className="text-4xl mb-2">📋</div>
+                <p>No recent class activity</p>
+                <p className="text-sm">Activity logs will appear when class sessions are recorded.</p>
+              </div>
+            ) : stats.recentActivity.map((activity) => (
               <div key={activity.id} className="flex items-start gap-3 text-sm">
                 <div className="w-2 h-2 rounded-full bg-indigo-500 mt-2" />
                 <div className="flex-1">
@@ -358,8 +466,15 @@ const StudentsView: React.FC<{
       </div>
 
       {/* Students Grid */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filteredStudents.map((student) => (
+      {filteredStudents.length === 0 ? (
+        <div className="bg-white rounded-xl p-8 shadow text-center text-gray-500">
+          <div className="text-5xl mb-3">👨‍🎓</div>
+          <h3 className="text-lg font-bold text-gray-800">No students in this class yet</h3>
+          <p className="text-sm">Add student IDs to the class data source and they will appear here with progress summaries.</p>
+        </div>
+      ) : (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filteredStudents.map((student) => (
           <div
             key={student.id}
             onClick={() => onSelectStudent(student)}
@@ -402,8 +517,9 @@ const StudentsView: React.FC<{
               Last active: {formatTimeAgo(new Date(student.lastActive))}
             </div>
           </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

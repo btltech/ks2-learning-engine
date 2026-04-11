@@ -3,7 +3,7 @@ import {
   collection, 
   doc, 
   query, 
-  where, 
+  where,
   orderBy, 
   limit,
   onSnapshot 
@@ -118,33 +118,52 @@ export const useRealtimeChildrenProfiles = (parentId: string | null) => {
  * @returns Object with leaderboard data, loading state, and error
  */
 export const useRealtimeLeaderboard = (limitNum = 10, minAge?: number, maxAge?: number) => {
-  const [leaderboard, setLeaderboard] = useState<UserProfile[]>([]);
+  const [leaderboard, setLeaderboard] = useState<
+    Array<{ id: string; name: string; age: number; points: number; streak?: number }>
+  >([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    const enableLeaderboard = (import.meta as any).env?.VITE_ENABLE_LEADERBOARD === 'true';
+    if (!enableLeaderboard) {
+      setLeaderboard([]);
+      setLoading(false);
+      setError(null);
+      return;
+    }
+
     setLoading(true);
     setError(null);
 
-    // Subscribe to real-time top students
+    // Subscribe to real-time public leaderboard entries (rules allow read for signed-in users).
     const q = query(
-      collection(db, 'users'),
-      where('role', '==', 'student'),
-      orderBy('totalPoints', 'desc'),
-      limit(limitNum)
+      collection(db, 'leaderboard'),
+      orderBy('points', 'desc'),
+      // Fetch extra rows so client-side age filtering still returns enough entries.
+      limit(Math.max(limitNum * 5, 50))
     );
 
     const unsubscribe = onSnapshot(
       q,
       (snapshot) => {
-        const students = snapshot.docs
-          .map((doc) => doc.data() as UserProfile)
-          .filter((student) => {
-            if (minAge && student.age < minAge) return false;
-            if (maxAge && student.age > maxAge) return false;
+        const entries = snapshot.docs
+          .map((d) => ({ id: d.id, ...(d.data() as any) }))
+          .map((d) => ({
+            id: d.id,
+            name: typeof d.name === 'string' ? d.name : 'Student',
+            age: typeof d.age === 'number' ? d.age : 9,
+            points: typeof d.points === 'number' ? d.points : 0,
+            streak: typeof d.streak === 'number' ? d.streak : undefined
+          }))
+          .filter((row) => {
+            if (typeof minAge === 'number' && row.age < minAge) return false;
+            if (typeof maxAge === 'number' && row.age > maxAge) return false;
             return true;
-          });
-        setLeaderboard(students);
+          })
+          .slice(0, limitNum);
+
+        setLeaderboard(entries);
         setLoading(false);
       },
       (err) => {

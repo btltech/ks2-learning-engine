@@ -51,6 +51,17 @@ try {
 // Get database with explicit URL to ensure correct region
 const database = getDatabase(app, DATABASE_URL);
 
+// Test database connectivity
+console.log('[RealtimeBattle] Testing database connection...');
+// NOTE: Some Firebase SDK builds treat paths containing '.' as invalid tokens.
+// `.info/connected` is a special RTDB path, but if it throws, we fall back to a
+// lightweight read on an allowed subtree.
+get(ref(database, 'battleCodes/__connectionTest')).then(() => {
+  console.log('[RealtimeBattle] Database connection test: Success');
+}).catch(err => {
+  console.error('[RealtimeBattle] Database connection test failed:', err);
+});
+
 // Types
 export type BattleStatus = 'waiting' | 'ready' | 'countdown' | 'in_progress' | 'completed' | 'cancelled';
 
@@ -148,12 +159,21 @@ class RealtimeBattleService {
     };
 
     // Save to Firebase Realtime Database
-    const battleRef = ref(database, `battles/${battleId}`);
-    await set(battleRef, battle);
+    try {
+      const battleRef = ref(database, `battles/${battleId}`);
+      console.log('[RealtimeBattle] Saving battle to:', `battles/${battleId}`);
+      await set(battleRef, battle);
+      console.log('[RealtimeBattle] Battle saved successfully');
 
-    // Also create a lookup by battle code for easy joining
-    const codeRef = ref(database, `battleCodes/${battleCode}`);
-    await set(codeRef, { battleId, createdAt: Date.now() });
+      // Also create a lookup by battle code for easy joining
+      const codeRef = ref(database, `battleCodes/${battleCode}`);
+      console.log('[RealtimeBattle] Saving battle code lookup:', `battleCodes/${battleCode}`);
+      await set(codeRef, { battleId, createdAt: Date.now() });
+      console.log('[RealtimeBattle] Battle code lookup saved successfully');
+    } catch (error) {
+      console.error('[RealtimeBattle] Error saving battle to database:', error);
+      throw error;
+    }
 
     this.currentBattleId = battleId;
     this.currentPlayerId = hostId;
@@ -161,7 +181,7 @@ class RealtimeBattleService {
     // Setup presence tracking
     this.setupPresence(battleId, hostId, 'host');
 
-    console.log(`[RealtimeBattle] Created battle ${battleCode}`);
+    console.log(`[RealtimeBattle] Created battle ${battleCode} (ID: ${battleId})`);
     return battle;
   }
 
@@ -185,6 +205,10 @@ class RealtimeBattleService {
       
       if (!codeSnapshot.exists()) {
         console.log(`[RealtimeBattle] Battle code ${battleCode} not found in database`);
+        console.log('[RealtimeBattle] This might indicate:');
+        console.log('  1. The battle was not created successfully');
+        console.log('  2. The battle code is incorrect');
+        console.log('  3. The battle has already expired (5+ minutes old)');
         return null;
       }
 
@@ -195,7 +219,8 @@ class RealtimeBattleService {
       const battleSnapshot = await get(battleRef);
 
       if (!battleSnapshot.exists()) {
-        console.log(`[RealtimeBattle] Battle ${battleId} not found`);
+        console.log(`[RealtimeBattle] Battle ${battleId} not found in database`);
+        console.log('[RealtimeBattle] This indicates the battle was deleted or not properly created');
         return null;
       }
 
@@ -226,6 +251,7 @@ class RealtimeBattleService {
         lastSeen: Date.now(),
       };
 
+      console.log(`[RealtimeBattle] Adding challenger to battle...`);
       await update(battleRef, {
         challenger,
         status: 'ready',
@@ -407,27 +433,28 @@ class RealtimeBattleService {
    * Setup presence tracking for a player
    */
   private setupPresence(battleId: string, playerId: string, playerType: 'host' | 'challenger'): void {
-    // Track connection state
-    const connectedRef = ref(database, '.info/connected');
     const playerPresenceRef = ref(database, `battles/${battleId}/${playerType}`);
     
     this.presenceRef = playerPresenceRef;
 
-    onValue(connectedRef, (snapshot) => {
-      if (snapshot.val() === true) {
-        // We're connected
-        update(playerPresenceRef, {
-          isConnected: true,
-          lastSeen: Date.now(),
-        });
-
-        // When we disconnect, update presence
-        onDisconnect(playerPresenceRef).update({
-          isConnected: false,
-          lastSeen: Date.now(),
-        });
-      }
+    // Best-effort presence: mark connected immediately and register onDisconnect.
+    // We avoid `.info/connected` because it can throw `Invalid token in path` in
+    // some builds/environments.
+    update(playerPresenceRef, {
+      isConnected: true,
+      lastSeen: Date.now(),
+    }).catch((err) => {
+      console.warn('[RealtimeBattle] Presence initial update failed:', err);
     });
+
+    try {
+      onDisconnect(playerPresenceRef).update({
+        isConnected: false,
+        lastSeen: Date.now(),
+      });
+    } catch (err) {
+      console.warn('[RealtimeBattle] onDisconnect registration failed:', err);
+    }
 
     // Periodically update lastSeen
     const heartbeat = setInterval(() => {

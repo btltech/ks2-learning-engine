@@ -9,14 +9,40 @@
  * - Smart voice selection preferring neural/natural voices
  */
 
-import { initializeGoogleCloudTTS, isGoogleCloudConfigured, speakWithGoogleCloud } from './googleCloudTTS';
+import { initializeGoogleCloudTTS, isGoogleCloudConfigured, speakWithGoogleCloud, stopGoogleCloudAudio, pauseGoogleCloudAudio, resumeGoogleCloudAudio, isLanguageSupportedByGoogleCloud } from './googleCloudTTS';
 
-// Initialize Google Cloud TTS if API key is available
-const GOOGLE_TTS_API_KEY = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_GOOGLE_CLOUD_TTS_API_KEY) || '';
-if (GOOGLE_TTS_API_KEY) {
-  initializeGoogleCloudTTS(GOOGLE_TTS_API_KEY);
-  console.log('✅ Google Cloud TTS initialized with API key');
-}
+// Lazy initialization flag
+let googleTTSInitialized = false;
+
+/**
+ * Initialize Google Cloud TTS lazily (called before each speak attempt)
+ * This ensures import.meta.env is available
+ */
+const ensureGoogleCloudTTS = (): boolean => {
+  // Already initialized?
+  if (googleTTSInitialized && isGoogleCloudConfigured()) {
+    return true;
+  }
+
+  try {
+    // Vite exposes env vars through import.meta.env
+    const key = import.meta.env?.VITE_GOOGLE_CLOUD_TTS_API_KEY;
+    if (key && typeof key === 'string' && key.length > 10) {
+      initializeGoogleCloudTTS(key);
+      googleTTSInitialized = true;
+      console.log('✅ Google Cloud TTS initialized successfully');
+      return true;
+    } else {
+      console.log('ℹ️ No Google Cloud TTS API key found in environment');
+    }
+  } catch (e) {
+    console.warn('Could not initialize Google Cloud TTS:', e);
+  }
+  return false;
+};
+
+// Try immediate initialization (may work if module loads after env is ready)
+ensureGoogleCloudTTS();
 
 // Language to BCP47 mapping
 const LANGUAGE_MAP: Record<string, string> = {
@@ -204,7 +230,7 @@ const prepareText = (text: string): string => {
     .replace(/(\d+)%/g, '$1 percent')
     .replace(/(\d+)\/(\d+)/g, '$1 out of $2')
     // Clean emojis for TTS
-    .replace(/[🎉⭐🏆✨💫🌟]/g, '')
+    .replace(/[🎉⭐🏆✨💫🌟]/gu, '')
     .trim();
 };
 
@@ -224,18 +250,30 @@ export const speakNaturally = async (
   text: string, 
   language: string = 'English'
 ): Promise<void> => {
-  // Try Google Cloud TTS first (highest quality)
-  if (isGoogleCloudConfigured()) {
+  // Ensure Google Cloud TTS is initialized (lazy init)
+  ensureGoogleCloudTTS();
+  
+  // Try Google Cloud TTS first (highest quality) - only for supported languages
+  if (isGoogleCloudConfigured() && isLanguageSupportedByGoogleCloud(language)) {
+    console.log('🎤 Using Google Cloud TTS for:', text.substring(0, 50) + '...');
     try {
       const expression = analyzeContent(text);
       const success = await speakWithGoogleCloud(prepareText(text), language, {
         speakingRate: expression.rate,
         pitch: Math.round((expression.pitch - 1) * 10) // Convert to Google's scale
       });
-      if (success) return;
+      if (success) {
+        console.log('✅ Google Cloud TTS played successfully');
+        return;
+      }
+      console.warn('⚠️ Google Cloud TTS returned false, falling back');
     } catch (error) {
       console.warn('Google Cloud TTS failed, falling back to Web Speech:', error);
     }
+  } else if (!isLanguageSupportedByGoogleCloud(language)) {
+    console.log(`ℹ️ ${language} not supported by Google Cloud TTS, using Web Speech API`);
+  } else {
+    console.log('ℹ️ Google Cloud TTS not configured, using Web Speech API');
   }
 
   // Fallback to Web Speech API
@@ -296,20 +334,28 @@ export const speakAsMiRa = async (
   text: string, 
   language: string = 'English'
 ): Promise<void> => {
-  // Try Google Cloud TTS first
-  if (isGoogleCloudConfigured()) {
+  // Ensure Google Cloud TTS is initialized (lazy init)
+  ensureGoogleCloudTTS();
+  
+  // Try Google Cloud TTS first - only for supported languages
+  if (isGoogleCloudConfigured() && isLanguageSupportedByGoogleCloud(language)) {
+    console.log('🤖 MiRa speaking with Google Cloud TTS:', text.substring(0, 50) + '...');
     try {
       const success = await speakWithGoogleCloud(prepareText(text), language, {
         speakingRate: 0.95,
         pitch: 2 // Slightly higher for friendly tone
       });
-      if (success) return;
+      if (success) {
+        console.log('✅ MiRa Google Cloud TTS played successfully');
+        return;
+      }
+      console.warn('⚠️ MiRa Google Cloud TTS returned false, falling back');
     } catch (error) {
       console.warn('Google Cloud TTS failed for MiRa:', error);
     }
   }
 
-  // Fallback to Web Speech API
+  // Use Web Speech API for unsupported languages or as fallback
   if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
     return;
   }
@@ -344,20 +390,28 @@ export const speakCelebration = async (
   text: string, 
   language: string = 'English'
 ): Promise<void> => {
-  // Try Google Cloud TTS first
-  if (isGoogleCloudConfigured()) {
+  // Ensure Google Cloud TTS is initialized (lazy init)
+  ensureGoogleCloudTTS();
+  
+  // Try Google Cloud TTS first - only for supported languages
+  if (isGoogleCloudConfigured() && isLanguageSupportedByGoogleCloud(language)) {
+    console.log('🎉 Celebration with Google Cloud TTS:', text.substring(0, 50) + '...');
     try {
       const success = await speakWithGoogleCloud(prepareText(text), language, {
         speakingRate: 1.1,
         pitch: 4 // Higher pitch for excitement
       });
-      if (success) return;
+      if (success) {
+        console.log('✅ Celebration Google Cloud TTS played successfully');
+        return;
+      }
+      console.warn('⚠️ Celebration Google Cloud TTS returned false, falling back');
     } catch (error) {
       console.warn('Google Cloud TTS failed for celebration:', error);
     }
   }
 
-  // Fallback to Web Speech API
+  // Use Web Speech API for unsupported languages or as fallback
   if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
     return;
   }
@@ -386,26 +440,35 @@ export const speakCelebration = async (
 
 /**
  * Read pronunciation slowly and clearly
- * Uses Google Cloud TTS for best quality
+ * Uses Google Cloud TTS for supported languages, Web Speech API for others
  */
 export const speakPronunciation = async (
   text: string, 
   language: string = 'English'
 ): Promise<void> => {
-  // Try Google Cloud TTS first
-  if (isGoogleCloudConfigured()) {
+  // Ensure Google Cloud TTS is initialized (lazy init)
+  ensureGoogleCloudTTS();
+  
+  // Try Google Cloud TTS first - but only for supported languages
+  // Yoruba and other unsupported languages sound terrible with English voice
+  if (isGoogleCloudConfigured() && isLanguageSupportedByGoogleCloud(language)) {
+    console.log('📖 Pronunciation with Google Cloud TTS:', text);
     try {
       const success = await speakWithGoogleCloud(text, language, {
         speakingRate: 0.75, // Very slow for pronunciation
         pitch: 0
       });
-      if (success) return;
+      if (success) {
+        console.log('✅ Pronunciation Google Cloud TTS played successfully');
+        return;
+      }
+      console.warn('⚠️ Pronunciation Google Cloud TTS returned false, falling back');
     } catch (error) {
       console.warn('Google Cloud TTS failed for pronunciation:', error);
     }
   }
 
-  // Fallback to Web Speech API
+  // Use Web Speech API for unsupported languages or as fallback
   if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
     return;
   }
@@ -432,11 +495,35 @@ export const speakPronunciation = async (
 };
 
 /**
- * Stop all speech
+ * Stop all speech (both Google Cloud TTS and Web Speech API)
  */
 export const stopSpeaking = (): void => {
+  // Stop Google Cloud TTS audio
+  stopGoogleCloudAudio();
+  
+  // Stop Web Speech API
   if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
     window.speechSynthesis.cancel();
+  }
+};
+
+/**
+ * Pause speech
+ */
+export const pauseSpeaking = (): void => {
+  pauseGoogleCloudAudio();
+  if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+    window.speechSynthesis.pause();
+  }
+};
+
+/**
+ * Resume speech
+ */
+export const resumeSpeaking = (): void => {
+  resumeGoogleCloudAudio();
+  if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+    window.speechSynthesis.resume();
   }
 };
 

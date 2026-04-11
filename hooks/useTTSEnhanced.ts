@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
-import { speakNaturally, stopSpeaking, speakCelebration, speakAsMiRa } from '../services/naturalTTS';
+import { speakNaturally, stopSpeaking, speakCelebration, speakAsMiRa, pauseSpeaking, resumeSpeaking } from '../services/naturalTTS';
 
 const LANGUAGE_LOCALE_MAP: Record<string, { locale: string; label: string }> = {
   english: { locale: 'en-GB', label: 'English' },
@@ -40,6 +40,7 @@ const resolveLocale = (languageHint?: string) => {
  */
 export const useTTSEnhanced = (language?: string, _options?: Record<string, unknown>) => {
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState<number | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -66,6 +67,7 @@ export const useTTSEnhanced = (language?: string, _options?: Record<string, unkn
     setProgress(30);
     setErrorMessage(null);
     setNeedsGesture(false);
+    setIsPaused(false);
 
     try {
       setProgress(50);
@@ -83,6 +85,7 @@ export const useTTSEnhanced = (language?: string, _options?: Record<string, unkn
       setProgress(100);
       setIsLoading(false);
       setIsSpeaking(false);
+      setIsPaused(false);
       setProgress(null);
     } catch (error) {
       console.error('TTS error:', error);
@@ -91,10 +94,25 @@ export const useTTSEnhanced = (language?: string, _options?: Record<string, unkn
       }
       setIsLoading(false);
       setIsSpeaking(false);
+      setIsPaused(false);
       setProgress(null);
       setErrorMessage(String(error));
     }
   }, [language]);
+
+  const pause = useCallback(() => {
+    if (isSpeaking && !isPaused) {
+      pauseSpeaking();
+      setIsPaused(true);
+    }
+  }, [isSpeaking, isPaused]);
+
+  const resume = useCallback(() => {
+    if (isSpeaking && isPaused) {
+      resumeSpeaking();
+      setIsPaused(false);
+    }
+  }, [isSpeaking, isPaused]);
 
   const cancel = useCallback(() => {
     if (cancelTimerRef.current) {
@@ -104,6 +122,7 @@ export const useTTSEnhanced = (language?: string, _options?: Record<string, unkn
     stopSpeaking();
 
     setIsSpeaking(false);
+    setIsPaused(false);
     setProgress(null);
     setErrorMessage(null);
     setNeedsGesture(false);
@@ -115,8 +134,11 @@ export const useTTSEnhanced = (language?: string, _options?: Record<string, unkn
 
   return {
     speak,
+    pause,
+    resume,
     cancel,
     isSpeaking,
+    isPaused,
     isLoading,
     progress,
     errorMessage,

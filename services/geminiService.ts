@@ -1,7 +1,10 @@
 import { GoogleGenAI, Type } from "@google/genai";
+import { getAuth } from 'firebase/auth';
 import { db, collection, getDocs, addDoc, query, where, limit } from './firebase';
-import type { QuizQuestion, Difficulty, QuizResult, Explanation } from '../types';
+import type { QuizQuestion, QuizResult, Explanation, QuestionType, CognitiveLevel } from '../types';
+import { QuestionType as QType, CognitiveLevel as CLevel, Difficulty } from '../types';
 import { createCacheKey, getFromCache, setInCache } from './cacheService';
+import { getFromSharedCache, setInSharedCache } from './sharedCacheService';
 import { 
   validateTopicsList, 
   validateLesson, 
@@ -12,23 +15,181 @@ import { contentMonitor } from './contentMonitor';
 import { offlineManager } from './offlineManager';
 import { getRandomQuestions } from '../data/questionBank';
 import { getUsedQuestions, markQuestionsAsUsed, resetUsedQuestions } from './questionTracker';
+import { 
+  filterPoorlyPerformingQuestions, 
+  filterSimilarQuestions, 
+  getAdaptedDifficulty 
+} from './questionPerformance';
 
-const LANGUAGE_SUBJECTS = ['french', 'spanish', 'german', 'japanese', 'mandarin', 'romanian', 'yoruba'];
+const LANGUAGE_SUBJECTS = ['french', 'spanish', 'german', 'japanese', 'mandarin', 'romanian', 'yoruba', 'welsh'];
 
-const apiKey = (import.meta as any).env.VITE_GEMINI_API_KEY as string;
-if (!apiKey) {
+// In production, the API key is handled server-side via Cloudflare Pages Functions
+// In development, we use the VITE_ env var directly
+const USE_PROXY = import.meta.env.PROD;
+const apiKey = USE_PROXY ? 'proxy' : ((import.meta as any).env.VITE_GEMINI_API_KEY as string);
+
+if (!USE_PROXY && !apiKey) {
   console.warn('⚠️ VITE_GEMINI_API_KEY is not set. AI features will not work. Please configure your environment variables.');
 }
-const ai = new GoogleGenAI({ apiKey: apiKey || '' });
+
+const getFirebaseIdToken = async (): Promise<string> => {
+  const auth = getAuth();
+  let user = auth.currentUser;
+  
+  // If no user is signed in, sign in anonymously
+  if (!user) {
+    try {
+      const { signInAnonymously } = await import('firebase/auth');
+      const userCredential = await signInAnonymously(auth);
+      user = userCredential.user;
+      console.log('🔐 Signed in anonymously for AI features');
+    } catch (error) {
+      console.error('Failed to sign in anonymously:', error);
+      throw new Error('Please sign in to use AI features.');
+    }
+  }
+  
+  return user.getIdToken();
+};
+
+const isSafetyIssue = (issue: string): boolean => {
+  const lower = issue.toLowerCase();
+  return lower.includes('inappropriate') || lower.includes('harmful');
+};
+
+const hasSafetyIssues = (issues: string[]): boolean => issues.some(isSafetyIssue);
+
+const sanitizeSharedTopics = (value: unknown): string[] | null => {
+  if (!Array.isArray(value)) return null;
+
+  const cleaned = value
+    .filter((t): t is string => typeof t === 'string')
+    .map((t) => t.trim())
+    .filter((t) => t.length > 0 && t.length <= 100);
+
+  const seen = new Set<string>();
+  const unique: string[] = [];
+  for (const topic of cleaned) {
+    const key = topic.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    unique.push(topic);
+  }
+
+  if (unique.length === 0) return null;
+  return unique;
+};
+
+const sanitizeSharedLesson = (value: unknown): string | null => {
+  if (typeof value !== 'string') return null;
+  const lesson = value.trim();
+  if (lesson.length < 50) return null;
+  // Soft cap to avoid pathological cache entries; the generator already tries to keep lessons reasonable.
+  if (lesson.length > 50_000) return null;
+  return lesson;
+};
+
+const sanitizeSharedQuiz = (value: unknown): QuizQuestion[] | null => {
+  if (!Array.isArray(value)) return null;
+
+  const validQuestions: QuizQuestion[] = [];
+
+  for (const q of value) {
+    const candidate: any = q as any;
+
+    // Drawing questions don't satisfy the default multiple-choice validator (options empty),
+    // so validate a probe version while keeping the original question object.
+    if (candidate?.questionType === QType.Drawing) {
+      const answer = typeof candidate.correctAnswer === 'string' && candidate.correctAnswer.trim()
+        ? candidate.correctAnswer.trim()
+        : 'Drawing submitted';
+      const probe = {
+        ...candidate,
+        options: [answer, 'Other'],
+        correctAnswer: answer,
+      };
+      const validation = validateQuizQuestion(probe);
+      if (validation.isValid) validQuestions.push(candidate as QuizQuestion);
+      continue;
+    }
+
+    const validation = validateQuizQuestion(candidate);
+    if (validation.isValid) validQuestions.push(candidate as QuizQuestion);
+  }
+
+  if (validQuestions.length === 0) return null;
+  return validQuestions;
+};
+
+// Proxy-based AI client for production
+const createProxyAI = () => ({
+  models: {
+    generateContent: async (params: { model: string; contents: string; config?: any }) => {
+      const token = await getFirebaseIdToken();
+      const response = await fetch('/api/gemini', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          model: params.model,
+          contents: [{ parts: [{ text: params.contents }] }],
+          generationConfig: params.config ? {
+            responseMimeType: params.config.responseMimeType,
+            responseSchema: params.config.responseSchema,
+          } : undefined,
+        }),
+      });
+      
+      if (!response.ok) {
+        let errorMessage = 'AI request failed';
+        try {
+          const error = await response.json();
+          errorMessage = error?.error || errorMessage;
+        } catch {
+          // ignore
+        }
+        throw new Error(errorMessage);
+      }
+      
+      const data = await response.json();
+      const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+      return { text };
+    }
+  }
+});
+
+// Use proxy in production, direct SDK in development
+const ai = USE_PROXY ? createProxyAI() : new GoogleGenAI({ apiKey: apiKey || '' });
 
 const model = 'gemini-2.5-flash';
 
 export const getTopicsForSubject = async (subject: string, studentAge: number): Promise<string[]> => {
   const cacheKey = createCacheKey('topics', subject, studentAge.toString());
+  
+  // 1. Check Local Cache
   const cachedTopics = getFromCache<string[]>(cacheKey);
   if (cachedTopics) {
     console.log(`Cache hit for topics: ${subject} (age ${studentAge})`);
     return cachedTopics;
+  }
+
+  // 2. Check Shared Cache (Firestore)
+  if (offlineManager.checkOnlineStatus()) {
+    const sharedTopicsRaw = await getFromSharedCache<any>(cacheKey);
+    const sharedTopics = sanitizeSharedTopics(sharedTopicsRaw);
+    if (sharedTopics) {
+      const validation = validateTopicsList(sharedTopics);
+      if (!hasSafetyIssues(validation.issues)) {
+        console.log(`Shared cache hit for topics: ${subject}`);
+        setInCache(cacheKey, sharedTopics); // Save locally for next time
+        return sharedTopics;
+      }
+    }
+    if (sharedTopicsRaw) {
+      console.warn(`Ignored shared cached topics for ${subject} due to validation issues.`);
+    }
   }
 
   // Check if offline
@@ -48,7 +209,7 @@ IMPORTANT: Content must be appropriate for children aged ${studentAge}. Use simp
   } else if (subjectLower === 'languages') {
     contents = `List 30 key language learning topics for a ${studentAge}-year-old UK Key Stage 2 student. 
     
-    You MUST include topics for ALL of these languages: French, Spanish, German, Japanese, Mandarin, Romanian, and Yoruba.
+    You MUST include topics for ALL of these languages: French, Spanish, German, Japanese, Mandarin, Romanian, Yoruba, and Welsh.
     
     Format the topics clearly as "[Language]: [Topic]", for example:
     - "French: Greetings"
@@ -58,6 +219,7 @@ IMPORTANT: Content must be appropriate for children aged ${studentAge}. Use simp
     - "Mandarin: Family"
     - "Yoruba: Common Phrases"
     - "Romanian: Food"
+    - "Welsh: Basics"
 
     Focus on vocabulary and basic conversation. Ensure topics are aligned with the UK DfE curriculum standards where applicable, or beginner levels for the other languages.
 
@@ -143,6 +305,12 @@ IMPORTANT: Content must be appropriate for children aged ${studentAge}. Use simp
     }
     
     setInCache(cacheKey, topics);
+    
+    // Save to Shared Cache
+    if (offlineManager.checkOnlineStatus()) {
+      setInSharedCache(cacheKey, topics);
+    }
+    
     return topics;
   } catch (error) {
     console.error("Error fetching topics:", error);
@@ -152,10 +320,27 @@ IMPORTANT: Content must be appropriate for children aged ${studentAge}. Use simp
 
 export const generateLesson = async (subject: string, topic: string, difficulty: Difficulty, studentAge: number): Promise<string> => {
   const cacheKey = createCacheKey('lesson', subject, topic, difficulty, studentAge.toString());
+  
+  // 1. Check Local Cache
   const cachedLesson = getFromCache<string>(cacheKey);
   if (cachedLesson) {
     console.log(`Cache hit for lesson: ${subject} - ${topic} (${difficulty}, age ${studentAge})`);
     return cachedLesson;
+  }
+  
+  // 2. Check Shared Cache
+  if (offlineManager.checkOnlineStatus()) {
+    const sharedLessonRaw = await getFromSharedCache<any>(cacheKey);
+    const sharedLesson = sanitizeSharedLesson(sharedLessonRaw);
+    if (sharedLesson) {
+      const validation = validateLesson(sharedLesson);
+      if (!hasSafetyIssues(validation.issues)) {
+        console.log(`Shared cache hit for lesson: ${subject} - ${topic}`);
+        setInCache(cacheKey, sharedLesson);
+        return sharedLesson;
+      }
+      console.warn('Ignored shared cached lesson due to validation issues.');
+    }
   }
   
   // Check if offline
@@ -173,6 +358,24 @@ export const generateLesson = async (subject: string, topic: string, difficulty:
     specificInstructions = "For Languages, 'Key Vocabulary' must include the foreign word, phonetic pronunciation in brackets, and English meaning (e.g., 'Chat (sha) - Cat'). 'Quick Explanation' should focus on simple phrases and usage, avoiding complex grammar. Ensure the content is very basic and suitable for a beginner.";
   } else if (subjectLower === 'maths' || subjectLower === 'mathematics') {
     specificInstructions = "For Maths, 'Modelling' must show step-by-step working out.";
+  }
+
+  // SATs Revision Logic (Year 6)
+  const isYear6 = studentAge >= 10;
+  if (isYear6 && (subjectLower === 'maths' || subjectLower === 'mathematics')) {
+    specificInstructions += `
+    SATs FOCUS (Year 6):
+    - Align with KS2 SATs Arithmetic and Reasoning papers.
+    - 'Quick Explanation' MUST include a specific "SATs Tip" (e.g., "Remember to check units!", "Show your working").
+    - 'Try It' tasks should mirror SATs question styles (e.g., "Calculate...", "Explain why...").
+    - Emphasize formal written methods where applicable.`;
+  } else if (isYear6 && (subjectLower === 'english' || subjectLower === 'literacy')) {
+    specificInstructions += `
+    SATs FOCUS (Year 6):
+    - Align with KS2 SATs Reading and GPS (SPaG) papers.
+    - 'Key Vocabulary' MUST include formal grammatical terms (e.g., 'subjunctive', 'passive', 'determiner') if relevant.
+    - 'Quick Explanation' MUST include a "SATs Tip" (e.g., "Look for evidence in the text", "Check your punctuation").
+    - 'Try It' tasks should mirror SATs style (e.g., "Tick one box", "Circle the adjective").`;
   }
 
   contents = `You are MiRa, an AI tutor for KS2 students (ages 7–11).
@@ -226,6 +429,12 @@ Output using clean markdown with only those 5 headings.`;
     }
     
     setInCache(cacheKey, validation.sanitizedContent || lessonText);
+    
+    // Save to Shared Cache
+    if (offlineManager.checkOnlineStatus()) {
+      setInSharedCache(cacheKey, validation.sanitizedContent || lessonText);
+    }
+
     return validation.sanitizedContent || lessonText;
   } catch (error) {
     console.error("Error generating lesson:", error);
@@ -233,9 +442,51 @@ Output using clean markdown with only those 5 headings.`;
   }
 };
 
-export const generateQuiz = async (subject: string, topic: string, difficulty: Difficulty, studentAge: number): Promise<QuizQuestion[]> => {
-  const usedQuestionIds = getUsedQuestions(subject, topic, studentAge, difficulty);
+export const generateQuiz = async (
+  subject: string, 
+  topic: string, 
+  difficulty: Difficulty, 
+  studentAge: number,
+  studentQuizHistory?: Array<{ score: number; difficulty: string }>
+): Promise<QuizQuestion[]> => {
+  // ADAPTIVE DIFFICULTY: Adjust based on student performance
+  const adaptedDifficulty = studentQuizHistory 
+    ? getAdaptedDifficulty(difficulty, studentQuizHistory) as Difficulty
+    : difficulty;
+  
+  if (adaptedDifficulty !== difficulty) {
+    console.log(`Adaptive difficulty: ${difficulty} → ${adaptedDifficulty}`);
+  }
+  
+  // 0. Check Shared Cache for WHOLE QUIZ (Fastest & Cheapest)
+  const cacheKey = createCacheKey('quiz', subject, topic, adaptedDifficulty, studentAge.toString());
+  
+  // Check Local Cache first
+  const cachedData = getFromCache<{ questions: QuizQuestion[], timestamp: number, source: string }>(cacheKey);
+  if (cachedData && cachedData.questions && cachedData.questions.length >= 10) {
+    console.log(`Using cached ${cachedData.source || 'AI'}-generated quiz: ${subject} - ${topic}`);
+    return cachedData.questions;
+  }
+
+  // Check Shared Cache
+  if (offlineManager.checkOnlineStatus()) {
+    const sharedQuizRaw = await getFromSharedCache<any>(cacheKey);
+    const sharedQuiz = sanitizeSharedQuiz(sharedQuizRaw);
+    if (sharedQuiz && sharedQuiz.length >= 10) {
+      console.log(`Shared cache hit for quiz: ${subject} - ${topic}`);
+      // Save locally
+      setInCache(cacheKey, {
+        questions: sharedQuiz,
+        timestamp: Date.now(),
+        source: 'shared-cache'
+      });
+      return sharedQuiz;
+    }
+  }
+
+  const usedQuestionIds = getUsedQuestions(subject, topic, studentAge, adaptedDifficulty);
   let finalQuestions: QuizQuestion[] = [];
+  const existingQuestionTexts: string[] = [];
 
   // STEP 1: Try to get questions from Firebase (The "Cloud Bank")
   try {
@@ -247,7 +498,7 @@ export const generateQuiz = async (subject: string, topic: string, difficulty: D
             collection(db, "questions"),
             where("subject", "==", subject),
             where("topic", "==", topic),
-            where("difficulty", "==", difficulty),
+            where("difficulty", "==", adaptedDifficulty),
             where("age", "==", studentAge),
             limit(30) 
         );
@@ -261,16 +512,24 @@ export const generateQuiz = async (subject: string, topic: string, difficulty: D
                     question: data.question,
                     options: data.options,
                     correctAnswer: data.correctAnswer,
-                    explanation: data.explanation
+                    explanation: data.explanation,
+                    questionType: data.questionType || QType.MultipleChoice,
+                    cognitiveLevel: data.cognitiveLevel
                 });
             }
         });
 
-        const availableFirebaseQuestions = firebaseQuestions.filter(q => !usedQuestionIds.includes(q.id));
+        // Filter out used questions and poorly performing ones
+        let availableFirebaseQuestions = firebaseQuestions.filter(q => !usedQuestionIds.includes(q.id));
+        availableFirebaseQuestions = filterPoorlyPerformingQuestions(availableFirebaseQuestions);
+        
+        // Filter similar questions
+        availableFirebaseQuestions = filterSimilarQuestions(availableFirebaseQuestions, existingQuestionTexts);
         
         if (availableFirebaseQuestions.length > 0) {
-             console.log(`Found ${availableFirebaseQuestions.length} questions in Firebase`);
+             console.log(`Found ${availableFirebaseQuestions.length} quality questions in Firebase`);
              finalQuestions = [...availableFirebaseQuestions];
+             existingQuestionTexts.push(...availableFirebaseQuestions.map(q => q.question));
         }
     }
   } catch {
@@ -297,19 +556,27 @@ export const generateQuiz = async (subject: string, topic: string, difficulty: D
           bankTopic = `${subject}: ${topic}`; 
       }
 
-      let bankQuestions = getRandomQuestions(bankSubject, bankTopic, studentAge, difficulty, neededFromBank, usedQuestionIds);
+      let bankQuestions = await getRandomQuestions(bankSubject, bankTopic, studentAge, adaptedDifficulty, neededFromBank, usedQuestionIds);
+      
+      // Filter poorly performing and similar questions
+      bankQuestions = filterPoorlyPerformingQuestions(bankQuestions);
+      bankQuestions = filterSimilarQuestions(bankQuestions, existingQuestionTexts);
       
       // If strict match failed for language, try to find any questions for this language
       if (isLanguage && bankQuestions.length === 0) {
           // Fetch ALL questions for "Languages" subject
-          const allLanguageQuestions = getRandomQuestions(bankSubject, "", studentAge, difficulty, 50, usedQuestionIds);
+          const allLanguageQuestions = await getRandomQuestions(bankSubject, "", studentAge, adaptedDifficulty, 50, usedQuestionIds);
           
           // Filter for the specific language (e.g. "French")
           // The bank topics are like "French: Greetings", so we check if topic starts with "French"
           const languagePrefix = subject + ":";
-          const specificLanguageQuestions = allLanguageQuestions.filter(q => 
+          let specificLanguageQuestions = allLanguageQuestions.filter(q => 
               q.topic.startsWith(languagePrefix) || q.topic.includes(subject)
           );
+          
+          // Apply quality filters
+          specificLanguageQuestions = filterPoorlyPerformingQuestions(specificLanguageQuestions);
+          specificLanguageQuestions = filterSimilarQuestions(specificLanguageQuestions, existingQuestionTexts);
           
           if (specificLanguageQuestions.length > 0) {
               console.log(`Found ${specificLanguageQuestions.length} general ${subject} questions in bank`);
@@ -320,6 +587,7 @@ export const generateQuiz = async (subject: string, topic: string, difficulty: D
       }
 
       finalQuestions = [...finalQuestions, ...bankQuestions];
+      existingQuestionTexts.push(...bankQuestions.map(q => q.question));
   }
   
   // Fallback: If no questions found for specific topic, try finding questions for the subject generally
@@ -334,9 +602,13 @@ export const generateQuiz = async (subject: string, topic: string, difficulty: D
     const isLanguage = ['french', 'spanish', 'german', 'japanese', 'mandarin', 'romanian', 'yoruba'].includes(subjectLower);
 
     if (!isLanguage) {
-        const allSubjectQuestions = getRandomQuestions(fallbackSubject, "", studentAge, difficulty, 10, usedQuestionIds);
+        let allSubjectQuestions = await getRandomQuestions(fallbackSubject, "", studentAge, adaptedDifficulty, 10, usedQuestionIds);
+        // Apply quality filters
+        allSubjectQuestions = filterPoorlyPerformingQuestions(allSubjectQuestions);
+        allSubjectQuestions = filterSimilarQuestions(allSubjectQuestions, existingQuestionTexts);
         if (allSubjectQuestions.length > 0) {
             finalQuestions = allSubjectQuestions;
+            existingQuestionTexts.push(...allSubjectQuestions.map(q => q.question));
         }
     }
   }
@@ -348,9 +620,9 @@ export const generateQuiz = async (subject: string, topic: string, difficulty: D
     finalQuestions = finalQuestions.sort(() => Math.random() - 0.5).slice(0, 10);
 
     const questionIds = finalQuestions.map(q => q.id);
-    markQuestionsAsUsed(subject, topic, studentAge, difficulty, questionIds);
+    markQuestionsAsUsed(subject, topic, studentAge, adaptedDifficulty, questionIds);
     
-    const cacheKey = createCacheKey('quiz', subject, topic, difficulty, studentAge.toString());
+    const cacheKey = createCacheKey('quiz', subject, topic, adaptedDifficulty, studentAge.toString());
     const cacheData = {
       questions: finalQuestions,
       timestamp: Date.now(),
@@ -364,29 +636,14 @@ export const generateQuiz = async (subject: string, topic: string, difficulty: D
   // If we've used all questions, reset tracker
   if (finalQuestions.length === 0 && usedQuestionIds.length > 0) {
     console.log('All questions used - resetting tracker');
-    resetUsedQuestions(subject, topic, studentAge, difficulty);
+    resetUsedQuestions(subject, topic, studentAge, adaptedDifficulty);
     // Recursive call to try again with fresh tracker? 
     // Or just proceed to AI. Let's proceed to AI to generate fresh content.
   }
 
-  // STEP 3: Fallback to cache if we have it
-  // ... existing cache logic ...
-  const cacheKey = createCacheKey('quiz', subject, topic, difficulty, studentAge.toString());
-  const cachedData = getFromCache<{ questions: QuizQuestion[], timestamp: number, source: string }>(cacheKey);
-  if (cachedData && cachedData.questions && cachedData.questions.length >= 10) {
-    console.log(`Using cached ${cachedData.source || 'AI'}-generated quiz: ${subject} - ${topic} (${difficulty}, age ${studentAge})`);
-    return cachedData.questions;
-  }
-  
-  // Legacy cache format support (for backward compatibility)
-  const legacyCachedQuiz = getFromCache<QuizQuestion[]>(cacheKey);
-  if (legacyCachedQuiz && Array.isArray(legacyCachedQuiz) && legacyCachedQuiz.length >= 10) {
-    console.log(`Using legacy cached quiz: ${subject} - ${topic} (${difficulty}, age ${studentAge})`);
-    return legacyCachedQuiz;
-  }
-
   // STEP 3: Generate new questions with AI (and cache them for later)
-  console.log(`Generating new questions with AI for: ${subject} - ${topic} (${difficulty})`);
+  // Note: Cache was already checked at the start of the function
+  console.log(`Generating new questions with AI for: ${subject} - ${topic} (${adaptedDifficulty})`);
   
   // Check if offline
   if (!offlineManager.checkOnlineStatus()) {
@@ -413,58 +670,234 @@ export const generateQuiz = async (subject: string, topic: string, difficulty: D
       `;
   }
 
+  // DfE KS2 National Curriculum objectives by subject
+  const dfeObjectives: Record<string, Record<string, string[]>> = {
+    maths: {
+      'Addition and Subtraction': ['Add/subtract numbers with up to 4 digits using formal written methods', 'Solve 2-step problems in contexts', 'Estimate and use inverse operations to check'],
+      'Multiplication and Division': ['Multiply 2-digit by 1-digit numbers', 'Use place value for mental calculations', 'Recall multiplication facts to 12×12'],
+      'Fractions': ['Recognise equivalent fractions', 'Add/subtract fractions with same denominator', 'Find fractions of quantities'],
+      'Decimals': ['Recognise decimal equivalents', 'Round decimals to nearest whole number', 'Compare numbers with up to 2 decimal places'],
+      'Place Value': ['Read, write, order numbers to 10,000', 'Find 1000 more or less', 'Round to nearest 10, 100, 1000'],
+      'Shapes and Geometry': ['Compare and classify geometric shapes', 'Identify lines of symmetry', 'Know angles are measured in degrees'],
+    },
+    science: {
+      'Living Things': ['Recognise living things can be grouped', 'Use classification keys', 'Recognise environments can change'],
+      'Plants': ['Identify functions of plant parts', 'Explore requirements for life and growth', 'Investigate water transport in plants'],
+      'Animals': ['Describe simple functions of digestive system', 'Identify types of teeth', 'Construct and interpret food chains'],
+      'Human Body': ['Describe functions of skeleton and muscles', 'Identify organs', 'Recognise impact of diet and exercise'],
+      'Forces and Magnets': ['Compare how things move on different surfaces', 'Notice magnetic poles attract/repel', 'Describe magnets as having two poles'],
+      'States of Matter': ['Compare and group materials', 'Observe melting, freezing, evaporation', 'Identify water cycle stages'],
+    },
+    english: {
+      'Spelling': ['Use prefixes and suffixes', 'Spell homophones correctly', 'Use first 2-3 letters for dictionary'],
+      'Grammar': ['Use noun phrases expanded by modifiers', 'Use fronted adverbials', 'Use conjunctions, adverbs and prepositions'],
+      'Punctuation': ['Use commas after fronted adverbials', 'Use apostrophes for possession', 'Use inverted commas for speech'],
+      'Vocabulary': ['Use a thesaurus', 'Choose words for effect', 'Understand formal and informal language'],
+      'Parts of Speech': ['Identify nouns, verbs, adjectives, adverbs', 'Use pronouns appropriately', 'Understand determiners'],
+      'Synonyms and Antonyms': ['Use synonyms for variety', 'Understand antonyms change meaning', 'Build word families'],
+    },
+    history: {
+      'Romans in Britain': ['Know when Romans invaded', 'Understand impact on British culture', 'Know about Roman roads, towns, villas'],
+      'Vikings': ['Know where Vikings came from', 'Understand Viking raids and settlements', 'Compare Viking and Anglo-Saxon life'],
+      'Ancient Egypt': ['Know about pharaohs and pyramids', 'Understand Egyptian beliefs', 'Know about hieroglyphics'],
+      'Tudors': ['Know key Tudor monarchs', 'Understand religious changes', 'Know about exploration and discovery'],
+      'World War 2': ['Know causes and timeline', 'Understand evacuation', 'Know about the Blitz and rationing'],
+      'Stone Age to Iron Age': ['Know chronology of periods', 'Understand hunter-gatherer to farmer', 'Know about Stonehenge'],
+    },
+    geography: {
+      'Maps and Atlases': ['Use 4-figure grid references', 'Use symbols and keys', 'Use 8 compass points'],
+      'UK Geography': ['Name and locate counties and cities', 'Identify geographical regions', 'Understand human and physical features'],
+      'World Continents': ['Locate continents and oceans', 'Identify major countries', 'Understand time zones'],
+      'Weather and Climate': ['Describe and understand climate zones', 'Compare climates', 'Understand weather patterns'],
+      'Rivers': ['Describe key features of rivers', 'Understand erosion and deposition', 'Know major UK and world rivers'],
+      'Environmental Issues': ['Understand human impact on environment', 'Know about sustainability', 'Describe climate change effects'],
+    },
+    computing: {
+      'Algorithms': ['Design and write programs', 'Use sequence, selection, repetition', 'Use logical reasoning'],
+      'Coding Basics': ['Use Scratch or similar', 'Debug simple programs', 'Use variables in programs'],
+      'Internet Safety': ['Use technology safely', 'Recognise acceptable behaviour', 'Report concerns'],
+      'Computer Hardware': ['Understand input/output devices', 'Know about storage', 'Understand networks'],
+      'Digital Literacy': ['Use search effectively', 'Evaluate digital content', 'Create digital content'],
+    },
+    art: {
+      'Colour Theory': ['Know primary and secondary colours', 'Understand warm and cool colours', 'Mix colours for shades and tints'],
+      'Famous Artists': ['Know about artists from different periods', 'Compare artistic styles', 'Understand artistic techniques'],
+      'Drawing Techniques': ['Use line, tone and texture', 'Sketch from observation', 'Use perspective'],
+      'Art History': ['Know major art movements', 'Compare art across cultures', 'Understand historical context'],
+      'Patterns and Textures': ['Create repeating patterns', 'Use different materials for texture', 'Print patterns'],
+    },
+  };
+
   // Add subject-specific guidance for better questions
   const subjectGuidance: Record<string, string> = {
     maths: `
-      - Include a MIX of question types: calculations, word problems, shape recognition, pattern finding
+      DfE MATHS OBJECTIVES TO TEST:
+      ${dfeObjectives.maths[topic]?.map(o => `• ${o}`).join('\n      ') || '• Apply mathematical knowledge to solve problems'}
+      
+      QUESTION DESIGN:
+      - Include a MIX: calculations, word problems, shape recognition, pattern finding
       - For word problems, use real-life scenarios (shopping, cooking, sports)
       - Include visual descriptions when helpful ("Imagine a rectangle with...")
       - Test both procedural knowledge AND conceptual understanding
+      - Use COMMON MISCONCEPTIONS for wrong answers (e.g., "forgot to carry", "added instead of multiplied")
     `,
     science: `
+      DfE SCIENCE OBJECTIVES TO TEST:
+      ${dfeObjectives.science[topic]?.map(o => `• ${o}`).join('\n      ') || '• Apply scientific enquiry skills'}
+      
+      QUESTION DESIGN:
       - Mix factual recall with application questions
       - Include "What would happen if..." prediction questions
       - Reference real experiments and observations children might do
       - Connect to everyday phenomena (why does ice melt, how do plants grow)
+      - Use COMMON MISCONCEPTIONS for wrong answers (e.g., "plants get food from soil")
     `,
     english: `
+      DfE ENGLISH OBJECTIVES TO TEST:
+      ${dfeObjectives.english[topic]?.map(o => `• ${o}`).join('\n      ') || '• Apply language skills effectively'}
+      
+      QUESTION DESIGN:
       - Mix grammar, vocabulary, comprehension, and creative elements
       - Use interesting sentence examples from stories or real life
       - Include questions about word meanings in context
       - Test punctuation with purpose (how it changes meaning)
+      - Use COMMON MISTAKES for wrong answers (their/there/they're, its/it's)
     `,
     history: `
+      DfE HISTORY OBJECTIVES TO TEST:
+      ${dfeObjectives.history[topic]?.map(o => `• ${o}`).join('\n      ') || '• Understand historical concepts and chronology'}
+      
+      QUESTION DESIGN:
       - Focus on cause and effect, not just dates
       - Include "Why did..." and "What happened because..." questions
       - Connect historical events to daily life back then
       - Make it relatable to children's experience
+      - Include PRIMARY SOURCE questions where possible
     `,
     geography: `
+      DfE GEOGRAPHY OBJECTIVES TO TEST:
+      ${dfeObjectives.geography[topic]?.map(o => `• ${o}`).join('\n      ') || '• Apply geographical knowledge and skills'}
+      
+      QUESTION DESIGN:
       - Include map-reading skills and real locations
       - Ask about human and physical geography
       - Connect to environmental awareness and current events
       - Include "Where in the world..." exploration questions
+      - Use REAL PLACES and CURRENT EXAMPLES
+    `,
+    computing: `
+      DfE COMPUTING OBJECTIVES TO TEST:
+      ${dfeObjectives.computing[topic]?.map(o => `• ${o}`).join('\n      ') || '• Apply computational thinking'}
+      
+      QUESTION DESIGN:
+      - Include algorithm/logic puzzles
+      - Test debugging skills with "What's wrong with this code?"
+      - Include internet safety scenarios
+      - Make questions practical and applicable
+    `,
+    art: `
+      DfE ART OBJECTIVES TO TEST:
+      ${dfeObjectives.art[topic]?.map(o => `• ${o}`).join('\n      ') || '• Develop artistic knowledge and skills'}
+      
+      QUESTION DESIGN:
+      - Test knowledge about techniques, artists, and art history
+      - Include colour theory and mixing questions
+      - Ask about famous artworks and what makes them special
+      - Include questions about materials and their effects
+      - Use "What technique would you use to..." application questions
     `,
   };
 
-  const subjectSpecificTips = subjectGuidance[subjectLower] || '';
+  let subjectSpecificTips = subjectGuidance[subjectLower] || '';
+
+  // SATs Enhancement for Year 6
+  if (studentAge >= 10) {
+      if (subjectLower === 'maths' || subjectLower === 'mathematics') {
+          subjectSpecificTips += `
+          SATs EXAM STYLE (Year 6):
+          - Include questions that mimic the "Arithmetic Paper" (pure calculation, e.g., long multiplication, fractions).
+          - Include questions that mimic the "Reasoning Papers" (word problems, explaining why, missing number problems).
+          - Ensure difficulty matches the end of KS2 standard.
+          `;
+      } else if (subjectLower === 'english' || subjectLower === 'literacy') {
+          subjectSpecificTips += `
+          SATs EXAM STYLE (Year 6):
+          - Focus on "Grammar, Punctuation and Spelling" (GPS) paper style questions.
+          - Ask to identify parts of speech (e.g., "Which word is the adverb?").
+          - Ask to correct punctuation errors.
+          - Ask for synonyms/antonyms in context.
+          `;
+      }
+  }
+
+  // Question type distribution guidance
+  let questionTypeGuidance = `
+  QUESTION TYPE VARIETY (generate a mix - MANDATORY):
+  - 4-5 "multiple-choice": Standard 4-option multiple choice questions
+  - 2-3 "true-false": True/False statements (options must be exactly ["True", "False"])
+  - 2-3 "fill-in-blank": Sentence with _____ where student types the answer
+  `;
+
+  if (subjectLower === 'art' || subjectLower === 'design & technology') {
+    questionTypeGuidance += `
+    - 1-2 "drawing": Ask the student to draw something specific related to the topic (e.g., "Draw a secondary colour", "Draw a pattern")
+    `;
+  }
+  
+  questionTypeGuidance += `
+  COGNITIVE LEVEL VARIETY (Bloom's Taxonomy - MANDATORY distribution):
+  - 2-3 "remember": Recall basic facts (What is...? Who...? When...? Name the...)
+  - 3-4 "understand": Explain concepts (Why...? What does X mean? Explain how...)
+  - 2-3 "apply": Use knowledge in new situations (If you had..., Calculate..., What would happen if...?)
+  - 1-2 "analyze": Compare, contrast, find patterns (How are X and Y similar? What's the difference...?)
+  
+  QUESTION STEM VARIETY (use DIFFERENT starters - at least 7 different ones):
+  ✓ "What is..." / "What are..."
+  ✓ "Which of these..." / "Which one..."
+  ✓ "Why do you think..." / "Why does..."
+  ✓ "How would you..." / "How do..."
+  ✓ "If you were..." / "Imagine you..."
+  ✓ "True or false:..."
+  ✓ "Complete this sentence:..."
+  ✓ "What would happen if..."
+  ✓ "Compare..." / "What's the difference between..."
+  ✓ "Put these in order..." / "Which comes first..."
+  `;
+
+  // Generate a unique session ID to help with variety
+  const sessionId = Date.now().toString(36);
 
   try {
     const response = await ai.models.generateContent({
       model,
-      contents: `You are MiRa, a creative AI tutor designing an ENGAGING 10-question multiple-choice quiz for a UK Key Stage 2 student (age ${studentAge}) on '${topic}' in '${subject}'.
+      contents: `You are MiRa, a creative AI tutor designing an ENGAGING 10-question quiz for a UK Key Stage 2 student (age ${studentAge}) on '${topic}' in '${subject}'.
+
+SESSION ID: ${sessionId} (use this to ensure unique questions)
+
+UK DfE NATIONAL CURRICULUM ALIGNMENT:
+This quiz MUST align with the Department for Education Key Stage 2 Programme of Study.
+Test the specific learning objectives for this topic as defined in the National Curriculum.
 
 QUIZ QUALITY REQUIREMENTS:
-1. VARIETY: Mix different question types (factual recall, application, reasoning, "what if" scenarios)
+1. VARIETY: Mix different question types AND cognitive levels (see requirements below)
 2. ENGAGEMENT: Make questions interesting with real-world connections and fun scenarios
-3. DIFFICULTY: ${difficulty} level - ${difficulty === 'Easy' ? 'build confidence with clear, achievable questions' : difficulty === 'Medium' ? 'challenge without frustrating, include some thinking questions' : 'push their knowledge with multi-step thinking'}
-4. UNIQUENESS: Avoid typical textbook phrasing - make questions feel fresh and creative
+3. DIFFICULTY: ${adaptedDifficulty} level - ${adaptedDifficulty === 'Easy' ? 'build confidence with clear, achievable questions' : adaptedDifficulty === 'Medium' ? 'challenge without frustrating, include some thinking questions' : 'push their knowledge with multi-step thinking'}
+4. UNIQUENESS: Every question must feel FRESH and DIFFERENT - avoid textbook phrasing
+5. WRONG ANSWERS: Use PLAUSIBLE distractors based on common misconceptions (not silly options)
+
+${questionTypeGuidance}
+
+WRONG ANSWER DESIGN (CRITICAL):
+- Base wrong answers on COMMON MISTAKES students make
+- Include "almost right" answers that test careful reading
+- Never use obviously wrong or silly answers
+- Each wrong answer should represent a real misconception
 
 QUESTION DESIGN TIPS:
-- Start questions in varied ways ("Which...", "What happens when...", "Why do you think...", "If you were...", "Imagine...")
+- Start questions in varied ways (see stem variety above)
 - Use child-friendly scenarios (games, food, animals, family activities)
 - Include one "fun fact" style question that teaches something surprising
-- Make wrong answers PLAUSIBLE but distinguishable (avoid obviously silly options)
+- Reference real-world applications of the knowledge
 
 ${specificQuizInstructions}
 ${subjectSpecificTips}
@@ -473,7 +906,9 @@ CRITICAL RULES:
 - All content must be 100% appropriate for children aged ${studentAge}
 - Every answer option must be SPECIFIC and RELATED to the topic (NO generic placeholders!)
 - Include a brief, encouraging explanation for each answer
-- Align with UK National Curriculum / DfE expectations for KS2
+- For fill-in-blank: use _____ in the question text, provide correctAnswer, and optionally acceptableAnswers
+- For true-false: options must be exactly ["True", "False"]
+- Use British English spelling throughout
 
 Generate 10 varied, engaging questions:`,
       config: {
@@ -492,9 +927,22 @@ Generate 10 varied, engaging questions:`,
                     items: { type: Type.STRING },
                   },
                   correctAnswer: { type: Type.STRING },
-                  explanation: { type: Type.STRING }, // Request explanation from AI
+                  explanation: { type: Type.STRING },
+                  questionType: { 
+                    type: Type.STRING,
+                    description: "Type of question: 'multiple-choice', 'true-false', 'fill-in-blank', or 'drawing'"
+                  },
+                  cognitiveLevel: { 
+                    type: Type.STRING,
+                    description: "Bloom's level: 'remember', 'understand', 'apply', or 'analyze'" 
+                  },
+                  acceptableAnswers: {
+                    type: Type.ARRAY,
+                    items: { type: Type.STRING },
+                    description: "Alternative correct answers for fill-in-blank questions"
+                  }
                 },
-                required: ['question', 'options', 'correctAnswer'],
+                required: ['question', 'correctAnswer', 'questionType', 'cognitiveLevel'],
               },
             },
           },
@@ -506,8 +954,60 @@ Generate 10 varied, engaging questions:`,
     const jsonResponse = JSON.parse(response.text);
     const quizQuestions = jsonResponse.quiz || [];
     
+    // Normalize question types and cognitive levels
+    const normalizedQuestions = quizQuestions.map((question: any) => {
+      // Map AI response to our enums
+      let questionType = QType.MultipleChoice;
+      if (question.questionType) {
+        const typeMap: Record<string, QuestionType> = {
+          'multiple-choice': QType.MultipleChoice,
+          'multiplechoice': QType.MultipleChoice,
+          'true-false': QType.TrueFalse,
+          'truefalse': QType.TrueFalse,
+          'fill-in-blank': QType.FillInBlank,
+          'fillinblank': QType.FillInBlank,
+          'ordering': QType.Ordering,
+          'drawing': QType.Drawing,
+        };
+        questionType = typeMap[question.questionType.toLowerCase()] || QType.MultipleChoice;
+      }
+      
+      let cognitiveLevel: CognitiveLevel | undefined;
+      if (question.cognitiveLevel) {
+        const levelMap: Record<string, CognitiveLevel> = {
+          'remember': CLevel.Remember,
+          'recall': CLevel.Remember,
+          'understand': CLevel.Understand,
+          'comprehend': CLevel.Understand,
+          'apply': CLevel.Apply,
+          'application': CLevel.Apply,
+          'analyze': CLevel.Analyze,
+          'analyse': CLevel.Analyze,
+          'analysis': CLevel.Analyze,
+        };
+        cognitiveLevel = levelMap[question.cognitiveLevel.toLowerCase()];
+      }
+      
+      // For true-false, ensure options are correct
+      if (questionType === QType.TrueFalse) {
+        question.options = ['True', 'False'];
+      }
+      
+      // For fill-in-blank without options, create empty array
+      if (questionType === QType.FillInBlank && !question.options) {
+        question.options = [];
+      }
+      
+      return {
+        ...question,
+        questionType,
+        cognitiveLevel,
+        acceptableAnswers: question.acceptableAnswers || []
+      };
+    });
+    
     // Validate each quiz question
-    const validQuestions = quizQuestions.filter((question: QuizQuestion) => {
+    const validQuestions = normalizedQuestions.filter((question: QuizQuestion) => {
       const validation = validateQuizQuestion(question);
       if (!validation.isValid) {
         console.warn('Quiz question validation failed:', validation.issues, question);
@@ -524,14 +1024,51 @@ Generate 10 varied, engaging questions:`,
       return true;
     });
     
-    // Shuffle options for AI-generated questions to randomize answer positions
-    const shuffledAIQuestions = validQuestions.map(question => ({
-      ...question,
-      options: [...question.options].sort(() => Math.random() - 0.5)
-    }));
+    // Shuffle options for AI-generated questions to randomize answer positions (only for multiple choice)
+    const shuffledAIQuestions: QuizQuestion[] = validQuestions.map((question: QuizQuestion) => {
+      // Don't shuffle true/false or fill-in-blank or drawing
+      if (question.questionType === QType.TrueFalse || question.questionType === QType.FillInBlank || question.questionType === QType.Drawing) {
+        return question;
+      }
+      return {
+        ...question,
+        options: [...question.options].sort(() => Math.random() - 0.5)
+      };
+    });
     
+    // Filter similar questions before combining
+    const filteredAIQuestions: QuizQuestion[] = filterSimilarQuestions(shuffledAIQuestions, existingQuestionTexts);
+    
+    console.log(`Debug: validQuestions=${validQuestions.length}, shuffled=${shuffledAIQuestions.length}, filtered=${filteredAIQuestions.length}, finalQuestions=${finalQuestions.length}`);
+
+    // FORCE DRAWING QUESTION FOR ART/D&T
+    // If subject is Art/D&T and no drawing question exists, convert one or add one
+    const isArtOrDT = ['art', 'design & technology', 'd&t'].includes(subject.toLowerCase());
+    const hasDrawingQuestion = filteredAIQuestions.some(q => q.questionType === QType.Drawing);
+    
+    if (isArtOrDT && !hasDrawingQuestion && filteredAIQuestions.length > 0) {
+      console.log('Forcing a drawing question for Art/D&T');
+      // Create a generic drawing question based on the topic
+      const drawingQuestion: QuizQuestion = {
+        id: `drawing-${Date.now()}`,
+        question: `Drawing Challenge: Draw something related to ${topic}!`,
+        options: [],
+        correctAnswer: "Drawing submitted",
+        explanation: "Great drawing! Practising your art skills is just as important as answering questions.",
+        questionType: QType.Drawing,
+        cognitiveLevel: CLevel.Apply
+      };
+      
+      // Replace the last question or add it
+      if (filteredAIQuestions.length >= 10) {
+        filteredAIQuestions[filteredAIQuestions.length - 1] = drawingQuestion;
+      } else {
+        filteredAIQuestions.push(drawingQuestion);
+      }
+    }
+
     // Combine bank questions with AI-generated questions if needed
-    let combinedQuestions = [...finalQuestions, ...shuffledAIQuestions];
+    let combinedQuestions = [...finalQuestions, ...filteredAIQuestions];
     
     // Ensure we have at least 5 valid questions total (relaxed from 10 to allow partial success)
     if (combinedQuestions.length < 5) {
@@ -549,13 +1086,25 @@ Generate 10 varied, engaging questions:`,
       source: 'ai-generated'
     };
     setInCache(cacheKey, aiCacheData);
-    console.log(`Generated ${validQuestions.length} new AI questions, combined with ${finalQuestions.length} existing questions`);
+    
+    // Save to Shared Cache (Whole Quiz)
+    if (offlineManager.checkOnlineStatus()) {
+      setInSharedCache(cacheKey, combinedQuestions);
+    }
+
+    console.log(`Generated ${filteredAIQuestions.length} new AI questions, combined with ${finalQuestions.length} existing questions`);
 
     // SAVE TO FIREBASE (The "Cloud Bank")
     // We process sequentially to check for duplicates
     // Note: This requires appropriate Firestore permissions
-    for (const q of validQuestions) {
+    for (const q of filteredAIQuestions) {
         try {
+            const createdBy = getAuth().currentUser?.uid;
+            if (!createdBy) {
+              // Not signed in; Cloud Bank requires authentication
+              continue;
+            }
+
             // Check if this specific question text already exists for this topic
             // This prevents exact duplicates from filling up the database
             const dupQuery = query(
@@ -572,13 +1121,17 @@ Generate 10 varied, engaging questions:`,
                 await addDoc(collection(db, "questions"), {
                     subject,
                     topic,
-                    difficulty,
+                    difficulty: adaptedDifficulty,
                     age: studentAge,
                     question: q.question,
                     options: q.options,
                     correctAnswer: q.correctAnswer,
                     explanation: q.explanation || "",
-                    createdAt: new Date()
+                    questionType: q.questionType || QType.MultipleChoice,
+                    cognitiveLevel: q.cognitiveLevel,
+                    acceptableAnswers: q.acceptableAnswers || [],
+                createdAt: new Date(),
+                createdBy
                 });
                 console.log("Saved new unique question to Cloud Bank");
             } else {
@@ -602,6 +1155,283 @@ Generate 10 varied, engaging questions:`,
       return finalQuestions;
     }
     return [];
+  }
+};
+
+// ============================================================
+// DEDICATED SATs QUESTION GENERATOR - ALWAYS USES AI
+// Designed to strictly follow DfE KS2 SATs specifications
+// ============================================================
+export type SATsPaperType = 'arithmetic' | 'reasoning' | 'reading' | 'spag';
+
+export const generateSATsQuiz = async (
+  paperType: SATsPaperType,
+  questionCount: number = 10
+): Promise<QuizQuestion[]> => {
+  console.log(`🎯 Generating SATs paper: ${paperType} (${questionCount} questions)`);
+  
+  // Check if offline
+  if (!offlineManager.checkOnlineStatus()) {
+    console.warn('Offline: Cannot generate SATs paper');
+    throw new Error('You need to be online to generate SATs practice papers');
+  }
+
+  // SATs-specific prompts aligned with DfE specifications
+  const satsPrompts: Record<SATsPaperType, string> = {
+    arithmetic: `You are creating questions for the KS2 SATs Maths Paper 1: Arithmetic.
+
+DfE SPECIFICATION FOR ARITHMETIC PAPER:
+- Tests calculation methods using the four operations
+- Includes: addition, subtraction, multiplication, division
+- Uses formal written methods (column addition, long multiplication, short division)
+- Includes fractions, decimals, and percentages calculations
+- NO word problems - pure number calculations only
+- Difficulty progresses through the paper
+
+QUESTION FORMAT REQUIREMENTS:
+- ALL questions must be MULTIPLE-CHOICE with exactly 4 options
+- Questions must be pure calculations (e.g., "Calculate 3,456 + 2,789")
+- Include a mix of: whole numbers, decimals, fractions, percentages
+- Use formal calculation language: "Calculate", "Work out", "What is"
+- Include multi-step calculations for harder questions
+- Provide 4 plausible answer options (one correct, three distractors)
+- Distractors should be common calculation errors
+
+IMPORTANT: Set questionType to "multiple-choice" for all questions.
+
+SPECIFIC TOPICS TO COVER (DfE statutory):
+- Addition/subtraction with numbers up to 1,000,000
+- Multiplication of 4-digit by 2-digit numbers
+- Division with remainders
+- Equivalent fractions, adding/subtracting fractions
+- Multiplying fractions by whole numbers
+- Decimal calculations to 3 decimal places
+- Percentage of amounts`,
+
+    reasoning: `You are creating questions for the KS2 SATs Maths Papers 2 & 3: Reasoning.
+
+DfE SPECIFICATION FOR REASONING PAPERS:
+- Tests mathematical reasoning and problem-solving
+- Includes word problems in real-life contexts
+- Requires explaining methods and showing working
+- Tests application of mathematical knowledge
+- Includes multi-step problems
+
+QUESTION FORMAT REQUIREMENTS:
+- ALL questions must be MULTIPLE-CHOICE with exactly 4 options
+- Use real-life contexts (shopping, time, measurements, data)
+- Include problem-solving scenarios children can relate to
+- Provide 4 plausible answer options (one correct, three distractors)
+- Use names and scenarios children can relate to
+
+SPECIFIC TOPICS TO COVER (DfE statutory):
+- Place value and ordering
+- Fractions, decimals, percentages in context
+- Ratio and proportion
+- Algebra (simple equations, sequences)
+- Measurement (perimeter, area, volume)
+- Geometry (angles, shapes, coordinates)
+- Statistics (mean, interpreting charts)`,
+
+    reading: `You are creating questions for the KS2 SATs English Reading Paper.
+
+DfE SPECIFICATION FOR READING PAPER:
+- Tests reading comprehension across fiction, non-fiction, poetry
+- Assesses vocabulary, inference, retrieval, summarising
+- Questions reference specific texts/passages
+- Tests understanding of author's intent and language choices
+
+QUESTION FORMAT REQUIREMENTS:
+- ALL questions must be MULTIPLE-CHOICE with exactly 4 options
+- Include retrieval questions ("According to the text...")
+- Include inference questions ("What does this suggest about...")
+- Include vocabulary questions ("What does the word X mean...")
+- Provide 4 plausible answer options (one correct, three distractors)
+
+IMPORTANT: Set questionType to "multiple-choice" for all questions.
+
+CONTENT DOMAINS TO COVER (DfE):
+- 2a: Give/explain meaning of words in context
+- 2b: Retrieve and record information
+- 2c: Summarise main ideas
+- 2d: Make inferences from the text
+- 2e: Predict what might happen
+- 2f: Identify/explain how language contributes to meaning
+- 2g: Identify/explain how meaning is enhanced through word choice
+- 2h: Make comparisons within the text
+
+For this practice, create questions based on a SHORT passage about a child's adventure. Include the passage in question context.`,
+
+    spag: `You are creating questions for the KS2 SATs English GPS (Grammar, Punctuation & Spelling) Paper.
+
+DfE SPECIFICATION FOR GPS PAPER:
+- Section 1: Short answer questions on grammar and punctuation
+- Tests knowledge of grammatical terms and word classes
+- Tests punctuation rules and usage
+- Tests sentence structure and word formation
+
+QUESTION FORMAT REQUIREMENTS:
+- ALL questions must be MULTIPLE-CHOICE with exactly 4 options
+- Test grammatical terminology (subjunctive, passive voice, relative clause)
+- Include sentence transformation questions
+- Test punctuation: commas, apostrophes, colons, semi-colons, hyphens
+- Include word class identification
+- Provide 4 plausible answer options (one correct, three distractors)
+
+IMPORTANT: Set questionType to "multiple-choice" for all questions.
+
+SPECIFIC GRAMMAR TO COVER (DfE statutory Year 6):
+- Subjunctive mood ("If I were...")
+- Passive and active voice
+- Formal and informal vocabulary
+- Synonyms and antonyms
+- Prefixes and suffixes
+- Relative clauses
+- Modal verbs
+- Cohesive devices
+- Colons and semi-colons
+- Hyphens for clarity
+- Bullet points`
+  };
+
+  const prompt = `${satsPrompts[paperType]}
+
+CRITICAL RULES:
+- Generate exactly ${questionCount} questions
+- ALL questions MUST be multiple-choice with exactly 4 options
+- All content must be appropriate for 10-11 year old children
+- Use British English spelling throughout
+- Questions must be exam-ready quality
+- Include 4 clear, specific answer options for EVERY question
+- The correctAnswer MUST exactly match one of the options
+- Every answer must be definitively correct
+- Include a brief explanation for each answer
+- Set questionType to "multiple-choice" for ALL questions
+
+Generate ${questionCount} SATs-style multiple-choice questions:`;
+
+  try {
+    const response = await ai.models.generateContent({
+      model,
+      contents: prompt,
+      config: {
+        responseMimeType: "application/json",
+        responseSchema: {
+          type: Type.OBJECT,
+          properties: {
+            quiz: {
+              type: Type.ARRAY,
+              items: {
+                type: Type.OBJECT,
+                properties: {
+                  question: { type: Type.STRING },
+                  options: {
+                    type: Type.ARRAY,
+                    items: { type: Type.STRING },
+                  },
+                  correctAnswer: { type: Type.STRING },
+                  explanation: { type: Type.STRING },
+                  questionType: { 
+                    type: Type.STRING,
+                    description: "Type: 'multiple-choice', 'true-false', or 'fill-in-blank'"
+                  },
+                  marks: {
+                    type: Type.NUMBER,
+                    description: "Mark value for this question (1-3)"
+                  }
+                },
+                required: ['question', 'correctAnswer', 'questionType'],
+              },
+            },
+          },
+          required: ['quiz'],
+        },
+      },
+    });
+    
+    const jsonResponse = JSON.parse(response.text);
+    const quizQuestions = jsonResponse.quiz || [];
+    
+    console.log(`✅ Generated ${quizQuestions.length} SATs questions via AI`);
+    
+    // Normalize and validate - force all SATs questions to multiple-choice for quiz interface
+    const normalizedQuestions: QuizQuestion[] = quizQuestions.map((q: any, index: number) => {
+      // Force multiple-choice for all SATs questions in quiz format
+      const questionType = QType.MultipleChoice;
+      
+      // Start with provided options or empty array
+      const rawOptions = Array.isArray(q.options) ? q.options : [];
+      
+      // Ensure correct answer is present
+      if (!q.correctAnswer) {
+         q.correctAnswer = rawOptions.length > 0 ? rawOptions[0] : "Answer";
+      }
+
+      // Add correct answer to options if missing
+      if (!rawOptions.includes(q.correctAnswer)) {
+        rawOptions.push(q.correctAnswer);
+      }
+      
+      // Deduplicate options
+      let uniqueOptions = Array.from(new Set(rawOptions));
+      
+      // Ensure we have at least 4 options
+      while (uniqueOptions.length < 4) {
+        const newOption = `Option ${String.fromCharCode(65 + uniqueOptions.length)}`;
+        if (!uniqueOptions.includes(newOption)) {
+            uniqueOptions.push(newOption);
+        } else {
+             uniqueOptions.push(`Option ${uniqueOptions.length + 1}`);
+        }
+      }
+      
+      // Limit to 4 options
+      if (uniqueOptions.length > 4) {
+        // Ensure correct answer is kept
+        const otherOptions = uniqueOptions.filter((o: any) => o !== q.correctAnswer);
+        // Take first 3 others
+        const selectedOthers = otherOptions.slice(0, 3);
+        uniqueOptions = [...selectedOthers, q.correctAnswer];
+      }
+      
+      // Shuffle options to randomize correct answer position
+      const finalOptions = uniqueOptions.sort(() => Math.random() - 0.5);
+      
+      return {
+        id: `sats-ai-${paperType}-${index}-${Date.now()}`,
+        question: q.question || "Question text missing",
+        options: finalOptions,
+        correctAnswer: q.correctAnswer,
+        explanation: q.explanation || 'No explanation provided',
+        questionType,
+        cognitiveLevel: CLevel.Apply,
+      };
+    });
+    
+    // Validate with detailed logging
+    const validQuestions = normalizedQuestions.filter((q, idx) => {
+      const validation = validateQuizQuestion(q);
+      if (!validation.isValid) {
+        console.warn(`❌ SATs Q${idx + 1} failed validation:`, validation.issues, {
+          question: q.question?.substring(0, 50),
+          options: q.options,
+          correctAnswer: q.correctAnswer
+        });
+      }
+      return validation.isValid;
+    });
+    
+    console.log(`✅ ${validQuestions.length}/${normalizedQuestions.length} SATs questions passed validation`);
+    
+    if (validQuestions.length < 5) {
+      console.error('❌ Not enough valid questions. Raw data:', quizQuestions);
+      throw new Error(`Not enough valid SATs questions generated (${validQuestions.length}/5 minimum)`);
+    }
+    
+    return validQuestions;
+  } catch (error) {
+    console.error("Error generating SATs quiz:", error);
+    throw error; // Propagate error - don't fall back to static for SATs
   }
 };
 
@@ -718,7 +1548,8 @@ export const askMiRa = async (
   question: string, 
   studentAge: number,
   studentName?: string,
-  context?: { subject?: string; topic?: string }
+  context?: { subject?: string; topic?: string },
+  currentActivity?: string
 ): Promise<string> => {
   // Build context string if available
   let contextInfo = '';
@@ -751,6 +1582,7 @@ CURRENT CONTEXT:
 - Student: ${studentName || 'A learner'}, age ${studentAge}
 - Time: ${timeGreeting}
 ${contextInfo ? `- Currently studying: ${contextInfo}` : ''}
+${currentActivity ? `- Current Activity: ${currentActivity}` : ''}
 
 STUDENT'S QUESTION: "${question}"
 
@@ -1193,3 +2025,155 @@ Format as numbered exercises with clear instructions.`;
     return `Here are some extra practice ideas for ${topic}:\n\n1. Review your notes from the lesson\n2. Try explaining the concept to someone else\n3. Look for examples in everyday life\n4. Practice with similar problems you know how to solve\n\nRemember, practice makes perfect! Keep trying and you'll get better.`;
   }
 };
+
+// Generate artwork-specific quiz questions
+export const generateArtworkQuiz = async (
+  artworkData: {
+    title: string;
+    artist: string;
+    year: string | number;
+    style: string;
+    medium: string;
+    period: string;
+    country: string;
+    techniques: string[];
+    colours: string[];
+    funFacts: string[];
+  },
+  studentAge: number,
+  difficulty: Difficulty = Difficulty.Medium
+): Promise<QuizQuestion[]> => {
+  const cacheKey = createCacheKey('artwork-quiz', artworkData.title, studentAge.toString(), difficulty);
+  const cachedQuiz = getFromCache<QuizQuestion[]>(cacheKey);
+  if (cachedQuiz) {
+    console.log(`Cache hit for artwork quiz: ${artworkData.title}`);
+    return cachedQuiz;
+  }
+
+  // Check if offline - provide fallback questions
+  if (!offlineManager.checkOnlineStatus()) {
+    return generateFallbackArtworkQuestions(artworkData);
+  }
+
+  const prompt = `You are MiRa, creating an engaging art quiz for a ${studentAge}-year-old about the famous artwork "${artworkData.title}" by ${artworkData.artist}.
+
+ARTWORK DETAILS:
+- Title: ${artworkData.title}
+- Artist: ${artworkData.artist}
+- Year: ${artworkData.year}
+- Style: ${artworkData.style}
+- Medium: ${artworkData.medium}
+- Period: ${artworkData.period}
+- Country: ${artworkData.country}
+- Techniques: ${artworkData.techniques.join(', ')}
+- Main Colours: ${artworkData.colours.join(', ')}
+- Fun Facts: ${artworkData.funFacts.join(' | ')}
+
+Create 6 quiz questions that test knowledge about this artwork:
+- 2 questions about the artist and basic facts
+- 2 questions about techniques and artistic elements
+- 1 question about colours and visual elements
+- 1 question that connects to a fun fact
+
+DIFFICULTY: ${difficulty}
+
+QUESTION REQUIREMENTS:
+- Mix question types: multiple-choice, true-false
+- Use the fun facts creatively
+- Make questions interesting and engaging
+- Include encouraging explanations
+- Test observation skills ("What do you notice about...")
+
+CRITICAL RULES:
+- All content must be 100% appropriate for children aged ${studentAge}
+- Use British English spelling
+- Make it fun and educational!`;
+
+  try {
+    const response = await ai.models.generateContent({
+      model,
+      contents: prompt,
+      config: {
+        responseMimeType: "application/json",
+        responseSchema: {
+          type: Type.OBJECT,
+          properties: {
+            quiz: {
+              type: Type.ARRAY,
+              items: {
+                type: Type.OBJECT,
+                properties: {
+                  question: { type: Type.STRING },
+                  options: {
+                    type: Type.ARRAY,
+                    items: { type: Type.STRING },
+                  },
+                  correctAnswer: { type: Type.STRING },
+                  explanation: { type: Type.STRING },
+                  questionType: { type: Type.STRING },
+                },
+                required: ['question', 'options', 'correctAnswer', 'explanation'],
+              },
+            },
+          },
+          required: ['quiz'],
+        },
+      },
+    });
+    
+    const jsonResponse = JSON.parse(response.text);
+    const quizQuestions = jsonResponse.quiz || [];
+    
+    // Normalize and add metadata
+    const normalizedQuestions: QuizQuestion[] = quizQuestions.map((q: any, idx: number) => ({
+      ...q,
+      questionType: q.questionType?.includes('true') ? QType.TrueFalse : QType.MultipleChoice,
+      cognitiveLevel: idx < 2 ? CLevel.Remember : idx < 4 ? CLevel.Understand : CLevel.Apply,
+      options: q.questionType?.includes('true') ? ['True', 'False'] : q.options,
+    }));
+    
+    setInCache(cacheKey, normalizedQuestions);
+    return normalizedQuestions;
+  } catch (error) {
+    console.error("Error generating artwork quiz:", error);
+    return generateFallbackArtworkQuestions(artworkData);
+  }
+};
+
+// Fallback questions when offline or API fails
+function generateFallbackArtworkQuestions(artworkData: any): QuizQuestion[] {
+  return [
+    {
+      question: `Who painted "${artworkData.title}"?`,
+      options: [artworkData.artist, 'Pablo Picasso', 'Claude Monet', 'Leonardo da Vinci'].sort(() => Math.random() - 0.5),
+      correctAnswer: artworkData.artist,
+      explanation: `That's right! ${artworkData.artist} painted this famous artwork.`,
+      questionType: QType.MultipleChoice,
+      cognitiveLevel: CLevel.Remember,
+    },
+    {
+      question: `"${artworkData.title}" was created in the ${artworkData.period}.`,
+      options: ['True', 'False'],
+      correctAnswer: 'True',
+      explanation: `Correct! This artwork is from the ${artworkData.period}.`,
+      questionType: QType.TrueFalse,
+      cognitiveLevel: CLevel.Remember,
+    },
+    {
+      question: `What style is "${artworkData.title}" painted in?`,
+      options: [artworkData.style, 'Abstract Art', 'Cubism', 'Pop Art'].sort(() => Math.random() - 0.5),
+      correctAnswer: artworkData.style,
+      explanation: `Well done! This artwork is a great example of ${artworkData.style}.`,
+      questionType: QType.MultipleChoice,
+      cognitiveLevel: CLevel.Understand,
+    },
+    {
+      question: `Which of these colours is a main colour in "${artworkData.title}"?`,
+      options: [artworkData.colours[0], 'Neon Pink', 'Bright Orange', 'Lime Green'].sort(() => Math.random() - 0.5),
+      correctAnswer: artworkData.colours[0],
+      explanation: `Great observation! ${artworkData.colours[0]} is one of the main colours used.`,
+      questionType: QType.MultipleChoice,
+      cognitiveLevel: CLevel.Understand,
+    },
+  ];
+}

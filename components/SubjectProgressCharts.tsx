@@ -17,6 +17,14 @@ const SUBJECT_COLORS: Record<string, string> = {
   'History': 'from-orange-400 to-orange-600',
   'Geography': 'from-red-400 to-red-600',
   'PE': 'from-pink-400 to-pink-600',
+  'Art': 'from-orange-500 to-orange-700',
+  'Computing': 'from-indigo-400 to-indigo-600',
+  'Languages': 'from-pink-500 to-pink-700',
+  'Music': 'from-teal-400 to-teal-600',
+  'PSHE': 'from-cyan-400 to-cyan-600',
+  'D&T': 'from-slate-400 to-slate-600',
+  'Religious Education': 'from-amber-400 to-amber-600',
+  'Citizenship': 'from-emerald-400 to-emerald-600',
 };
 
 const SubjectProgressCharts: React.FC<SubjectProgressChartsProps> = ({
@@ -30,9 +38,26 @@ const SubjectProgressCharts: React.FC<SubjectProgressChartsProps> = ({
   // Use provided childMastery or fall back to current user's mastery
   const mastery = childMastery || user?.mastery || {};
 
+  // Language subjects that are stored separately in the database
+  const languageSubjects = ['French', 'Spanish', 'German', 'Japanese', 'Mandarin', 'Romanian', 'Yoruba', 'Welsh', 
+                            'Italian', 'Arabic', 'Portuguese', 'Russian', 'Korean', 'Hindi', 'Turkish', 'Greek', 'Latin'];
+
   // Calculate real subject data from mastery
   const getSubjectData = (subject: string) => {
-    const subjectMastery = mastery[subject] || {};
+    let subjectMastery = mastery[subject] || {};
+    
+    // For "Languages" subject, aggregate all individual language mastery data
+    if (subject === 'Languages') {
+      const allLanguageTopics: Record<string, number> = {};
+      languageSubjects.forEach(lang => {
+        const langMastery = mastery[lang] || {};
+        Object.entries(langMastery).forEach(([topic, value]) => {
+          allLanguageTopics[`${lang}-${topic}`] = value as number;
+        });
+      });
+      subjectMastery = allLanguageTopics;
+    }
+    
     const topicValues = Object.values(subjectMastery) as number[];
     const totalTopics = topicValues.length;
     const progress = totalTopics > 0 
@@ -49,7 +74,9 @@ const SubjectProgressCharts: React.FC<SubjectProgressChartsProps> = ({
   };
 
   const totalProgress = useMemo(() => {
-    return subjects.reduce((sum, subject) => sum + getSubjectData(subject).progress, 0) / subjects.length;
+    const subjectsWithProgress = subjects.filter(subject => getSubjectData(subject).topics > 0);
+    if (subjectsWithProgress.length === 0) return 0;
+    return subjectsWithProgress.reduce((sum, subject) => sum + getSubjectData(subject).progress, 0) / subjectsWithProgress.length;
   }, [subjects]);
 
   const totalTopics = useMemo(() => {
@@ -60,9 +87,11 @@ const SubjectProgressCharts: React.FC<SubjectProgressChartsProps> = ({
     return subjects.reduce((sum, subject) => sum + getSubjectData(subject).mastered, 0);
   }, [subjects]);
 
-  // Rank progress by mastery
+  // Rank progress by mastery and filter out subjects with no progress
   const rankedSubjects = useMemo(() => {
-    return [...subjects].sort((a, b) => getSubjectData(b).progress - getSubjectData(a).progress);
+    return [...subjects]
+      .filter(subject => getSubjectData(subject).topics > 0) // Only show subjects with progress
+      .sort((a, b) => getSubjectData(b).progress - getSubjectData(a).progress);
   }, [subjects]);
 
   const getMasteryLevel = (progress: number) => {
@@ -127,7 +156,7 @@ const SubjectProgressCharts: React.FC<SubjectProgressChartsProps> = ({
 
           <div className="bg-white rounded-lg p-4 shadow-sm">
             <p className="text-sm text-gray-600 font-medium">Subjects</p>
-            <p className="text-3xl font-black text-blue-600 mt-2">{subjects.length}</p>
+            <p className="text-3xl font-black text-blue-600 mt-2">{rankedSubjects.length}</p>
             <p className="text-xs text-gray-600 mt-2">in progress</p>
           </div>
 

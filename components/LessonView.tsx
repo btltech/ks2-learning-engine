@@ -5,8 +5,11 @@ import { offlineManager } from '../services/offlineManager';
 import LoadingSpinner from './LoadingSpinner';
 import { Skeleton } from './Skeleton';
 import { useTTSEnhanced } from '../hooks/useTTSEnhanced';
-import { ArrowLeftIcon, SpeakerWaveIcon, StopIcon, BoltIcon } from '@heroicons/react/24/solid';
+import { ArrowLeftIcon, SpeakerWaveIcon, StopIcon, BoltIcon, BookOpenIcon, PauseIcon, PlayIcon } from '@heroicons/react/24/solid';
 import { useGameSounds } from '../hooks/useGameSounds';
+import PronunciationHelper from './PronunciationHelper';
+import { getCommonWords, getSupportedLanguages } from '../services/phoneticsService';
+import DOMPurify from 'dompurify';
 
 // A simple markdown to HTML converter
 const Markdown: React.FC<{ content: string }> = ({ content }) => {
@@ -22,7 +25,8 @@ const Markdown: React.FC<{ content: string }> = ({ content }) => {
     })
     .join('');
 
-    return <div dangerouslySetInnerHTML={{ __html: htmlContent }} />;
+    const sanitizedContent = DOMPurify.sanitize(htmlContent);
+    return <div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />;
 }
 
 interface LessonViewProps {
@@ -38,11 +42,16 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
   const [lesson, setLesson] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showVocabulary, setShowVocabulary] = useState(false);
+  const [selectedWord, setSelectedWord] = useState<string | null>(null);
   
   // Detect language for native pronunciation
   const isLanguageSubject = ['French','Spanish','German','Japanese','Mandarin','Romanian','Yoruba','Languages'].includes(subject);
   const detectedLanguage = isLanguageSubject ? subject : 'English';
-  const { speak, cancel, isSpeaking, isLoading: isTTSLoading, progress: ttsProgress, errorMessage: ttsError, needsGesture, setNeedsGesture } = useTTSEnhanced(detectedLanguage, {
+  const supportsPhonetics = getSupportedLanguages().includes(subject);
+  const vocabularyWords = supportsPhonetics ? getCommonWords(subject).slice(0, 12) : [];
+  
+  const { speak, pause, resume, cancel, isSpeaking, isPaused, isLoading: isTTSLoading, progress: ttsProgress, errorMessage: ttsError, needsGesture, setNeedsGesture } = useTTSEnhanced(detectedLanguage, {
     googleCloudApiKey: (import.meta as unknown as { env: { VITE_GOOGLE_CLOUD_TTS_API_KEY?: string } }).env?.VITE_GOOGLE_CLOUD_TTS_API_KEY
   });
   
@@ -56,7 +65,11 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
   const handleSpeak = () => {
     playClick();
     if (isSpeaking) {
-      cancel();
+      if (isPaused) {
+        resume();
+      } else {
+        pause();
+      }
     } else {
       // Simple markdown stripping for better speech
       const textToRead = lesson
@@ -66,6 +79,12 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
         .replace(/\n/g, '. '); // Replace newlines with pauses
       speak(textToRead);
     }
+  };
+
+  const handleStop = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent single click trigger
+    playClick();
+    cancel();
   };
 
   const handleBack = () => {
@@ -115,88 +134,139 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
         Back to Topics
       </button>
       <article className="bg-white p-4 sm:p-8 rounded-2xl shadow-xl" role="main" aria-live="polite" aria-busy={loading}>
-        <div className="flex justify-between items-start mb-2">
+        <div className="flex justify-between items-start mb-4">
           <h2 className="text-2xl sm:text-4xl font-extrabold text-gray-800">{topic}</h2>
-          <div className="flex items-center gap-2">
-            {isLanguageSubject && !loading && !error && (
-              <button
-                onClick={() => {
-                  playClick();
-                  speak(topic);
-                }}
-                disabled={isTTSLoading}
-                className="p-3 rounded-full bg-emerald-100 text-emerald-700 hover:bg-opacity-80 transition-colors disabled:opacity-50"
-                title="Hear how to say this topic"
-                aria-label="Hear pronunciation of this topic"
-              >
-                    {isTTSLoading ? (
-                      <div className="flex items-center gap-2">
-                        <div className="h-6 w-6 border-2 border-emerald-700 border-t-transparent rounded-full animate-spin" />
-                        {typeof ttsProgress === 'number' && (
-                          <span className="text-xs font-semibold text-emerald-700">{Math.round(ttsProgress)}%</span>
-                        )}
-                      </div>
-                    ) : (
-                      <SpeakerWaveIcon className="h-6 w-6" />
-                    )}
-              </button>
-            )}
-            {!loading && !error && (
+          {!loading && !error && (
+            <div className="flex items-center gap-2">
+              {isLanguageSubject && (
+                <button
+                  onClick={() => {
+                    playClick();
+                    speak(topic);
+                  }}
+                  disabled={isTTSLoading}
+                  className="p-3 rounded-full bg-emerald-100 text-emerald-700 hover:bg-opacity-80 transition-colors disabled:opacity-50"
+                  title="Hear pronunciation"
+                  aria-label="Hear pronunciation of this topic"
+                >
+                  {isTTSLoading ? (
+                    <div className="h-6 w-6 border-2 border-emerald-700 border-t-transparent rounded-full animate-spin" />
+                  ) : (
+                    <SpeakerWaveIcon className="h-6 w-6" />
+                  )}
+                </button>
+              )}
               <button 
                 onClick={handleSpeak}
+                onDoubleClick={handleStop}
                 disabled={isTTSLoading}
-                className={`p-3 rounded-full ${isSpeaking ? 'bg-red-100 text-red-600' : 'bg-blue-100 text-blue-600'} hover:bg-opacity-80 transition-colors disabled:opacity-50`}
-                title={isSpeaking ? 'Stop reading' : 'Read aloud'}
-                aria-label={isSpeaking ? 'Stop reading' : 'Read aloud'}
+                className={`p-3 rounded-full ${isSpeaking ? (isPaused ? 'bg-yellow-100 text-yellow-600' : 'bg-blue-100 text-blue-600') : 'bg-blue-100 text-blue-600'} hover:bg-opacity-80 transition-colors disabled:opacity-50`}
+                title={isSpeaking ? (isPaused ? 'Resume reading' : 'Pause reading (Double click to stop)') : 'Read lesson aloud'}
+                aria-label={isSpeaking ? (isPaused ? 'Resume reading' : 'Pause reading') : 'Read lesson aloud'}
               >
-                {isTTSLoading ? (
-                  <div className="flex items-center gap-2">
-                    <div className="h-6 w-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
-                    {typeof ttsProgress === 'number' && (
-                      <span className="text-xs font-semibold text-blue-600">{Math.round(ttsProgress)}%</span>
-                    )}
-                  </div>
-                ) : isSpeaking ? (
-                  <StopIcon className="h-6 w-6" />
+                {isSpeaking ? (
+                  isPaused ? <PlayIcon className="h-6 w-6" /> : <PauseIcon className="h-6 w-6" />
                 ) : (
                   <SpeakerWaveIcon className="h-6 w-6" />
                 )}
               </button>
-            )}
+            </div>
+          )}
+        </div>
+        
+        {loading ? (
+          <div>
+            <LoadingSpinner 
+              message={`Creating your ${difficulty} lesson on ${topic}...`}
+              showProgress={true}
+              estimatedTime={8}
+            />
+            <div className="mt-8 space-y-4">
+              <Skeleton className="h-8 w-3/4" />
+              <Skeleton lines={3} />
+              <Skeleton className="h-32 mt-6" />
+              <Skeleton lines={2} />
+            </div>
           </div>
-            {loading ? (
-              <div>
-                <LoadingSpinner 
-                  message={`Creating your ${difficulty} lesson on ${topic}...`}
-                  showProgress={true}
-                  estimatedTime={8}
-                />
-                <div className="mt-8 space-y-4">
-                  <Skeleton className="h-8 w-3/4" />
-                  <Skeleton lines={3} />
-                  <Skeleton className="h-32 mt-6" />
-                  <Skeleton lines={2} />
-                </div>
-              </div>
-            ) : error ? (
-              <div className="text-center p-8">
-                <div className="bg-red-50 border-2 border-red-200 rounded-lg p-6">
-                  <p className="text-red-600 font-semibold text-lg mb-4">{error}</p>
-                  <button
-                    onClick={fetchLesson}
-                    className="px-6 py-3 bg-red-500 text-white font-bold rounded-full shadow-lg hover:bg-red-600 transform hover:scale-105 transition-transform"
-                  >
-                    Try Again
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <div className="prose max-w-none text-lg text-gray-700 leading-relaxed">
-                <Markdown content={lesson} />
-              </div>
-            )}
+        ) : error ? (
+          <div className="text-center p-8">
+            <div className="bg-red-50 border-2 border-red-200 rounded-lg p-6">
+              <p className="text-red-600 font-semibold text-lg mb-4">{error}</p>
+              <button
+                onClick={fetchLesson}
+                className="px-6 py-3 bg-red-500 text-white font-bold rounded-full shadow-lg hover:bg-red-600 transform hover:scale-105 transition-transform"
+              >
+                Try Again
+              </button>
+            </div>
           </div>
+        ) : (
+          <div className="prose max-w-none text-lg text-gray-700 leading-relaxed">
+            <Markdown content={lesson} />
+          </div>
+        )}
       </article>
+
+      {/* Vocabulary Practice Section - Only for language subjects with phonetics support */}
+      {!loading && !error && supportsPhonetics && vocabularyWords.length > 0 && (
+        <div className="mt-6 bg-white rounded-2xl shadow-xl overflow-hidden">
+          <button
+            onClick={() => setShowVocabulary(!showVocabulary)}
+            className="w-full px-6 py-4 flex items-center justify-between bg-gradient-to-r from-purple-500 to-blue-500 text-white font-bold text-lg hover:from-purple-600 hover:to-blue-600 transition-colors"
+          >
+            <div className="flex items-center">
+              <BookOpenIcon className="h-6 w-6 mr-3" />
+              Vocabulary Practice - Hear How to Say It!
+            </div>
+            <span className="text-2xl">{showVocabulary ? '−' : '+'}</span>
+          </button>
+          
+          {showVocabulary && (
+            <div className="p-4 sm:p-6">
+              {selectedWord ? (
+                <div className="space-y-4">
+                  <button
+                    onClick={() => setSelectedWord(null)}
+                    className="flex items-center text-purple-600 hover:text-purple-800 font-semibold"
+                  >
+                    <ArrowLeftIcon className="h-4 w-4 mr-2" />
+                    Back to word list
+                  </button>
+                  <PronunciationHelper
+                    word={selectedWord}
+                    language={subject}
+                    showRules={true}
+                    size="lg"
+                  />
+                </div>
+              ) : (
+                <div>
+                  <p className="text-gray-600 mb-4 text-center">
+                    🎯 Tap a word to practice pronunciation with syllable-by-syllable audio!
+                  </p>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                    {vocabularyWords.map((item, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setSelectedWord(item.word)}
+                        className="p-3 bg-gradient-to-r from-purple-50 to-blue-50 border-2 border-purple-100 rounded-xl hover:border-purple-400 hover:shadow-md transition-all text-left group"
+                      >
+                        <div className="font-bold text-gray-800 group-hover:text-purple-600 transition-colors">
+                          {item.word}
+                        </div>
+                        <div className="text-xs text-purple-500 font-mono mt-1">
+                          [{item.phonetic}]
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+
       {!loading && !error && (
         <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
           <button

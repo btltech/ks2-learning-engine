@@ -1,17 +1,59 @@
 // Content validation utilities for AI-generated content
 
+import { QuestionType, CognitiveLevel } from '../types';
+
 interface ValidationResult {
   isValid: boolean;
   issues: string[];
   sanitizedContent?: string;
 }
 
-// List of inappropriate words/phrases to check for (basic filter)
+// Valid question types and cognitive levels
+const VALID_QUESTION_TYPES = Object.values(QuestionType);
+const VALID_COGNITIVE_LEVELS = Object.values(CognitiveLevel);
+
+// Comprehensive list of inappropriate words/phrases for children's content
+// Categories: violence, adult content, hate speech, dangerous activities, bullying
 const inappropriateKeywords = [
-  // This would contain a more comprehensive list in production
-  'inappropriate',
-  'violent',
-  'explicit'
+  // Violence & weapons
+  'kill', 'murder', 'death', 'dead body', 'blood', 'gore', 'stab', 'shoot',
+  'gun', 'knife attack', 'weapon', 'bomb', 'explode', 'torture', 'assault',
+  'strangle', 'suffocate', 'decapitate', 'dismember', 'slaughter',
+  
+  // Adult/sexual content
+  'sex', 'sexual', 'naked', 'nude', 'porn', 'explicit', 'erotic', 'xxx',
+  'adult content', 'intercourse', 'genitals', 'breasts', 'buttocks',
+  
+  // Hate speech & discrimination
+  'racist', 'racism', 'hate speech', 'slur', 'discrimination', 'nazi',
+  'supremacist', 'bigot', 'homophobic', 'transphobic', 'xenophobic',
+  
+  // Drugs & substances
+  'cocaine', 'heroin', 'meth', 'crack', 'drug abuse', 'overdose',
+  'get high', 'illegal drugs', 'drug dealer',
+  
+  // Dangerous activities
+  'suicide', 'self-harm', 'cut yourself', 'hurt yourself', 'kill yourself',
+  'eating disorder', 'anorexia', 'bulimia', 'starve yourself',
+  
+  // Bullying & harassment
+  'bully', 'harass', 'threaten', 'intimidate', 'humiliate', 'shame',
+  
+  // Profanity (common ones)
+  'damn', 'hell', 'crap', 'stupid', 'idiot', 'dumb', 'shut up',
+  
+  // Inappropriate for educational context
+  'inappropriate', 'violent', 'offensive', 'disturbing', 'scary', 'horror',
+  'nightmare', 'terrifying', 'gruesome', 'graphic'
+];
+
+// Patterns that might indicate problematic content
+const problematicPatterns = [
+  /\b(how to )(harm|hurt|kill|attack)/i,
+  /\b(ways to )(die|hurt|harm)/i,
+  /\bsecretly\s+(poison|harm|hurt)/i,
+  /\b(hate|kill)\s+(all|every)\s+\w+/i,
+  /\b(shouldn't|don't deserve to)\s+(live|exist)/i,
 ];
 
 // Validate that content is appropriate for children
@@ -21,8 +63,15 @@ export const validateContentForChildren = (content: string): ValidationResult =>
 
   // Check for inappropriate keywords
   for (const keyword of inappropriateKeywords) {
-    if (lowerContent.includes(keyword)) {
-      issues.push(`Content contains potentially inappropriate keyword: ${keyword}`);
+    if (lowerContent.includes(keyword.toLowerCase())) {
+      issues.push(`Content contains potentially inappropriate term: "${keyword}"`);
+    }
+  }
+
+  // Check for problematic patterns
+  for (const pattern of problematicPatterns) {
+    if (pattern.test(content)) {
+      issues.push('Content contains a potentially harmful pattern');
     }
   }
 
@@ -33,6 +82,18 @@ export const validateContentForChildren = (content: string): ValidationResult =>
 
   if (content.length > 10000) {
     issues.push('Content is excessively long');
+  }
+
+  // Check for excessive punctuation (potential spam/abuse)
+  const exclamationCount = (content.match(/!/g) || []).length;
+  const capsRatio = (content.match(/[A-Z]/g) || []).length / content.length;
+  
+  if (exclamationCount > 10) {
+    issues.push('Content has excessive exclamation marks');
+  }
+  
+  if (capsRatio > 0.5 && content.length > 20) {
+    issues.push('Content has excessive capital letters (shouting)');
   }
 
   return {
@@ -51,25 +112,74 @@ export const validateQuizQuestion = (question: any): ValidationResult => {
     issues.push('Question text is missing or invalid');
   }
 
-  if (!Array.isArray(question.options) || question.options.length < 2) {
-    issues.push('Must have at least 2 options');
+  // Validate question type (default to multiple-choice if not specified)
+  const questionType = question.questionType || QuestionType.MultipleChoice;
+  if (question.questionType && !VALID_QUESTION_TYPES.includes(questionType)) {
+    issues.push(`Invalid question type: ${question.questionType}`);
   }
 
-  if (question.options && question.options.length > 6) {
-    issues.push('Too many options (max 6)');
+  // Validate cognitive level if specified
+  if (question.cognitiveLevel && !VALID_COGNITIVE_LEVELS.includes(question.cognitiveLevel)) {
+    issues.push(`Invalid cognitive level: ${question.cognitiveLevel}`);
   }
 
-  if (!question.correctAnswer || typeof question.correctAnswer !== 'string') {
-    issues.push('Correct answer is missing or invalid');
+  // Type-specific validation
+  switch (questionType) {
+    case QuestionType.TrueFalse: {
+      // True/False should have exactly 2 options
+      if (!Array.isArray(question.options) || question.options.length !== 2) {
+        issues.push('True/False questions must have exactly 2 options');
+      }
+      // Options should be True and False
+      const tfOptions = question.options?.map((o: string) => o.toLowerCase()) || [];
+      if (!tfOptions.includes('true') || !tfOptions.includes('false')) {
+        issues.push('True/False options must be "True" and "False"');
+      }
+      break;
+    }
+
+    case QuestionType.FillInBlank:
+      // Fill-in-blank needs correct answer and optionally acceptable alternatives
+      if (!question.correctAnswer || typeof question.correctAnswer !== 'string') {
+        issues.push('Fill-in-blank questions need a correct answer');
+      }
+      // Question should contain a blank indicator
+      if (question.question && !question.question.includes('___') && !question.question.includes('_____')) {
+        issues.push('Fill-in-blank questions should contain blank indicator (_____)');
+      }
+      break;
+
+    case QuestionType.Ordering:
+      // Ordering needs options and correct order
+      if (!Array.isArray(question.options) || question.options.length < 3) {
+        issues.push('Ordering questions must have at least 3 items to order');
+      }
+      if (!Array.isArray(question.correctOrder) || question.correctOrder.length !== question.options?.length) {
+        issues.push('Ordering questions must have correctOrder matching options length');
+      }
+      break;
+
+    case QuestionType.MultipleChoice:
+    default:
+      // Standard multiple choice validation
+      if (!Array.isArray(question.options) || question.options.length < 2) {
+        issues.push('Must have at least 2 options');
+      }
+      if (question.options && question.options.length > 6) {
+        issues.push('Too many options (max 6)');
+      }
+      if (!question.correctAnswer || typeof question.correctAnswer !== 'string') {
+        issues.push('Correct answer is missing or invalid');
+      }
+      // Validate correct answer is in options
+      if (question.correctAnswer && question.options && !question.options.includes(question.correctAnswer)) {
+        issues.push('Correct answer must be one of the options');
+      }
+      break;
   }
 
-  // Validate correct answer is in options
-  if (question.correctAnswer && question.options && !question.options.includes(question.correctAnswer)) {
-    issues.push('Correct answer must be one of the options');
-  }
-
-  // Check for duplicate options
-  if (question.options) {
+  // Check for duplicate options (for types that use options)
+  if (question.options && questionType !== QuestionType.FillInBlank) {
     const uniqueOptions = new Set(question.options);
     if (uniqueOptions.size !== question.options.length) {
       issues.push('Quiz has duplicate options');
@@ -83,6 +193,10 @@ export const validateQuizQuestion = (question: any): ValidationResult => {
   
   if (!contentCheck.isValid) {
     issues.push(...contentCheck.issues);
+  }
+
+  if (issues.length > 0) {
+    console.log('Validation failed for question:', JSON.stringify(question).substring(0, 100) + '...', issues);
   }
 
   return {

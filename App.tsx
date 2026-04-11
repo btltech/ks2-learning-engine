@@ -2,48 +2,78 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { Routes, Route, useNavigate, useLocation, useParams, Navigate } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import LanguageSelector from './components/LanguageSelector';
-import TopicSelector from './components/TopicSelector';
-import FeedbackModal from './components/FeedbackModal';
-import GuideAvatar from './components/GuideAvatar';
-import OfflineIndicator from './components/OfflineIndicator';
-import LoginView from './components/LoginView';
 import LoadingSpinner from './components/LoadingSpinner';
-import { ToastProvider } from './components/Toast';
-import { AchievementsGallery } from './components/DailyChallenge';
-import { ReviewMode, ReviewSummary } from './components/ReviewMode';
-import { AccessibilitySettingsModal, initializeAccessibility, SkipToMainContent } from './components/AccessibilitySettings';
-import { QuizBattleMode } from './components/QuizBattleRealtime';
-import { LearningPathsView } from './components/LearningPaths';
-import ClassroomMode from './components/ClassroomMode';
-import AnalyticsDashboard from './components/AnalyticsDashboard';
-import StreakRewards from './components/StreakRewards';
-import AvatarCustomization from './components/AvatarCustomization';
-import MiniGames from './components/MiniGames';
+import { ToastProvider, useToast } from './components/Toast';
+import { SkipToMainContent } from './components/SkipToMainContent';
+import EmailVerificationBanner from './components/EmailVerificationBanner';
 import { useUser } from './context/UserContext';
+import { useUISettings, useFeatureVisibility } from './context/UISettingsContext';
+import { hasRole } from './utils/roles';
 import { streakRewardsService } from './services/streakRewardsService';
 import { analyticsService } from './services/analyticsService';
+import { gamesUnlockService } from './services/gamesUnlockService';
 import { Difficulty, Subject, QuizResult, ProgressData, UserProfile, QuizSession } from './types';
 import { SUBJECTS } from './constants';
-import HomeView from './components/HomeView';
 import { spacedRepetitionService } from './services/spacedRepetitionService';
 import { dailyChallengeService, DailyChallenge } from './services/dailyChallengeService';
+import { Artwork, DrawingLesson } from './data/artResources';
+import { firebaseAuthService } from './services/firebaseAuthService';
 
-// Initialize accessibility features
-if (typeof window !== 'undefined') {
-  initializeAccessibility();
-}
+// Initialize accessibility features lazily
+const initAccessibility = () => {
+  if (typeof window !== 'undefined') {
+    import('./components/AccessibilitySettings').then(({ initializeAccessibility }) => {
+      initializeAccessibility();
+    });
+  }
+};
+initAccessibility();
 
-// Lazy loaded components
+// Lazy loaded components - move more to lazy loading for smaller initial bundle
+const LoginView = lazy(() => import('./components/LoginView'));
+const HomeView = lazy(() => import('./components/HomeView'));
+const GuidedHomeView = lazy(() => import('./components/GuidedHomeView'));
+const LanguageSelector = lazy(() => import('./components/LanguageSelector'));
+const TopicSelector = lazy(() => import('./components/TopicSelector'));
+const FeedbackModal = lazy(() => import('./components/FeedbackModal'));
+const GuideAvatar = lazy(() => import('./components/GuideAvatar'));
+const OfflineIndicator = lazy(() => import('./components/OfflineIndicator'));
 const LessonView = lazy(() => import('./components/LessonView'));
 const QuizView = lazy(() => import('./components/QuizView'));
 const StoreView = lazy(() => import('./components/StoreView'));
 const ParentDashboard = lazy(() => import('./components/ParentDashboard'));
 const ParentMonitoringDashboard = lazy(() => import('./components/ParentMonitoringDashboard'));
 const LeaderboardView = lazy(() => import('./components/LeaderboardView'));
-const ProgressView = lazy(() => import('./components/ProgressView'));
+const ProgressView = lazy(() => import('./views/ProgressView'));
 const TeacherDashboard = lazy(() => import('./components/TeacherDashboard'));
-// Removed GoogleCloudTTSTest component - not used anymore
+const TeacherHomeView = lazy(() => import('./components/TeacherHomeView'));
+const ParentHomeView = lazy(() => import('./components/ParentHomeView'));
+const AdminConsole = lazy(() => import('./components/AdminConsole'));
+const QuestionQualityDashboard = lazy(() => import('./components/QuestionQualityDashboard'));
+const ArtGalleryView = lazy(() => import('./components/ArtGalleryView'));
+const DrawingLessonView = lazy(() => import('./components/DrawingLessonView'));
+const AchievementsGallery = lazy(() => import('./components/DailyChallenge').then(m => ({ default: m.AchievementsGallery })));
+const ReviewMode = lazy(() => import('./components/ReviewMode').then(m => ({ default: m.ReviewMode })));
+const ReviewSummary = lazy(() => import('./components/ReviewMode').then(m => ({ default: m.ReviewSummary })));
+const AccessibilitySettingsModal = lazy(() => import('./components/AccessibilitySettings').then(m => ({ default: m.AccessibilitySettingsModal })));
+const QuizBattleMode = lazy(() => import('./components/QuizBattleRealtime').then(m => ({ default: m.QuizBattleMode })));
+const LearningPathsView = lazy(() => import('./components/LearningPaths').then(m => ({ default: m.LearningPathsView })));
+const ClassroomMode = lazy(() => import('./components/ClassroomMode'));
+const AnalyticsDashboard = lazy(() => import('./components/AnalyticsDashboard'));
+const StreakRewards = lazy(() => import('./components/StreakRewards'));
+const AvatarCustomization = lazy(() => import('./components/AvatarCustomization'));
+const MiniGames = lazy(() => import('./components/MiniGames'));
+const GamesUnlockedCelebration = lazy(() => import('./components/GamesLockOverlay').then(m => ({ default: m.GamesUnlockedCelebration })));
+const UIModeSelector = lazy(() => import('./components/UIModeSelector').then(m => ({ default: m.UIModeSelector })));
+const CurriculumCoverageDashboard = lazy(() => import('./components/CurriculumCoverageDashboard').then(m => ({ default: m.CurriculumCoverageDashboard })));
+const SATsPracticeMode = lazy(() => import('./components/SATsPracticeMode').then(m => ({ default: m.SATsPracticeMode })));
+
+// Phase 1 & 2 - New Features
+const MicrolearningDashboard = lazy(() => import('./components/MicrolearningDashboard'));
+const DailyMissionsPanel = lazy(() => import('./components/DailyMissionsPanel'));
+const VirtualPetWidget = lazy(() => import('./components/VirtualPetWidget'));
+const VoiceCommandButton = lazy(() => import('./components/VoiceCommandButton'));
+const StruggleAlert = lazy(() => import('./components/StruggleAlert'));
 
 // Wrapper for protected routes - currently not used but kept for future auth implementation
 // const RequireAuth: React.FC<{ children: React.ReactElement }> = ({ children }) => {
@@ -55,7 +85,10 @@ const TeacherDashboard = lazy(() => import('./components/TeacherDashboard'));
 // };
 
 const AppContent: React.FC = () => {
-  const { user, logout, checkStreak, addPoints, updateMastery, setUser, recordQuizSession, addTimeSpent, suggestNextDifficulty } = useUser();
+  const { user, logout, checkStreak, addPoints, updateMastery, setUser, recordQuizSession, addTimeSpent, suggestNextDifficulty, pendingBadgeNotification, clearBadgeNotification } = useUser();
+  const { isGuidedMode } = useUISettings();
+  const featureVisibility = useFeatureVisibility();
+  const { showToast } = useToast();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -66,6 +99,7 @@ const AppContent: React.FC = () => {
   
   // New feature states
   const [showAccessibilitySettings, setShowAccessibilitySettings] = useState(false);
+  const [showUIModeSelector, setShowUIModeSelector] = useState(false);
   const [showReviewMode, setShowReviewMode] = useState(false);
   const [showReviewSummary, setShowReviewSummary] = useState(false);
   const [reviewResults, setReviewResults] = useState<any>(null);
@@ -73,7 +107,31 @@ const AppContent: React.FC = () => {
   const [showQuizBattle, setShowQuizBattle] = useState(false);
   const [showLearningPaths, setShowLearningPaths] = useState(false);
   const [showTeacherDashboard, setShowTeacherDashboard] = useState(false);
+  const [showQuestionQuality, setShowQuestionQuality] = useState(false);
   const [showAnalytics, setShowAnalytics] = useState(false);
+  const [showCurriculumCoverage, setShowCurriculumCoverage] = useState(false);
+  const [adminConsoleView, setAdminConsoleView] = useState<'dashboard' | 'users' | 'content' | 'analytics' | 'settings'>('dashboard');
+  const [showSATsPractice, setShowSATsPractice] = useState(false);
+  const [selectedDrawingLesson, setSelectedDrawingLesson] = useState<DrawingLesson | null>(null);
+  const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null);
+  
+  // Games unlock state
+  const [gamesUnlockStatus, setGamesUnlockStatus] = useState(() => gamesUnlockService.getStatus());
+  const [showGamesUnlockedCelebration, setShowGamesUnlockedCelebration] = useState(false);
+  
+  // Subscribe to games unlock changes
+  useEffect(() => {
+    const unsubscribe = gamesUnlockService.subscribe(() => {
+      const newStatus = gamesUnlockService.getStatus();
+      const wasLocked = !gamesUnlockStatus.isUnlocked;
+      setGamesUnlockStatus(newStatus);
+      // Show celebration when games just unlocked
+      if (wasLocked && newStatus.isUnlocked) {
+        setShowGamesUnlockedCelebration(true);
+      }
+    });
+    return unsubscribe;
+  }, [gamesUnlockStatus.isUnlocked]);
   
   // Use age from user profile, default to 9 if not set
   const studentAge = user?.age || 9;
@@ -93,6 +151,14 @@ const AppContent: React.FC = () => {
       streakRewardsService.checkDailyLogin();
     }
   }, [user?.id]); // Run when user changes/loads
+
+  // Display badge notifications as toast
+  useEffect(() => {
+    if (pendingBadgeNotification) {
+      showToast('success', pendingBadgeNotification, 5000);
+      clearBadgeNotification();
+    }
+  }, [pendingBadgeNotification, showToast, clearBadgeNotification]);
 
   // Helper to get subject from URL
   const getSubjectFromUrl = (path: string): Subject | undefined => {
@@ -202,6 +268,9 @@ const AppContent: React.FC = () => {
         date: new Date().toISOString(),
       });
       
+      // Unlock games if the quiz score is high enough (>= 7/10).
+      gamesUnlockService.recordQuizResult({ correct: correctAnswers, total: results.length });
+      
       // Update challenge progress
       streakRewardsService.updateChallengeProgress('complete_quizzes', 1, trackedSubject);
       streakRewardsService.updateChallengeProgress('score_points', earned, trackedSubject);
@@ -231,6 +300,43 @@ const AppContent: React.FC = () => {
       // Update daily challenge progress
       dailyChallengeService.completeChallenge(scorePercentage);
       
+      // Phase 2: Progress Visualization Integration
+      import('./services/progressVisualizationService').then(({ progressVisualizationService }) => {
+        // Record progress data for charts
+        progressVisualizationService.recordProgress(
+          trackedSubject,
+          scorePercentage,
+          Math.round(timeSpentSeconds / 60)
+        );
+        
+        // Award certificates for achievements
+        if (scorePercentage === 100) {
+          progressVisualizationService.awardCertificate(
+            user?.name || 'Student',
+            trackedSubject,
+            `Perfect Score on ${currentTopic}`,
+            'platinum'
+          );
+          showToast('success', '💎 Platinum Certificate Earned!', 5000);
+        } else if (scorePercentage >= 95) {
+          progressVisualizationService.awardCertificate(
+            user?.name || 'Student',
+            trackedSubject,
+            `Excellent Performance on ${currentTopic}`,
+            'gold'
+          );
+          showToast('success', '🥇 Gold Certificate Earned!', 5000);
+        } else if (scorePercentage >= 85) {
+          progressVisualizationService.awardCertificate(
+            user?.name || 'Student',
+            trackedSubject,
+            `Great Work on ${currentTopic}`,
+            'silver'
+          );
+          showToast('success', '🥈 Silver Certificate Earned!', 5000);
+        }
+      });
+      
       // Update achievements
       dailyChallengeService.updateStreakAchievements(user?.streak || 0);
     }
@@ -258,14 +364,30 @@ const AppContent: React.FC = () => {
     return "Let's learn!";
   };
 
-  // Parent view - show monitoring dashboard
-  if (user?.role === 'parent') {
-    return (
-      <Suspense fallback={<LoadingSpinner />}>
-        <ParentMonitoringDashboard onLogout={logout} />
-      </Suspense>
-    );
-  }
+  const handleMiRaQuickAction = (action: string): string | void => {
+    switch (action) {
+      case 'teacher-revision':
+        setShowTeacherDashboard(true);
+        return 'Opening the class dashboard so you can build the revision set from real class data.';
+      case 'teacher-weak-questions':
+        setShowQuestionQuality(true);
+        return 'Opening Question Quality. Start with low-success or high-friction questions before assigning more practice.';
+      case 'parent-progress':
+        navigate('/parent-monitoring');
+        return 'Opening parent monitoring so you can check recent progress and decide the next short practice task.';
+      case 'admin-quality':
+        setAdminConsoleView('content');
+        navigate('/');
+        setShowQuestionQuality(true);
+        return 'Opening the content quality workflow. Use the moderation queue and weak-question review first.';
+      case 'admin-settings':
+        setAdminConsoleView('settings');
+        navigate('/');
+        return 'Opening settings. Save one group at a time so reward, AI, safety, and access changes are easy to verify.';
+      default:
+        return undefined;
+    }
+  };
 
   // Student view - show learning interface
   if (!user) {
@@ -274,6 +396,14 @@ const AppContent: React.FC = () => {
       <ToastProvider>
         <LoginView onLogin={handleLoginWrapper} />
       </ToastProvider>
+    );
+  }
+
+  if (hasRole(user, 'parent') && location.pathname === '/parent-monitoring') {
+    return (
+      <Suspense fallback={<LoadingSpinner />}>
+        <ParentMonitoringDashboard onLogout={logout} />
+      </Suspense>
     );
   }
 
@@ -290,8 +420,13 @@ const AppContent: React.FC = () => {
         onOpenLeaderboard={() => setShowLeaderboard(true)}
         onOpenProgress={() => setShowProgress(true)}
         onOpenAvatar={() => navigate('/avatar')}
+        onOpenUISettings={() => setShowUIModeSelector(true)}
+        onOpenQuestionQuality={() => setShowQuestionQuality(true)}
         onLogout={logout}
       />
+
+      {/* Email verification banner */}
+      <EmailVerificationBanner />
 
       <main className="flex-grow w-full content-visibility-auto safe-area-bottom">
         <div className="mobile-shell py-4 mobile:py-5 sm:py-6 lg:py-10">
@@ -300,20 +435,59 @@ const AppContent: React.FC = () => {
               <Route path="/login" element={<LoginView onLogin={handleLoginWrapper} />} />
               
               <Route path="/" element={
-                <HomeView
-                  onSelectSubject={(s) => navigate(`/subject/${encodeURIComponent(s.name)}`)}
-                  onStartDailyChallenge={handleStartDailyChallenge}
-                  onOpenReviewMode={() => setShowReviewMode(true)}
-                  onOpenQuizBattle={() => setShowQuizBattle(true)}
-                  onOpenLearningPaths={() => setShowLearningPaths(true)}
-                  onOpenAchievements={() => setShowAchievements(true)}
-                  onOpenClassroom={() => navigate('/classroom')}
-                  onOpenAnalytics={() => setShowAnalytics(true)}
-                  onOpenStreakRewards={() => navigate('/rewards')}
-                  onOpenAvatarCustomization={() => navigate('/avatar')}
-                  onOpenMiniGames={() => navigate('/games')}
-                  progress={progress}
-                />
+                // Route based on user role
+                hasRole(user, 'admin') ? (
+                  <AdminConsole 
+                    initialView={adminConsoleView}
+                    onOpenQuestionQuality={() => setShowQuestionQuality(true)}
+                    onOpenCurriculumCoverage={() => setShowCurriculumCoverage(true)}
+                  />
+                ) : hasRole(user, 'teacher') ? (
+                  <TeacherHomeView
+                    onOpenTeacherDashboard={() => setShowTeacherDashboard(true)}
+                    onOpenClassroom={() => navigate('/classroom')}
+                    onOpenQuestionQuality={() => setShowQuestionQuality(true)}
+                    onOpenAnalytics={() => setShowAnalytics(true)}
+                    onOpenCurriculumCoverage={() => setShowCurriculumCoverage(true)}
+                  />
+                ) : hasRole(user, 'parent') ? (
+                  <ParentHomeView
+                    onOpenParentDashboard={() => setShowParentDashboard(true)}
+                    onOpenParentMonitoring={() => navigate('/parent-monitoring')}
+                    onOpenAnalytics={() => setShowAnalytics(true)}
+                    onSwitchToChild={() => {
+                      // Switch to child view if child is linked
+                      showToast('info', 'Switch to your child\'s view to see their learning experience');
+                    }}
+                  />
+                ) : isGuidedMode ? (
+                  <GuidedHomeView
+                    onSelectSubject={(s) => navigate(`/subject/${encodeURIComponent(s.name)}`)}
+                    onStartDailyChallenge={handleStartDailyChallenge}
+                    onOpenMiniGames={gamesUnlockStatus.isUnlocked ? () => navigate('/games') : undefined}
+                    onOpenAchievements={() => setShowAchievements(true)}
+                    onOpenAvatarCustomization={() => navigate('/avatar')}
+                    progress={progress}
+                    gamesUnlockStatus={gamesUnlockStatus}
+                  />
+                ) : (
+                  <HomeView
+                    onSelectSubject={(s) => navigate(`/subject/${encodeURIComponent(s.name)}`)}
+                    onStartDailyChallenge={handleStartDailyChallenge}
+                    onOpenReviewMode={() => setShowReviewMode(true)}
+                    onOpenQuizBattle={featureVisibility.showQuizBattle ? () => setShowQuizBattle(true) : undefined}
+                    onOpenLearningPaths={featureVisibility.showLearningPaths ? () => setShowLearningPaths(true) : undefined}
+                    onOpenAchievements={() => setShowAchievements(true)}
+                    onOpenClassroom={featureVisibility.showClassroomMode ? () => navigate('/classroom') : undefined}
+                    onOpenAnalytics={featureVisibility.showAnalytics ? () => setShowAnalytics(true) : undefined}
+                    onOpenMiniGames={gamesUnlockStatus.isUnlocked ? () => navigate('/games') : undefined}
+                    onOpenArtStudio={() => navigate('/art-studio')}
+                    onOpenCurriculumCoverage={featureVisibility.showCurriculumCoverage ? () => setShowCurriculumCoverage(true) : undefined}
+                    onOpenSATsPractice={featureVisibility.showSATsPractice ? () => setShowSATsPractice(true) : undefined}
+                    progress={progress}
+                    gamesUnlockStatus={gamesUnlockStatus}
+                  />
+                )
               } />
               
               {/* Specific Routes for Languages */}
@@ -361,10 +535,18 @@ const AppContent: React.FC = () => {
 
               {/* Full Page Feature Routes */}
               <Route path="/games" element={
-                <MiniGames
-                  onClose={() => navigate('/')}
-                  onXpEarned={(xp) => addPoints(xp)}
-                />
+                gamesUnlockStatus.isUnlocked ? (
+                  <MiniGames
+                    onClose={() => navigate('/')}
+                    onXpEarned={(xp) => {
+                      addPoints(xp);
+                      if (user?.id) void firebaseAuthService.incrementUserPoints(user.id, xp);
+                    }}
+                    onGameStarted={() => gamesUnlockService.recordGamePlay()}
+                  />
+                ) : (
+                  <Navigate to="/" />
+                )
               } />
               
               <Route path="/avatar" element={
@@ -375,10 +557,62 @@ const AppContent: React.FC = () => {
                 />
               } />
               
+              {/* Art Studio Route */}
+              <Route path="/art-studio" element={
+                <ArtGalleryView
+                  studentAge={studentAge}
+                  onSelectArtwork={(artwork) => {
+                    setSelectedArtwork(artwork);
+                    navigate(`/art-studio/quiz/${artwork.id}`);
+                  }}
+                  onSelectLesson={(lesson) => {
+                    setSelectedDrawingLesson(lesson);
+                    navigate(`/art-studio/draw/${lesson.id}`);
+                  }}
+                  onBack={() => navigate('/')}
+                />
+              } />
+              
+              <Route path="/art-studio/draw/:lessonId" element={
+                selectedDrawingLesson ? (
+                  <DrawingLessonView
+                    lesson={selectedDrawingLesson}
+                    studentAge={studentAge}
+                    onComplete={() => {
+                      setSelectedDrawingLesson(null);
+                      navigate('/art-studio');
+                    }}
+                    onBack={() => {
+                      setSelectedDrawingLesson(null);
+                      navigate('/art-studio');
+                    }}
+                  />
+                ) : <Navigate to="/art-studio" />
+              } />
+
+              <Route path="/art-studio/quiz/:artworkId" element={
+                selectedArtwork ? (
+                  <QuizView
+                    subject="Art"
+                    topic={selectedArtwork.title}
+                    difficulty={difficulty}
+                    studentAge={studentAge}
+                    studentName={user?.name}
+                    onSubmit={(results) => {
+                      handleQuizSubmit(results);
+                      navigate('/art-studio');
+                    }}
+                  />
+                ) : <Navigate to="/art-studio" />
+              } />
+
               <Route path="/rewards" element={
                 <StreakRewards
                   onClose={() => navigate('/')}
-                  onXpEarned={(xp) => addPoints(xp)}
+                  onXpEarned={(xp) => {
+                    addPoints(xp);
+                    if (user?.id) void firebaseAuthService.incrementUserPoints(user.id, xp);
+                  }}
                 />
               } />
               
@@ -386,8 +620,32 @@ const AppContent: React.FC = () => {
                 <ClassroomMode
                   userId={user?.id || ''}
                   userName={user?.name || ''}
-                  isTeacher={user?.role === 'teacher'}
+                  isTeacher={hasRole(user, 'teacher')}
                   onExit={() => navigate('/')}
+                />
+              } />
+
+              <Route path="/parent-monitoring" element={
+                hasRole(user, 'parent') ? (
+                  <ParentMonitoringDashboard onLogout={logout} />
+                ) : (
+                  <Navigate to="/" />
+                )
+              } />
+              
+              {/* Phase 2: New Progress & Social Routes */}
+              <Route path="/progress" element={
+                <Suspense fallback={<LoadingSpinner />}>
+                  <ProgressView />
+                </Suspense>
+              } />
+              
+              <Route path="/microlearning" element={
+                <MicrolearningDashboard
+                  onSelectSession={(session) => {
+                    // Navigate to quiz with microlearning context
+                    navigate(`/subject/${session.subject}/topic/${session.topic}/quiz?difficulty=${session.difficulty}&microlearning=true`);
+                  }}
                 />
               } />
               
@@ -403,7 +661,19 @@ const AppContent: React.FC = () => {
         studentAge={studentAge}
         studentName={user?.name}
         context={subjectKey && currentTopic ? { subject: subjectKey, topic: currentTopic } : undefined}
+        currentActivity={(() => {
+          const path = location.pathname;
+          if (path.includes('/quiz')) return 'Quiz';
+          if (path.includes('/lesson') || (path.includes('/topic/') && !path.includes('/quiz'))) return 'Lesson';
+          if (path.includes('/games') || path.includes('/minigames')) return 'Game';
+          if (path.includes('/art-studio')) return 'Art Studio';
+          if (path.includes('/store')) return 'Store';
+          if (path === '/') return 'Home';
+          return 'Browsing';
+        })()}
+        userRole={user?.role}
         quizScore={showFeedback && quizResults.length > 0 ? Math.round((quizResults.filter(r => r.isCorrect).length / quizResults.length) * 100) : undefined}
+        onQuickAction={handleMiRaQuickAction}
       />
 
       {showFeedback && currentSubject && currentTopic && (
@@ -458,9 +728,22 @@ const AppContent: React.FC = () => {
         </Suspense>
       )}
 
+      {/* Question Quality Dashboard - Admin/Teacher only */}
+      {showQuestionQuality && (
+        <Suspense fallback={<LoadingSpinner />}>
+          <QuestionQualityDashboard onClose={() => setShowQuestionQuality(false)} />
+        </Suspense>
+      )}
+
       {/* New Feature Modals */}
       {showAccessibilitySettings && (
         <AccessibilitySettingsModal onClose={() => setShowAccessibilitySettings(false)} />
+      )}
+
+      {showUIModeSelector && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
+          <UIModeSelector onClose={() => setShowUIModeSelector(false)} />
+        </div>
       )}
 
       {showReviewMode && (
@@ -488,6 +771,13 @@ const AppContent: React.FC = () => {
         <AchievementsGallery onClose={() => setShowAchievements(false)} />
       )}
 
+      {showGamesUnlockedCelebration && (
+        <GamesUnlockedCelebration onDismiss={() => {
+          setShowGamesUnlockedCelebration(false);
+          navigate('/games');
+        }} />
+      )}
+
       {showQuizBattle && (
         <QuizBattleMode 
           onClose={() => setShowQuizBattle(false)}
@@ -513,6 +803,31 @@ const AppContent: React.FC = () => {
 
       {showAnalytics && (
         <AnalyticsDashboard onClose={() => setShowAnalytics(false)} />
+      )}
+
+      {showCurriculumCoverage && (
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-white">
+          <div className="relative min-h-screen">
+            <button 
+              onClick={() => setShowCurriculumCoverage(false)}
+              className="absolute top-4 right-4 z-10 p-2 bg-white rounded-full shadow-md hover:bg-gray-100"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <CurriculumCoverageDashboard 
+              studentName={user?.name} 
+              studentYear={user?.yearGroup || 5} 
+            />
+          </div>
+        </div>
+      )}
+
+      {showSATsPractice && (
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-white">
+          <SATsPracticeMode onExit={() => setShowSATsPractice(false)} />
+        </div>
       )}
 
       {/* Google Cloud TTS test UI removed */}
@@ -653,11 +968,15 @@ const QuizRouteWrapper = ({ studentAge, difficulty, onSubmit }: { studentAge: nu
   );
 };
 
+import ErrorBoundary from './components/ErrorBoundary';
+
 const App: React.FC = () => {
   return (
-    <ToastProvider>
-      <AppContent />
-    </ToastProvider>
+    <ErrorBoundary>
+      <ToastProvider>
+        <AppContent />
+      </ToastProvider>
+    </ErrorBoundary>
   );
 };
 

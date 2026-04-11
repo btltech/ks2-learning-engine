@@ -10,26 +10,25 @@ service cloud.firestore {
       return request.auth != null;
     }
 
-    function isStudent() {
-      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.get('role', 'student') == 'student';
+    function isAdmin() {
+      return request.auth != null && request.auth.token.admin == true;
     }
 
-    function isParent() {
-      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.get('role', 'parent') == 'parent';
-    }
-
-    function isOwnProfile(userId) {
-      return request.auth.uid == userId;
+    // Anonymous auth sessions are still "authenticated" in Firebase.
+    // If you don't want guest/anonymous users writing data, block them explicitly.
+    function isNonAnonymousAuth() {
+      return isAuthenticated() &&
+        request.auth.token.firebase.sign_in_provider != 'anonymous';
     }
 
     function isOwnChildProfile(childId) {
       let childDoc = get(/databases/$(database)/documents/users/$(childId)).data;
-      return childDoc.get('parentId') == request.auth.uid;
+      return childDoc.parentId == request.auth.uid;
     }
 
     function isParentOfStudent(studentId) {
       let student = get(/databases/$(database)/documents/users/$(studentId)).data;
-      return student.get('parentId') == request.auth.uid;
+      return student.parentId == request.auth.uid;
     }
 
     // ============================================
@@ -37,10 +36,13 @@ service cloud.firestore {
     // ============================================
     match /users/{userId} {
       
-      // READ: Users can read their own profile or parents can read their children's profiles
+      // READ: Users can ALWAYS read their own profile
+      // Parents can also read their children's profiles
       allow read: if isAuthenticated() && (
-        isOwnProfile(userId) ||  // Users can read their own profile
-        (isParent() && isOwnChildProfile(userId))  // Parents can read their children's profiles
+        request.auth.uid == userId ||  // Users can ALWAYS read their own profile (no role check needed)
+        (resource != null && resource.data.parentId == request.auth.uid) || // Direct parentId check (efficient for queries & doc reads)
+        isOwnChildProfile(userId) ||  // Fallback helper (checks parentId field via get)
+        isAdmin() // Admins can read user profiles
       );
 
       // CREATE: Only authenticated users can create their own profile during signup
@@ -49,10 +51,43 @@ service cloud.firestore {
         request.resource.data.id == userId &&
         request.resource.data.email == request.auth.token.email;
 
-      // UPDATE: Users can update their own profile, or parents can update their children's profiles
+      // UPDATE:
+      // - Users can update their own profile EXCEPT privileged fields (no self-escalation)
+      // - Parents can update their child's profile EXCEPT privileged fields
+      // - Bootstrap email can set itself to admin/teacher one time (for initial setup)
       allow update: if isAuthenticated() && (
-        (isOwnProfile(userId) && isStudent()) ||  // Students can update their own data
-        (isParent() && isOwnChildProfile(userId))  // Parents can update children
+        (
+          (request.auth.uid == userId || isOwnChildProfile(userId)) &&
+          // Disallow changing privileged fields
+          !request.resource.data.diff(resource.data).changedKeys().hasAny([
+            'id',
+            'email',
+            'role',
+            'roles',
+            'parentId',
+            'childrenIds',
+            'parentCode',
+            'childCode',
+            'createdAt'
+          ])
+        )
+        ||
+        (
+          // Allow migrating legacy users to add `roles: [role]` only
+          request.auth.uid == userId &&
+          resource.data.roles == null &&
+          request.resource.data.diff(resource.data).changedKeys().hasOnly(['roles', 'updatedAt']) &&
+          request.resource.data.roles.size() == 1 &&
+          request.resource.data.roles[0] == resource.data.role
+        )
+        ||
+        (
+          // Admin-only role management
+          isAdmin() &&
+          request.resource.data.diff(resource.data).changedKeys().hasOnly(['role', 'roles', 'updatedAt']) &&
+          request.resource.data.roles.size() >= 1 &&
+          request.resource.data.roles.hasAll([request.resource.data.role])
+        )
       );
 
       // DELETE: Admins only (not exposed in client - backend-only)
@@ -66,12 +101,12 @@ service cloud.firestore {
       match /activity/{activityId} {
         allow read: if isAuthenticated() && (
           request.auth.uid == userId ||  // Students read own activity
-          (isParent() && isParentOfStudent(userId))  // Parents read their child's activity
+          isParentOfStudent(userId)  // Parents read their child's activity
         );
 
         allow create, update: if isAuthenticated() && (
           request.auth.uid == userId ||  // Students log their own activity
-          (isParent() && isParentOfStudent(userId))  // Parents can log activity for their children
+          isParentOfStudent(userId)  // Parents can log activity for their children
         );
 
         allow delete: if false;  // Activities are immutable once logged
@@ -81,57 +116,101 @@ service cloud.firestore {
       match /quizProgress/{quizId} {
         allow read: if isAuthenticated() && (
           request.auth.uid == userId ||
-          (isParent() && isParentOfStudent(userId))
+          isParentOfStudent(userId)
         );
 
         allow create, update: if isAuthenticated() && (
           request.auth.uid == userId ||
-          (isParent() && isParentOfStudent(userId))
+          isParentOfStudent(userId)
         );
 
-        allow delete: if (isParent() && isParentOfStudent(userId));
+        allow delete: if isParentOfStudent(userId);
       }
 
       // Subject Progress Subcollection
       match /subjectProgress/{subject} {
         allow read: if isAuthenticated() && (
           request.auth.uid == userId ||
-          (isParent() && isParentOfStudent(userId))
+          isParentOfStudent(userId)
         );
 
         allow create, update: if isAuthenticated() && (
           request.auth.uid == userId ||
-          (isParent() && isParentOfStudent(userId))
+          isParentOfStudent(userId)
         );
 
-        allow delete: if (isParent() && isParentOfStudent(userId));
+        allow delete: if isParentOfStudent(userId);
       }
 
       // Topic Progress Subcollection
       match /topicProgress/{topic} {
         allow read: if isAuthenticated() && (
           request.auth.uid == userId ||
-          (isParent() && isParentOfStudent(userId))
+          isParentOfStudent(userId)
         );
 
         allow create, update: if isAuthenticated() && (
           request.auth.uid == userId ||
-          (isParent() && isParentOfStudent(userId))
+          isParentOfStudent(userId)
         );
 
-        allow delete: if (isParent() && isParentOfStudent(userId));
+        allow delete: if isParentOfStudent(userId);
+      }
+
+      // Parent -> children linking (managed by backend; parents can read their own links)
+      match /children/{childId} {
+        allow read: if isAuthenticated() && request.auth.uid == userId;
+        allow create, update, delete: if false;
       }
     }
 
     // ============================================
     // LEADERBOARD Collection
     // ============================================
-    match /leaderboard/{entry} {
-      // Anyone can read the leaderboard (public rankings)
+    match /leaderboard/{entryId} {
+      // Anyone signed in can read the leaderboard (public rankings)
       allow read: if isAuthenticated();
 
-      // Only backend can write (via Cloud Functions)
-      allow create, update, delete: if false;
+      function isNumberValue(value) {
+        return value is int || value is float;
+      }
+
+      function isValidLeaderboardWrite(entryId) {
+        return isNonAnonymousAuth() &&
+          request.auth.uid == entryId &&
+          request.resource.data.userId == entryId &&
+          request.resource.data.name is string &&
+          request.resource.data.name.size() >= 1 &&
+          request.resource.data.name.size() <= 40 &&
+          isNumberValue(request.resource.data.age) &&
+          request.resource.data.age >= 3 &&
+          request.resource.data.age <= 25 &&
+          isNumberValue(request.resource.data.points) &&
+          request.resource.data.points >= 0 &&
+          request.resource.data.points <= 1000000000 &&
+          request.resource.data.avatar is string &&
+          request.resource.data.avatar.size() <= 100 &&
+          isNumberValue(request.resource.data.streak) &&
+          request.resource.data.streak >= 0 &&
+          request.resource.data.streak <= 3650 &&
+          request.resource.data.updatedAt is string &&
+          request.resource.data.updatedAt.size() <= 50 &&
+          request.resource.data.serverTimestamp is timestamp &&
+          request.resource.data.keys().hasOnly([
+            'userId',
+            'name',
+            'age',
+            'points',
+            'avatar',
+            'streak',
+            'updatedAt',
+            'serverTimestamp'
+          ]);
+      }
+
+      // Users can only write their own leaderboard entry with a strict schema.
+      allow create, update: if isValidLeaderboardWrite(entryId);
+      allow delete: if false;
     }
 
     // ============================================
@@ -171,6 +250,139 @@ service cloud.firestore {
 
       // Only backend can manage content
       allow create, update, delete: if false;
+    }
+
+    // ============================================
+    // SHARED CONTENT CACHE (AI Responses)
+    // ============================================
+    match /content_cache/{docId} {
+      // Allow public read access to shared cache (AI-generated content)
+      // This enables the app to load cached topics/lessons before user authentication
+      allow read: if true;
+
+      function isNumberValue(value) {
+        return value is int || value is float;
+      }
+
+      function isValidCacheId(docId) {
+        return docId is string &&
+          docId.size() > 0 &&
+          docId.size() <= 150 &&
+          docId.matches('^(topics|lesson|quiz)-[a-z0-9_-]+$');
+      }
+
+      function isValidCacheData(value) {
+        return (value is string && value.size() <= 50000) ||
+          (value is list && value.size() <= 100);
+      }
+
+      function isValidSharedCacheWrite(docId) {
+        return isNonAnonymousAuth() &&
+          isValidCacheId(docId) &&
+          request.resource.data.version is string &&
+          request.resource.data.version.size() > 0 &&
+          request.resource.data.version.size() <= 20 &&
+          isNumberValue(request.resource.data.timestamp) &&
+          request.resource.data.timestamp > 0 &&
+          request.resource.data.timestamp < 10000000000000 &&
+          isValidCacheData(request.resource.data.data) &&
+          request.resource.data.keys().hasOnly(['data', 'timestamp', 'version']);
+      }
+
+      allow create, update: if isValidSharedCacheWrite(docId);
+      allow delete: if false;
+    }
+
+    // ============================================
+    // QUESTIONS Collection (Uploaded Question Bank)
+    // ============================================
+    match /questions/{questionId} {
+      // Read for authenticated users
+      allow read: if isAuthenticated();
+
+      function isValidDifficulty(value) {
+        return value in ['Easy', 'Medium', 'Hard'];
+      }
+
+      function isValidQuestionType(value) {
+        return value in [
+          'multiple-choice',
+          'true-false',
+          'fill-in-blank',
+          'ordering',
+          'drawing',
+          'matching',
+          'drag-and-drop'
+        ];
+      }
+
+      function isValidCognitiveLevel(value) {
+        return value in ['remember', 'understand', 'apply', 'analyze'];
+      }
+
+      function isValidCloudBankCreate() {
+        return isNonAnonymousAuth() &&
+          // Ownership / attribution
+          request.resource.data.createdBy == request.auth.uid &&
+          // Basic required fields
+          request.resource.data.subject is string &&
+          request.resource.data.topic is string &&
+          request.resource.data.question is string &&
+          request.resource.data.correctAnswer is string &&
+          request.resource.data.difficulty is string &&
+          isValidDifficulty(request.resource.data.difficulty) &&
+          request.resource.data.age is int &&
+          request.resource.data.age >= 5 && request.resource.data.age <= 18 &&
+          request.resource.data.options is list &&
+          request.resource.data.createdAt is timestamp &&
+          // Optional fields (when present)
+          (!('explanation' in request.resource.data) || request.resource.data.explanation is string) &&
+          (!('questionType' in request.resource.data) || (request.resource.data.questionType is string && isValidQuestionType(request.resource.data.questionType))) &&
+          (!('cognitiveLevel' in request.resource.data) || (request.resource.data.cognitiveLevel is string && isValidCognitiveLevel(request.resource.data.cognitiveLevel))) &&
+          (!('acceptableAnswers' in request.resource.data) || request.resource.data.acceptableAnswers is list) &&
+          // Prevent writes to unexpected fields
+          request.resource.data.keys().hasOnly([
+            'subject',
+            'topic',
+            'difficulty',
+            'age',
+            'question',
+            'options',
+            'correctAnswer',
+            'explanation',
+            'questionType',
+            'cognitiveLevel',
+            'acceptableAnswers',
+            'createdAt',
+            'createdBy'
+          ]);
+      }
+      
+      // Allow updating ONLY performance fields (for analytics)
+      allow update: if isAuthenticated() &&
+        request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['performance']);
+      
+      // Allow authenticated clients to add new unique questions (Cloud Bank)
+      // Writes are still constrained by schema + attribution to prevent random data.
+      allow create: if isValidCloudBankCreate();
+
+      // No client deletes
+      allow delete: if false;
+    }
+
+    // ============================================
+    // QUESTION PERFORMANCE Collection (for static bank questions)
+    // ============================================
+    match /questionPerformance/{questionId} {
+      // Anyone authenticated can read performance stats
+      allow read: if isAuthenticated();
+      
+      // Anyone authenticated can update/create performance data
+      allow create, update: if isAuthenticated();
+      
+      // Only admin can delete
+      allow delete: if false;
     }
 
     // ============================================

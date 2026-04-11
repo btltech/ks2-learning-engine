@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { UserGroupIcon, ArrowRightOnRectangleIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import { firebaseAuthService } from '../services/firebaseAuthService';
 import { UserProfile } from '../types';
+import { hasRole } from '../utils/roles';
 
 interface AccountSwitcherProps {
   currentUser: UserProfile | null;
   onSwitchAccount: (user: UserProfile) => void;
-  onLogout: () => void;
+  onLogout: () => void | Promise<void>;
 }
 
 const AccountSwitcher: React.FC<AccountSwitcherProps> = ({
@@ -19,7 +20,7 @@ const AccountSwitcher: React.FC<AccountSwitcherProps> = ({
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (isOpen && currentUser?.role === 'parent') {
+    if (isOpen && hasRole(currentUser, 'parent')) {
       loadChildAccounts();
     }
   }, [isOpen, currentUser]);
@@ -109,7 +110,7 @@ const AccountSwitcher: React.FC<AccountSwitcherProps> = ({
             <button
               onClick={() => {
                 setIsOpen(false);
-                onLogout();
+                void onLogout();
               }}
               className="w-full flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors font-medium text-sm"
             >

@@ -1,11 +1,14 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
+import { doc as firestoreDoc, onSnapshot, collection as firestoreCollection } from 'firebase/firestore';
 import { UserProfile, Badge, Difficulty, QuizSession, WeeklyProgress } from '../types';
 import { leaderboardService } from '../services/leaderboardService';
+import { firebaseAuthService } from '../services/firebaseAuthService';
+import { db } from '../services/firebase';
+import { hasRole } from '../utils/roles';
 
 interface UserContextType {
   user: UserProfile | null;
-  login: (name: string, role: UserProfile['role'], age?: number) => void;
-  logout: () => void;
+  logout: () => Promise<void>;
   setUser: (user: UserProfile) => void;
   updateAge: (age: number) => void;
   addPoints: (amount: number) => void;
@@ -26,10 +29,10 @@ interface UserContextType {
   currentChild: UserProfile | null;
   linkedChildren: UserProfile[];
   selectChild: (childId: string) => void;
-  getChildData: (childId: string) => UserProfile | null;
-  registerChild: (childProfile: UserProfile) => void;
-  linkChildToParent: (parentCode: string, childId: string) => boolean;
-  generateParentCode: () => string;
+  refreshLinkedChildren: () => Promise<void>;
+  // Badge notification callback for external toast handling
+  pendingBadgeNotification: string | null;
+  clearBadgeNotification: () => void;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -71,14 +74,17 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [user, setUser] = useState<UserProfile | null>(null);
   const [selectedChildId, setSelectedChildId] = useState<string | null>(null);
   const [linkedChildren, setLinkedChildren] = useState<UserProfile[]>([]);
+  const [pendingBadgeNotification, setPendingBadgeNotification] = useState<string | null>(null);
   const [settings, setSettings] = useState({
     aiFallbackEnabled: true,
     adaptiveChallengeEnabled: true,
   });
+  
+  const clearBadgeNotification = () => setPendingBadgeNotification(null);
 
   // Migrate legacy user data to include new fields
   const migrateUserData = (user: any): UserProfile => {
-    return {
+    const migrated = {
       ...user,
       badges: user.badges || [],
       timeSpentLearning: user.timeSpentLearning || {},
@@ -93,6 +99,11 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
         goalMet: false
       }
     };
+
+    // Ensure parent code exists for parents
+    // Parent codes are generated/managed server-side to guarantee uniqueness.
+
+    return migrated;
   };
 
   // Load from local storage on mount
@@ -100,9 +111,21 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const savedUser = localStorage.getItem('ks2_user');
     const savedSettings = localStorage.getItem('ks2_settings');
     if (savedUser) {
-      const parsedUser = JSON.parse(savedUser);
-      // Migration: Ensure all fields exist for legacy users
-      setUser(migrateUserData(parsedUser));
+      try {
+        const parsedUser = JSON.parse(savedUser);
+        // Migration: Ensure all fields exist for legacy users
+        const migratedUser = migrateUserData(parsedUser);
+        setUser(migratedUser);
+        
+        // Force save immediately if migration changed anything (like adding parentCode)
+        if (JSON.stringify(migratedUser) !== JSON.stringify(parsedUser)) {
+          localStorage.setItem('ks2_user', JSON.stringify(migratedUser));
+        }
+      } catch (error) {
+        console.error('Failed to parse user data from localStorage:', error);
+        // Optionally clear corrupted data
+        // localStorage.removeItem('ks2_user');
+      }
     } 
     // Removed auto-login for default user to ensure Login page is shown
     
@@ -121,24 +144,9 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (user) {
       localStorage.setItem('ks2_user', JSON.stringify(user));
       // Sync to global leaderboard
-      leaderboardService.submitScore(user);
-      
-      // Load linked children for parent users
-      if (user.role === 'parent' && user.childrenIds && user.childrenIds.length > 0) {
-        const children: UserProfile[] = [];
-        user.childrenIds.forEach(childId => {
-          const childData = localStorage.getItem(`ks2_child_${childId}`);
-          if (childData) {
-            children.push(JSON.parse(childData));
-          }
-        });
-        setLinkedChildren(children);
-        // Auto-select first child if none selected
-        if (!selectedChildId && children.length > 0) {
-          setSelectedChildId(children[0].id);
-        }
-      } else {
-        setLinkedChildren([]);
+      const enableLeaderboard = (import.meta as any).env?.VITE_ENABLE_LEADERBOARD === 'true';
+      if (enableLeaderboard && hasRole(user, 'student')) {
+        leaderboardService.submitScore(user);
       }
     }
   }, [user]);
@@ -146,20 +154,136 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // Compute current child from selectedChildId
   const currentChild = linkedChildren.find(c => c.id === selectedChildId) || null;
 
+  const isParent = hasRole(user, 'parent');
+  const isStudent = hasRole(user, 'student');
+  const lastParentChildrenKey = useRef<string>('');
+  const isRefreshingChildren = useRef<boolean>(false);
+
+  const refreshLinkedChildren = useCallback(async (): Promise<void> => {
+    if (!user || !isParent || isRefreshingChildren.current) {
+      if (!user || !isParent) {
+        setLinkedChildren([]);
+        setSelectedChildId(null);
+      }
+      return;
+    }
+
+    isRefreshingChildren.current = true;
+    try {
+      const children = await firebaseAuthService.getParentChildren(user.id);
+      setLinkedChildren(children);
+      setSelectedChildId((prev) => {
+        if (prev && children.some((c) => c.id === prev)) return prev;
+        return children.length > 0 ? children[0].id : null;
+      });
+    } catch (e) {
+      console.warn('Unable to load linked children:', e);
+      setLinkedChildren([]);
+      setSelectedChildId(null);
+    } finally {
+      isRefreshingChildren.current = false;
+    }
+  }, [user?.id, isParent]);
+
+  // Keep linked children in sync for parent accounts (initial load + when user changes)
+  useEffect(() => {
+    if (!user || !isParent) {
+      setLinkedChildren([]);
+      setSelectedChildId(null);
+      return;
+    }
+    void refreshLinkedChildren();
+  }, [user?.id, isParent, refreshLinkedChildren]);
+
+  // Live-update parent->children linking when another device/browser adds a child.
+  useEffect(() => {
+    if (!user || !isParent) return;
+
+    const parentRef = firestoreDoc(db, 'users', user.id);
+    return onSnapshot(
+      parentRef,
+      (snap) => {
+        const data: any = snap.data();
+        const parentCode = typeof data?.parentCode === 'string' ? data.parentCode : undefined;
+
+        if (parentCode) {
+          setUser((prev) => {
+            if (!prev) return prev;
+            if (prev.parentCode === parentCode) return prev;
+            return {
+              ...prev,
+              parentCode,
+            };
+          });
+        }
+      },
+      (error) => {
+        console.warn('Parent listener error:', error);
+      }
+    );
+  }, [user?.id, isParent, refreshLinkedChildren]);
+
+  // Live-update parent->children linking via subcollection (preferred model).
+  useEffect(() => {
+    if (!user || !isParent) return;
+
+    const childrenRef = firestoreCollection(db, 'users', user.id, 'children');
+    return onSnapshot(
+      childrenRef,
+      (snap) => {
+        const ids = snap.docs.map((d) => d.id).filter(Boolean).sort();
+        const nextKey = ids.join(',');
+        if (nextKey !== lastParentChildrenKey.current) {
+          lastParentChildrenKey.current = nextKey;
+          void refreshLinkedChildren();
+        }
+      },
+      (error) => {
+        console.warn('Children listener error:', error);
+      }
+    );
+  }, [user?.id, isParent, refreshLinkedChildren]);
+
+  // Persist student progress to Firestore only on key events (quiz completion).
+  // This reduces write volume vs syncing on every small UI state change.
+  const lastSyncedQuizId = useRef<string>('');
+  useEffect(() => {
+    if (!user || !isStudent) return;
+
+    const quizHistory = Array.isArray(user.quizHistory) ? user.quizHistory : [];
+    const lastQuiz = quizHistory.length > 0 ? quizHistory[quizHistory.length - 1] : null;
+    const lastQuizId = lastQuiz?.id || '';
+    if (!lastQuizId || lastQuizId === lastSyncedQuizId.current) return;
+
+    lastSyncedQuizId.current = lastQuizId;
+
+    const trimmedQuizHistory = quizHistory.slice(-200);
+    const updates: Partial<UserProfile> = {
+      name: user.name,
+      age: user.age,
+      avatarConfig: user.avatarConfig,
+      totalPoints: user.totalPoints,
+      unlockedItems: user.unlockedItems || [],
+      badges: user.badges || [],
+      streak: user.streak,
+      lastLoginDate: user.lastLoginDate,
+      mastery: user.mastery || {},
+      timeSpentLearning: user.timeSpentLearning || {},
+      quizHistory: trimmedQuizHistory,
+      preferredDifficulty: user.preferredDifficulty || Difficulty.Medium,
+    };
+
+    if (typeof user.weeklyGoal === 'number') updates.weeklyGoal = user.weeklyGoal;
+    if (user.weeklyProgress) updates.weeklyProgress = user.weeklyProgress;
+
+    void firebaseAuthService.updateUserProfile(user.id, updates).catch((e) => {
+      console.warn('Firestore sync failed (quiz completion):', e);
+    });
+  }, [user?.id, isStudent, user?.quizHistory]);
+
   useEffect(() => {
     localStorage.setItem('ks2_settings', JSON.stringify(settings));
   }, [settings]);
-
-  const login = (name: string, role: UserProfile['role'], age: number = 9) => {
-    const newUser: UserProfile = {
-      ...INITIAL_USER,
-      name,
-      role,
-      age,
-      lastLoginDate: new Date().toISOString()
-    };
-    setUser(newUser);
-  };
 
   const setUserProfile = (userProfile: UserProfile) => {
     setUser(userProfile);
@@ -170,9 +294,20 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setUser(prev => prev ? { ...prev, age } : null);
   };
 
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem('ks2_user');
+  const logout = async (): Promise<void> => {
+    // IMPORTANT: await Firebase signOut first.
+    // If we clear UI state before signOut completes, LoginView may briefly see a "still signed in"
+    // session and immediately re-login, which then gets invalidated when signOut finishes.
+    try {
+      await firebaseAuthService.logout();
+    } catch (e) {
+      console.warn('Firebase logout failed:', e);
+    } finally {
+      setUser(null);
+      localStorage.removeItem('ks2_user');
+      setSelectedChildId(null);
+      setLinkedChildren([]);
+    }
   };
 
   const addPoints = (amount: number) => {
@@ -284,8 +419,8 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     if (newBadges.length > 0) {
       setUser(prev => prev ? { ...prev, badges: [...(prev.badges || []), ...newBadges] } : null);
-      // Ideally, we would trigger a notification here
-      alert(`🎉 You earned new badges: ${newBadges.map(b => b.name).join(', ')}!`);
+      // Set pending notification for toast display
+      setPendingBadgeNotification(`🎉 You earned new badges: ${newBadges.map(b => b.name).join(', ')}!`);
     }
   };
 
@@ -307,7 +442,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setUser(prev => {
       if (!prev || !prev.quizHistory) return prev;
       
-      const updatedHistory = [...prev.quizHistory, session];
+      const updatedHistory = [...prev.quizHistory, session].slice(-200);
       
       // Auto-adjust difficulty based on performance
       let newDifficulty = prev.preferredDifficulty || Difficulty.Medium;
@@ -429,81 +564,15 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   // Multi-child support functions
-  const generateParentCode = (): string => {
-    return Math.random().toString(36).substring(2, 8).toUpperCase();
-  };
-
   const selectChild = (childId: string) => {
-    if (user?.role === 'parent' && user.childrenIds?.includes(childId)) {
-      setSelectedChildId(childId);
-      // Load the child's data if needed
-      const childData = localStorage.getItem(`ks2_child_${childId}`);
-      if (childData) {
-        // In a real app, we'd load the child's data for monitoring
-      }
-    }
-  };
-
-  const getChildData = (childId: string): UserProfile | null => {
-    const childData = localStorage.getItem(`ks2_child_${childId}`);
-    return childData ? JSON.parse(childData) : null;
-  };
-
-  const registerChild = (childProfile: UserProfile) => {
-    if (user?.role === 'parent') {
-      // Save child profile to local storage
-      localStorage.setItem(`ks2_child_${childProfile.id}`, JSON.stringify(childProfile));
-      
-      // Link to parent
-      setUser(prev => {
-        if (!prev) return null;
-        const currentChildren = prev.childrenIds || [];
-        if (!currentChildren.includes(childProfile.id)) {
-          return {
-            ...prev,
-            childrenIds: [...currentChildren, childProfile.id]
-          };
-        }
-        return prev;
-      });
-    }
-  };
-
-  const linkChildToParent = (parentCode: string, childId: string): boolean => {
-    // In a real app, this would validate the parent code
-    // For now, we'll just check if it's a valid format
-    if (!parentCode || parentCode.length < 4) return false;
-
-    const childData = getChildData(childId);
-    if (!childData) return false;
-
-    // Link child to parent
-    if (user?.role === 'parent') {
-      setUser(prev => {
-        if (!prev) return null;
-        return {
-          ...prev,
-          childrenIds: [...(prev.childrenIds || []), childId],
-          parentCode: prev.parentCode || generateParentCode()
-        };
-      });
-
-      // Update child profile with parent link
-      const updatedChildData = {
-        ...childData,
-        parentId: user.id
-      };
-      localStorage.setItem(`ks2_child_${childId}`, JSON.stringify(updatedChildData));
-      
-      return true;
-    }
-    return false;
+    if (!hasRole(user, 'parent')) return;
+    if (!linkedChildren.some((c) => c.id === childId)) return;
+    setSelectedChildId(childId);
   };
 
   return (
     <UserContext.Provider value={{ 
       user, 
-      login, 
       logout, 
       setUser: setUserProfile, 
       updateAge, 
@@ -522,10 +591,10 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
       currentChild,
       linkedChildren,
       selectChild,
-      getChildData,
-      registerChild,
-      linkChildToParent,
-      generateParentCode
+      refreshLinkedChildren,
+      // Badge notification
+      pendingBadgeNotification,
+      clearBadgeNotification
     }}>
       {children}
     </UserContext.Provider>

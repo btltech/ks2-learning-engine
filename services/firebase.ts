@@ -1,5 +1,5 @@
-import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs, addDoc, query, where, limit } from 'firebase/firestore';
+import { getApp, getApps, initializeApp } from 'firebase/app';
+import { getFirestore, collection, getDocs, addDoc, query, where, limit, doc, setDoc, getDoc } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -12,8 +12,8 @@ const firebaseConfig = {
   appId: (import.meta as any).env.VITE_FIREBASE_APP_ID
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+// Initialize Firebase (reuse existing default app if already initialized)
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 export const db = getFirestore(app);
 
-export { collection, getDocs, addDoc, query, where, limit };
+export { collection, getDocs, addDoc, query, where, limit, doc, setDoc, getDoc };

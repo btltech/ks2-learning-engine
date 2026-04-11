@@ -210,7 +210,106 @@ class AccessibilityService {
       this.updateSetting('highContrast', true);
     }
   }
+
+  // Screen reader announcements
+  private announceElement: HTMLDivElement | null = null;
+
+  private initAnnounceElement(): void {
+    if (!this.announceElement && typeof document !== 'undefined') {
+      this.announceElement = document.createElement('div');
+      this.announceElement.setAttribute('aria-live', 'polite');
+      this.announceElement.setAttribute('aria-atomic', 'true');
+      this.announceElement.setAttribute('role', 'status');
+      this.announceElement.className = 'sr-only';
+      document.body.appendChild(this.announceElement);
+    }
+  }
+
+  /**
+   * Announce a message to screen readers
+   */
+  announce(message: string, priority: 'polite' | 'assertive' = 'polite'): void {
+    this.initAnnounceElement();
+    
+    if (this.announceElement) {
+      this.announceElement.setAttribute('aria-live', priority);
+      this.announceElement.textContent = '';
+      setTimeout(() => {
+        if (this.announceElement) {
+          this.announceElement.textContent = message;
+        }
+      }, 50);
+    }
+  }
+
+  /**
+   * Focus an element by selector
+   */
+  focusElement(selector: string): boolean {
+    const element = document.querySelector<HTMLElement>(selector);
+    if (element) {
+      element.focus();
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Trap focus within a container (for modals)
+   */
+  trapFocus(containerSelector: string): () => void {
+    const container = document.querySelector<HTMLElement>(containerSelector);
+    if (!container) return () => {};
+
+    const focusableSelectors = [
+      'button:not([disabled])',
+      'a[href]',
+      'input:not([disabled])',
+      'select:not([disabled])',
+      'textarea:not([disabled])',
+      '[tabindex]:not([tabindex="-1"])',
+    ].join(', ');
+
+    const focusables = container.querySelectorAll<HTMLElement>(focusableSelectors);
+    const firstFocusable = focusables[0];
+    const lastFocusable = focusables[focusables.length - 1];
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return;
+
+      if (e.shiftKey) {
+        if (document.activeElement === firstFocusable) {
+          e.preventDefault();
+          lastFocusable?.focus();
+        }
+      } else {
+        if (document.activeElement === lastFocusable) {
+          e.preventDefault();
+          firstFocusable?.focus();
+        }
+      }
+    };
+
+    container.addEventListener('keydown', handleKeyDown);
+    firstFocusable?.focus();
+
+    return () => container.removeEventListener('keydown', handleKeyDown);
+  }
 }
+
+// ARIA label helpers
+export const ariaLabels = {
+  quizProgress: (current: number, total: number) => 
+    `Question ${current} of ${total}`,
+  questionText: (question: string) => 
+    `Question: ${question}`,
+  answerOption: (option: string, index: number) => 
+    `Option ${String.fromCharCode(65 + index)}: ${option}`,
+  correctAnswer: 'Correct answer',
+  incorrectAnswer: 'Incorrect answer',
+  loading: 'Loading, please wait',
+  closeModal: 'Close dialog',
+};
 
 export const accessibilityService = new AccessibilityService();
 

@@ -64,6 +64,7 @@ export const useTTS = (language?: string) => {
   const cancel = useCallback(() => {
     stopSpeaking();
     setIsSpeaking(false);
+    setIsLoading(false);
     setProgress(null);
     setErrorMessage(null);
     setNeedsGesture(false);

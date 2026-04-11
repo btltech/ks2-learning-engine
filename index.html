@@ -4,23 +4,20 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; media-src 'self' data: https: blob:; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://*.cloudfunctions.net https://*.firebase.googleapis.com https://*.openai.com https://generativelanguage.googleapis.com wss://*.firebaseio.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; worker-src 'self' blob:; manifest-src 'self'">
     <meta name="description" content="KS2 Learning Engine - An interactive educational platform for UK Key Stage 2 students to learn and practice various subjects." />
     <title>KS2 Learning Engine - Interactive Learning for UK Primary Students</title>
-    <!-- Tailwind CSS via CDN - Production deployment -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+    <!-- Tailwind is bundled locally (no CDN) to work on restricted devices -->
     <style>
       * {
-        font-family: 'Inter', 'Nunito', sans-serif;
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;
       }
       h1, h2, h3, h4, h5, h6 {
-        font-family: 'Poppins', 'Inter', sans-serif;
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;
         letter-spacing: -0.015em;
       }
       body {
-        font-family: 'Inter', 'Nunito', sans-serif;
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;
         background: radial-gradient(circle at 20% 20%, #eef2ff 0, #eef2ff 22%, #f8fafc 55%), radial-gradient(circle at 80% 0%, #e0f2fe 0, #e0f2fe 15%, #f8fafc 45%), linear-gradient(180deg, #f8fafc 0%, #f1f5f9 45%, #f8fafc 100%);
         color: #0f172a;
         min-height: 100vh;
@@ -276,17 +273,6 @@
         }
       }
     </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
-    "react": "https://aistudiocdn.com/react@^19.2.0",
-    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
-    "@heroicons/react/": "https://aistudiocdn.com/@heroicons/react@^2.2.0/"
-  }
-}
-</script>
 </head>
   <body class="bg-blue-50">
     <div id="root"></div>

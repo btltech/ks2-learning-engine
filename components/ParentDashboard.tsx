@@ -3,6 +3,7 @@ import { ParentStats } from '../types';
 import { authService } from '../services/authService';
 import { useUser } from '../context/UserContext';
 import { generateProgressReport, generateLearningInsights } from '../services/geminiService';
+import CurriculumTracking from './CurriculumTracking';
 
 interface ParentDashboardProps {
   onClose: () => void;
@@ -244,6 +245,9 @@ const ParentDashboard: React.FC<ParentDashboardProps> = ({ onClose }) => {
               </div>
             </div>
           )}
+
+          {/* Curriculum Tracking */}
+          {user && <CurriculumTracking user={user} />}
 
           {/* Recent Activity */}
           <div>

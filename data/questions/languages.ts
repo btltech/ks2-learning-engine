@@ -48,6 +48,29 @@ export const languagesQuestions: BankQuestion[] = [
   // ===== GERMAN =====
   // Colors
   { id: 'l-de-co-01', subject: 'Languages', topic: 'German: Colors', ageGroup: [9, 10], difficulty: Difficulty.Medium, question: 'Red', options: ['Rot', 'Blau', 'Grün', 'Gelb'], correctAnswer: 'Rot' },
+
+  // ===== WELSH (Cymraeg) =====
+  // Greetings
+  { id: 'l-cy-gr-01', subject: 'Languages', topic: 'Welsh: Greetings', ageGroup: [7, 8], difficulty: Difficulty.Easy, question: 'Hello', options: ['Helo', 'Hwyl fawr', 'Diolch', 'Os gwelwch yn dda'], correctAnswer: 'Helo' },
+  { id: 'l-cy-gr-02', subject: 'Languages', topic: 'Welsh: Greetings', ageGroup: [7, 8], difficulty: Difficulty.Easy, question: 'Goodbye', options: ['Hwyl fawr', 'Helo', 'Bore da', 'Nos da'], correctAnswer: 'Hwyl fawr' },
+  { id: 'l-cy-gr-03', subject: 'Languages', topic: 'Welsh: Greetings', ageGroup: [7, 8], difficulty: Difficulty.Easy, question: 'Good morning', options: ['Bore da', 'Prynhawn da', 'Nos da', 'Helo'], correctAnswer: 'Bore da' },
+  { id: 'l-cy-gr-04', subject: 'Languages', topic: 'Welsh: Greetings', ageGroup: [9, 10], difficulty: Difficulty.Medium, question: 'Thank you', options: ['Diolch', 'Croeso', 'Helo', 'Hwyl'], correctAnswer: 'Diolch' },
+  { id: 'l-cy-gr-05', subject: 'Languages', topic: 'Welsh: Greetings', ageGroup: [9, 10], difficulty: Difficulty.Medium, question: 'How are you?', options: ['Sut wyt ti?', 'Pwy wyt ti?', 'Ble wyt ti?', 'Beth ydy hwn?'], correctAnswer: 'Sut wyt ti?' },
+
+  // Numbers
+  { id: 'l-cy-nu-01', subject: 'Languages', topic: 'Welsh: Numbers', ageGroup: [7, 8], difficulty: Difficulty.Easy, question: 'One', options: ['Un', 'Dau', 'Tri', 'Pedwar'], correctAnswer: 'Un' },
+  { id: 'l-cy-nu-02', subject: 'Languages', topic: 'Welsh: Numbers', ageGroup: [7, 8], difficulty: Difficulty.Easy, question: 'Two', options: ['Dau', 'Un', 'Tri', 'Pump'], correctAnswer: 'Dau' },
+  { id: 'l-cy-nu-03', subject: 'Languages', topic: 'Welsh: Numbers', ageGroup: [7, 8], difficulty: Difficulty.Easy, question: 'Three', options: ['Tri', 'Dau', 'Pedwar', 'Chwech'], correctAnswer: 'Tri' },
+  { id: 'l-cy-nu-04', subject: 'Languages', topic: 'Welsh: Numbers', ageGroup: [9, 10], difficulty: Difficulty.Medium, question: 'Four', options: ['Pedwar', 'Pump', 'Tri', 'Dau'], correctAnswer: 'Pedwar' },
+  { id: 'l-cy-nu-05', subject: 'Languages', topic: 'Welsh: Numbers', ageGroup: [9, 10], difficulty: Difficulty.Medium, question: 'Five', options: ['Pump', 'Pedwar', 'Chwech', 'Saith'], correctAnswer: 'Pump' },
+
+  // Colors
+  { id: 'l-cy-co-01', subject: 'Languages', topic: 'Welsh: Colors', ageGroup: [9, 10], difficulty: Difficulty.Medium, question: 'Red', options: ['Coch', 'Glas', 'Gwyrdd', 'Melyn'], correctAnswer: 'Coch' },
+  { id: 'l-cy-co-02', subject: 'Languages', topic: 'Welsh: Colors', ageGroup: [9, 10], difficulty: Difficulty.Medium, question: 'Blue', options: ['Glas', 'Coch', 'Du', 'Gwyn'], correctAnswer: 'Glas' },
+  { id: 'l-cy-co-03', subject: 'Languages', topic: 'Welsh: Colors', ageGroup: [9, 10], difficulty: Difficulty.Medium, question: 'Green', options: ['Gwyrdd', 'Melyn', 'Coch', 'Llwyd'], correctAnswer: 'Gwyrdd' },
+  { id: 'l-cy-co-04', subject: 'Languages', topic: 'Welsh: Colors', ageGroup: [9, 10], difficulty: Difficulty.Medium, question: 'Yellow', options: ['Melyn', 'Gwyrdd', 'Glas', 'Pinc'], correctAnswer: 'Melyn' },
+  { id: 'l-cy-co-05', subject: 'Languages', topic: 'Welsh: Colors', ageGroup: [9, 10], difficulty: Difficulty.Medium, question: 'Black', options: ['Du', 'Gwyn', 'Coch', 'Gwyrdd'], correctAnswer: 'Du' },
+
   { id: 'l-de-co-02', subject: 'Languages', topic: 'German: Colors', ageGroup: [9, 10], difficulty: Difficulty.Medium, question: 'Blue', options: ['Blau', 'Rot', 'Schwarz', 'Weiß'], correctAnswer: 'Blau' },
   { id: 'l-de-co-03', subject: 'Languages', topic: 'German: Colors', ageGroup: [9, 10], difficulty: Difficulty.Medium, question: 'Green', options: ['Grün', 'Gelb', 'Rot', 'Grau'], correctAnswer: 'Grün' },
   { id: 'l-de-co-04', subject: 'Languages', topic: 'German: Colors', ageGroup: [9, 10], difficulty: Difficulty.Medium, question: 'Yellow', options: ['Gelb', 'Grün', 'Blau', 'Rosa'], correctAnswer: 'Gelb' },

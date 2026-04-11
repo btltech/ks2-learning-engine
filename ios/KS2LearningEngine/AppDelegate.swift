@@ -1,0 +1,21 @@
+//
+//  AppDelegate.swift
+//  KS2 Learning Engine
+//
+//  Provides a UIKit app delegate for Firebase swizzling expectations.
+//
+
+import UIKit
+import FirebaseCore
+
+final class AppDelegate: NSObject, UIApplicationDelegate {
+	func application(
+		_ application: UIApplication,
+		didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
+	) -> Bool {
+		if FirebaseApp.app() == nil {
+			FirebaseApp.configure()
+		}
+		return true
+	}
+}

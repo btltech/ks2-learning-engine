@@ -9,12 +9,88 @@ export interface Subject {
   bgColor: string;
 }
 
+// Question types for variety
+export enum QuestionType {
+  MultipleChoice = 'multiple-choice',
+  TrueFalse = 'true-false',
+  FillInBlank = 'fill-in-blank',
+  Ordering = 'ordering',
+  Drawing = 'drawing',
+  Matching = 'matching',
+  DragAndDrop = 'drag-and-drop',
+}
+
+// Bloom's Taxonomy cognitive levels
+export enum CognitiveLevel {
+  Remember = 'remember',      // Recall facts
+  Understand = 'understand',  // Explain ideas
+  Apply = 'apply',            // Use in new situations
+  Analyze = 'analyze',        // Draw connections
+}
+
+// Matching pair for matching questions
+export interface MatchingPair {
+  left: string;
+  right: string;
+}
+
+// Drag and drop item
+export interface DragDropItem {
+  id: string;
+  content: string;
+  correctZoneId: string;
+}
+
+// Drag and drop zone
+export interface DragDropZone {
+  id: string;
+  label: string;
+}
+
 export interface QuizQuestion {
   id?: string;
   question: string;
   options: string[];
   correctAnswer: string;
   explanation?: string; // Optional pre-written explanation
+  questionType?: QuestionType; // Type of question (defaults to multiple-choice)
+  cognitiveLevel?: CognitiveLevel; // Bloom's taxonomy level
+  // For fill-in-blank questions
+  blankPosition?: number; // Index where blank should appear
+  acceptableAnswers?: string[]; // Alternative correct answers
+  // For ordering questions
+  correctOrder?: string[]; // Correct sequence of items
+  // For matching questions
+  matchingPairs?: MatchingPair[]; // Pairs to match
+  // For drag-and-drop questions
+  dragItems?: string[]; // Items to drag
+  dropZones?: string[]; // Target zones with correct answers
+}
+
+// Year groups in KS2
+export enum YearGroup {
+  Year3 = 3,
+  Year4 = 4,
+  Year5 = 5,
+  Year6 = 6,
+}
+
+// National Curriculum objective reference
+export interface NCObjective {
+  code: string;           // e.g., "MA3-NPV-1" (Maths Year 3 Number Place Value objective 1)
+  description: string;    // Full objective text from DfE
+  strand: string;         // e.g., "Number - Place Value"
+  subject: string;        // e.g., "Maths"
+  yearGroup: YearGroup;   // Which year this objective belongs to
+  isStatutory: boolean;   // Whether this is a statutory requirement
+}
+
+// SATs question metadata
+export interface SATsMetadata {
+  paperType: 'arithmetic' | 'reasoning1' | 'reasoning2' | 'reading' | 'spag';
+  marks: number;          // Marks available for this question
+  sampleYear?: number;    // If from a past paper, which year
+  questionStyle: 'standard' | 'multi-step' | 'explain' | 'show-working';
 }
 
 export interface BankQuestion extends QuizQuestion {
@@ -24,6 +100,17 @@ export interface BankQuestion extends QuizQuestion {
   ageGroup: number[]; // e.g., [7, 8] or [9, 10, 11]
   difficulty: Difficulty;
   difficulty_score?: number;
+  // NEW: Year group and NC objective alignment
+  yearGroup?: YearGroup;           // Specific year group (3, 4, 5, 6)
+  ncObjectives?: string[];         // Array of NC objective codes this question covers
+  ncObjectiveRefs?: NCObjective[]; // Full objective references (populated at runtime)
+  // NEW: SATs-specific metadata
+  satsMetadata?: SATsMetadata;     // For Year 6 SATs practice questions
+  isSATsStyle?: boolean;           // Whether this follows SATs format
+  // Performance tracking
+  timesShown?: number;
+  timesCorrect?: number;
+  effectivenessScore?: number; // Calculated: correct/shown ratio
 }
 
 export interface QuizResult extends QuizQuestion {
@@ -74,7 +161,12 @@ export interface Badge {
 export interface UserProfile {
   id: string;
   name: string;
-  role: 'student' | 'parent' | 'teacher';
+  role: 'student' | 'parent' | 'teacher' | 'admin';
+  /**
+   * Multi-role support (RBAC). When absent, treat `role` as the single role.
+   * Keep `role` for backward compatibility and as the primary role.
+   */
+  roles?: Array<'student' | 'parent' | 'teacher' | 'admin'>;
   age: number; // Student age for content adaptation
   avatarConfig: AvatarConfig;
   totalPoints: number;
@@ -186,4 +278,77 @@ export interface BadgeInfo {
   description: string;
   icon: string;
   earnedAt: Date;
+}
+
+// Curriculum coverage tracking
+export interface CurriculumCoverage {
+  subject: string;
+  yearGroup: YearGroup;
+  strand: string;
+  totalObjectives: number;
+  coveredObjectives: number;
+  masteredObjectives: number;  // Student has achieved 80%+ on related questions
+  objectiveDetails: {
+    code: string;
+    description: string;
+    status: 'not-started' | 'in-progress' | 'mastered';
+    questionsAvailable: number;
+    questionsAttempted: number;
+    accuracy: number;
+  }[];
+}
+
+// SATs practice session
+export interface SATsSession {
+  id: string;
+  paperType: 'arithmetic' | 'reasoning1' | 'reasoning2' | 'reading' | 'spag';
+  startedAt: string;
+  completedAt?: string;
+  timeAllowed: number;      // in minutes
+  timeUsed: number;         // in seconds
+  questions: BankQuestion[];
+  answers: { questionId: string; answer: string; isCorrect: boolean; marksAwarded: number }[];
+  totalMarks: number;
+  marksAchieved: number;
+  scaledScore?: number;     // If we have threshold data
+  grade?: 'working-towards' | 'expected' | 'greater-depth';
+}
+
+// Parent/Teacher dashboard data
+export interface DashboardData {
+  student: {
+    id: string;
+    name: string;
+    yearGroup: YearGroup;
+    age: number;
+  };
+  overallProgress: {
+    curriculumCoverage: number;  // Percentage of NC objectives touched
+    masteryLevel: number;       // Percentage of objectives mastered
+    averageScore: number;
+    totalTimeSpent: number;     // in minutes
+    streak: number;
+  };
+  subjectBreakdown: {
+    subject: string;
+    coverage: number;
+    mastery: number;
+    recentScore: number;
+    trend: 'improving' | 'stable' | 'declining';
+  }[];
+  recentActivity: Activity[];
+  satsReadiness?: {
+    predictedGrade: 'working-towards' | 'expected' | 'greater-depth';
+    arithmeticScore: number;
+    reasoningScore: number;
+    readingScore: number;
+    spagScore: number;
+    areasToImprove: string[];
+  };
+  recommendations: {
+    priority: 'high' | 'medium' | 'low';
+    subject: string;
+    topic: string;
+    reason: string;
+  }[];
 }

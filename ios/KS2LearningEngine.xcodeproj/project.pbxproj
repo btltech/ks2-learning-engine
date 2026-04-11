@@ -1,0 +1,485 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 63;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0029910C81404DA0088469FC /* AdaptiveLearningEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FDDC25CB61C6E4D351EA21 /* AdaptiveLearningEngine.swift */; };
+		12C1731465ABC7672FFA714C /* QuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FAA3D77C55AAC4BE21DC13 /* QuizView.swift */; };
+		16CB29E2CEF1EB31FD5847CD /* KS2LearningEngineApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF212E5B390991A007F0058D /* KS2LearningEngineApp.swift */; };
+		1F91E9330CE6031011E2D9D1 /* RecommendationsEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1ED3D5A77FC8F2995B49DF2 /* RecommendationsEngine.swift */; };
+		25069762AB131C95A9731C23 /* AdaptiveLearning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796CE9F8F6279ED276602D21 /* AdaptiveLearning.swift */; };
+		2B34A59C6D1B59CD66266B15 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 11A7B644BC324B1423456565 /* FirebaseAnalytics */; };
+		377A06025B1C4AD440994023 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 11AEC4AB1A0CA027509E788B /* GoogleService-Info.plist */; };
+		45644D384EC8AD8DBBD624A3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FF4C755412F16A22692F84 /* User.swift */; };
+		598013837B1B07B4D4369807 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D5BC8769D2C38F2DAA3C3D /* ProfileView.swift */; };
+		5A16C7198CD7CFBE1FC4995E /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F516B958D165EFC720B584A /* UserPreferences.swift */; };
+		5D1DC1271E1F15EE56141142 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68743668C6CEA6BEFDAF0DC1 /* AuthenticationManager.swift */; };
+		6378EE2E2D3D31C99FABDC29 /* StudentProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A4F088906276B84A4C3DF1 /* StudentProgressView.swift */; };
+		637D12EFA10C9C8E4EB815E4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B534F8EF5DF91AFC388DB1F /* ContentView.swift */; };
+		82A0919F2981B225D2243D65 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EC979A4FC912D68A6133D8 /* AppConfig.swift */; };
+		859EB0DD17A4A6F733FF994A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E1FF72634EDF9DCC4FB9FB2D /* FirebaseAuth */; };
+		8752C4AC7B654BABF8AFA601 /* ProgressTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40937938F8C4F3F1CC8A73F7 /* ProgressTracker.swift */; };
+		8D0E0B9E9267701EC8AF2403 /* TeacherDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AACD8C61162D20723D88FF /* TeacherDashboardView.swift */; };
+		A6FCF40C40BAA5A615E122F7 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C33B62C9E305D6F8007588 /* HomeView.swift */; };
+		ABE1F3642B869949A531166B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9658447A5B09C9E768D887E /* Assets.xcassets */; };
+		B75305A1CD5FAC887ED4A850 /* AdaptiveDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD7A851ACA1AB5100CE17FC /* AdaptiveDashboardView.swift */; };
+		BC5A85800440DEEB3B646DFB /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77A6C0BC2873238A79B4403 /* Quiz.swift */; };
+		BE2F1F435C3D5ACBF3A58F25 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29D63D81984C595967554A0 /* AppDelegate.swift */; };
+		D0835A4069CDC89F71203B66 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 55BEF85BB705C2339D1646E2 /* FirebaseFirestore */; };
+		D3FAABC1536E436ABFDF282B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C055C2E0565498CA0D7A10 /* LoginView.swift */; };
+		DAE88D0BFD5A21B5F499DF6E /* Recommendation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B183AE1FC21667B02F32A9 /* Recommendation.swift */; };
+		FC0A8CE49477C17A0EB6A47C /* QuizManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2FE4ABE2DE288338F0C218 /* QuizManager.swift */; };
+		FD674E38BCFD64F5E9AE90B3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924459767D6F1525160F79FE /* Extensions.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		09FAA3D77C55AAC4BE21DC13 /* QuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizView.swift; sourceTree = "<group>"; };
+		11AEC4AB1A0CA027509E788B /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3918EEA7F4C8910AD491B797 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		40937938F8C4F3F1CC8A73F7 /* ProgressTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressTracker.swift; sourceTree = "<group>"; };
+		46EC979A4FC912D68A6133D8 /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
+		50FDDC25CB61C6E4D351EA21 /* AdaptiveLearningEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveLearningEngine.swift; sourceTree = "<group>"; };
+		51A4F088906276B84A4C3DF1 /* StudentProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentProgressView.swift; sourceTree = "<group>"; };
+		56C33B62C9E305D6F8007588 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		68743668C6CEA6BEFDAF0DC1 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
+		7111D0D78433A19F7BBC0168 /* KS2 Learning.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "KS2 Learning.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		796CE9F8F6279ED276602D21 /* AdaptiveLearning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveLearning.swift; sourceTree = "<group>"; };
+		83B183AE1FC21667B02F32A9 /* Recommendation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recommendation.swift; sourceTree = "<group>"; };
+		83C055C2E0565498CA0D7A10 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		8B534F8EF5DF91AFC388DB1F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		924459767D6F1525160F79FE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		94D5BC8769D2C38F2DAA3C3D /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		9F516B958D165EFC720B584A /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
+		A29D63D81984C595967554A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B9658447A5B09C9E768D887E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BCD7A851ACA1AB5100CE17FC /* AdaptiveDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveDashboardView.swift; sourceTree = "<group>"; };
+		BF2FE4ABE2DE288338F0C218 /* QuizManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizManager.swift; sourceTree = "<group>"; };
+		D1ED3D5A77FC8F2995B49DF2 /* RecommendationsEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationsEngine.swift; sourceTree = "<group>"; };
+		D1FF4C755412F16A22692F84 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		E77A6C0BC2873238A79B4403 /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
+		EF212E5B390991A007F0058D /* KS2LearningEngineApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KS2LearningEngineApp.swift; sourceTree = "<group>"; };
+		F2AACD8C61162D20723D88FF /* TeacherDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherDashboardView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		71C62B64CF09F1D965F12BAF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				859EB0DD17A4A6F733FF994A /* FirebaseAuth in Frameworks */,
+				D0835A4069CDC89F71203B66 /* FirebaseFirestore in Frameworks */,
+				2B34A59C6D1B59CD66266B15 /* FirebaseAnalytics in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		57C751C42C89BDEE06DD78CB /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				50FDDC25CB61C6E4D351EA21 /* AdaptiveLearningEngine.swift */,
+				68743668C6CEA6BEFDAF0DC1 /* AuthenticationManager.swift */,
+				40937938F8C4F3F1CC8A73F7 /* ProgressTracker.swift */,
+				BF2FE4ABE2DE288338F0C218 /* QuizManager.swift */,
+				D1ED3D5A77FC8F2995B49DF2 /* RecommendationsEngine.swift */,
+				9F516B958D165EFC720B584A /* UserPreferences.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		727DF11B07274CFDDC600EE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7111D0D78433A19F7BBC0168 /* KS2 Learning.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		730874DC90C550F15944AD1B /* KS2LearningEngine */ = {
+			isa = PBXGroup;
+			children = (
+				A29D63D81984C595967554A0 /* AppDelegate.swift */,
+				B9658447A5B09C9E768D887E /* Assets.xcassets */,
+				8B534F8EF5DF91AFC388DB1F /* ContentView.swift */,
+				11AEC4AB1A0CA027509E788B /* GoogleService-Info.plist */,
+				3918EEA7F4C8910AD491B797 /* Info.plist */,
+				EF212E5B390991A007F0058D /* KS2LearningEngineApp.swift */,
+				F816536CCDAA1A46274FE158 /* Models */,
+				57C751C42C89BDEE06DD78CB /* Services */,
+				B03D8E595F3F6D20E79E5D45 /* Utils */,
+				A26235AA341D974D76C0F498 /* Views */,
+			);
+			path = KS2LearningEngine;
+			sourceTree = "<group>";
+		};
+		A26235AA341D974D76C0F498 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BCD7A851ACA1AB5100CE17FC /* AdaptiveDashboardView.swift */,
+				56C33B62C9E305D6F8007588 /* HomeView.swift */,
+				83C055C2E0565498CA0D7A10 /* LoginView.swift */,
+				94D5BC8769D2C38F2DAA3C3D /* ProfileView.swift */,
+				09FAA3D77C55AAC4BE21DC13 /* QuizView.swift */,
+				51A4F088906276B84A4C3DF1 /* StudentProgressView.swift */,
+				F2AACD8C61162D20723D88FF /* TeacherDashboardView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AE04532F4A6B4B5C778BBC9D = {
+			isa = PBXGroup;
+			children = (
+				730874DC90C550F15944AD1B /* KS2LearningEngine */,
+				727DF11B07274CFDDC600EE9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B03D8E595F3F6D20E79E5D45 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				46EC979A4FC912D68A6133D8 /* AppConfig.swift */,
+				924459767D6F1525160F79FE /* Extensions.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		F816536CCDAA1A46274FE158 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				796CE9F8F6279ED276602D21 /* AdaptiveLearning.swift */,
+				E77A6C0BC2873238A79B4403 /* Quiz.swift */,
+				83B183AE1FC21667B02F32A9 /* Recommendation.swift */,
+				D1FF4C755412F16A22692F84 /* User.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1EAE90C27D46665BA194424F /* KS2LearningEngine */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7D923D7634A975D379795C37 /* Build configuration list for PBXNativeTarget "KS2LearningEngine" */;
+			buildPhases = (
+				10D34426B55D8F26377D071D /* Sources */,
+				EB5551B817CC783625FDD963 /* Resources */,
+				71C62B64CF09F1D965F12BAF /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KS2LearningEngine;
+			packageProductDependencies = (
+				E1FF72634EDF9DCC4FB9FB2D /* FirebaseAuth */,
+				55BEF85BB705C2339D1646E2 /* FirebaseFirestore */,
+				11A7B644BC324B1423456565 /* FirebaseAnalytics */,
+			);
+			productName = KS2LearningEngine;
+			productReference = 7111D0D78433A19F7BBC0168 /* KS2 Learning.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		61CE97DC56542AF0E221EBBB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					1EAE90C27D46665BA194424F = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 741606E8204BD2C211AE5423 /* Build configuration list for PBXProject "KS2LearningEngine" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = AE04532F4A6B4B5C778BBC9D;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				2335CD5EA7F53F45F860370D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1EAE90C27D46665BA194424F /* KS2LearningEngine */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EB5551B817CC783625FDD963 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ABE1F3642B869949A531166B /* Assets.xcassets in Resources */,
+				377A06025B1C4AD440994023 /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		10D34426B55D8F26377D071D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B75305A1CD5FAC887ED4A850 /* AdaptiveDashboardView.swift in Sources */,
+				25069762AB131C95A9731C23 /* AdaptiveLearning.swift in Sources */,
+				0029910C81404DA0088469FC /* AdaptiveLearningEngine.swift in Sources */,
+				82A0919F2981B225D2243D65 /* AppConfig.swift in Sources */,
+				BE2F1F435C3D5ACBF3A58F25 /* AppDelegate.swift in Sources */,
+				5D1DC1271E1F15EE56141142 /* AuthenticationManager.swift in Sources */,
+				637D12EFA10C9C8E4EB815E4 /* ContentView.swift in Sources */,
+				FD674E38BCFD64F5E9AE90B3 /* Extensions.swift in Sources */,
+				A6FCF40C40BAA5A615E122F7 /* HomeView.swift in Sources */,
+				16CB29E2CEF1EB31FD5847CD /* KS2LearningEngineApp.swift in Sources */,
+				D3FAABC1536E436ABFDF282B /* LoginView.swift in Sources */,
+				598013837B1B07B4D4369807 /* ProfileView.swift in Sources */,
+				8752C4AC7B654BABF8AFA601 /* ProgressTracker.swift in Sources */,
+				BC5A85800440DEEB3B646DFB /* Quiz.swift in Sources */,
+				FC0A8CE49477C17A0EB6A47C /* QuizManager.swift in Sources */,
+				12C1731465ABC7672FFA714C /* QuizView.swift in Sources */,
+				DAE88D0BFD5A21B5F499DF6E /* Recommendation.swift in Sources */,
+				1F91E9330CE6031011E2D9D1 /* RecommendationsEngine.swift in Sources */,
+				6378EE2E2D3D31C99FABDC29 /* StudentProgressView.swift in Sources */,
+				8D0E0B9E9267701EC8AF2403 /* TeacherDashboardView.swift in Sources */,
+				45644D384EC8AD8DBBD624A3 /* User.swift in Sources */,
+				5A16C7198CD7CFBE1FC4995E /* UserPreferences.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		216E033B8310A3E3379B764A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphonesimulator*]" = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8L5LTN9LMB;
+				INFOPLIST_FILE = KS2LearningEngine/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ks2learning.KS2LearningEngine;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		314A9AFF5583DBF34C63C62F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.4.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "KS2 Learning";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		D7E0D709F50C771D1164E9E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.4.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "KS2 Learning";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		F9C53DC7CF8E39F5FCBA4458 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphonesimulator*]" = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8L5LTN9LMB;
+				INFOPLIST_FILE = KS2LearningEngine/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ks2learning.KS2LearningEngine;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		741606E8204BD2C211AE5423 /* Build configuration list for PBXProject "KS2LearningEngine" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				314A9AFF5583DBF34C63C62F /* Debug */,
+				D7E0D709F50C771D1164E9E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		7D923D7634A975D379795C37 /* Build configuration list for PBXNativeTarget "KS2LearningEngine" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				216E033B8310A3E3379B764A /* Debug */,
+				F9C53DC7CF8E39F5FCBA4458 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2335CD5EA7F53F45F860370D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		11A7B644BC324B1423456565 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2335CD5EA7F53F45F860370D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		55BEF85BB705C2339D1646E2 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2335CD5EA7F53F45F860370D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		E1FF72634EDF9DCC4FB9FB2D /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2335CD5EA7F53F45F860370D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 61CE97DC56542AF0E221EBBB /* Project object */;
+}

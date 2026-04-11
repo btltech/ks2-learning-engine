@@ -313,19 +313,7 @@ const KeyboardShortcut: React.FC<KeyboardShortcutProps> = ({ keys, description }
   );
 };
 
-// Skip to Main Content Link
-export const SkipToMainContent: React.FC = () => {
-  return (
-    <a
-      href="#main-content"
-      className="skip-to-main sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-50 focus:bg-blue-600 focus:text-white focus:p-4"
-    >
-      Skip to main content
-    </a>
-  );
-};
 
-// Accessibility Button for Header
 export const AccessibilityButton: React.FC<{ onClick: () => void }> = ({ onClick }) => {
   return (
     <button

@@ -1,9 +1,14 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { AcademicCapIcon, StarIcon, ShoppingBagIcon, ChartBarIcon, ArrowRightOnRectangleIcon, FireIcon, TrophyIcon } from '@heroicons/react/24/solid';
-import TTSDemo from './TTSDemo';
+import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
+import { AcademicCapIcon, StarIcon, ShoppingBagIcon, ChartBarIcon, ArrowRightOnRectangleIcon, FireIcon, TrophyIcon, Cog6ToothIcon } from '@heroicons/react/24/solid';
 import AvatarDisplay from './AvatarDisplay';
 import { UserProfile } from '../types';
 import { useGameSounds } from '../hooks/useGameSounds';
+import { UIModeBadge } from './UIModeBadge';
+import { hasRole } from '../utils/roles';
+
+// Lazy load language switcher and adaptive dashboard
+const LanguageSwitcher = lazy(() => import('./LanguageSwitcher'));
+const AdaptiveDashboard = lazy(() => import('./AdaptiveDashboard'));
 
 interface HeaderProps {
   onHomeClick: () => void;
@@ -13,7 +18,9 @@ interface HeaderProps {
   onOpenLeaderboard: () => void;
   onOpenProgress: () => void;
   onOpenAvatar?: () => void;
-  onLogout: () => void;
+  onOpenUISettings?: () => void;
+  onOpenQuestionQuality?: () => void;
+  onLogout: () => void | Promise<void>;
 }
 
 const Header: React.FC<HeaderProps> = ({ 
@@ -24,9 +31,12 @@ const Header: React.FC<HeaderProps> = ({
   onOpenLeaderboard,
   onOpenProgress,
   onOpenAvatar,
+  onOpenUISettings,
+  onOpenQuestionQuality,
   onLogout 
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showAdaptiveDashboard, setShowAdaptiveDashboard] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const { playClick } = useGameSounds();
 
@@ -40,9 +50,9 @@ const Header: React.FC<HeaderProps> = ({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleNavClick = (action: () => void) => {
+  const handleNavClick = (action: () => void | Promise<void>) => {
     playClick();
-    action();
+    void action();
   };
 
   return (
@@ -63,10 +73,13 @@ const Header: React.FC<HeaderProps> = ({
 
           {/* Right Side Actions */}
             <div className="flex items-center gap-1 sm:gap-4">
-              {user.role === 'admin' && <TTSDemo />}
-
+            {/* Language Switcher */}
+            <Suspense fallback={<div className="w-24 h-10" />}>
+              <LanguageSwitcher />
+            </Suspense>
+            
             {/* Badges Display - Students only */}
-            {user.role === 'student' && (
+              {hasRole(user, 'student') && (
               <div 
                 className="hidden md:flex items-center space-x-1 bg-gradient-to-r from-blue-50 to-blue-100 text-blue-800 font-semibold px-4 py-2 rounded-full shadow-sm border border-blue-200/50 cursor-help hover:shadow-md transition-shadow"
                 role="status"
@@ -79,7 +92,7 @@ const Header: React.FC<HeaderProps> = ({
             )}
 
             {/* Streak Display - Students only */}
-            {user.role === 'student' && (
+              {hasRole(user, 'student') && (
               <div 
                 className="flex items-center space-x-1 bg-gradient-to-r from-orange-50 to-orange-100 text-orange-800 font-semibold px-2 sm:px-4 py-1 sm:py-2 rounded-full shadow-sm border border-orange-200/50 hover:shadow-md transition-shadow"
                 role="status"
@@ -92,7 +105,7 @@ const Header: React.FC<HeaderProps> = ({
             )}
 
             {/* Points Display - Students only */}
-            {user.role === 'student' && (
+              {hasRole(user, 'student') && (
               <div 
                 className="flex items-center space-x-1 sm:space-x-2 bg-gradient-to-r from-yellow-50 to-yellow-100 text-yellow-800 font-semibold px-2 sm:px-4 py-1 sm:py-2 rounded-full shadow-sm border border-yellow-200/50 hover:shadow-md transition-shadow"
                 role="status"
@@ -104,7 +117,7 @@ const Header: React.FC<HeaderProps> = ({
             )}
 
             {/* Leaderboard Button - Students only */}
-            {user.role === 'student' && (
+              {hasRole(user, 'student') && (
               <button
                 onClick={() => handleNavClick(onOpenLeaderboard)}
                 className="touch-target text-gray-600 hover:text-yellow-600 hover:bg-yellow-100 rounded-xl transition-all duration-200 hover:shadow-md"
@@ -115,7 +128,7 @@ const Header: React.FC<HeaderProps> = ({
             )}
 
             {/* Progress Button - Students only */}
-            {user.role === 'student' && (
+              {hasRole(user, 'student') && (
               <button
                 onClick={() => handleNavClick(onOpenProgress)}
                 className="touch-target text-gray-600 hover:text-green-600 hover:bg-green-100 rounded-xl transition-all duration-200 hover:shadow-md"
@@ -125,8 +138,23 @@ const Header: React.FC<HeaderProps> = ({
               </button>
             )}
 
+            {/* AI Adaptive Dashboard - Students only */}
+              {hasRole(user, 'student') && (
+              <button
+                onClick={() => {
+                  playClick();
+                  setShowAdaptiveDashboard(true);
+                }}
+                className="touch-target text-gray-600 hover:text-purple-600 hover:bg-purple-100 rounded-xl transition-all duration-200 hover:shadow-md"
+                title="AI Learning Assistant"
+              >
+                <span className="text-2xl">🧠</span>
+              </button>
+            )}
+
+            {/* 
             {/* Store Button - Students only */}
-            {user.role === 'student' && (
+              {hasRole(user, 'student') && (
               <button
                 onClick={() => handleNavClick(onOpenStore)}
                 className="touch-target text-gray-600 hover:text-orange-500 hover:bg-orange-100 rounded-xl transition-all duration-200 hover:shadow-md"
@@ -136,14 +164,32 @@ const Header: React.FC<HeaderProps> = ({
               </button>
             )}
 
-            {/* Parent Dashboard (Desktop) */}
-            <button
-              onClick={() => handleNavClick(onOpenParentDashboard)}
-              className="touch-target text-gray-600 hover:text-purple-600 hover:bg-purple-100 rounded-xl transition-all duration-200 hover:shadow-md hidden md:block"
-              title="Parent Dashboard"
-            >
-              <span className="text-2xl">👨‍👩‍👧</span>
-            </button>
+            {/* Parent Dashboard (Parents only) */}
+            {hasRole(user, 'parent') && (
+              <button
+                onClick={() => handleNavClick(onOpenParentDashboard)}
+                className="touch-target text-gray-600 hover:text-purple-600 hover:bg-purple-100 rounded-xl transition-all duration-200 hover:shadow-md hidden md:block"
+                title="Parent Dashboard"
+              >
+                <span className="text-2xl">👨‍👩‍👧</span>
+              </button>
+            )}
+
+            {/* Question Quality Dashboard (Admin/Teacher only) */}
+              {(hasRole(user, 'admin') || hasRole(user, 'teacher')) && onOpenQuestionQuality && (
+              <button
+                onClick={() => handleNavClick(onOpenQuestionQuality)}
+                className="touch-target text-gray-600 hover:text-indigo-600 hover:bg-indigo-100 rounded-xl transition-all duration-200 hover:shadow-md hidden md:flex items-center gap-1"
+                title="Question Quality Dashboard"
+              >
+                <ChartBarIcon className="h-5 w-5 sm:h-6 sm:w-6" />
+              </button>
+            )}
+
+            {/* UI Mode Badge */}
+            {onOpenUISettings && (
+              <UIModeBadge onClick={() => handleNavClick(onOpenUISettings)} />
+            )}
 
             {/* User Profile / Logout */}
             <div className="flex items-center gap-2 sm:gap-3 pl-2 sm:pl-4 border-l border-gray-200" ref={menuRef}>
@@ -177,16 +223,32 @@ const Header: React.FC<HeaderProps> = ({
                       <p className="text-xs text-gray-500 capitalize">{user.role}</p>
                     </div>
                     
-                    <button
-                      onClick={() => {
-                        handleNavClick(onOpenParentDashboard);
-                        setIsMenuOpen(false);
-                      }}
-                      className="w-full text-left px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-700 flex items-center gap-2 transition-colors md:hidden"
-                    >
-                      <span className="text-xl">👨‍👩‍👧</span>
-                      Parent Dashboard
-                    </button>
+                    {hasRole(user, 'parent') && (
+                      <button
+                        onClick={() => {
+                          handleNavClick(onOpenParentDashboard);
+                          setIsMenuOpen(false);
+                        }}
+                        className="w-full text-left px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-700 flex items-center gap-2 transition-colors md:hidden"
+                      >
+                        <span className="text-xl">👨‍👩‍👧</span>
+                        Parent Dashboard
+                      </button>
+                    )}
+
+                    {/* Question Quality Dashboard in mobile menu */}
+                    {(user.role === 'admin' || user.role === 'teacher') && onOpenQuestionQuality && (
+                      <button
+                        onClick={() => {
+                          handleNavClick(onOpenQuestionQuality);
+                          setIsMenuOpen(false);
+                        }}
+                        className="w-full text-left px-4 py-3 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 flex items-center gap-2 transition-colors"
+                      >
+                        <ChartBarIcon className="h-5 w-5" />
+                        Question Quality
+                      </button>
+                    )}
 
                     {onOpenAvatar && user.role === 'student' && (
                       <button
@@ -215,6 +277,16 @@ const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
       </div>
+
+      {/* AI Adaptive Dashboard Modal */}
+      {showAdaptiveDashboard && hasRole(user, 'student') && (
+        <Suspense fallback={<div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center"><div className="text-white">Loading...</div></div>}>
+          <AdaptiveDashboard
+            studentId={user.id}
+            onClose={() => setShowAdaptiveDashboard(false)}
+          />
+        </Suspense>
+      )}
     </header>
   );
 };

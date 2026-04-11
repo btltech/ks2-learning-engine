@@ -102,12 +102,12 @@ export const QuizBattleMode: React.FC<QuizBattleProps> = ({ onClose, onComplete 
         }
 
         // Check opponent connection
-        if (updatedBattle.challenger) {
+        if (updatedBattle.challenger && updatedBattle.host) {
           const opponentLastSeen = updatedBattle.host.id === myPlayerId
             ? updatedBattle.challenger.lastSeen
             : updatedBattle.host.lastSeen;
           const now = Date.now();
-          setOpponentOnline((now - opponentLastSeen) < 10000); // 10 second threshold
+          setOpponentOnline((now - (opponentLastSeen || now)) < 10000); // 10 second threshold
         }
       }
     );
@@ -151,7 +151,7 @@ export const QuizBattleMode: React.FC<QuizBattleProps> = ({ onClose, onComplete 
         }
       };
     }
-  }, [view, showResult, battle?.status]);
+  }, [view, showResult, battle?.status, handleAnswer]);
 
   // Set answer start time when question changes
   useEffect(() => {
@@ -190,60 +190,120 @@ export const QuizBattleMode: React.FC<QuizBattleProps> = ({ onClose, onComplete 
     botModeRef.current = withBot;
 
     try {
-      // Generate questions
-      const rawQuestions = await generateQuiz(
-        'Maths',
-        'Mixed',
-        Difficulty.Medium,
-        user?.age || 9
-      );
+      console.log('[QuizBattle] Step 1: Generating quiz questions...');
+      
+      let rawQuestions;
+      try {
+        // Add timeout for quiz generation (15 seconds)
+        const quizPromise = generateQuiz(
+          'Maths',
+          'Mixed',
+          Difficulty.Medium,
+          user?.age || 9
+        );
+        
+        const timeoutPromise = new Promise<never>((_, reject) => 
+          setTimeout(() => reject(new Error('Quiz generation timeout')), 15000)
+        );
+        
+        rawQuestions = await Promise.race([quizPromise, timeoutPromise]);
+      } catch (quizError) {
+        console.error('[QuizBattle] Quiz generation failed, using fallback questions:', quizError);
+        // Fallback: Use simple pre-generated questions
+        rawQuestions = [
+          { id: '1', question: 'What is 5 + 3?', options: ['6', '7', '8', '9'], correctAnswer: '8', subject: 'Maths', topic: 'Addition', difficulty: 'Medium', ageGroup: [9, 10] },
+          { id: '2', question: 'What is 12 - 4?', options: ['6', '7', '8', '9'], correctAnswer: '8', subject: 'Maths', topic: 'Subtraction', difficulty: 'Medium', ageGroup: [9, 10] },
+          { id: '3', question: 'What is 3 × 4?', options: ['10', '11', '12', '13'], correctAnswer: '12', subject: 'Maths', topic: 'Multiplication', difficulty: 'Medium', ageGroup: [9, 10] },
+          { id: '4', question: 'What is 20 ÷ 4?', options: ['3', '4', '5', '6'], correctAnswer: '5', subject: 'Maths', topic: 'Division', difficulty: 'Medium', ageGroup: [9, 10] },
+          { id: '5', question: 'What is 7 + 8?', options: ['13', '14', '15', '16'], correctAnswer: '15', subject: 'Maths', topic: 'Addition', difficulty: 'Medium', ageGroup: [9, 10] },
+        ];
+      }
 
       if (!rawQuestions || rawQuestions.length === 0) {
+        console.error('[QuizBattle] No questions available');
         setError('Could not generate quiz questions. Please try again.');
         setLoading(false);
         return;
       }
 
+      console.log('[QuizBattle] Step 2: Transforming', rawQuestions.length, 'questions');
       const transformedQuestions = transformQuestions(rawQuestions);
       setLocalQuestions(transformedQuestions);
 
-      console.log('[QuizBattle] Creating battle with', rawQuestions.length, 'questions');
+      console.log('[QuizBattle] Step 3: Creating battle in Firebase...');
+      console.log('[QuizBattle] Host ID:', myPlayerId, 'Name:', myPlayerName);
 
-      const newBattle = await realtimeBattleService.createBattle(
-        myPlayerId,
-        myPlayerName,
-        '#8B5CF6',
-        'Maths',
-        'Mixed',
-        Difficulty.Medium,
-        rawQuestions
-      );
+      let newBattle;
+      try {
+        // Add timeout for battle creation (10 seconds)
+        const battlePromise = realtimeBattleService.createBattle(
+          myPlayerId,
+          myPlayerName,
+          '#8B5CF6',
+          'Maths',
+          'Mixed',
+          Difficulty.Medium,
+          rawQuestions
+        );
+        
+        const battleTimeoutPromise = new Promise<never>((_, reject) => 
+          setTimeout(() => reject(new Error('Battle creation timeout - Firebase may be slow')), 10000)
+        );
+        
+        newBattle = await Promise.race([battlePromise, battleTimeoutPromise]);
+      } catch (battleError) {
+        console.error('[QuizBattle] Battle creation failed:', battleError);
+        setError(battleError instanceof Error ? battleError.message : 'Failed to create battle. Please check your internet connection.');
+        setLoading(false);
+        return;
+      }
 
+      if (!newBattle) {
+        console.error('[QuizBattle] Failed to create battle - null response');
+        setError('Failed to create battle. Please try again.');
+        setLoading(false);
+        return;
+      }
+
+      console.log('[QuizBattle] Step 4: Battle created successfully!');
+      console.log('[QuizBattle] Code:', newBattle.battleCode, 'ID:', newBattle.id);
+      
       setBattle(newBattle);
+      setView('waiting');
+      setLoading(false);
       
       if (withBot) {
-        // Auto-add MiRa bot
+        // Auto-add MiRa bot (non-blocking)
         setTimeout(async () => {
-          await realtimeBattleService.joinBattle(
-            newBattle.battleCode,
-            'mira_bot',
-            'MiRa 🤖',
-            '#EC4899'
-          );
-          
-          // Auto-ready the bot
-          setTimeout(async () => {
-            await realtimeBattleService.setPlayerReady(newBattle.id, 'mira_bot');
-            await realtimeBattleService.setPlayerReady(newBattle.id, myPlayerId);
-          }, 1000);
+          try {
+            console.log('[QuizBattle] Step 5: Adding MiRa bot...');
+            const botJoined = await realtimeBattleService.joinBattle(
+              newBattle.battleCode,
+              'mira_bot',
+              'MiRa 🤖',
+              '#EC4899'
+            );
+            
+            if (!botJoined) {
+              console.error('[QuizBattle] Failed to add bot to battle');
+              return;
+            }
+            
+            console.log('[QuizBattle] Step 6: Bot joined, setting ready...');
+            // Auto-ready the bot
+            setTimeout(async () => {
+              await realtimeBattleService.setPlayerReady(newBattle.id, 'mira_bot');
+              await realtimeBattleService.setPlayerReady(newBattle.id, myPlayerId);
+            }, 1000);
+          } catch (botErr) {
+            console.error('[QuizBattle] Bot setup error:', botErr);
+          }
         }, 1500);
       }
       
-      setView('waiting');
     } catch (err) {
-      console.error('[QuizBattle] Create battle error:', err);
-      setError('Failed to create battle. Please try again.');
-    } finally {
+      console.error('[QuizBattle] Unexpected error:', err);
+      setError(err instanceof Error ? err.message : 'An unexpected error occurred. Please try again.');
       setLoading(false);
     }
   };
@@ -333,7 +393,7 @@ export const QuizBattleMode: React.FC<QuizBattleProps> = ({ onClose, onComplete 
 
   // Handle answer submission
   const handleAnswer = useCallback(async (answerIndex: number) => {
-    if (!battle || showResult) return;
+    if (!battle || showResult || !localQuestions.length) return;
 
     const timeMs = Date.now() - answerStartTime;
     const currentQuestion = localQuestions[currentQuestionIndex];
@@ -417,17 +477,17 @@ export const QuizBattleMode: React.FC<QuizBattleProps> = ({ onClose, onComplete 
             <button
               onClick={() => handleCreateBattle(false)}
               disabled={loading}
-              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-4 rounded-xl hover:opacity-90 transition-opacity disabled:opacity-50"
+              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-4 rounded-xl hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              🌍 Create Battle (Play with Friend)
+              {loading ? '⏳ Creating...' : '🌍 Create Battle (Play with Friend)'}
             </button>
 
             <button
               onClick={() => handleCreateBattle(true)}
               disabled={loading}
-              className="w-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-bold py-4 rounded-xl hover:opacity-90 transition-opacity disabled:opacity-50"
+              className="w-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-bold py-4 rounded-xl hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              🤖 Practice with MiRa
+              {loading ? '⏳ Setting up...' : '🤖 Practice with MiRa'}
             </button>
 
             <button
@@ -448,10 +508,18 @@ export const QuizBattleMode: React.FC<QuizBattleProps> = ({ onClose, onComplete 
             </button>
           </div>
 
+          {error && (
+            <div className="mt-4 bg-red-100 text-red-700 p-3 rounded-lg text-sm">
+              {error}
+            </div>
+          )}
+
           {loading && (
-            <div className="mt-4 text-purple-600">
-              <span className="animate-spin inline-block mr-2">⏳</span>
-              Setting up battle...
+            <div className="mt-4 text-purple-600 text-sm">
+              <div className="flex items-center justify-center gap-2">
+                <span className="animate-spin inline-block">⏳</span>
+                <span>This may take a few moments...</span>
+              </div>
             </div>
           )}
 

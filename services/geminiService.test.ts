@@ -1,5 +1,4 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { getTopicsForSubject, generateQuiz } from './geminiService';
 import { getDocs, addDoc } from 'firebase/firestore';
 import { Difficulty } from '../types';
 
@@ -35,42 +34,21 @@ vi.mock('firebase/firestore', () => ({
   collection: vi.fn(),
   addDoc: vi.fn(),
   getDocs: vi.fn(),
+  doc: vi.fn(() => ({})),
+  getDoc: vi.fn(async () => ({
+    exists: () => false,
+    data: () => undefined,
+  })),
+  setDoc: vi.fn(async () => undefined),
   query: vi.fn(),
   where: vi.fn(),
   limit: vi.fn(),
 }));
 
-// Mock offlineManager
-vi.mock('./offlineManager', () => ({
-  offlineManager: {
-    checkOnlineStatus: vi.fn().mockReturnValue(true)
-  }
-}));
-
-// Mock cacheService
-vi.mock('./cacheService', () => ({
-  createCacheKey: vi.fn().mockReturnValue('test-key'),
-  getFromCache: vi.fn().mockReturnValue(null),
-  setInCache: vi.fn()
-}));
-
-// Mock contentMonitor
-vi.mock('./contentMonitor', () => ({
-  contentMonitor: {
-    logValidationIssue: vi.fn()
-  }
-}));
-
-// Mock questionTracker
-vi.mock('./questionTracker', () => ({
-  getUsedQuestions: vi.fn().mockReturnValue([]),
-  markQuestionsAsUsed: vi.fn(),
-  resetUsedQuestions: vi.fn()
-}));
-
-// Mock questionBank
-vi.mock('../data/questionBank', () => ({
-  getRandomQuestions: vi.fn().mockReturnValue([])
+vi.mock('firebase/auth', () => ({
+  getAuth: vi.fn(() => ({
+    currentUser: { uid: 'test-uid' },
+  })),
 }));
 
 // Mock offlineManager
@@ -101,9 +79,39 @@ vi.mock('./questionTracker', () => ({
   resetUsedQuestions: vi.fn()
 }));
 
+import { getTopicsForSubject, generateQuiz } from './geminiService';
+
 // Mock questionBank
 vi.mock('../data/questionBank', () => ({
-  getRandomQuestions: vi.fn().mockReturnValue([])
+  getRandomQuestions: vi.fn().mockResolvedValue([])
+}));
+
+// Mock offlineManager
+vi.mock('./offlineManager', () => ({
+  offlineManager: {
+    checkOnlineStatus: vi.fn().mockReturnValue(true)
+  }
+}));
+
+// Mock cacheService
+vi.mock('./cacheService', () => ({
+  createCacheKey: vi.fn().mockReturnValue('test-key'),
+  getFromCache: vi.fn().mockReturnValue(null),
+  setInCache: vi.fn()
+}));
+
+// Mock contentMonitor
+vi.mock('./contentMonitor', () => ({
+  contentMonitor: {
+    logValidationIssue: vi.fn()
+  }
+}));
+
+// Mock questionTracker
+vi.mock('./questionTracker', () => ({
+  getUsedQuestions: vi.fn().mockReturnValue([]),
+  markQuestionsAsUsed: vi.fn(),
+  resetUsedQuestions: vi.fn()
 }));
 
 describe('geminiService', () => {
@@ -127,9 +135,15 @@ describe('geminiService', () => {
     it('should return empty array on error', async () => {
       mockGenerateContent.mockRejectedValue(new Error('AI Error'));
 
-      const topics = await getTopicsForSubject('Math', 10);
-      
-      expect(topics).toEqual([]);
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+      try {
+        const topics = await getTopicsForSubject('Math', 10);
+        
+        expect(topics).toEqual([]);
+      } finally {
+        consoleErrorSpy.mockRestore();
+      }
     });
   });
 
@@ -157,16 +171,41 @@ describe('geminiService', () => {
         empty: false
       });
 
-      // Mock AI response (should not be called if we have enough questions, but here we only have 1 from firebase)
-      // So AI will be called to fill the rest
+      // Mock AI response with distinct questions to avoid similarity filtering
       mockGenerateContent.mockResolvedValue({
         text: JSON.stringify({
-          quiz: Array(5).fill(null).map((_, i) => ({
-            question: `What is the result of calculation number ${i + 1}?`,
-            options: ['Option C', 'Option D'],
-            correctAnswer: 'Option C',
-            explanation: `This is a valid explanation for question ${i + 1}`
-          }))
+          quiz: [
+            {
+              question: "What is 2 + 2?",
+              options: ["4", "5"],
+              correctAnswer: "4",
+              explanation: "2 plus 2 equals 4"
+            },
+            {
+              question: "What is the capital of France?",
+              options: ["Paris", "London"],
+              correctAnswer: "Paris",
+              explanation: "Paris is the capital"
+            },
+            {
+              question: "Which planet is red?",
+              options: ["Mars", "Venus"],
+              correctAnswer: "Mars",
+              explanation: "Mars is the red planet"
+            },
+            {
+              question: "How many legs does a spider have?",
+              options: ["8", "6"],
+              correctAnswer: "8",
+              explanation: "Spiders have 8 legs"
+            },
+            {
+              question: "What color is the sky?",
+              options: ["Blue", "Green"],
+              correctAnswer: "Blue",
+              explanation: "The sky is blue"
+            }
+          ]
         })
       });
 
@@ -183,7 +222,7 @@ describe('geminiService', () => {
       // We expect 1 from Firebase + 5 from AI = 6 total
       expect(questions.length).toBe(6);
       expect(questions[0].question).toBe('Q1'); // Firebase first
-      expect(questions[1].question).toBe('What is the result of calculation number 1?'); // AI second
+      expect(questions[1].question).toBe('What is 2 + 2?'); // AI second
       
       // Verify Firebase was queried
       expect(getDocs).toHaveBeenCalled();

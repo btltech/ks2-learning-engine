@@ -81,19 +81,34 @@ class VoiceCommandService {
     this.recognition.continuous = false;
     this.recognition.interimResults = true; // Enable interim results for better feedback
     this.recognition.lang = 'en-GB';
-    this.recognition.maxAlternatives = 1;
+    this.recognition.maxAlternatives = 3; // Get multiple alternatives for better matching
 
     this.recognition.onstart = () => {
-      console.log('[VoiceCommand] Recognition started');
+      console.log('[VoiceCommand] Recognition started - speak now!');
       this.isListening = true;
       this.hasResult = false;
       this.onStatusCallback?.('listening');
+    };
+
+    this.recognition.onaudiostart = () => {
+      console.log('[VoiceCommand] Audio capture started');
+    };
+
+    this.recognition.onsoundstart = () => {
+      console.log('[VoiceCommand] Sound detected');
+    };
+
+    this.recognition.onspeechstart = () => {
+      console.log('[VoiceCommand] Speech detected - processing...');
+      this.onStatusCallback?.('processing');
     };
 
     this.recognition.onresult = (event: SpeechRecognitionEvent) => {
       // Get the latest result
       const resultIndex = event.results.length - 1;
       const result = event.results[resultIndex];
+      
+      console.log('[VoiceCommand] Got result, isFinal:', result.isFinal, 'transcript:', result[0].transcript);
       
       if (result.isFinal) {
         const transcript = result[0].transcript;
@@ -142,11 +157,14 @@ class VoiceCommandService {
     };
 
     this.recognition.onend = () => {
-      console.log('[VoiceCommand] Recognition ended, hasResult:', this.hasResult);
+      console.log('[VoiceCommand] Recognition ended, hasResult:', this.hasResult, 'isListening:', this.isListening);
+      const wasListening = this.isListening;
       this.isListening = false;
       
-      // If we ended without a result and no error was fired, notify user
-      if (!this.hasResult) {
+      // Only show error if we were actively listening and got no result
+      // Don't show error if user manually stopped or if we got a result
+      if (wasListening && !this.hasResult) {
+        console.log('[VoiceCommand] No result received, notifying user');
         this.onErrorCallback?.("I didn't catch that. Please try again.");
       }
       

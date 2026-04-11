@@ -9,22 +9,31 @@ interface GuideAvatarProps {
   message: string;
   studentAge: number;
   studentName?: string;
+  userRole?: 'student' | 'parent' | 'teacher' | 'admin';
   context?: { subject?: string; topic?: string };
+  currentActivity?: string;
   quizScore?: number; // Performance feedback
   onTopicExplanation?: (explanation: string) => void;
   onVoiceCommand?: (command: VoiceCommand) => void;
+  onQuickAction?: (action: string) => string | void;
 }
 
-const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentName, context, quizScore, onTopicExplanation, onVoiceCommand }) => {
+const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentName, userRole = 'student', context, currentActivity, quizScore, onTopicExplanation, onVoiceCommand, onQuickAction }) => {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [showQuickActions, setShowQuickActions] = useState(false);
   const [isListening, setIsListening] = useState(false);
-  const [voiceSupported] = useState(voiceCommandService.isSupported());
+  const [voiceSupported] = useState(() => {
+    const supported = voiceCommandService.isSupported();
+    console.log('🎤 Voice recognition supported:', supported);
+    return supported;
+  });
   const chatEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const roleConfig = getRoleConfig(userRole, studentName, message);
+  const quickActions = getRoleQuickActions(userRole);
 
   useEffect(() => {
     // Auto-scroll to bottom when new messages arrive
@@ -117,7 +126,7 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
         const welcomeMessage: ChatMessage = {
           id: Date.now().toString(),
           sender: 'mira',
-          message: message || "Hi there! I'm MiRa, your learning buddy! Ask me anything about your lessons, and I'll do my best to help! 🤖",
+          message: roleConfig.welcomeMessage,
           timestamp: Date.now()
         };
         setChatMessages([welcomeMessage]);
@@ -142,7 +151,7 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
 
     try {
       // Add MiRa's response
-      const response = await askMiRa(userMessage.message, studentAge, studentName, context);
+      const response = await askMiRa(userMessage.message, studentAge, studentName, context, currentActivity);
       
       const botMessage: ChatMessage = {
         id: Date.now().toString(),
@@ -174,8 +183,12 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
     let response = '';
 
     try {
-      switch (action) {
-        case 'connections':
+      const workflowResponse = onQuickAction?.(action);
+      if (workflowResponse) {
+        response = workflowResponse;
+      } else {
+        switch (action) {
+          case 'connections':
           if (context?.subject && context?.topic) {
             response = await generateSubjectConnections(
               context.subject, 
@@ -188,7 +201,7 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
             response = "I'd love to show you how subjects connect! What subject and topic are you working on right now?";
           }
           break;
-        case 'projects':
+          case 'projects':
           if (context?.subject && context?.topic) {
             response = await generateProjectSuggestions(
               context.subject, 
@@ -201,7 +214,7 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
             response = "Project ideas are so much fun! What subject and topic would you like project suggestions for?";
           }
           break;
-        case 'practice':
+          case 'practice':
           if (context?.subject && context?.topic) {
             response = await generateConceptReinforcement(
               context.subject, 
@@ -215,10 +228,10 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
             response = "Extra practice is a great idea! What subject and topic do you want to practice more?";
           }
           break;
-        case 'hint':
+          case 'hint':
           response = "I'd be happy to give you a hint! What question are you stuck on? Can you tell me the question and the options?";
           break;
-        case 'explain':
+          case 'explain':
           if (context?.subject && context?.topic) {
             response = await generateConceptReinforcement(
               context.subject,
@@ -233,8 +246,27 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
             response = "I'd love to explain a topic! Which subject and topic would you like me to explain?";
           }
           break;
-        default:
+          case 'teacher-revision':
+          response = "Open Class Dashboard to choose a class, then use recent scores to create a focused revision set. Start with the weakest topic, keep it short, and add one confidence-building question at the end.";
+          break;
+          case 'teacher-weak-questions':
+          response = "Use Question Quality to look for low success rates, ambiguous wording, or questions that look too hard for the intended year group. Review those before assigning more practice.";
+          break;
+          case 'parent-progress':
+          response = "Open Monitoring to check recent quizzes, streak, and subject progress. If there is no linked child yet, share your parent code first so progress can appear here.";
+          break;
+          case 'parent-practice':
+          response = "A good next practice plan is short and specific: choose one weak subject, do one lesson, then one quiz. Celebrate effort first, then score.";
+          break;
+          case 'admin-quality':
+          response = "Start with Question Quality. It is the most actionable admin area because it can surface unclear, too-hard, or low-performing questions before they affect more learners.";
+          break;
+          case 'admin-settings':
+          response = "Before changing settings, check whether the change affects rewards, AI generation, safety, or access. Save one group at a time so the effect is easy to verify.";
+          break;
+          default:
           response = "That's a great idea! What would you like help with?";
+        }
       }
 
       const botMessage: ChatMessage = {
@@ -304,14 +336,14 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
     <div className="fixed bottom-5 right-5 z-40">
       {/* Chat Window */}
       {isChatOpen && (
-        <div className="absolute bottom-32 right-0 w-96 h-[500px] bg-white rounded-2xl shadow-2xl flex flex-col animate-pop-in mb-4">
+        <div className="absolute bottom-24 right-0 w-[min(24rem,calc(100vw-2rem))] h-[min(500px,calc(100vh-10rem))] bg-white rounded-2xl shadow-2xl flex flex-col animate-pop-in mb-4">
           {/* Chat Header */}
           <div className="bg-gradient-to-r from-blue-500 to-purple-500 text-white p-4 rounded-t-2xl flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <AvatarDisplay size="md" showEffects={false} />
               <div>
                 <h3 className="font-bold text-lg">MiRa</h3>
-                <p className="text-xs opacity-90">Your Learning Buddy</p>
+                <p className="text-xs opacity-90">{roleConfig.subtitle}</p>
               </div>
             </div>
             <button
@@ -390,41 +422,16 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
             
             {showQuickActions && (
               <div className="mt-2 grid grid-cols-2 gap-2">
-                <button
-                  onClick={() => handleQuickAction('connections')}
-                  className="text-xs bg-blue-100 hover:bg-blue-200 text-blue-700 px-3 py-2 rounded-md transition-colors"
-                  disabled={isTyping}
-                >
-                  🔗 Subject Links
-                </button>
-                <button
-                  onClick={() => handleQuickAction('explain')}
-                  className="text-xs bg-cyan-100 hover:bg-cyan-200 text-cyan-700 px-3 py-2 rounded-md transition-colors"
-                  disabled={isTyping}
-                >
-                  📖 Explain Topic
-                </button>
-                <button
-                  onClick={() => handleQuickAction('projects')}
-                  className="text-xs bg-green-100 hover:bg-green-200 text-green-700 px-3 py-2 rounded-md transition-colors"
-                  disabled={isTyping}
-                >
-                  🎨 Projects
-                </button>
-                <button
-                  onClick={() => handleQuickAction('practice')}
-                  className="text-xs bg-purple-100 hover:bg-purple-200 text-purple-700 px-3 py-2 rounded-md transition-colors"
-                  disabled={isTyping}
-                >
-                  📝 Extra Practice
-                </button>
-                <button
-                  onClick={() => handleQuickAction('hint')}
-                  className="text-xs bg-orange-100 hover:bg-orange-200 text-orange-700 px-3 py-2 rounded-md transition-colors"
-                  disabled={isTyping}
-                >
-                  💡 Quiz Hint
-                </button>
+                {quickActions.map((action) => (
+                  <button
+                    key={action.id}
+                    onClick={() => handleQuickAction(action.id)}
+                    className={`${action.className} text-xs px-3 py-3 rounded-md transition-colors text-left font-semibold`}
+                    disabled={isTyping}
+                  >
+                    {action.label}
+                  </button>
+                ))}
               </div>
             )}
           </div>
@@ -480,17 +487,109 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
       )} */}
 
       {/* Avatar Button - Shows user's customized avatar */}
-      <button
-        onClick={handleAvatarClick}
-        onKeyDown={handleAvatarKeyDown}
-        className="w-16 h-16 animate-float hover:scale-110 transition-transform cursor-pointer focus:outline-none focus:ring-4 focus:ring-blue-400 rounded-full shadow-lg bg-white border-2 border-blue-100 overflow-hidden"
-        aria-label={isChatOpen ? 'Close chat with MiRa' : 'Chat with MiRa'}
-        title={isChatOpen ? 'Close MiRa' : 'Open MiRa'}
-      >
-        <AvatarDisplay size="lg" showEffects={true} />
-      </button>
+      <div className="relative">
+        <button
+          onClick={handleAvatarClick}
+          onKeyDown={handleAvatarKeyDown}
+          className="w-16 h-16 animate-float hover:scale-110 transition-transform cursor-pointer focus:outline-none focus:ring-4 focus:ring-blue-400 rounded-full shadow-lg bg-white border-2 border-blue-100 overflow-hidden"
+          aria-label={isChatOpen ? 'Close chat with MiRa' : 'Chat with MiRa'}
+          title={isChatOpen ? 'Close MiRa' : 'Open MiRa'}
+        >
+          <AvatarDisplay size="lg" showEffects={true} />
+        </button>
+        
+        {/* Voice Input Button - Always visible when supported */}
+        {voiceSupported && !isChatOpen && (
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handleVoiceToggle();
+            }}
+            className={`absolute -left-3 -top-1 w-8 h-8 rounded-full shadow-lg flex items-center justify-center transition-all ${
+              isListening 
+                ? 'bg-red-500 text-white animate-pulse scale-110' 
+                : 'bg-purple-500 text-white hover:bg-purple-600 hover:scale-110'
+            }`}
+            aria-label={isListening ? 'Stop listening' : 'Speak to MiRa'}
+            title={isListening ? 'Listening... Click to stop' : '🎤 Talk to MiRa'}
+          >
+            <MicrophoneIcon className="h-4 w-4" />
+          </button>
+        )}
+        
+        {/* Listening indicator */}
+        {isListening && !isChatOpen && (
+          <div className="absolute -top-12 right-0 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg animate-pulse whitespace-nowrap">
+            🎤 Listening...
+          </div>
+        )}
+      </div>
     </div>
   );
 };
+
+function getRoleConfig(
+  role: NonNullable<GuideAvatarProps['userRole']>,
+  name?: string,
+  fallbackMessage?: string
+): { subtitle: string; welcomeMessage: string } {
+  const displayName = name || 'there';
+  if (role === 'teacher') {
+    return {
+      subtitle: 'Teaching Assistant',
+      welcomeMessage: `Hi ${displayName}. I can help plan revision, explain topics, or find question-quality issues.`,
+    };
+  }
+  if (role === 'parent') {
+    return {
+      subtitle: 'Parent Guide',
+      welcomeMessage: `Hi ${displayName}. I can help you understand progress, choose practice, or link your first learner.`,
+    };
+  }
+  if (role === 'admin') {
+    return {
+      subtitle: 'Platform Assistant',
+      welcomeMessage: `Hi ${displayName}. I can help with content quality, settings, and admin next steps.`,
+    };
+  }
+  return {
+    subtitle: 'Your Learning Buddy',
+    welcomeMessage: fallbackMessage || "Hi there! I'm MiRa, your learning buddy. Ask me anything about your lessons.",
+  };
+}
+
+function getRoleQuickActions(role: NonNullable<GuideAvatarProps['userRole']>) {
+  if (role === 'teacher') {
+    return [
+      { id: 'teacher-revision', label: '📝 Create revision set', className: 'bg-indigo-100 hover:bg-indigo-200 text-indigo-700' },
+      { id: 'explain', label: '📖 Explain topic', className: 'bg-cyan-100 hover:bg-cyan-200 text-cyan-700' },
+      { id: 'teacher-weak-questions', label: '📊 Find weak questions', className: 'bg-orange-100 hover:bg-orange-200 text-orange-700' },
+      { id: 'projects', label: '🎨 Project ideas', className: 'bg-green-100 hover:bg-green-200 text-green-700' },
+    ];
+  }
+  if (role === 'parent') {
+    return [
+      { id: 'parent-practice', label: '📚 Help my child revise', className: 'bg-purple-100 hover:bg-purple-200 text-purple-700' },
+      { id: 'parent-progress', label: '📊 Show progress', className: 'bg-blue-100 hover:bg-blue-200 text-blue-700' },
+      { id: 'practice', label: '🎯 Recommend practice', className: 'bg-green-100 hover:bg-green-200 text-green-700' },
+      { id: 'explain', label: '📖 Explain topic', className: 'bg-cyan-100 hover:bg-cyan-200 text-cyan-700' },
+    ];
+  }
+  if (role === 'admin') {
+    return [
+      { id: 'admin-quality', label: '📊 Review content quality', className: 'bg-orange-100 hover:bg-orange-200 text-orange-700' },
+      { id: 'admin-settings', label: '⚙️ Check settings', className: 'bg-gray-100 hover:bg-gray-200 text-gray-700' },
+      { id: 'teacher-weak-questions', label: '🔍 Find weak questions', className: 'bg-purple-100 hover:bg-purple-200 text-purple-700' },
+      { id: 'connections', label: '🔗 Subject links', className: 'bg-blue-100 hover:bg-blue-200 text-blue-700' },
+    ];
+  }
+  return [
+    { id: 'connections', label: '🔗 Subject links', className: 'bg-blue-100 hover:bg-blue-200 text-blue-700' },
+    { id: 'explain', label: '📖 Explain topic', className: 'bg-cyan-100 hover:bg-cyan-200 text-cyan-700' },
+    { id: 'projects', label: '🎨 Projects', className: 'bg-green-100 hover:bg-green-200 text-green-700' },
+    { id: 'practice', label: '📝 Extra practice', className: 'bg-purple-100 hover:bg-purple-200 text-purple-700' },
+    { id: 'hint', label: '💡 Quiz hint', className: 'bg-orange-100 hover:bg-orange-200 text-orange-700' },
+  ];
+}
 
 export default GuideAvatar;

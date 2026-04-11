@@ -14,6 +14,7 @@ import { UserProfile } from '../types';
 export interface LeaderboardEntry {
   userId: string;
   name: string;
+  age: number;
   points: number;
   avatar: string;
   streak: number;
@@ -28,11 +29,13 @@ export const leaderboardService = {
    */
   submitScore: async (user: UserProfile): Promise<void> => {
     if (!user || !user.id) return;
+    if (user.role !== 'student') return;
 
     try {
       const entry: LeaderboardEntry = {
         userId: user.id,
         name: user.name,
+        age: typeof user.age === 'number' ? user.age : 9,
         points: user.totalPoints,
         avatar: user.avatarConfig?.color || 'blue', // Simplified avatar for now
         streak: user.streak,

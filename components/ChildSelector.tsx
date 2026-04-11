@@ -1,34 +1,36 @@
 import React, { useState } from 'react';
-import { UserGroupIcon, PlusIcon, LinkIcon, XMarkIcon } from '@heroicons/react/24/solid';
+import { UserGroupIcon, ArrowPathIcon } from '@heroicons/react/24/solid';
 
 interface ChildSelectorProps {
   children: Array<{ id: string; name: string; age: number }>;
   selectedChildId: string | null;
   onSelectChild: (childId: string) => void;
-  onAddChild: (childCode: string) => void;
   parentCode?: string;
+  onRefresh?: () => void | Promise<void>;
   onCopyCode?: () => void;
+  onRegenerateCode?: () => void | Promise<void>;
+  onSetChildPin?: (childId: string, pin: string) => void | Promise<void>;
+  onRenameChild?: (childId: string, newName: string) => void | Promise<void>;
+  onUnlinkChild?: (childId: string) => void | Promise<void>;
+  onDeleteChild?: (childId: string) => void | Promise<void>;
 }
 
 const ChildSelector: React.FC<ChildSelectorProps> = ({
   children,
   selectedChildId,
   onSelectChild,
-  onAddChild,
   parentCode,
-  onCopyCode
+  onRefresh,
+  onCopyCode,
+  onRegenerateCode,
+  onSetChildPin,
+  onRenameChild,
+  onUnlinkChild,
+  onDeleteChild
 }) => {
-  const [showAddModal, setShowAddModal] = useState(false);
-  const [linkCode, setLinkCode] = useState('');
   const [copiedText, setCopiedText] = useState(false);
-
-  const handleAddChild = () => {
-    if (linkCode.trim()) {
-      onAddChild(linkCode);
-      setLinkCode('');
-      setShowAddModal(false);
-    }
-  };
+  const [busyAction, setBusyAction] = useState<null | 'regenerate' | 'rename' | 'unlink' | 'delete'>(null);
+  const [settingPin, setSettingPin] = useState(false);
 
   const handleCopyCode = () => {
     if (parentCode) {
@@ -39,6 +41,70 @@ const ChildSelector: React.FC<ChildSelectorProps> = ({
     }
   };
 
+  const effectiveSelectedChildId = selectedChildId || (children.length > 0 ? children[0].id : null);
+  const selectedChild = effectiveSelectedChildId ? children.find((c) => c.id === effectiveSelectedChildId) : undefined;
+
+  const handleRegenerateCode = async () => {
+    if (!onRegenerateCode) return;
+    if (!confirm('Regenerate your parent code? Old codes will stop working.')) return;
+    setBusyAction('regenerate');
+    try {
+      await onRegenerateCode();
+      alert('✅ Parent code regenerated.');
+    } catch (e: any) {
+      alert(e?.message || 'Failed to regenerate parent code.');
+    } finally {
+      setBusyAction(null);
+    }
+  };
+
+  const handleRenameSelected = async () => {
+    if (!selectedChild || !onRenameChild) return;
+    const nextName = prompt('New name for this child:', selectedChild.name)?.trim() || '';
+    if (!nextName) return;
+    if (nextName.length > 40) {
+      alert('Name is too long (max 40 characters).');
+      return;
+    }
+    setBusyAction('rename');
+    try {
+      await onRenameChild(selectedChild.id, nextName);
+      alert('✅ Child renamed.');
+    } catch (e: any) {
+      alert(e?.message || 'Failed to rename child.');
+    } finally {
+      setBusyAction(null);
+    }
+  };
+
+  const handleUnlinkSelected = async () => {
+    if (!selectedChild || !onUnlinkChild) return;
+    if (!confirm(`Unlink ${selectedChild.name}? They will no longer appear in your portal.`)) return;
+    setBusyAction('unlink');
+    try {
+      await onUnlinkChild(selectedChild.id);
+      alert('✅ Child unlinked.');
+    } catch (e: any) {
+      alert(e?.message || 'Failed to unlink child.');
+    } finally {
+      setBusyAction(null);
+    }
+  };
+
+  const handleDeleteSelected = async () => {
+    if (!selectedChild || !onDeleteChild) return;
+    if (!confirm(`Delete ${selectedChild.name}'s profile? This cannot be undone.`)) return;
+    setBusyAction('delete');
+    try {
+      await onDeleteChild(selectedChild.id);
+      alert('✅ Child profile deleted.');
+    } catch (e: any) {
+      alert(e?.message || 'Failed to delete child.');
+    } finally {
+      setBusyAction(null);
+    }
+  };
+
   return (
     <div className="bg-white rounded-xl shadow-md p-6 mb-8 border-2 border-purple-100">
       <div className="flex items-center justify-between mb-6">
@@ -46,13 +112,16 @@ const ChildSelector: React.FC<ChildSelectorProps> = ({
           <UserGroupIcon className="h-6 w-6 text-purple-600" />
           Your Children
         </h3>
-        <button
-          onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors font-bold"
-        >
-          <PlusIcon className="h-5 w-5" />
-          Link Child
-        </button>
+        {onRefresh && (
+          <button
+            onClick={() => void onRefresh()}
+            className="flex items-center gap-2 px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors font-bold"
+            title="Refresh linked children"
+          >
+            <ArrowPathIcon className="h-5 w-5" />
+            Refresh
+          </button>
+        )}
       </div>
 
       {/* Children List */}
@@ -87,13 +156,10 @@ const ChildSelector: React.FC<ChildSelectorProps> = ({
         <div className="text-center py-8 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300">
           <UserGroupIcon className="h-12 w-12 text-gray-300 mx-auto mb-3" />
           <p className="text-gray-600 font-bold">No children linked yet</p>
-          <p className="text-sm text-gray-500 mb-4">Link your first child to start monitoring their progress</p>
-          <button
-            onClick={() => setShowAddModal(true)}
-            className="px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors font-bold"
-          >
-            Link Your First Child
-          </button>
+          <p className="text-sm text-gray-500">
+            Give your parent code to your child. On the login page they choose “Child” and enter
+            their name, age, and your parent code.
+          </p>
         </div>
       )}
 
@@ -115,66 +181,88 @@ const ChildSelector: React.FC<ChildSelectorProps> = ({
           >
             {copiedText ? '✓ Copied!' : 'Copy'}
           </button>
+          {onRegenerateCode && (
+            <button
+              onClick={handleRegenerateCode}
+              disabled={busyAction === 'regenerate'}
+              className="px-4 py-2 rounded-lg font-bold bg-white border border-purple-300 text-purple-700 hover:bg-purple-100 disabled:opacity-50"
+              title="Generate a new code (old code stops working)"
+            >
+              {busyAction === 'regenerate' ? '…' : 'Regenerate'}
+            </button>
+          )}
         </div>
+        <p className="text-xs text-purple-700 mt-2">
+          Tip: If you think someone is guessing your code, regenerate it.
+        </p>
       </div>
 
-      {/* Add Child Modal */}
-      {showAddModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full animate-pop-in">
-            <div className="flex items-center justify-between mb-6">
-              <h4 className="text-2xl font-bold text-gray-800">Link a Child</h4>
+      {selectedChild && (onSetChildPin || onRenameChild || onUnlinkChild || onDeleteChild) ? (
+        <div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+          <p className="text-sm font-bold text-gray-700">
+            Manage selected child: <span className="text-gray-900">{selectedChild.name}</span>
+          </p>
+          <div className="flex flex-wrap gap-2 mt-3">
+            {onSetChildPin && (
               <button
-                onClick={() => setShowAddModal(false)}
-                className="text-gray-500 hover:text-gray-700"
+                onClick={async () => {
+                  if (!effectiveSelectedChildId) return;
+                  const nextPin = prompt('Set/Reset PIN (4–6 digits). Share this PIN with your child:', '')?.trim() || '';
+                  if (!nextPin) return;
+                  if (!/^[0-9]{4,6}$/.test(nextPin)) {
+                    alert('PIN must be 4 to 6 digits.');
+                    return;
+                  }
+                  setSettingPin(true);
+                  try {
+                    await onSetChildPin(effectiveSelectedChildId, nextPin);
+                    alert('✅ PIN set. Share it with your child.');
+                  } catch (e: any) {
+                    alert(e?.message || 'Failed to set PIN.');
+                  } finally {
+                    setSettingPin(false);
+                  }
+                }}
+                disabled={settingPin}
+                className="px-4 py-2 rounded-lg font-bold bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-50"
+                title="Set or reset the child's PIN"
               >
-                <XMarkIcon className="h-6 w-6" />
+                {settingPin ? 'Setting PIN…' : 'Set PIN'}
               </button>
-            </div>
-
-            <p className="text-gray-600 mb-4">
-              Ask your child to enter this parent code when they log in, or enter a child's code here if they've already created an account.
-            </p>
-
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-bold text-gray-700 mb-2">
-                  Child's Unique Code
-                </label>
-                <input
-                  type="text"
-                  value={linkCode}
-                  onChange={(e) => setLinkCode(e.target.value.toUpperCase())}
-                  placeholder="e.g., ABC123"
-                  maxLength={6}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition-all font-mono text-center text-lg font-bold"
-                />
-              </div>
-
-              <p className="text-xs text-gray-500 bg-blue-50 p-3 rounded-lg border border-blue-200">
-                💡 <strong>How it works:</strong> Each child gets a unique code when they create their account. Ask them for this code and enter it here to link them to your account.
-              </p>
-
-              <div className="flex gap-3">
-                <button
-                  onClick={() => setShowAddModal(false)}
-                  className="flex-1 px-4 py-3 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors font-bold"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={handleAddChild}
-                  disabled={!linkCode.trim()}
-                  className="flex-1 px-4 py-3 bg-purple-500 text-white rounded-lg hover:bg-purple-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-bold flex items-center gap-2 justify-center"
-                >
-                  <LinkIcon className="h-5 w-5" />
-                  Link Child
-                </button>
-              </div>
-            </div>
+            )}
+            {onRenameChild && (
+              <button
+                onClick={handleRenameSelected}
+                disabled={busyAction === 'rename'}
+                className="px-4 py-2 rounded-lg font-bold bg-white border border-gray-300 text-gray-800 hover:bg-gray-100 disabled:opacity-50"
+              >
+                {busyAction === 'rename' ? 'Renaming…' : 'Rename'}
+              </button>
+            )}
+            {onUnlinkChild && (
+              <button
+                onClick={handleUnlinkSelected}
+                disabled={busyAction === 'unlink'}
+                className="px-4 py-2 rounded-lg font-bold bg-amber-500 text-white hover:bg-amber-600 disabled:opacity-50"
+              >
+                {busyAction === 'unlink' ? 'Unlinking…' : 'Unlink'}
+              </button>
+            )}
+            {onDeleteChild && (
+              <button
+                onClick={handleDeleteSelected}
+                disabled={busyAction === 'delete'}
+                className="px-4 py-2 rounded-lg font-bold bg-red-500 text-white hover:bg-red-600 disabled:opacity-50"
+              >
+                {busyAction === 'delete' ? 'Deleting…' : 'Delete'}
+              </button>
+            )}
           </div>
+          <p className="text-xs text-gray-500 mt-2">
+            Rename changes what you see in the portal. Unlink removes them from your account. Delete removes the profile entirely.
+          </p>
         </div>
-      )}
+      ) : null}
     </div>
   );
 };

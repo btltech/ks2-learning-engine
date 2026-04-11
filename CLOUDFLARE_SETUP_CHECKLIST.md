@@ -39,6 +39,24 @@ Add these from your `.env.local` file:
 - [ ] `VITE_FIREBASE_MESSAGING_SENDER_ID`
 - [ ] `VITE_FIREBASE_APP_ID`
 
+Add these for the Admin Console role-management tool (Pages Functions):
+- [ ] `FIREBASE_SERVICE_ACCOUNT_BASE64` (base64-encoded service account JSON)
+
+Notes:
+- Use a Firebase Admin SDK service account key.
+- The account needs permission to manage Auth users (custom claims) and update Firestore user profiles.
+
+Where to get the service account key:
+- Firebase Console → Project Settings → Service accounts → "Generate new private key" (downloads a JSON file)
+
+How to create `FIREBASE_SERVICE_ACCOUNT_BASE64` on macOS:
+- `base64 -i serviceAccountKey.json | tr -d '\n' | pbcopy`
+- Paste into Cloudflare Pages → Settings → Environment variables → (Functions) as `FIREBASE_SERVICE_ACCOUNT_BASE64`
+
+Important:
+- Do NOT prefix these secrets with `VITE_` (that would expose them to the browser).
+- Set the variables for both Preview and Production environments.
+
 ### Step 5: Gemini API Secret (1 min)
 - [ ] `VITE_GEMINI_API_KEY`
 

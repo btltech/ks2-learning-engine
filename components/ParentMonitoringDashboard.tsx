@@ -6,13 +6,15 @@ import ProgressNotifications, { Notification } from './ProgressNotifications';
 import AgeGroupedLeaderboard from './AgeGroupedLeaderboard';
 import SubjectProgressCharts from './SubjectProgressCharts';
 import { useUser } from '../context/UserContext';
+import { firebaseAuthService } from '../services/firebaseAuthService';
+import { SUBJECTS } from '../constants';
 
 interface ParentMonitoringDashboardProps {
-  onLogout: () => void;
+  onLogout: () => void | Promise<void>;
 }
 
 const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ onLogout }) => {
-  const { user, currentChild, linkedChildren, selectedChildId, selectChild, linkChildToParent } = useUser();
+  const { user, setUser, currentChild, linkedChildren, selectedChildId, selectChild, refreshLinkedChildren } = useUser();
   const [activeTab, setActiveTab] = useState<'overview' | 'progress' | 'insights' | 'reports' | 'leaderboard' | 'settings'>('overview');
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -85,24 +87,84 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
     }));
   }, [linkedChildren]);
 
+  const handleRegenerateParentCode = async () => {
+    const newCode = await firebaseAuthService.regenerateParentCode();
+    if (user) {
+      setUser({ ...user, parentCode: newCode });
+    }
+  };
+
+  const handleRenameChild = async (childId: string, newName: string) => {
+    await firebaseAuthService.updateUserProfile(childId, { name: newName });
+    await refreshLinkedChildren();
+  };
+
+  const handleSetChildPin = async (childId: string, pin: string) => {
+    await firebaseAuthService.setChildPin(childId, pin);
+  };
+
+  const handleUnlinkChild = async (childId: string) => {
+    await firebaseAuthService.unlinkChild(childId);
+    await refreshLinkedChildren();
+  };
+
+  const handleDeleteChild = async (childId: string) => {
+    await firebaseAuthService.deleteChild(childId);
+    await refreshLinkedChildren();
+  };
+
   const handleDismissNotification = (id: string) => {
     setNotifications((prev) => prev.filter((n) => n.id !== id));
   };
 
-  const handleResetActivity = () => {
-    // In a real app, this would call an API to reset the student's data
-    // For now, we'll just show a success message
-    localStorage.removeItem('ks2_user');
-    alert(`✅ All activities for ${studentData.name} have been reset!\n\nThe student will need to log in again to set up their profile.`);
-    setShowResetConfirm(false);
+  const handleResetActivity = async () => {
+    if (!selectedChild) return;
+    try {
+      await firebaseAuthService.resetChildProfile(selectedChild.id);
+      await refreshLinkedChildren();
+      alert(`✅ All activities for ${studentData.name} have been reset.`);
+    } catch (e) {
+      console.error('Reset activity failed:', e);
+      alert('Failed to reset activities. Please try again.');
+    } finally {
+      setShowResetConfirm(false);
+    }
   };
 
-  const handleResetPoints = () => {
-    alert(`✅ Points reset for ${studentData.name}!\n\nThey now have 0 points.`);
+  const handleResetMastery = async () => {
+    if (!selectedChild) return;
+    try {
+      await firebaseAuthService.updateChildProgress(selectedChild.id, { mastery: {} });
+      await refreshLinkedChildren();
+      alert(`✅ Mastery progress reset for ${studentData.name}.`);
+    } catch (e) {
+      console.error('Reset mastery failed:', e);
+      alert('Failed to reset mastery. Please try again.');
+    }
   };
 
-  const handleResetStreak = () => {
-    alert(`✅ Streak reset for ${studentData.name}!\n\nTheir streak counter is now at 0.`);
+  const handleResetPoints = async () => {
+    if (!selectedChild) return;
+    try {
+      await firebaseAuthService.updateChildProgress(selectedChild.id, { totalPoints: 0 });
+      await refreshLinkedChildren();
+      alert(`✅ Points reset for ${studentData.name}.`);
+    } catch (e) {
+      console.error('Reset points failed:', e);
+      alert('Failed to reset points. Please try again.');
+    }
+  };
+
+  const handleResetStreak = async () => {
+    if (!selectedChild) return;
+    try {
+      await firebaseAuthService.updateChildProgress(selectedChild.id, { streak: 0 });
+      await refreshLinkedChildren();
+      alert(`✅ Streak reset for ${studentData.name}.`);
+    } catch (e) {
+      console.error('Reset streak failed:', e);
+      alert('Failed to reset streak. Please try again.');
+    }
   };
 
   return (
@@ -140,12 +202,13 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
           children={childrenForSelector}
           selectedChildId={selectedChildId}
           onSelectChild={selectChild}
-          onAddChild={(code) => {
-            if (user?.role === 'parent') {
-              linkChildToParent(code, 'child-new');
-            }
-          }}
           parentCode={user?.parentCode}
+          onRefresh={refreshLinkedChildren}
+          onRegenerateCode={handleRegenerateParentCode}
+          onSetChildPin={handleSetChildPin}
+          onRenameChild={handleRenameChild}
+          onUnlinkChild={handleUnlinkChild}
+          onDeleteChild={handleDeleteChild}
         />
 
         {/* Student Header */}
@@ -222,7 +285,7 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
             {/* Subject Progress Charts */}
             <div className="lg:col-span-2">
               <SubjectProgressCharts
-                subjects={['Maths', 'English', 'Science', 'History', 'Geography', 'PE']}
+                subjects={Object.keys(selectedChild?.mastery || {})}
                 studentName={studentData.name}
                 childMastery={selectedChild?.mastery}
               />
@@ -366,7 +429,10 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
               <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-6">
                 <h4 className="text-lg font-bold text-blue-900 mb-4">📊 Account Management</h4>
                 <div className="space-y-3">
-                  <button className="w-full p-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors font-bold text-left">
+                  <button
+                    onClick={handleResetMastery}
+                    className="w-full p-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors font-bold text-left"
+                  >
                     🔄 Reset Mastery Progress
                   </button>
                   <p className="text-sm text-blue-700">Resets all subject mastery scores to 0%, allowing {studentData.name} to start fresh.</p>

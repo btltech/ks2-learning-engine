@@ -42,6 +42,7 @@ export const LANGUAGES = [
   { name: 'Mandarin', flag: '🇨🇳', greeting: 'Ni Hao' },
   { name: 'Romanian', flag: '🇷🇴', greeting: 'Salut' },
   { name: 'Yoruba', flag: '🇳🇬', greeting: 'Bawo' },
+  { name: 'Welsh', flag: '🏴󠁧󠁢󠁷󠁬󠁳󠁿', greeting: 'Helo' },
   // All additional languages now fully implemented with TTS support:
   { name: 'Italian', flag: '🇮🇹', greeting: 'Ciao' },
   { name: 'Arabic', flag: '🇸🇦', greeting: 'Marhaba' },

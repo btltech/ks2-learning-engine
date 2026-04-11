@@ -1,0 +1,228 @@
+{
+  "timestamp": "2025-12-04T01:03:00.446Z",
+  "totalQuestions": 147,
+  "validQuestions": 147,
+  "issues": [
+    {
+      "id": "mus-musi-miqojq5q-4",
+      "subject": "music",
+      "issue": "Possible American spelling detected",
+      "severity": "info",
+      "details": "Found \"analyze\" - should be British spelling"
+    },
+    {
+      "id": "mus-famo-miqolxbj-3",
+      "subject": "music",
+      "issue": "Question too short",
+      "severity": "info",
+      "details": "\"\\\""
+    }
+  ],
+  "subjectStats": {
+    "maths": {
+      "total": 0,
+      "valid": 0,
+      "critical": 0,
+      "warnings": 0,
+      "byDifficulty": {
+        "Easy": 0,
+        "Medium": 0,
+        "Hard": 0
+      },
+      "byType": {
+        "MultipleChoice": 0,
+        "TrueFalse": 0,
+        "FillInBlank": 0,
+        "Ordering": 0
+      }
+    },
+    "english": {
+      "total": 0,
+      "valid": 0,
+      "critical": 0,
+      "warnings": 0,
+      "byDifficulty": {
+        "Easy": 0,
+        "Medium": 0,
+        "Hard": 0
+      },
+      "byType": {
+        "MultipleChoice": 0,
+        "TrueFalse": 0,
+        "FillInBlank": 0,
+        "Ordering": 0
+      }
+    },
+    "science": {
+      "total": 81,
+      "valid": 81,
+      "critical": 0,
+      "warnings": 0,
+      "byDifficulty": {
+        "Easy": 25,
+        "Medium": 30,
+        "Hard": 26
+      },
+      "byType": {
+        "MultipleChoice": 58,
+        "TrueFalse": 20,
+        "FillInBlank": 3,
+        "Ordering": 0
+      }
+    },
+    "history": {
+      "total": 0,
+      "valid": 0,
+      "critical": 0,
+      "warnings": 0,
+      "byDifficulty": {
+        "Easy": 0,
+        "Medium": 0,
+        "Hard": 0
+      },
+      "byType": {
+        "MultipleChoice": 0,
+        "TrueFalse": 0,
+        "FillInBlank": 0,
+        "Ordering": 0
+      }
+    },
+    "geography": {
+      "total": 0,
+      "valid": 0,
+      "critical": 0,
+      "warnings": 0,
+      "byDifficulty": {
+        "Easy": 0,
+        "Medium": 0,
+        "Hard": 0
+      },
+      "byType": {
+        "MultipleChoice": 0,
+        "TrueFalse": 0,
+        "FillInBlank": 0,
+        "Ordering": 0
+      }
+    },
+    "computing": {
+      "total": 0,
+      "valid": 0,
+      "critical": 0,
+      "warnings": 0,
+      "byDifficulty": {
+        "Easy": 0,
+        "Medium": 0,
+        "Hard": 0
+      },
+      "byType": {
+        "MultipleChoice": 0,
+        "TrueFalse": 0,
+        "FillInBlank": 0,
+        "Ordering": 0
+      }
+    },
+    "art": {
+      "total": 0,
+      "valid": 0,
+      "critical": 0,
+      "warnings": 0,
+      "byDifficulty": {
+        "Easy": 0,
+        "Medium": 0,
+        "Hard": 0
+      },
+      "byType": {
+        "MultipleChoice": 0,
+        "TrueFalse": 0,
+        "FillInBlank": 0,
+        "Ordering": 0
+      }
+    },
+    "music": {
+      "total": 66,
+      "valid": 66,
+      "critical": 0,
+      "warnings": 0,
+      "byDifficulty": {
+        "Easy": 20,
+        "Medium": 26,
+        "Hard": 20
+      },
+      "byType": {
+        "MultipleChoice": 48,
+        "TrueFalse": 16,
+        "FillInBlank": 2,
+        "Ordering": 0
+      }
+    },
+    "pe": {
+      "total": 0,
+      "valid": 0,
+      "critical": 0,
+      "warnings": 0,
+      "byDifficulty": {
+        "Easy": 0,
+        "Medium": 0,
+        "Hard": 0
+      },
+      "byType": {
+        "MultipleChoice": 0,
+        "TrueFalse": 0,
+        "FillInBlank": 0,
+        "Ordering": 0
+      }
+    },
+    "pshe": {
+      "total": 0,
+      "valid": 0,
+      "critical": 0,
+      "warnings": 0,
+      "byDifficulty": {
+        "Easy": 0,
+        "Medium": 0,
+        "Hard": 0
+      },
+      "byType": {
+        "MultipleChoice": 0,
+        "TrueFalse": 0,
+        "FillInBlank": 0,
+        "Ordering": 0
+      }
+    },
+    "dt": {
+      "total": 0,
+      "valid": 0,
+      "critical": 0,
+      "warnings": 0,
+      "byDifficulty": {
+        "Easy": 0,
+        "Medium": 0,
+        "Hard": 0
+      },
+      "byType": {
+        "MultipleChoice": 0,
+        "TrueFalse": 0,
+        "FillInBlank": 0,
+        "Ordering": 0
+      }
+    },
+    "languages": {
+      "total": 0,
+      "valid": 0,
+      "critical": 0,
+      "warnings": 0,
+      "byDifficulty": {
+        "Easy": 0,
+        "Medium": 0,
+        "Hard": 0
+      },
+      "byType": {
+        "MultipleChoice": 0,
+        "TrueFalse": 0,
+        "FillInBlank": 0,
+        "Ordering": 0
+      }
+    }
+  },
+  "qualityScore": 100
+}

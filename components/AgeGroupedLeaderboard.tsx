@@ -10,14 +10,17 @@ interface AgeGroupedLeaderboardProps {
 
 const AgeGroupedLeaderboard: React.FC<AgeGroupedLeaderboardProps> = ({
   studentId,
-  studentAge = 10,
+  studentAge = 9,
   limit = 10,
 }) => {
   const [viewMode, setViewMode] = useState<'age-group' | 'global'>('age-group');
-  const { leaderboard, loading, error } = useRealtimeLeaderboard(limit, studentAge - 2, studentAge + 2);
+  // App is designed for ages 7–11.
+  const AGE_MIN = 7;
+  const AGE_MAX = 11;
+  const { leaderboard, loading, error } = useRealtimeLeaderboard(limit, AGE_MIN, AGE_MAX);
 
-  // Get global leaderboard without age restrictions
-  const { leaderboard: globalLeaderboard } = useRealtimeLeaderboard(limit);
+  // "Global" still stays within the supported age range (7–11).
+  const { leaderboard: globalLeaderboard } = useRealtimeLeaderboard(limit, AGE_MIN, AGE_MAX);
 
   const currentLeaderboard = viewMode === 'age-group' ? leaderboard : globalLeaderboard;
 
@@ -94,14 +97,14 @@ const AgeGroupedLeaderboard: React.FC<AgeGroupedLeaderboardProps> = ({
               <p className="text-4xl font-black mt-2">{getMedalEmoji(studentRank)}</p>
               <p className="text-sm opacity-90 mt-2">
                 {viewMode === 'age-group'
-                  ? `Age ${studentAge - 2}-${studentAge + 2} Group`
+                  ? `Ages ${AGE_MIN}-${AGE_MAX}`
                   : 'Global Rankings'}
               </p>
             </div>
             <div className="text-right">
               <p className="text-sm opacity-90">Points</p>
               <p className="text-5xl font-black mt-2">
-                {currentLeaderboard.find((s) => s.id === studentId)?.totalPoints || 0}
+                {currentLeaderboard.find((s) => s.id === studentId)?.points || 0}
               </p>
             </div>
           </div>
@@ -156,20 +159,20 @@ const AgeGroupedLeaderboard: React.FC<AgeGroupedLeaderboardProps> = ({
                     {student.name}
                     {isCurrentStudent && <span className="text-xs bg-purple-200 text-purple-700 px-2 py-1 rounded-full font-bold">You</span>}
                   </p>
-                  <p className="text-sm text-gray-600 mt-1">Age {student.age} • {student.totalPoints} points</p>
+                  <p className="text-sm text-gray-600 mt-1">Age {student.age} • {student.points} points</p>
                 </div>
 
                 {/* Points & Streak */}
                 <div className="text-right flex-shrink-0">
                   <div className="flex items-center gap-2">
                     <div className="text-right">
-                      <p className="text-2xl font-black text-blue-600">{student.totalPoints}</p>
+                      <p className="text-2xl font-black text-blue-600">{student.points}</p>
                       <p className="text-xs text-gray-500 font-bold">points</p>
                     </div>
-                    {student.currentStreak && student.currentStreak > 0 && (
+                    {student.streak && student.streak > 0 && (
                       <div className="flex items-center gap-1 bg-orange-50 px-2 py-1 rounded-lg">
                         <span>🔥</span>
-                        <p className="text-sm font-bold text-orange-600">{student.currentStreak}</p>
+                        <p className="text-sm font-bold text-orange-600">{student.streak}</p>
                       </div>
                     )}
                   </div>
@@ -190,7 +193,7 @@ const AgeGroupedLeaderboard: React.FC<AgeGroupedLeaderboardProps> = ({
         <p className="font-bold mb-1">💡 How it works:</p>
         <p>
           {viewMode === 'age-group'
-            ? `Compete with students aged ${studentAge - 2}-${studentAge + 2}. Earn points by completing quizzes, lessons, and unlocking badges!`
+            ? `Compete with students aged ${AGE_MIN}-${AGE_MAX}. Earn points by completing quizzes, lessons, and unlocking badges!`
             : 'View global rankings of all students. Show off your learning progress!'}
         </p>
       </div>
