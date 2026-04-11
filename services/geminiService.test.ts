@@ -43,6 +43,10 @@ vi.mock('firebase/firestore', () => ({
   query: vi.fn(),
   where: vi.fn(),
   limit: vi.fn(),
+  Timestamp: {
+    now: vi.fn(() => ({ seconds: 1234567890, nanoseconds: 0 })),
+    fromDate: vi.fn((date: Date) => ({ seconds: Math.floor(date.getTime() / 1000), nanoseconds: 0 })),
+  },
 }));
 
 vi.mock('firebase/auth', () => ({
