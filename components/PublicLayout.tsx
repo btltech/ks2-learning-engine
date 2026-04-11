@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { GRADIENTS, SHADOWS } from '../constants';
+import { GRADIENTS, SHADOWS, RADIUS } from '../constants';
+import { CookieBanner } from './CookieBanner';
 
 interface PublicLayoutProps {
   children: React.ReactNode;
@@ -20,9 +21,14 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <button
             onClick={() => navigate('/')}
-            className="flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600 rounded"
+            className="flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600 rounded-lg"
           >
-            <span className="text-3xl" role="img" aria-label="KS2 Learning">
+            {/* Emoji with white background for better color separation */}
+            <span 
+              className={`text-3xl bg-white ${RADIUS.full} w-12 h-12 flex items-center justify-center ${SHADOWS.secondary}`}
+              role="img" 
+              aria-label="KS2 Learning"
+            >
               📚
             </span>
             <span className="text-xl font-bold text-white">KS2 Learning</span>
@@ -48,6 +54,9 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
           <p>&copy; 2026 KS2 Learning Engine. All rights reserved.</p>
         </div>
       </footer>
+
+      {/* Cookie Consent Banner */}
+      <CookieBanner />
     </div>
   );
 };

@@ -89,6 +89,7 @@ const ContactPage = lazy(() => import('./components/ContactPage'));
 const GettingStarted = lazy(() => import('./components/GettingStarted'));
 const AdminGuide = lazy(() => import('./components/AdminGuide'));
 const PublicLayout = lazy(() => import('./components/PublicLayout').then(m => ({ default: m.PublicLayout })));
+const CookieBanner = lazy(() => import('./components/CookieBanner').then(m => ({ default: m.CookieBanner })));
 
 // Wrapper for protected routes - currently not used but kept for future auth implementation
 // const RequireAuth: React.FC<{ children: React.ReactElement }> = ({ children }) => {
@@ -906,6 +907,9 @@ const AppContent: React.FC = () => {
       {/* Google Cloud TTS test UI removed */}
 
       <Footer />
+      
+      {/* Cookie Consent Banner */}
+      <CookieBanner />
     </div>
   );
 };
