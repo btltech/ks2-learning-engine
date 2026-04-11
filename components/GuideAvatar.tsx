@@ -4,6 +4,7 @@ import { askMiRa, generateSubjectConnections, generateProjectSuggestions, genera
 import { ChatMessage, Difficulty } from '../types';
 import { voiceCommandService, VoiceCommand } from '../services/voiceCommandService';
 import AvatarDisplay from './AvatarDisplay';
+import { GRADIENTS, SHADOWS, RADIUS } from '../constants';
 
 interface GuideAvatarProps {
   message: string;
@@ -336,9 +337,9 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
     <div className="fixed bottom-5 right-5 z-40">
       {/* Chat Window */}
       {isChatOpen && (
-        <div className="absolute bottom-24 right-0 w-[min(24rem,calc(100vw-2rem))] h-[min(500px,calc(100vh-10rem))] bg-white rounded-2xl shadow-2xl flex flex-col animate-pop-in mb-4">
+        <div className={`absolute bottom-24 right-0 w-[min(24rem,calc(100vw-2rem))] h-[min(500px,calc(100vh-10rem))] bg-white ${RADIUS.container} ${SHADOWS.primary} flex flex-col motion-safe:animate-pop-in mb-4`}>
           {/* Chat Header */}
-          <div className="bg-gradient-to-r from-blue-500 to-purple-500 text-white p-4 rounded-t-2xl flex items-center justify-between">
+          <div className={`bg-gradient-to-r ${GRADIENTS.primary} text-white p-4 rounded-t-${RADIUS.container.replace('rounded-', '')} flex items-center justify-between`}>
             <div className="flex items-center space-x-3">
               <AvatarDisplay size="md" showEffects={false} />
               <div>
@@ -348,7 +349,7 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
             </div>
             <button
               onClick={handleAvatarClick}
-              className="hover:bg-white/20 rounded-full p-2 transition-colors"
+              className="hover:bg-white/20 rounded-full p-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
               aria-label="Close chat"
             >
               <XMarkIcon className="h-6 w-6" />
@@ -370,10 +371,10 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
                 )}
                 
                 <div
-                  className={`max-w-[75%] rounded-2xl px-4 py-2 ${
+                  className={`max-w-[75%] ${RADIUS.card} px-4 py-2 ${
                     msg.sender === 'student'
                       ? 'bg-blue-500 text-white rounded-br-none'
-                      : 'bg-white text-gray-800 shadow-md rounded-bl-none'
+                      : `bg-white text-gray-800 ${SHADOWS.secondary} rounded-bl-none`
                   }`}
                 >
                   <p className="text-sm font-semibold mb-1 opacity-75">
@@ -384,7 +385,7 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
                 
                 {/* User icon on right */}
                 {msg.sender === 'student' && (
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
+                  <div className={`flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br ${GRADIENTS.secondary} flex items-center justify-center`}>
                     <span className="text-sm">👤</span>
                   </div>
                 )}
@@ -396,12 +397,12 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
                 <div className="flex-shrink-0">
                   <AvatarDisplay size="sm" showEffects={false} />
                 </div>
-                <div className="bg-white text-gray-800 shadow-md rounded-2xl rounded-bl-none px-4 py-2">
+                <div className={`bg-white text-gray-800 ${SHADOWS.secondary} ${RADIUS.card} rounded-bl-none px-4 py-2`}>
                   <p className="text-sm font-semibold mb-1 opacity-75">MiRa</p>
                   <div className="flex space-x-2">
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                    <div className="w-2 h-2 bg-gray-400 rounded-full motion-safe:animate-bounce"></div>
+                    <div className="w-2 h-2 bg-gray-400 rounded-full motion-safe:animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                    <div className="w-2 h-2 bg-gray-400 rounded-full motion-safe:animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                   </div>
                 </div>
               </div>
@@ -414,10 +415,10 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
           <div className="px-4 py-2 border-t border-gray-200 bg-gray-50">
             <button
               onClick={() => setShowQuickActions(!showQuickActions)}
-              className="w-full text-left text-sm text-blue-600 hover:text-blue-800 font-medium flex items-center justify-between"
+              className="w-full text-left text-sm text-blue-600 hover:text-blue-800 font-medium flex items-center justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-md px-2 py-1"
             >
               Quick Help
-              <ChevronDownIcon className={`h-4 w-4 transition-transform ${showQuickActions ? 'rotate-180' : ''}`} />
+              <ChevronDownIcon className={`h-4 w-4 motion-safe:transition-transform ${showQuickActions ? 'rotate-180' : ''}`} />
             </button>
             
             {showQuickActions && (
@@ -426,7 +427,7 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
                   <button
                     key={action.id}
                     onClick={() => handleQuickAction(action.id)}
-                    className={`${action.className} text-xs px-3 py-3 rounded-md transition-colors text-left font-semibold`}
+                    className={`${action.className} text-xs px-3 py-3 ${RADIUS.button} motion-safe:transition-colors text-left font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2`}
                     disabled={isTyping}
                   >
                     {action.label}
@@ -437,7 +438,7 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
           </div>
 
           {/* Chat Input */}
-          <div className="p-4 border-t border-gray-200 bg-white rounded-b-2xl">
+          <div className={`p-4 border-t border-gray-200 bg-white rounded-b-${RADIUS.container.replace('rounded-', '')}`}>
             <div className="flex space-x-2">
               <input
                 ref={inputRef}
@@ -446,7 +447,7 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
                 onChange={(e) => setInputMessage(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Ask MiRa anything..."
-                className="flex-1 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="flex-1 px-4 py-2 border border-gray-300 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
                 aria-label="Type your question"
                 disabled={isTyping}
               />
@@ -454,10 +455,10 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
                 <button
                   onClick={handleVoiceToggle}
                   disabled={isTyping}
-                  className={`p-3 rounded-full transition-colors ${
+                  className={`p-3 rounded-full motion-safe:transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
                     isListening 
-                      ? 'bg-red-500 text-white animate-pulse' 
-                      : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+                      ? 'bg-red-500 text-white motion-safe:animate-pulse focus-visible:ring-red-500' 
+                      : 'bg-gray-200 text-gray-600 hover:bg-gray-300 focus-visible:ring-gray-500'
                   } disabled:opacity-50`}
                   aria-label={isListening ? 'Stop listening' : 'Start voice input'}
                   title={isListening ? 'Stop listening' : 'Speak to MiRa'}
@@ -468,7 +469,7 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
               <button
                 onClick={handleSendMessage}
                 disabled={!inputMessage.trim() || isTyping}
-                className="bg-blue-500 text-white p-3 rounded-full hover:bg-blue-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-blue-500 text-white p-3 rounded-full hover:bg-blue-600 motion-safe:transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                 aria-label="Send message"
               >
                 <PaperAirplaneIcon className="h-5 w-5" />
@@ -491,7 +492,7 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
         <button
           onClick={handleAvatarClick}
           onKeyDown={handleAvatarKeyDown}
-          className="w-16 h-16 animate-float hover:scale-110 transition-transform cursor-pointer focus:outline-none focus:ring-4 focus:ring-blue-400 rounded-full shadow-lg bg-white border-2 border-blue-100 overflow-hidden"
+          className={`w-16 h-16 motion-safe:animate-float motion-safe:hover:scale-110 motion-safe:transition-transform cursor-pointer focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-400 rounded-full ${SHADOWS.primary} bg-white border-2 border-blue-100 overflow-hidden`}
           aria-label={isChatOpen ? 'Close chat with MiRa' : 'Chat with MiRa'}
           title={isChatOpen ? 'Close MiRa' : 'Open MiRa'}
         >
@@ -505,10 +506,10 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
               e.stopPropagation();
               handleVoiceToggle();
             }}
-            className={`absolute -left-3 -top-1 w-8 h-8 rounded-full shadow-lg flex items-center justify-center transition-all ${
+            className={`absolute -left-3 -top-1 w-8 h-8 rounded-full ${SHADOWS.primary} flex items-center justify-center motion-safe:transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
               isListening 
-                ? 'bg-red-500 text-white animate-pulse scale-110' 
-                : 'bg-purple-500 text-white hover:bg-purple-600 hover:scale-110'
+                ? 'bg-red-500 text-white motion-safe:animate-pulse scale-110 focus-visible:ring-red-500' 
+                : 'bg-purple-500 text-white hover:bg-purple-600 motion-safe:hover:scale-110 focus-visible:ring-purple-500'
             }`}
             aria-label={isListening ? 'Stop listening' : 'Speak to MiRa'}
             title={isListening ? 'Listening... Click to stop' : '🎤 Talk to MiRa'}
@@ -519,7 +520,7 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
         
         {/* Listening indicator */}
         {isListening && !isChatOpen && (
-          <div className="absolute -top-12 right-0 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg animate-pulse whitespace-nowrap">
+          <div className={`absolute -top-12 right-0 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full ${SHADOWS.primary} motion-safe:animate-pulse whitespace-nowrap`}>
             🎤 Listening...
           </div>
         )}
