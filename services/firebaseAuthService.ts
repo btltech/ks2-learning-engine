@@ -148,8 +148,9 @@ export const firebaseAuthService = {
 
       await setDoc(doc(db, 'users', userId), firestoreDoc);
 
-      // Send email verification
-      await sendEmailVerification(firebaseUser);
+      // Send email verification — redirect to app after user clicks the link
+      const verifyUrl = typeof window !== 'undefined' ? `${window.location.origin}/?verified=true` : 'https://demiwuraks2.co.uk/?verified=true';
+      await sendEmailVerification(firebaseUser, { url: verifyUrl, handleCodeInApp: false });
 
       // Reserve a guaranteed-unique parent code via server (best-effort).
       const isTestEnv =
@@ -534,7 +535,8 @@ export const firebaseAuthService = {
       throw new Error('Email is already verified');
     }
     try {
-      await sendEmailVerification(user);
+      const verifyUrl = typeof window !== 'undefined' ? `${window.location.origin}/?verified=true` : 'https://demiwuraks2.co.uk/?verified=true';
+      await sendEmailVerification(user, { url: verifyUrl, handleCodeInApp: false });
     } catch (error: any) {
       if (error.code === 'auth/too-many-requests') {
         throw new Error('Too many requests. Please wait a few minutes and try again.');
@@ -558,7 +560,8 @@ export const firebaseAuthService = {
    */
   sendPasswordReset: async (email: string): Promise<void> => {
     try {
-      await sendPasswordResetEmail(auth, normalizeEmail(email));
+      const continueUrl = typeof window !== 'undefined' ? `${window.location.origin}/` : 'https://demiwuraks2.co.uk/';
+      await sendPasswordResetEmail(auth, normalizeEmail(email), { url: continueUrl, handleCodeInApp: false });
     } catch (error: any) {
       console.error('Password reset error:', error);
       // Provide user-friendly error messages

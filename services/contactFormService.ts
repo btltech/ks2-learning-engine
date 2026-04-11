@@ -1,9 +1,8 @@
 /**
  * Contact Form Service
- * Handles submission of contact form messages to Firestore
+ * Routes form submissions through /api/contact (Cloudflare Pages Function)
+ * which saves to Firestore AND sends an admin email notification via Resend.
  */
-
-import { db, collection, addDoc } from './firebase';
 
 export interface ContactFormData {
   name: string;
@@ -20,20 +19,28 @@ export interface ContactSubmission extends ContactFormData {
 }
 
 /**
- * Submit a contact form message
+ * Submit a contact form message via the server-side /api/contact endpoint.
+ * The endpoint saves the submission to Firestore and sends an admin email.
  */
 export async function submitContactForm(formData: ContactFormData): Promise<void> {
+  let resp: Response;
   try {
-    const submission: ContactSubmission = {
-      ...formData,
-      submittedAt: Date.now(),
-      status: 'new'
-    };
+    resp = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    });
+  } catch {
+    throw new Error('Network error. Please check your connection and try again, or email us at support@demiwuraks2.co.uk');
+  }
 
-    await addDoc(collection(db, 'contactSubmissions'), submission);
-  } catch (error) {
-    console.error('Error submitting contact form:', error);
-    throw new Error('Failed to submit contact form. Please try again or email us directly at support@demiwuraks2.co.uk');
+  if (!resp.ok) {
+    let message = 'Failed to submit. Please try again or email support@demiwuraks2.co.uk';
+    try {
+      const data = await resp.json();
+      if (typeof data?.error === 'string') message = data.error;
+    } catch { /* ignore */ }
+    throw new Error(message);
   }
 }
 
@@ -42,7 +49,6 @@ export async function submitContactForm(formData: ContactFormData): Promise<void
  * This would be called from admin console to view submissions
  */
 export async function getContactSubmissions(): Promise<ContactSubmission[]> {
-  // This function would require auth check for admin role
   // Placeholder for future admin console integration
   return [];
 }
