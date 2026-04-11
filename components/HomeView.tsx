@@ -424,9 +424,9 @@ interface StatCardProps {
   label: string;
   color: string;
 }
-${RADIUS.card}
+
 const StatCard: React.FC<StatCardProps> = ({ icon, value, label, color }) => (
-  <div className={`${color} rounded-xl p-4 text-center`}>
+  <div className={`${color} ${RADIUS.card} p-4 text-center`}>
     <span className="text-2xl block mb-1">{icon}</span>
     <p className="text-2xl font-bold">{value.toLocaleString()}</p>
     <p className="text-xs opacity-75">{label}</p>
