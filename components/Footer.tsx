@@ -29,7 +29,7 @@ const Footer: React.FC<FooterProps> = ({ userRole = 'student' }) => {
                 <li>
                   <button
                     onClick={() => handleNavigation('/help')}
-                    className="text-white/90 hover:text-white motion-safe:transition-colors focus-visible:outline-none focus-visible:underline text-left"
+                    className="text-white hover:text-blue-100 motion-safe:transition-colors focus-visible:outline-none focus-visible:underline text-left underline-offset-2"
                   >
                     Help Center
                   </button>
@@ -37,7 +37,7 @@ const Footer: React.FC<FooterProps> = ({ userRole = 'student' }) => {
                 <li>
                   <button
                     onClick={() => handleNavigation('/getting-started')}
-                    className="text-white/90 hover:text-white motion-safe:transition-colors focus-visible:outline-none focus-visible:underline text-left"
+                    className="text-white hover:text-blue-100 motion-safe:transition-colors focus-visible:outline-none focus-visible:underline text-left underline-offset-2"
                   >
                     Getting Started
                   </button>
@@ -45,7 +45,7 @@ const Footer: React.FC<FooterProps> = ({ userRole = 'student' }) => {
                 <li>
                   <button
                     onClick={() => handleNavigation('/contact')}
-                    className="text-white/90 hover:text-white motion-safe:transition-colors focus-visible:outline-none focus-visible:underline text-left"
+                    className="text-white hover:text-blue-100 motion-safe:transition-colors focus-visible:outline-none focus-visible:underline text-left underline-offset-2"
                   >
                     Contact Us
                   </button>
@@ -53,7 +53,7 @@ const Footer: React.FC<FooterProps> = ({ userRole = 'student' }) => {
                 <li>
                   <button
                     onClick={() => setShowFeedback(true)}
-                    className="text-white/90 hover:text-white motion-safe:transition-colors focus-visible:outline-none focus-visible:underline text-left font-medium"
+                    className="text-white hover:text-blue-100 motion-safe:transition-colors focus-visible:outline-none focus-visible:underline text-left font-medium underline-offset-2"
                   >
                     Give Feedback
                   </button>
@@ -68,7 +68,7 @@ const Footer: React.FC<FooterProps> = ({ userRole = 'student' }) => {
                 <li>
                   <button
                     onClick={() => handleNavigation('/how-it-works')}
-                    className="text-white/90 hover:text-white motion-safe:transition-colors focus-visible:outline-none focus-visible:underline text-left"
+                    className="text-white hover:text-blue-100 motion-safe:transition-colors focus-visible:outline-none focus-visible:underline text-left"
                   >
                     How It Works
                   </button>
@@ -76,7 +76,7 @@ const Footer: React.FC<FooterProps> = ({ userRole = 'student' }) => {
                 <li>
                   <button
                     onClick={() => handleNavigation('/parent-guide')}
-                    className="text-white/90 hover:text-white motion-safe:transition-colors focus-visible:outline-none focus-visible:underline text-left"
+                    className="text-white hover:text-blue-100 motion-safe:transition-colors focus-visible:outline-none focus-visible:underline text-left"
                   >
                     Parent Guide
                   </button>
@@ -84,7 +84,7 @@ const Footer: React.FC<FooterProps> = ({ userRole = 'student' }) => {
                 <li>
                   <button
                     onClick={() => handleNavigation('/teacher-guide')}
-                    className="text-white/90 hover:text-white motion-safe:transition-colors focus-visible:outline-none focus-visible:underline text-left"
+                    className="text-white hover:text-blue-100 motion-safe:transition-colors focus-visible:outline-none focus-visible:underline text-left"
                   >
                     Teacher Guide
                   </button>
@@ -93,7 +93,7 @@ const Footer: React.FC<FooterProps> = ({ userRole = 'student' }) => {
                   <li>
                     <button
                       onClick={() => handleNavigation('/admin-guide')}
-                      className="text-white/90 hover:text-white motion-safe:transition-colors focus-visible:outline-none focus-visible:underline text-left"
+                      className="text-white hover:text-blue-100 motion-safe:transition-colors focus-visible:outline-none focus-visible:underline text-left"
                     >
                       Admin Guide
                     </button>
@@ -109,7 +109,7 @@ const Footer: React.FC<FooterProps> = ({ userRole = 'student' }) => {
                 <li>
                   <button
                     onClick={() => handleNavigation('/privacy-policy')}
-                    className="text-white/90 hover:text-white motion-safe:transition-colors focus-visible:outline-none focus-visible:underline text-left"
+                    className="text-white hover:text-blue-100 motion-safe:transition-colors focus-visible:outline-none focus-visible:underline text-left"
                   >
                     Privacy Policy
                   </button>
@@ -117,7 +117,7 @@ const Footer: React.FC<FooterProps> = ({ userRole = 'student' }) => {
                 <li>
                   <button
                     onClick={() => handleNavigation('/terms-of-service')}
-                    className="text-white/90 hover:text-white motion-safe:transition-colors focus-visible:outline-none focus-visible:underline text-left"
+                    className="text-white hover:text-blue-100 motion-safe:transition-colors focus-visible:outline-none focus-visible:underline text-left"
                   >
                     Terms of Service
                   </button>
@@ -125,7 +125,7 @@ const Footer: React.FC<FooterProps> = ({ userRole = 'student' }) => {
                 <li>
                   <button
                     onClick={() => handleNavigation('/cookie-policy')}
-                    className="text-white/90 hover:text-white motion-safe:transition-colors focus-visible:outline-none focus-visible:underline text-left"
+                    className="text-white hover:text-blue-100 motion-safe:transition-colors focus-visible:outline-none focus-visible:underline text-left"
                   >
                     Cookie Policy
                   </button>
@@ -140,7 +140,7 @@ const Footer: React.FC<FooterProps> = ({ userRole = 'student' }) => {
                 <li>
                   <button
                     onClick={() => handleNavigation('/safeguarding')}
-                    className="text-white/90 hover:text-white motion-safe:transition-colors focus-visible:outline-none focus-visible:underline text-left font-semibold"
+                    className="text-white hover:text-blue-100 motion-safe:transition-colors focus-visible:outline-none focus-visible:underline text-left font-semibold"
                   >
                     🛡️ Safeguarding Policy
                   </button>
@@ -148,7 +148,7 @@ const Footer: React.FC<FooterProps> = ({ userRole = 'student' }) => {
                 <li>
                   <button
                     onClick={() => handleNavigation('/accessibility')}
-                    className="text-white/90 hover:text-white motion-safe:transition-colors focus-visible:outline-none focus-visible:underline text-left"
+                    className="text-white hover:text-blue-100 motion-safe:transition-colors focus-visible:outline-none focus-visible:underline text-left"
                   >
                     Accessibility Statement
                   </button>
