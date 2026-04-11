@@ -13,47 +13,39 @@ const VALID_QUESTION_TYPES = Object.values(QuestionType);
 const VALID_COGNITIVE_LEVELS = Object.values(CognitiveLevel);
 
 // Comprehensive list of inappropriate words/phrases for children's content
-// Categories: violence, adult content, hate speech, dangerous activities, bullying
+// IMPORTANT: Only block truly harmful content, not educational topics
+// Categories: graphic violence, adult content, hate speech, self-harm, illegal drugs
 const inappropriateKeywords = [
-  // Violence & weapons
-  'kill', 'murder', 'death', 'dead body', 'blood', 'gore', 'stab', 'shoot',
-  'gun', 'knife attack', 'weapon', 'bomb', 'explode', 'torture', 'assault',
+  // Graphic violence & weapons (educational history/safety content is OK)
+  'murder', 'dead body', 'gore', 'stab', 'knife attack', 'torture', 
   'strangle', 'suffocate', 'decapitate', 'dismember', 'slaughter',
   
   // Adult/sexual content
   'sex', 'sexual', 'naked', 'nude', 'porn', 'explicit', 'erotic', 'xxx',
   'adult content', 'intercourse', 'genitals', 'breasts', 'buttocks',
   
-  // Hate speech & discrimination
-  'racist', 'racism', 'hate speech', 'slur', 'discrimination', 'nazi',
-  'supremacist', 'bigot', 'homophobic', 'transphobic', 'xenophobic',
+  // Hate speech & discrimination (but allow educational discussion of racism/discrimination)
+  'hate speech', 'nazi', 'supremacist', 'bigot',
   
-  // Drugs & substances
+  // Illegal drugs (allow educational content about medicine/health)
   'cocaine', 'heroin', 'meth', 'crack', 'drug abuse', 'overdose',
   'get high', 'illegal drugs', 'drug dealer',
   
-  // Dangerous activities
+  // Self-harm & dangerous activities
   'suicide', 'self-harm', 'cut yourself', 'hurt yourself', 'kill yourself',
-  'eating disorder', 'anorexia', 'bulimia', 'starve yourself',
+  'starve yourself',
   
-  // Bullying & harassment
-  'bully', 'harass', 'threaten', 'intimidate', 'humiliate', 'shame',
-  
-  // Profanity (common ones)
-  'damn', 'hell', 'crap', 'stupid', 'idiot', 'dumb', 'shut up',
-  
-  // Inappropriate for educational context
-  'inappropriate', 'violent', 'offensive', 'disturbing', 'scary', 'horror',
-  'nightmare', 'terrifying', 'gruesome', 'graphic'
+  // Profanity (severe only - mild terms removed for educational context)
+  'f**k', 'sh*t', 'a**hole', 'b*tch'
 ];
 
-// Patterns that might indicate problematic content
+// Patterns that indicate truly harmful content (not educational)
 const problematicPatterns = [
-  /\b(how to )(harm|hurt|kill|attack)/i,
-  /\b(ways to )(die|hurt|harm)/i,
-  /\bsecretly\s+(poison|harm|hurt)/i,
+  /\b(how to )(murder|kill someone|harm others)/i,
+  /\bsecretly\s+(poison|harm|kill)/i,
   /\b(hate|kill)\s+(all|every)\s+\w+/i,
   /\b(shouldn't|don't deserve to)\s+(live|exist)/i,
+  /\b(how to make)\s+(bomb|weapon|explosive)/i,
 ];
 
 // Validate that content is appropriate for children
