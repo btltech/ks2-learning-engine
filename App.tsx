@@ -423,18 +423,37 @@ const AppContent: React.FC = () => {
 
   const isPublicRoute = publicRoutes.includes(location.pathname);
 
-  // If user is not logged in and trying to access a protected route, show login
-  if (!user && !isPublicRoute) {
-    return (
-      <ToastProvider>
-        <Suspense fallback={<LoadingSpinner />}>
-          <PublicLayout>
-            <LoginView onLogin={handleLoginWrapper} />
-          </PublicLayout>
-        </Suspense>
-      </ToastProvider>
-    );
-  }
+  // Helper function to render public page component based on route
+  const renderPublicPage = () => {
+    switch (location.pathname) {
+      case '/privacy-policy':
+        return <PrivacyPolicy />;
+      case '/terms-of-service':
+        return <TermsOfService />;
+      case '/cookie-policy':
+        return <CookiePolicy />;
+      case '/safeguarding':
+        return <SafeguardingPolicy />;
+      case '/accessibility':
+        return <AccessibilityInfo />;
+      case '/parent-guide':
+        return <ParentGuide />;
+      case '/teacher-guide':
+        return <TeacherGuide />;
+      case '/how-it-works':
+        return <HowItWorks />;
+      case '/help':
+        return <HelpCenter />;
+      case '/contact':
+        return <ContactPage />;
+      case '/getting-started':
+        return <GettingStarted />;
+      case '/admin-guide':
+        return <AdminGuide />;
+      default:
+        return null;
+    }
+  };
 
   // If user is not logged in but accessing a public route, show public layout
   if (!user && isPublicRoute) {
@@ -442,20 +461,20 @@ const AppContent: React.FC = () => {
       <ToastProvider>
         <Suspense fallback={<LoadingSpinner />}>
           <PublicLayout>
-            <Routes>
-              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-              <Route path="/terms-of-service" element={<TermsOfService />} />
-              <Route path="/cookie-policy" element={<CookiePolicy />} />
-              <Route path="/safeguarding" element={<SafeguardingPolicy />} />
-              <Route path="/accessibility" element={<AccessibilityInfo />} />
-              <Route path="/parent-guide" element={<ParentGuide />} />
-              <Route path="/teacher-guide" element={<TeacherGuide />} />
-              <Route path="/how-it-works" element={<HowItWorks />} />
-              <Route path="/help" element={<HelpCenter />} />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="/getting-started" element={<GettingStarted />} />
-              <Route path="/admin-guide" element={<AdminGuide />} />
-            </Routes>
+            {renderPublicPage()}
+          </PublicLayout>
+        </Suspense>
+      </ToastProvider>
+    );
+  }
+
+  // If user is not logged in and trying to access a protected route, show login
+  if (!user && !isPublicRoute) {
+    return (
+      <ToastProvider>
+        <Suspense fallback={<LoadingSpinner />}>
+          <PublicLayout>
+            <LoginView onLogin={handleLoginWrapper} />
           </PublicLayout>
         </Suspense>
       </ToastProvider>
