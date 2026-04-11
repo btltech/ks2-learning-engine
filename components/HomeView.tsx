@@ -10,6 +10,7 @@ import { DailyChallengeCard, StreakMilestone } from './DailyChallenge';
 import { ReviewDueBadge } from './ReviewMode';
 import { GamesLockOverlay } from './GamesLockOverlay';
 import { CardSkeleton } from './SkeletonLoader';
+import Footer from './Footer';
 import { useUser } from '../context/UserContext';
 import { Subject, ProgressData } from '../types';
 import { DailyChallenge } from '../services/dailyChallengeService';
@@ -344,6 +345,9 @@ const HomeView: React.FC<HomeViewProps> = ({
           </div>
         )}
       </div>
+
+      {/* Footer */}
+      <Footer userRole="student" />
     </div>
   );
 };

@@ -75,6 +75,19 @@ const VirtualPetWidget = lazy(() => import('./components/VirtualPetWidget'));
 const VoiceCommandButton = lazy(() => import('./components/VoiceCommandButton'));
 const StruggleAlert = lazy(() => import('./components/StruggleAlert'));
 
+// Info & Policy Pages
+const PrivacyPolicy = lazy(() => import('./components/PrivacyPolicy'));
+const TermsOfService = lazy(() => import('./components/TermsOfService'));
+const CookiePolicy = lazy(() => import('./components/CookiePolicy'));
+const SafeguardingPolicy = lazy(() => import('./components/SafeguardingPolicy'));
+const AccessibilityInfo = lazy(() => import('./components/AccessibilityStatement'));
+const ParentGuide = lazy(() => import('./components/ParentGuide'));
+const TeacherGuide = lazy(() => import('./components/TeacherGuide'));
+const HowItWorks = lazy(() => import('./components/HowItWorks'));
+const HelpCenter = lazy(() => import('./components/HelpCenter'));
+const ContactPage = lazy(() => import('./components/ContactPage'));
+const GettingStarted = lazy(() => import('./components/GettingStarted'));
+
 // Wrapper for protected routes - currently not used but kept for future auth implementation
 // const RequireAuth: React.FC<{ children: React.ReactElement }> = ({ children }) => {
 //   const { user } = useUser();
@@ -648,6 +661,19 @@ const AppContent: React.FC = () => {
                   }}
                 />
               } />
+              
+              {/* Info & Policy Pages */}
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms-of-service" element={<TermsOfService />} />
+              <Route path="/cookie-policy" element={<CookiePolicy />} />
+              <Route path="/safeguarding" element={<SafeguardingPolicy />} />
+              <Route path="/accessibility" element={<AccessibilityInfo />} />
+              <Route path="/parent-guide" element={<ParentGuide />} />
+              <Route path="/teacher-guide" element={<TeacherGuide />} />
+              <Route path="/how-it-works" element={<HowItWorks />} />
+              <Route path="/help" element={<HelpCenter />} />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route path="/getting-started" element={<GettingStarted />} />
               
               {/* Redirect to login if accessing dashboard without auth */}
               <Route path="*" element={!user ? <Navigate to="/login" /> : <Navigate to="/" />} />

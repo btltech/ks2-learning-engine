@@ -10,6 +10,7 @@
  */
 
 import React, { useState } from 'react';
+import Footer from './Footer';
 import { useUser } from '../context/UserContext';
 
 interface ParentHomeViewProps {
@@ -338,6 +339,9 @@ export const ParentHomeView: React.FC<ParentHomeViewProps> = ({
           </div>
         </div>
       )}
+
+      {/* Footer */}
+      <Footer userRole="parent" />
     </div>
   );
 };
