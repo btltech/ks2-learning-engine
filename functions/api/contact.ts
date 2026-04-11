@@ -175,7 +175,9 @@ async function sendAdminNotification(
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      from: 'KS2 Learning Engine <noreply@demiwuraks2.co.uk>',
+      // Use Resend's pre-verified domain so emails deliver without custom DNS setup.
+      // Switch to 'noreply@demiwuraks2.co.uk' once the domain is verified in Resend dashboard.
+      from: 'KS2 Learning Engine <onboarding@resend.dev>',
       to: [adminEmail],
       reply_to: sub.email,
       subject: `📬 Contact: ${sub.subject}`,
@@ -266,9 +268,10 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   if (resendApiKey) {
     try {
       await sendAdminNotification(resendApiKey, adminEmail, { name, email, userType, subject, message });
+      console.log(`[contact] Email sent to ${adminEmail}`);
     } catch (err) {
-      console.error('[contact] Email notification failed:', err);
-      // Don't fail the request just because email failed
+      // Log full error so it's visible in Cloudflare Pages → Functions → Logs
+      console.error('[contact] Email notification failed:', JSON.stringify(err instanceof Error ? { message: err.message, stack: err.stack } : err));
     }
   } else {
     console.warn('[contact] RESEND_API_KEY not set — skipping admin notification email');
