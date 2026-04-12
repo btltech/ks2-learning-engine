@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import FriendsPanel from '../components/FriendsPanel';
 import SkillTreeView from '../components/SkillTreeView';
 import ProgressChart from '../components/ProgressChart';
 import CertificateGallery from '../components/CertificateGallery';
 
 export default function ProgressView() {
-  const [activeTab, setActiveTab] = useState<'progress' | 'friends' | 'certificates'>('progress');
+  const [activeTab, setActiveTab] = useState<'progress' | 'certificates'>('progress');
   const [showSkillTree, setShowSkillTree] = useState(false);
   const [skillTreeSubject, setSkillTreeSubject] = useState('');
 
@@ -34,16 +33,6 @@ export default function ProgressView() {
             }`}
           >
             📈 Progress & Skills
-          </button>
-          <button
-            onClick={() => setActiveTab('friends')}
-            className={`flex-1 py-3 px-6 rounded-xl font-semibold transition-all ${
-              activeTab === 'friends'
-                ? 'bg-blue-500 text-white shadow-md'
-                : 'text-gray-600 hover:bg-gray-100'
-            }`}
-          >
-            👥 Friends
           </button>
           <button
             onClick={() => setActiveTab('certificates')}
@@ -134,8 +123,6 @@ export default function ProgressView() {
             </div>
           </div>
         )}
-
-        {activeTab === 'friends' && <FriendsPanel />}
 
         {activeTab === 'certificates' && <CertificateGallery />}
       </div>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { microlearningService, MicroSession } from '../services/microlearningService';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,7 +7,7 @@ interface Props {
   onStart: (session: MicroSession) => void;
 }
 
-export default function MicrolearningCard({ session, onStart }: Props) {
+const MicrolearningCard: React.FC<Props> = ({ session, onStart }) => {
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
 
@@ -36,8 +36,8 @@ export default function MicrolearningCard({ session, onStart }: Props) {
     >
       {/* Header with gradient */}
       <div className={`h-2 ${
-        session.subject === 'Maths' ? 'bg-gradient-to-r from-blue-500 to-purple-500' :
-        session.subject === 'English' ? 'bg-gradient-to-r from-green-500 to-teal-500' :
+        (session.subject as string) === 'Maths' ? 'bg-gradient-to-r from-blue-500 to-purple-500' :
+        (session.subject as string) === 'English' ? 'bg-gradient-to-r from-green-500 to-teal-500' :
         'bg-gradient-to-r from-orange-500 to-red-500'
       }`} />
 
@@ -84,8 +84,8 @@ export default function MicrolearningCard({ session, onStart }: Props) {
         {/* Start button */}
         <button
           className={`w-full py-3 rounded-lg font-bold text-white transition-all duration-300 ${
-            session.subject === 'Maths' ? 'bg-blue-500 hover:bg-blue-600' :
-            session.subject === 'English' ? 'bg-green-500 hover:bg-green-600' :
+            (session.subject as string) === 'Maths' ? 'bg-blue-500 hover:bg-blue-600' :
+            (session.subject as string) === 'English' ? 'bg-green-500 hover:bg-green-600' :
             'bg-orange-500 hover:bg-orange-600'
           } ${isHovered ? 'shadow-lg' : ''}`}
         >
@@ -94,4 +94,6 @@ export default function MicrolearningCard({ session, onStart }: Props) {
       </div>
     </div>
   );
-}
+};
+
+export default MicrolearningCard;

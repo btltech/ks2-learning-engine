@@ -22,6 +22,8 @@ interface GamesUnlockStatus {
   gamesRemaining: number;
   requiredCorrect: number;
   totalQuestions: number;
+  passesCount: number;
+  requiredPasses: number;
   lastQuiz?: { correct: number; total: number; passed: boolean; at: string };
 }
 
@@ -128,6 +130,8 @@ const GuidedHomeView: React.FC<GuidedHomeViewProps> = ({
               <GamesLockOverlay
                 requiredCorrect={gamesUnlockStatus.requiredCorrect}
                 totalQuestions={gamesUnlockStatus.totalQuestions}
+                passesCount={gamesUnlockStatus.passesCount}
+                requiredPasses={gamesUnlockStatus.requiredPasses}
                 lastQuiz={gamesUnlockStatus.lastQuiz}
               />
             ) : (

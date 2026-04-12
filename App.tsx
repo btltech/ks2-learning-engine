@@ -32,6 +32,7 @@ initAccessibility();
 
 // Lazy loaded components - move more to lazy loading for smaller initial bundle
 const LoginView = lazy(() => import('./components/LoginView'));
+const LandingPage = lazy(() => import('./components/LandingPage'));
 const HomeView = lazy(() => import('./components/HomeView'));
 const GuidedHomeView = lazy(() => import('./components/GuidedHomeView'));
 const LanguageSelector = lazy(() => import('./components/LanguageSelector'));
@@ -476,13 +477,19 @@ const AppContent: React.FC = () => {
     );
   }
 
-  // If user is not logged in and trying to access a protected route, show login
+  // If user is not logged in, show landing page at / or login form at /login (and all other protected routes)
   if (!user && !isPublicRoute) {
+    const isLoginRoute = location.pathname === '/login';
+    const isRootRoute = location.pathname === '/';
     return (
       <ToastProvider>
         <Suspense fallback={<LoadingSpinner />}>
           <PublicLayout>
-            <LoginView onLogin={handleLoginWrapper} />
+            {(isRootRoute && !isLoginRoute) ? (
+              <LandingPage />
+            ) : (
+              <LoginView onLogin={handleLoginWrapper} />
+            )}
           </PublicLayout>
         </Suspense>
       </ToastProvider>
@@ -877,10 +884,13 @@ const AppContent: React.FC = () => {
       )}
 
       {showGamesUnlockedCelebration && (
-        <GamesUnlockedCelebration onDismiss={() => {
-          setShowGamesUnlockedCelebration(false);
-          navigate('/games');
-        }} />
+        <GamesUnlockedCelebration
+          onDismiss={() => setShowGamesUnlockedCelebration(false)}
+          onGoToGames={() => {
+            setShowGamesUnlockedCelebration(false);
+            navigate('/games');
+          }}
+        />
       )}
 
       {showQuizBattle && (

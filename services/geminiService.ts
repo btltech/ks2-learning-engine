@@ -23,6 +23,19 @@ import {
 
 const LANGUAGE_SUBJECTS = ['french', 'spanish', 'german', 'japanese', 'mandarin', 'romanian', 'yoruba', 'welsh'];
 
+// Canonical subject name map — keeps Cloud Bank consistent regardless of how the subject was passed in
+const SUBJECT_ALIASES: Record<string, string> = {
+  'physical education': 'PE',
+  'design and technology': 'D&T',
+  'art and design': 'Art',
+  'design & technology': 'D&T',
+  'pshe': 'PSHE',
+  'religious education': 'Religious Education',
+};
+
+const normalizeSubject = (s: string): string =>
+  SUBJECT_ALIASES[s.toLowerCase()] ?? s;
+
 // In production, the API key is handled server-side via Cloudflare Pages Functions
 // In development, we use the VITE_ env var directly
 const USE_PROXY = import.meta.env.PROD;
@@ -1151,7 +1164,7 @@ Generate 10 varied, engaging questions:`,
 
             if (dupSnapshot.empty) {
                 await addDoc(collection(db, "questions"), {
-                    subject,
+                    subject: normalizeSubject(subject),
                     topic,
                     difficulty: adaptedDifficulty,
                     age: studentAge,

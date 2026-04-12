@@ -58,6 +58,7 @@ export const LANGUAGES = [
 // Design System Tokens (Fix #2)
 export const GRADIENTS = {
   primary: 'from-blue-500 to-purple-600',
+  secondary: 'from-blue-400 to-indigo-500',
   success: 'from-green-500 to-teal-600',
   warning: 'from-orange-500 to-amber-600',
   danger: 'from-red-500 to-pink-600',
@@ -73,6 +74,7 @@ export const SHADOWS = {
   primary: 'shadow-xl', // Main actions, featured cards
   secondary: 'shadow-md', // Standard cards, secondary actions
   tertiary: 'shadow-sm', // Info cards, low priority
+  large: 'shadow-2xl', // Extra prominent elements
   none: 'shadow-none',
 } as const;
 

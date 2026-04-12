@@ -1,26 +1,11 @@
-import { UserProfile, ParentStats, StoreItem, Difficulty } from '../types';
+import { UserProfile, ParentStats, StoreItem } from '../types';
 import { avatarCustomizationService } from './avatarCustomizationService';
 
-// Default user template for new account creation
-const DEFAULT_USER_TEMPLATE: UserProfile = {
-  id: 'user-123',
-  name: '',
-  role: 'student',
-  roles: ['student'],
-  age: 9,
-  totalPoints: 0,
-  avatarConfig: {
-    color: 'bg-blue-500',
-  },
-  unlockedItems: ['color-blue'],
-  badges: [],
-  streak: 0,
-  lastLoginDate: new Date().toISOString(),
-  mastery: {},
-  timeSpentLearning: {},
-  quizHistory: [],
-  preferredDifficulty: Difficulty.Medium
-};
+/**
+ * @deprecated Legacy local-storage auth helpers. Do NOT call login() — use firebaseAuthService instead.
+ * purchaseItem(), equipItem() and getParentStats() remain valid as they share the same ks2_user key
+ * that UserContext manages.
+ */
 
 const STORAGE_KEY = 'ks2_user'; // Match UserContext storage key
 
@@ -63,28 +48,6 @@ const mapStoreToAvatarId = (storeItemId: string): string | null => {
 };
 
 export const authService = {
-  // Create new user account
-  login: async (name: string, role: 'student' | 'parent', age?: number): Promise<UserProfile> => {
-    // In a real app, this would call an API
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        // Create a new user profile
-        const newUser = { 
-          ...DEFAULT_USER_TEMPLATE, 
-          id: `user-${Date.now()}`, // Generate unique ID
-          name, 
-          role, 
-          roles: [role],
-          age: age || 9,
-          lastLoginDate: new Date().toISOString()
-        };
-        
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(newUser));
-        resolve(newUser);
-      }, 500); // Short delay for UX
-    });
-  },
-
   // Get current user
   getCurrentUser: (): UserProfile | null => {
     const stored = localStorage.getItem(STORAGE_KEY);

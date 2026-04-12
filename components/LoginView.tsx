@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { firebaseAuthService } from '../services/firebaseAuthService';
 import { UserProfile } from '../types';
 import { TurnstileWidget } from './TurnstileWidget';
@@ -8,7 +9,9 @@ interface LoginViewProps {
 }
 
 const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
-  const [mode, setMode] = useState<'login' | 'register' | 'forgot'>('login');
+  const [searchParams] = useSearchParams();
+  const initialMode = searchParams.get('mode') === 'register' ? 'register' : 'login';
+  const [mode, setMode] = useState<'login' | 'register' | 'forgot'>(initialMode);
   const [loginAs, setLoginAs] = useState<'parent' | 'child'>('parent');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

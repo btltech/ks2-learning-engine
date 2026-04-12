@@ -120,6 +120,29 @@ export const QuizBattleMode: React.FC<QuizBattleProps> = ({ onClose, onComplete 
     };
   }, [battle?.id, view, myPlayerId]);
 
+  // Handle answer submission — declared here so timer effects can reference it
+  const handleAnswer = useCallback(async (answerIndex: number) => {
+    if (!battle || showResult || !localQuestions.length) return;
+
+    const timeMs = Date.now() - answerStartTime;
+    const currentQuestion = localQuestions[currentQuestionIndex];
+    if (!currentQuestion) return;
+
+    const isCorrect = answerIndex === currentQuestion.correctAnswer;
+
+    setSelectedAnswer(answerIndex);
+    setShowResult(true);
+
+    // Submit to Firebase
+    await realtimeBattleService.submitAnswer(
+      battle.id,
+      myPlayerId,
+      currentQuestionIndex,
+      isCorrect,
+      timeMs
+    );
+  }, [battle, currentQuestionIndex, answerStartTime, showResult, myPlayerId, localQuestions]);
+
   // Countdown effect
   useEffect(() => {
     if (view === 'countdown' && countdown > 0) {
@@ -390,29 +413,6 @@ export const QuizBattleMode: React.FC<QuizBattleProps> = ({ onClose, onComplete 
       console.error('[QuizBattle] Load open battles error:', err);
     }
   };
-
-  // Handle answer submission
-  const handleAnswer = useCallback(async (answerIndex: number) => {
-    if (!battle || showResult || !localQuestions.length) return;
-
-    const timeMs = Date.now() - answerStartTime;
-    const currentQuestion = localQuestions[currentQuestionIndex];
-    if (!currentQuestion) return;
-
-    const isCorrect = answerIndex === currentQuestion.correctAnswer;
-
-    setSelectedAnswer(answerIndex);
-    setShowResult(true);
-
-    // Submit to Firebase
-    await realtimeBattleService.submitAnswer(
-      battle.id,
-      myPlayerId,
-      currentQuestionIndex,
-      isCorrect,
-      timeMs
-    );
-  }, [battle, currentQuestionIndex, answerStartTime, showResult, myPlayerId, localQuestions]);
 
   // Move to next question
   const handleNextQuestion = () => {

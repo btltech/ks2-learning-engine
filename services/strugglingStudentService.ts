@@ -3,8 +3,6 @@
  * Detects when students are struggling and provides interventions
  */
 
-import { QuizResult } from '../types';
-
 interface StrugglePattern {
   subject: string;
   topic: string;
@@ -17,6 +15,13 @@ interface Intervention {
   type: 'easier_questions' | 'lesson_suggestion' | 'parent_alert' | 'video_tutorial';
   message: string;
   action?: () => void;
+}
+
+/** Input type for recording a quiz result in struggle detection */
+interface QuizResultInput {
+  subject: string;
+  topic: string;
+  score: number; // 0-100 percentage
 }
 
 const STORAGE_KEY = 'ks2_struggle_tracking';
@@ -33,7 +38,7 @@ class StrugglingStudentService {
   /**
    * Record quiz result and detect struggles
    */
-  recordQuizResult(result: QuizResult): Intervention | null {
+  recordQuizResult(result: QuizResultInput): Intervention | null {
     const key = `${result.subject}_${result.topic}`;
     const isStruggling = result.score < POOR_SCORE_THRESHOLD;
 

@@ -160,7 +160,7 @@ class SpacedRepetitionService {
     question: string,
     correctAnswer: string
   ): ReviewItem {
-    const id = `${subject}_${topic}_${btoa(question).slice(0, 20)}`;
+    const id = `${subject}_${topic}_${btoa(unescape(encodeURIComponent(question))).slice(0, 20)}`;
     
     const existing = this.items.get(id);
     if (existing) {

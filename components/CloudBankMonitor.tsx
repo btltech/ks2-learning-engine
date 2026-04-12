@@ -144,7 +144,7 @@ export const CloudBankMonitor: React.FC = () => {
         <div className="bg-white rounded-xl shadow-sm p-6">
           <h4 className="font-semibold text-gray-800 mb-4">By Subject</h4>
           <div className="space-y-2">
-            {Object.entries(stats.bySubject)
+            {(Object.entries(stats.bySubject) as [string, number][])
               .sort((a, b) => b[1] - a[1])
               .map(([subject, count]) => (
                 <div key={subject} className="flex items-center justify-between">
@@ -194,7 +194,7 @@ export const CloudBankMonitor: React.FC = () => {
         <div className="bg-white rounded-xl shadow-sm p-6">
           <h4 className="font-semibold text-gray-800 mb-4">By Age Group</h4>
           <div className="space-y-2">
-            {Object.entries(stats.byAgeGroup)
+            {(Object.entries(stats.byAgeGroup) as [string, number][])
               .sort((a, b) => Number(a[0]) - Number(b[0]))
               .map(([age, count]) => (
                 <div key={age} className="flex items-center justify-between">

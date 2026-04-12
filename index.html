@@ -2,11 +2,73 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; media-src 'self' data: https: blob:; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://*.cloudfunctions.net https://*.firebase.googleapis.com https://*.openai.com https://generativelanguage.googleapis.com wss://*.firebaseio.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; worker-src 'self' blob:; manifest-src 'self'">
-    <meta name="description" content="KS2 Learning Engine - An interactive educational platform for UK Key Stage 2 students to learn and practice various subjects." />
-    <title>KS2 Learning Engine - Interactive Learning for UK Primary Students</title>
+
+    <!-- Primary SEO -->
+    <title>DemiWura – Free KS2 Learning App for UK Primary School Children</title>
+    <meta name="description" content="DemiWura helps UK children aged 7–11 master KS2 subjects: Maths, English, Science, History and more. Fun quizzes, mini-games and AI-powered practice. Free to join." />
+    <link rel="canonical" href="https://demiwuraks2.co.uk/" />
+    <meta name="keywords" content="KS2 learning, UK primary school, year 3 4 5 6, KS2 maths, KS2 English, KS2 science, free learning app children, key stage 2" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Favicons -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/pwa-192x192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="mask-icon" href="/masked-icon.svg" color="#6366f1" />
+
+    <!-- PWA / mobile -->
+    <meta name="theme-color" content="#6366f1" />
+    <meta name="apple-mobile-web-app-title" content="DemiWura" />
+    <meta name="application-name" content="DemiWura" />
+
+    <!-- Open Graph (Facebook / WhatsApp / LinkedIn) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://demiwuraks2.co.uk/" />
+    <meta property="og:site_name" content="DemiWura" />
+    <meta property="og:title" content="DemiWura – Free KS2 Learning App for UK Primary School Children" />
+    <meta property="og:description" content="Fun quizzes, mini-games and AI-powered practice for UK children aged 7–11. Covers all KS2 subjects. Free to join." />
+    <meta property="og:image" content="https://demiwuraks2.co.uk/pwa-512x512.png" />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+    <meta property="og:locale" content="en_GB" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="DemiWura – Free KS2 Learning App" />
+    <meta name="twitter:description" content="Fun quizzes, mini-games and AI-powered practice for UK children aged 7–11. Free to join." />
+    <meta name="twitter:image" content="https://demiwuraks2.co.uk/pwa-512x512.png" />
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "DemiWura",
+      "url": "https://demiwuraks2.co.uk",
+      "description": "Free KS2 learning app for UK primary school children aged 7–11. Covers Maths, English, Science, History and more.",
+      "applicationCategory": "EducationApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "en-GB",
+      "audience": {
+        "@type": "EducationalAudience",
+        "educationalRole": "student",
+        "suggestedMinAge": "7",
+        "suggestedMaxAge": "11"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "GBP"
+      },
+      "provider": {
+        "@type": "Organization",
+        "name": "DemiWura",
+        "url": "https://demiwuraks2.co.uk"
+      }
+    }
+    </script>
     <!-- Tailwind is bundled locally (no CDN) to work on restricted devices -->
     <style>
       * {

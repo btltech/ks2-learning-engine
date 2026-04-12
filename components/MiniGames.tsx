@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import confetti from 'canvas-confetti';
 import { gameService, GameHighScore } from '../services/gameService';
 import { QuizQuestion } from '../types';
@@ -10,7 +10,7 @@ interface MiniGamesProps {
   onGameStarted?: () => void;
 }
 
-type GameType = 'number_ninja' | 'word_builder' | 'spelling_bee' | 'science_lab' | 'history_match';
+type GameType = 'number_ninja' | 'times_table_sprint' | 'spelling_bee' | 'science_sorter' | 'history_match';
 
 interface GameState {
   score: number;
@@ -39,31 +39,31 @@ const MiniGames: React.FC<MiniGamesProps> = ({ onClose, onXpEarned, onGameStarte
       name: 'Number Ninja',
       icon: '🥷',
       subject: 'Maths',
-      description: 'Slice the correct answers before time runs out!',
+      description: 'Solve maths problems fast before time runs out!',
       color: 'from-red-500 to-orange-600',
     },
     {
-      id: 'word_builder' as GameType,
-      name: 'Word Builder',
-      icon: '📝',
-      subject: 'English',
-      description: 'Create as many words as you can from the letters!',
-      color: 'from-blue-500 to-cyan-600',
+      id: 'times_table_sprint' as GameType,
+      name: 'Times Table Sprint',
+      icon: '⚡',
+      subject: 'Maths',
+      description: 'Race through 20 multiplication questions as fast as you can!',
+      color: 'from-violet-500 to-purple-700',
     },
     {
       id: 'spelling_bee' as GameType,
       name: 'Spelling Bee',
       icon: '🐝',
       subject: 'English',
-      description: 'Listen and spell the words correctly!',
+      description: 'Hear the word spoken aloud and spell it correctly!',
       color: 'from-yellow-500 to-amber-600',
     },
     {
-      id: 'science_lab' as GameType,
-      name: 'Science Lab',
-      icon: '🧪',
+      id: 'science_sorter' as GameType,
+      name: 'Science Sorter',
+      icon: '🔬',
       subject: 'Science',
-      description: 'Mix the right elements to complete experiments!',
+      description: 'Sort animals, materials and more into the right categories!',
       color: 'from-green-500 to-emerald-600',
     },
     {
@@ -111,9 +111,9 @@ const MiniGames: React.FC<MiniGamesProps> = ({ onClose, onXpEarned, onGameStarte
                 onXpEarned={onXpEarned}
               />
             )}
-            {selectedGame === 'word_builder' && (
-              <WordBuilderGame 
-                onExit={(score) => handleGameExit('word_builder', score)} 
+            {selectedGame === 'times_table_sprint' && (
+              <TimesTableSprintGame
+                onExit={(score) => handleGameExit('times_table_sprint', score)}
                 onXpEarned={onXpEarned}
               />
             )}
@@ -123,9 +123,9 @@ const MiniGames: React.FC<MiniGamesProps> = ({ onClose, onXpEarned, onGameStarte
                 onXpEarned={onXpEarned}
               />
             )}
-            {selectedGame === 'science_lab' && (
-              <ScienceLabGame 
-                onExit={(score) => handleGameExit('science_lab', score)} 
+            {selectedGame === 'science_sorter' && (
+              <ScienceSorterGame
+                onExit={(score) => handleGameExit('science_sorter', score)}
                 onXpEarned={onXpEarned}
               />
             )}
@@ -209,8 +209,8 @@ const NumberNinjaGame: React.FC<{ onExit: (score: number) => void; onXpEarned?: 
   const [feedback, setFeedback] = useState<'correct' | 'wrong' | null>(null);
 
   const generateProblem = useCallback((level: number) => {
-    const operations = ['+', '-', '×'];
-    const op = operations[Math.floor(Math.random() * Math.min(level, 3))];
+    const operations = level < 5 ? ['+', '-', '×'] : ['+', '-', '×', '÷'];
+    const op = operations[Math.floor(Math.random() * operations.length)];
     let a: number, b: number, answer: number;
 
     switch (op) {
@@ -229,6 +229,13 @@ const NumberNinjaGame: React.FC<{ onExit: (score: number) => void; onXpEarned?: 
         b = Math.floor(Math.random() * 12) + 1;
         answer = a * b;
         break;
+      case '÷': {
+        // Always produce a clean division
+        b = Math.floor(Math.random() * 11) + 2; // divisor 2–12
+        answer = Math.floor(Math.random() * 12) + 1; // quotient 1–12
+        a = b * answer;
+        break;
+      }
       default:
         a = 5; b = 5; answer = 10;
     }
@@ -403,274 +410,146 @@ const NumberNinjaGame: React.FC<{ onExit: (score: number) => void; onXpEarned?: 
   );
 };
 
-// Word Builder Game
-const WordBuilderGame: React.FC<{ onExit: (score: number) => void; onXpEarned?: (xp: number) => void }> = ({ onExit, onXpEarned }) => {
-  const [gameState, setGameState] = useState<GameState>({
-    score: 0, level: 1, lives: 3, streak: 0, isPlaying: false, gameOver: false,
-  });
-  const [letters, setLetters] = useState<string[]>([]);
-  const [usedIndices, setUsedIndices] = useState<number[]>([]);
-  const [currentWord, setCurrentWord] = useState('');
-  const [foundWords, setFoundWords] = useState<string[]>([]);
-  const [timeLeft, setTimeLeft] = useState(90);
-  const [message, setMessage] = useState('');
+// Times Table Sprint Game
+const TimesTableSprintGame: React.FC<{ onExit: (score: number) => void; onXpEarned?: (xp: number) => void }> = ({ onExit, onXpEarned }) => {
+  const TOTAL_QUESTIONS = 20;
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [score, setScore] = useState(0);
+  const [qIndex, setQIndex] = useState(0);
+  const [question, setQuestion] = useState<{ text: string; answer: number; options: number[] } | null>(null);
+  const [elapsedSec, setElapsedSec] = useState(0);
+  const [correct, setCorrect] = useState(0);
+  const [feedback, setFeedback] = useState<'correct' | 'wrong' | null>(null);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // Comprehensive word list for KS2 level (300+ common words)
-  const validWords = useMemo(() => new Set([
-    // 2-letter words
-    'an', 'am', 'as', 'at', 'be', 'by', 'do', 'go', 'he', 'if', 'in', 'is', 'it', 'me', 'my', 'no', 'of', 'on', 'or', 'so', 'to', 'up', 'us', 'we',
-    // 3-letter words  
-    'ace', 'act', 'add', 'age', 'ago', 'aid', 'aim', 'air', 'all', 'and', 'ant', 'any', 'ape', 'arc', 'are', 'ark', 'arm', 'art', 'ash', 'ask', 'ate',
-    'bad', 'bag', 'ban', 'bar', 'bat', 'bay', 'bed', 'bee', 'beg', 'bet', 'big', 'bin', 'bit', 'bow', 'box', 'boy', 'bud', 'bug', 'bus', 'but', 'buy',
-    'cab', 'can', 'cap', 'car', 'cat', 'cod', 'cog', 'cop', 'cot', 'cow', 'cry', 'cub', 'cup', 'cut',
-    'dad', 'dam', 'day', 'den', 'dew', 'did', 'die', 'dig', 'dim', 'dip', 'dog', 'dot', 'dry', 'dug', 'dye',
-    'ear', 'eat', 'egg', 'elf', 'elk', 'elm', 'end', 'era', 'eve', 'eye',
-    'fad', 'fan', 'far', 'fat', 'fax', 'fed', 'fee', 'few', 'fig', 'fin', 'fir', 'fit', 'fix', 'fly', 'foe', 'fog', 'for', 'fox', 'fry', 'fun', 'fur',
-    'gag', 'gap', 'gas', 'gel', 'gem', 'get', 'gin', 'got', 'gum', 'gun', 'gut', 'guy', 'gym',
-    'had', 'ham', 'has', 'hat', 'hay', 'hen', 'her', 'hid', 'him', 'hip', 'his', 'hit', 'hob', 'hog', 'hop', 'hot', 'how', 'hub', 'hue', 'hug', 'hum', 'hut',
-    'ice', 'icy', 'ill', 'imp', 'ink', 'inn', 'ion', 'its', 'ivy',
-    'jab', 'jam', 'jar', 'jaw', 'jay', 'jet', 'jig', 'job', 'jog', 'jot', 'joy', 'jug', 'jut',
-    'keg', 'ken', 'key', 'kid', 'kin', 'kit',
-    'lab', 'lad', 'lag', 'lap', 'law', 'lay', 'led', 'leg', 'let', 'lid', 'lie', 'lip', 'lit', 'log', 'lot', 'low', 'lug',
-    'mad', 'man', 'map', 'mat', 'may', 'men', 'met', 'mid', 'mix', 'mob', 'mop', 'mud', 'mug', 'mum',
-    'nab', 'nag', 'nap', 'net', 'new', 'nil', 'nip', 'nit', 'nod', 'nor', 'not', 'now', 'nun', 'nut',
-    'oak', 'oar', 'oat', 'odd', 'off', 'oil', 'old', 'one', 'opt', 'orb', 'ore', 'our', 'out', 'owe', 'owl', 'own',
-    'pad', 'pal', 'pan', 'pat', 'paw', 'pay', 'pea', 'peg', 'pen', 'pep', 'per', 'pet', 'pie', 'pig', 'pin', 'pit', 'ply', 'pod', 'pop', 'pot', 'pro', 'pry', 'pub', 'pug', 'pun', 'pup', 'pus', 'put',
-    'rag', 'ram', 'ran', 'rap', 'rat', 'raw', 'ray', 'red', 'ref', 'rep', 'rib', 'rid', 'rig', 'rim', 'rip', 'rob', 'rod', 'rot', 'row', 'rub', 'rug', 'run', 'rut', 'rye',
-    'sac', 'sad', 'sag', 'sap', 'sat', 'saw', 'say', 'sea', 'set', 'sew', 'she', 'shy', 'sin', 'sip', 'sir', 'sis', 'sit', 'six', 'ski', 'sky', 'sly', 'sob', 'sod', 'son', 'sop', 'sot', 'sow', 'soy', 'spa', 'spy', 'sty', 'sub', 'sue', 'sum', 'sun', 'sup',
-    'tab', 'tad', 'tag', 'tan', 'tap', 'tar', 'tax', 'tea', 'ten', 'the', 'thy', 'tic', 'tie', 'tin', 'tip', 'toe', 'ton', 'too', 'top', 'tot', 'tow', 'toy', 'try', 'tub', 'tug', 'two',
-    'urn', 'use',
-    'van', 'vat', 'vet', 'vie', 'vim', 'vow',
-    'wad', 'wag', 'war', 'was', 'wax', 'way', 'web', 'wed', 'wee', 'wet', 'who', 'why', 'wig', 'win', 'wit', 'woe', 'wok', 'won', 'woo', 'wow',
-    'yak', 'yam', 'yap', 'yaw', 'yea', 'yes', 'yet', 'yew', 'yin', 'you', 'yow',
-    'zap', 'zed', 'zee', 'zen', 'zig', 'zip', 'zit', 'zoo',
-    // 4-letter words
-    'able', 'ache', 'acid', 'aged', 'aide', 'also', 'area', 'army', 'arts', 'away', 'baby', 'back', 'bake', 'bald', 'ball', 'band', 'bank', 'bare', 'bark', 'barn', 'base', 'bath', 'bead', 'beak', 'beam', 'bean', 'bear', 'beat', 'been', 'beef', 'beer', 'bell', 'belt', 'bend', 'bent', 'best', 'bike', 'bill', 'bind', 'bird', 'bite', 'blow', 'blue', 'boat', 'body', 'boil', 'bold', 'bolt', 'bomb', 'bond', 'bone', 'book', 'boom', 'boot', 'born', 'boss', 'both', 'bowl', 'boys', 'bulk', 'bull', 'burn', 'bury', 'bush', 'busy', 'cafe', 'cage', 'cake', 'calf', 'call', 'calm', 'came', 'camp', 'cape', 'card', 'care', 'cart', 'case', 'cash', 'cast', 'cave', 'cell', 'chat', 'chef', 'chin', 'chip', 'chop', 'city', 'clam', 'clap', 'claw', 'clay', 'clip', 'club', 'clue', 'coal', 'coat', 'code', 'coil', 'coin', 'cold', 'come', 'cook', 'cool', 'cope', 'copy', 'cord', 'core', 'corn', 'cost', 'cozy', 'crab', 'crew', 'crop', 'crow', 'cube', 'cure', 'curl', 'cute', 'damp', 'dare', 'dark', 'dart', 'dash', 'data', 'date', 'dawn', 'days', 'dead', 'deaf', 'deal', 'dean', 'dear', 'debt', 'deck', 'deed', 'deep', 'deer', 'demo', 'dent', 'deny', 'desk', 'dial', 'dice', 'diet', 'dirt', 'disc', 'dish', 'disk', 'dive', 'dock', 'does', 'doll', 'dome', 'done', 'door', 'dose', 'down', 'drag', 'draw', 'drew', 'drip', 'drop', 'drug', 'drum', 'dual', 'duck', 'dull', 'dumb', 'dump', 'dust', 'duty', 'each', 'earn', 'ears', 'ease', 'east', 'easy', 'edge', 'edit', 'else', 'emit', 'ends', 'envy', 'epic', 'euro', 'even', 'ever', 'evil', 'exam', 'exit', 'expo', 'eyes', 'face', 'fact', 'fade', 'fail', 'fair', 'fake', 'fall', 'fame', 'fans', 'fare', 'farm', 'fast', 'fate', 'fear', 'feat', 'feed', 'feel', 'fees', 'feet', 'fell', 'felt', 'file', 'fill', 'film', 'find', 'fine', 'fire', 'firm', 'fish', 'fist', 'five', 'flag', 'flap', 'flat', 'flaw', 'fled', 'flew', 'flex', 'flip', 'flow', 'foam', 'fold', 'folk', 'fond', 'font', 'food', 'fool', 'foot', 'ford', 'fork', 'form', 'fort', 'four', 'free', 'frog', 'from', 'fuel', 'full', 'fund', 'game', 'gang', 'gate', 'gave', 'gaze', 'gear', 'gene', 'gets', 'gift', 'girl', 'give', 'glad', 'glow', 'glue', 'goal', 'goat', 'goes', 'gold', 'golf', 'gone', 'good', 'gown', 'grab', 'grad', 'gram', 'gray', 'grew', 'grey', 'grid', 'grin', 'grip', 'grow', 'gulf', 'guru', 'guys', 'hack', 'hail', 'hair', 'half', 'hall', 'halt', 'hand', 'hang', 'hard', 'harm', 'hate', 'haul', 'have', 'hawk', 'head', 'heal', 'heap', 'hear', 'heat', 'heel', 'held', 'hell', 'help', 'herb', 'herd', 'here', 'hero', 'hide', 'high', 'hike', 'hill', 'hint', 'hire', 'hold', 'hole', 'holy', 'home', 'hood', 'hook', 'hope', 'horn', 'host', 'hour', 'huge', 'hulk', 'hull', 'hung', 'hunt', 'hurt', 'icon', 'idea', 'idle', 'inch', 'info', 'into', 'iron', 'isle', 'item', 'jack', 'jail', 'jams', 'jane', 'jazz', 'jean', 'jeep', 'jerk', 'jobs', 'joey', 'john', 'join', 'joke', 'jolt', 'jose', 'josh', 'judy', 'jump', 'june', 'junk', 'jury', 'just', 'kate', 'keen', 'keep', 'kept', 'keys', 'kick', 'kids', 'kill', 'kind', 'king', 'kiss', 'kite', 'knee', 'knew', 'knit', 'knob', 'knot', 'know', 'labs', 'lack', 'lady', 'laid', 'lake', 'lamb', 'lamp', 'land', 'lane', 'laps', 'last', 'late', 'lawn', 'laws', 'lead', 'leaf', 'lean', 'leap', 'left', 'lend', 'lens', 'less', 'liar', 'lick', 'lids', 'lies', 'life', 'lift', 'like', 'limb', 'lime', 'limp', 'line', 'link', 'lion', 'lips', 'list', 'live', 'load', 'loaf', 'loan', 'lock', 'logo', 'logs', 'lone', 'long', 'look', 'loop', 'lord', 'lose', 'loss', 'lost', 'lots', 'loud', 'love', 'luck', 'lump', 'lung', 'lure', 'lurk', 'made', 'mail', 'main', 'make', 'male', 'mall', 'many', 'maps', 'mark', 'mars', 'mask', 'mass', 'mate', 'math', 'maze', 'meal', 'mean', 'meat', 'meek', 'meet', 'melt', 'memo', 'menu', 'mere', 'mesh', 'mess', 'mice', 'mild', 'mile', 'milk', 'mill', 'mind', 'mine', 'mint', 'miss', 'mist', 'mode', 'mold', 'mole', 'monk', 'mood', 'moon', 'more', 'moss', 'most', 'moth', 'move', 'much', 'mule', 'muse', 'must', 'myth', 'nail', 'name', 'navy', 'near', 'neat', 'neck', 'need', 'nest', 'nets', 'news', 'next', 'nice', 'nick', 'nine', 'node', 'none', 'noon', 'norm', 'nose', 'note', 'noun', 'nude', 'numb', 'nuts', 'odds', 'oils', 'okay', 'once', 'ones', 'only', 'onto', 'open', 'oral', 'ours', 'oven', 'over', 'owed', 'owes', 'owns', 'pace', 'pack', 'page', 'paid', 'pain', 'pair', 'pale', 'palm', 'pans', 'park', 'part', 'pass', 'past', 'path', 'pave', 'peak', 'pear', 'peas', 'peel', 'peer', 'pens', 'perk', 'perm', 'pest', 'pets', 'pick', 'pier', 'pigs', 'pike', 'pile', 'pill', 'pine', 'pink', 'pins', 'pint', 'pipe', 'pits', 'pity', 'plan', 'play', 'plea', 'plow', 'ploy', 'plug', 'plum', 'plus', 'pods', 'poem', 'poet', 'pole', 'poll', 'polo', 'pond', 'pony', 'pool', 'poor', 'pope', 'pops', 'pork', 'port', 'pose', 'post', 'pots', 'pour', 'pray', 'prep', 'prey', 'prod', 'prop', 'pubs', 'pull', 'pulp', 'pump', 'punk', 'pure', 'push', 'quit', 'quiz', 'race', 'rack', 'rage', 'raid', 'rail', 'rain', 'ramp', 'rang', 'rank', 'rare', 'rash', 'rate', 'rats', 'rays', 'read', 'real', 'rear', 'reed', 'reef', 'reel', 'rely', 'rent', 'rest', 'ribs', 'rice', 'rich', 'ride', 'rift', 'ring', 'riot', 'rise', 'risk', 'road', 'roam', 'roar', 'robe', 'rock', 'rode', 'role', 'roll', 'roof', 'room', 'root', 'rope', 'rose', 'rows', 'rude', 'rugs', 'ruin', 'rule', 'runs', 'rush', 'rust', 'sack', 'safe', 'sage', 'said', 'sail', 'sake', 'sale', 'salt', 'same', 'sand', 'sane', 'sang', 'sank', 'save', 'says', 'scan', 'seal', 'seam', 'seas', 'seat', 'seed', 'seek', 'seem', 'seen', 'sees', 'self', 'sell', 'semi', 'send', 'sent', 'sets', 'shed', 'ship', 'shop', 'shot', 'show', 'shut', 'sick', 'side', 'sigh', 'sign', 'silk', 'sing', 'sink', 'site', 'sits', 'size', 'skin', 'skip', 'slab', 'slam', 'slap', 'sled', 'slew', 'slid', 'slim', 'slip', 'slit', 'slot', 'slow', 'slug', 'slum', 'snap', 'snow', 'soak', 'soap', 'soar', 'sock', 'soda', 'sofa', 'soft', 'soil', 'sold', 'sole', 'solo', 'some', 'song', 'sons', 'soon', 'sore', 'sort', 'soul', 'soup', 'sour', 'span', 'spar', 'spec', 'sped', 'spin', 'spit', 'spot', 'star', 'stay', 'stem', 'step', 'stew', 'stir', 'stop', 'stud', 'such', 'suck', 'sued', 'suit', 'sung', 'sunk', 'sure', 'surf', 'swap', 'swim', 'tabs', 'tack', 'tags', 'tail', 'take', 'tale', 'talk', 'tall', 'tame', 'tank', 'tape', 'taps', 'tart', 'task', 'team', 'tear', 'teas', 'tech', 'teen', 'tell', 'temp', 'tend', 'tens', 'tent', 'term', 'test', 'text', 'than', 'that', 'them', 'then', 'they', 'thin', 'this', 'thus', 'tick', 'tide', 'tidy', 'tied', 'tier', 'ties', 'tile', 'till', 'tilt', 'time', 'tint', 'tiny', 'tips', 'tire', 'toad', 'toes', 'toil', 'told', 'toll', 'tomb', 'tone', 'tons', 'tony', 'took', 'tool', 'tops', 'tore', 'torn', 'toss', 'tour', 'town', 'toys', 'trap', 'tray', 'tree', 'trek', 'trim', 'trio', 'trip', 'trot', 'true', 'tube', 'tuck', 'tugs', 'tune', 'turf', 'turn', 'twin', 'twit', 'type', 'ugly', 'undo', 'unit', 'unto', 'upon', 'urge', 'used', 'user', 'uses', 'vale', 'vase', 'vast', 'veil', 'vein', 'vent', 'verb', 'very', 'vest', 'veto', 'vibe', 'vice', 'view', 'vile', 'vine', 'visa', 'void', 'volt', 'vote', 'wade', 'wage', 'wail', 'wait', 'wake', 'walk', 'wall', 'wand', 'want', 'ward', 'warm', 'warn', 'warp', 'wars', 'wary', 'wash', 'wasp', 'wave', 'wavy', 'waxy', 'ways', 'weak', 'wear', 'weed', 'week', 'weep', 'weld', 'well', 'went', 'were', 'west', 'what', 'when', 'whim', 'whip', 'whom', 'wick', 'wide', 'wife', 'wild', 'will', 'wilt', 'wimp', 'wind', 'wine', 'wing', 'wink', 'wins', 'wipe', 'wire', 'wise', 'wish', 'with', 'woke', 'wolf', 'womb', 'wont', 'wood', 'wool', 'word', 'wore', 'work', 'worm', 'worn', 'wrap', 'wren', 'yard', 'yarn', 'yawn', 'year', 'yell', 'yoga', 'yoke', 'your', 'zeal', 'zero', 'zest', 'zinc', 'zone', 'zoom',
-    // 5-letter words
-    'about', 'above', 'abuse', 'actor', 'adapt', 'added', 'admit', 'adopt', 'adult', 'after', 'again', 'agent', 'agree', 'ahead', 'alarm', 'album', 'alert', 'alien', 'align', 'alike', 'alive', 'alley', 'allow', 'alone', 'along', 'alpha', 'alter', 'among', 'angel', 'anger', 'angle', 'angry', 'ankle', 'apart', 'apple', 'apply', 'arena', 'argue', 'arise', 'armor', 'arose', 'array', 'arrow', 'Asian', 'aside', 'asset', 'avoid', 'awake', 'award', 'aware', 'awful', 'bacon', 'badge', 'badly', 'basic', 'basin', 'basis', 'batch', 'beach', 'beard', 'beast', 'began', 'begin', 'being', 'belly', 'below', 'bench', 'berry', 'birth', 'black', 'blade', 'blame', 'blank', 'blast', 'blaze', 'bleed', 'blend', 'bless', 'blind', 'blink', 'block', 'blond', 'blood', 'bloom', 'blown', 'blues', 'blunt', 'blush', 'board', 'boast', 'bonus', 'booth', 'bound', 'brain', 'brake', 'brand', 'brass', 'brave', 'bread', 'break', 'breed', 'brick', 'bride', 'brief', 'bring', 'broad', 'broke', 'brook', 'broom', 'brown', 'brush', 'build', 'built', 'bunch', 'burst', 'buyer', 'cabin', 'cable', 'camel', 'candy', 'cargo', 'carry', 'carve', 'catch', 'cause', 'cease', 'chain', 'chair', 'chalk', 'champ', 'chant', 'chaos', 'charm', 'chart', 'chase', 'cheap', 'cheat', 'check', 'cheek', 'cheer', 'chess', 'chest', 'chick', 'chief', 'child', 'chill', 'china', 'chips', 'choir', 'chord', 'chose', 'chunk', 'civic', 'civil', 'claim', 'clamp', 'clash', 'clasp', 'class', 'clean', 'clear', 'clerk', 'click', 'cliff', 'climb', 'cling', 'cloak', 'clock', 'clone', 'close', 'cloth', 'cloud', 'clown', 'coach', 'coast', 'cobra', 'colon', 'color', 'comet', 'coral', 'couch', 'cough', 'could', 'count', 'court', 'cover', 'crack', 'craft', 'crane', 'crash', 'crawl', 'craze', 'crazy', 'cream', 'creek', 'creep', 'crest', 'crime', 'crisp', 'cross', 'crowd', 'crown', 'crude', 'cruel', 'crush', 'curve', 'cycle', 'daily', 'dairy', 'dance', 'dandy', 'dealt', 'death', 'debut', 'decay', 'decor', 'decoy', 'delay', 'delta', 'demon', 'dense', 'depot', 'depth', 'derby', 'desk', 'devil', 'diary', 'dirty', 'disco', 'ditch', 'dodge', 'doing', 'doubt', 'dough', 'dozen', 'draft', 'drain', 'drake', 'drama', 'drank', 'drape', 'drawn', 'dread', 'dream', 'dress', 'dried', 'drift', 'drill', 'drink', 'drive', 'droit', 'drown', 'drunk', 'dwell', 'dying', 'eager', 'eagle', 'early', 'earth', 'eaten', 'eight', 'elder', 'elect', 'elite', 'empty', 'ended', 'enemy', 'enjoy', 'enter', 'entry', 'equal', 'equip', 'erase', 'error', 'essay', 'ethic', 'event', 'every', 'exact', 'excel', 'exist', 'extra', 'fable', 'faced', 'facts', 'faint', 'fairy', 'faith', 'false', 'fancy', 'farce', 'fatal', 'fatty', 'fault', 'feast', 'fence', 'ferry', 'fetch', 'fever', 'fewer', 'fiber', 'field', 'fiery', 'fifth', 'fifty', 'fight', 'final', 'finch', 'first', 'fixed', 'flags', 'flame', 'flank', 'flare', 'flash', 'flask', 'fleet', 'flesh', 'float', 'flock', 'flood', 'floor', 'flour', 'flown', 'fluid', 'fluke', 'flung', 'flush', 'focus', 'foggy', 'folks', 'force', 'forge', 'forth', 'forty', 'forum', 'fossil', 'found', 'frame', 'frank', 'fraud', 'freak', 'freed', 'fresh', 'fried', 'fries', 'front', 'frost', 'fruit', 'fully', 'funny', 'fungi', 'gains', 'games', 'gamma', 'gases', 'gauge', 'gaunt', 'gavel', 'genes', 'genre', 'ghost', 'giant', 'given', 'gives', 'gland', 'glare', 'glass', 'gleam', 'glide', 'glint', 'globe', 'gloom', 'glory', 'gloss', 'glove', 'gnome', 'godly', 'going', 'grace', 'grade', 'grain', 'grand', 'grant', 'grape', 'graph', 'grasp', 'grass', 'grave', 'gravy', 'graze', 'great', 'greed', 'greek', 'green', 'greet', 'grief', 'grill', 'grind', 'groan', 'groom', 'gross', 'group', 'grove', 'growl', 'grown', 'guard', 'guess', 'guest', 'guide', 'guild', 'guilt', 'guise', 'gulch', 'gummy', 'habit', 'hairy', 'hands', 'handy', 'happy', 'hardy', 'harsh', 'haste', 'hasty', 'hatch', 'haven', 'havoc', 'heads', 'heard', 'heart', 'heavy', 'hedge', 'heels', 'hello', 'hence', 'herbs', 'hills', 'hinge', 'hippy', 'hitch', 'hobby', 'holly', 'honey', 'honor', 'hoped', 'hopes', 'horse', 'hotel', 'hound', 'hours', 'house', 'hover', 'human', 'humid', 'humor', 'hurry', 'ideal', 'ideas', 'image', 'imply', 'inbox', 'incur', 'index', 'indie', 'inner', 'input', 'intel', 'inter', 'intro', 'irate', 'irony', 'issue', 'items', 'ivory', 'japan', 'jelly', 'jewel', 'jimmy', 'joint', 'jolly', 'joust', 'judge', 'juice', 'juicy', 'jumbo', 'jumpy', 'junky', 'kayak', 'kebab', 'keeps', 'keyed', 'kills', 'kinds', 'kings', 'knife', 'knock', 'known', 'knows', 'label', 'labor', 'lacks', 'large', 'laser', 'latch', 'later', 'laugh', 'layer', 'leads', 'learn', 'lease', 'least', 'leave', 'ledge', 'legal', 'lemon', 'level', 'lever', 'light', 'liked', 'likes', 'limbs', 'limit', 'lined', 'linen', 'liner', 'lines', 'links', 'lions', 'lists', 'liter', 'lived', 'liver', 'lives', 'llama', 'lobby', 'local', 'lodge', 'logic', 'logos', 'lonely', 'looks', 'loops', 'loose', 'lords', 'loses', 'lotus', 'loved', 'lover', 'loves', 'lower', 'loyal', 'lucky', 'lucid', 'lunar', 'lunch', 'lying', 'lyric', 'macho', 'macro', 'magic', 'magma', 'major', 'maker', 'makes', 'manga', 'mango', 'mania', 'manor', 'maple', 'march', 'marks', 'marsh', 'mason', 'match', 'maybe', 'mayor', 'meals', 'means', 'meant', 'meats', 'medal', 'media', 'meets', 'melon', 'mercy', 'merge', 'merit', 'merry', 'messy', 'metal', 'meter', 'midst', 'might', 'mimic', 'minds', 'miner', 'mines', 'minor', 'minus', 'mirth', 'misty', 'mixed', 'mixer', 'model', 'modem', 'modes', 'moist', 'molar', 'mommy', 'money', 'month', 'moose', 'moral', 'motif', 'motor', 'motto', 'mould', 'mound', 'mount', 'mourn', 'mouse', 'mouth', 'moved', 'mover', 'moves', 'movie', 'muddy', 'mural', 'music', 'musty', 'naive', 'named', 'names', 'nanny', 'nasal', 'nasty', 'naval', 'navel', 'needs', 'nerve', 'never', 'newer', 'newly', 'night', 'ninth', 'noble', 'nodes', 'noise', 'noisy', 'north', 'notch', 'noted', 'notes', 'novel', 'nurse', 'occur', 'ocean', 'oddly', 'offer', 'often', 'olive', 'omega', 'onset', 'opens', 'opera', 'opted', 'optic', 'orbit', 'order', 'other', 'ought', 'ounce', 'outer', 'outgo', 'overt', 'owned', 'owner', 'oxide', 'ozone', 'paced', 'paces', 'packs', 'pagan', 'pages', 'pains', 'paint', 'pairs', 'panda', 'panel', 'panic', 'pants', 'paper', 'parks', 'parts', 'party', 'pasta', 'paste', 'pasty', 'patch', 'patio', 'pause', 'peace', 'peach', 'peaks', 'pearl', 'pears', 'pedal', 'penny', 'perch', 'peril', 'perky', 'petal', 'petty', 'phase', 'phone', 'photo', 'piano', 'picks', 'piece', 'piety', 'piggy', 'pilot', 'pinch', 'pines', 'pitch', 'pivot', 'pixel', 'pizza', 'place', 'plaid', 'plain', 'plane', 'plank', 'plans', 'plant', 'plate', 'plaza', 'plead', 'pleat', 'pledge', 'pliers', 'plots', 'pluck', 'plumb', 'plump', 'plums', 'plunk', 'plush', 'poems', 'poets', 'point', 'poise', 'polar', 'poles', 'polka', 'polls', 'ponds', 'pools', 'poppy', 'porch', 'pores', 'ports', 'posed', 'poser', 'poses', 'posts', 'pouch', 'pound', 'pours', 'power', 'praie', 'prank', 'prawn', 'prays', 'press', 'price', 'pride', 'prime', 'print', 'prior', 'prism', 'prize', 'probe', 'promo', 'prone', 'proof', 'props', 'prose', 'proud', 'prove', 'prune', 'psalm', 'pulls', 'pulse', 'punch', 'pupil', 'puppy', 'purge', 'purse', 'quack', 'quake', 'qualm', 'quart', 'queen', 'query', 'quest', 'queue', 'quick', 'quiet', 'quilt', 'quirk', 'quota', 'quote', 'radar', 'radio', 'rainy', 'raise', 'rally', 'ranch', 'range', 'ranks', 'rapid', 'rated', 'rates', 'ratio', 'razor', 'reach', 'react', 'reads', 'ready', 'realm', 'reams', 'rebel', 'recap', 'refer', 'reign', 'relax', 'relay', 'relic', 'rely', 'remit', 'renal', 'renew', 'repay', 'repel', 'reply', 'reset', 'resin', 'retro', 'rider', 'rides', 'ridge', 'rifle', 'right', 'rigid', 'rings', 'rinse', 'riots', 'ripen', 'risen', 'rises', 'risks', 'risky', 'ritzy', 'rival', 'river', 'roads', 'roast', 'robed', 'robot', 'rocks', 'rocky', 'rogue', 'roles', 'rolls', 'roman', 'rooms', 'roots', 'ropes', 'roses', 'rotor', 'rouge', 'rough', 'round', 'route', 'royal', 'rugby', 'ruins', 'ruled', 'ruler', 'rules', 'rural', 'rusty', 'sadly', 'safer', 'saint', 'salad', 'sales', 'salon', 'salsa', 'salty', 'sands', 'sandy', 'sauce', 'saved', 'saver', 'saves', 'scale', 'scalp', 'scant', 'scare', 'scarf', 'scary', 'scene', 'scent', 'scope', 'score', 'scout', 'scrap', 'screw', 'seals', 'seams', 'seats', 'seeds', 'seeks', 'seems', 'seize', 'sells', 'sends', 'sense', 'serum', 'serve', 'setup', 'seven', 'sever', 'shade', 'shady', 'shaft', 'shake', 'shaky', 'shall', 'shame', 'shape', 'share', 'shark', 'sharp', 'shave', 'sheep', 'sheer', 'sheet', 'shelf', 'shell', 'shift', 'shine', 'shiny', 'ships', 'shire', 'shirt', 'shock', 'shoes', 'shone', 'shook', 'shoot', 'shops', 'shore', 'short', 'shots', 'shout', 'shove', 'shown', 'shows', 'shred', 'shrub', 'shrug', 'sides', 'siege', 'sight', 'sigma', 'signs', 'silly', 'since', 'sinks', 'sites', 'sixth', 'sixty', 'sized', 'sizes', 'skate', 'skill', 'skimp', 'skins', 'skirt', 'skull', 'slabs', 'slack', 'slain', 'slang', 'slant', 'slash', 'slate', 'slave', 'sleek', 'sleep', 'slept', 'slice', 'slide', 'slime', 'slimy', 'sling', 'slope', 'sloth', 'slots', 'slows', 'slump', 'slush', 'small', 'smart', 'smash', 'smell', 'smile', 'smirk', 'smoke', 'smoky', 'snack', 'snail', 'snake', 'snare', 'snarl', 'sneak', 'sniff', 'snore', 'snort', 'snout', 'snowy', 'soapy', 'soars', 'sober', 'socks', 'sofas', 'solar', 'solid', 'solve', 'songs', 'sonic', 'sorry', 'sorts', 'souls', 'sound', 'soups', 'south', 'space', 'spade', 'spare', 'spark', 'spasm', 'spawn', 'speak', 'spear', 'specs', 'speed', 'spell', 'spend', 'spent', 'spice', 'spicy', 'spill', 'spine', 'spiral', 'spite', 'split', 'spoke', 'spoof', 'spoon', 'sport', 'spots', 'spray', 'spree', 'squad', 'stack', 'staff', 'stage', 'stain', 'stair', 'stake', 'stale', 'stall', 'stamp', 'stand', 'stare', 'stark', 'stars', 'start', 'stash', 'state', 'stays', 'steak', 'steal', 'steam', 'steel', 'steep', 'steer', 'stems', 'steps', 'stern', 'stick', 'stiff', 'still', 'sting', 'stink', 'stint', 'stock', 'stoic', 'stole', 'stomp', 'stone', 'stony', 'stood', 'stool', 'stoop', 'stops', 'store', 'stork', 'storm', 'story', 'stout', 'stove', 'strap', 'straw', 'stray', 'strip', 'strum', 'strut', 'stuck', 'study', 'stuff', 'stump', 'stung', 'stunk', 'stunt', 'style', 'suave', 'sugar', 'suite', 'suits', 'sunny', 'super', 'surge', 'sushi', 'swamp', 'swarm', 'swear', 'sweat', 'sweep', 'sweet', 'swept', 'swift', 'swing', 'swipe', 'swirl', 'swiss', 'sword', 'swore', 'sworn', 'swung', 'syrup', 'table', 'taboo', 'tacky', 'tacos', 'tails', 'taken', 'takes', 'tales', 'talks', 'tally', 'tango', 'tanks', 'tapes', 'tasks', 'taste', 'tasty', 'taxes', 'teach', 'teams', 'tears', 'teens', 'teeth', 'tempo', 'tends', 'tense', 'tenth', 'tents', 'terms', 'tests', 'texts', 'thank', 'theft', 'theme', 'thick', 'thief', 'thigh', 'thing', 'think', 'third', 'thorn', 'those', 'three', 'threw', 'throw', 'thumb', 'thump', 'tidal', 'tides', 'tiger', 'tight', 'tiles', 'tilts', 'timer', 'times', 'timid', 'tired', 'tires', 'title', 'toast', 'today', 'token', 'tonal', 'toned', 'tones', 'tonic', 'tools', 'tooth', 'topic', 'torch', 'torso', 'total', 'totem', 'touch', 'tough', 'tours', 'towel', 'tower', 'towns', 'toxic', 'trace', 'track', 'tract', 'trade', 'trail', 'train', 'trait', 'tramp', 'traps', 'trash', 'trawl', 'tread', 'treat', 'trees', 'trend', 'trial', 'tribe', 'trick', 'tried', 'tries', 'trims', 'trips', 'trite', 'troll', 'troop', 'trout', 'truce', 'truck', 'truly', 'trump', 'trunk', 'trust', 'truth', 'tubes', 'tulip', 'tumor', 'tuned', 'tunes', 'tunic', 'turbo', 'turns', 'tutor', 'tweak', 'tweed', 'tweet', 'twice', 'twigs', 'twine', 'twins', 'twirl', 'twist', 'tying', 'types', 'ultra', 'uncle', 'under', 'undue', 'unfed', 'unfit', 'unify', 'union', 'unite', 'units', 'unity', 'until', 'unwed', 'upper', 'upset', 'urban', 'urged', 'urges', 'usage', 'users', 'using', 'usual', 'utter', 'vague', 'valid', 'valor', 'value', 'valve', 'vapor', 'vault', 'vegan', 'veins', 'velvet', 'venue', 'verbs', 'verse', 'video', 'views', 'vigor', 'villa', 'vines', 'vinyl', 'viola', 'viral', 'virus', 'visit', 'visor', 'vista', 'vital', 'vivid', 'vocal', 'vodka', 'vogue', 'voice', 'vomit', 'voted', 'voter', 'votes', 'vouch', 'vowel', 'wacky', 'waged', 'wager', 'wages', 'wagon', 'waist', 'waits', 'waked', 'waken', 'wakes', 'walks', 'walls', 'waltz', 'wands', 'wants', 'wards', 'wares', 'warns', 'warps', 'waste', 'watch', 'water', 'waved', 'waver', 'waves', 'weary', 'weave', 'wedge', 'weeds', 'weeks', 'weigh', 'weird', 'wells', 'welsh', 'whale', 'wharf', 'wheat', 'wheel', 'where', 'which', 'while', 'whine', 'whirl', 'whisk', 'white', 'whole', 'whose', 'widen', 'wider', 'width', 'wield', 'wills', 'winds', 'windy', 'wines', 'wings', 'winks', 'wiped', 'wiper', 'wipes', 'wired', 'wires', 'witch', 'witty', 'wives', 'woken', 'woman', 'women', 'woods', 'woody', 'words', 'wordy', 'works', 'world', 'worms', 'worry', 'worse', 'worst', 'worth', 'would', 'wound', 'woven', 'wraps', 'wrath', 'wreak', 'wreck', 'wring', 'wrist', 'write', 'wrong', 'wrote', 'yacht', 'yards', 'years', 'yeast', 'yield', 'young', 'yours', 'youth', 'yummy', 'zebra', 'zesty', 'zones',
-  ]), []);
-
-  useEffect(() => {
-    if (gameState.isPlaying && !gameState.gameOver) {
-      const vowels = 'AEIOU';
-      const commonConsonants = 'RSTLNBCDFGHMPWY'; // More common consonants for better words
-      const newLetters: string[] = [];
-      
-      // Ensure at least 3 vowels for better word possibilities
-      for (let i = 0; i < 3; i++) {
-        newLetters.push(vowels[Math.floor(Math.random() * vowels.length)]);
-      }
-      // Add common consonants
-      for (let i = 0; i < 4; i++) {
-        newLetters.push(commonConsonants[Math.floor(Math.random() * commonConsonants.length)]);
-      }
-      
-      setLetters(newLetters.sort(() => Math.random() - 0.5));
-      setFoundWords([]);
-      setCurrentWord('');
-      setUsedIndices([]);
-      setTimeLeft(90); // More time
+  const makeQuestion = useCallback(() => {
+    const a = Math.floor(Math.random() * 11) + 2; // 2–12
+    const b = Math.floor(Math.random() * 11) + 2;
+    const answer = a * b;
+    const opts = new Set<number>([answer]);
+    while (opts.size < 4) {
+      const wrong = answer + (Math.floor(Math.random() * 10) - 5) * (Math.floor(Math.random() * 2) === 0 ? 1 : -1);
+      if (wrong > 0 && wrong !== answer) opts.add(wrong);
     }
-  }, [gameState.isPlaying, gameState.gameOver]);
+    return { text: `${a} × ${b} = ?`, answer, options: [...opts].sort(() => Math.random() - 0.5) };
+  }, []);
 
-  useEffect(() => {
-    if (!gameState.isPlaying || gameState.gameOver) return;
-
-    const timer = setInterval(() => {
-      setTimeLeft(prev => {
-        if (prev <= 1) {
-          setGameState(p => ({ ...p, gameOver: true }));
-          onXpEarned?.(gameState.score);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [gameState.isPlaying, gameState.gameOver, gameState.score, onXpEarned]);
-
-  const handleLetterClick = (letter: string, index: number) => {
-    if (usedIndices.includes(index)) return; // Don't allow reusing same letter tile
+  const startGame = () => {
+    setScore(0);
+    setQIndex(0);
+    setCorrect(0);
+    setElapsedSec(0);
+    setIsPlaying(true);
+    setQuestion(makeQuestion());
+    timerRef.current = setInterval(() => setElapsedSec(s => s + 1), 1000);
     soundEffects.playClick();
-    if (currentWord.length < 7) {
-      setCurrentWord(prev => prev + letter);
-      setUsedIndices(prev => [...prev, index]);
-    }
   };
 
-  const handleClear = () => {
-    setCurrentWord('');
-    setUsedIndices([]);
-  };
+  useEffect(() => () => { if (timerRef.current) clearInterval(timerRef.current); }, []);
 
-  const handleBackspace = () => {
-    if (currentWord.length > 0) {
-      setCurrentWord(prev => prev.slice(0, -1));
-      setUsedIndices(prev => prev.slice(0, -1));
-    }
-  };
-
-  const handleSubmit = () => {
-    const word = currentWord.toLowerCase();
-    
-    if (word.length < 2) {
-      setMessage('Word too short! (min 2 letters)');
-      setTimeout(() => setMessage(''), 1500);
-      setCurrentWord('');
-      setUsedIndices([]);
-      return;
-    }
-
-    if (foundWords.includes(word)) {
-      setMessage('Already found!');
-      setTimeout(() => setMessage(''), 1500);
-      setCurrentWord('');
-      setUsedIndices([]);
-      return;
-    }
-
-    // Check if word is in dictionary
-    if (validWords.has(word)) {
+  const handleAnswer = (chosen: number) => {
+    if (feedback) return;
+    const isCorrect = chosen === question!.answer;
+    if (isCorrect) {
       soundEffects.playCorrect();
-      const points = word.length * 10 + (word.length >= 4 ? 10 : 0) + (word.length >= 5 ? 15 : 0);
-      setFoundWords(prev => [...prev, word]);
-      setGameState(prev => ({ ...prev, score: prev.score + points }));
-      setMessage(`✓ "${word.toUpperCase()}" +${points} points!`);
+      setCorrect(c => c + 1);
+      setScore(s => s + Math.max(5, 20 - Math.floor(elapsedSec / TOTAL_QUESTIONS)));
     } else {
       soundEffects.playWrong();
-      setMessage(`"${word.toUpperCase()}" not in word list`);
     }
-    
-    setCurrentWord('');
-    setUsedIndices([]);
-    setTimeout(() => setMessage(''), 1500);
+    setFeedback(isCorrect ? 'correct' : 'wrong');
+
+    setTimeout(() => {
+      setFeedback(null);
+      const next = qIndex + 1;
+      if (next >= TOTAL_QUESTIONS) {
+        // done
+        if (timerRef.current) clearInterval(timerRef.current);
+        setIsPlaying(false);
+        soundEffects.playWin();
+      } else {
+        setQIndex(next);
+        setQuestion(makeQuestion());
+      }
+    }, 600);
   };
 
-  if (!gameState.isPlaying) {
-    return (
-      <div className="bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl p-8 text-center">
-        <div className="text-8xl mb-4">📝</div>
-        <h2 className="text-3xl font-bold text-white mb-4">Word Builder</h2>
-        <p className="text-white/80 mb-6">
-          Create as many words as you can from the given letters in 90 seconds!
-        </p>
-        <button
-          onClick={() => setGameState(prev => ({ ...prev, isPlaying: true }))}
-          className="px-8 py-4 bg-white text-blue-600 rounded-xl font-bold text-xl hover:bg-white/90"
-        >
-          Start Game
-        </button>
-      </div>
-    );
-  }
+  const starsEarned = () => {
+    if (correct < 10) return 0;
+    if (elapsedSec < 60) return 3;
+    if (elapsedSec < 100) return 2;
+    return 1;
+  };
 
-  if (gameState.gameOver) {
+  const formatTime = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
+
+  if (!isPlaying) {
+    const stars = starsEarned();
     return (
-      <div className="bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl p-8 text-center">
-        <div className="text-8xl mb-4">🎉</div>
-        <h2 className="text-3xl font-bold text-white mb-2">Time's Up!</h2>
-        <p className="text-6xl font-bold text-white mb-2">{gameState.score}</p>
-        <p className="text-white/80 mb-2">Points</p>
-        <p className="text-white/60 mb-6">Found {foundWords.length} words!</p>
+      <div className="bg-gradient-to-br from-violet-500 to-purple-700 rounded-2xl p-8 text-center">
+        <div className="text-8xl mb-4">⚡</div>
+        <h2 className="text-3xl font-bold text-white mb-2">Times Table Sprint</h2>
+        {score === 0 ? (
+          <>
+            <p className="text-white/80 mb-2">Answer {TOTAL_QUESTIONS} times table questions as fast as you can!</p>
+            <p className="text-white/60 text-sm mb-6">⭐⭐⭐ under 60s · ⭐⭐ under 100s · ⭐ rest</p>
+          </>
+        ) : (
+          <div className="mb-6">
+            <div className="text-4xl mb-2">{stars === 3 ? '⭐⭐⭐' : stars === 2 ? '⭐⭐' : stars === 1 ? '⭐' : '💪'}</div>
+            <p className="text-white text-xl font-bold">{correct}/{TOTAL_QUESTIONS} correct · {formatTime(elapsedSec)}</p>
+            <p className="text-white/70">Score: {score}</p>
+          </div>
+        )}
         <div className="flex gap-4 justify-center">
-          <button
-            onClick={() => setGameState({
-              score: 0, level: 1, lives: 3, streak: 0, isPlaying: true, gameOver: false,
-            })}
-            className="px-6 py-3 bg-white text-blue-600 rounded-xl font-bold"
-          >
-            Play Again
+          <button onClick={startGame} className="px-8 py-4 bg-white text-purple-700 rounded-xl font-bold text-xl">
+            {score === 0 ? 'Start Sprint!' : 'Play Again'}
           </button>
-          <button onClick={() => onExit(gameState.score)} className="px-6 py-3 bg-white/20 text-white rounded-xl font-bold">
-            Exit
-          </button>
+          {score > 0 && (
+            <button onClick={() => { onXpEarned?.(score); onExit(score); }} className="px-8 py-4 bg-white/20 text-white rounded-xl font-bold text-xl hover:bg-white/30">
+              Exit
+            </button>
+          )}
         </div>
       </div>
     );
   }
 
   return (
-    <div className="bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl p-6">
-      <div className="flex items-center justify-between mb-4">
-        <div className="text-white font-bold">Score: {gameState.score}</div>
-        <div className="text-white font-bold text-xl">⏱️ {timeLeft}s</div>
+    <div className="bg-gradient-to-br from-violet-500 to-purple-700 rounded-2xl p-6">
+      <div className="flex justify-between mb-3 text-white font-bold">
+        <span>Q {qIndex + 1}/{TOTAL_QUESTIONS}</span>
+        <span>⏱ {formatTime(elapsedSec)}</span>
+        <span>✓ {correct}</span>
       </div>
 
-      {/* Letters */}
-      <div className="flex justify-center gap-2 mb-4 flex-wrap">
-        {letters.map((letter, i) => {
-          const isUsed = usedIndices.includes(i);
-          return (
-            <button
-              key={i}
-              onClick={() => handleLetterClick(letter, i)}
-              disabled={isUsed}
-              className={`w-12 h-12 rounded-xl font-bold text-xl transition-all ${
-                isUsed 
-                  ? 'bg-white/30 text-white/50 cursor-not-allowed scale-90' 
-                  : 'bg-white text-blue-600 hover:bg-white/90 hover:scale-105'
-              }`}
-            >
-              {letter}
-            </button>
-          );
-        })}
+      <div className="w-full bg-white/20 rounded-full h-2 mb-6">
+        <div className="bg-white h-2 rounded-full transition-all" style={{ width: `${((qIndex) / TOTAL_QUESTIONS) * 100}%` }} />
       </div>
 
-      {/* Current Word */}
-      <div className="bg-white/20 rounded-xl p-4 mb-4 min-h-[60px] flex items-center justify-center">
-        <span className="text-2xl font-bold text-white tracking-widest">
-          {currentWord || 'Tap letters...'}
-        </span>
+      <div className={`bg-white/20 rounded-2xl p-8 text-center mb-6 transition-all ${feedback === 'correct' ? 'bg-green-400/40' : feedback === 'wrong' ? 'bg-red-400/40' : ''}`}>
+        <p className="text-5xl font-bold text-white">{question?.text}</p>
+        {feedback && (
+          <p className="text-white font-bold mt-2">{feedback === 'correct' ? '✓ Correct!' : `✗ ${question?.answer}`}</p>
+        )}
       </div>
 
-      {message && (
-        <p className="text-center text-yellow-300 font-bold mb-2">{message}</p>
-      )}
-
-      <div className="flex gap-2 mb-4">
-        <button
-          onClick={handleBackspace}
-          disabled={currentWord.length === 0}
-          className="px-4 py-3 bg-white/20 text-white rounded-xl font-bold disabled:opacity-50"
-        >
-          ⌫
-        </button>
-        <button
-          onClick={() => { setCurrentWord(''); setUsedIndices([]); }}
-          className="flex-1 py-3 bg-white/20 text-white rounded-xl font-bold"
-        >
-          Clear
-        </button>
-        <button
-          onClick={handleSubmit}
-          className="flex-1 py-3 bg-white text-blue-600 rounded-xl font-bold"
-        >
-          Submit
-        </button>
-      </div>
-
-      {/* Found Words */}
-      <div className="bg-white/10 rounded-xl p-4">
-        <p className="text-white/60 text-sm mb-2">Found Words ({foundWords.length})</p>
-        <div className="flex flex-wrap gap-2">
-          {foundWords.length === 0 ? (
-            <span className="text-white/40 text-sm">Make words from the letters above!</span>
-          ) : (
-            foundWords.map((word, i) => (
-              <span key={i} className="px-2 py-1 bg-green-500/30 text-green-200 rounded text-sm">
-                {word}
-              </span>
-            ))
-          )}
-        </div>
+      <div className="grid grid-cols-2 gap-3">
+        {question?.options.map(opt => (
+          <button
+            key={opt}
+            onClick={() => handleAnswer(opt)}
+            disabled={!!feedback}
+            className="py-4 bg-white/20 hover:bg-white/30 text-white font-bold text-2xl rounded-xl transition-all disabled:opacity-60"
+          >
+            {opt}
+          </button>
+        ))}
       </div>
     </div>
   );
 };
 
-// Placeholder games (simplified versions)
 const SpellingBeeGame: React.FC<{ onExit: (score: number) => void; onXpEarned?: (xp: number) => void }> = ({ onExit, onXpEarned }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [score, setScore] = useState(0);
@@ -820,11 +699,20 @@ const SpellingBeeGame: React.FC<{ onExit: (score: number) => void; onXpEarned?: 
     }
   };
 
-  const speakWord = () => {
+  const speakWord = useCallback(() => {
+    speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(currentWord.word);
     utterance.rate = 0.7;
     speechSynthesis.speak(utterance);
-  };
+  }, [currentWord.word]);
+
+  // Auto-speak when a new word loads
+  useEffect(() => {
+    if (isPlaying && currentWord.word) {
+      const t = setTimeout(() => speakWord(), 400);
+      return () => clearTimeout(t);
+    }
+  }, [currentWord.word, isPlaying, speakWord]);
 
   const startGame = async () => {
     setLoading(true);
@@ -912,11 +800,11 @@ const SpellingBeeGame: React.FC<{ onExit: (score: number) => void; onXpEarned?: 
       <div className="bg-white/20 rounded-xl p-6 mb-4 text-center">
         <button
           onClick={speakWord}
-          className="text-6xl mb-4 hover:scale-110 transition-transform"
+          className="text-5xl mb-2 hover:scale-110 transition-transform"
         >
           🔊
         </button>
-        <p className="text-white text-sm mb-1">Click to hear the word</p>
+        <p className="text-white text-xs font-semibold mb-3">Tap to hear again</p>
         <p className="text-white/80 text-sm">Hint: {currentWord.hint}</p>
         <p className="text-white/60 text-xs mt-2">({currentWord.word.length} letters)</p>
       </div>
@@ -943,89 +831,167 @@ const SpellingBeeGame: React.FC<{ onExit: (score: number) => void; onXpEarned?: 
   );
 };
 
-const ScienceLabGame: React.FC<{ onExit: (score: number) => void; onXpEarned?: (xp: number) => void }> = ({ onExit, onXpEarned }) => {
+const ScienceSorterGame: React.FC<{ onExit: (score: number) => void; onXpEarned?: (xp: number) => void }> = ({ onExit, onXpEarned }) => {
+  type SorterSet = { title: string; categories: string[]; cards: { label: string; category: string }[] };
+
+  const SETS: SorterSet[] = [
+    {
+      title: 'Vertebrate or Invertebrate?',
+      categories: ['Vertebrate', 'Invertebrate'],
+      cards: [
+        { label: 'Dog', category: 'Vertebrate' },
+        { label: 'Ant', category: 'Invertebrate' },
+        { label: 'Salmon', category: 'Vertebrate' },
+        { label: 'Spider', category: 'Invertebrate' },
+        { label: 'Eagle', category: 'Vertebrate' },
+        { label: 'Worm', category: 'Invertebrate' },
+        { label: 'Frog', category: 'Vertebrate' },
+        { label: 'Snail', category: 'Invertebrate' },
+        { label: 'Snake', category: 'Vertebrate' },
+        { label: 'Jellyfish', category: 'Invertebrate' },
+        { label: 'Shark', category: 'Vertebrate' },
+        { label: 'Butterfly', category: 'Invertebrate' },
+      ],
+    },
+    {
+      title: 'Solid, Liquid or Gas?',
+      categories: ['Solid', 'Liquid', 'Gas'],
+      cards: [
+        { label: 'Ice', category: 'Solid' },
+        { label: 'Water', category: 'Liquid' },
+        { label: 'Steam', category: 'Gas' },
+        { label: 'Rock', category: 'Solid' },
+        { label: 'Milk', category: 'Liquid' },
+        { label: 'Oxygen', category: 'Gas' },
+        { label: 'Wood', category: 'Solid' },
+        { label: 'Juice', category: 'Liquid' },
+        { label: 'Carbon Dioxide', category: 'Gas' },
+        { label: 'Iron', category: 'Solid' },
+        { label: 'Honey', category: 'Liquid' },
+        { label: 'Nitrogen', category: 'Gas' },
+      ],
+    },
+    {
+      title: 'Living or Non-Living?',
+      categories: ['Living', 'Non-Living'],
+      cards: [
+        { label: 'Mushroom', category: 'Living' },
+        { label: 'Stone', category: 'Non-Living' },
+        { label: 'Tree', category: 'Living' },
+        { label: 'Cloud', category: 'Non-Living' },
+        { label: 'Bacteria', category: 'Living' },
+        { label: 'Wind', category: 'Non-Living' },
+        { label: 'Moss', category: 'Living' },
+        { label: 'Fire', category: 'Non-Living' },
+        { label: 'Seaweed', category: 'Living' },
+        { label: 'Sand', category: 'Non-Living' },
+        { label: 'Coral', category: 'Living' },
+        { label: 'Rain', category: 'Non-Living' },
+      ],
+    },
+    {
+      title: 'Which animal class?',
+      categories: ['Mammal', 'Bird', 'Reptile', 'Amphibian', 'Fish'],
+      cards: [
+        { label: 'Whale', category: 'Mammal' },
+        { label: 'Robin', category: 'Bird' },
+        { label: 'Crocodile', category: 'Reptile' },
+        { label: 'Newt', category: 'Amphibian' },
+        { label: 'Trout', category: 'Fish' },
+        { label: 'Bat', category: 'Mammal' },
+        { label: 'Penguin', category: 'Bird' },
+        { label: 'Tortoise', category: 'Reptile' },
+        { label: 'Toad', category: 'Amphibian' },
+        { label: 'Clownfish', category: 'Fish' },
+        { label: 'Dolphin', category: 'Mammal' },
+        { label: 'Parrot', category: 'Bird' },
+      ],
+    },
+  ];
+
+  const TOTAL_ROUNDS = 12;
   const [isPlaying, setIsPlaying] = useState(false);
   const [score, setScore] = useState(0);
-  const [currentQuestion, setCurrentQuestion] = useState<QuizQuestion | null>(null);
-  const [round, setRound] = useState(1);
-  const [gameQuestions, setGameQuestions] = useState<QuizQuestion[]>([]);
-  const [feedback, setFeedback] = useState<{ correct: boolean; message: string } | null>(null);
-  const [totalRounds] = useState(10);
-  const [loading, setLoading] = useState(false);
+  const [lives, setLives] = useState(3);
+  const [round, setRound] = useState(0);
+  const [currentSet, setCurrentSet] = useState<SorterSet | null>(null);
+  const [deck, setDeck] = useState<{ label: string; category: string }[]>([]);
+  const [cardIdx, setCardIdx] = useState(0);
+  const [feedback, setFeedback] = useState<'correct' | 'wrong' | null>(null);
+  const [streak, setStreak] = useState(0);
 
-  const handleAnswer = (index: number) => {
-    if (!currentQuestion) return;
+  const startGame = () => {
+    const chosenSet = SETS[Math.floor(Math.random() * SETS.length)];
+    const shuffled = [...chosenSet.cards].sort(() => Math.random() - 0.5).slice(0, TOTAL_ROUNDS);
+    setCurrentSet(chosenSet);
+    setDeck(shuffled);
+    setCardIdx(0);
+    setRound(0);
+    setScore(0);
+    setLives(3);
+    setStreak(0);
+    setFeedback(null);
+    setIsPlaying(true);
     soundEffects.playClick();
-    
-    // Find the index of the correct answer in the options array
-    // The QuizQuestion type has correctAnswer as a string
-    const correctIndex = currentQuestion.options.findIndex(opt => opt === currentQuestion.correctAnswer);
-    const isCorrect = index === correctIndex;
-    
+  };
+
+  const handleSort = (chosen: string) => {
+    if (feedback) return;
+    const card = deck[cardIdx];
+    const isCorrect = chosen === card.category;
     if (isCorrect) {
       soundEffects.playCorrect();
-      setScore(prev => prev + 20);
-      setFeedback({ correct: true, message: 'Correct! Well done! 🎉' });
+      const bonus = streak >= 2 ? 5 : 0;
+      setScore(s => s + 15 + bonus);
+      setStreak(s => s + 1);
+      setFeedback('correct');
     } else {
       soundEffects.playWrong();
-      setFeedback({ correct: false, message: `Not quite. The answer was: ${currentQuestion.correctAnswer}` });
+      setLives(l => l - 1);
+      setStreak(0);
+      setFeedback('wrong');
     }
-    
+
     setTimeout(() => {
       setFeedback(null);
-      if (round < totalRounds) {
-        setRound(prev => prev + 1);
-        setCurrentQuestion(gameQuestions[round]);
-      } else {
-        soundEffects.playWin();
-        onXpEarned?.(score + (isCorrect ? 20 : 0));
+      const nextIdx = cardIdx + 1;
+      const nextRound = round + 1;
+      if (nextRound >= TOTAL_ROUNDS || lives - (isCorrect ? 0 : 1) <= 0) {
+        if (timerRef.current) clearInterval(timerRef.current);
+        onXpEarned?.(score + (isCorrect ? 15 : 0));
         setIsPlaying(false);
+        soundEffects.playWin();
+      } else {
+        setCardIdx(nextIdx);
+        setRound(nextRound);
       }
-    }, 1500);
+    }, 700);
   };
 
-  const startGame = async () => {
-    setLoading(true);
-    try {
-      const questions = await gameService.getQuestionsForGame('Science', totalRounds);
-      if (questions.length > 0) {
-        setGameQuestions(questions);
-        setCurrentQuestion(questions[0]);
-        setIsPlaying(true);
-        setScore(0);
-        setRound(1);
-        setFeedback(null);
-      } else {
-        console.error("No science questions found");
-        // Could fallback to hardcoded here if needed
-      }
-    } catch (error) {
-      console.error("Error fetching questions:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  useEffect(() => () => { if (timerRef.current) clearInterval(timerRef.current); }, []);
+
+  const currentCard = deck[cardIdx];
 
   if (!isPlaying) {
     return (
       <div className="bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl p-8 text-center">
-        <div className="text-8xl mb-4">🧪</div>
-        <h2 className="text-3xl font-bold text-white mb-4">Science Lab</h2>
-        <p className="text-white/80 mb-6">Test your science knowledge! {totalRounds} questions covering biology, physics, chemistry, and space.</p>
-        {score > 0 && <p className="text-white mb-4">Final Score: {score}</p>}
+        <div className="text-8xl mb-4">🔬</div>
+        <h2 className="text-3xl font-bold text-white mb-2">Science Sorter</h2>
+        {score === 0 ? (
+          <p className="text-white/80 mb-6">Sort science cards into the right categories! {TOTAL_ROUNDS} cards, 3 lives. Streak bonuses available!</p>
+        ) : (
+          <div className="mb-6">
+            <p className="text-white text-xl font-bold">Score: {score}</p>
+            <p className="text-white/70">Lives left: {'❤️'.repeat(lives)}</p>
+          </div>
+        )}
         <div className="flex gap-4 justify-center">
-          <button
-            onClick={startGame}
-            disabled={loading}
-            className="px-8 py-4 bg-white text-emerald-600 rounded-xl font-bold text-xl disabled:opacity-50"
-          >
-            {loading ? 'Loading...' : 'Start Experiment'}
+          <button onClick={startGame} className="px-8 py-4 bg-white text-emerald-600 rounded-xl font-bold text-xl">
+            {score === 0 ? 'Start Sorting!' : 'Play Again'}
           </button>
           {score > 0 && (
-            <button
-              onClick={() => onExit(score)}
-              className="px-8 py-4 bg-white/20 text-white rounded-xl font-bold text-xl hover:bg-white/30"
-            >
+            <button onClick={() => onExit(score)} className="px-8 py-4 bg-white/20 text-white rounded-xl font-bold text-xl hover:bg-white/30">
               Exit
             </button>
           )}
@@ -1034,45 +1000,39 @@ const ScienceLabGame: React.FC<{ onExit: (score: number) => void; onXpEarned?: (
     );
   }
 
-  if (!currentQuestion) return null;
-
   return (
     <div className="bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl p-6">
-      <div className="flex justify-between mb-4">
-        <span className="text-white font-bold">Question {round}/{totalRounds}</span>
-        <span className="text-white font-bold">Score: {score}</span>
+      <div className="flex justify-between mb-2 text-white">
+        <span className="font-bold">{'❤️'.repeat(lives)}{'🖤'.repeat(3 - lives)}</span>
+        <span className="font-bold">{round + 1}/{TOTAL_ROUNDS}</span>
+        <span className="font-bold">Score: {score}</span>
+      </div>
+      {streak >= 2 && <p className="text-yellow-200 text-center text-sm font-bold mb-1">🔥 {streak}× streak!</p>}
+
+      <p className="text-white/80 text-center text-sm font-semibold mb-4">{currentSet?.title}</p>
+
+      {/* Card */}
+      <div className={`bg-white rounded-2xl p-8 text-center mb-6 shadow-lg transition-all ${feedback === 'correct' ? 'ring-4 ring-yellow-300' : feedback === 'wrong' ? 'ring-4 ring-red-400' : ''}`}>
+        <p className="text-4xl font-bold text-emerald-700">{currentCard?.label}</p>
+        {feedback && (
+          <p className={`mt-2 font-bold ${feedback === 'correct' ? 'text-green-600' : 'text-red-500'}`}>
+            {feedback === 'correct' ? '✓ Correct!' : `✗ It's a ${currentCard?.category}`}
+          </p>
+        )}
       </div>
 
-      <div className="bg-white/20 rounded-xl p-6 mb-4">
-        <p className="text-white font-bold text-lg text-center">{currentQuestion.question}</p>
-      </div>
-
-      {feedback && (
-        <div className={`rounded-xl p-4 mb-4 text-center ${feedback.correct ? 'bg-green-400/30' : 'bg-red-400/30'}`}>
-          <p className="text-white font-bold">{feedback.message}</p>
-        </div>
-      )}
-
-      <div className="space-y-2">
-        {currentQuestion.options.map((option, i) => {
-           const correctIndex = currentQuestion.options.findIndex(opt => opt === currentQuestion.correctAnswer);
-           return (
-            <button
-              key={i}
-              onClick={() => !feedback && handleAnswer(i)}
-              disabled={feedback !== null}
-              className={`w-full py-3 rounded-xl text-white font-medium text-left px-4 transition-all ${
-                feedback
-                  ? i === correctIndex
-                    ? 'bg-green-500'
-                    : 'bg-white/10'
-                  : 'bg-white/20 hover:bg-white/30'
-              }`}
-            >
-              {option}
-            </button>
-          );
-        })}
+      {/* Category buttons */}
+      <div className="grid grid-cols-2 gap-3">
+        {currentSet?.categories.map(cat => (
+          <button
+            key={cat}
+            onClick={() => handleSort(cat)}
+            disabled={!!feedback}
+            className="py-3 bg-white/20 hover:bg-white/30 text-white font-bold rounded-xl transition-all disabled:opacity-60 text-sm"
+          >
+            {cat}
+          </button>
+        ))}
       </div>
     </div>
   );

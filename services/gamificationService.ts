@@ -17,7 +17,7 @@ export interface DailyMission {
     badge?: string;
   };
   type: 'quiz_count' | 'questions_correct' | 'subject_specific' | 'streak' | 'time_spent';
-  subject?: Subject;
+  subject?: string;
   completed: boolean;
 }
 
@@ -143,7 +143,7 @@ class GamificationService {
   updateMissionProgress(
     type: DailyMission['type'],
     amount: number,
-    subject?: Subject,
+    subject?: string,
     score?: number
   ): DailyMission[] {
     const completedMissions: DailyMission[] = [];

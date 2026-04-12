@@ -28,6 +28,7 @@
   },
   "exclude": [
     "data/questions/generated/**",
-    "scripts/**"
+    "scripts/**",
+    "functions/**"
   ]
 }

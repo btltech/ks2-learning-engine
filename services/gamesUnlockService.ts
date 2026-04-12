@@ -6,14 +6,16 @@
  */
 
 const GAMES_UNLOCK_KEY = 'ks2_games_unlock';
-const STORAGE_VERSION = 2;
-const REQUIRED_CORRECT = 7; // out of 10
+const STORAGE_VERSION = 3;
+const REQUIRED_CORRECT = 7; // per quiz, out of REQUIRED_TOTAL
 const REQUIRED_TOTAL = 10;
+const REQUIRED_PASSES = 3;  // number of passing quizzes needed to unlock games
 const MAX_GAMES_PER_PASS = 2;
 
-interface GamesUnlockDataV2 {
-  version: 2;
+interface GamesUnlockDataV3 {
+  version: 3;
   gamesRemaining: number;
+  passesCount: number;  // accumulated passing quizzes toward next unlock
   lastQuiz?: {
     correct: number;
     total: number;
@@ -23,26 +25,30 @@ interface GamesUnlockDataV2 {
 }
 
 class GamesUnlockService {
-  private data: GamesUnlockDataV2;
+  private data: GamesUnlockDataV3;
   private listeners: Set<() => void> = new Set();
 
   constructor() {
     this.data = this.loadData();
   }
 
-  private loadData(): GamesUnlockDataV2 {
+  private loadData(): GamesUnlockDataV3 {
     try {
       const stored = localStorage.getItem(GAMES_UNLOCK_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
+        // Migrate v2 → v3
+        if (parsed?.version === 2 && typeof parsed?.gamesRemaining === 'number') {
+          return { version: 3, gamesRemaining: parsed.gamesRemaining, passesCount: 0, lastQuiz: parsed.lastQuiz };
+        }
         if (parsed?.version === STORAGE_VERSION && typeof parsed?.gamesRemaining === 'number') {
-          return parsed as GamesUnlockDataV2;
+          return parsed as GamesUnlockDataV3;
         }
       }
     } catch (e) {
       console.error('Error loading games unlock data:', e);
     }
-    return { version: STORAGE_VERSION, gamesRemaining: 0 };
+    return { version: STORAGE_VERSION, gamesRemaining: 0, passesCount: 0 };
   }
 
   private saveData(): void {
@@ -58,7 +64,7 @@ class GamesUnlockService {
   }
 
   /**
-   * Record quiz completion (unlock games if the child passes).
+   * Record quiz completion. Accumulates passing quizzes; unlocks games after REQUIRED_PASSES passes.
    */
   recordQuizResult(params: { correct: number; total: number }): void {
     const total = Math.max(1, Math.trunc(params.total));
@@ -69,9 +75,15 @@ class GamesUnlockService {
 
     const now = new Date().toISOString();
     this.data.lastQuiz = { correct, total, passed, at: now };
+
     if (passed) {
-      this.data.gamesRemaining = MAX_GAMES_PER_PASS;
+      this.data.passesCount = (this.data.passesCount || 0) + 1;
+      if (this.data.passesCount >= REQUIRED_PASSES) {
+        this.data.gamesRemaining = MAX_GAMES_PER_PASS;
+        this.data.passesCount = 0; // reset for next unlock cycle
+      }
     }
+
     this.saveData();
     this.notifyListeners();
   }
@@ -84,7 +96,9 @@ class GamesUnlockService {
     totalQuestions: number;
     isUnlocked: boolean;
     gamesRemaining: number;
-    lastQuiz?: GamesUnlockDataV2['lastQuiz'];
+    passesCount: number;
+    requiredPasses: number;
+    lastQuiz?: GamesUnlockDataV3['lastQuiz'];
   } {
     const gamesRemaining = Math.max(0, this.data.gamesRemaining);
     return {
@@ -92,6 +106,8 @@ class GamesUnlockService {
       totalQuestions: REQUIRED_TOTAL,
       isUnlocked: gamesRemaining > 0,
       gamesRemaining,
+      passesCount: this.data.passesCount || 0,
+      requiredPasses: REQUIRED_PASSES,
       lastQuiz: this.data.lastQuiz,
     };
   }
@@ -135,7 +151,7 @@ class GamesUnlockService {
    * Reset for testing
    */
   reset(): void {
-    this.data = { version: STORAGE_VERSION, gamesRemaining: 0 };
+    this.data = { version: STORAGE_VERSION, gamesRemaining: 0, passesCount: 0 };
     this.saveData();
     this.notifyListeners();
   }

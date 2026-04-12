@@ -57,6 +57,12 @@ export default defineConfig(({ mode }) => {
         },
         // Increase chunk size warning limit since we have large data files
         chunkSizeWarningLimit: 600,
+        // Strip console.* calls in production builds
+        minify: 'esbuild',
+        terserOptions: undefined,
+      },
+      esbuild: {
+        drop: mode === 'production' ? ['console', 'debugger'] : [],
       },
       plugins: [
         react(),

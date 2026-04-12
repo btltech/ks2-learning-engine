@@ -215,9 +215,9 @@ export const sendWeeklyReports = functions.pubsub
   .schedule('0 18 * * 0') // Every Sunday at 6 pm
   .timeZone('Europe/London')
   .onRun(async () => {
-    const resendApiKey: string = functions.config().resend?.api_key ?? '';
+    const resendApiKey: string = process.env.RESEND_API_KEY ?? '';
     if (!resendApiKey) {
-      console.error('❌ resend.api_key not configured — run: firebase functions:config:set resend.api_key="re_..."');
+      console.error('❌ RESEND_API_KEY env var not set — add it to firebase-functions/.env');
       return null;
     }
 
@@ -279,11 +279,11 @@ export const sendTestWeeklyReport = functions.https.onCall(async (data, context)
     throw new functions.https.HttpsError('unauthenticated', 'Must be authenticated');
   }
 
-  const resendApiKey: string = functions.config().resend?.api_key ?? '';
+  const resendApiKey: string = process.env.RESEND_API_KEY ?? '';
   if (!resendApiKey) {
     throw new functions.https.HttpsError(
       'failed-precondition',
-      'resend.api_key not configured. Run: firebase functions:config:set resend.api_key="re_..."'
+      'RESEND_API_KEY environment variable not set — add it to firebase-functions/.env'
     );
   }
 

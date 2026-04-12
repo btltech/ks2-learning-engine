@@ -3,7 +3,7 @@
  * Provides focused 5-minute learning sessions
  */
 
-import { Subject, Difficulty } from '../types';
+import { Difficulty } from '../types';
 
 export interface MicroSession {
   id: string;
@@ -11,7 +11,7 @@ export interface MicroSession {
   description: string;
   duration: number; // in seconds
   questionCount: number;
-  subject: Subject;
+  subject: string;
   topic: string;
   difficulty: Difficulty;
   estimatedPoints: number;
@@ -20,19 +20,22 @@ export interface MicroSession {
 const MICRO_SESSION_DURATION = 5 * 60; // 5 minutes in seconds
 const QUICK_QUESTIONS_COUNT = 5;
 const STORAGE_KEY = 'ks2_micro_sessions';
+const STREAK_KEY = 'ks2_micro_streak';
 
 class MicrolearningService {
   private completedToday: Set<string> = new Set();
   private dailyGoal = 3; // 3 micro sessions per day
+  private streakCount = 0;
 
   constructor() {
     this.loadProgress();
+    this.loadStreak();
   }
 
   /**
    * Get available micro sessions
    */
-  getAvailableSessions(subject?: Subject): MicroSession[] {
+  getAvailableSessions(subject?: string): MicroSession[] {
     const sessions: MicroSession[] = [
       {
         id: 'quick_maths',
@@ -42,7 +45,7 @@ class MicrolearningService {
         questionCount: QUICK_QUESTIONS_COUNT,
         subject: 'Maths',
         topic: 'Mixed',
-        difficulty: 'Medium',
+        difficulty: Difficulty.Medium,
         estimatedPoints: 50,
       },
       {
@@ -53,7 +56,7 @@ class MicrolearningService {
         questionCount: QUICK_QUESTIONS_COUNT,
         subject: 'English',
         topic: 'Spelling',
-        difficulty: 'Medium',
+        difficulty: Difficulty.Medium,
         estimatedPoints: 50,
       },
       {
@@ -64,7 +67,7 @@ class MicrolearningService {
         questionCount: QUICK_QUESTIONS_COUNT,
         subject: 'Science',
         topic: 'Mixed',
-        difficulty: 'Medium',
+        difficulty: Difficulty.Medium,
         estimatedPoints: 50,
       },
       {
@@ -75,7 +78,7 @@ class MicrolearningService {
         questionCount: QUICK_QUESTIONS_COUNT,
         subject: 'Maths',
         topic: 'Mixed',
-        difficulty: 'Easy',
+        difficulty: Difficulty.Easy,
         estimatedPoints: 40,
       },
       {
@@ -86,7 +89,7 @@ class MicrolearningService {
         questionCount: QUICK_QUESTIONS_COUNT,
         subject: 'English',
         topic: 'Vocabulary',
-        difficulty: 'Easy',
+        difficulty: Difficulty.Easy,
         estimatedPoints: 40,
       },
     ];
@@ -110,6 +113,7 @@ class MicrolearningService {
   completeSession(sessionId: string): void {
     this.completedToday.add(sessionId);
     this.saveProgress();
+    this.updateStreak();
   }
 
   /**
@@ -176,11 +180,10 @@ class MicrolearningService {
   }
 
   /**
-   * Get streak info
+   * Get streak — consecutive days with at least one completed session
    */
   getStreak(): number {
-    // TODO: Implement actual streak tracking across days
-    return this.completedToday.size;
+    return this.streakCount;
   }
 
   /**
@@ -213,6 +216,74 @@ class MicrolearningService {
       }
     } catch (error) {
       console.error('[Microlearning] Failed to load progress:', error);
+    }
+  }
+
+  /**
+   * Load streak from localStorage
+   */
+  private loadStreak(): void {
+    try {
+      const stored = localStorage.getItem(STREAK_KEY);
+      if (stored) {
+        const data = JSON.parse(stored);
+        const today = new Date().toDateString();
+        const yesterday = new Date(Date.now() - 86400000).toDateString();
+
+        if (data.lastActiveDate === today || data.lastActiveDate === yesterday) {
+          this.streakCount = data.streak || 0;
+        } else {
+          // Gap in activity — streak broken
+          this.streakCount = 0;
+          this.saveStreak();
+        }
+      }
+    } catch {
+      this.streakCount = 0;
+    }
+  }
+
+  /**
+   * Update streak when a session is completed
+   */
+  private updateStreak(): void {
+    try {
+      const today = new Date().toDateString();
+      const stored = localStorage.getItem(STREAK_KEY);
+      if (stored) {
+        const data = JSON.parse(stored);
+        const yesterday = new Date(Date.now() - 86400000).toDateString();
+
+        if (data.lastActiveDate === today) {
+          // Already counted today — no change
+          return;
+        } else if (data.lastActiveDate === yesterday) {
+          // Consecutive day — extend streak
+          this.streakCount = (data.streak || 0) + 1;
+        } else {
+          // Gap — restart streak
+          this.streakCount = 1;
+        }
+      } else {
+        this.streakCount = 1;
+      }
+      this.saveStreak();
+    } catch {
+      // Ignore storage errors
+    }
+  }
+
+  /**
+   * Save streak to localStorage
+   */
+  private saveStreak(): void {
+    try {
+      localStorage.setItem(STREAK_KEY, JSON.stringify({
+        streak: this.streakCount,
+        lastActiveDate: new Date().toDateString(),
+      }));
+    } catch {
+      // Ignore storage errors
     }
   }
 

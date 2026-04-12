@@ -16,7 +16,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen flex flex-col bg-white">
       {/* Simple Header */}
       <header className={`bg-gradient-to-r ${GRADIENTS.primary} ${SHADOWS.large} sticky top-0 z-50`}>
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
@@ -28,15 +28,15 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
             <span 
               className={`text-3xl bg-white ${RADIUS.full} w-14 h-14 flex items-center justify-center shadow-lg border-4 border-blue-600`}
               role="img" 
-              aria-label="KS2 Learning"
+              aria-label="DemiWura"
             >
-              📚
+              🎓
             </span>
-            <span className="text-2xl font-bold text-white drop-shadow-lg">KS2 Learning</span>
+            <span className="text-2xl font-bold text-white drop-shadow-lg">DemiWura</span>
           </button>
 
           <button
-            onClick={() => navigate('/')}
+            onClick={() => navigate('/login')}
             className="bg-white text-blue-600 px-6 py-3 rounded-lg font-bold hover:bg-blue-50 motion-safe:transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white shadow-lg border-2 border-blue-100"
           >
             Login

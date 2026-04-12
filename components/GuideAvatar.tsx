@@ -33,8 +33,8 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
   });
   const chatEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const roleConfig = getRoleConfig(userRole, studentName, message);
-  const quickActions = getRoleQuickActions(userRole);
+  const roleConfig = getRoleConfig(userRole as NonNullable<GuideAvatarProps['userRole']>, studentName, message);
+  const quickActions = getRoleQuickActions(userRole as NonNullable<GuideAvatarProps['userRole']>);
 
   useEffect(() => {
     // Auto-scroll to bottom when new messages arrive

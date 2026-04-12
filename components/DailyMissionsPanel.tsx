@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { gamificationService, DailyMission } from '../services/gamificationService';
 
 export default function DailyMissionsPanel() {
@@ -68,7 +68,7 @@ export default function DailyMissionsPanel() {
   );
 }
 
-function MissionCard({ mission }: { mission: DailyMission }) {
+const MissionCard: React.FC<{ mission: DailyMission }> = ({ mission }) => {
   const progress = Math.min(100, (mission.progress / mission.requirement) * 100);
   const isComplete = mission.completed;
 

@@ -161,7 +161,7 @@ export default function EnhancedTeacherDashboard({ teacherId, onClose }: Props) 
               <div className="bg-white rounded-xl shadow-md p-6">
                 <h3 className="text-xl font-bold mb-4">Subject Performance</h3>
                 <div className="space-y-3">
-                  {Object.entries(analytics.subjectPerformance).map(([subject, data]) => (
+                  {(Object.entries(analytics.subjectPerformance) as [string, ClassAnalytics['subjectPerformance'][string]][]).map(([subject, data]) => (
                     <div key={subject}>
                       <div className="flex items-center justify-between mb-1">
                         <span className="font-semibold">{subject}</span>

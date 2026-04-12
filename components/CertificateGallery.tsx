@@ -100,8 +100,8 @@ export default function CertificateGallery() {
               <div class="badge">${getBadgeEmoji(cert.badgeLevel)}</div>
               <div class="achievement">${cert.achievement}</div>
               <div class="subject">${cert.subject}</div>
-              <div class="recipient">Awarded to: ${cert.recipientName}</div>
-              <div class="date">${new Date(cert.awardedAt).toLocaleDateString('en-GB', {
+              <div class="recipient">Awarded to: ${cert.recipient}</div>
+              <div class="date">${new Date(cert.awardedDate).toLocaleDateString('en-GB', {
                 day: 'numeric',
                 month: 'long',
                 year: 'numeric',
