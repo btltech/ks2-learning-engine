@@ -10,6 +10,7 @@ import {
   getProjectId,
   getServiceAccount,
   hasRole,
+  isQuotaError,
   jsonResponse,
   verifyFirebaseIdToken,
 } from '../../functions-shared/firebase-admin';
@@ -201,6 +202,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
       activeSession: activeSession ? safeSession(activeSession) : null,
     }, cors.headers);
   } catch (error: any) {
+    if (isQuotaError(error)) return jsonResponse(503, { error: 'Game data is temporarily unavailable because Firebase daily quota is exhausted. Please try again after the quota resets.' }, cors.headers);
     const unauthorized = /Bearer|token|profile/i.test(error?.message || '');
     const forbidden = /learner accounts/i.test(error?.message || '');
     return jsonResponse(unauthorized ? 401 : forbidden ? 403 : 500, { error: error?.message || 'Unable to load games' }, cors.headers);
@@ -405,6 +407,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     return jsonResponse(400, { error: 'Unsupported game action' }, cors.headers);
   } catch (error: any) {
     const message = error?.message || 'Unable to update game';
+    if (isQuotaError(error)) return jsonResponse(503, { error: 'Game data is temporarily unavailable because Firebase daily quota is exhausted. Please try again after the quota resets.' }, cors.headers);
     const unauthorized = /Bearer|token|profile/i.test(message);
     const forbidden = /learner accounts/i.test(message);
     return jsonResponse(unauthorized ? 401 : forbidden ? 403 : 500, { error: message }, cors.headers);

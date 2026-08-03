@@ -13,6 +13,10 @@ export interface VerifiedCaller {
   claims: Record<string, unknown>;
 }
 
+export function isQuotaError(error: unknown): boolean {
+  return /quota|resource[_ -]?exhausted/i.test(error instanceof Error ? error.message : String(error));
+}
+
 interface ServiceAccount {
   client_email: string;
   private_key: string;

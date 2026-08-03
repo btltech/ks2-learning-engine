@@ -5,6 +5,8 @@ import { BankQuestion, CognitiveLevel, Difficulty, QuestionType } from '../types
 import { db } from './firebase';
 
 const QUERY_CHUNK_SIZE = 30;
+const CLOUD_TOPIC_CACHE_PREFIX = 'ks2_cloud_topic_questions_v1:';
+const CLOUD_TOPIC_CACHE_TTL_MS = 24 * 60 * 60 * 1000;
 const cloudTopicCache = new Map<string, Promise<BankQuestion[]>>();
 
 const normalizeText = (value: unknown): string => String(value ?? '').replace(/\s+/g, ' ').trim();
@@ -123,25 +125,71 @@ const chunk = <T,>(values: T[], size: number): T[][] => {
   return chunks;
 };
 
+function cloudTopicStorageKey(subject: string, bankTopic: string): string {
+  return `${CLOUD_TOPIC_CACHE_PREFIX}${encodeURIComponent(`${subject}::${bankTopic}`)}`;
+}
+
+function readPersistedCloudQuestions(subject: string, bankTopic: string): {
+  questions: BankQuestion[];
+  fresh: boolean;
+} | null {
+  if (typeof localStorage === 'undefined') return null;
+  try {
+    const raw = localStorage.getItem(cloudTopicStorageKey(subject, bankTopic));
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as { expiresAt?: number; questions?: BankQuestion[] };
+    if (!Array.isArray(parsed.questions)) return null;
+    return {
+      questions: parsed.questions,
+      fresh: Number(parsed.expiresAt) > Date.now(),
+    };
+  } catch {
+    return null;
+  }
+}
+
+function persistCloudQuestions(subject: string, bankTopic: string, questions: BankQuestion[]): void {
+  if (typeof localStorage === 'undefined') return;
+  try {
+    localStorage.setItem(cloudTopicStorageKey(subject, bankTopic), JSON.stringify({
+      expiresAt: Date.now() + CLOUD_TOPIC_CACHE_TTL_MS,
+      questions,
+    }));
+  } catch {
+    // The in-memory cache still protects the current session when storage is full.
+  }
+}
+
 const fetchCloudQuestionsForTopic = async (subject: string, bankTopic: string): Promise<BankQuestion[]> => {
+  const persisted = readPersistedCloudQuestions(subject, bankTopic);
+  if (persisted?.fresh) return persisted.questions;
+
   const aliases = getCloudTopicAliases(subject, bankTopic);
   const allowedSubjects = new Set(getCloudSubjectAliases(subject));
-  const snapshots = await Promise.all(
-    chunk(aliases, QUERY_CHUNK_SIZE).map((topicChunk) =>
-      getDocs(query(collection(db, 'questions'), where('topic', 'in', topicChunk))),
-    ),
-  );
+  try {
+    const snapshots = await Promise.all(
+      chunk(aliases, QUERY_CHUNK_SIZE).map((topicChunk) =>
+        getDocs(query(collection(db, 'questions'), where('topic', 'in', topicChunk))),
+      ),
+    );
 
-  const questions: BankQuestion[] = [];
-  for (const snapshot of snapshots) {
-    snapshot.forEach((document) => {
-      const data = document.data();
-      if (!allowedSubjects.has(normalizeText(data.subject))) return;
-      const normalized = normalizeCloudQuestion(document.id, data, subject, bankTopic);
-      if (normalized) questions.push(normalized);
-    });
+    const questions: BankQuestion[] = [];
+    for (const snapshot of snapshots) {
+      snapshot.forEach((document) => {
+        const data = document.data();
+        if (!allowedSubjects.has(normalizeText(data.subject))) return;
+        const normalized = normalizeCloudQuestion(document.id, data, subject, bankTopic);
+        if (normalized) questions.push(normalized);
+      });
+    }
+    persistCloudQuestions(subject, bankTopic, questions);
+    return questions;
+  } catch (error) {
+    // A stale cache is preferable to draining the remaining quota or blanking
+    // an otherwise playable lesson when Firestore is temporarily unavailable.
+    if (persisted?.questions) return persisted.questions;
+    throw error;
   }
-  return questions;
 };
 
 export const loadCloudQuestionsForCurriculumUnit = (

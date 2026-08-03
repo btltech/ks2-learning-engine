@@ -1,10 +1,8 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
-import { doc as firestoreDoc, onSnapshot, collection as firestoreCollection } from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { UserProfile, Badge, Difficulty, QuizSession, WeeklyProgress } from '../types';
 import { leaderboardService } from '../services/leaderboardService';
 import { firebaseAuthService } from '../services/firebaseAuthService';
-import { db } from '../services/firebase';
 import { hasRole } from '../utils/roles';
 
 interface UserContextType {
@@ -177,7 +175,6 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const isParent = hasRole(user, 'parent');
   const isStudent = hasRole(user, 'student');
-  const lastParentChildrenKey = useRef<string>('');
   const isRefreshingChildren = useRef<boolean>(false);
 
   const refreshLinkedChildren = useCallback(async (): Promise<void> => {
@@ -214,55 +211,6 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return;
     }
     void refreshLinkedChildren();
-  }, [user?.id, isParent, refreshLinkedChildren]);
-
-  // Live-update parent->children linking when another device/browser adds a child.
-  useEffect(() => {
-    if (!user || !isParent) return;
-
-    const parentRef = firestoreDoc(db, 'users', user.id);
-    return onSnapshot(
-      parentRef,
-      (snap) => {
-        const data: any = snap.data();
-        const parentCode = typeof data?.parentCode === 'string' ? data.parentCode : undefined;
-
-        if (parentCode) {
-          setUser((prev) => {
-            if (!prev) return prev;
-            if (prev.parentCode === parentCode) return prev;
-            return {
-              ...prev,
-              parentCode,
-            };
-          });
-        }
-      },
-      (error) => {
-        console.warn('Parent listener error:', error);
-      }
-    );
-  }, [user?.id, isParent, refreshLinkedChildren]);
-
-  // Live-update parent->children linking via subcollection (preferred model).
-  useEffect(() => {
-    if (!user || !isParent) return;
-
-    const childrenRef = firestoreCollection(db, 'users', user.id, 'children');
-    return onSnapshot(
-      childrenRef,
-      (snap) => {
-        const ids = snap.docs.map((d) => d.id).filter(Boolean).sort();
-        const nextKey = ids.join(',');
-        if (nextKey !== lastParentChildrenKey.current) {
-          lastParentChildrenKey.current = nextKey;
-          void refreshLinkedChildren();
-        }
-      },
-      (error) => {
-        console.warn('Children listener error:', error);
-      }
-    );
   }, [user?.id, isParent, refreshLinkedChildren]);
 
   // Persist student progress to Firestore only on key events (quiz completion).

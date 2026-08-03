@@ -11,6 +11,7 @@ import {
   getProjectId,
   getServiceAccount,
   hasRole,
+  isQuotaError,
   jsonResponse,
   runQuery,
   verifyFirebaseIdToken,
@@ -129,6 +130,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
 
     return jsonResponse(403, { error: 'Classrooms are available to teacher and learner accounts' }, cors.headers);
   } catch (error: any) {
+    if (isQuotaError(error)) return jsonResponse(503, { error: 'Classroom data is temporarily unavailable because Firebase daily quota is exhausted. Please try again after the quota resets.' }, cors.headers);
     const unauthorized = /Bearer|token|profile/i.test(error?.message || '');
     return jsonResponse(unauthorized ? 401 : 500, { error: error?.message || 'Unable to load classes' }, cors.headers);
   }
@@ -269,6 +271,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
 
     return jsonResponse(400, { error: 'Unsupported class action' }, cors.headers);
   } catch (error: any) {
+    if (isQuotaError(error)) return jsonResponse(503, { error: 'Classroom data is temporarily unavailable because Firebase daily quota is exhausted. Please try again after the quota resets.' }, cors.headers);
     const unauthorized = /Bearer|token|profile/i.test(error?.message || '');
     return jsonResponse(unauthorized ? 401 : 500, { error: error?.message || 'Unable to update class' }, cors.headers);
   }

@@ -18,7 +18,9 @@ const MIN_SAMPLES_FOR_SCORING = 3; // Minimum times shown before calculating eff
 const POOR_PERFORMANCE_THRESHOLD = 0.15; // Questions with < 15% correct rate are likely poorly worded
 const HIGH_PERFORMANCE_THRESHOLD = 0.95; // Questions with > 95% correct are too easy
 const ADMIN_STATS_CACHE_KEY = 'ks2_admin_question_bank_stats_v2';
-const ADMIN_STATS_CACHE_MS = 6 * 60 * 60 * 1000;
+// Full question/performance scans are expensive; an admin report does not need
+// second-by-second freshness and should not consume the daily read quota.
+const ADMIN_STATS_CACHE_MS = 24 * 60 * 60 * 1000;
 
 interface QuestionBankStats {
   totalQuestions: number;

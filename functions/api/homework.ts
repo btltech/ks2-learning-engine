@@ -10,6 +10,7 @@ import {
   getProjectId,
   getServiceAccount,
   hasRole,
+  isQuotaError,
   jsonResponse,
   runQuery,
   verifyFirebaseIdToken,
@@ -108,6 +109,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
     }
     return jsonResponse(403, { error: 'Homework is available to teacher and learner accounts' }, cors.headers);
   } catch (error: any) {
+    if (isQuotaError(error)) return jsonResponse(503, { error: 'Homework data is temporarily unavailable because Firebase daily quota is exhausted. Please try again after the quota resets.' }, cors.headers);
     const unauthorized = /Bearer|token|profile/i.test(error?.message || '');
     return jsonResponse(unauthorized ? 401 : 500, { error: error?.message || 'Unable to load homework' }, cors.headers);
   }
@@ -230,6 +232,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
 
     return jsonResponse(400, { error: 'Unsupported homework action' }, cors.headers);
   } catch (error: any) {
+    if (isQuotaError(error)) return jsonResponse(503, { error: 'Homework data is temporarily unavailable because Firebase daily quota is exhausted. Please try again after the quota resets.' }, cors.headers);
     const unauthorized = /Bearer|token|profile/i.test(error?.message || '');
     return jsonResponse(unauthorized ? 401 : 500, { error: error?.message || 'Unable to update homework' }, cors.headers);
   }

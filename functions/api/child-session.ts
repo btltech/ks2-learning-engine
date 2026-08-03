@@ -905,22 +905,13 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     const ipHash = await sha256Hex(`ip:${clientIP}`);
     const codeHash = await sha256Hex(`code:${parentCode}`);
 
-    // Firestore-backed lockouts (survive cold starts)
-    const ipLockId = getLockDocId('ip', ipHash);
+    // Firestore-backed code lockout (survives cold starts). The IP lock is
+    // loaded only after a code miss; valid child logins therefore avoid an
+    // unnecessary extra read on every attempt.
     const codeLockId = getLockDocId('code', codeHash);
-    const [ipLockDoc, codeLockDoc] = await Promise.all([
-      firestoreGetDocument(projectId, accessToken, `${SECURITY_LOCKS_COLLECTION}/${ipLockId}`),
-      firestoreGetDocument(projectId, accessToken, `${SECURITY_LOCKS_COLLECTION}/${codeLockId}`),
-    ]);
+    const codeLockDoc = await firestoreGetDocument(projectId, accessToken, `${SECURITY_LOCKS_COLLECTION}/${codeLockId}`);
 
     const now = new Date();
-    const ipLockedUntil = parseFirestoreTimestamp(ipLockDoc?.fields?.lockedUntil);
-    if (ipLockedUntil && ipLockedUntil.getTime() > now.getTime()) {
-      return jsonResponse(429, { error: 'Too many attempts. Please try again later.' }, {
-        ...cors.headers,
-        'Retry-After': String(Math.ceil((ipLockedUntil.getTime() - now.getTime()) / 1000)),
-      });
-    }
     const codeLockedUntil = parseFirestoreTimestamp(codeLockDoc?.fields?.lockedUntil);
     if (codeLockedUntil && codeLockedUntil.getTime() > now.getTime()) {
       return jsonResponse(429, { error: 'Too many attempts. Please try again later.' }, {
@@ -941,6 +932,16 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     }
     if (!parent) {
       // Record failed attempt (per-IP + per-code)
+      const ipLockId = getLockDocId('ip', ipHash);
+      const ipLockDoc = await firestoreGetDocument(projectId, accessToken, `${SECURITY_LOCKS_COLLECTION}/${ipLockId}`);
+      const ipLockedUntil = parseFirestoreTimestamp(ipLockDoc?.fields?.lockedUntil);
+      if (ipLockedUntil && ipLockedUntil.getTime() > now.getTime()) {
+        return jsonResponse(429, { error: 'Too many attempts. Please try again later.' }, {
+          ...cors.headers,
+          'Retry-After': String(Math.ceil((ipLockedUntil.getTime() - now.getTime()) / 1000)),
+        });
+      }
+
       const userAgent = request.headers.get('User-Agent') || '';
       const ipExisting = {
         count: parseFirestoreInteger(ipLockDoc?.fields?.count) ?? 0,

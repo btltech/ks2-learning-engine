@@ -24,6 +24,7 @@ describe('cloudQuestionRepository', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     clearCloudQuestionCacheForTests();
+    localStorage.clear();
   });
 
   it('adapts a legacy age and letter answer without changing the stored shape', () => {
@@ -98,5 +99,23 @@ describe('cloudQuestionRepository', () => {
     const questions = await loadCloudQuestionsForCurriculumUnit('Maths', 'Number - number and place value');
     expect(questions.map((question) => question.id)).toEqual(['maths-1']);
   });
-});
 
+  it('persists a topic result so a new page session does not reread Firestore', async () => {
+    mockGetDocs.mockResolvedValue({
+      forEach: (callback: (document: { id: string; data: () => Record<string, unknown> }) => void) => {
+        callback({ id: 'cached-1', data: () => ({
+          subject: 'Maths', topic: 'Place Value Power!', age: 9, difficulty: 'Medium',
+          question: 'What is 5 + 5?', options: ['10', '11'], correctAnswer: '10',
+        }) });
+      },
+    });
+
+    const first = await loadCloudQuestionsForCurriculumUnit('Maths', 'Number - number and place value');
+    clearCloudQuestionCacheForTests();
+    const second = await loadCloudQuestionsForCurriculumUnit('Maths', 'Number - number and place value');
+
+    expect(first).toHaveLength(1);
+    expect(second).toEqual(first);
+    expect(mockGetDocs).toHaveBeenCalledTimes(1);
+  });
+});

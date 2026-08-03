@@ -17,7 +17,9 @@ export interface CloudBankStats {
 }
 
 const CLOUD_BANK_STATS_CACHE_KEY = 'ks2_cloud_bank_stats_v2';
-const CLOUD_BANK_STATS_CACHE_MS = 6 * 60 * 60 * 1000;
+// This is an admin-only, full-collection report. Keep it cached for a day so
+// opening the dashboard does not repeatedly consume the free Firestore quota.
+const CLOUD_BANK_STATS_CACHE_MS = 24 * 60 * 60 * 1000;
 
 /**
  * Get statistics about the Cloud Bank (AI-generated questions in Firestore)
