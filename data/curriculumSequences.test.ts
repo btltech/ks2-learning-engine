@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { SUBJECTS, LANGUAGES } from '../constants';
 import { CURATED_LANGUAGES, getCurriculumUnits } from './curriculumSequences';
+import { getQuestionsForCurriculumUnit } from './questionBank';
+import { Difficulty } from '../types';
 
 describe('published curriculum sequences', () => {
   it('gives every visible learning subject an ordered sequence in every KS2 year', () => {
@@ -15,7 +17,7 @@ describe('published curriculum sequences', () => {
     }
   });
 
-  it('publishes only the four languages with complete flows', () => {
+  it('publishes only languages with complete lesson flows', () => {
     expect(LANGUAGES.map((language) => language.name)).toEqual([...CURATED_LANGUAGES]);
     for (const language of CURATED_LANGUAGES) {
       expect(getCurriculumUnits(language, 10)).toHaveLength(3);
@@ -24,5 +26,15 @@ describe('published curriculum sequences', () => {
 
   it('does not publish unsupported RE or standalone citizenship cards', () => {
     expect(SUBJECTS.some((subject) => ['Religious Education', 'Citizenship'].includes(subject.name))).toBe(false);
+  });
+
+  it('connects Yoruba and Romanian to their reviewed starter question banks', async () => {
+    const yoruba = await getQuestionsForCurriculumUnit('Yoruba', 'Yoruba: Greetings', 7, Difficulty.Easy, 5);
+    const romanian = await getQuestionsForCurriculumUnit('Romanian', 'Romanian: Numbers', 7, Difficulty.Easy, 5);
+    expect(yoruba).toHaveLength(5);
+    expect(yoruba.some((question) => question.correctAnswer === 'Ẹ ṣé')).toBe(true);
+    expect(romanian).toHaveLength(5);
+    expect(romanian.every((question) => question.topic === 'Romanian: Numbers')).toBe(true);
+    expect(romanian.some((question) => question.correctAnswer === 'Cinci')).toBe(true);
   });
 });

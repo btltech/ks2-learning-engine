@@ -1,6 +1,10 @@
 import { QuizQuestion, Difficulty, QuestionType, CognitiveLevel, BankQuestion } from '../types';
+import { CURATED_LANGUAGES } from './curriculumSequences';
 
 export type { BankQuestion };
+
+const isCuratedLanguage = (subject: string): boolean =>
+  (CURATED_LANGUAGES as readonly string[]).includes(subject);
 
 // Normalise subject labels from imported data so they align with
 // the subjects exposed in the UI (and with existing handwritten banks).
@@ -122,7 +126,7 @@ export const loadQuestionsForSubject = async (subject: string): Promise<BankQues
         ...q,
         subject: normaliseSubject(q.subject),
       }))
-    ].filter(q => q.subject === s || (s === 'Languages' && ['French', 'Spanish', 'German'].includes(q.subject)));
+    ].filter(q => q.subject === s || (s === 'Languages' && isCuratedLanguage(q.subject)));
     
     questions = [...questions, ...extra];
   } catch (e) {
@@ -161,7 +165,7 @@ export const getQuestionsByFilters = async (
   const questions = await loadQuestionsForSubject(subject);
   
   return questions.filter(q => 
-    (q.subject === subject || (subject === 'Languages' && ['French', 'Spanish', 'German'].includes(q.subject))) &&
+    (q.subject === subject || (subject === 'Languages' && isCuratedLanguage(q.subject))) &&
     (topic === '' || q.topic === topic) &&
     q.ageGroup.includes(age) &&
     q.difficulty === difficulty &&
@@ -247,7 +251,7 @@ export const getQuestionsForCurriculumUnit = async (
   count: number,
   excludeIds: string[] = []
 ): Promise<BankQuestion[]> => {
-  const bankSubject = ['French', 'Spanish', 'German', 'Welsh'].includes(subject) ? 'Languages' : subject;
+  const bankSubject = isCuratedLanguage(subject) ? 'Languages' : subject;
   const questions = (await loadQuestionsForSubject(bankSubject)).filter((question) =>
     question.topic === bankTopic &&
     !excludeIds.includes(question.id) &&

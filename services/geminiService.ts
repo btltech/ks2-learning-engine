@@ -145,6 +145,11 @@ export const generateLesson = async (subject: string, topic: string, difficulty:
     specificInstructions = "For Computing, ensure 'Teach' and 'Modelled Example' include a short Python or Scratch-style example where appropriate, and explain how it works.";
   } else if (LANGUAGE_SUBJECTS.includes(subjectLower)) {
     specificInstructions = "For Languages, 'Key Vocabulary' must include the foreign word, a simple pronunciation guide in brackets, and English meaning. 'Teach' should focus on short useful phrases and usage, with one accurately modelled exchange.";
+    if (subjectLower === 'yoruba') {
+      specificInstructions += " Use standard Yoruba orthography, including underdots and tone marks (for example: Ẹ ṣé, ọmọ, ìyá). Explain that tone changes meaning and never replace Yoruba letters with approximate English spelling.";
+    } else if (subjectLower === 'romanian') {
+      specificInstructions += " Use Romanian diacritics accurately (ă, â, î, ș, ț) and model natural Romanian word order.";
+    }
   } else if (subjectLower === 'maths' || subjectLower === 'mathematics') {
     specificInstructions = "For Maths, 'Modelled Example' must show concise step-by-step working.";
   } else if (subjectLower === 'science') {

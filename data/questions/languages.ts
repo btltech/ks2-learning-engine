@@ -100,18 +100,18 @@ export const languagesQuestions: BankQuestion[] = [
 
   // ===== YORUBA =====
   // Greetings
-  { id: 'l-yo-gr-01', subject: 'Languages', topic: 'Yoruba: Greetings', ageGroup: [9, 10], difficulty: Difficulty.Medium, question: 'Thank you', options: ['E se', 'Bawo', 'O dabo', 'Kaaro'], correctAnswer: 'E se' },
-  { id: 'l-yo-gr-02', subject: 'Languages', topic: 'Yoruba: Greetings', ageGroup: [9, 10], difficulty: Difficulty.Medium, question: 'Hello/How are you?', options: ['Bawo', 'E se', 'O dabo', 'Kaale'], correctAnswer: 'Bawo' },
-  { id: 'l-yo-gr-03', subject: 'Languages', topic: 'Yoruba: Greetings', ageGroup: [9, 10], difficulty: Difficulty.Medium, question: 'Good Morning', options: ['Kaaro', 'Kaale', 'Kaasan', 'O dabo'], correctAnswer: 'Kaaro' },
-  { id: 'l-yo-gr-04', subject: 'Languages', topic: 'Yoruba: Greetings', ageGroup: [9, 10], difficulty: Difficulty.Medium, question: 'Good Afternoon', options: ['Kaasan', 'Kaaro', 'Kaale', 'E se'], correctAnswer: 'Kaasan' },
-  { id: 'l-yo-gr-05', subject: 'Languages', topic: 'Yoruba: Greetings', ageGroup: [9, 10], difficulty: Difficulty.Medium, question: 'Goodbye', options: ['O dabo', 'Bawo', 'E se', 'Kaaro'], correctAnswer: 'O dabo' },
+  { id: 'l-yo-gr-01', subject: 'Languages', topic: 'Yoruba: Greetings', ageGroup: [7, 8, 9, 10, 11], difficulty: Difficulty.Easy, question: 'How do you say “Thank you” in Yoruba?', options: ['Ẹ ṣé', 'Báwo ni?', 'Ó dàbọ̀', 'Ẹ káàárọ̀'], correctAnswer: 'Ẹ ṣé' },
+  { id: 'l-yo-gr-02', subject: 'Languages', topic: 'Yoruba: Greetings', ageGroup: [7, 8, 9, 10, 11], difficulty: Difficulty.Easy, question: 'Which Yoruba phrase means “How are you?”', options: ['Báwo ni?', 'Ẹ ṣé', 'Ó dàbọ̀', 'Ẹ káalẹ́'], correctAnswer: 'Báwo ni?' },
+  { id: 'l-yo-gr-03', subject: 'Languages', topic: 'Yoruba: Greetings', ageGroup: [7, 8, 9, 10, 11], difficulty: Difficulty.Easy, question: 'How do you say “Good morning” politely in Yoruba?', options: ['Ẹ káàárọ̀', 'Ẹ káalẹ́', 'Ẹ káàsán', 'Ó dàbọ̀'], correctAnswer: 'Ẹ káàárọ̀' },
+  { id: 'l-yo-gr-04', subject: 'Languages', topic: 'Yoruba: Greetings', ageGroup: [7, 8, 9, 10, 11], difficulty: Difficulty.Medium, question: 'Which Yoruba greeting is used for “Good afternoon”?', options: ['Ẹ káàsán', 'Ẹ káàárọ̀', 'Ẹ káalẹ́', 'Ẹ ṣé'], correctAnswer: 'Ẹ káàsán' },
+  { id: 'l-yo-gr-05', subject: 'Languages', topic: 'Yoruba: Greetings', ageGroup: [7, 8, 9, 10, 11], difficulty: Difficulty.Medium, question: 'Which Yoruba phrase means “Goodbye”?', options: ['Ó dàbọ̀', 'Báwo ni?', 'Ẹ ṣé', 'Ẹ káàárọ̀'], correctAnswer: 'Ó dàbọ̀' },
 
   // Family
-  { id: 'l-yo-fa-01', subject: 'Languages', topic: 'Yoruba: Family', ageGroup: [9, 10], difficulty: Difficulty.Medium, question: 'Mother', options: ['Iya', 'Baba', 'Omo', 'Ore'], correctAnswer: 'Iya' },
-  { id: 'l-yo-fa-02', subject: 'Languages', topic: 'Yoruba: Family', ageGroup: [9, 10], difficulty: Difficulty.Medium, question: 'Father', options: ['Baba', 'Iya', 'Egbon', 'Aburo'], correctAnswer: 'Baba' },
-  { id: 'l-yo-fa-03', subject: 'Languages', topic: 'Yoruba: Family', ageGroup: [9, 10], difficulty: Difficulty.Medium, question: 'Child', options: ['Omo', 'Iya', 'Baba', 'Agba'], correctAnswer: 'Omo' },
-  { id: 'l-yo-fa-04', subject: 'Languages', topic: 'Yoruba: Family', ageGroup: [9, 10], difficulty: Difficulty.Medium, question: 'Elder Sibling', options: ['Egbon', 'Aburo', 'Iya', 'Baba'], correctAnswer: 'Egbon' },
-  { id: 'l-yo-fa-05', subject: 'Languages', topic: 'Yoruba: Family', ageGroup: [9, 10], difficulty: Difficulty.Medium, question: 'Younger Sibling', options: ['Aburo', 'Egbon', 'Omo', 'Ore'], correctAnswer: 'Aburo' },
+  { id: 'l-yo-fa-01', subject: 'Languages', topic: 'Yoruba: Family', ageGroup: [7, 8, 9, 10, 11], difficulty: Difficulty.Easy, question: 'Which Yoruba word means “mother”?', options: ['Ìyá', 'Bàbá', 'Ọmọ', 'Ọ̀rẹ́'], correctAnswer: 'Ìyá' },
+  { id: 'l-yo-fa-02', subject: 'Languages', topic: 'Yoruba: Family', ageGroup: [7, 8, 9, 10, 11], difficulty: Difficulty.Easy, question: 'Which Yoruba word means “father”?', options: ['Bàbá', 'Ìyá', 'Ẹ̀gbọ́n', 'Àbúrò'], correctAnswer: 'Bàbá' },
+  { id: 'l-yo-fa-03', subject: 'Languages', topic: 'Yoruba: Family', ageGroup: [7, 8, 9, 10, 11], difficulty: Difficulty.Easy, question: 'Which Yoruba word means “child”?', options: ['Ọmọ', 'Ìyá', 'Bàbá', 'Àgbà'], correctAnswer: 'Ọmọ' },
+  { id: 'l-yo-fa-04', subject: 'Languages', topic: 'Yoruba: Family', ageGroup: [7, 8, 9, 10, 11], difficulty: Difficulty.Medium, question: 'Which Yoruba word means “older sibling”?', options: ['Ẹ̀gbọ́n', 'Àbúrò', 'Ìyá', 'Bàbá'], correctAnswer: 'Ẹ̀gbọ́n' },
+  { id: 'l-yo-fa-05', subject: 'Languages', topic: 'Yoruba: Family', ageGroup: [7, 8, 9, 10, 11], difficulty: Difficulty.Medium, question: 'Which Yoruba word means “younger sibling”?', options: ['Àbúrò', 'Ẹ̀gbọ́n', 'Ọmọ', 'Ọ̀rẹ́'], correctAnswer: 'Àbúrò' },
 
   // ===== ROMANIAN =====
   // Greetings

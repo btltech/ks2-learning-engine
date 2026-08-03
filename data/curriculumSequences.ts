@@ -15,7 +15,7 @@ export interface CurriculumUnit {
 type UnitSpec = readonly [title: string, objective: string, bankTopic: string, practicalNote?: string];
 type YearSequence = Record<YearGroup, readonly UnitSpec[]>;
 
-export const CURATED_LANGUAGES = ['French', 'Spanish', 'German', 'Welsh'] as const;
+export const CURATED_LANGUAGES = ['French', 'Spanish', 'German', 'Welsh', 'Yoruba', 'Romanian'] as const;
 
 const coreSequences: Record<string, YearSequence> = {
   Maths: {

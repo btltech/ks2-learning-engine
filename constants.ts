@@ -36,6 +36,8 @@ export const LANGUAGES = [
   { name: 'Spanish', flag: '🇪🇸', greeting: 'Hola' },
   { name: 'German', flag: '🇩🇪', greeting: 'Hallo' },
   { name: 'Welsh', flag: '🏴󠁧󠁢󠁷󠁬󠁳󠁿', greeting: 'Helo' },
+  { name: 'Yoruba', flag: '🇳🇬', greeting: 'Báwo ni?' },
+  { name: 'Romanian', flag: '🇷🇴', greeting: 'Salut' },
 ];
 
 // Design System Tokens (Fix #2)
