@@ -1,5 +1,5 @@
 import React from 'react';
-import { GRADIENTS, SHADOWS, RADIUS } from '../constants';
+import { GRADIENTS, RADIUS } from '../constants';
 
 export type ButtonVariant = 'primary' | 'success' | 'warning' | 'danger' | 'secondary' | 'ghost' | 'gradient';
 export type ButtonSize = 'sm' | 'md' | 'lg' | 'xl';

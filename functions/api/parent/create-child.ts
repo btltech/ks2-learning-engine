@@ -24,7 +24,7 @@ type PagesFunction<E = unknown> = (context: {
   next: (input?: Request | string, init?: RequestInit) => Promise<Response>;
 }) => Response | Promise<Response>;
 
-interface Env extends FirebaseFunctionEnv {}
+type Env = FirebaseFunctionEnv;
 
 const isQuotaError = (error: unknown): boolean =>
   /quota|resource[_ -]?exhausted/i.test(error instanceof Error ? error.message : String(error));

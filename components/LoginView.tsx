@@ -19,7 +19,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [name, setName] = useState('');
-  const role: 'parent' = 'parent';
+  const role = 'parent' as const;
   const [age, setAge] = useState<number>(9);
   const [parentCode, setParentCode] = useState('');
   const [pin, setPin] = useState('');
@@ -54,7 +54,6 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
     if (searchParams.get('verified') === 'true') {
       setSuccessMessage('Your email has been verified! Please sign in to continue.');
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Fetch runtime config (lets Cloudflare enable Turnstile without rebuilding the frontend bundle)

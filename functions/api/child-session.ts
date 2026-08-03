@@ -654,6 +654,8 @@ async function commitSetChildPinHash(
   }
 }
 
+// Kept for the migration/admin repair path; the normal endpoint uses smaller commits.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function commitCreateChildAndLink(
   projectId: string,
   accessToken: string,

@@ -1,4 +1,5 @@
-import { QuizQuestion, Difficulty, QuestionType, CognitiveLevel, BankQuestion } from '../types';
+/* eslint-disable no-case-declarations -- each case returns immediately; declarations are not shared. */
+import { Difficulty, QuestionType, BankQuestion } from '../types';
 import { CURATED_LANGUAGES } from './curriculumSequences';
 
 export type { BankQuestion };

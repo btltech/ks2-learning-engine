@@ -38,7 +38,10 @@ export const TurnstileWidget: React.FC<TurnstileWidgetProps> = ({ siteKey, onTok
         await loadScript();
         if (cancelled) return;
         if (!containerRef.current) return;
-        const turnstile = (window as any).turnstile as { render?: Function; remove?: Function } | undefined;
+        const turnstile = (window as unknown as { turnstile?: {
+          render?: (container: HTMLElement, options: Record<string, unknown>) => string;
+          remove?: (widgetId: string) => void;
+        } }).turnstile;
         if (!turnstile?.render) return;
 
         widgetIdRef.current = turnstile.render(containerRef.current, {
@@ -60,7 +63,7 @@ export const TurnstileWidget: React.FC<TurnstileWidgetProps> = ({ siteKey, onTok
       cancelled = true;
       const widgetId = widgetIdRef.current;
       widgetIdRef.current = null;
-      const turnstile = (window as any).turnstile as { remove?: Function } | undefined;
+      const turnstile = (window as unknown as { turnstile?: { remove?: (widgetId: string) => void } }).turnstile;
       if (widgetId && turnstile?.remove) {
         try {
           turnstile.remove(widgetId);

@@ -1,6 +1,6 @@
 import React from 'react';
 import InfoPage from './InfoPage';
-import { GRADIENTS, RADIUS, SHADOWS } from '../constants';
+import { RADIUS } from '../constants';
 
 const ParentGuide: React.FC = () => {
   return (

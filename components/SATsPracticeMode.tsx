@@ -8,10 +8,9 @@ import {
   ChevronRight, 
   ChevronLeft,
   Flag,
-  Save,
   Loader2
 } from 'lucide-react';
-import { BankQuestion, SATsSession, YearGroup, Difficulty } from '../types';
+import { BankQuestion, YearGroup, Difficulty } from '../types';
 import { generateSATsQuiz, SATsPaperType } from '../services/geminiService';
 
 // No static fallback - SATs always uses AI generation

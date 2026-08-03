@@ -43,7 +43,6 @@ export const QuizBattleMode: React.FC<QuizBattleProps> = ({ onClose, onComplete 
   const [countdown, setCountdown] = useState(3);
   
   // Connection state
-  const [isConnected, setIsConnected] = useState(true);
   const [opponentOnline, setOpponentOnline] = useState(true);
   
   // Refs
@@ -396,7 +395,7 @@ export const QuizBattleMode: React.FC<QuizBattleProps> = ({ onClose, onComplete 
         setError('Could not join this battle');
         loadOpenBattles(); // Refresh list
       }
-    } catch (err) {
+    } catch {
       setError('Failed to join battle');
     } finally {
       setLoading(false);

@@ -14,8 +14,6 @@ import {
   update, 
   remove, 
   onValue,
-  push,
-  serverTimestamp,
   Unsubscribe
 } from 'firebase/database';
 import { Difficulty, QuizQuestion } from '../types';

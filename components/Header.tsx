@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
-import { AcademicCapIcon, StarIcon, ShoppingBagIcon, ChartBarIcon, ArrowRightOnRectangleIcon, FireIcon, TrophyIcon, Cog6ToothIcon } from '@heroicons/react/24/solid';
+import { AcademicCapIcon, StarIcon, ShoppingBagIcon, ChartBarIcon, ArrowRightOnRectangleIcon, FireIcon, TrophyIcon } from '@heroicons/react/24/solid';
 import AvatarDisplay from './AvatarDisplay';
 import { UserProfile } from '../types';
 import { useGameSounds } from '../hooks/useGameSounds';

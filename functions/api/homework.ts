@@ -23,6 +23,7 @@ const HOMEWORK_COLLECTION = 'homeworkAssignments';
 const SUBMISSION_COLLECTION = 'homeworkSubmissions';
 
 function cleanText(value: unknown, max: number) {
+  // eslint-disable-next-line no-control-regex
   return typeof value === 'string' ? value.replace(/[\u0000-\u001F\u007F]/g, '').trim().slice(0, max) : '';
 }
 

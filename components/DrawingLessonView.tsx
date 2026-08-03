@@ -12,7 +12,7 @@ export const DrawingLessonView: React.FC<DrawingLessonViewProps> = ({
   lesson,
   onComplete,
   onBack,
-  studentAge,
+  studentAge: _studentAge,
 }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [completedSteps, setCompletedSteps] = useState<Set<number>>(new Set());

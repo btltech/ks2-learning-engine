@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { classroomService, ClassroomSession, ClassroomStudent, SessionStatus } from '../services/classroomService';
+import { classroomService, ClassroomSession, ClassroomStudent } from '../services/classroomService';
 import { QuizQuestion, Difficulty } from '../types';
 import { generateQuiz } from '../services/geminiService';
 import { SUBJECTS } from '../constants';
@@ -65,7 +65,7 @@ type ViewMode = 'menu' | 'create' | 'join' | 'waiting' | 'active' | 'results';
 const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeacher, onExit }) => {
   const [viewMode, setViewMode] = useState<ViewMode>('menu');
   const [session, setSession] = useState<ClassroomSession | null>(null);
-  const [sessionCode, setSessionCode] = useState('');
+  const [, setSessionCode] = useState('');
   const [joinCode, setJoinCode] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -295,8 +295,6 @@ const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeach
 
   // Create Session View
   if (viewMode === 'create') {
-    const subjectInfo = selectedSubject ? SUBJECTS.find(s => s.name === selectedSubject) : null;
-
     return (
       <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 p-4">
         <div className="max-w-2xl mx-auto">

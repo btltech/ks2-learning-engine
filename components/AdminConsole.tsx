@@ -35,15 +35,6 @@ interface SystemStats {
   totalAttempts: number;
 }
 
-interface UserSummary {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-  lastActive: string;
-  status: 'active' | 'inactive';
-}
-
 type AdminView = 'dashboard' | 'users' | 'content' | 'analytics' | 'settings';
 
 interface AdminConsoleProps {
@@ -240,7 +231,6 @@ const DashboardView: React.FC<{
 
   useEffect(() => {
     loadClaims(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const statCards = [
@@ -438,7 +428,6 @@ const UserManagementView: React.FC = () => {
 
   useEffect(() => {
     loadUsers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const filteredUsers = users.filter((candidate) => {

@@ -118,6 +118,7 @@ function sanitizeText(value: unknown, maxLen: number): string {
   return value
     .replace(/[\u200B-\u200D\uFEFF]/g, '')
     .replace(/[<>]/g, '')
+    // eslint-disable-next-line no-control-regex
     .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '')
     .trim()
     .slice(0, maxLen);

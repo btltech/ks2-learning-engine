@@ -1,7 +1,7 @@
 import React from 'react';
 import InfoPage from './InfoPage';
 import { useNavigate } from 'react-router-dom';
-import { GRADIENTS, RADIUS, SHADOWS } from '../constants';
+import { RADIUS, SHADOWS } from '../constants';
 
 const HowItWorks: React.FC = () => {
   const navigate = useNavigate();

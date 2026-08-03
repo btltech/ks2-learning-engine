@@ -287,7 +287,7 @@ const addExpressionMarkers = (text: string, style: SpeechStyle): string => {
     case 'excited':
       // Add enthusiasm to questions and exclamations
       return text
-        .replace(/\!/g, '! ')
+        .replace(/!/g, '! ')
         .replace(/\?/g, '? ')
         .replace(/\.\s+/g, '. ');
     
@@ -326,8 +326,6 @@ const getOptimalRate = (text: string, baseRate: number = 1.0): number => {
 };
 
 // Cache for audio to avoid re-synthesizing
-const audioCache = new Map<string, AudioBuffer>();
-
 /**
  * Main speak function using Web Speech API with enhanced settings
  * This is the fallback that works everywhere

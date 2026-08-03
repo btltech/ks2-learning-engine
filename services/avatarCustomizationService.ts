@@ -215,7 +215,7 @@ class AvatarCustomizationService {
       case 'default':
         return { unlocked: true, progress: 100, progressText: 'Unlocked!' };
       
-      case 'xp':
+      case 'xp': {
         const xpNeeded = value as number;
         const xpProgress = Math.min((currentXp / xpNeeded) * 100, 100);
         return {
@@ -223,8 +223,9 @@ class AvatarCustomizationService {
           progress: xpProgress,
           progressText: `${currentXp}/${xpNeeded} XP`,
         };
+      }
       
-      case 'streak':
+      case 'streak': {
         const streakNeeded = value as number;
         const streakProgress = Math.min((currentStreak / streakNeeded) * 100, 100);
         return {
@@ -232,6 +233,7 @@ class AvatarCustomizationService {
           progress: streakProgress,
           progressText: `${currentStreak}/${streakNeeded} day streak`,
         };
+      }
       
       case 'achievement':
         return {

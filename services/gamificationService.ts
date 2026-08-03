@@ -3,7 +3,6 @@
  * Handles daily missions, virtual pets, streaks, and rewards
  */
 
-import { Subject } from '../types';
 
 export interface DailyMission {
   id: string;

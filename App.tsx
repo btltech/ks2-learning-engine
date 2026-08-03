@@ -75,10 +75,6 @@ const SATsPracticeMode = lazy(() => import('./components/SATsPracticeMode').then
 
 // Phase 1 & 2 - New Features
 const MicrolearningDashboard = lazy(() => import('./components/MicrolearningDashboard'));
-const DailyMissionsPanel = lazy(() => import('./components/DailyMissionsPanel'));
-const VirtualPetWidget = lazy(() => import('./components/VirtualPetWidget'));
-const VoiceCommandButton = lazy(() => import('./components/VoiceCommandButton'));
-const StruggleAlert = lazy(() => import('./components/StruggleAlert'));
 
 // Info & Policy Pages
 const PrivacyPolicy = lazy(() => import('./components/PrivacyPolicy'));

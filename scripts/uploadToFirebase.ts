@@ -13,7 +13,7 @@ const __dirname = path.dirname(__filename);
 // 1. Load Environment Variables manually (since we are in a script)
 const envPath = path.resolve(__dirname, '../.env');
 const envLocalPath = path.resolve(__dirname, '../.env.local');
-let envConfig: any = {};
+const envConfig: any = {};
 
 const loadEnv = (filePath: string) => {
   if (fs.existsSync(filePath)) {
@@ -60,7 +60,7 @@ async function uploadQuestions() {
   let batch = writeBatch(db);
   let count = 0;
   let totalUploaded = 0;
-  let skipped = 0;
+  const skipped = 0;
 
   for (const question of allGeneratedQuestions) {
     const questionRef = doc(db, "questions", question.id);

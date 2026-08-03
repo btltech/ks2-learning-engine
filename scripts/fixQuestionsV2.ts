@@ -13,17 +13,17 @@ const __dirname = path.dirname(__filename);
 const GENERATED_DIR = path.join(__dirname, '../data/questions/generated');
 
 function fixFile(filePath: string, subject: string): { fixed: number; removed: number } {
-  let content = fs.readFileSync(filePath, 'utf-8');
-  let fixed = 0;
+  const content = fs.readFileSync(filePath, 'utf-8');
+  const fixed = 0;
   let removed = 0;
 
   // Split into lines for processing
   const lines = content.split('\n');
   const newLines: string[] = [];
   let inBrokenQuestion = false;
-  let braceDepth = 0;
+  const braceDepth = 0;
   let questionStartLine = -1;
-  let skipLines: number[] = [];
+  const skipLines: number[] = [];
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];

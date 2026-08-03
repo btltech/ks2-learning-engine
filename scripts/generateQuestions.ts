@@ -310,7 +310,7 @@ async function main() {
       const safeSubjectName = subject.replace(/\s+/g, '');
       const outputPath = path.join(outputDir, `${safeSubjectName}.ts`);
       
-      let existingQuestions: GeneratedQuestion[] = [];
+      const existingQuestions: GeneratedQuestion[] = [];
       
       // Read existing questions if file exists
       if (fs.existsSync(outputPath)) {

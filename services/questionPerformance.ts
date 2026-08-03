@@ -518,7 +518,7 @@ export const clearPerformanceData = (): void => {
 // Adaptive difficulty suggestion based on recent performance
 export const suggestDifficultyAdjustment = (
   recentQuizScores: number[], // Last N quiz scores (0-100)
-  currentDifficulty: string
+  _currentDifficulty: string
 ): 'easier' | 'same' | 'harder' => {
   if (recentQuizScores.length < 3) return 'same';
   

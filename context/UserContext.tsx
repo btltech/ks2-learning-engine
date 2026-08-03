@@ -45,31 +45,6 @@ const AVAILABLE_BADGES: Badge[] = [
   { id: 'language-learner', name: 'Polyglot', description: 'Complete a Language lesson', icon: '🌍' },
 ];
 
-const INITIAL_USER: UserProfile = {
-  id: 'user-1',
-  name: 'Student',
-  role: 'student',
-  age: 9, // Default age
-  avatarConfig: { color: '#4F46E5' },
-  totalPoints: 0,
-  unlockedItems: [],
-  badges: [],
-  streak: 0,
-  lastLoginDate: new Date().toISOString(),
-  mastery: {},
-  timeSpentLearning: {},
-  quizHistory: [],
-  preferredDifficulty: Difficulty.Medium,
-  weeklyGoal: 180, // 3 hours per week
-  weeklyProgress: {
-    week: new Date().toISOString().split('T')[0],
-    minutesLearned: 0,
-    quizzesTaken: 0,
-    averageScore: 0,
-    goalMet: false
-  }
-};
-
 export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<UserProfile | null>(null);
   // authReady: true once Firebase Auth has resolved its initial state (so we never flash

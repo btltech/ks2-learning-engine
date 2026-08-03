@@ -30,6 +30,7 @@ const CLASS_CODE_COLLECTION = 'classCodes';
 const CODE_ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 
 function cleanText(value: unknown, max: number) {
+  // eslint-disable-next-line no-control-regex
   return typeof value === 'string' ? value.replace(/[\u0000-\u001F\u007F]/g, '').trim().slice(0, max) : '';
 }
 

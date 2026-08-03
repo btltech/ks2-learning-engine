@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { teacherAnalyticsService, ClassData, ClassAnalytics, StudentProgress } from '../services/teacherAnalyticsService';
+import { teacherAnalyticsService, ClassData, ClassAnalytics } from '../services/teacherAnalyticsService';
 import { homeworkService, Homework } from '../services/homeworkService';
 
 interface Props {

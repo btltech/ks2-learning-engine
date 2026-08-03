@@ -5,7 +5,6 @@ import {
   CheckCircleIcon,
   ArrowPathIcon,
   FunnelIcon,
-  TrashIcon,
   EyeIcon
 } from '@heroicons/react/24/solid';
 import { 

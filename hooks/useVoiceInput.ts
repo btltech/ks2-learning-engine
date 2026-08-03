@@ -6,7 +6,7 @@
  */
 
 import { useState, useCallback, useEffect, useRef } from 'react';
-import type { ISpeechRecognition, SpeechRecognitionEvent, SpeechRecognitionErrorEvent } from '../types/speechRecognition.d';
+import type { ISpeechRecognition } from '../types/speechRecognition.d';
 
 export interface VoiceInputConfig {
   language?: string;

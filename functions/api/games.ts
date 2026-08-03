@@ -61,6 +61,7 @@ interface StoredGameSession {
 
 function cleanText(value: unknown, max: number) {
   return typeof value === 'string' || typeof value === 'number'
+    // eslint-disable-next-line no-control-regex
     ? String(value).replace(/[\u0000-\u001F\u007F]/g, '').trim().slice(0, max)
     : '';
 }

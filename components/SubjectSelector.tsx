@@ -1,5 +1,5 @@
 import React from 'react';
-import { SUBJECTS, RADIUS, SUBJECT_COLORS } from '../constants';
+import { SUBJECTS, RADIUS } from '../constants';
 import type { Subject, ProgressData } from '../types';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { useGameSounds } from '../hooks/useGameSounds';
@@ -27,7 +27,6 @@ const SubjectSelector: React.FC<SubjectSelectorProps> = ({ onSelect, progress })
         {SUBJECTS.map((subject, index) => {
           const completedTopics = progress[subject.name]?.length || 0;
           const isCompleted = completedTopics > 0;
-          const colorScheme = SUBJECT_COLORS[subject.name as keyof typeof SUBJECT_COLORS];
           
           return (
             <button

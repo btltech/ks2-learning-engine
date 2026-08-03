@@ -444,7 +444,7 @@ Contact: api-support@demiwuraks2.co.uk
     return Promise.resolve();
   }
   
-  private async verifyToken(config: SchoolConfig, token: string): Promise<any> {
+  private async verifyToken(config: SchoolConfig, _token: string): Promise<any> {
     // In production, verify with school's OAuth provider
     console.log(`Verifying SSO token with ${config.sisType}...`);
     

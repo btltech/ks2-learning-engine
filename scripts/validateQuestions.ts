@@ -263,7 +263,7 @@ async function loadQuestionsFromFile(filePath: string): Promise<any[]> {
     // Parse the questions by evaluating the structure
     // This is a simplified parser - in production use proper AST parsing
     const questions: any[] = [];
-    const questionBlocks = content.split(/\n  \{[\s\n]+id:/g).slice(1);
+    const questionBlocks = content.split(/\n {2}\{[\s\n]+id:/g).slice(1);
     
     for (const block of questionBlocks) {
       try {

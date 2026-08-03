@@ -6,11 +6,10 @@ import {
   Clock, 
   ChevronDown, 
   ChevronRight, 
-  Filter,
   PieChart,
   Award
 } from 'lucide-react';
-import { nationalCurriculumObjectives, getObjectivesByYear, getObjectivesBySubject } from '../data/nationalCurriculum';
+import { nationalCurriculumObjectives } from '../data/nationalCurriculum';
 import { YearGroup, NCObjective } from '../types';
 
 // Mock progress data generator (since we don't have a real backend yet)
@@ -63,7 +62,7 @@ export const CurriculumCoverageDashboard: React.FC<CurriculumCoverageDashboardPr
 
   // Calculate stats
   const stats = useMemo(() => {
-    let total = filteredObjectives.length;
+    const total = filteredObjectives.length;
     let mastered = 0;
     let inProgress = 0;
     let notStarted = 0;

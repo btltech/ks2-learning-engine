@@ -5,7 +5,7 @@
  * Provides insights for students, parents, and teachers
  */
 
-import { Difficulty, QuizSession } from '../types';
+import { QuizSession } from '../types';
 
 // Local type aliases for analytics
 type Subject = string;

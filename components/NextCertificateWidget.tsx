@@ -12,7 +12,6 @@ export default function NextCertificateWidget() {
 
   const calculateNextGoal = () => {
     const summary = progressVisualizationService.getWeeklySummary();
-    const certificates = progressVisualizationService.getCertificates();
     
     // Determine next certificate goal
     let goal = null;

@@ -10,7 +10,7 @@ interface AgeGroupedLeaderboardProps {
 
 const AgeGroupedLeaderboard: React.FC<AgeGroupedLeaderboardProps> = ({
   studentId,
-  studentAge = 9,
+  studentAge: _studentAge = 9,
   limit = 10,
 }) => {
   const [viewMode, setViewMode] = useState<'age-group' | 'global'>('age-group');

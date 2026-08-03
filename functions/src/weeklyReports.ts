@@ -41,7 +41,7 @@ interface WeeklyStats {
 export const sendWeeklyReports = functions.pubsub
   .schedule('0 18 * * 0') // Every Sunday at 6pm
   .timeZone('Europe/London')
-  .onRun(async (context) => {
+  .onRun(async (_context) => {
     console.log('Starting weekly report generation...');
 
     try {

@@ -7,7 +7,6 @@ import AgeGroupedLeaderboard from './AgeGroupedLeaderboard';
 import SubjectProgressCharts from './SubjectProgressCharts';
 import { useUser } from '../context/UserContext';
 import { firebaseAuthService } from '../services/firebaseAuthService';
-import { SUBJECTS } from '../constants';
 
 interface ParentMonitoringDashboardProps {
   onLogout: () => void | Promise<void>;

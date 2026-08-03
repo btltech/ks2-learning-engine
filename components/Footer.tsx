@@ -7,7 +7,7 @@ interface FooterProps {
   userRole?: 'student' | 'teacher' | 'parent' | 'admin';
 }
 
-const Footer: React.FC<FooterProps> = ({ userRole = 'student' }) => {
+const Footer: React.FC<FooterProps> = () => {
   const navigate = useNavigate();
   const [showFeedback, setShowFeedback] = useState(false);
   const currentYear = new Date().getFullYear();

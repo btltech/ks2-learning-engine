@@ -5,7 +5,7 @@
  * between two players on different devices/locations
  */
 
-import { initializeApp, getApps, getApp } from 'firebase/app';
+import { initializeApp, getApp } from 'firebase/app';
 import { 
   getDatabase, 
   ref, 
@@ -15,9 +15,6 @@ import {
   remove, 
   onValue, 
   onDisconnect,
-  serverTimestamp,
-  push,
-  child,
   DatabaseReference,
   Unsubscribe
 } from 'firebase/database';
@@ -568,7 +565,6 @@ class RealtimeBattleService {
    */
   async cleanupOldBattles(): Promise<void> {
     const battlesRef = ref(database, 'battles');
-    const codesRef = ref(database, 'battleCodes');
     const snapshot = await get(battlesRef);
     
     if (!snapshot.exists()) return;

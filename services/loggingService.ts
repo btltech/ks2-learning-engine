@@ -96,7 +96,7 @@ class LoggingService {
       // Keep only recent logs
       const recentLogs = this.logs.slice(-this.MAX_LOGS);
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(recentLogs));
-    } catch (e) {
+    } catch {
       // Storage full - clear old logs
       this.logs = this.logs.slice(-100);
     }
@@ -261,7 +261,7 @@ class LoggingService {
   }
 
   // Send to remote logging service (placeholder)
-  private async sendToRemote(entry: LogEntry): Promise<void> {
+  private async sendToRemote(_entry: LogEntry): Promise<void> {
     // In a real app, this would send to a logging service like Sentry, LogRocket, etc.
     // For now, just a placeholder
     try {
@@ -269,7 +269,7 @@ class LoggingService {
       //   method: 'POST',
       //   body: JSON.stringify(entry),
       // });
-    } catch (e) {
+    } catch {
       // Silently fail - don't want logging to break the app
     }
   }

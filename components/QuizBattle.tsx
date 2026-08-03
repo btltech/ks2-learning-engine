@@ -247,13 +247,8 @@ export const QuizBattleMode: React.FC<QuizBattleProps> = ({ onClose, onComplete 
       // Bot answers after a random delay (2-5 seconds)
       const botDelay = 2000 + Math.random() * 3000;
       const botTimer = setTimeout(() => {
-        const currentQuestion = battle.questions[currentQuestionIndex];
         // Bot has 70% chance to answer correctly
         const botCorrect = Math.random() < 0.7;
-        const botAnswerIndex = botCorrect 
-          ? currentQuestion.correctAnswer 
-          : (currentQuestion.correctAnswer + 1 + Math.floor(Math.random() * 3)) % 4;
-        
         multiplayerBattleService.submitAnswer(
           battle.id,
           'bot_opponent',

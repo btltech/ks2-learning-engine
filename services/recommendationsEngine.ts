@@ -156,7 +156,6 @@ class RecommendationsEngine {
     const endIndex = Math.min(topicProgression.length, targetLevel);
     
     const steps = topicProgression.slice(startIndex, endIndex).map((topic, index) => {
-      const topicKey = `${subject}:${topic}`;
       const completed = this.isTopicCompleted(sessions, subject, topic);
       const score = this.getTopicScore(sessions, subject, topic);
       

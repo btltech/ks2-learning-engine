@@ -35,7 +35,6 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
   const studentProfile = useMemo(() => {
     if (!user?.id) return undefined;
     return adaptiveLearningEngine.analyzeStudent(user.id);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.id, user?.quizHistory?.length]);
   // Detect if this is a language subject and extract the language
   const isLanguageSubject = (CURATED_LANGUAGES as readonly string[]).includes(subject);
@@ -554,7 +553,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
             content,
             correctZoneId: currentQuestion.dropZones?.[idx] || `zone-${idx}`
           }))}
-          zones={[...new Set(currentQuestion.dropZones)].map((label, idx) => ({
+          zones={[...new Set(currentQuestion.dropZones)].map((label, _idx) => ({
             id: label,
             label
           }))}

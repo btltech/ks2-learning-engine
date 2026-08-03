@@ -309,7 +309,7 @@ class ScoringRubricService {
     return 'Needs Improvement';
   }
 
-  private getOverallFeedback(percentage: number, studentAge: number): string {
+  private getOverallFeedback(percentage: number, _studentAge: number): string {
     if (percentage >= 90) {
       return `Absolutely amazing work! You scored ${percentage}%! You're a superstar learner! 🌟`;
     } else if (percentage >= 70) {

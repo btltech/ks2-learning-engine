@@ -186,7 +186,7 @@ function fixQuestionFile(filePath: string, subject: string): FixResult {
 }
 
 function removeUnfixableQuestions(filePath: string, subject: string): number {
-  let content = fs.readFileSync(filePath, 'utf-8');
+  const content = fs.readFileSync(filePath, 'utf-8');
   let removed = 0;
 
   // Find and remove question blocks with null/undefined/empty correctAnswer

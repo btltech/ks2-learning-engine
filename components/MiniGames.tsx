@@ -1,4 +1,4 @@
-import React, { FormEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import confetti from 'canvas-confetti';
 import { useGameSounds } from '../hooks/useGameSounds';
 import {
@@ -489,7 +489,8 @@ const GamePlayer: React.FC<GamePlayerProps> = ({ definition, session, onSessionC
       const response = await gameService.answerQuestion(session.sessionId, question.id, value);
       nextResponseRef.current = response;
       setFeedback({ correct: response.correct, answer: response.correctAnswer, explanation: response.explanation });
-      response.correct ? playCorrect() : playIncorrect();
+      if (response.correct) playCorrect();
+      else playIncorrect();
       window.setTimeout(() => {
         const next = nextResponseRef.current;
         if (!next) return;

@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { nationalCurriculumObjectives } from '../data/nationalCurriculum';
-import { NCObjective, UserProfile, YearGroup } from '../types';
-import { ChevronDownIcon, ChevronUpIcon, CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid';
+import { NCObjective, UserProfile } from '../types';
+import { ChevronDownIcon, ChevronUpIcon, CheckCircleIcon } from '@heroicons/react/24/solid';
 
 interface CurriculumTrackingProps {
   user: UserProfile;
@@ -121,7 +121,7 @@ const CurriculumTracking: React.FC<CurriculumTrackingProps> = ({ user }) => {
     return grouped;
   }, [userYearGroup]);
 
-  const getMasteryStatus = (subject: string, strand: string, objective: NCObjective) => {
+  const getMasteryStatus = (subject: string, strand: string, _objective: NCObjective) => {
     // Check if we have direct mastery data for the topic corresponding to this strand
     if (!user.mastery || !user.mastery[subject]) return 'not-started';
 

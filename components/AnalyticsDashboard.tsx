@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { analyticsService, AnalyticsSummary, TopicPerformance, DailyActivity } from '../services/analyticsService';
+import { analyticsService, AnalyticsSummary, TopicPerformance } from '../services/analyticsService';
 import { streakRewardsService } from '../services/streakRewardsService';
 
 interface AnalyticsDashboardProps {
@@ -193,7 +193,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                 </p>
               ) : (
                 <div className="space-y-3">
-                  {summary.topicPerformance.map((topic, i) => (
+                  {summary.topicPerformance.map((topic, _i) => (
                     <div
                       key={`${topic.subject}-${topic.topic}`}
                       className={`${getMasteryBg(topic.masteryLevel)} rounded-xl p-4`}
@@ -247,7 +247,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                 {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, i) => (
                   <div key={i} className="text-center text-white/40 text-xs py-1">{day}</div>
                 ))}
-                {summary.dailyActivity.map((day, i) => {
+                {summary.dailyActivity.map((day) => {
                   const intensity = day.quizzesCompleted > 0
                     ? Math.min(day.quizzesCompleted / 5, 1)
                     : 0;

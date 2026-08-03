@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { microlearningService, MicroSession } from '../services/microlearningService';
+import { MicroSession } from '../services/microlearningService';
 import { useNavigate } from 'react-router-dom';
 
 interface Props {

@@ -5,7 +5,7 @@ import { offlineManager } from '../services/offlineManager';
 import LoadingSpinner from './LoadingSpinner';
 import { Skeleton } from './Skeleton';
 import { useTTSEnhanced } from '../hooks/useTTSEnhanced';
-import { ArrowLeftIcon, SpeakerWaveIcon, StopIcon, BoltIcon, BookOpenIcon, PauseIcon, PlayIcon } from '@heroicons/react/24/solid';
+import { ArrowLeftIcon, SpeakerWaveIcon, BoltIcon, BookOpenIcon, PauseIcon, PlayIcon } from '@heroicons/react/24/solid';
 import { useGameSounds } from '../hooks/useGameSounds';
 import PronunciationHelper from './PronunciationHelper';
 import { getCommonWords, getSupportedLanguages } from '../services/phoneticsService';
@@ -70,7 +70,7 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
     ? reviewedTopicVocabulary
     : supportsPhonetics ? getCommonWords(subject).slice(0, 12) : [];
   
-  const { speak, pause, resume, cancel, isSpeaking, isPaused, isLoading: isTTSLoading, progress: ttsProgress, errorMessage: ttsError, needsGesture, setNeedsGesture } = useTTSEnhanced(detectedLanguage, {
+  const { speak, pause, resume, cancel, isSpeaking, isPaused, isLoading: isTTSLoading, errorMessage: ttsError, needsGesture, setNeedsGesture } = useTTSEnhanced(detectedLanguage, {
     googleCloudApiKey: (import.meta as unknown as { env: { VITE_GOOGLE_CLOUD_TTS_API_KEY?: string } }).env?.VITE_GOOGLE_CLOUD_TTS_API_KEY
   });
   

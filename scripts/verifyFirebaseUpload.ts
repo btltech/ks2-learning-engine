@@ -11,7 +11,7 @@ const __dirname = path.dirname(__filename);
 // Load Env
 const envPath = path.resolve(__dirname, '../.env');
 const envLocalPath = path.resolve(__dirname, '../.env.local');
-let envConfig: any = {};
+const envConfig: any = {};
 
 const loadEnv = (filePath: string) => {
   if (fs.existsSync(filePath)) {
