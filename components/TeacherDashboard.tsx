@@ -2,13 +2,19 @@
  * Teacher Dashboard Component
  * 
  * Overview of class progress and student management
- * Note: This requires Firebase/backend integration to fetch real student data
- * Currently shows empty state - students would be loaded from a class roster
+ * Uses the authenticated shared classroom API so classes and assignments work
+ * across devices and learner accounts.
  */
 
 import React, { useState, useEffect } from 'react';
 import { useUser } from '../context/UserContext';
-import { ClassData, teacherAnalyticsService } from '../services/teacherAnalyticsService';
+import { Difficulty } from '../types';
+import {
+  SharedClass,
+  SharedHomework,
+  homeworkStats,
+  teacherWorkspaceService,
+} from '../services/teacherWorkspaceService';
 
 interface Student {
   id: string;
@@ -49,19 +55,41 @@ interface TeacherDashboardProps {
 export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onClose }) => {
   const { user } = useUser();
   const [students, setStudents] = useState<Student[]>([]);
-  const [classes, setClasses] = useState<ClassData[]>([]);
+  const [classes, setClasses] = useState<SharedClass[]>([]);
+  const [homework, setHomework] = useState<SharedHomework[]>([]);
   const [selectedClassId, setSelectedClassId] = useState<string>('');
   const [newClassName, setNewClassName] = useState('');
   const [newClassGrade, setNewClassGrade] = useState('Year 5');
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const [view, setView] = useState<'overview' | 'students' | 'assignments' | 'reports'>('overview');
   const [timeRange, setTimeRange] = useState<'week' | 'month' | 'term'>('week');
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (!user?.id) return;
-    const savedClasses = teacherAnalyticsService.getClasses(user.id);
-    setClasses(savedClasses);
-    setSelectedClassId((current) => current || savedClasses[0]?.classId || '');
+    let cancelled = false;
+    setLoading(true);
+    setError('');
+    Promise.all([teacherWorkspaceService.getClasses(), teacherWorkspaceService.getHomework()])
+      .then(([sharedClasses, sharedHomework]) => {
+        if (cancelled) return;
+        setClasses(sharedClasses);
+        setHomework(sharedHomework);
+        setSelectedClassId((current) =>
+          sharedClasses.some((entry) => entry.classId === current) ? current : sharedClasses[0]?.classId || ''
+        );
+      })
+      .catch((reason) => {
+        if (!cancelled) setError(reason instanceof Error ? reason.message : 'Unable to load the shared classroom.');
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, [user?.id]);
 
   useEffect(() => {
@@ -76,31 +104,55 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onClose }) =
       return;
     }
 
-    const nextStudents = classData.students.map((studentId): Student => {
-      const progress = teacherAnalyticsService.getStudentProgress(studentId);
+    const nextStudents = (classData.students || []).map((progress): Student => {
       return {
-        id: studentId,
+        id: progress.studentId,
         name: progress.studentName,
-        age: Number(progress.grade.replace(/\D/g, '')) || 10,
+        age: progress.age || 10,
         avatarColor: '#6366f1',
-        points: 0,
-        streak: 0,
-        lastActive: progress.lastActive === 'Never' ? new Date().toISOString() : progress.lastActive,
+        points: progress.points,
+        streak: progress.streak,
+        lastActive: progress.lastActive || new Date(0).toISOString(),
         subjectMastery: progress.subjectMastery,
         quizzesCompleted: progress.totalQuizzes,
-        averageScore: Math.round(progress.averageScore),
+        averageScore: progress.averageScore,
       };
     });
     setStudents(nextStudents);
   }, [classes, selectedClassId, user?.id]);
 
-  const handleCreateClass = () => {
+  const handleCreateClass = async () => {
     if (!user?.id || !newClassName.trim()) return;
-    const created = teacherAnalyticsService.createClass(user.id, newClassName.trim(), newClassGrade);
-    const savedClasses = teacherAnalyticsService.getClasses(user.id);
-    setClasses(savedClasses);
-    setSelectedClassId(created.classId);
-    setNewClassName('');
+    setSaving(true);
+    setError('');
+    try {
+      const created = await teacherWorkspaceService.createClass(newClassName.trim(), newClassGrade);
+      setClasses((current) => [...current, { ...created, students: created.students || [] }]);
+      setSelectedClassId(created.classId);
+      setNewClassName('');
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : 'Unable to create the class.');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleRemoveStudent = async (studentId: string) => {
+    if (!selectedClassId || !window.confirm('Remove this learner from the selected class?')) return;
+    setError('');
+    try {
+      await teacherWorkspaceService.removeStudent(selectedClassId, studentId);
+      setClasses((current) => current.map((entry) => entry.classId === selectedClassId
+        ? {
+            ...entry,
+            studentIds: entry.studentIds.filter((id) => id !== studentId),
+            students: (entry.students || []).filter((student) => student.studentId !== studentId),
+          }
+        : entry));
+      setSelectedStudent(null);
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : 'Unable to remove the learner.');
+    }
   };
 
   // Calculate stats from actual student data
@@ -167,6 +219,16 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onClose }) =
       {/* Main Content */}
       <div className="flex-1 overflow-auto p-6">
         <div className="max-w-7xl mx-auto">
+          {error && (
+            <div className="mb-4 rounded-lg border border-red-200 bg-red-50 p-3 text-red-800" role="alert">
+              {error}
+            </div>
+          )}
+          {loading && (
+            <div className="mb-4 rounded-lg border border-indigo-100 bg-indigo-50 p-3 text-indigo-800">
+              Loading shared classroom data…
+            </div>
+          )}
           <div className="bg-white rounded-xl p-4 shadow mb-6 flex flex-col lg:flex-row lg:items-end gap-4">
             <div className="flex-1">
               <label className="block text-sm font-medium text-gray-700 mb-1">Active Class</label>
@@ -180,7 +242,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onClose }) =
                 ) : (
                   classes.map((classData) => (
                     <option key={classData.classId} value={classData.classId}>
-                      {classData.className} · {classData.grade} · {classData.students.length} students
+                      {classData.className} · {classData.grade} · {classData.studentIds.length} students
                     </option>
                   ))
                 )}
@@ -210,12 +272,24 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onClose }) =
             </div>
             <button
               onClick={handleCreateClass}
-              disabled={!newClassName.trim()}
+              disabled={!newClassName.trim() || saving}
               className="bg-indigo-600 disabled:bg-indigo-300 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700"
             >
-              Create Class
+              {saving ? 'Creating…' : 'Create Class'}
             </button>
           </div>
+
+          {classes.find((entry) => entry.classId === selectedClassId)?.joinCode && (
+            <div className="mb-6 rounded-xl border border-indigo-200 bg-indigo-50 p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+              <div>
+                <div className="font-bold text-indigo-900">Learner class code</div>
+                <div className="text-sm text-indigo-700">Learners enter this code from their home screen.</div>
+              </div>
+              <code className="text-2xl tracking-[0.25em] font-black text-indigo-800 bg-white px-4 py-2 rounded-lg">
+                {classes.find((entry) => entry.classId === selectedClassId)?.joinCode}
+              </code>
+            </div>
+          )}
 
           {view === 'overview' && (
             <OverviewView stats={classStats} students={students} timeRange={timeRange} setTimeRange={setTimeRange} />
@@ -225,9 +299,17 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onClose }) =
               students={students} 
               selectedStudent={selectedStudent}
               onSelectStudent={setSelectedStudent}
+              onRemoveStudent={handleRemoveStudent}
             />
           )}
-          {view === 'assignments' && <AssignmentsView students={students} />}
+          {view === 'assignments' && (
+            <AssignmentsView
+              classes={classes}
+              selectedClassId={selectedClassId}
+              homework={homework}
+              onCreated={(created) => setHomework((current) => [created, ...current])}
+            />
+          )}
           {view === 'reports' && <ReportsView stats={classStats} students={students} />}
         </div>
       </div>
@@ -418,7 +500,8 @@ const StudentsView: React.FC<{
   students: Student[];
   selectedStudent: Student | null;
   onSelectStudent: (student: Student | null) => void;
-}> = ({ students, selectedStudent, onSelectStudent }) => {
+  onRemoveStudent: (studentId: string) => Promise<void>;
+}> = ({ students, selectedStudent, onSelectStudent, onRemoveStudent }) => {
   const [search, setSearch] = useState('');
   const [sortBy, setSortBy] = useState<'name' | 'points' | 'streak' | 'score'>('name');
 
@@ -438,6 +521,7 @@ const StudentsView: React.FC<{
       <StudentDetailView 
         student={selectedStudent} 
         onBack={() => onSelectStudent(null)} 
+        onRemove={() => onRemoveStudent(selectedStudent.id)}
       />
     );
   }
@@ -528,7 +612,8 @@ const StudentsView: React.FC<{
 const StudentDetailView: React.FC<{
   student: Student;
   onBack: () => void;
-}> = ({ student, onBack }) => {
+  onRemove: () => void;
+}> = ({ student, onBack, onRemove }) => {
   return (
     <div className="space-y-6">
       <button
@@ -582,38 +667,84 @@ const StudentDetailView: React.FC<{
         </div>
       </div>
 
-      {/* Quick Actions */}
+      {/* Class membership */}
       <div className="bg-white rounded-xl p-6 shadow">
-        <h3 className="text-lg font-bold text-gray-900 mb-4">Quick Actions</h3>
-        <div className="flex flex-wrap gap-3">
-          <button className="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-lg hover:bg-indigo-200">
-            📧 Send Message
-          </button>
-          <button className="bg-green-100 text-green-700 px-4 py-2 rounded-lg hover:bg-green-200">
-            📝 Assign Quiz
-          </button>
-          <button className="bg-purple-100 text-purple-700 px-4 py-2 rounded-lg hover:bg-purple-200">
-            📊 View Full Report
-          </button>
-          <button className="bg-orange-100 text-orange-700 px-4 py-2 rounded-lg hover:bg-orange-200">
-            🎯 Set Goals
-          </button>
-        </div>
+        <h3 className="text-lg font-bold text-gray-900 mb-2">Class membership</h3>
+        <p className="text-sm text-gray-600 mb-4">Removing a learner does not delete their account or learning history.</p>
+        <button onClick={onRemove} className="bg-red-100 text-red-700 px-4 py-2 rounded-lg hover:bg-red-200">
+          Remove from this class
+        </button>
       </div>
     </div>
   );
 };
 
 // Assignments View
-const AssignmentsView: React.FC<{ students: Student[] }> = ({ students }) => {
+const AssignmentsView: React.FC<{
+  classes: SharedClass[];
+  selectedClassId: string;
+  homework: SharedHomework[];
+  onCreated: (homework: SharedHomework) => void;
+}> = ({ classes, selectedClassId, homework, onCreated }) => {
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [subject, setSubject] = useState('Maths');
+  const [topic, setTopic] = useState('Fractions');
+  const [difficulty, setDifficulty] = useState<Difficulty>(Difficulty.Medium);
+  const [questionCount, setQuestionCount] = useState(10);
+  const [dueDate, setDueDate] = useState(() => new Date(Date.now() + 7 * 86_400_000).toISOString().slice(0, 10));
+  const [saving, setSaving] = useState(false);
+  const [message, setMessage] = useState('');
+
+  const selectedClass = classes.find((entry) => entry.classId === selectedClassId);
+  const visibleHomework = homework.filter((entry) => entry.assignedClassIds.includes(selectedClassId));
+
+  const createAssignment = async () => {
+    if (!selectedClassId || !title.trim() || !topic.trim()) {
+      setMessage('Choose a class and enter an assignment title and topic.');
+      return;
+    }
+    setSaving(true);
+    setMessage('');
+    try {
+      const created = await teacherWorkspaceService.createHomework({
+        title: title.trim(),
+        description: description.trim(),
+        subject,
+        topic: topic.trim(),
+        difficulty,
+        questionCount,
+        dueDate: new Date(`${dueDate}T23:59:00`).toISOString(),
+        assignedClassIds: [selectedClassId],
+      });
+      onCreated(created);
+      setTitle('');
+      setDescription('');
+      setMessage('Assignment published to the class.');
+    } catch (reason) {
+      setMessage(reason instanceof Error ? reason.message : 'Unable to create the assignment.');
+    } finally {
+      setSaving(false);
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div className="bg-white rounded-xl p-6 shadow">
         <h3 className="text-lg font-bold text-gray-900 mb-4">📝 Create Assignment</h3>
+        {message && <div className="mb-4 rounded-lg bg-indigo-50 p-3 text-sm text-indigo-800">{message}</div>}
         <div className="grid md:grid-cols-2 gap-4">
           <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
+            <input value={title} onChange={(event) => setTitle(event.target.value)} className="w-full p-3 border rounded-lg" placeholder="e.g. Fractions practice" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Class</label>
+            <input value={selectedClass?.className || 'Create a class first'} readOnly className="w-full p-3 border rounded-lg bg-gray-50" />
+          </div>
+          <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Subject</label>
-            <select className="w-full p-3 border rounded-lg">
+            <select value={subject} onChange={(event) => setSubject(event.target.value)} className="w-full p-3 border rounded-lg">
               <option>Maths</option>
               <option>English</option>
               <option>Science</option>
@@ -621,49 +752,90 @@ const AssignmentsView: React.FC<{ students: Student[] }> = ({ students }) => {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Topic</label>
-            <select className="w-full p-3 border rounded-lg">
-              <option>Fractions</option>
-              <option>Multiplication</option>
-              <option>Division</option>
-            </select>
+            <input value={topic} onChange={(event) => setTopic(event.target.value)} className="w-full p-3 border rounded-lg" placeholder="e.g. Fractions" />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Difficulty</label>
-            <select className="w-full p-3 border rounded-lg">
-              <option>Easy</option>
-              <option>Medium</option>
-              <option>Hard</option>
+            <select value={difficulty} onChange={(event) => setDifficulty(event.target.value as Difficulty)} className="w-full p-3 border rounded-lg">
+              {Object.values(Difficulty).map((value) => <option key={value}>{value}</option>)}
             </select>
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Due Date</label>
-            <input type="date" className="w-full p-3 border rounded-lg" />
+            <input type="date" value={dueDate} min={new Date().toISOString().slice(0, 10)} onChange={(event) => setDueDate(event.target.value)} className="w-full p-3 border rounded-lg" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Questions</label>
+            <input type="number" min={5} max={20} value={questionCount} onChange={(event) => setQuestionCount(Number(event.target.value))} className="w-full p-3 border rounded-lg" />
+          </div>
+          <div className="md:col-span-2">
+            <label className="block text-sm font-medium text-gray-700 mb-1">Instructions (optional)</label>
+            <textarea value={description} onChange={(event) => setDescription(event.target.value)} rows={3} className="w-full p-3 border rounded-lg" placeholder="What should learners focus on?" />
           </div>
         </div>
-        <div className="mt-4">
-          <label className="block text-sm font-medium text-gray-700 mb-1">Assign To</label>
-          <div className="flex flex-wrap gap-2">
-            <button className="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm">
-              + Whole Class
-            </button>
-            {students.slice(0, 5).map((s) => (
-              <span key={s.id} className="bg-gray-100 px-3 py-1 rounded-full text-sm">
-                {s.name}
-              </span>
-            ))}
-            <button className="text-gray-500 text-sm">+{students.length - 5} more</button>
-          </div>
-        </div>
-        <button className="mt-4 bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700">
-          Create Assignment
+        <button onClick={createAssignment} disabled={saving || !selectedClassId} className="mt-4 bg-indigo-600 disabled:bg-indigo-300 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700">
+          {saving ? 'Publishing…' : 'Publish to Whole Class'}
         </button>
+      </div>
+
+      <div className="bg-white rounded-xl p-6 shadow">
+        <h3 className="text-lg font-bold text-gray-900 mb-4">Published Assignments</h3>
+        {visibleHomework.length === 0 ? (
+          <p className="text-gray-500">No shared assignments for this class yet.</p>
+        ) : (
+          <div className="grid md:grid-cols-2 gap-4">
+            {visibleHomework.map((assignment) => {
+              const stats = homeworkStats(assignment, selectedClass?.studentIds.length || 0);
+              return (
+                <div key={assignment.homeworkId} className="rounded-xl border border-gray-200 p-4">
+                  <div className="flex justify-between gap-3">
+                    <div>
+                      <h4 className="font-bold text-gray-900">{assignment.title}</h4>
+                      <p className="text-sm text-gray-600">{assignment.subject} · {assignment.topics.join(', ')} · {assignment.difficulty}</p>
+                    </div>
+                    <span className="text-xs text-gray-500">Due {new Date(assignment.dueDate).toLocaleDateString()}</span>
+                  </div>
+                  <div className="mt-3 grid grid-cols-3 gap-2 text-center text-sm">
+                    <div className="rounded bg-gray-50 p-2"><strong>{stats.submitted}</strong><br />Submitted</div>
+                    <div className="rounded bg-gray-50 p-2"><strong>{stats.pending}</strong><br />Pending</div>
+                    <div className="rounded bg-gray-50 p-2"><strong>{stats.averageScore}%</strong><br />Average</div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
 // Reports View
-const ReportsView: React.FC<{ stats: ClassStats; students: Student[] }> = ({ _stats, _students }) => {
+const ReportsView: React.FC<{ stats: ClassStats; students: Student[] }> = ({ stats, students }) => {
+  const download = (contents: string, type: string, filename: string) => {
+    const url = URL.createObjectURL(new Blob([contents], { type }));
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = filename;
+    anchor.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const exportJson = () => download(
+    JSON.stringify({ generatedAt: new Date().toISOString(), summary: stats, students }, null, 2),
+    'application/json',
+    `class-report-${new Date().toISOString().slice(0, 10)}.json`
+  );
+
+  const exportCsv = () => {
+    const escape = (value: unknown) => `"${String(value ?? '').replace(/"/g, '""')}"`;
+    const rows = [
+      ['Name', 'Age', 'Points', 'Streak', 'Quizzes', 'Average score'],
+      ...students.map((student) => [student.name, student.age, student.points, student.streak, student.quizzesCompleted, student.averageScore]),
+    ];
+    download(rows.map((row) => row.map(escape).join(',')).join('\n'), 'text/csv', `class-report-${new Date().toISOString().slice(0, 10)}.csv`);
+  };
+
   return (
     <div className="space-y-6">
       <div className="bg-white rounded-xl p-6 shadow">
@@ -671,16 +843,11 @@ const ReportsView: React.FC<{ stats: ClassStats; students: Student[] }> = ({ _st
         <p className="text-gray-600 mb-4">
           Generate detailed reports for your class or individual students.
         </p>
-        <div className="flex flex-wrap gap-3">
-          <button className="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-lg hover:bg-indigo-200">
-            📄 Weekly Progress Report
-          </button>
-          <button className="bg-green-100 text-green-700 px-4 py-2 rounded-lg hover:bg-green-200">
-            📈 Subject Analysis
-          </button>
-          <button className="bg-purple-100 text-purple-700 px-4 py-2 rounded-lg hover:bg-purple-200">
-            👨‍👩‍👧‍👦 Parent Report
-          </button>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <StatCard title="Learners" value={String(stats.totalStudents)} icon="👥" color="bg-indigo-500" />
+          <StatCard title="Average score" value={`${Math.round(students.length ? students.reduce((sum, student) => sum + student.averageScore, 0) / students.length : 0)}%`} icon="📈" color="bg-green-500" />
+          <StatCard title="Quizzes" value={String(students.reduce((sum, student) => sum + student.quizzesCompleted, 0))} icon="📝" color="bg-purple-500" />
+          <StatCard title="Needs support" value={String(stats.strugglingStudents.length)} icon="🎯" color="bg-orange-500" />
         </div>
       </div>
 
@@ -688,13 +855,13 @@ const ReportsView: React.FC<{ stats: ClassStats; students: Student[] }> = ({ _st
       <div className="bg-white rounded-xl p-6 shadow">
         <h3 className="text-lg font-bold text-gray-900 mb-4">📥 Export Data</h3>
         <div className="flex flex-wrap gap-3">
-          <button className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200">
+          <button onClick={exportCsv} className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200">
             Export as CSV
           </button>
-          <button className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200">
-            Export as PDF
+          <button onClick={exportJson} className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200">
+            Export as JSON
           </button>
-          <button className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200">
+          <button onClick={() => window.print()} className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200">
             Print Report
           </button>
         </div>

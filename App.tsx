@@ -19,6 +19,7 @@ import { adaptiveLearningEngine } from './services/adaptiveLearningEngine';
 import { dailyChallengeService, DailyChallenge } from './services/dailyChallengeService';
 import { Artwork, DrawingLesson } from './data/artResources';
 import { firebaseAuthService } from './services/firebaseAuthService';
+import { teacherWorkspaceService } from './services/teacherWorkspaceService';
 
 // Initialize accessibility features lazily
 const initAccessibility = () => {
@@ -256,6 +257,7 @@ const AppContent: React.FC = () => {
     const earned = correctAnswers * 10;
     const scorePercentage = (correctAnswers / results.length) * 100;
     const timeSpentSeconds = Date.now() - quizStartTime;
+    const homeworkId = new URLSearchParams(location.search).get('homework');
     
     setPointsEarned(earned);
     setQuizResults(results);
@@ -364,6 +366,13 @@ const AppContent: React.FC = () => {
       
       // Update achievements
       dailyChallengeService.updateStreakAchievements(user?.streak || 0);
+
+      if (homeworkId && hasRole(user, 'student')) {
+        void teacherWorkspaceService
+          .submitHomework(homeworkId, results, timeSpentSeconds)
+          .then((submission) => showToast('success', `Homework submitted: ${submission.score}%`, 5000))
+          .catch((reason) => showToast('error', reason instanceof Error ? reason.message : 'Homework could not be submitted.', 5000));
+      }
     }
 
     setShowFeedback(true);

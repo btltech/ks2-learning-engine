@@ -71,6 +71,7 @@ service cloud.firestore {
             'childrenIds',
             'parentCode',
             'childCode',
+            'classIds',
             'createdAt'
           ])
         )

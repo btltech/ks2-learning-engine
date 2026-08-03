@@ -192,6 +192,7 @@ export interface UserProfile {
   childrenIds?: string[]; // Parent's children
   parentCode?: string; // Unique code for linking children
   childCode?: string; // Each student gets a code for parent linking
+  classIds?: string[]; // Server-managed teacher class memberships
 }
 
 export interface QuizSession {

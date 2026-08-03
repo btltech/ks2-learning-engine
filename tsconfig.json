@@ -29,6 +29,7 @@
   "exclude": [
     "data/questions/generated/**",
     "scripts/**",
-    "functions/**"
+    "functions/**",
+    "functions-shared/**"
   ]
 }

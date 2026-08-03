@@ -4,7 +4,8 @@
  * Organized home screen with clear sections for learning, fun, and progress
  */
 
-import React, { useState, lazy } from 'react';
+import React, { useEffect, useState, lazy } from 'react';
+import { useNavigate } from 'react-router-dom';
 import SubjectSelector from './SubjectSelector';
 import { DailyChallengeCard, StreakMilestone } from './DailyChallenge';
 import { ReviewDueBadge } from './ReviewMode';
@@ -13,6 +14,7 @@ import { CardSkeleton } from './SkeletonLoader';
 import { useUser } from '../context/UserContext';
 import { Subject, ProgressData } from '../types';
 import { DailyChallenge } from '../services/dailyChallengeService';
+import { SharedClass, SharedHomework, teacherWorkspaceService } from '../services/teacherWorkspaceService';
 import { GRADIENTS, SHADOWS, RADIUS } from '../constants';
 
 // Phase 2: Lazy load new widgets
@@ -70,9 +72,64 @@ const HomeView: React.FC<HomeViewProps> = ({
   gamesUnlockStatus,
 }) => {
   const { user, currentChild } = useUser();
+  const navigate = useNavigate();
   const streak = currentChild?.streak || user?.streak || 0;
   const userId = currentChild?.id || user?.id || 'default';
   const [activeTab, setActiveTab] = useState<ActiveTab>('learn');
+  const [classes, setClasses] = useState<SharedClass[]>([]);
+  const [homework, setHomework] = useState<SharedHomework[]>([]);
+  const [classCode, setClassCode] = useState('');
+  const [classMessage, setClassMessage] = useState('');
+  const [joiningClass, setJoiningClass] = useState(false);
+
+  useEffect(() => {
+    if (user?.role !== 'student') return;
+    let cancelled = false;
+    Promise.all([teacherWorkspaceService.getClasses(), teacherWorkspaceService.getHomework()])
+      .then(([nextClasses, nextHomework]) => {
+        if (!cancelled) {
+          setClasses(nextClasses);
+          setHomework(nextHomework);
+        }
+      })
+      .catch(() => {
+        // Joining remains available; errors are shown when the learner submits a code.
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [user?.id, user?.role]);
+
+  const joinClass = async () => {
+    if (classCode.trim().length !== 6) {
+      setClassMessage('Enter the 6-character code from your teacher.');
+      return;
+    }
+    setJoiningClass(true);
+    setClassMessage('');
+    try {
+      const joined = await teacherWorkspaceService.joinClass(classCode.trim().toUpperCase());
+      const [nextClasses, nextHomework] = await Promise.all([
+        teacherWorkspaceService.getClasses(),
+        teacherWorkspaceService.getHomework(),
+      ]);
+      setClasses(nextClasses.length ? nextClasses : [joined]);
+      setHomework(nextHomework);
+      setClassCode('');
+      setClassMessage(`Joined ${joined.className}.`);
+    } catch (reason) {
+      setClassMessage(reason instanceof Error ? reason.message : 'Unable to join the class.');
+    } finally {
+      setJoiningClass(false);
+    }
+  };
+
+  const startHomework = (assignment: SharedHomework) => {
+    const topic = assignment.topics[0];
+    navigate(
+      `/subject/${encodeURIComponent(assignment.subject)}/topic/${encodeURIComponent(topic)}/quiz?difficulty=${encodeURIComponent(assignment.difficulty)}&homework=${encodeURIComponent(assignment.homeworkId)}`
+    );
+  };
 
   return (
     <div className="w-full max-w-screen-content mx-auto p-4 mobile:p-5 sm:p-6 md:p-8 content-visibility-auto" id="main-content">
@@ -117,6 +174,62 @@ const HomeView: React.FC<HomeViewProps> = ({
       <div className="min-h-[400px]">
         {activeTab === 'learn' && (
           <div className="space-y-6 animate-fadeIn">
+            {user?.role === 'student' && (
+              <SectionCard title="🏫 My Class" subtitle="Join your teacher's class and complete shared assignments">
+                <div className="space-y-4">
+                  <div className="flex flex-col sm:flex-row gap-2">
+                    <input
+                      value={classCode}
+                      onChange={(event) => setClassCode(event.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6))}
+                      placeholder="CLASS CODE"
+                      aria-label="Teacher class code"
+                      className="flex-1 rounded-xl border border-gray-300 px-4 py-3 font-bold tracking-[0.2em] uppercase"
+                    />
+                    <button onClick={joinClass} disabled={joiningClass} className="rounded-xl bg-indigo-600 px-5 py-3 font-bold text-white disabled:bg-indigo-300">
+                      {joiningClass ? 'Joining…' : 'Join Class'}
+                    </button>
+                  </div>
+                  {classMessage && <p className="text-sm text-indigo-700">{classMessage}</p>}
+                  {classes.length > 0 && (
+                    <div className="flex flex-wrap gap-2">
+                      {classes.map((entry) => (
+                        <span key={entry.classId} className="rounded-full bg-indigo-50 px-3 py-1 text-sm font-semibold text-indigo-700">
+                          {entry.className} · {entry.grade}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  {homework.length > 0 && (
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      {homework.map((assignment) => {
+                        const submitted = assignment.submissions.length > 0;
+                        return (
+                          <div key={assignment.homeworkId} className="rounded-xl border border-gray-200 p-4">
+                            <div className="flex items-start justify-between gap-3">
+                              <div>
+                                <h3 className="font-bold text-gray-900">{assignment.title}</h3>
+                                <p className="text-sm text-gray-600">{assignment.subject} · {assignment.topics.join(', ')} · {assignment.difficulty}</p>
+                              </div>
+                              <span className="text-xs text-gray-500">Due {new Date(assignment.dueDate).toLocaleDateString()}</span>
+                            </div>
+                            {submitted ? (
+                              <div className="mt-3 rounded-lg bg-green-50 p-2 text-sm font-semibold text-green-700">
+                                Submitted · {assignment.submissions[0].score}%
+                              </div>
+                            ) : (
+                              <button onClick={() => startHomework(assignment)} className="mt-3 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-bold text-white">
+                                Start assignment
+                              </button>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              </SectionCard>
+            )}
+
             {/* Daily Challenge - Hero Card */}
             <DailyChallengeCard onStartChallenge={onStartDailyChallenge} />
 

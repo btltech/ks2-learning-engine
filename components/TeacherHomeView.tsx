@@ -9,9 +9,9 @@
  * - Quick access to teacher tools
  */
 
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useUser } from '../context/UserContext';
-import { teacherAnalyticsService } from '../services/teacherAnalyticsService';
+import { teacherWorkspaceService } from '../services/teacherWorkspaceService';
 
 interface TeacherHomeViewProps {
   onOpenTeacherDashboard: () => void;
@@ -30,45 +30,35 @@ export const TeacherHomeView: React.FC<TeacherHomeViewProps> = ({
 }) => {
   const { user } = useUser();
   const [showWelcome, setShowWelcome] = useState(true);
-  const classSummary = useMemo(() => {
-    if (!user?.id) {
-      return {
-        classCount: 0,
-        studentCount: 0,
-        totalQuizzes: 0,
-        averageScore: 0,
-        needsHelp: 0,
-      };
-    }
+  const [classSummary, setClassSummary] = useState({
+    classCount: 0,
+    studentCount: 0,
+    totalQuizzes: 0,
+    averageScore: 0,
+    needsHelp: 0,
+  });
 
-    try {
-      const classes = teacherAnalyticsService.getClasses(user.id);
-      const analytics = classes.map((classData) => {
-        try {
-          return teacherAnalyticsService.getClassAnalytics(user.id, classData.classId);
-        } catch {
-          return null;
-        }
-      }).filter(Boolean);
-
-      return {
+  useEffect(() => {
+    if (!user?.id) return;
+    let cancelled = false;
+    void teacherWorkspaceService.getClasses().then((classes) => {
+      if (cancelled) return;
+      const students = classes.flatMap((entry) => entry.students || []);
+      setClassSummary({
         classCount: classes.length,
-        studentCount: classes.reduce((sum, classData) => sum + classData.students.length, 0),
-        totalQuizzes: analytics.reduce((sum, classData) => sum + (classData?.totalQuizzes || 0), 0),
-        averageScore: analytics.length > 0
-          ? Math.round(analytics.reduce((sum, classData) => sum + (classData?.averageScore || 0), 0) / analytics.length)
+        studentCount: students.length,
+        totalQuizzes: students.reduce((sum, student) => sum + student.totalQuizzes, 0),
+        averageScore: students.length
+          ? Math.round(students.reduce((sum, student) => sum + student.averageScore, 0) / students.length)
           : 0,
-        needsHelp: analytics.reduce((sum, classData) => sum + (classData?.needingHelp.length || 0), 0),
-      };
-    } catch {
-      return {
-        classCount: 0,
-        studentCount: 0,
-        totalQuizzes: 0,
-        averageScore: 0,
-        needsHelp: 0,
-      };
-    }
+        needsHelp: students.filter((student) => student.totalQuizzes > 0 && student.averageScore < 60).length,
+      });
+    }).catch(() => {
+      // The full dashboard shows the actionable error state.
+    });
+    return () => {
+      cancelled = true;
+    };
   }, [user?.id]);
 
   const hasClasses = classSummary.classCount > 0;
