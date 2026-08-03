@@ -1,6 +1,19 @@
 import { CognitiveLevel, Difficulty, QuestionType, type BankQuestion } from '../types';
 import { getCurriculumUnit } from './curriculumSequences';
 
+/**
+ * Curated language content used without generative AI.
+ *
+ * Yoruba was source-audited against:
+ * - Yale Yoruba Dictionary (yorubadictionary.yale.edu)
+ * - Yorùbá Yé Mi, University of Texas COERLL (coerll.utexas.edu/yemi)
+ * - National Open University of Nigeria EDU 728 tone-marking guidance
+ *
+ * English-style respellings are not shown for Yoruba because they cannot encode
+ * lexical tone reliably. The UI derives a tone pattern directly from the fully
+ * marked Yoruba spelling instead.
+ */
+
 type ReviewedLanguage = 'Yoruba' | 'Romanian';
 type WordPair = readonly [target: string, english: string, pronunciation: string];
 
@@ -28,7 +41,7 @@ const YORUBA: Record<string, LanguageUnitPack> = {
       ['ẹ̀ta', 'three', 'eh-TAH'],
       ['ẹ̀rin', 'four', 'eh-REEN'],
     ],
-    teach: 'Say each number with its written tones. To ask someone’s age, “Ọmọ ọdún mélòó ni ọ?” means “How old are you?”',
+    teach: 'Say each number with its written tones. To ask one person informally, “Ọmọ ọdún mélòó ni ọ́?” means “How old are you?”',
     model: '“Ọmọ ọdún mẹ́wàá ni mí.” means “I am ten years old.”',
   },
   'Colours and classroom objects': {
@@ -66,20 +79,20 @@ const YORUBA: Record<string, LanguageUnitPack> = {
       ['ẹja', 'fish', 'eh-JAH'],
       ['ọjọ́', 'day', 'aw-JAW'],
       ['ṣé', 'question marker', 'SHEH'],
-      ['gba', 'receive', 'GBAH'],
+      ['tẹ́wọ́gbà', 'receive or accept', 'teh-WAW-gbah'],
     ],
     teach: 'Listen for Yoruba sounds that English does not mark in the same way: ṣ sounds like “sh”, and gb is one combined consonant. Tone remains part of the word.',
     model: 'In “Ṣé o fẹ́…?”, ṣé signals a yes-or-no question; it is not the same sound as plain s.',
   },
   'School and daily routine': {
     words: [
-      ['ilé-ẹ̀kọ́', 'school', 'ee-LEH eh-KAW'],
+      ['ilé-ìwé', 'school', 'ee-LEH ee-WEH'],
       ['olùkọ́', 'teacher', 'oh-loo-KAW'],
-      ['akẹ́kọ̀ọ́', 'learner', 'ah-keh-KAW-aw'],
-      ['Mo ń kàwé', 'I am studying', 'moh n KAH-weh'],
+      ['akẹ́kọ̀ọ́', 'student', 'ah-keh-KAW-aw'],
+      ['Mo ń kẹ́kọ̀ọ́', 'I am studying', 'moh n keh-KAW-aw'],
     ],
     teach: 'The marker ń can show an action in progress. It appears before the verb phrase.',
-    model: '“Mo ń kàwé ní ilé-ẹ̀kọ́.” means “I am studying at school.”',
+    model: '“Mo ń kẹ́kọ̀ọ́ ní ilé-ìwé.” means “I am studying at school.”',
   },
   'Places and directions': {
     words: [
@@ -105,21 +118,21 @@ const YORUBA: Record<string, LanguageUnitPack> = {
     words: [
       ['Mo fẹ́ràn', 'I like', 'moh FEH-rahn'],
       ['Mi ò fẹ́ràn', 'I do not like', 'mee aw FEH-rahn'],
-      ['nítorí', 'because', 'nee-toh-REE'],
+      ['nítorí pé', 'because', 'nee-toh-REE kpeh'],
       ['Kí ni?', 'What?', 'KEE nee'],
     ],
-    teach: 'State an opinion, then use nítorí to give a short reason. Listen to the other speaker before responding.',
-    model: '“Mo fẹ́ràn orin nítorí ó dùn.” means “I like music because it is pleasant.”',
+    teach: 'State an opinion, then use nítorí pé to give a short reason. Listen to the other speaker before responding.',
+    model: '“Mo fẹ́ràn orin nítorí pé ó dùn.” means “I like music because it is pleasant.”',
   },
   'Writing connected sentences': {
     words: [
       ['àti', 'and', 'ah-TEE'],
       ['ṣùgbọ́n', 'but', 'shoo-GBON'],
-      ['nítorí', 'because', 'nee-toh-REE'],
+      ['nítorí pé', 'because', 'nee-toh-REE kpeh'],
       ['lẹ́yìn náà', 'after that', 'leh-YEEN nah-AH'],
     ],
-    teach: 'Connect short accurate clauses with àti, ṣùgbọ́n or nítorí. Keep tone marks when copying and adapting a model.',
-    model: '“Mo lọ sí ilé-ẹ̀kọ́, lẹ́yìn náà mo lọ sí ilé.” means “I went to school; after that I went home.”',
+    teach: 'Connect short accurate clauses with àti, ṣùgbọ́n or nítorí pé. Keep tone marks when copying and adapting a model.',
+    model: '“Mo lọ sí ilé-ìwé, lẹ́yìn náà mo lọ sí ilé.” means “I went to school; after that I went home.”',
   },
   'Language patterns and grammar': {
     words: [
@@ -258,6 +271,21 @@ const ROMANIAN: Record<string, LanguageUnitPack> = {
 
 const PACKS: Record<ReviewedLanguage, Record<string, LanguageUnitPack>> = { Yoruba: YORUBA, Romanian: ROMANIAN };
 
+const getYorubaTonePattern = (text: string): string => {
+  const tones: string[] = [];
+  const characters = [...text.normalize('NFD')];
+  for (let index = 0; index < characters.length; index += 1) {
+    const character = characters[index];
+    if (/[́̀]/u.test(character) && tones.length > 0) {
+      tones[tones.length - 1] = character === '́' ? 'H' : 'L';
+      continue;
+    }
+    if (/[aeiou]/iu.test(character)) tones.push('M');
+    if (/[nN]/u.test(character) && /[́̀]/u.test(characters[index + 1] ?? '')) tones.push('M');
+  }
+  return tones.length > 0 ? `tones: ${tones.join('–')}` : 'tone-marked spelling';
+};
+
 const getPack = (subject: string, topic: string): LanguageUnitPack | null => {
   if (subject !== 'Yoruba' && subject !== 'Romanian') return null;
   return PACKS[subject][topic] ?? null;
@@ -274,11 +302,25 @@ export const getReviewedLanguageQuestions = (subject: string, topic: string, age
     ageGroup: [age],
     difficulty: index < 2 ? Difficulty.Easy : Difficulty.Medium,
     question: `Which ${subject} word or phrase means “${english}”?`,
-    options: [...options].sort(() => Math.random() - 0.5),
+    options: [...options.slice((index * 2 + 1) % options.length), ...options.slice(0, (index * 2 + 1) % options.length)],
     correctAnswer: target,
     explanation: `${target} means “${english}”.`,
     questionType: QuestionType.MultipleChoice,
     cognitiveLevel: index < 2 ? CognitiveLevel.Remember : CognitiveLevel.Understand,
+  }));
+};
+
+export const getReviewedLanguageVocabulary = (subject: string, topic: string): Array<{
+  word: string;
+  english: string;
+  phonetic: string;
+}> => {
+  const pack = getPack(subject, topic);
+  if (!pack) return [];
+  return pack.words.map(([word, english, pronunciation]) => ({
+    word,
+    english,
+    phonetic: subject === 'Yoruba' ? getYorubaTonePattern(word) : pronunciation,
   }));
 };
 
@@ -287,7 +329,10 @@ export const getReviewedLanguageLesson = (subject: string, topic: string, age: n
   const unit = getCurriculumUnit(subject, topic, age);
   if (!pack || !unit) return null;
   const vocabulary = pack.words
-    .map(([target, english, pronunciation]) => `* ${target} (${pronunciation}) — ${english}`)
+    .map(([target, english, pronunciation]) => {
+      const guide = subject === 'Yoruba' ? getYorubaTonePattern(target) : pronunciation;
+      return `* ${target} (${guide}) — ${english}`;
+    })
     .join('\n');
 
   return `# Learning Objective

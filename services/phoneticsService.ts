@@ -162,31 +162,29 @@ const MANDARIN_PHONETICS: Record<string, { phonetic: string; syllables: string[]
   '五': { phonetic: 'WOO', syllables: ['wǔ'] },
 };
 
-// Yoruba phonetics with tone markers
-// Yoruba is a TONAL language with 3 tones:
-// - HIGH tone (´) = raise your voice like asking a question
-// - MID tone (no mark) = normal speaking voice
-// - LOW tone (`) = lower your voice like ending a statement
+// Yoruba tone practice with source-audited spelling. H, M and L mean high,
+// mid and low lexical tone. English stress-style respellings are deliberately
+// avoided because they misrepresent Yoruba pronunciation.
 const YORUBA_PHONETICS: Record<string, { phonetic: string; syllables: string[]; tones?: string }> = {
   // Greetings
-  'báwo ni?': { phonetic: 'BAH-woh nee', syllables: ['bá', 'wo', 'ni'], tones: 'high-mid-mid' },
-  'ẹ káàárọ̀': { phonetic: 'eh KAH-ah-roh', syllables: ['ẹ', 'káàá', 'rọ̀'], tones: 'mid-high-low' },
-  'ẹ káàsán': { phonetic: 'eh KAH-ah-sahn', syllables: ['ẹ', 'káà', 'sán'], tones: 'mid-high-high' },
-  'ẹ káalẹ́': { phonetic: 'eh KAH-ah-leh', syllables: ['ẹ', 'ká', 'alẹ́'], tones: 'mid-high-high' },
-  'ó dàbọ̀': { phonetic: 'oh DAH-boh', syllables: ['ó', 'dà', 'bọ̀'], tones: 'high-low-low' },
-  'ẹ ṣé': { phonetic: 'eh SHEH', syllables: ['ẹ', 'ṣé'], tones: 'mid-high' },
-  'ẹ kú ọjọ́': { phonetic: 'eh koo AW-jaw', syllables: ['ẹ', 'kú', 'ọ', 'jọ́'], tones: 'mid-high-mid-high' },
+  'báwo ni?': { phonetic: 'tones: H–M–M', syllables: ['bá', 'wo', 'ni'], tones: 'high-mid-mid' },
+  'ẹ káàárọ̀': { phonetic: 'tones: M–H–L–H–L', syllables: ['ẹ', 'ká', 'à', 'á', 'rọ̀'], tones: 'mid-high-low-high-low' },
+  'ẹ káàsán': { phonetic: 'tones: M–H–L–H', syllables: ['ẹ', 'ká', 'à', 'sán'], tones: 'mid-high-low-high' },
+  'ẹ káalẹ́': { phonetic: 'tones: M–H–M–H', syllables: ['ẹ', 'ká', 'a', 'lẹ́'], tones: 'mid-high-mid-high' },
+  'ó dàbọ̀': { phonetic: 'tones: H–L–L', syllables: ['ó', 'dà', 'bọ̀'], tones: 'high-low-low' },
+  'ẹ ṣé': { phonetic: 'tones: M–H', syllables: ['ẹ', 'ṣé'], tones: 'mid-high' },
+  'ẹ kú ọjọ́': { phonetic: 'tones: M–H–M–H', syllables: ['ẹ', 'kú', 'ọ', 'jọ́'], tones: 'mid-high-mid-high' },
   
   // Family
-  'ìyá': { phonetic: 'ee-YAH', syllables: ['ì', 'yá'], tones: 'low-high' },
-  'bàbá': { phonetic: 'BAH-bah', syllables: ['bà', 'bá'], tones: 'low-high' },
-  'ọmọ': { phonetic: 'AW-maw', syllables: ['ọ', 'mọ'], tones: 'mid-mid' },
-  'ẹ̀gbọ́n': { phonetic: 'eh-GBON', syllables: ['ẹ̀', 'gbọ́n'], tones: 'low-high' },
-  'àbúrò': { phonetic: 'ah-BOO-roh', syllables: ['à', 'bú', 'rò'], tones: 'low-high-low' },
-  'ọ̀rẹ́': { phonetic: 'aw-REH', syllables: ['ọ̀', 'rẹ́'], tones: 'low-high' },
-  'ẹbí': { phonetic: 'eh-BEE', syllables: ['ẹ', 'bí'], tones: 'mid-high' },
-  'iya agba': { phonetic: 'ee-YAH AHG-bah', syllables: ['i', 'ya', 'ag', 'ba'], tones: 'mid-low-mid-low' },
-  'baba agba': { phonetic: 'BAH-bah AHG-bah', syllables: ['ba', 'ba', 'ag', 'ba'], tones: 'low-low-mid-low' },
+  'ìyá': { phonetic: 'tones: L–H', syllables: ['ì', 'yá'], tones: 'low-high' },
+  'bàbá': { phonetic: 'tones: L–H', syllables: ['bà', 'bá'], tones: 'low-high' },
+  'ọmọ': { phonetic: 'tones: M–M', syllables: ['ọ', 'mọ'], tones: 'mid-mid' },
+  'ẹ̀gbọ́n': { phonetic: 'tones: L–H', syllables: ['ẹ̀', 'gbọ́n'], tones: 'low-high' },
+  'àbúrò': { phonetic: 'tones: L–H–L', syllables: ['à', 'bú', 'rò'], tones: 'low-high-low' },
+  'ọ̀rẹ́': { phonetic: 'tones: L–H', syllables: ['ọ̀', 'rẹ́'], tones: 'low-high' },
+  'ẹbí': { phonetic: 'tones: M–H', syllables: ['ẹ', 'bí'], tones: 'mid-high' },
+  'ìyá àgbà': { phonetic: 'tones: L–H–L–L', syllables: ['ì', 'yá', 'à', 'gbà'], tones: 'low-high-low-low' },
+  'bàbá àgbà': { phonetic: 'tones: L–H–L–L', syllables: ['bà', 'bá', 'à', 'gbà'], tones: 'low-high-low-low' },
   
   // Numbers
   'okan': { phonetic: 'OH-kahn', syllables: ['o', 'kan'], tones: 'mid-low' },

@@ -13,7 +13,7 @@ import DOMPurify from 'dompurify';
 import { CURATED_LANGUAGES, getCurriculumUnit, getYearGroupForAge } from '../data/curriculumSequences';
 import { getQuestionsForCurriculumUnit } from '../data/questionBank';
 import { getReviewedQuestions } from '../data/reviewedQuestions';
-import { getReviewedLanguageQuestions } from '../data/reviewedLanguageContent';
+import { getReviewedLanguageQuestions, getReviewedLanguageVocabulary } from '../data/reviewedLanguageContent';
 
 // A simple markdown to HTML converter
 const Markdown: React.FC<{ content: string }> = ({ content }) => {
@@ -65,7 +65,10 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
   const isLanguageSubject = (CURATED_LANGUAGES as readonly string[]).includes(subject);
   const detectedLanguage = isLanguageSubject ? subject : 'English';
   const supportsPhonetics = getSupportedLanguages().includes(subject);
-  const vocabularyWords = supportsPhonetics ? getCommonWords(subject).slice(0, 12) : [];
+  const reviewedTopicVocabulary = getReviewedLanguageVocabulary(subject, topic);
+  const vocabularyWords = subject === 'Yoruba' && reviewedTopicVocabulary.length > 0
+    ? reviewedTopicVocabulary
+    : supportsPhonetics ? getCommonWords(subject).slice(0, 12) : [];
   
   const { speak, pause, resume, cancel, isSpeaking, isPaused, isLoading: isTTSLoading, progress: ttsProgress, errorMessage: ttsError, needsGesture, setNeedsGesture } = useTTSEnhanced(detectedLanguage, {
     googleCloudApiKey: (import.meta as unknown as { env: { VITE_GOOGLE_CLOUD_TTS_API_KEY?: string } }).env?.VITE_GOOGLE_CLOUD_TTS_API_KEY
@@ -328,7 +331,7 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
           >
             <div className="flex items-center">
               <BookOpenIcon className="h-6 w-6 mr-3" />
-              Vocabulary Practice - Hear How to Say It!
+              {subject === 'Yoruba' ? 'Vocabulary and Tone Practice' : 'Vocabulary Practice - Hear How to Say It!'}
             </div>
             <span className="text-2xl">{showVocabulary ? '−' : '+'}</span>
           </button>
@@ -354,14 +357,17 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
               ) : (
                 <div>
                   <p className="text-gray-600 mb-4 text-center">
-                    🎯 Tap a word to practice pronunciation with syllable-by-syllable audio!
+                    {subject === 'Yoruba'
+                      ? 'Read the marked spelling carefully: H = high, M = mid and L = low tone.'
+                      : '🎯 Tap a word to practise pronunciation with syllable-by-syllable audio!'}
                   </p>
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
                     {vocabularyWords.map((item, index) => (
                       <button
                         key={index}
-                        onClick={() => setSelectedWord(item.word)}
-                        className="p-3 bg-gradient-to-r from-purple-50 to-blue-50 border-2 border-purple-100 rounded-xl hover:border-purple-400 hover:shadow-md transition-all text-left group"
+                        onClick={() => subject !== 'Yoruba' && setSelectedWord(item.word)}
+                        disabled={subject === 'Yoruba'}
+                        className="p-3 bg-gradient-to-r from-purple-50 to-blue-50 border-2 border-purple-100 rounded-xl hover:border-purple-400 hover:shadow-md transition-all text-left group disabled:cursor-default"
                       >
                         <div className="font-bold text-gray-800 group-hover:text-purple-600 transition-colors">
                           {item.word}

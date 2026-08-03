@@ -3,7 +3,11 @@ import { SUBJECTS, LANGUAGES } from '../constants';
 import { CURATED_LANGUAGES, getCurriculumUnits } from './curriculumSequences';
 import { getQuestionsForCurriculumUnit } from './questionBank';
 import { Difficulty } from '../types';
-import { getReviewedLanguageLesson, getReviewedLanguageQuestions } from './reviewedLanguageContent';
+import {
+  getReviewedLanguageLesson,
+  getReviewedLanguageQuestions,
+  getReviewedLanguageVocabulary,
+} from './reviewedLanguageContent';
 
 describe('published curriculum sequences', () => {
   it('gives every visible learning subject an ordered sequence in every KS2 year', () => {
@@ -47,6 +51,35 @@ describe('published curriculum sequences', () => {
           expect(getReviewedLanguageQuestions(language, unit.title, age), `${language}: ${unit.title}`).toHaveLength(4);
         }
       }
+    }
+  });
+
+  it('uses source-audited Yoruba forms and tone patterns instead of English stress respellings', () => {
+    const ageLesson = getReviewedLanguageLesson('Yoruba', 'Numbers and age', 7);
+    const schoolLesson = getReviewedLanguageLesson('Yoruba', 'School and daily routine', 9);
+    const opinionLesson = getReviewedLanguageLesson('Yoruba', 'Conversations and opinions', 10);
+
+    expect(ageLesson).toContain('Ọmọ ọdún mélòó ni ọ́?');
+    expect(schoolLesson).toContain('Mo ń kẹ́kọ̀ọ́ ní ilé-ìwé.');
+    expect(opinionLesson).toContain('nítorí pé ó dùn');
+
+    for (const age of [7, 8, 9, 10]) {
+      for (const unit of getCurriculumUnits('Yoruba', age)) {
+        const vocabulary = getReviewedLanguageVocabulary('Yoruba', unit.title);
+        expect(vocabulary).toHaveLength(4);
+        expect(vocabulary.every(({ phonetic }) => /^tones: [HML](?:–[HML])*$/.test(phonetic))).toBe(true);
+      }
+    }
+  });
+
+  it('builds stable language questions with four unique answer options', () => {
+    const first = getReviewedLanguageQuestions('Yoruba', 'Greetings and introductions', 7);
+    const second = getReviewedLanguageQuestions('Yoruba', 'Greetings and introductions', 7);
+
+    expect(second).toEqual(first);
+    for (const question of first) {
+      expect(new Set(question.options).size).toBe(4);
+      expect(question.options).toContain(question.correctAnswer);
     }
   });
 });
