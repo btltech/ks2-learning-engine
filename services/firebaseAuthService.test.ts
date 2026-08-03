@@ -42,7 +42,7 @@ vi.mock('firebase/firestore', () => ({
 }));
 
 import { firebaseAuthService } from './firebaseAuthService';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendEmailVerification } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendEmailVerification, sendPasswordResetEmail } from 'firebase/auth';
 import { getDoc, setDoc } from 'firebase/firestore';
 
 describe('FirebaseAuthService', () => {
@@ -195,6 +195,33 @@ describe('FirebaseAuthService', () => {
       await firebaseAuthService.logout();
 
       expect(signOut).toHaveBeenCalled();
+    });
+  });
+
+  describe('sendPasswordReset', () => {
+    it('uses the Firebase-hosted reset handler without a custom continuation URL', async () => {
+      await firebaseAuthService.sendPasswordReset('  info@btltech.co.uk  ');
+
+      expect(sendPasswordResetEmail).toHaveBeenCalledTimes(1);
+      expect(sendPasswordResetEmail).toHaveBeenCalledWith(
+        expect.anything(),
+        'info@btltech.co.uk'
+      );
+    });
+
+    it('shows a useful message when the network is unavailable', async () => {
+      (sendPasswordResetEmail as Mock).mockRejectedValueOnce({
+        code: 'auth/network-request-failed',
+      });
+
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      try {
+        await expect(
+          firebaseAuthService.sendPasswordReset('info@btltech.co.uk')
+        ).rejects.toThrow(/check your connection/i);
+      } finally {
+        consoleErrorSpy.mockRestore();
+      }
     });
   });
 

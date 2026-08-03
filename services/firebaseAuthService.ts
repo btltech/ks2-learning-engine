@@ -151,9 +151,10 @@ export const firebaseAuthService = {
 
       await setDoc(doc(db, 'users', userId), firestoreDoc);
 
-      // Send email verification — redirect to app after user clicks the link
-      const verifyUrl = typeof window !== 'undefined' ? `${window.location.origin}/?verified=true` : 'https://demiwuraks2.co.uk/?verified=true';
-      await sendEmailVerification(firebaseUser, { url: verifyUrl, handleCodeInApp: false });
+      // Use Firebase's hosted action handler. Supplying the current site origin here
+      // makes email delivery fail whenever a newly-added custom domain has not yet
+      // been added to Firebase Authentication's authorised-domain list.
+      await sendEmailVerification(firebaseUser);
 
       // Reserve a guaranteed-unique parent code via server (best-effort).
       const isTestEnv =
@@ -538,8 +539,7 @@ export const firebaseAuthService = {
       throw new Error('Email is already verified');
     }
     try {
-      const verifyUrl = typeof window !== 'undefined' ? `${window.location.origin}/?verified=true` : 'https://demiwuraks2.co.uk/?verified=true';
-      await sendEmailVerification(user, { url: verifyUrl, handleCodeInApp: false });
+      await sendEmailVerification(user);
     } catch (error: any) {
       if (error.code === 'auth/too-many-requests') {
         throw new Error('Too many requests. Please wait a few minutes and try again.');
@@ -563,8 +563,10 @@ export const firebaseAuthService = {
    */
   sendPasswordReset: async (email: string): Promise<void> => {
     try {
-      const continueUrl = typeof window !== 'undefined' ? `${window.location.origin}/` : 'https://demiwuraks2.co.uk/';
-      await sendPasswordResetEmail(auth, normalizeEmail(email), { url: continueUrl, handleCodeInApp: false });
+      // The reset form is hosted by Firebase, so no custom continuation URL is
+      // required. This also prevents an unapproved custom domain from blocking
+      // the reset email before it is sent.
+      await sendPasswordResetEmail(auth, normalizeEmail(email));
     } catch (error: any) {
       console.error('Password reset error:', error);
       // Provide user-friendly error messages
@@ -574,6 +576,14 @@ export const firebaseAuthService = {
         throw new Error('Please enter a valid email address.');
       } else if (error.code === 'auth/too-many-requests') {
         throw new Error('Too many requests. Please try again later.');
+      } else if (error.code === 'auth/network-request-failed') {
+        throw new Error('Could not reach the password service. Check your connection and try again.');
+      } else if (
+        error.code === 'auth/unauthorized-continue-uri' ||
+        error.code === 'auth/invalid-continue-uri' ||
+        error.code === 'auth/missing-continue-uri'
+      ) {
+        throw new Error('Password reset is not configured for this website address. Please contact support.');
       }
       throw new Error('Failed to send reset email. Please try again.');
     }
