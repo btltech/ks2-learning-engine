@@ -106,4 +106,24 @@ describe('parent create-child endpoint', () => {
     expect(response.status).toBe(409);
     expect(admin.commit).not.toHaveBeenCalled();
   });
+
+  it('allows a verified admin to create a child when Firestore reads are quota-blocked', async () => {
+    admin.verifyFirebaseIdToken.mockResolvedValue({ uid: 'admin-parent', claims: { admin: true } });
+    admin.getDocument.mockRejectedValue(new Error('Quota exceeded.'));
+
+    const response = await onRequestPost(request({ name: 'Grace', age: 10, pin: '135790' }) as any);
+
+    expect(response.status).toBe(201);
+    expect(admin.commit).toHaveBeenCalledOnce();
+  });
+
+  it('returns a clear temporary error when a non-admin is quota-blocked', async () => {
+    admin.getDocument.mockRejectedValue(new Error('Quota exceeded.'));
+
+    const response = await onRequestPost(request({ name: 'Grace', age: 10, pin: '135790' }) as any);
+
+    expect(response.status).toBe(503);
+    expect(await response.json()).toMatchObject({ error: expect.stringContaining('daily quota') });
+    expect(admin.commit).not.toHaveBeenCalled();
+  });
 });

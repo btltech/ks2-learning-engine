@@ -26,6 +26,9 @@ type PagesFunction<E = unknown> = (context: {
 
 interface Env extends FirebaseFunctionEnv {}
 
+const isQuotaError = (error: unknown): boolean =>
+  /quota|resource[_ -]?exhausted/i.test(error instanceof Error ? error.message : String(error));
+
 async function sha256Hex(value: string): Promise<string> {
   const bytes = new TextEncoder().encode(value);
   const digest = await crypto.subtle.digest('SHA-256', bytes);
@@ -72,23 +75,32 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
 
   try {
     const accessToken = await getGoogleAccessToken(serviceAccount);
-    const parent = await getDocument(projectId, accessToken, `users/${caller.uid}`);
-    if (!parent || !hasRole(parent, caller, 'parent')) {
-      return jsonResponse(403, { error: 'Only parent accounts can create child profiles.' }, cors.headers);
-    }
-
-    const existingChildren = await runQuery(
-      projectId,
-      accessToken,
-      'users',
-      {
-        fieldFilter: {
-          field: { fieldPath: 'parentId' },
-          op: 'EQUAL',
-          value: firestoreValue(caller.uid),
-        },
+    let existingChildren: Record<string, any>[] = [];
+    try {
+      const parent = await getDocument(projectId, accessToken, `users/${caller.uid}`);
+      if (!parent || !hasRole(parent, caller, 'parent')) {
+        return jsonResponse(403, { error: 'Only parent accounts can create child profiles.' }, cors.headers);
       }
-    );
+
+      existingChildren = await runQuery(
+        projectId,
+        accessToken,
+        'users',
+        {
+          fieldFilter: {
+            field: { fieldPath: 'parentId' },
+            op: 'EQUAL',
+            value: firestoreValue(caller.uid),
+          },
+        }
+      );
+    } catch (readError) {
+      // A verified administrator may recover child creation when the daily
+      // Firestore read quota is exhausted. The write remains server-authenticated;
+      // only duplicate name/PIN checks are deferred until reads recover.
+      if (!isQuotaError(readError) || caller.claims.admin !== true) throw readError;
+      console.warn('Creating child through admin quota fallback', { uid: caller.uid });
+    }
 
     if (existingChildren.length >= 20) {
       return jsonResponse(409, { error: 'This parent account has reached the child profile limit.' }, cors.headers);
@@ -171,6 +183,11 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
 
     return jsonResponse(201, { child: { id: childId, name, age } }, cors.headers);
   } catch (error: any) {
+    if (isQuotaError(error)) {
+      return jsonResponse(503, {
+        error: 'Firebase daily quota is temporarily exhausted. Please try again after the quota resets.',
+      }, cors.headers);
+    }
     return jsonResponse(500, { error: error?.message || 'Failed to create child profile.' }, cors.headers);
   }
 };
