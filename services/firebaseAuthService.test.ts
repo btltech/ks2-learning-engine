@@ -53,11 +53,15 @@ describe('FirebaseAuthService', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     authTestState.user = null;
+    localStorage.clear();
   });
 
   const mockFirebaseUser = (uid: string) => ({
     uid,
+    email: 'test@example.com',
+    displayName: 'Test User',
     getIdToken: vi.fn(() => Promise.resolve('test-token')),
+    getIdTokenResult: vi.fn(() => Promise.resolve({ claims: {} })),
   });
 
   describe('register', () => {
@@ -192,6 +196,64 @@ describe('FirebaseAuthService', () => {
         consoleErrorSpy.mockRestore();
       }
     });
+
+    it('uses the matching cached profile when Firestore quota is exhausted', async () => {
+      const firebaseUser = mockFirebaseUser('cached-user');
+      localStorage.setItem('ks2_user', JSON.stringify({
+        id: 'cached-user',
+        name: 'Cached Parent',
+        role: 'parent',
+        roles: ['parent'],
+      }));
+      (signInWithEmailAndPassword as Mock).mockResolvedValue({ user: firebaseUser });
+      (getDoc as Mock).mockRejectedValue({ code: 'resource-exhausted', message: 'Quota exceeded.' });
+
+      const result = await firebaseAuthService.login('test@example.com', 'password123');
+
+      expect(result.name).toBe('Cached Parent');
+      expect(signOut).not.toHaveBeenCalled();
+    });
+
+    it('does not trust an admin role placed only in local storage', async () => {
+      const firebaseUser = mockFirebaseUser('cached-user');
+      localStorage.setItem('ks2_user', JSON.stringify({
+        id: 'cached-user',
+        name: 'Edited Cache',
+        role: 'admin',
+        roles: ['admin'],
+      }));
+      (signInWithEmailAndPassword as Mock).mockResolvedValue({ user: firebaseUser });
+      (getDoc as Mock).mockRejectedValue({ code: 'resource-exhausted', message: 'Quota exceeded.' });
+
+      await expect(
+        firebaseAuthService.login('test@example.com', 'password123')
+      ).rejects.toThrow(/password was accepted/i);
+      expect(signOut).not.toHaveBeenCalled();
+    });
+
+    it('builds an emergency profile from verified admin claims during a quota outage', async () => {
+      const firebaseUser = mockFirebaseUser('admin-user');
+      firebaseUser.getIdTokenResult.mockResolvedValue({ claims: { admin: true, teacher: true } });
+      (signInWithEmailAndPassword as Mock).mockResolvedValue({ user: firebaseUser });
+      (getDoc as Mock).mockRejectedValue({ code: 'resource-exhausted', message: 'Quota exceeded.' });
+
+      const result = await firebaseAuthService.login('test@example.com', 'password123');
+
+      expect(result.role).toBe('admin');
+      expect(result.roles).toEqual(expect.arrayContaining(['admin', 'parent', 'teacher']));
+      expect(signOut).not.toHaveBeenCalled();
+    });
+
+    it('preserves an accepted Firebase session when no quota fallback profile exists', async () => {
+      const firebaseUser = mockFirebaseUser('uncached-user');
+      (signInWithEmailAndPassword as Mock).mockResolvedValue({ user: firebaseUser });
+      (getDoc as Mock).mockRejectedValue({ code: 'resource-exhausted', message: 'Quota exceeded.' });
+
+      await expect(
+        firebaseAuthService.login('test@example.com', 'password123')
+      ).rejects.toThrow(/password was accepted/i);
+      expect(signOut).not.toHaveBeenCalled();
+    });
   });
 
   describe('logout', () => {
@@ -255,6 +317,23 @@ describe('FirebaseAuthService', () => {
 
       expect(result?.id).toBe('existing-user');
       expect(firebaseUser.getIdToken).toHaveBeenCalledWith();
+    });
+
+    it('restores the cached user without signing out when Firestore quota is exhausted', async () => {
+      const firebaseUser = mockFirebaseUser('existing-user');
+      authTestState.user = firebaseUser;
+      localStorage.setItem('ks2_user', JSON.stringify({
+        id: 'existing-user',
+        name: 'Existing Parent',
+        role: 'parent',
+        roles: ['parent'],
+      }));
+      (getDoc as Mock).mockRejectedValue({ code: 'resource-exhausted', message: 'Quota exceeded.' });
+
+      const result = await firebaseAuthService.getCurrentUser();
+
+      expect(result?.name).toBe('Existing Parent');
+      expect(signOut).not.toHaveBeenCalled();
     });
   });
 });

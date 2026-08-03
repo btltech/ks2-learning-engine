@@ -16,6 +16,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
   const [loginAs, setLoginAs] = useState<'parent' | 'child'>('parent');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [name, setName] = useState('');
   const role: 'parent' = 'parent';
@@ -190,10 +191,9 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
 
     setLoading(true);
     try {
-      // Clear any cached user data before login to prevent showing wrong user's profile
-      localStorage.removeItem('ks2_user');
-      
       if (mode === 'register') {
+        // A new account cannot reuse the previous account's cached profile.
+        localStorage.removeItem('ks2_user');
         // Register new user with Firebase Auth
         await firebaseAuthService.register(
           emailInput,
@@ -220,6 +220,10 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
         setError('Invalid email or password. Please try again (or use “Forgot your password?”).');
       } else if (err.message?.includes('auth/invalid-credential')) {
         setError('Invalid email or password. Please try again (or use “Forgot your password?”).');
+      } else if (err.message?.includes('auth/too-many-requests')) {
+        setError('Too many login attempts. Please wait a few minutes before trying again.');
+      } else if (err.message?.includes('auth/network-request-failed')) {
+        setError('Unable to reach the login service. Check your connection and try again.');
       } else if (err.message?.includes('auth/invalid-email')) {
         setError('Please enter a valid email address.');
       } else if (err.message?.includes('auth/weak-password')) {
@@ -493,15 +497,25 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
                 {/* Password */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
-                  <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                    placeholder="••••••••"
-                    required
-                    autoComplete="current-password"
-                  />
+                  <div className="relative">
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="w-full px-4 py-3 pr-16 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                      placeholder="••••••••"
+                      required
+                      autoComplete="current-password"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword((shown) => !shown)}
+                      className="absolute inset-y-0 right-0 px-4 text-sm font-semibold text-blue-700 hover:text-blue-900"
+                      aria-label={showPassword ? 'Hide password' : 'Show password'}
+                    >
+                      {showPassword ? 'Hide' : 'Show'}
+                    </button>
+                  </div>
                 </div>
 
                 <button

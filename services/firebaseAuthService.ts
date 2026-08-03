@@ -34,6 +34,79 @@ const normalizeEmail = (email: string) => stripZeroWidth(email).trim();
 // Don't trim passwords (spaces can be valid). Do remove zero-width chars from autofill.
 const normalizePassword = (password: string) => stripZeroWidth(password);
 
+const isTemporaryProfileError = (error: any): boolean => {
+  const value = `${error?.code || ''} ${error?.message || error || ''}`.toLowerCase();
+  return /resource[-_ ]exhausted|quota|unavailable|deadline[-_ ]exceeded|network-request-failed/.test(value);
+};
+
+const readCachedProfile = (uid: string, claims: Record<string, any>): UserProfile | null => {
+  if (typeof localStorage === 'undefined') return null;
+  try {
+    const cached = JSON.parse(localStorage.getItem('ks2_user') || 'null');
+    if (cached?.id !== uid || typeof cached?.role !== 'string') return null;
+
+    // Never trust local storage alone for privileged roles. A user may edit it
+    // in DevTools; admin and teacher access must agree with signed ID-token claims.
+    const cachedRoles = Array.from(new Set([cached.role, ...(cached.roles || [])])) as UserProfile['roles'];
+    const verifiedRoles = cachedRoles.filter((role) =>
+      role === 'admin'
+        ? claims.admin === true
+        : role === 'teacher'
+          ? claims.teacher === true || claims.admin === true
+          : role === 'parent' || role === 'student'
+    );
+    if (verifiedRoles.length === 0) return null;
+    const role = verifiedRoles.includes(cached.role) ? cached.role : verifiedRoles[0];
+    return { ...cached, role, roles: verifiedRoles } as UserProfile;
+  } catch {
+    return null;
+  }
+};
+
+const buildVerifiedSessionProfile = async (firebaseUser: User): Promise<UserProfile | null> => {
+  // Claims are signed by Firebase and remain available even when Firestore's
+  // daily read quota is exhausted. They provide a safe emergency profile for
+  // privileged accounts until the normal profile can be read again.
+  const tokenResult = await firebaseUser.getIdTokenResult().catch(() => null);
+  const claims = tokenResult?.claims || {};
+  const cached = readCachedProfile(firebaseUser.uid, claims);
+  if (cached) return cached;
+
+  const roles: UserProfile['roles'] = [];
+  if (claims.admin === true) roles.push('admin', 'parent');
+  if (claims.teacher === true && !roles.includes('teacher')) roles.push('teacher');
+  if (claims.parent === true && !roles.includes('parent')) roles.push('parent');
+  if (claims.student === true && !roles.includes('student')) roles.push('student');
+  if (roles.length === 0) return null;
+
+  const role = roles.includes('admin')
+    ? 'admin'
+    : roles.includes('parent')
+      ? 'parent'
+      : roles.includes('teacher')
+        ? 'teacher'
+        : 'student';
+
+  return {
+    id: firebaseUser.uid,
+    name: firebaseUser.displayName || firebaseUser.email?.split('@')[0] || 'User',
+    role,
+    roles,
+    age: 9,
+    avatarConfig: { color: '#4F46E5' },
+    totalPoints: 0,
+    unlockedItems: [],
+    badges: [],
+    streak: 0,
+    lastLoginDate: new Date().toISOString(),
+    mastery: {},
+    timeSpentLearning: {},
+    quizHistory: [],
+    preferredDifficulty: Difficulty.Medium,
+    ...(roles.includes('parent') ? { childrenIds: [] } : {}),
+  };
+};
+
 async function sha256Hex(input: string): Promise<string> {
   const bytes = new TextEncoder().encode(input);
   const digest = await crypto.subtle.digest('SHA-256', bytes);
@@ -389,16 +462,31 @@ export const firebaseAuthService = {
         }
       }
       
-      // Update last login
-      await updateDoc(doc(db, 'users', firebaseUser.uid), {
-        lastLoginDate: new Date().toISOString(),
-        updatedAt: Timestamp.now(),
-      });
+      // Login must not fail just because this non-essential activity write is
+      // temporarily unavailable or its daily quota has been exhausted.
+      try {
+        await updateDoc(doc(db, 'users', firebaseUser.uid), {
+          lastLoginDate: new Date().toISOString(),
+          updatedAt: Timestamp.now(),
+        });
+      } catch (updateError) {
+        console.warn('Unable to update lastLoginDate:', updateError);
+      }
 
       return userProfile;
     } catch (error: any) {
       console.error('Login error:', error);
-      // If Auth succeeded but Firestore failed, keep state consistent by signing out.
+      if (firebaseUser && isTemporaryProfileError(error)) {
+        const fallback = await buildVerifiedSessionProfile(firebaseUser);
+        if (fallback) return fallback;
+        // Authentication succeeded. Preserve it so a reload can recover as soon
+        // as Firestore is available, and do not misreport this as a bad password.
+        throw new Error(
+          'Your password was accepted, but the profile database has temporarily exhausted its daily quota. Your session is preserved; please try again after the quota resets.'
+        );
+      }
+
+      // Permanent profile failures should not leave a half-authenticated session.
       try {
         await signOut(auth);
       } catch {
@@ -534,6 +622,11 @@ export const firebaseAuthService = {
           resolve(userProfile);
         } catch (error) {
           console.error('Error fetching current user:', error);
+          if (isTemporaryProfileError(error)) {
+            const fallback = await buildVerifiedSessionProfile(firebaseUser);
+            resolve(fallback);
+            return;
+          }
           // Avoid getting stuck in a state where Auth is present but profile reads fail.
           try {
             await signOut(auth);
