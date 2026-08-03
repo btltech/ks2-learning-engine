@@ -1,5 +1,7 @@
 import { describe, it, expect, beforeEach, vi, Mock } from 'vitest';
 
+const authTestState = vi.hoisted(() => ({ user: null as any }));
+
 // Mock Firebase modules before importing the service
 vi.mock('firebase/app', () => ({
   getApps: vi.fn(() => []),
@@ -11,10 +13,12 @@ vi.mock('firebase/auth', () => ({
   getAuth: vi.fn(() => ({
     onAuthStateChanged: vi.fn((callback) => {
       // Simulate async behavior and return unsubscribe function
-      setTimeout(() => callback(null), 0);
+      setTimeout(() => callback(authTestState.user), 0);
       return vi.fn(); // unsubscribe function
     }),
-    currentUser: null,
+    get currentUser() {
+      return authTestState.user;
+    },
   })),
   createUserWithEmailAndPassword: vi.fn(),
   signInWithEmailAndPassword: vi.fn(),
@@ -48,6 +52,7 @@ import { getDoc, setDoc } from 'firebase/firestore';
 describe('FirebaseAuthService', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    authTestState.user = null;
   });
 
   const mockFirebaseUser = (uid: string) => ({
@@ -230,6 +235,26 @@ describe('FirebaseAuthService', () => {
     it('should return null when no user is logged in', async () => {
       const result = await firebaseAuthService.getCurrentUser();
       expect(result).toBeNull();
+    });
+
+    it('restores a session without forcing a token refresh', async () => {
+      const firebaseUser = mockFirebaseUser('existing-user');
+      authTestState.user = firebaseUser;
+      (getDoc as Mock).mockResolvedValue({
+        exists: () => true,
+        data: () => ({
+          id: 'existing-user',
+          name: 'Existing User',
+          email: 'existing@example.com',
+          role: 'parent',
+          roles: ['parent'],
+        }),
+      });
+
+      const result = await firebaseAuthService.getCurrentUser();
+
+      expect(result?.id).toBe('existing-user');
+      expect(firebaseUser.getIdToken).toHaveBeenCalledWith();
     });
   });
 });

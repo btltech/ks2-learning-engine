@@ -473,7 +473,11 @@ export const firebaseAuthService = {
         }
 
         try {
-          await firebaseUser.getIdToken(true);
+          // Let Firebase reuse a valid cached token. Forcing a refresh here makes
+          // every page load exchange the persisted refresh token; after a password
+          // reset that token is revoked and the login screen receives a 400 before
+          // the stale session can be cleared normally.
+          await firebaseUser.getIdToken();
           const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid));
           if (!userDoc.exists()) {
             resolve(null);
