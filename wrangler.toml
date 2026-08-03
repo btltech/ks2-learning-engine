@@ -3,6 +3,7 @@
 
 name = "ks2-learning-engine"
 pages_build_output_dir = "dist"
+compatibility_date = "2026-08-03"
 
 # Optional: bind a KV namespace for persistent rate limiting across cold starts.
 # Steps to enable:

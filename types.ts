@@ -116,6 +116,8 @@ export interface BankQuestion extends QuizQuestion {
 export interface QuizResult extends QuizQuestion {
     userAnswer: string;
     isCorrect: boolean;
+    /** Creative/open-ended tasks are completed but excluded from percentage scores. */
+    isScored?: boolean;
 }
 
 export interface Explanation {

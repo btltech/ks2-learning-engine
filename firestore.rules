@@ -273,41 +273,11 @@ service cloud.firestore {
     // SHARED CONTENT CACHE (AI Responses)
     // ============================================
     match /content_cache/{docId} {
-      // Allow public read access to shared cache (AI-generated content)
-      // This enables the app to load cached topics/lessons before user authentication
-      allow read: if true;
+      // Legacy cache is read-only. Browser-generated AI content must never become
+      // shared curriculum for another learner.
+      allow read: if isAuthenticated();
 
-      function isNumberValue(value) {
-        return value is int || value is float;
-      }
-
-      function isValidCacheId(docId) {
-        return docId is string &&
-          docId.size() > 0 &&
-          docId.size() <= 150 &&
-          docId.matches('^(topics|lesson|quiz)-[a-z0-9_-]+$');
-      }
-
-      function isValidCacheData(value) {
-        return (value is string && value.size() <= 50000) ||
-          (value is list && value.size() <= 100);
-      }
-
-      function isValidSharedCacheWrite(docId) {
-        return isNonAnonymousAuth() &&
-          isValidCacheId(docId) &&
-          request.resource.data.version is string &&
-          request.resource.data.version.size() > 0 &&
-          request.resource.data.version.size() <= 20 &&
-          isNumberValue(request.resource.data.timestamp) &&
-          request.resource.data.timestamp > 0 &&
-          request.resource.data.timestamp < 10000000000000 &&
-          isValidCacheData(request.resource.data.data) &&
-          request.resource.data.keys().hasOnly(['data', 'timestamp', 'version']);
-      }
-
-      allow create, update: if isValidSharedCacheWrite(docId);
-      allow delete: if false;
+      allow create, update, delete: if false;
     }
 
     // ============================================
@@ -317,75 +287,8 @@ service cloud.firestore {
       // Read for authenticated users
       allow read: if isAuthenticated();
 
-      function isValidDifficulty(value) {
-        return value in ['Easy', 'Medium', 'Hard'];
-      }
-
-      function isValidQuestionType(value) {
-        return value in [
-          'multiple-choice',
-          'true-false',
-          'fill-in-blank',
-          'ordering',
-          'drawing',
-          'matching',
-          'drag-and-drop'
-        ];
-      }
-
-      function isValidCognitiveLevel(value) {
-        return value in ['remember', 'understand', 'apply', 'analyze'];
-      }
-
-      function isValidCloudBankCreate() {
-        return isAuthenticated() &&
-          // Ownership / attribution (authenticated users including anonymous can contribute)
-          request.resource.data.createdBy == request.auth.uid &&
-          // Basic required fields
-          request.resource.data.subject is string &&
-          request.resource.data.topic is string &&
-          request.resource.data.question is string &&
-          request.resource.data.correctAnswer is string &&
-          request.resource.data.difficulty is string &&
-          isValidDifficulty(request.resource.data.difficulty) &&
-          request.resource.data.age is int &&
-          request.resource.data.age >= 5 && request.resource.data.age <= 18 &&
-          request.resource.data.options is list &&
-          request.resource.data.createdAt is timestamp &&
-          // Optional fields (when present)
-          (!('explanation' in request.resource.data) || request.resource.data.explanation is string) &&
-          (!('questionType' in request.resource.data) || (request.resource.data.questionType is string && isValidQuestionType(request.resource.data.questionType))) &&
-          (!('cognitiveLevel' in request.resource.data) || (request.resource.data.cognitiveLevel is string && isValidCognitiveLevel(request.resource.data.cognitiveLevel))) &&
-          (!('acceptableAnswers' in request.resource.data) || request.resource.data.acceptableAnswers is list) &&
-          // Prevent writes to unexpected fields
-          request.resource.data.keys().hasOnly([
-            'subject',
-            'topic',
-            'difficulty',
-            'age',
-            'question',
-            'options',
-            'correctAnswer',
-            'explanation',
-            'questionType',
-            'cognitiveLevel',
-            'acceptableAnswers',
-            'createdAt',
-            'createdBy'
-          ]);
-      }
-      
-      // Allow updating ONLY performance fields (for analytics)
-      allow update: if isAuthenticated() &&
-        request.resource.data.diff(resource.data).affectedKeys()
-          .hasOnly(['performance']);
-      
-      // Allow authenticated clients to add new unique questions (Cloud Bank)
-      // Writes are still constrained by schema + attribution to prevent random data.
-      allow create: if isValidCloudBankCreate();
-
-      // No client deletes
-      allow delete: if false;
+      // Reviewed question content is deployed by trusted tooling, never browsers.
+      allow create, update, delete: if false;
     }
 
     // ============================================
@@ -395,11 +298,8 @@ service cloud.firestore {
       // Anyone authenticated can read performance stats
       allow read: if isAuthenticated();
       
-      // Anyone authenticated can update/create performance data
-      allow create, update: if isAuthenticated();
-      
-      // Only admin can delete
-      allow delete: if false;
+      // Aggregate effectiveness metrics require a trusted backend pipeline.
+      allow create, update, delete: if false;
     }
 
     // ============================================

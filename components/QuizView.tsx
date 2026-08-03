@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
-import { type QuizQuestion, type Difficulty, type QuizResult, QuestionType, MatchingPair, DragDropItem, DragDropZone } from '../types';
+import { type QuizQuestion, type Difficulty, type QuizResult, QuestionType } from '../types';
 import { generateQuiz, generateQuizHint } from '../services/geminiService';
 import { adaptiveLearningEngine } from '../services/adaptiveLearningEngine';
 import { useUser } from '../context/UserContext';
@@ -14,49 +14,9 @@ import { SpeakerWaveIcon, StopIcon, LightBulbIcon, MicrophoneIcon } from '@heroi
 import { DrawingCanvas } from './DrawingCanvas';
 import { MatchingQuestion } from './MatchingQuestion';
 import { DragDropQuestion } from './DragDropQuestion';
-
-const normalizeAnswerText = (value?: string | null): string => (value ?? '').trim().toLowerCase();
-
-const resolveMultipleChoiceAnswer = (question: QuizQuestion): string | undefined => {
-  if (!question.correctAnswer) return undefined;
-  const trimmedAnswer = question.correctAnswer.trim();
-  const normalizedCorrect = normalizeAnswerText(trimmedAnswer);
-
-  if (question.options && question.options.length > 0) {
-    const exactMatch = question.options.find(option => normalizeAnswerText(option) === normalizedCorrect);
-    if (exactMatch) {
-      return exactMatch;
-    }
-
-    const parsedIndex = Number(trimmedAnswer);
-    if (!Number.isNaN(parsedIndex)) {
-      if (question.options[parsedIndex]) {
-        return question.options[parsedIndex];
-      }
-      const oneBasedIndex = parsedIndex - 1;
-      if (question.options[oneBasedIndex]) {
-        return question.options[oneBasedIndex];
-      }
-    }
-
-    const letterMatch = trimmedAnswer.match(/^([A-Za-z])/);
-    if (letterMatch) {
-      const letterIndex = letterMatch[1].toUpperCase().charCodeAt(0) - 65;
-      if (letterIndex >= 0 && letterIndex < question.options.length) {
-        return question.options[letterIndex];
-      }
-    }
-  }
-
-  return trimmedAnswer;
-};
-
-const isMultipleChoiceAnswerCorrect = (question: QuizQuestion, userAnswer: string): boolean => {
-  if (!question.correctAnswer || !userAnswer) return false;
-  const resolvedAnswer = resolveMultipleChoiceAnswer(question);
-  if (!resolvedAnswer) return false;
-  return normalizeAnswerText(resolvedAnswer) === normalizeAnswerText(userAnswer);
-};
+import { OrderingQuestion } from './OrderingQuestion';
+import { buildQuizResults } from '../services/quizScoring';
+import { CURATED_LANGUAGES } from '../data/curriculumSequences';
 
 interface QuizViewProps {
   subject: string;
@@ -78,8 +38,8 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.id, user?.quizHistory?.length]);
   // Detect if this is a language subject and extract the language
-  const isLanguageSubject = subject === 'Languages';
-  const detectedLanguage = isLanguageSubject ? topic.split(':')[0] : 'English';
+  const isLanguageSubject = (CURATED_LANGUAGES as readonly string[]).includes(subject);
+  const detectedLanguage = isLanguageSubject ? subject : 'English';
   const { speak, cancel, isSpeaking } = useTTSEnhanced(detectedLanguage, {
     googleCloudApiKey: (import.meta as unknown as { env: { VITE_GOOGLE_CLOUD_TTS_API_KEY?: string } }).env?.VITE_GOOGLE_CLOUD_TTS_API_KEY
   });
@@ -96,12 +56,16 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
   const [matchingResult, setMatchingResult] = useState<{ isCorrect: boolean; matches: Record<string, string> } | null>(null);
   const [dragDropCompleted, setDragDropCompleted] = useState<boolean>(false);
   const [dragDropResult, setDragDropResult] = useState<{ isCorrect: boolean; placements: Record<string, string> } | null>(null);
+  const [orderingAnswer, setOrderingAnswer] = useState<string[]>([]);
   const { playClick } = useGameSounds();
   const [timeLeft, setTimeLeft] = useState(15);
+  const [timerEnabled, setTimerEnabled] = useState(mode === 'speed');
   const [currentHint, setCurrentHint] = useState<string>('');
   const [isGettingHint, setIsGettingHint] = useState(false);
   const [questionStartTime, setQuestionStartTime] = useState<number>(Date.now());
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const timeoutHandlerRef = useRef<(isTimeout?: boolean) => void>(() => undefined);
+  const questionTimesRef = useRef<number[]>([]);
   const lastProcessedTranscript = useRef<string>('');
   const fillInBlankInputRef = useRef<HTMLInputElement>(null);
 
@@ -171,7 +135,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
       timerRef.current = null;
     }
     
-    if (mode === 'speed' && !loading && !error && questions.length > 0) {
+    if (mode === 'speed' && timerEnabled && !loading && !error && questions.length > 0) {
       setTimeLeft(15);
       timerRef.current = setInterval(() => {
         setTimeLeft((prev) => {
@@ -180,10 +144,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
               clearInterval(timerRef.current);
               timerRef.current = null;
             }
-            // Use setTimeout to avoid state update during render
-            // Ensure component is still mounted before calling handleNextQuestion
-            // Note: handleNextQuestion should ideally be wrapped in useCallback or check mounted state
-            setTimeout(() => handleNextQuestion(true), 0);
+            setTimeout(() => timeoutHandlerRef.current(true), 0);
             return 0;
           }
           return prev - 1;
@@ -197,7 +158,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
         timerRef.current = null;
       }
     };
-  }, [mode, loading, error, questions.length]);
+  }, [mode, timerEnabled, loading, error, questions.length, currentQuestionIndex]);
 
   // Stop speaking when question changes
   useEffect(() => {
@@ -210,6 +171,11 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
     setCurrentQuestionIndex(0);
     setSelectedAnswers([]);
     setSelectedOption(null);
+    setOrderingAnswer([]);
+    setTimerEnabled(mode === 'speed');
+    setTimeLeft(15);
+    questionTimesRef.current = [];
+    setQuestionStartTime(Date.now());
     try {
       const generatedQuestions = await generateQuiz(subject, topic, difficulty, studentAge, undefined, studentProfile);
       if (!generatedQuestions || generatedQuestions.length === 0) {
@@ -227,7 +193,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
       );
     }
     setLoading(false);
-  }, [subject, topic, difficulty, studentAge]);
+  }, [subject, topic, difficulty, studentAge, studentProfile, mode]);
 
   useEffect(() => {
     fetchQuiz();
@@ -244,11 +210,14 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
     } else if (questionType === QuestionType.FillInBlank) {
       answerToRecord = fillInBlankAnswer.trim();
     } else if (questionType === QuestionType.Drawing) {
-      answerToRecord = drawingData || 'No drawing submitted';
+      // Keep the canvas local; quiz history records completion without uploading image data.
+      answerToRecord = drawingData ? 'Drawing submitted' : '';
     } else if (questionType === QuestionType.Matching) {
       answerToRecord = matchingResult ? JSON.stringify(matchingResult.matches) : '';
     } else if (questionType === QuestionType.DragAndDrop) {
       answerToRecord = dragDropResult ? JSON.stringify(dragDropResult.placements) : '';
+    } else if (questionType === QuestionType.Ordering) {
+      answerToRecord = orderingAnswer.length ? JSON.stringify(orderingAnswer) : '';
     } else {
       answerToRecord = selectedOption || '';
     }
@@ -258,6 +227,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
     
     if (answerToRecord || isTimeout) {
       const newAnswers = [...selectedAnswers, answerToRecord];
+      questionTimesRef.current[currentQuestionIndex] = timeSpent;
       setSelectedAnswers(newAnswers);
       setSelectedOption(null);
       setFillInBlankAnswer('');
@@ -266,6 +236,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
       setMatchingResult(null);
       setDragDropCompleted(false);
       setDragDropResult(null);
+      setOrderingAnswer([]);
       setQuestionStartTime(Date.now());
 
       if (currentQuestionIndex < questions.length - 1) {
@@ -273,48 +244,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
         setCurrentHint(''); // Clear hint for new question
       } else {
         // Final submission - check answers and record performance
-        const results: QuizResult[] = questions.map((q, index) => {
-          const userAnswer = newAnswers[index];
-          let isCorrect: boolean;
-          
-          // Check correctness based on question type
-          if (q.questionType === QuestionType.FillInBlank) {
-            // Case-insensitive match, also check acceptable answers
-            const normalizedAnswer = userAnswer.toLowerCase().trim();
-            isCorrect = normalizedAnswer === q.correctAnswer.toLowerCase().trim() ||
-              (q.acceptableAnswers?.some(a => a.toLowerCase().trim() === normalizedAnswer) ?? false);
-          } else if (q.questionType === QuestionType.Drawing) {
-            isCorrect = true; // Drawings are always marked as correct for now
-          } else if (q.questionType === QuestionType.Matching) {
-            // Check if matching was submitted and correct
-            try {
-              const matches = userAnswer ? JSON.parse(userAnswer) : {};
-              isCorrect = q.matchingPairs?.every(pair => matches[pair.left] === pair.right) ?? false;
-            } catch {
-              isCorrect = false;
-            }
-          } else if (q.questionType === QuestionType.DragAndDrop) {
-            // Check if drag-drop was submitted and correct
-            try {
-              const placements = userAnswer ? JSON.parse(userAnswer) : {};
-              // For now, check if all placements match expected zones
-              isCorrect = Object.keys(placements).length === (q.dragItems?.length ?? 0);
-            } catch {
-              isCorrect = false;
-            }
-          } else {
-            isCorrect = isMultipleChoiceAnswerCorrect(q, userAnswer);
-          }
-          
-          return {
-            id: q.id,
-            question: q.question,
-            options: q.options,
-            correctAnswer: q.correctAnswer,
-            userAnswer,
-            isCorrect,
-          };
-        });
+        const results: QuizResult[] = buildQuizResults(questions, newAnswers);
         
         // Record question performance for analytics
         recordQuizAttempts(
@@ -322,7 +252,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
             id: r.id,
             question: r.question,
             isCorrect: r.isCorrect,
-            timeToAnswer: idx === currentQuestionIndex ? timeSpent : undefined
+            timeToAnswer: questionTimesRef.current[idx]
           })),
           subject,
           topic,
@@ -333,6 +263,10 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
       }
     }
   };
+
+  useEffect(() => {
+    timeoutHandlerRef.current = handleNextQuestion;
+  });
 
   const handleGetHint = async () => {
     if (!currentQuestion || isGettingHint) return;
@@ -409,11 +343,21 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
       <div className="flex justify-between items-start mb-6">
         <div className="flex-grow">
           {mode === 'speed' && (
-            <div className="flex items-center mb-2 text-orange-600 font-bold animate-pulse">
-              <span className="mr-2">⚡ Speed Challenge!</span>
-              <span className={`text-2xl ${timeLeft <= 5 ? 'text-red-600 scale-110' : ''}`}>
-                {timeLeft}s
-              </span>
+            <div className="mb-3 rounded-xl bg-orange-50 p-3 text-orange-700">
+              <div className="flex flex-wrap items-center gap-3 font-bold">
+                <span>⚡ Speed Challenge</span>
+                <span className={`text-2xl ${timerEnabled && timeLeft <= 5 ? 'text-red-600' : ''}`} aria-live="polite">
+                  {timerEnabled ? `${timeLeft}s` : 'No time limit'}
+                </span>
+                {timerEnabled && (
+                  <button type="button" onClick={() => setTimeLeft((seconds) => seconds + 30)} className="rounded-lg bg-white px-3 py-2 text-sm shadow-sm hover:bg-orange-100">
+                    +30 seconds
+                  </button>
+                )}
+                <button type="button" onClick={() => setTimerEnabled((enabled) => !enabled)} className="rounded-lg bg-white px-3 py-2 text-sm shadow-sm hover:bg-orange-100">
+                  {timerEnabled ? 'Turn off timer' : 'Turn timer on'}
+                </button>
+              </div>
             </div>
           )}
           <h3 className="text-xl sm:text-2xl font-bold text-gray-800">{currentQuestion.question}</h3>
@@ -621,6 +565,11 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
         />
       )}
 
+      {/* Ordering Question */}
+      {currentQuestion.questionType === QuestionType.Ordering && currentQuestion.options.length > 0 && (
+        <OrderingQuestion items={currentQuestion.options} onChange={setOrderingAnswer} />
+      )}
+
       <div className="mt-6 sm:mt-8 text-right">
         <button
           onClick={() => handleNextQuestion(false)}
@@ -633,6 +582,8 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
               ? !matchingCompleted
               : currentQuestion.questionType === QuestionType.DragAndDrop
               ? !dragDropCompleted
+              : currentQuestion.questionType === QuestionType.Ordering
+              ? orderingAnswer.length !== currentQuestion.options.length
               : !selectedOption
           }
           aria-label={isLastQuestion ? 'Finish quiz and see results' : 'Go to next question'}
@@ -645,6 +596,8 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
               ? !matchingCompleted
               : currentQuestion.questionType === QuestionType.DragAndDrop
               ? !dragDropCompleted
+              : currentQuestion.questionType === QuestionType.Ordering
+              ? orderingAnswer.length !== currentQuestion.options.length
               : !selectedOption
           }
           className="w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-bold text-lg rounded-xl shadow-lg shadow-green-500/40 hover:shadow-xl hover:shadow-green-500/50 active:scale-95 transition-all duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:shadow-none disabled:active:scale-100"

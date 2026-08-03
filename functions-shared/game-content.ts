@@ -56,6 +56,16 @@ function numericOptions(answer: number, distractors: number[] = []) {
   return shuffle(Array.from(values).slice(0, 4).map(String));
 }
 
+function decimalOptions(answer: number, distractors: number[]) {
+  const values = new Set([answer.toFixed(1), ...distractors.map((value) => value.toFixed(1))]);
+  let step = 1;
+  while (values.size < 4) {
+    values.add(Math.max(0, answer + step / 10).toFixed(1));
+    step += 1;
+  }
+  return shuffle(Array.from(values).slice(0, 4));
+}
+
 function mathsMission(yearGroup: '3-4' | '5-6'): PrivateGameQuestion[] {
   const lower = () => {
     const a = randomInt(120, 899);
@@ -115,11 +125,10 @@ function mathsMission(yearGroup: '3-4' | '5-6'): PrivateGameQuestion[] {
       {
         prompt: `A trail is ${decimalA.toFixed(1)} km long. Mia walks ${decimalB.toFixed(1)} km. How far remains?`,
         answer: (decimalA - decimalB).toFixed(1),
-        options: shuffle([
-          (decimalA - decimalB).toFixed(1),
-          (decimalA + decimalB).toFixed(1),
-          Math.abs(decimalA - decimalB + 1).toFixed(1),
-          Math.abs(decimalA - decimalB - 0.1).toFixed(1),
+        options: decimalOptions(decimalA - decimalB, [
+          decimalA + decimalB,
+          Math.abs(decimalA - decimalB + 1),
+          Math.abs(decimalA - decimalB - 0.1),
         ]),
         explanation: `Align the decimal points and subtract: ${decimalA.toFixed(1)} − ${decimalB.toFixed(1)} = ${(decimalA - decimalB).toFixed(1)} km.`,
       },

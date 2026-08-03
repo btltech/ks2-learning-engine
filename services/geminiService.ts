@@ -1,40 +1,27 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { getAuth } from 'firebase/auth';
-import { db, collection, getDocs, addDoc, query, where, limit, Timestamp } from './firebase';
 import type { QuizQuestion, QuizResult, Explanation, QuestionType, CognitiveLevel } from '../types';
 import { QuestionType as QType, CognitiveLevel as CLevel, Difficulty } from '../types';
 import { createCacheKey, getFromCache, setInCache } from './cacheService';
-import { getFromSharedCache, setInSharedCache } from './sharedCacheService';
 import { 
-  validateTopicsList, 
   validateLesson, 
   validateQuizQuestion, 
   validateExplanation 
 } from './contentValidator';
 import { contentMonitor } from './contentMonitor';
 import { offlineManager } from './offlineManager';
-import { getRandomQuestions } from '../data/questionBank';
+import { getQuestionsForCurriculumUnit } from '../data/questionBank';
 import { getUsedQuestions, markQuestionsAsUsed, resetUsedQuestions } from './questionTracker';
 import { 
   filterPoorlyPerformingQuestions, 
   filterSimilarQuestions, 
   getAdaptedDifficulty 
 } from './questionPerformance';
+import { CURATED_LANGUAGES, getCurriculumUnit, getCurriculumUnits, getYearGroupForAge } from '../data/curriculumSequences';
+import { getReviewedLesson } from '../data/reviewedLessons';
+import { getReviewedQuestions } from '../data/reviewedQuestions';
 
-const LANGUAGE_SUBJECTS = ['french', 'spanish', 'german', 'japanese', 'mandarin', 'romanian', 'yoruba', 'welsh'];
-
-// Canonical subject name map — keeps Cloud Bank consistent regardless of how the subject was passed in
-const SUBJECT_ALIASES: Record<string, string> = {
-  'physical education': 'PE',
-  'design and technology': 'D&T',
-  'art and design': 'Art',
-  'design & technology': 'D&T',
-  'pshe': 'PSHE',
-  'religious education': 'Religious Education',
-};
-
-const normalizeSubject = (s: string): string =>
-  SUBJECT_ALIASES[s.toLowerCase()] ?? s;
+const LANGUAGE_SUBJECTS = CURATED_LANGUAGES.map((language) => language.toLowerCase());
 
 // In production, the API key is handled server-side via Cloudflare Pages Functions
 // In development, we use the VITE_ env var directly
@@ -63,75 +50,6 @@ const getFirebaseIdToken = async (): Promise<string> => {
   }
   
   return user.getIdToken();
-};
-
-const isSafetyIssue = (issue: string): boolean => {
-  const lower = issue.toLowerCase();
-  return lower.includes('inappropriate') || lower.includes('harmful');
-};
-
-const hasSafetyIssues = (issues: string[]): boolean => issues.some(isSafetyIssue);
-
-const sanitizeSharedTopics = (value: unknown): string[] | null => {
-  if (!Array.isArray(value)) return null;
-
-  const cleaned = value
-    .filter((t): t is string => typeof t === 'string')
-    .map((t) => t.trim())
-    .filter((t) => t.length > 0 && t.length <= 100);
-
-  const seen = new Set<string>();
-  const unique: string[] = [];
-  for (const topic of cleaned) {
-    const key = topic.toLowerCase();
-    if (seen.has(key)) continue;
-    seen.add(key);
-    unique.push(topic);
-  }
-
-  if (unique.length === 0) return null;
-  return unique;
-};
-
-const sanitizeSharedLesson = (value: unknown): string | null => {
-  if (typeof value !== 'string') return null;
-  const lesson = value.trim();
-  if (lesson.length < 50) return null;
-  // Soft cap to avoid pathological cache entries; the generator already tries to keep lessons reasonable.
-  if (lesson.length > 50_000) return null;
-  return lesson;
-};
-
-const sanitizeSharedQuiz = (value: unknown): QuizQuestion[] | null => {
-  if (!Array.isArray(value)) return null;
-
-  const validQuestions: QuizQuestion[] = [];
-
-  for (const q of value) {
-    const candidate: any = q as any;
-
-    // Drawing questions don't satisfy the default multiple-choice validator (options empty),
-    // so validate a probe version while keeping the original question object.
-    if (candidate?.questionType === QType.Drawing) {
-      const answer = typeof candidate.correctAnswer === 'string' && candidate.correctAnswer.trim()
-        ? candidate.correctAnswer.trim()
-        : 'Drawing submitted';
-      const probe = {
-        ...candidate,
-        options: [answer, 'Other'],
-        correctAnswer: answer,
-      };
-      const validation = validateQuizQuestion(probe);
-      if (validation.isValid) validQuestions.push(candidate as QuizQuestion);
-      continue;
-    }
-
-    const validation = validateQuizQuestion(candidate);
-    if (validation.isValid) validQuestions.push(candidate as QuizQuestion);
-  }
-
-  if (validQuestions.length === 0) return null;
-  return validQuestions;
 };
 
 // Proxy-based AI client for production
@@ -177,10 +95,6 @@ const createProxyAI = () => ({
 const ai = USE_PROXY ? createProxyAI() : new GoogleGenAI({ apiKey: apiKey || '' });
 
 const model = 'gemini-2.5-flash';
-// Cheaper model for lightweight requests (topic listing, hints)
-const topicsModel = 'gemini-2.0-flash';
-// Cache version tied to the AI model — changing the model busts stale cached content
-const CACHE_MODEL_VERSION = model;
 
 /**
  * Retry an async operation with exponential backoff.
@@ -202,181 +116,20 @@ async function withRetry<T>(fn: () => Promise<T>, maxRetries = 3): Promise<T> {
 }
 
 export const getTopicsForSubject = async (subject: string, studentAge: number): Promise<string[]> => {
-  const cacheKey = createCacheKey('topics', subject, studentAge.toString());
-  
-  // 1. Check Local Cache
-  const cachedTopics = getFromCache<string[]>(cacheKey);
-  if (cachedTopics) {
-    console.log(`Cache hit for topics: ${subject} (age ${studentAge})`);
-    return cachedTopics;
-  }
-
-  // 2. Check Shared Cache (Firestore)
-  if (offlineManager.checkOnlineStatus()) {
-    const sharedTopicsRaw = await getFromSharedCache<any>(cacheKey, CACHE_MODEL_VERSION);
-    const sharedTopics = sanitizeSharedTopics(sharedTopicsRaw);
-    if (sharedTopics) {
-      const validation = validateTopicsList(sharedTopics);
-      if (!hasSafetyIssues(validation.issues)) {
-        console.log(`Shared cache hit for topics: ${subject}`);
-        setInCache(cacheKey, sharedTopics); // Save locally for next time
-        return sharedTopics;
-      }
-    }
-    if (sharedTopicsRaw) {
-      console.warn(`Ignored shared cached topics for ${subject} due to validation issues.`);
-    }
-  }
-
-  // Check if offline
-  if (!offlineManager.checkOnlineStatus()) {
-    console.warn('Offline: No cached topics available');
-    return [];
-  }
-
-  let contents = '';
-  const subjectLower = subject.toLowerCase();
-  const isSpecificLanguage = LANGUAGE_SUBJECTS.includes(subjectLower);
-
-  if (subjectLower === 'computing' || subjectLower === 'coding') {
-    contents = `List 30 key topics for an introduction to Computing for a ${studentAge}-year-old UK Key Stage 2 student. Focus on foundational concepts using block-based coding (like Scratch), an introduction to Python (e.g., variables, loops, simple commands), and digital literacy (e.g., internet safety, how the internet works). Ensure topics are aligned with the UK Department for Education (DfE) computing curriculum.
-
-IMPORTANT: Content must be appropriate for children aged ${studentAge}. Use simple, encouraging language. Avoid any complex, scary, or inappropriate topics.`;
-  } else if (subjectLower === 'languages') {
-    contents = `List 30 key language learning topics for a ${studentAge}-year-old UK Key Stage 2 student. 
-    
-    You MUST include topics for ALL of these languages: French, Spanish, German, Japanese, Mandarin, Romanian, Yoruba, and Welsh.
-    
-    Format the topics clearly as "[Language]: [Topic]", for example:
-    - "French: Greetings"
-    - "Spanish: Numbers"
-    - "German: Colors"
-    - "Japanese: Introduction"
-    - "Mandarin: Family"
-    - "Yoruba: Common Phrases"
-    - "Romanian: Food"
-    - "Welsh: Basics"
-
-    Focus on vocabulary and basic conversation. Ensure topics are aligned with the UK DfE curriculum standards where applicable, or beginner levels for the other languages.
-
-    IMPORTANT: Content must be appropriate for children aged ${studentAge}. Use simple, encouraging language.`;
-  } else if (isSpecificLanguage) {
-    const languageLabel = subject.charAt(0).toUpperCase() + subject.slice(1);
-    contents = `List 20 beginner-friendly topics for learning ${languageLabel} for a ${studentAge}-year-old UK Key Stage 2 student.
-
-RULES:
-- Keep each topic short and clear (e.g., "Greetings", "Numbers 1-20", "Colors", "Family", "Food", "School")
-- Focus on practical vocabulary and simple phrases a child can use
-- DO NOT prefix the topic with the language name (just the topic text)
-- Avoid grammar-heavy or abstract topics; keep it fun and usable
-
-IMPORTANT: Content must be appropriate for children aged ${studentAge}. Use simple, encouraging language.`;
-  } else if (subjectLower === 'pe') {
-    contents = `List 30 key theoretical topics for Physical Education (PE) for a ${studentAge}-year-old UK Key Stage 2 student. Focus on health, fitness, body awareness, and rules of sports (e.g., 'Healthy Eating', 'Muscles and Bones', 'Importance of Exercise', 'Rules of Football'). Do not include practical activities that require physical movement right now.
-
-IMPORTANT: Content must be appropriate for children aged ${studentAge}. Use simple, encouraging language.`;
-  } else if (subjectLower === 'pshe') {
-    contents = `List 30 key topics for PSHE (Personal, Social, Health and Economic Education) for a ${studentAge}-year-old UK Key Stage 2 student. Focus on emotional well-being, relationships, and safety (e.g., 'Friendship', 'Online Safety', 'Managing Feelings', 'Money Matters').
-
-IMPORTANT: Content must be appropriate for children aged ${studentAge}. Use simple, encouraging language.`;
-  } else if (subjectLower === 'd&t' || subjectLower === 'design & technology') {
-    contents = `List 30 key topics for Design & Technology (D&T) for a ${studentAge}-year-old UK Key Stage 2 student. Focus on design processes, structures, mechanisms, and food technology (e.g., 'Levers and Pulleys', 'Strong Structures', 'Healthy Cooking', 'Textiles').
-
-IMPORTANT: Content must be appropriate for children aged ${studentAge}. Use simple, encouraging language.`;
-  } else if (subjectLower === 'music') {
-    contents = `List 30 key topics for Music for a ${studentAge}-year-old UK Key Stage 2 student. Focus on instruments, musical notation, composers, and rhythm (e.g., 'Orchestra Instruments', 'Reading Notes', 'Famous Composers', 'Rhythm and Pulse').
-
-IMPORTANT: Content must be appropriate for children aged ${studentAge}. Use simple, encouraging language.`;
-  } else if (subjectLower === 'religious education' || subjectLower === 're') {
-    contents = `List 30 key topics for Religious Education (RE) for a ${studentAge}-year-old UK Key Stage 2 student. Focus on major world religions (Christianity, Islam, Judaism, Hinduism, Sikhism, Buddhism), festivals, symbols, and moral stories. Ensure a balanced and respectful representation.
-
-IMPORTANT: Content must be appropriate for children aged ${studentAge}. Use simple, encouraging language.`;
-  } else if (subjectLower === 'citizenship') {
-    contents = `List 30 key topics for Citizenship for a ${studentAge}-year-old UK Key Stage 2 student. Focus on rights and responsibilities, democracy, community, environment, and global awareness (e.g., 'Voting', 'Human Rights', 'Recycling', 'Helping the Community').
-
-IMPORTANT: Content must be appropriate for children aged ${studentAge}. Use simple, encouraging language.`;
-  } else {
-    contents = `List 30 key topics for the subject '${subject}' for a ${studentAge}-year-old. Provide a comprehensive list covering ALL major areas of the UK Department for Education (DfE) National Curriculum for Key Stage 2. Ensure no major topic is left out.
-
-IMPORTANT: Content must be appropriate for children aged ${studentAge}. Use simple, encouraging language. Avoid any complex, scary, or inappropriate topics.`;
-  }
-
-  try {
-    const response = await withRetry(() => ai.models.generateContent({
-      model: topicsModel,
-      contents,
-      config: {
-        responseMimeType: "application/json",
-        responseSchema: {
-          type: Type.OBJECT,
-          properties: {
-            topics: {
-              type: Type.ARRAY,
-              items: { type: Type.STRING },
-            },
-          },
-          required: ['topics'],
-        },
-      },
-    }));
-
-    const jsonResponse = JSON.parse(response.text);
-    const topics = jsonResponse.topics || [];
-    
-    // Validate topics
-    const validation = validateTopicsList(topics);
-    if (!validation.isValid) {
-      console.warn('Topics validation issues:', validation.issues);
-      contentMonitor.logValidationIssue({
-        timestamp: new Date(),
-        type: 'topic',
-        subject,
-        validationIssues: validation.issues,
-        wasBlocked: topics.length === 0
-      });
-      // Filter out invalid topics or return empty array if critical issues
-      if (topics.length === 0) {
-        throw new Error('No valid topics generated');
-      }
-    }
-    
-    setInCache(cacheKey, topics);
-    
-    // Save to Shared Cache (with model version so stale content is busted on model upgrade)
-    if (offlineManager.checkOnlineStatus()) {
-      setInSharedCache(cacheKey, topics, CACHE_MODEL_VERSION);
-    }
-    
-    return topics;
-  } catch (error) {
-    console.error("Error fetching topics:", error);
-    return [];
-  }
+  return getCurriculumUnits(subject, studentAge).map((unit) => unit.title);
 };
 
 export const generateLesson = async (subject: string, topic: string, difficulty: Difficulty, studentAge: number): Promise<string> => {
   const cacheKey = createCacheKey('lesson', subject, topic, difficulty, studentAge.toString());
+  const reviewedLesson = getReviewedLesson(subject, topic, studentAge);
+  if (reviewedLesson) return reviewedLesson;
+  const curriculumUnit = getCurriculumUnit(subject, topic, studentAge);
   
   // 1. Check Local Cache
   const cachedLesson = getFromCache<string>(cacheKey);
   if (cachedLesson) {
     console.log(`Cache hit for lesson: ${subject} - ${topic} (${difficulty}, age ${studentAge})`);
     return cachedLesson;
-  }
-  
-  // 2. Check Shared Cache
-  if (offlineManager.checkOnlineStatus()) {
-    const sharedLessonRaw = await getFromSharedCache<any>(cacheKey, CACHE_MODEL_VERSION);
-    const sharedLesson = sanitizeSharedLesson(sharedLessonRaw);
-    if (sharedLesson) {
-      const validation = validateLesson(sharedLesson);
-      if (!hasSafetyIssues(validation.issues)) {
-        console.log(`Shared cache hit for lesson: ${subject} - ${topic}`);
-        setInCache(cacheKey, sharedLesson);
-        return sharedLesson;
-      }
-      console.warn('Ignored shared cached lesson due to validation issues.');
-    }
   }
   
   // Check if offline
@@ -389,54 +142,73 @@ export const generateLesson = async (subject: string, topic: string, difficulty:
   
   let specificInstructions = "";
   if (subjectLower === 'computing' || subjectLower === 'coding') {
-    specificInstructions = "For Computing, ensure 'Direct Teaching' and 'Modelling' include code snippets in Python or Scratch where appropriate, and explain *how* it works.";
-  } else if (['languages', 'french', 'spanish', 'german', 'japanese', 'mandarin', 'romanian', 'yoruba'].includes(subjectLower)) {
-    specificInstructions = "For Languages, 'Key Vocabulary' must include the foreign word, phonetic pronunciation in brackets, and English meaning (e.g., 'Chat (sha) - Cat'). 'Quick Explanation' should focus on simple phrases and usage, avoiding complex grammar. Ensure the content is very basic and suitable for a beginner.";
+    specificInstructions = "For Computing, ensure 'Teach' and 'Modelled Example' include a short Python or Scratch-style example where appropriate, and explain how it works.";
+  } else if (LANGUAGE_SUBJECTS.includes(subjectLower)) {
+    specificInstructions = "For Languages, 'Key Vocabulary' must include the foreign word, a simple pronunciation guide in brackets, and English meaning. 'Teach' should focus on short useful phrases and usage, with one accurately modelled exchange.";
   } else if (subjectLower === 'maths' || subjectLower === 'mathematics') {
-    specificInstructions = "For Maths, 'Modelling' must show step-by-step working out.";
+    specificInstructions = "For Maths, 'Modelled Example' must show concise step-by-step working.";
+  } else if (subjectLower === 'science') {
+    specificInstructions = "For Science, distinguish evidence from explanation and include a safe observation or enquiry step. Never instruct a child to handle hazardous materials.";
+  } else if (subjectLower === 'history') {
+    specificInstructions = "For History, establish chronology and explain how evidence supports claims. Do not present legends or contested interpretations as settled fact.";
+  } else if (subjectLower === 'geography') {
+    specificInstructions = "For Geography, use a real place or map skill and distinguish human from physical processes.";
+  } else if (subjectLower === 'art') {
+    specificInstructions = "For Art, teach one observable technique, prompt a short sketchbook experiment, and treat the creative outcome as unscored.";
+  } else if (subjectLower === 'music') {
+    specificInstructions = "For Music, include a safe listening, clapping or performance task; describe rhythm or pitch precisely and do not claim to assess a performance the app cannot hear.";
+  } else if (subjectLower === 'pe') {
+    specificInstructions = "For PE, act as a knowledge companion: explain safe technique and reflection, require suitable space and adult or teacher supervision where relevant, and never diagnose injury.";
+  } else if (subjectLower === 'd&t' || subjectLower === 'design & technology') {
+    specificInstructions = "For Design & Technology, connect user need, design criteria, making and evaluation. Any tools, heat, food or electrical work must follow the published safety note and appropriate supervision.";
   }
 
   // SATs Revision Logic (Year 6)
-  const isYear6 = studentAge >= 10;
+  const isYear6 = getYearGroupForAge(studentAge) === 6;
   if (isYear6 && (subjectLower === 'maths' || subjectLower === 'mathematics')) {
     specificInstructions += `
     SATs FOCUS (Year 6):
     - Align with KS2 SATs Arithmetic and Reasoning papers.
-    - 'Quick Explanation' MUST include a specific "SATs Tip" (e.g., "Remember to check units!", "Show your working").
-    - 'Try It' tasks should mirror SATs question styles (e.g., "Calculate...", "Explain why...").
+    - 'Teach' MUST include a specific "SATs Tip" (e.g., "Remember to check units!", "Show your working").
+    - Practice and check tasks should mirror SATs question styles (e.g., "Calculate...", "Explain why...").
     - Emphasize formal written methods where applicable.`;
   } else if (isYear6 && (subjectLower === 'english' || subjectLower === 'literacy')) {
     specificInstructions += `
     SATs FOCUS (Year 6):
     - Align with KS2 SATs Reading and GPS (SPaG) papers.
     - 'Key Vocabulary' MUST include formal grammatical terms (e.g., 'subjunctive', 'passive', 'determiner') if relevant.
-    - 'Quick Explanation' MUST include a "SATs Tip" (e.g., "Look for evidence in the text", "Check your punctuation").
-    - 'Try It' tasks should mirror SATs style (e.g., "Tick one box", "Circle the adjective").`;
+    - 'Teach' MUST include a "SATs Tip" (e.g., "Look for evidence in the text", "Check your punctuation").
+    - Practice and check tasks should mirror SATs style (e.g., "Tick one box", "Circle the adjective").`;
   }
 
   contents = `You are MiRa, an AI tutor for KS2 students (ages 7–11).
-Create a SHORT KS2 lesson for the topic '${topic}' in the subject '${subject}'.
-The difficulty is ${difficulty} and the student is age ${studentAge}.
+Create a SHORT KS2 lesson for the published curriculum unit '${topic}' in the subject '${subject}'.
+The learner is in Year ${getYearGroupForAge(studentAge)} and the support level is ${difficulty}.
 
-Make the lesson compact, punchy and engaging – it should feel like a quick mini-lesson, not a full teacher worksheet.
+PUBLISHED LEARNING OBJECTIVE (do not replace or broaden it):
+${curriculumUnit?.objective || `Build secure KS2 understanding of ${topic}.`}
+${curriculumUnit?.practicalNote ? `\nSAFETY / PRACTICAL LIMIT: ${curriculumUnit.practicalNote}` : ''}
+
+Make the lesson compact and engaging. It must explicitly teach, model, practise and check the objective.
 
 STRICT FORMAT (headings only, no extra sections):
 1. Learning Objective (1 short sentence)
 2. Key Vocabulary (3–6 words with very short KS2-friendly meanings)
-3. Quick Explanation (2–4 short sentences, no long paragraphs)
-4. Try It (2–3 very short, clear practice tasks the student can answer)
-5. Challenge (1 optional harder question or mini-task)
+3. Teach (2–4 short sentences, no long paragraphs)
+4. Modelled Example (one worked or demonstrated example with the reasoning made visible)
+5. Guided Practice (one short task with a hint or scaffold)
+6. Independent Check (one short task that directly checks the published objective)
 
 RULES:
 - Use friendly, clear, calm language – not babyish, not over-excited.
 - Keep everything as SHORT as possible while still clear.
-- Use at most 1 small example in the explanation.
+- Use exactly one small modelled example.
 - Tasks must be answerable by KS2 children without extra resources.
 - Avoid any long lists, big blocks of text, or repeated information.
 ${specificInstructions}
-- Do NOT add introductions or closing speeches outside the headings.
+- Do NOT add introductions, unrelated facts or closing speeches outside the headings.
 
-Output using clean markdown with only those 5 headings.`;
+Output using clean markdown with only those 6 headings.`;
 
 
   try {
@@ -466,11 +238,6 @@ Output using clean markdown with only those 5 headings.`;
     
     setInCache(cacheKey, validation.sanitizedContent || lessonText);
     
-    // Save to Shared Cache (model-versioned)
-    if (offlineManager.checkOnlineStatus()) {
-      setInSharedCache(cacheKey, validation.sanitizedContent || lessonText, CACHE_MODEL_VERSION);
-    }
-
     return validation.sanitizedContent || lessonText;
   } catch (error) {
     console.error("Error generating lesson:", error);
@@ -486,6 +253,10 @@ export const generateQuiz = async (
   studentQuizHistory?: Array<{ score: number; difficulty: string }>,
   studentProfile?: import('./adaptiveLearningEngine').StudentPerformanceProfile
 ): Promise<QuizQuestion[]> => {
+  // Sensitive personal-development content is reviewed and deterministic, never improvised by AI.
+  const reviewedQuestions = getReviewedQuestions(subject, topic, studentAge);
+  if (reviewedQuestions.length > 0) return reviewedQuestions;
+
   // ADAPTIVE DIFFICULTY: Adjust based on student performance
   const adaptedDifficulty = studentQuizHistory 
     ? getAdaptedDifficulty(difficulty, studentQuizHistory) as Difficulty
@@ -495,7 +266,7 @@ export const generateQuiz = async (
     console.log(`Adaptive difficulty: ${difficulty} → ${adaptedDifficulty}`);
   }
   
-  // 0. Check Shared Cache for WHOLE QUIZ (Fastest & Cheapest)
+  // Reviewed, device-local quiz cache. Shared client-writable content is never trusted.
   const cacheKey = createCacheKey('quiz', subject, topic, adaptedDifficulty, studentAge.toString());
   
   // Check Local Cache first
@@ -505,154 +276,30 @@ export const generateQuiz = async (
     return cachedData.questions;
   }
 
-  // Check Shared Cache
-  if (offlineManager.checkOnlineStatus()) {
-    const sharedQuizRaw = await getFromSharedCache<any>(cacheKey, CACHE_MODEL_VERSION);
-    const sharedQuiz = sanitizeSharedQuiz(sharedQuizRaw);
-    if (sharedQuiz && sharedQuiz.length >= 10) {
-      console.log(`Shared cache hit for quiz: ${subject} - ${topic}`);
-      // Save locally
-      setInCache(cacheKey, {
-        questions: sharedQuiz,
-        timestamp: Date.now(),
-        source: 'shared-cache'
-      });
-      return sharedQuiz;
-    }
-  }
-
   const usedQuestionIds = getUsedQuestions(subject, topic, studentAge, adaptedDifficulty);
   let finalQuestions: QuizQuestion[] = [];
   const existingQuestionTexts: string[] = [];
 
-  // STEP 1: Try to get questions from Firebase (The "Cloud Bank")
-  try {
-    if (offlineManager.checkOnlineStatus()) {
-        // Note: In a real app, you'd want a more sophisticated query (e.g. random seed)
-        // Firestore doesn't support random selection natively easily without extra fields.
-        // For now, we fetch a batch and shuffle client-side.
-        const q = query(
-            collection(db, "questions"),
-            where("subject", "==", subject),
-            where("topic", "==", topic),
-            where("difficulty", "==", adaptedDifficulty),
-            where("age", "==", studentAge),
-            limit(30) 
-        );
-        const querySnapshot = await getDocs(q);
-        const firebaseQuestions: QuizQuestion[] = [];
-        querySnapshot.forEach((doc) => {
-            const data = doc.data();
-            if (data.question && data.options && data.correctAnswer) {
-                 firebaseQuestions.push({
-                    id: doc.id,
-                    question: data.question,
-                    options: data.options,
-                    correctAnswer: data.correctAnswer,
-                    explanation: data.explanation,
-                    questionType: data.questionType || QType.MultipleChoice,
-                    cognitiveLevel: data.cognitiveLevel
-                });
-            }
-        });
-
-        // Filter out used questions and poorly performing ones
-        let availableFirebaseQuestions = firebaseQuestions.filter(q => !usedQuestionIds.includes(q.id));
-        availableFirebaseQuestions = filterPoorlyPerformingQuestions(availableFirebaseQuestions);
-        
-        // Filter similar questions
-        availableFirebaseQuestions = filterSimilarQuestions(availableFirebaseQuestions, existingQuestionTexts);
-        
-        if (availableFirebaseQuestions.length > 0) {
-             console.log(`Found ${availableFirebaseQuestions.length} quality questions in Firebase`);
-             finalQuestions = [...availableFirebaseQuestions];
-             existingQuestionTexts.push(...availableFirebaseQuestions.map(q => q.question));
-        }
-    }
-  } catch {
-      // Firebase permissions not configured or network issue - app will use local bank and AI
-      if (process.env.NODE_ENV === 'development') {
-        console.debug("Firebase fetch skipped (permissions or network issue)");
-      }
-  }
-
-  // STEP 2: Try to get questions from the static question bank
-  // We only need enough to fill the gap to 10
-  const neededFromBank = 10 - finalQuestions.length;
-  if (neededFromBank > 0) {
-      // Handle language subject mapping for static bank
-      let bankSubject = subject;
-      let bankTopic = topic;
-      const subjectLower = subject.toLowerCase();
-      const isLanguage = ['french', 'spanish', 'german', 'japanese', 'mandarin', 'romanian', 'yoruba'].includes(subjectLower);
-      
-      if (isLanguage) {
-          bankSubject = 'Languages';
-          // The bank uses "French: Topic" format
-          // We try to construct it, but it might not match if AI topic name differs slightly
-          bankTopic = `${subject}: ${topic}`; 
-      }
-
-      let bankQuestions = await getRandomQuestions(bankSubject, bankTopic, studentAge, adaptedDifficulty, neededFromBank, usedQuestionIds);
-      
-      // Filter poorly performing and similar questions
-      bankQuestions = filterPoorlyPerformingQuestions(bankQuestions);
-      bankQuestions = filterSimilarQuestions(bankQuestions, existingQuestionTexts);
-      
-      // If strict match failed for language, try to find any questions for this language
-      if (isLanguage && bankQuestions.length === 0) {
-          // Fetch ALL questions for "Languages" subject
-          const allLanguageQuestions = await getRandomQuestions(bankSubject, "", studentAge, adaptedDifficulty, 50, usedQuestionIds);
-          
-          // Filter for the specific language (e.g. "French")
-          // The bank topics are like "French: Greetings", so we check if topic starts with "French"
-          const languagePrefix = subject + ":";
-          let specificLanguageQuestions = allLanguageQuestions.filter(q => 
-              q.topic.startsWith(languagePrefix) || q.topic.includes(subject)
-          );
-          
-          // Apply quality filters
-          specificLanguageQuestions = filterPoorlyPerformingQuestions(specificLanguageQuestions);
-          specificLanguageQuestions = filterSimilarQuestions(specificLanguageQuestions, existingQuestionTexts);
-          
-          if (specificLanguageQuestions.length > 0) {
-              console.log(`Found ${specificLanguageQuestions.length} general ${subject} questions in bank`);
-              // Shuffle and take what we need
-              const shuffled = specificLanguageQuestions.sort(() => Math.random() - 0.5);
-              bankQuestions = shuffled.slice(0, neededFromBank);
-          }
-      }
-
-      finalQuestions = [...finalQuestions, ...bankQuestions];
-      existingQuestionTexts.push(...bankQuestions.map(q => q.question));
-  }
-  
-  // Fallback: If no questions found for specific topic, try finding questions for the subject generally
-  if (finalQuestions.length === 0) {
-    console.log(`No exact match for topic "${topic}", searching for general ${subject} questions...`);
-    
-    const fallbackSubject = subject;
-    // For languages, we don't want to mix languages, so we skip general fallback 
-    // unless we can filter by language. Since getRandomQuestions is strict, 
-    // we skip general fallback for languages to avoid showing Spanish questions in French quiz.
-    const subjectLower = subject.toLowerCase();
-    const isLanguage = ['french', 'spanish', 'german', 'japanese', 'mandarin', 'romanian', 'yoruba'].includes(subjectLower);
-
-    if (!isLanguage) {
-        let allSubjectQuestions = await getRandomQuestions(fallbackSubject, "", studentAge, adaptedDifficulty, 10, usedQuestionIds);
-        // Apply quality filters
-        allSubjectQuestions = filterPoorlyPerformingQuestions(allSubjectQuestions);
-        allSubjectQuestions = filterSimilarQuestions(allSubjectQuestions, existingQuestionTexts);
-        if (allSubjectQuestions.length > 0) {
-            finalQuestions = allSubjectQuestions;
-            existingQuestionTexts.push(...allSubjectQuestions.map(q => q.question));
-        }
-    }
+  // STEP 1: Reviewed static questions. Difficulty and age may relax, but topic never does.
+  const curriculumUnit = getCurriculumUnit(subject, topic, studentAge);
+  if (curriculumUnit) {
+    let bankQuestions = await getQuestionsForCurriculumUnit(
+      subject,
+      curriculumUnit.bankTopic,
+      studentAge,
+      adaptedDifficulty,
+      10,
+      usedQuestionIds
+    );
+    bankQuestions = filterPoorlyPerformingQuestions(bankQuestions);
+    bankQuestions = filterSimilarQuestions(bankQuestions, existingQuestionTexts);
+    finalQuestions = bankQuestions;
+    existingQuestionTexts.push(...bankQuestions.map((question) => question.question));
   }
   
   if (finalQuestions.length >= 10) {
     // We have enough unique questions!
-    console.log(`Using ${finalQuestions.length} questions (Firebase + Bank)`);
+    console.log(`Using ${finalQuestions.length} reviewed bank questions`);
     // Shuffle them
     finalQuestions = finalQuestions.sort(() => Math.random() - 0.5).slice(0, 10);
 
@@ -663,7 +310,7 @@ export const generateQuiz = async (
     const cacheData = {
       questions: finalQuestions,
       timestamp: Date.now(),
-      source: 'hybrid-bank'
+      source: 'reviewed-bank'
     };
     setInCache(cacheKey, cacheData);
     
@@ -678,7 +325,7 @@ export const generateQuiz = async (
     // Or just proceed to AI. Let's proceed to AI to generate fresh content.
   }
 
-  // STEP 3: Generate new questions with AI (and cache them for later)
+  // STEP 2: Fill a sparse reviewed topic with objective-constrained AI questions.
   // Note: Cache was already checked at the start of the function
   console.log(`Generating new questions with AI for: ${subject} - ${topic} (${adaptedDifficulty})`);
   
@@ -695,7 +342,7 @@ export const generateQuiz = async (
 
   let specificQuizInstructions = "";
   const subjectLower = subject.toLowerCase();
-  if (['languages', 'french', 'spanish', 'german', 'japanese', 'mandarin', 'romanian', 'yoruba'].includes(subjectLower)) {
+  if (LANGUAGE_SUBJECTS.includes(subjectLower)) {
       specificQuizInstructions = `
       LANGUAGE-SPECIFIC INSTRUCTIONS:
       - Focus on basic vocabulary, greetings, numbers, colors, common objects, and simple phrases
@@ -848,7 +495,7 @@ export const generateQuiz = async (
   let subjectSpecificTips = subjectGuidance[subjectLower] || '';
 
   // SATs Enhancement for Year 6
-  if (studentAge >= 10) {
+  if (getYearGroupForAge(studentAge) === 6) {
       if (subjectLower === 'maths' || subjectLower === 'mathematics') {
           subjectSpecificTips += `
           SATs EXAM STYLE (Year 6):
@@ -907,13 +554,13 @@ export const generateQuiz = async (
   try {
     const response = await withRetry(() => ai.models.generateContent({
       model,
-      contents: `You are MiRa, a creative AI tutor designing an ENGAGING 10-question quiz for a UK Key Stage 2 student (age ${studentAge}) on '${topic}' in '${subject}'.
+      contents: `You are MiRa, a creative AI tutor designing an ENGAGING 10-question quiz for a UK Key Stage 2 Year ${getYearGroupForAge(studentAge)} learner on '${topic}' in '${subject}'.
 
 SESSION ID: ${sessionId} (use this to ensure unique questions)
 
 UK DfE NATIONAL CURRICULUM ALIGNMENT:
-This quiz MUST align with the Department for Education Key Stage 2 Programme of Study.
-Test the specific learning objectives for this topic as defined in the National Curriculum.
+This quiz MUST stay within this published objective: ${curriculumUnit?.objective || `Build secure KS2 understanding of ${topic}.`}
+Do not test content from another unit or year group.
 
 QUIZ QUALITY REQUIREMENTS:
 1. VARIETY: Mix different question types AND cognitive levels (see requirements below)
@@ -1132,64 +779,7 @@ Generate 10 varied, engaging questions:`,
     };
     setInCache(cacheKey, aiCacheData);
     
-    // Save to Shared Cache (model-versioned)
-    if (offlineManager.checkOnlineStatus()) {
-      setInSharedCache(cacheKey, combinedQuestions, CACHE_MODEL_VERSION);
-    }
-
     console.log(`Generated ${filteredAIQuestions.length} new AI questions, combined with ${finalQuestions.length} existing questions`);
-
-    // SAVE TO FIREBASE (The "Cloud Bank")
-    // We process sequentially to check for duplicates
-    // Note: This requires appropriate Firestore permissions
-    for (const q of filteredAIQuestions) {
-        try {
-            const createdBy = getAuth().currentUser?.uid;
-            if (!createdBy) {
-              // Not signed in; Cloud Bank requires authentication
-              continue;
-            }
-
-            // Check if this specific question text already exists for this topic
-            // This prevents exact duplicates from filling up the database
-            const dupQuery = query(
-                collection(db, "questions"),
-                where("subject", "==", subject),
-                where("topic", "==", topic),
-                where("question", "==", q.question),
-                limit(1)
-            );
-            
-            const dupSnapshot = await getDocs(dupQuery);
-
-            if (dupSnapshot.empty) {
-                await addDoc(collection(db, "questions"), {
-                    subject: normalizeSubject(subject),
-                    topic,
-                    difficulty: adaptedDifficulty,
-                    age: studentAge,
-                    question: q.question,
-                    options: q.options,
-                    correctAnswer: q.correctAnswer,
-                    explanation: q.explanation || "",
-                    questionType: q.questionType || QType.MultipleChoice,
-                    cognitiveLevel: q.cognitiveLevel,
-                    acceptableAnswers: q.acceptableAnswers || [],
-                createdAt: Timestamp.now(),
-                createdBy
-                });
-                console.log("✅ Saved new unique question to Cloud Bank");
-            } else {
-                console.log("⏭️ Skipped duplicate question (already in Cloud Bank)");
-            }
-        } catch (e) {
-            // Log errors so we can debug save failures
-            console.error("❌ Failed to save question to Cloud Bank:", (e as Error).message);
-            console.error("Question data:", { subject, topic, difficulty: adaptedDifficulty, age: studentAge });
-            // App continues to work with local cache even if Cloud Bank save fails
-        }
-    }
-    
     return combinedQuestions;
   } catch (error) {
     console.error("Error generating quiz:", error);
@@ -1198,20 +788,7 @@ Generate 10 varied, engaging questions:`,
       console.log(`Returning ${finalQuestions.length} bank questions (error fallback)`);
       return finalQuestions;
     }
-    // Emergency fallback: try any questions for this subject (any topic)
-    const subjectLowerFb = subject.toLowerCase();
-    const isLangFb = ['french', 'spanish', 'german', 'japanese', 'mandarin', 'romanian', 'yoruba'].includes(subjectLowerFb);
-    if (!isLangFb) {
-      try {
-        const emergencyQs = await getRandomQuestions(subject, '', studentAge, adaptedDifficulty, 10, []);
-        if (emergencyQs.length > 0) {
-          console.log(`Emergency fallback: ${emergencyQs.length} general ${subject} questions`);
-          return emergencyQs.slice(0, 10);
-        }
-      } catch {
-        // ignore
-      }
-    }
+    // Never substitute questions from a different curriculum topic.
     return [];
   }
 };

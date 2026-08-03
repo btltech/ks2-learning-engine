@@ -214,3 +214,71 @@ export const getRandomQuestions = async (
     options: [...question.options].sort(() => Math.random() - 0.5)
   }));
 };
+
+const answerCanBeResolved = (question: BankQuestion): boolean => {
+  const answer = String(question.correctAnswer || '').trim().toLowerCase();
+  if (!answer || !Array.isArray(question.options)) return false;
+  if (question.questionType === QuestionType.FillInBlank) return true;
+  if (question.options.some((option) => String(option).trim().toLowerCase() === answer)) return true;
+  const numeric = Number(answer);
+  if (Number.isInteger(numeric) && (question.options[numeric] || question.options[numeric - 1])) return true;
+  const letter = answer.match(/^([a-f])(?:[.)\s:]|$)/i);
+  return Boolean(letter && question.options[letter[1].toLowerCase().charCodeAt(0) - 97]);
+};
+
+const shuffleQuestionOptions = (question: BankQuestion): BankQuestion => {
+  if (question.questionType === QuestionType.TrueFalse || question.questionType === QuestionType.FillInBlank) {
+    return question;
+  }
+  return { ...question, options: [...question.options].sort(() => Math.random() - 0.5) };
+};
+
+/**
+ * Select reviewed bank questions for a published curriculum unit.
+ * The topic never broadens to the whole subject. When the exact age/difficulty
+ * cell is sparse, it relaxes difficulty first and age second while keeping the
+ * same curriculum topic.
+ */
+export const getQuestionsForCurriculumUnit = async (
+  subject: string,
+  bankTopic: string,
+  age: number,
+  difficulty: Difficulty,
+  count: number,
+  excludeIds: string[] = []
+): Promise<BankQuestion[]> => {
+  const bankSubject = ['French', 'Spanish', 'German', 'Welsh'].includes(subject) ? 'Languages' : subject;
+  const questions = (await loadQuestionsForSubject(bankSubject)).filter((question) =>
+    question.topic === bankTopic &&
+    !excludeIds.includes(question.id) &&
+    answerCanBeResolved(question) &&
+    new Set(question.options.map((option) => String(option).trim().toLowerCase())).size === question.options.length
+  );
+
+  const adjacentAges = [age - 1, age + 1];
+  const ranked = questions
+    .map((question) => {
+      const exactAge = question.ageGroup.includes(age);
+      const adjacentAge = question.ageGroup.some((candidateAge) => adjacentAges.includes(candidateAge));
+      const exactDifficulty = question.difficulty === difficulty;
+      const rank = exactAge && exactDifficulty ? 0
+        : exactAge ? 1
+        : adjacentAge && exactDifficulty ? 2
+        : exactDifficulty ? 3
+        : adjacentAge ? 4
+        : 5;
+      return { question, rank, random: Math.random() };
+    })
+    .sort((a, b) => a.rank - b.rank || a.random - b.random);
+
+  const selected: BankQuestion[] = [];
+  const seenText = new Set<string>();
+  for (const { question } of ranked) {
+    const normalizedText = question.question.toLowerCase().replace(/\s+/g, ' ').trim();
+    if (seenText.has(normalizedText)) continue;
+    seenText.add(normalizedText);
+    selected.push(shuffleQuestionOptions(question));
+    if (selected.length === count) break;
+  }
+  return selected;
+};

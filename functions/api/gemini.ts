@@ -27,6 +27,10 @@ interface Env {
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
 const RATE_LIMIT = 20; // requests per window
 const RATE_WINDOW = 60 * 1000; // 1 minute
+const MAX_REQUEST_BYTES = 70_000;
+const MAX_PROMPT_CHARS = 30_000;
+const MAX_SCHEMA_CHARS = 20_000;
+const MAX_RESPONSE_BYTES = 2_000_000;
 
 const ALLOWED_MODELS = new Set([
   'gemini-2.5-flash',
@@ -37,6 +41,31 @@ const ALLOWED_MODELS = new Set([
 const jwks = createRemoteJWKSet(
   new URL('https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com')
 );
+
+export function buildProviderPayload(prompt: string, clientConfig: Record<string, unknown> = {}) {
+  const responseMimeType = clientConfig.responseMimeType === 'application/json' ? 'application/json' : undefined;
+  const responseSchema = responseMimeType && clientConfig.responseSchema && typeof clientConfig.responseSchema === 'object'
+    && JSON.stringify(clientConfig.responseSchema).length <= MAX_SCHEMA_CHARS
+    ? clientConfig.responseSchema
+    : undefined;
+
+  return {
+    contents: [{ parts: [{ text: prompt }] }],
+    generationConfig: {
+      temperature: 0.5,
+      maxOutputTokens: 8192,
+      ...(responseMimeType ? { responseMimeType } : {}),
+      ...(responseSchema ? { responseSchema } : {}),
+    },
+    // Server-owned safety policy: callers cannot weaken or replace this list.
+    safetySettings: [
+      { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
+      { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
+      { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_LOW_AND_ABOVE' },
+      { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
+    ],
+  };
+}
 
 /** Rate-limit key via KV (persistent across cold starts). */
 async function checkRateLimitKV(kv: KVNamespace, key: string): Promise<{ allowed: boolean; remaining: number }> {
@@ -82,6 +111,7 @@ async function checkRateLimit(env: Env, key: string): Promise<{ allowed: boolean
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
   const { request, env } = context;
+  const requestId = crypto.randomUUID();
   
   const origin = request.headers.get('Origin');
   const allowedOrigins = (env.ALLOWED_ORIGINS || '')
@@ -184,8 +214,31 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   }
 
   try {
-    const body = await request.json();
-    const { model, contents, generationConfig, safetySettings } = body as any;
+    const declaredLength = Number(request.headers.get('Content-Length') || '0');
+    if (declaredLength > MAX_REQUEST_BYTES) {
+      return new Response(JSON.stringify({ error: 'Request too large' }), {
+        status: 413,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
+    const rawBody = await request.text();
+    if (rawBody.length > MAX_REQUEST_BYTES) {
+      return new Response(JSON.stringify({ error: 'Request too large' }), {
+        status: 413,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+    let body: Record<string, unknown>;
+    try {
+      body = JSON.parse(rawBody) as Record<string, unknown>;
+    } catch {
+      return new Response(JSON.stringify({ error: 'Invalid JSON body' }), {
+        status: 400,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+    const { model, contents, generationConfig } = body;
 
     if (!env.VITE_GEMINI_API_KEY) {
       return new Response(
@@ -203,20 +256,28 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     }
 
     // Basic payload validation/limits
-    if (!Array.isArray(contents) || contents.length === 0) {
+    if (!Array.isArray(contents) || contents.length !== 1) {
       return new Response(
         JSON.stringify({ error: 'Invalid contents' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    const totalText = JSON.stringify(contents);
-    if (totalText.length > 60_000) {
+    const content = contents[0] as { parts?: unknown } | null;
+    const parts = content && Array.isArray(content.parts) ? content.parts : [];
+    const prompt = parts.length === 1 && typeof (parts[0] as { text?: unknown })?.text === 'string'
+      ? (parts[0] as { text: string }).text
+      : '';
+    if (!prompt || prompt.length > MAX_PROMPT_CHARS) {
       return new Response(
-        JSON.stringify({ error: 'Request too large' }),
-        { status: 413, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        JSON.stringify({ error: 'Contents must contain one bounded text prompt' }),
+        { status: prompt ? 413 : 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
+
+    const clientConfig = generationConfig && typeof generationConfig === 'object'
+      ? generationConfig as Record<string, unknown>
+      : {};
 
     // Forward to Gemini API
     const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${env.VITE_GEMINI_API_KEY}`;
@@ -224,22 +285,34 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     const geminiResponse = await fetch(geminiUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents,
-        generationConfig,
-        safetySettings,
-      }),
+      body: JSON.stringify(buildProviderPayload(prompt, clientConfig)),
     });
 
-    const data = await geminiResponse.json();
+    const responseText = await geminiResponse.text();
+    if (responseText.length > MAX_RESPONSE_BYTES) {
+      console.error(JSON.stringify({ event: 'gemini_response_too_large', requestId, uid, status: geminiResponse.status }));
+      return new Response(JSON.stringify({ error: 'AI response exceeded the safe size limit' }), {
+        status: 502,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
+    let data: unknown;
+    try {
+      data = JSON.parse(responseText);
+    } catch {
+      data = { error: 'AI provider returned an invalid response' };
+    }
+    console.log(JSON.stringify({ event: 'gemini_request_complete', requestId, uid, model: selectedModel, status: geminiResponse.status }));
     
     return new Response(JSON.stringify(data), {
       status: geminiResponse.status,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   } catch (error: any) {
+    console.error(JSON.stringify({ event: 'gemini_request_failed', requestId, message: error instanceof Error ? error.message : 'Unknown error' }));
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: error instanceof Error ? error.message : 'Request failed' }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }

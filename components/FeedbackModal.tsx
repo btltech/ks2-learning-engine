@@ -5,6 +5,7 @@ import { SparklesIcon, CheckCircleIcon, XCircleIcon, SpeakerWaveIcon } from '@he
 import type { QuizResult, Explanation } from '../types';
 import { useGameSounds } from '../hooks/useGameSounds';
 import { speakNaturally, speakCelebration, stopSpeaking } from '../services/naturalTTS';
+import { resolveMultipleChoiceAnswer } from '../services/quizScoring';
 
 interface FeedbackModalProps {
   quizResults: QuizResult[];
@@ -21,12 +22,14 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ quizResults, studentAge, 
   const [error, setError] = useState<string | null>(null);
   const { playSuccess, playIncorrect } = useGameSounds();
 
-  const score = quizResults.filter(r => r.isCorrect).length;
-  const total = quizResults.length;
+  const scoredResults = useMemo(() => quizResults.filter((result) => result.isScored !== false), [quizResults]);
+  const creativeTasks = quizResults.length - scoredResults.length;
+  const score = scoredResults.filter(r => r.isCorrect).length;
+  const total = scoredResults.length;
   
   const incorrectAnswers = useMemo(() => 
-    quizResults.filter(r => !r.isCorrect), 
-    [quizResults]
+    scoredResults.filter(r => !r.isCorrect),
+    [scoredResults]
   );
 
   const percentage = total > 0 ? Math.round((score / total) * 100) : 0;
@@ -116,6 +119,11 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ quizResults, studentAge, 
                 style={{ width: `${percentage}%` }}
             ></div>
         </div>
+        {creativeTasks > 0 && (
+          <p className="mb-6 rounded-lg bg-indigo-50 p-3 font-semibold text-indigo-800">
+            {creativeTasks} creative {creativeTasks === 1 ? 'task was' : 'tasks were'} completed and kept separate from your knowledge score.
+          </p>
+        )}
 
         {/* Difficulty Recommendation */}
         {nextDifficultySuggestion && (
@@ -152,6 +160,7 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ quizResults, studentAge, 
               <ul className="space-y-4" role="list" aria-label="Quiz review">
                 {incorrectAnswers.map((result, index) => {
                   const explanation = explanations.find(e => e.question === result.question)?.explanation;
+                  const displayedCorrectAnswer = resolveMultipleChoiceAnswer(result) || result.correctAnswer;
                   return (
                     <li key={index} className="border-b pb-4 last:border-b-0" role="listitem">
                       <p className="font-semibold text-gray-700">{result.question}</p>
@@ -161,12 +170,12 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ quizResults, studentAge, 
                       </div>
                        <div className="flex items-center text-sm mt-1">
                         <CheckCircleIcon className="h-5 w-5 text-green-500 mr-2 shrink-0" aria-hidden="true" />
-                        <span className="text-gray-500">Correct answer: <span className="font-semibold">{result.correctAnswer}</span></span>
+                        <span className="text-gray-500">Correct answer: <span className="font-semibold">{displayedCorrectAnswer}</span></span>
                       </div>
                       {explanation && (
                          <div className="mt-2 p-3 bg-blue-50 rounded-md text-blue-800 font-semibold flex items-start gap-2">
                             <button
-                              onClick={() => speakNaturally(`The correct answer is ${result.correctAnswer}. ${explanation}`)}
+                              onClick={() => speakNaturally(`The correct answer is ${displayedCorrectAnswer}. ${explanation}`)}
                               className="shrink-0 p-1 hover:bg-blue-100 rounded-full transition-colors"
                               title="Listen to explanation"
                             >
@@ -183,7 +192,7 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ quizResults, studentAge, 
           </section>
         )}
 
-        {score === total && (
+        {total > 0 && score === total && (
             <p className="text-lg text-green-600 font-bold my-8" role="status">Wow, a perfect score! You're a superstar!</p>
         )}
 

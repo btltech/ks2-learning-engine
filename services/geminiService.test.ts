@@ -1,238 +1,100 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { getDocs, addDoc } from 'firebase/firestore';
-import { Difficulty } from '../types';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { Difficulty, QuestionType } from '../types';
 
-// Mock environment
 vi.stubEnv('VITE_GEMINI_API_KEY', 'test-api-key');
 
-// Mock GoogleGenAI
-const { mockGenerateContent } = vi.hoisted(() => {
-  return { mockGenerateContent: vi.fn() };
-});
+const { mockGenerateContent, mockGetUnitQuestions } = vi.hoisted(() => ({
+  mockGenerateContent: vi.fn(),
+  mockGetUnitQuestions: vi.fn(),
+}));
 
-vi.mock('@google/genai', () => {
-  return {
-    GoogleGenAI: class {
-      constructor(_config: any) {}
-      get models() {
-        return {
-          generateContent: mockGenerateContent
-        };
-      }
-    },
-    Type: {
-      OBJECT: 'OBJECT',
-      ARRAY: 'ARRAY',
-      STRING: 'STRING'
-    }
-  };
-});
-
-// Mock Firebase
-vi.mock('firebase/firestore', () => ({
-  getFirestore: vi.fn(),
-  collection: vi.fn(),
-  addDoc: vi.fn(),
-  getDocs: vi.fn(),
-  doc: vi.fn(() => ({})),
-  getDoc: vi.fn(async () => ({
-    exists: () => false,
-    data: () => undefined,
-  })),
-  setDoc: vi.fn(async () => undefined),
-  query: vi.fn(),
-  where: vi.fn(),
-  limit: vi.fn(),
-  Timestamp: {
-    now: vi.fn(() => ({ seconds: 1234567890, nanoseconds: 0 })),
-    fromDate: vi.fn((date: Date) => ({ seconds: Math.floor(date.getTime() / 1000), nanoseconds: 0 })),
+vi.mock('@google/genai', () => ({
+  GoogleGenAI: class {
+    get models() { return { generateContent: mockGenerateContent }; }
   },
+  Type: { OBJECT: 'OBJECT', ARRAY: 'ARRAY', STRING: 'STRING' },
 }));
 
 vi.mock('firebase/auth', () => ({
-  getAuth: vi.fn(() => ({
-    currentUser: { uid: 'test-uid' },
-  })),
+  getAuth: vi.fn(() => ({ currentUser: { uid: 'test-uid', getIdToken: vi.fn() } })),
 }));
 
-// Mock offlineManager
-vi.mock('./offlineManager', () => ({
-  offlineManager: {
-    checkOnlineStatus: vi.fn().mockReturnValue(true)
-  }
-}));
-
-// Mock cacheService
-vi.mock('./cacheService', () => ({
-  createCacheKey: vi.fn().mockReturnValue('test-key'),
-  getFromCache: vi.fn().mockReturnValue(null),
-  setInCache: vi.fn()
-}));
-
-// Mock contentMonitor
-vi.mock('./contentMonitor', () => ({
-  contentMonitor: {
-    logValidationIssue: vi.fn()
-  }
-}));
-
-// Mock questionTracker
-vi.mock('./questionTracker', () => ({
-  getUsedQuestions: vi.fn().mockReturnValue([]),
-  markQuestionsAsUsed: vi.fn(),
-  resetUsedQuestions: vi.fn()
-}));
-
-import { getTopicsForSubject, generateQuiz } from './geminiService';
-
-// Mock questionBank
 vi.mock('../data/questionBank', () => ({
-  getRandomQuestions: vi.fn().mockResolvedValue([])
+  getQuestionsForCurriculumUnit: mockGetUnitQuestions,
 }));
 
-// Mock offlineManager
 vi.mock('./offlineManager', () => ({
-  offlineManager: {
-    checkOnlineStatus: vi.fn().mockReturnValue(true)
-  }
+  offlineManager: { checkOnlineStatus: vi.fn().mockReturnValue(true) },
 }));
 
-// Mock cacheService
 vi.mock('./cacheService', () => ({
   createCacheKey: vi.fn().mockReturnValue('test-key'),
   getFromCache: vi.fn().mockReturnValue(null),
-  setInCache: vi.fn()
+  setInCache: vi.fn(),
 }));
 
-// Mock contentMonitor
-vi.mock('./contentMonitor', () => ({
-  contentMonitor: {
-    logValidationIssue: vi.fn()
-  }
-}));
-
-// Mock questionTracker
+vi.mock('./contentMonitor', () => ({ contentMonitor: { logValidationIssue: vi.fn() } }));
 vi.mock('./questionTracker', () => ({
   getUsedQuestions: vi.fn().mockReturnValue([]),
   markQuestionsAsUsed: vi.fn(),
-  resetUsedQuestions: vi.fn()
+  resetUsedQuestions: vi.fn(),
+}));
+vi.mock('./questionPerformance', () => ({
+  filterPoorlyPerformingQuestions: vi.fn((questions) => questions),
+  filterSimilarQuestions: vi.fn((questions) => questions),
+  getAdaptedDifficulty: vi.fn((difficulty) => difficulty),
 }));
 
-describe('geminiService', () => {
+import { generateQuiz, getTopicsForSubject } from './geminiService';
+
+describe('geminiService curriculum boundaries', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    mockGetUnitQuestions.mockResolvedValue([]);
   });
 
-  describe('getTopicsForSubject', () => {
-    it('should return a list of topics when AI returns valid JSON', async () => {
-      const mockTopics = ['Addition and Subtraction', 'Multiplication and Division'];
-      mockGenerateContent.mockResolvedValue({
-        text: JSON.stringify({ topics: mockTopics })
-      });
-
-      const topics = await getTopicsForSubject('Math', 10);
-      
-      expect(topics).toEqual(mockTopics);
-      expect(mockGenerateContent).toHaveBeenCalled();
-    });
-
-    it('should return empty array on error', async () => {
-      mockGenerateContent.mockRejectedValue(new Error('AI Error'));
-
-      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-
-      try {
-        const topics = await getTopicsForSubject('Math', 10);
-        
-        expect(topics).toEqual([]);
-      } finally {
-        consoleErrorSpy.mockRestore();
-      }
-    });
+  it('returns the fixed ordered Year 6 Maths sequence without asking AI for topics', async () => {
+    const topics = await getTopicsForSubject('Maths', 10);
+    expect(topics).toEqual([
+      'Place value to 10,000,000',
+      'Four-operation fluency',
+      'Fractions, decimals and percentages',
+      'Ratio and proportion',
+      'Algebra',
+      'Geometry and measures',
+      'Statistics and averages',
+    ]);
+    expect(mockGenerateContent).not.toHaveBeenCalled();
   });
 
-  describe('generateQuiz', () => {
-    it('should fetch questions from Firebase first', async () => {
-      // Mock Firebase response
-      const mockFirebaseQuestions = [
-        {
-          id: '1',
-          data: () => ({
-            question: 'Q1',
-            options: ['A', 'B'],
-            correctAnswer: 'A',
-            explanation: 'Exp 1',
-            subject: 'Math',
-            topic: 'Algebra',
-            difficulty: 'Easy',
-            age: 10
-          })
-        }
-      ];
-      
-      (getDocs as any).mockResolvedValue({
-        forEach: (callback: any) => mockFirebaseQuestions.forEach(callback),
-        empty: false
-      });
+  it('returns reviewed PSHE questions without invoking AI', async () => {
+    const questions = await generateQuiz('PSHE', 'Friendship and respect', Difficulty.Medium, 7);
+    expect(questions).toHaveLength(3);
+    expect(questions.every((question) => question.questionType === QuestionType.MultipleChoice)).toBe(true);
+    expect(mockGenerateContent).not.toHaveBeenCalled();
+  });
 
-      // Mock AI response with distinct questions to avoid similarity filtering
-      mockGenerateContent.mockResolvedValue({
-        text: JSON.stringify({
-          quiz: [
-            {
-              question: "What is 2 + 2?",
-              options: ["4", "5"],
-              correctAnswer: "4",
-              explanation: "2 plus 2 equals 4"
-            },
-            {
-              question: "What is the capital of France?",
-              options: ["Paris", "London"],
-              correctAnswer: "Paris",
-              explanation: "Paris is the capital"
-            },
-            {
-              question: "Which planet is red?",
-              options: ["Mars", "Venus"],
-              correctAnswer: "Mars",
-              explanation: "Mars is the red planet"
-            },
-            {
-              question: "How many legs does a spider have?",
-              options: ["8", "6"],
-              correctAnswer: "8",
-              explanation: "Spiders have 8 legs"
-            },
-            {
-              question: "What color is the sky?",
-              options: ["Blue", "Green"],
-              correctAnswer: "Blue",
-              explanation: "The sky is blue"
-            }
-          ]
-        })
-      });
-
-      // Mock duplicate check for saving
-      (getDocs as any).mockResolvedValueOnce({ // First call is for fetching questions
-        forEach: (callback: any) => mockFirebaseQuestions.forEach(callback),
-        empty: false
-      }).mockResolvedValue({ // Subsequent calls are for duplicate checks
-        empty: true 
-      });
-
-      const questions = await generateQuiz('Math', 'Algebra', Difficulty.Easy, 10);
-
-      // We expect 1 from Firebase + 5 from AI = 6 total
-      expect(questions.length).toBe(6);
-      expect(questions[0].question).toBe('Q1'); // Firebase first
-      expect(questions[1].question).toBe('What is 2 + 2?'); // AI second
-      
-      // Verify Firebase was queried
-      expect(getDocs).toHaveBeenCalled();
-      
-      // Verify new question was saved to Firebase
-      expect(addDoc).toHaveBeenCalled();
+  it('uses only the exact curriculum bank topic before filling a sparse quiz with AI', async () => {
+    mockGetUnitQuestions.mockResolvedValue([{
+      id: 'bank-1', subject: 'Maths', topic: 'Algebra', ageGroup: [10], difficulty: Difficulty.Easy,
+      question: 'Which expression represents five more than n?',
+      options: ['n + 5', '5n', 'n - 5'], correctAnswer: 'n + 5',
+      questionType: QuestionType.MultipleChoice,
+    }]);
+    mockGenerateContent.mockResolvedValue({
+      text: JSON.stringify({ quiz: Array.from({ length: 5 }, (_, index) => ({
+        question: `Algebra reasoning question number ${index + 1} for this published unit?`,
+        options: [`Correct ${index}`, `Misconception ${index}`, `Other ${index}`],
+        correctAnswer: `Correct ${index}`,
+        explanation: 'Substitute the value and check both sides of the equation.',
+        questionType: 'multiple-choice',
+        cognitiveLevel: 'apply',
+      })) }),
     });
+
+    const questions = await generateQuiz('Maths', 'Algebra', Difficulty.Easy, 10);
+    expect(mockGetUnitQuestions).toHaveBeenCalledWith('Maths', 'Algebra', 10, Difficulty.Easy, 10, []);
+    expect(questions).toHaveLength(6);
+    expect(questions[0].id).toBe('bank-1');
   });
 });

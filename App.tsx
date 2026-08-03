@@ -20,6 +20,8 @@ import { dailyChallengeService, DailyChallenge } from './services/dailyChallenge
 import { Artwork, DrawingLesson } from './data/artResources';
 import { firebaseAuthService } from './services/firebaseAuthService';
 import { teacherWorkspaceService } from './services/teacherWorkspaceService';
+import { CURATED_LANGUAGES } from './data/curriculumSequences';
+import { resolveMultipleChoiceAnswer } from './services/quizScoring';
 
 // Initialize accessibility features lazily
 const initAccessibility = () => {
@@ -104,7 +106,7 @@ const CookieBanner = lazy(() => import('./components/CookieBanner').then(m => ({
 // };
 
 const AppContent: React.FC = () => {
-  const { user, authReady, logout, checkStreak, addPoints, updateMastery, setUser, recordQuizSession, addTimeSpent, suggestNextDifficulty, pendingBadgeNotification, clearBadgeNotification } = useUser();
+  const { user, authReady, logout, checkStreak, addPoints, updateMastery, setUser, recordQuizSession, addTimeSpent, pendingBadgeNotification, clearBadgeNotification } = useUser();
   const { isGuidedMode } = useUISettings();
   const featureVisibility = useFeatureVisibility();
   const { showToast } = useToast();
@@ -170,7 +172,11 @@ const AppContent: React.FC = () => {
   const [pointsEarned, setPointsEarned] = useState<number>(0);
   const [showFeedback, setShowFeedback] = useState(false);
   const [nextDifficultySuggestion, setNextDifficultySuggestion] = useState<Difficulty | null>(null);
-  const [quizStartTime] = useState<number>(Date.now());
+  const quizStartTimeRef = useRef<number>(Date.now());
+
+  useEffect(() => {
+    if (location.pathname.includes('/quiz')) quizStartTimeRef.current = Date.now();
+  }, [location.pathname, location.search]);
 
   // Check streak on mount
   useEffect(() => {
@@ -245,7 +251,8 @@ const AppContent: React.FC = () => {
     const subjectMastery = user.mastery[subject];
     if (!subjectMastery) return Difficulty.Medium;
     
-    const score = subjectMastery[topic] || 0;
+    if (!Object.prototype.hasOwnProperty.call(subjectMastery, topic)) return Difficulty.Medium;
+    const score = subjectMastery[topic];
     if (score > 80) return Difficulty.Hard;
     if (score < 40) return Difficulty.Easy;
     return Difficulty.Medium;
@@ -263,10 +270,11 @@ const AppContent: React.FC = () => {
   };
 
   const handleQuizSubmit = (results: QuizResult[]) => {
-    const correctAnswers = results.filter(r => r.isCorrect).length;
+    const scoredResults = results.filter((result) => result.isScored !== false);
+    const correctAnswers = scoredResults.filter(r => r.isCorrect).length;
     const earned = correctAnswers * 10;
-    const scorePercentage = (correctAnswers / results.length) * 100;
-    const timeSpentSeconds = Date.now() - quizStartTime;
+    const scorePercentage = scoredResults.length > 0 ? (correctAnswers / scoredResults.length) * 100 : 0;
+    const timeSpentSeconds = Math.max(1, Math.round((Date.now() - quizStartTimeRef.current) / 1000));
     const homeworkId = new URLSearchParams(location.search).get('homework');
     
     setPointsEarned(earned);
@@ -299,14 +307,14 @@ const AppContent: React.FC = () => {
       // Also record to analytics service
       analyticsService.recordSession({
         ...quizSession,
-        totalQuestions: results.length,
+        totalQuestions: scoredResults.length,
         correctAnswers: correctAnswers,
         xpEarned: earned,
         date: new Date().toISOString(),
       });
       
       // Unlock games if the quiz score is high enough (>= 7/10).
-      gamesUnlockService.recordQuizResult({ correct: correctAnswers, total: results.length });
+      if (scoredResults.length > 0) gamesUnlockService.recordQuizResult({ correct: correctAnswers, total: scoredResults.length });
       
       // Update challenge progress
       streakRewardsService.updateChallengeProgress('complete_quizzes', 1, trackedSubject);
@@ -316,20 +324,24 @@ const AppContent: React.FC = () => {
       }
       
       // Track time spent on this subject
-      addTimeSpent(trackedSubject, Math.round(timeSpentSeconds / 60));
+      addTimeSpent(trackedSubject, Math.max(1, Math.round(timeSpentSeconds / 60)));
       
       // Get difficulty recommendation for next attempt
-      const suggestedDifficulty = suggestNextDifficulty(trackedSubject, currentTopic);
+      const suggestedDifficulty = scorePercentage >= 85
+        ? Difficulty.Hard
+        : scorePercentage < 50
+          ? Difficulty.Easy
+          : Difficulty.Medium;
       setNextDifficultySuggestion(suggestedDifficulty);
       
       // Add wrong answers to spaced repetition
       results.forEach((result) => {
-        if (!result.isCorrect) {
+        if (result.isScored !== false && !result.isCorrect) {
           spacedRepetitionService.addWrongAnswer(
             trackedSubject,
             currentTopic,
             result.question,
-            result.options[parseInt(result.correctAnswer, 10)] || result.correctAnswer
+            resolveMultipleChoiceAnswer(result) || result.correctAnswer
           );
         }
       });
@@ -343,7 +355,7 @@ const AppContent: React.FC = () => {
         progressVisualizationService.recordProgress(
           trackedSubject,
           scorePercentage,
-          Math.round(timeSpentSeconds / 60)
+          timeSpentSeconds
         );
         
         // Award certificates for achievements
@@ -805,7 +817,7 @@ const AppContent: React.FC = () => {
           return 'Browsing';
         })()}
         userRole={user?.role}
-        quizScore={showFeedback && quizResults.length > 0 ? Math.round((quizResults.filter(r => r.isCorrect).length / quizResults.length) * 100) : undefined}
+        quizScore={showFeedback && quizResults.some((result) => result.isScored !== false) ? Math.round((quizResults.filter(r => r.isScored !== false && r.isCorrect).length / quizResults.filter(r => r.isScored !== false).length) * 100) : undefined}
         onQuickAction={handleMiRaQuickAction}
       />
 
@@ -817,6 +829,7 @@ const AppContent: React.FC = () => {
           nextDifficultySuggestion={nextDifficultySuggestion || undefined}
           onRetry={() => {
             setShowFeedback(false);
+            quizStartTimeRef.current = Date.now();
             const retryPath = currentSubject.name === 'Languages' && currentLanguage
               ? `/subject/Languages/${encodeURIComponent(currentLanguage)}/topic/${encodeURIComponent(currentTopic)}`
               : `/subject/${encodeURIComponent(currentSubject.name)}/topic/${encodeURIComponent(currentTopic)}`;
@@ -998,15 +1011,16 @@ const SubjectRouteWrapper = ({ studentAge, progress }: { studentAge: number, pro
       studentAge={studentAge} 
       onSelect={(topic) => navigate(`/subject/${encodeURIComponent(subject.name)}/topic/${encodeURIComponent(topic)}`)} 
       onBack={() => navigate('/')} 
-      progress={progress} 
+      progress={progress}
     />
   );
 };
 
-const LanguageTopicWrapper = ({ studentAge, progress: _progress }: { studentAge: number, progress: ProgressData }) => {
+const LanguageTopicWrapper = ({ studentAge, progress }: { studentAge: number, progress: ProgressData }) => {
   const { language } = useParams();
   const navigate = useNavigate();
   const languageName = decodeURIComponent(language || '');
+  if (!(CURATED_LANGUAGES as readonly string[]).includes(languageName)) return <Navigate to="/subject/Languages" />;
   
   // Create a pseudo-subject for the language
   const subject: Subject = {
@@ -1022,7 +1036,7 @@ const LanguageTopicWrapper = ({ studentAge, progress: _progress }: { studentAge:
       studentAge={studentAge} 
       onSelect={(topic) => navigate(`/subject/Languages/${encodeURIComponent(languageName)}/topic/${encodeURIComponent(topic)}`)} 
       onBack={() => navigate('/subject/Languages')} 
-      progress={{}} 
+      progress={progress}
     />
   );
 };
@@ -1033,10 +1047,12 @@ const LanguageLessonWrapper = ({ studentAge, difficulty: _difficulty }: { studen
   const location = useLocation();
   
   if (!language || !topicName) return <Navigate to="/" />;
+  const languageName = decodeURIComponent(language);
+  if (!(CURATED_LANGUAGES as readonly string[]).includes(languageName)) return <Navigate to="/subject/Languages" />;
 
   return (
     <LessonView 
-      subject={decodeURIComponent(language)} 
+      subject={languageName}
       topic={decodeURIComponent(topicName)} 
       difficulty={_difficulty} 
       studentAge={studentAge} 
@@ -1053,10 +1069,12 @@ const LanguageQuizWrapper = ({ studentAge, difficulty, onSubmit }: { studentAge:
   const mode = new URLSearchParams(search).get('mode') === 'speed' ? 'speed' : 'standard';
   
   if (!language || !topicName) return <Navigate to="/" />;
+  const languageName = decodeURIComponent(language);
+  if (!(CURATED_LANGUAGES as readonly string[]).includes(languageName)) return <Navigate to="/subject/Languages" />;
 
   return (
     <QuizView 
-      subject={decodeURIComponent(language)} 
+      subject={languageName}
       topic={decodeURIComponent(topicName)} 
       difficulty={difficulty} 
       studentAge={studentAge}

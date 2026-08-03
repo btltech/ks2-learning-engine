@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import type { Difficulty } from '../types';
+import { type BankQuestion, type Difficulty } from '../types';
 import { generateLesson } from '../services/geminiService';
 import { offlineManager } from '../services/offlineManager';
 import LoadingSpinner from './LoadingSpinner';
@@ -10,20 +10,33 @@ import { useGameSounds } from '../hooks/useGameSounds';
 import PronunciationHelper from './PronunciationHelper';
 import { getCommonWords, getSupportedLanguages } from '../services/phoneticsService';
 import DOMPurify from 'dompurify';
+import { CURATED_LANGUAGES, getCurriculumUnit, getYearGroupForAge } from '../data/curriculumSequences';
+import { getQuestionsForCurriculumUnit } from '../data/questionBank';
+import { getReviewedQuestions } from '../data/reviewedQuestions';
 
 // A simple markdown to HTML converter
 const Markdown: React.FC<{ content: string }> = ({ content }) => {
-  const htmlContent = content
-    .split('\n')
-    .map(line => {
-        if (line.startsWith('### ')) return `<h3>${line.substring(4)}</h3>`;
-        if (line.startsWith('## ')) return `<h2 class="text-2xl font-bold my-4">${line.substring(3)}</h2>`;
-        if (line.startsWith('# ')) return `<h1 class="text-3xl font-bold my-5">${line.substring(2)}</h1>`;
-        if (line.trim() === '') return '<br />';
-        if (line.startsWith('* ')) return `<li>${line.substring(2)}</li>`;
-        return `<p class="mb-4">${line}</p>`;
-    })
-    .join('');
+  const parts: string[] = [];
+  let listOpen = false;
+  const closeList = () => {
+    if (listOpen) parts.push('</ul>');
+    listOpen = false;
+  };
+  for (const line of content.split('\n')) {
+    if (line.startsWith('* ')) {
+      if (!listOpen) parts.push('<ul class="mb-4 list-disc space-y-2 pl-6">');
+      listOpen = true;
+      parts.push(`<li>${line.substring(2)}</li>`);
+      continue;
+    }
+    closeList();
+    if (line.startsWith('### ')) parts.push(`<h3 class="mt-5 text-xl font-bold">${line.substring(4)}</h3>`);
+    else if (line.startsWith('## ')) parts.push(`<h2 class="my-4 text-2xl font-bold">${line.substring(3)}</h2>`);
+    else if (line.startsWith('# ')) parts.push(`<h2 class="mb-3 mt-6 text-2xl font-bold text-gray-900">${line.substring(2)}</h2>`);
+    else if (line.trim() !== '') parts.push(`<p class="mb-4">${line}</p>`);
+  }
+  closeList();
+  const htmlContent = parts.join('');
 
     const sanitizedContent = DOMPurify.sanitize(htmlContent);
     return <div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />;
@@ -44,9 +57,11 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
   const [error, setError] = useState<string | null>(null);
   const [showVocabulary, setShowVocabulary] = useState(false);
   const [selectedWord, setSelectedWord] = useState<string | null>(null);
+  const [practiceQuestions, setPracticeQuestions] = useState<BankQuestion[]>([]);
+  const [practiceAnswers, setPracticeAnswers] = useState<Record<string, string>>({});
   
   // Detect language for native pronunciation
-  const isLanguageSubject = ['French','Spanish','German','Japanese','Mandarin','Romanian','Yoruba','Languages'].includes(subject);
+  const isLanguageSubject = (CURATED_LANGUAGES as readonly string[]).includes(subject);
   const detectedLanguage = isLanguageSubject ? subject : 'English';
   const supportsPhonetics = getSupportedLanguages().includes(subject);
   const vocabularyWords = supportsPhonetics ? getCommonWords(subject).slice(0, 12) : [];
@@ -56,6 +71,18 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
   });
   
   const { playClick } = useGameSounds();
+  const curriculumUnit = getCurriculumUnit(subject, topic, studentAge);
+  const completedPracticeCount = Object.keys(practiceAnswers).length;
+  const practiceComplete = practiceQuestions.length === 0 || completedPracticeCount === practiceQuestions.length;
+
+  const resolveCorrectOption = (question: BankQuestion): string => {
+    const exact = question.options.find((option) => option.trim().toLowerCase() === question.correctAnswer.trim().toLowerCase());
+    if (exact) return exact;
+    const numeric = Number(question.correctAnswer);
+    if (Number.isInteger(numeric)) return question.options[numeric] || question.options[numeric - 1] || question.correctAnswer;
+    const letter = question.correctAnswer.trim().match(/^([A-Fa-f])(?:[.)\s:]|$)/);
+    return letter ? question.options[letter[1].toUpperCase().charCodeAt(0) - 65] || question.correctAnswer : question.correctAnswer;
+  };
 
   // Stop speaking when unmounting or changing lesson
   useEffect(() => {
@@ -123,6 +150,27 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
     fetchLesson();
   }, [fetchLesson]);
 
+  useEffect(() => {
+    let active = true;
+    setPracticeAnswers({});
+    if (!curriculumUnit) {
+      setPracticeQuestions([]);
+      return () => { active = false; };
+    }
+    const reviewed = getReviewedQuestions(subject, topic, studentAge);
+    const questionsPromise = reviewed.length > 0
+      ? Promise.resolve(reviewed.slice(0, 2))
+      : getQuestionsForCurriculumUnit(subject, curriculumUnit.bankTopic, studentAge, difficulty, 2);
+    void questionsPromise
+      .then((questions) => {
+        if (active) setPracticeQuestions(questions.filter((question) => question.options.length >= 2));
+      })
+      .catch(() => {
+        if (active) setPracticeQuestions([]);
+      });
+    return () => { active = false; };
+  }, [subject, topic, studentAge, difficulty, curriculumUnit?.id]);
+
   return (
     <div className="w-full max-w-4xl mx-auto">
        <button 
@@ -135,7 +183,11 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
       </button>
       <article className="bg-white p-4 sm:p-8 rounded-2xl shadow-xl" role="main" aria-live="polite" aria-busy={loading}>
         <div className="flex justify-between items-start mb-4">
-          <h2 className="text-2xl sm:text-4xl font-extrabold text-gray-800">{topic}</h2>
+          <div>
+            <p className="mb-1 text-sm font-bold uppercase tracking-wide text-indigo-600">Year {getYearGroupForAge(studentAge)} · Unit {curriculumUnit?.order || 1}</p>
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-gray-800">{topic}</h2>
+            {curriculumUnit?.objective && <p className="mt-2 max-w-2xl text-base font-medium text-gray-600">{curriculumUnit.objective}</p>}
+          </div>
           {!loading && !error && (
             <div className="flex items-center gap-2">
               {isLanguageSubject && (
@@ -207,6 +259,62 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
         )}
       </article>
 
+      {!loading && !error && practiceQuestions.length > 0 && (
+        <section className="mt-6 rounded-2xl border border-indigo-100 bg-white p-4 shadow-xl sm:p-8" aria-labelledby="guided-check-title">
+          <div className="mb-5 flex flex-col justify-between gap-2 sm:flex-row sm:items-end">
+            <div>
+              <p className="text-sm font-bold uppercase tracking-wide text-indigo-600">Guided practice</p>
+              <h3 id="guided-check-title" className="text-2xl font-bold text-gray-900">Check your understanding</h3>
+            </div>
+            <p className="text-sm font-semibold text-gray-600">{completedPracticeCount} of {practiceQuestions.length} checked</p>
+          </div>
+          <div className="space-y-6">
+            {practiceQuestions.map((question, questionIndex) => {
+              const questionKey = question.id || `practice-${questionIndex}`;
+              const selected = practiceAnswers[questionKey];
+              const correct = resolveCorrectOption(question);
+              return (
+                <div key={questionKey} className="rounded-xl bg-indigo-50/60 p-4">
+                  <p className="mb-3 font-bold text-gray-900">{questionIndex + 1}. {question.question}</p>
+                  <div className="grid gap-2 sm:grid-cols-2" role="radiogroup" aria-label={`Practice question ${questionIndex + 1}`}>
+                    {question.options.map((option) => {
+                      const isSelected = selected === option;
+                      const isCorrect = option === correct;
+                      const answerClass = !selected
+                        ? 'border-gray-200 bg-white hover:border-indigo-400'
+                        : isCorrect
+                          ? 'border-green-500 bg-green-100 text-green-900'
+                          : isSelected
+                            ? 'border-red-400 bg-red-100 text-red-900'
+                            : 'border-gray-200 bg-white opacity-70';
+                      return (
+                        <button
+                          key={option}
+                          type="button"
+                          disabled={Boolean(selected)}
+                          onClick={() => setPracticeAnswers((answers) => ({ ...answers, [questionKey]: option }))}
+                          className={`rounded-xl border-2 p-3 text-left font-semibold transition-colors ${answerClass}`}
+                          role="radio"
+                          aria-checked={isSelected}
+                        >
+                          {option}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {selected && (
+                    <div className={`mt-3 rounded-lg p-3 text-sm font-semibold ${selected === correct ? 'bg-green-100 text-green-800' : 'bg-amber-100 text-amber-900'}`} role="status">
+                      {selected === correct ? 'Correct — well reasoned.' : `Not quite. The correct answer is ${correct}.`}
+                      {question.explanation ? ` ${question.explanation}` : ''}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
       {/* Vocabulary Practice Section - Only for language subjects with phonetics support */}
       {!loading && !error && supportsPhonetics && vocabularyWords.length > 0 && (
         <div className="mt-6 bg-white rounded-2xl shadow-xl overflow-hidden">
@@ -271,16 +379,18 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
         <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
           <button
             onClick={() => handleStartQuiz('standard')}
+            disabled={!practiceComplete}
             aria-label="Start the quiz for this lesson"
-            className="px-6 py-3 sm:px-10 sm:py-4 bg-green-500 text-white font-bold text-lg sm:text-xl rounded-full shadow-lg hover:bg-green-600 transform hover:scale-105 transition-transform duration-300"
+            className="px-6 py-3 sm:px-10 sm:py-4 bg-green-500 text-white font-bold text-lg sm:text-xl rounded-full shadow-lg hover:bg-green-600 transform hover:scale-105 transition-transform duration-300 disabled:cursor-not-allowed disabled:bg-gray-400 disabled:shadow-none disabled:hover:scale-100"
           >
             Ready for a Quiz?
           </button>
           
           <button
             onClick={() => handleStartQuiz('speed')}
+            disabled={!practiceComplete}
             aria-label="Start a speed challenge"
-            className="px-6 py-3 sm:px-10 sm:py-4 bg-orange-500 text-white font-bold text-lg sm:text-xl rounded-full shadow-lg hover:bg-orange-600 transform hover:scale-105 transition-transform duration-300 flex items-center justify-center"
+            className="px-6 py-3 sm:px-10 sm:py-4 bg-orange-500 text-white font-bold text-lg sm:text-xl rounded-full shadow-lg hover:bg-orange-600 transform hover:scale-105 transition-transform duration-300 flex items-center justify-center disabled:cursor-not-allowed disabled:bg-gray-400 disabled:shadow-none disabled:hover:scale-100"
           >
             <BoltIcon className="h-5 w-5 sm:h-6 sm:w-6 mr-2" />
             Speed Challenge!

@@ -7,6 +7,7 @@ import LoadingSpinner from './LoadingSpinner';
 import OfflineBadge from './OfflineBadge';
 import { ArrowLeftIcon, CheckCircleIcon } from '@heroicons/react/24/solid';
 import { useGameSounds } from '../hooks/useGameSounds';
+import { getCurriculumUnits, getYearGroupForAge } from '../data/curriculumSequences';
 
 interface TopicSelectorProps {
   subject: Subject;
@@ -44,6 +45,9 @@ const TopicSelector: React.FC<TopicSelectorProps> = ({ subject, studentAge, onSe
   }, [fetchTopics]);
   
   const completedTopics = progress[subject.name] || [];
+  const curriculumUnits = getCurriculumUnits(subject.name, studentAge);
+  const unitByTitle = new Map(curriculumUnits.map((unit) => [unit.title, unit]));
+  const firstIncompleteTitle = curriculumUnits.find((unit) => !completedTopics.includes(unit.title))?.title;
 
   const handleSelect = (topic: string) => {
     playClick();
@@ -76,7 +80,10 @@ const TopicSelector: React.FC<TopicSelectorProps> = ({ subject, studentAge, onSe
         <div className="hidden sm:block w-20"></div>
       </div>
 
-      <p className="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8 font-medium px-4">Pick a topic to explore! We'll adjust the challenge just for you.</p>
+      <p className="text-base sm:text-lg text-gray-600 mb-2 font-medium px-4">
+        Year {getYearGroupForAge(studentAge)} · Follow the units in order so each lesson builds on the last.
+      </p>
+      <p className="text-sm text-gray-500 mb-6 sm:mb-8 px-4">You can revisit any earlier unit whenever you need a reminder.</p>
       
       <div role="main" aria-live="polite" aria-busy={loading}>
       {loading ? (
@@ -101,6 +108,8 @@ const TopicSelector: React.FC<TopicSelectorProps> = ({ subject, studentAge, onSe
         >
           {topics.map((topic) => {
             const isCompleted = completedTopics.includes(topic);
+            const unit = unitByTitle.get(topic);
+            const isRecommended = firstIncompleteTitle === topic;
             // Note: Cache key might need adjustment if we want to show offline status for specific difficulties, 
             // but since difficulty is dynamic now, maybe just check Medium as a proxy or remove specific difficulty check?
             // For now, we'll check Medium as a default.
@@ -111,18 +120,26 @@ const TopicSelector: React.FC<TopicSelectorProps> = ({ subject, studentAge, onSe
                 onClick={() => handleSelect(topic)}
                 role="listitem"
                 aria-label={`${topic}${isCompleted ? ' - completed' : ''}`}
-                className={`p-4 rounded-xl shadow-md hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 text-left font-semibold text-lg flex flex-col group relative overflow-hidden
+                className={`p-4 rounded-xl shadow-md hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 text-left flex flex-col group relative overflow-hidden
               
               before:absolute before:inset-0 before:bg-gradient-to-tr before:from-white/10 before:to-transparent before:opacity-0 group-hover:before:opacity-100 before:transition-opacity before:duration-300
               
               ${subject.bgColor} ${subject.color.replace('text-','hover:bg-').replace('600','-200')} focus:outline-none focus:ring-4 focus:ring-opacity-50 ${subject.color.replace('text-', 'focus:ring-')} animate-fadeInUp`}
               >
-                <div className="flex items-center justify-between mb-2">
-                  <span className="flex-1 relative text-gray-900">{topic}</span>
+                <div className="flex items-start justify-between mb-2 gap-3">
+                  <div className="relative">
+                    <span className="block text-xs font-bold uppercase tracking-wide opacity-70">Unit {unit?.order || 1}</span>
+                    <span className="block font-bold text-lg text-gray-900">{topic}</span>
+                  </div>
                   {isCompleted && (
                     <CheckCircleIcon className="h-6 w-6 text-green-500 shrink-0 relative" aria-hidden="true" />
                   )}
                 </div>
+                {unit?.objective && <p className="relative mb-3 text-sm font-medium leading-snug text-gray-700">{unit.objective}</p>}
+                {isRecommended && !isCompleted && (
+                  <span className="relative mb-3 w-fit rounded-full bg-white/80 px-2.5 py-1 text-xs font-bold text-indigo-700">Recommended next</span>
+                )}
+                {unit?.practicalNote && <p className="relative mb-3 text-xs font-medium text-amber-800">⚠ {unit.practicalNote}</p>}
                 <OfflineBadge cacheKey={lessonCacheKey} />
               </button>
             )

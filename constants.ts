@@ -11,9 +11,7 @@ import {
   MusicalNoteIcon,
   TrophyIcon,
   HeartIcon,
-  WrenchScrewdriverIcon,
-  StarIcon,
-  UserGroupIcon
+  WrenchScrewdriverIcon
 } from '@heroicons/react/24/solid';
 
 export const SUBJECTS: Subject[] = [
@@ -29,30 +27,15 @@ export const SUBJECTS: Subject[] = [
   { name: 'PE', icon: TrophyIcon, color: 'text-rose-600', bgColor: 'bg-rose-100' },
   { name: 'PSHE', icon: HeartIcon, color: 'text-cyan-600', bgColor: 'bg-cyan-100' },
   { name: 'D&T', icon: WrenchScrewdriverIcon, color: 'text-slate-600', bgColor: 'bg-slate-100' },
-  { name: 'Religious Education', icon: StarIcon, color: 'text-amber-600', bgColor: 'bg-amber-100' },
-  { name: 'Citizenship', icon: UserGroupIcon, color: 'text-emerald-600', bgColor: 'bg-emerald-100' },
+  // Religious Education remains hidden until a reviewed syllabus is published.
+  // Primary citizenship is taught through the reviewed PSHE sequence.
 ];
 
 export const LANGUAGES = [
-  { name: 'English', flag: '🇬🇧', greeting: 'Hello' },
   { name: 'French', flag: '🇫🇷', greeting: 'Bonjour' },
   { name: 'Spanish', flag: '🇪🇸', greeting: 'Hola' },
   { name: 'German', flag: '🇩🇪', greeting: 'Hallo' },
-  { name: 'Japanese', flag: '🇯🇵', greeting: 'Konnichiwa' },
-  { name: 'Mandarin', flag: '🇨🇳', greeting: 'Ni Hao' },
-  { name: 'Romanian', flag: '🇷🇴', greeting: 'Salut' },
-  { name: 'Yoruba', flag: '🇳🇬', greeting: 'Bawo' },
   { name: 'Welsh', flag: '🏴󠁧󠁢󠁷󠁬󠁳󠁿', greeting: 'Helo' },
-  // All additional languages now fully implemented with TTS support:
-  { name: 'Italian', flag: '🇮🇹', greeting: 'Ciao' },
-  { name: 'Arabic', flag: '🇸🇦', greeting: 'Marhaba' },
-  { name: 'Portuguese', flag: '🇵🇹', greeting: 'Olá' },
-  { name: 'Russian', flag: '🇷🇺', greeting: 'Privet' },
-  { name: 'Korean', flag: '🇰🇷', greeting: 'Annyeonghaseyo' },
-  { name: 'Hindi', flag: '🇮🇳', greeting: 'Namaste' },
-  { name: 'Turkish', flag: '🇹🇷', greeting: 'Merhaba' },
-  { name: 'Greek', flag: '🇬🇷', greeting: 'Yassas' },
-  { name: 'Latin', flag: '🏛️', greeting: 'Salve' },
 ];
 
 // Design System Tokens (Fix #2)
