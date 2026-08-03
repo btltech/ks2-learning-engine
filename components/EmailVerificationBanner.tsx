@@ -9,7 +9,9 @@ const EmailVerificationBanner: React.FC<EmailVerificationBannerProps> = ({ onVer
   const [isVerified, setIsVerified] = useState(firebaseAuthService.isEmailVerified());
   const [sending, setSending] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
-  const [dismissed, setDismissed] = useState(false);
+  const [dismissed, setDismissed] = useState(
+    () => sessionStorage.getItem('email_verify_banner_dismissed') === '1'
+  );
 
   // Check verification status periodically
   useEffect(() => {
@@ -18,6 +20,7 @@ const EmailVerificationBanner: React.FC<EmailVerificationBannerProps> = ({ onVer
     const checkInterval = setInterval(async () => {
       const verified = await firebaseAuthService.refreshAuthState();
       if (verified) {
+        sessionStorage.removeItem('email_verify_banner_dismissed');
         setIsVerified(true);
         onVerified?.();
         clearInterval(checkInterval);
@@ -67,7 +70,10 @@ const EmailVerificationBanner: React.FC<EmailVerificationBannerProps> = ({ onVer
             {sending ? 'Sending...' : 'Resend Email'}
           </button>
           <button
-            onClick={() => setDismissed(true)}
+            onClick={() => {
+              sessionStorage.setItem('email_verify_banner_dismissed', '1');
+              setDismissed(true);
+            }}
             className="text-amber-600 hover:text-amber-800 p-1"
             aria-label="Dismiss"
           >

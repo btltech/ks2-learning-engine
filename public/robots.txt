@@ -1,4 +1,14 @@
 User-agent: *
 Allow: /
+Disallow: /subject/
+Disallow: /games/
+Disallow: /avatar/
+Disallow: /art-studio/
+Disallow: /rewards/
+Disallow: /classroom/
+Disallow: /parent-monitoring/
+Disallow: /progress/
+Disallow: /microlearning/
+Disallow: /*?*
 
 Sitemap: https://demiwuraks2.co.uk/sitemap.xml

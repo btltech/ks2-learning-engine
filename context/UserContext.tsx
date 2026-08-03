@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
 import { doc as firestoreDoc, onSnapshot, collection as firestoreCollection } from 'firebase/firestore';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { UserProfile, Badge, Difficulty, QuizSession, WeeklyProgress } from '../types';
 import { leaderboardService } from '../services/leaderboardService';
 import { firebaseAuthService } from '../services/firebaseAuthService';
@@ -8,6 +9,7 @@ import { hasRole } from '../utils/roles';
 
 interface UserContextType {
   user: UserProfile | null;
+  authReady: boolean;
   logout: () => Promise<void>;
   setUser: (user: UserProfile) => void;
   updateAge: (age: number) => void;
@@ -72,6 +74,9 @@ const INITIAL_USER: UserProfile = {
 
 export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<UserProfile | null>(null);
+  // authReady: true once Firebase Auth has resolved its initial state (so we never flash
+  // a stale localStorage user if the Firebase token has actually expired).
+  const [authReady, setAuthReady] = useState(false);
   const [selectedChildId, setSelectedChildId] = useState<string | null>(null);
   const [linkedChildren, setLinkedChildren] = useState<UserProfile[]>([]);
   const [pendingBadgeNotification, setPendingBadgeNotification] = useState<string | null>(null);
@@ -106,29 +111,45 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return migrated;
   };
 
-  // Load from local storage on mount
+  // Wait for Firebase Auth to confirm the session before trusting localStorage.
+  // onAuthStateChanged fires once on startup: with a User if a valid session exists, or null
+  // if the token has expired / user signed out. Only then do we hydrate from localStorage.
   useEffect(() => {
-    const savedUser = localStorage.getItem('ks2_user');
-    const savedSettings = localStorage.getItem('ks2_settings');
-    if (savedUser) {
-      try {
-        const parsedUser = JSON.parse(savedUser);
-        // Migration: Ensure all fields exist for legacy users
-        const migratedUser = migrateUserData(parsedUser);
-        setUser(migratedUser);
-        
-        // Force save immediately if migration changed anything (like adding parentCode)
-        if (JSON.stringify(migratedUser) !== JSON.stringify(parsedUser)) {
-          localStorage.setItem('ks2_user', JSON.stringify(migratedUser));
+    const auth = getAuth();
+    const unsub = onAuthStateChanged(auth, (firebaseUser) => {
+      if (!firebaseUser) {
+        // No active Firebase session — clear any stale cached profile.
+        localStorage.removeItem('ks2_user');
+        setUser(null);
+      } else {
+        // Firebase session is valid — safe to restore the cached profile.
+        const savedUser = localStorage.getItem('ks2_user');
+        if (savedUser) {
+          try {
+            const parsedUser = JSON.parse(savedUser);
+            // Only restore if the cached profile belongs to the authenticated user.
+            if (parsedUser?.id === firebaseUser.uid) {
+              const migratedUser = migrateUserData(parsedUser);
+              setUser(migratedUser);
+              if (JSON.stringify(migratedUser) !== JSON.stringify(parsedUser)) {
+                localStorage.setItem('ks2_user', JSON.stringify(migratedUser));
+              }
+            } else {
+              // Cached profile is for a different user — discard it.
+              localStorage.removeItem('ks2_user');
+            }
+          } catch (error) {
+            console.error('Failed to parse user data from localStorage:', error);
+            localStorage.removeItem('ks2_user');
+          }
         }
-      } catch (error) {
-        console.error('Failed to parse user data from localStorage:', error);
-        // Optionally clear corrupted data
-        // localStorage.removeItem('ks2_user');
       }
-    } 
-    // Removed auto-login for default user to ensure Login page is shown
-    
+      setAuthReady(true);
+      // Only run once on mount — unsubscribe immediately after first event.
+      unsub();
+    });
+
+    const savedSettings = localStorage.getItem('ks2_settings');
     if (savedSettings) {
       try {
         const parsedSettings = JSON.parse(savedSettings);
@@ -305,6 +326,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
     } finally {
       setUser(null);
       localStorage.removeItem('ks2_user');
+      sessionStorage.removeItem('email_verify_banner_dismissed');
       setSelectedChildId(null);
       setLinkedChildren([]);
     }
@@ -572,7 +594,8 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   return (
     <UserContext.Provider value={{ 
-      user, 
+      user,
+      authReady,
       logout, 
       setUser: setUserProfile, 
       updateAge, 

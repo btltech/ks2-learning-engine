@@ -103,7 +103,7 @@ const CookieBanner = lazy(() => import('./components/CookieBanner').then(m => ({
 // };
 
 const AppContent: React.FC = () => {
-  const { user, logout, checkStreak, addPoints, updateMastery, setUser, recordQuizSession, addTimeSpent, suggestNextDifficulty, pendingBadgeNotification, clearBadgeNotification } = useUser();
+  const { user, authReady, logout, checkStreak, addPoints, updateMastery, setUser, recordQuizSession, addTimeSpent, suggestNextDifficulty, pendingBadgeNotification, clearBadgeNotification } = useUser();
   const { isGuidedMode } = useUISettings();
   const featureVisibility = useFeatureVisibility();
   const { showToast } = useToast();
@@ -464,9 +464,15 @@ const AppContent: React.FC = () => {
     }
   };
 
+  // Block rendering until Firebase Auth has confirmed (or rejected) the cached session.
+  // This prevents flashing the landing page for users who are still logged in, and prevents
+  // a stale localStorage profile being used when the Firebase token has actually expired.
+  if (!authReady) {
+    return <LoadingSpinner />;
+  }
+
   // If user is not logged in but accessing a public route, show public layout
-  if (!user && isPublicRoute) {
-    return (
+  if (!user && isPublicRoute) {    return (
       <ToastProvider>
         <Suspense fallback={<LoadingSpinner />}>
           <PublicLayout>
@@ -481,11 +487,14 @@ const AppContent: React.FC = () => {
   if (!user && !isPublicRoute) {
     const isLoginRoute = location.pathname === '/login';
     const isRootRoute = location.pathname === '/';
+    // ?verified=true comes from the Firebase email verification link — always show LoginView so
+    // the success message is visible, regardless of the path.
+    const hasVerifiedParam = new URLSearchParams(location.search).get('verified') === 'true';
     return (
       <ToastProvider>
         <Suspense fallback={<LoadingSpinner />}>
           <PublicLayout>
-            {(isRootRoute && !isLoginRoute) ? (
+            {(isRootRoute && !isLoginRoute && !hasVerifiedParam) ? (
               <LandingPage />
             ) : (
               <LoginView onLogin={handleLoginWrapper} />
@@ -526,7 +535,7 @@ const AppContent: React.FC = () => {
       {/* Email verification banner */}
       <EmailVerificationBanner />
 
-      <main className="flex-grow w-full content-visibility-auto safe-area-bottom">
+      <main id="main-content" className="flex-grow w-full content-visibility-auto safe-area-bottom">
         <div className="mobile-shell py-4 mobile:py-5 sm:py-6 lg:py-10">
           <Suspense fallback={<LoadingSpinner />}>
             <Routes>

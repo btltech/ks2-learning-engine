@@ -11,7 +11,8 @@ interface LoginViewProps {
 const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
   const [searchParams] = useSearchParams();
   const initialMode = searchParams.get('mode') === 'register' ? 'register' : 'login';
-  const [mode, setMode] = useState<'login' | 'register' | 'forgot'>(initialMode);
+  const [mode, setMode] = useState<'login' | 'register' | 'forgot' | 'verify'>(initialMode);
+  const [pendingVerificationEmail, setPendingVerificationEmail] = useState('');
   const [loginAs, setLoginAs] = useState<'parent' | 'child'>('parent');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -46,6 +47,14 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
     };
     checkExistingSession();
   }, [onLogin]);
+
+  // Handle ?verified=true redirect from Firebase email verification link
+  useEffect(() => {
+    if (searchParams.get('verified') === 'true') {
+      setSuccessMessage('Your email has been verified! Please sign in to continue.');
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Fetch runtime config (lets Cloudflare enable Turnstile without rebuilding the frontend bundle)
   useEffect(() => {
@@ -184,23 +193,24 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
       // Clear any cached user data before login to prevent showing wrong user's profile
       localStorage.removeItem('ks2_user');
       
-      let user: UserProfile;
-      
       if (mode === 'register') {
         // Register new user with Firebase Auth
-        user = await firebaseAuthService.register(
+        await firebaseAuthService.register(
           emailInput,
           password,
           name,
           role,
           undefined
         );
+        // Sign out immediately — user must verify email before entering the app
+        await firebaseAuthService.logout().catch(() => {});
+        setPendingVerificationEmail(emailInput);
+        setMode('verify');
       } else {
         // Login existing user
-        user = await firebaseAuthService.login(emailInput, password);
+        const user = await firebaseAuthService.login(emailInput, password);
+        onLogin(user);
       }
-      
-      onLogin(user);
     } catch (err: any) {
       console.error('Auth failed:', err);
       // Friendly error messages
@@ -235,13 +245,13 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
       <div className="bg-white rounded-2xl shadow-2xl p-6 sm:p-8 w-full max-w-md animate-pop-in">
         <div className="text-center mb-6 sm:mb-8">
           <div className="w-20 h-20 sm:w-24 sm:h-24 bg-blue-100 rounded-full mx-auto mb-4 flex items-center justify-center text-3xl sm:text-4xl">
-            {mode === 'forgot' ? '🔑' : '🤖'}
+            {mode === 'forgot' ? '🔑' : mode === 'verify' ? '📧' : '🤖'}
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">
-            {mode === 'forgot' ? 'Reset Password' : mode === 'login' ? 'Welcome Back!' : 'Join KS2 Learning!'}
+            {mode === 'forgot' ? 'Reset Password' : mode === 'verify' ? 'Check Your Inbox' : mode === 'login' ? 'Welcome Back!' : 'Join KS2 Learning!'}
           </h1>
           <p className="text-gray-600 mt-2 text-sm sm:text-base">
-            {mode === 'forgot' ? "We'll send you a reset link" : 'Your AI-powered learning buddy'}
+            {mode === 'forgot' ? "We'll send you a reset link" : mode === 'verify' ? 'One last step before you start learning' : 'Your AI-powered learning buddy'}
           </p>
           {mode === 'register' && (
             <p className="mt-2 text-xs font-semibold text-purple-700">
@@ -250,8 +260,8 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
           )}
         </div>
 
-        {/* Mode Toggle - hide in forgot mode */}
-        {mode !== 'forgot' && (
+        {/* Mode Toggle - hide in forgot and verify mode */}
+        {mode !== 'forgot' && mode !== 'verify' && (
         <div className="flex mb-6 bg-gray-100 rounded-lg p-1">
           <button
             type="button"
@@ -324,21 +334,34 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
               ← Back to Sign In
             </button>
           </form>
+        ) : mode === 'verify' ? (
+          <div className="space-y-4 text-center">
+            <div className="p-4 bg-green-50 border border-green-200 rounded-xl">
+              <p className="text-green-800 text-sm font-medium">Verification email sent to:</p>
+              <p className="text-green-900 font-bold break-all mt-1">{pendingVerificationEmail}</p>
+            </div>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              Click the link in the email to activate your account, then sign in here.
+              <br />
+              <span className="text-amber-700 font-medium">Can't find it? Check your spam / junk folder.</span>
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                setMode('login');
+                setEmail(pendingVerificationEmail);
+                setError(null);
+                setSuccessMessage(null);
+              }}
+              className="w-full py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all"
+            >
+              I've Verified — Sign In 🎉
+            </button>
+          </div>
         ) : mode === 'login' ? (
           <>
             {/* Login Type Toggle */}
             <div className="flex mb-4 bg-gray-100 rounded-lg p-1">
-              <button
-                type="button"
-                onClick={() => { setLoginAs('child'); setError(null); setSuccessMessage(null); setTurnstileToken(''); }}
-                className={`flex-1 py-2 rounded-md text-sm font-medium transition-all ${
-                  loginAs === 'child'
-                    ? 'bg-white shadow text-blue-600'
-                    : 'text-gray-500 hover:text-gray-700'
-                }`}
-              >
-                Child
-              </button>
               <button
                 type="button"
                 onClick={() => { setLoginAs('parent'); setError(null); setSuccessMessage(null); setTurnstileToken(''); }}
@@ -349,6 +372,17 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
                 }`}
               >
                 Parent / Teacher
+              </button>
+              <button
+                type="button"
+                onClick={() => { setLoginAs('child'); setError(null); setSuccessMessage(null); setTurnstileToken(''); }}
+                className={`flex-1 py-2 rounded-md text-sm font-medium transition-all ${
+                  loginAs === 'child'
+                    ? 'bg-white shadow text-blue-600'
+                    : 'text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                Child
               </button>
             </div>
 
@@ -608,11 +642,13 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
         )}
 
         <p className="text-center text-xs text-gray-500 mt-4">
-          {mode === 'forgot' 
+          {mode === 'forgot'
             ? "Remember your password? Click 'Back to Sign In'"
-            : mode === 'login' 
-              ? "Don't have an account? Click 'Create Account' above"
-              : "Already have an account? Click 'Sign In' above"
+            : mode === 'verify'
+              ? "Already verified? Click 'I've Verified — Sign In' above"
+              : mode === 'login'
+                ? "Don't have an account? Click 'Create Account' above"
+                : "Already have an account? Click 'Sign In' above"
           }
         </p>
       </div>
