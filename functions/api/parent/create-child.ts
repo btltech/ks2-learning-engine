@@ -95,11 +95,12 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
         }
       );
     } catch (readError) {
-      // A verified administrator may recover child creation when the daily
+      // A signed parent/admin claim may recover child creation when the daily
       // Firestore read quota is exhausted. The write remains server-authenticated;
       // only duplicate name/PIN checks are deferred until reads recover.
-      if (!isQuotaError(readError) || caller.claims.admin !== true) throw readError;
-      console.warn('Creating child through admin quota fallback', { uid: caller.uid });
+      const hasVerifiedParentRole = caller.claims.parent === true || caller.claims.admin === true;
+      if (!isQuotaError(readError) || !hasVerifiedParentRole) throw readError;
+      console.warn('Creating child through verified-role quota fallback', { uid: caller.uid });
     }
 
     if (existingChildren.length >= 20) {
