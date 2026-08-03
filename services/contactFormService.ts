@@ -10,6 +10,7 @@ export interface ContactFormData {
   userType: 'parent' | 'teacher' | 'student' | 'admin' | 'other';
   subject: string;
   message: string;
+  turnstileToken?: string;
 }
 
 export interface ContactSubmission extends ContactFormData {

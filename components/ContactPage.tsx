@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import InfoPage from './InfoPage';
 import { RADIUS, SHADOWS } from '../constants';
 import { submitContactForm } from '../services/contactFormService';
+import { TurnstileWidget } from './TurnstileWidget';
 
 const ContactPage: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -14,14 +15,33 @@ const ContactPage: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [turnstileSiteKey, setTurnstileSiteKey] = useState('');
+  const [turnstileToken, setTurnstileToken] = useState('');
+
+  useEffect(() => {
+    let cancelled = false;
+    void fetch('/api/public-config')
+      .then((response) => response.json())
+      .then((data) => {
+        if (!cancelled && typeof data?.turnstileSiteKey === 'string') {
+          setTurnstileSiteKey(data.turnstileSiteKey);
+        }
+      })
+      .catch(() => {});
+    return () => { cancelled = true; };
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (turnstileSiteKey && !turnstileToken) {
+      setError('Please complete the CAPTCHA.');
+      return;
+    }
     setSubmitting(true);
     setError(null);
     
     try {
-      await submitContactForm(formData);
+      await submitContactForm({ ...formData, turnstileToken });
       setSubmitted(true);
       setFormData({
         name: '',
@@ -30,6 +50,7 @@ const ContactPage: React.FC = () => {
         subject: '',
         message: ''
       });
+      setTurnstileToken('');
       setTimeout(() => setSubmitted(false), 5000);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to submit. Please try again.');
@@ -82,6 +103,13 @@ const ContactPage: React.FC = () => {
               className={`w-full px-4 py-2 border border-gray-300 ${RADIUS.button} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500`}
             />
           </div>
+
+          {turnstileSiteKey && (
+            <div>
+              <p className="block text-sm font-bold text-gray-900 mb-2">Security check</p>
+              <TurnstileWidget siteKey={turnstileSiteKey} onToken={setTurnstileToken} />
+            </div>
+          )}
 
           <div>
             <label className="block text-sm font-bold text-gray-900 mb-1">

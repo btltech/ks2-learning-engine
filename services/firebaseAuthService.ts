@@ -75,6 +75,9 @@ export const firebaseAuthService = {
   ): Promise<UserProfile> => {
     let firebaseUser: User | null = null;
     try {
+      if (role !== 'parent') {
+        throw new Error('Public registration is available for parent accounts only. Teacher and administrator access must be issued by an administrator.');
+      }
       const normalizedEmail = normalizeEmail(email);
       const normalizedPassword = normalizePassword(password);
       // Create Firebase Auth account

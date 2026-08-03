@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const SUBJECTS = [
@@ -64,22 +64,8 @@ const STATS = [
   { value: '🇬🇧', label: 'UK curriculum aligned' },
 ];
 
-const TESTIMONIALS = [
-  { quote: "My daughter actually asks to do her homework now. That\'s never happened before!", name: 'Sarah M.', role: 'Parent of Year 5 pupil' },
-  { quote: "The parent dashboard is brilliant — I can see exactly where he\'s struggling before parents\' evening.", name: 'James T.', role: 'Parent of Year 4 pupil' },
-  { quote: "I use it in my classroom too. The quiz battles are a huge hit on Friday afternoons.", name: 'Miss Okafor', role: 'Year 6 Teacher' },
-];
-
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTestimonial(prev => (prev + 1) % TESTIMONIALS.length);
-    }, 4500);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <div className="min-h-screen overflow-x-hidden">
@@ -221,32 +207,29 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* ───────────────── TESTIMONIALS ───────────────── */}
-      <section aria-labelledby="testimonials-heading" className="py-16 px-4 bg-gradient-to-br from-indigo-50 via-white to-purple-50">
-        <div className="max-w-2xl mx-auto text-center">
-          <h2 id="testimonials-heading" className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-12">
-            Families love it
+      {/* ───────────────── TRUST ───────────────── */}
+      <section aria-labelledby="trust-heading" className="py-16 px-4 bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 id="trust-heading" className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">
+            Built around safe, focused learning
           </h2>
-          <div className="bg-white rounded-3xl shadow-lg border border-indigo-100 p-8 min-h-[180px] flex flex-col justify-between transition-all">
-            <p className="text-gray-700 text-xl leading-relaxed italic mb-6">
-              "{TESTIMONIALS[currentTestimonial].quote}"
-            </p>
-            <div>
-              <p className="font-bold text-gray-900">{TESTIMONIALS[currentTestimonial].name}</p>
-              <p className="text-sm text-gray-400">{TESTIMONIALS[currentTestimonial].role}</p>
+          <p className="text-gray-600 text-lg mb-10">Clear learning goals for children, useful progress information for adults.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 text-left">
+            <div className="bg-white rounded-2xl border border-indigo-100 p-6 shadow-sm">
+              <div className="text-2xl mb-3">🔐</div>
+              <h3 className="font-bold text-gray-900 mb-2">Family-led access</h3>
+              <p className="text-sm text-gray-600">Children can use a parent code rather than needing their own email account.</p>
             </div>
-          </div>
-          <div className="flex justify-center gap-2 mt-6">
-            {TESTIMONIALS.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setCurrentTestimonial(i)}
-                className={`w-2.5 h-2.5 rounded-full transition-all ${
-                  i === currentTestimonial ? 'bg-indigo-500 w-6' : 'bg-gray-300'
-                }`}
-                aria-label={`Testimonial ${i + 1}`}
-              />
-            ))}
+            <div className="bg-white rounded-2xl border border-indigo-100 p-6 shadow-sm">
+              <div className="text-2xl mb-3">🎯</div>
+              <h3 className="font-bold text-gray-900 mb-2">Purposeful practice</h3>
+              <p className="text-sm text-gray-600">Questions, explanations and revision are organised around KS2 learning topics.</p>
+            </div>
+            <div className="bg-white rounded-2xl border border-indigo-100 p-6 shadow-sm">
+              <div className="text-2xl mb-3">♿</div>
+              <h3 className="font-bold text-gray-900 mb-2">Different ways to learn</h3>
+              <p className="text-sm text-gray-600">Voice, read-aloud and visual settings help children learn in the way that suits them.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -266,12 +249,12 @@ const LandingPage: React.FC = () => {
             <div className="rounded-2xl border-2 border-purple-200 bg-purple-50 p-6 text-center">
               <div className="text-4xl mb-3">👨‍👩‍👧</div>
               <h3 className="font-bold text-purple-800 text-xl mb-2">Parents</h3>
-              <p className="text-purple-700 text-sm">Live progress dashboard, weekly reports and parent codes for safe family-only access.</p>
+              <p className="text-purple-700 text-sm">Progress tools and parent codes help families support learning safely.</p>
             </div>
             <div className="rounded-2xl border-2 border-green-200 bg-green-50 p-6 text-center">
               <div className="text-4xl mb-3">👩‍🏫</div>
               <h3 className="font-bold text-green-800 text-xl mb-2">Teachers</h3>
-              <p className="text-green-700 text-sm">Class analytics, quiz battle mode, SATs practice – perfect for homework or lesson starters.</p>
+              <p className="text-green-700 text-sm">Quiz activities and SATs practice can support homework and lesson starters.</p>
             </div>
           </div>
         </div>
@@ -286,7 +269,7 @@ const LandingPage: React.FC = () => {
             <br />It's completely free.
           </h2>
           <p className="text-indigo-200 text-lg mb-10">
-            Join families across the UK who are already using DemiWura to boost KS2 confidence and results.
+            Create a free account and explore focused KS2 practice at your child’s pace.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button

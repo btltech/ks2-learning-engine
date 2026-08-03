@@ -18,7 +18,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [name, setName] = useState('');
-  const [role, setRole] = useState<'parent' | 'teacher' | 'admin'>('parent');
+  const role: 'parent' = 'parent';
   const [age, setAge] = useState<number>(9);
   const [parentCode, setParentCode] = useState('');
   const [pin, setPin] = useState('');
@@ -582,53 +582,9 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
               />
             </div>
 
-            {/* Role Selection */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">I am a...</label>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4">
-                <button
-                  type="button"
-                  onClick={() => setRole('parent')}
-                  className={`p-3 sm:p-4 rounded-xl border-2 transition-all text-left ${
-                    role === 'parent'
-                      ? 'border-purple-500 bg-purple-50 text-purple-700'
-                      : 'border-gray-200 hover:border-purple-200'
-                  }`}
-                >
-                  <span className="text-2xl block mb-1">👨‍👩‍👧</span>
-                  <span className="font-bold text-sm sm:text-base block">Parent</span>
-                  <span className="text-xs text-gray-500 block mt-1">Track progress and link children with a parent code.</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setRole('teacher')}
-                  className={`p-3 sm:p-4 rounded-xl border-2 transition-all text-left ${
-                    role === 'teacher'
-                      ? 'border-green-500 bg-green-50 text-green-700'
-                      : 'border-gray-200 hover:border-green-200'
-                  }`}
-                >
-                  <span className="text-2xl block mb-1">👩‍🏫</span>
-                  <span className="font-bold text-sm sm:text-base block">Teacher</span>
-                  <span className="text-xs text-gray-500 block mt-1">Manage classes, activities, and question quality.</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setRole('admin')}
-                  className={`p-3 sm:p-4 rounded-xl border-2 transition-all text-left ${
-                    role === 'admin'
-                      ? 'border-gray-700 bg-gray-100 text-gray-800'
-                      : 'border-gray-200 hover:border-gray-400'
-                  }`}
-                >
-                  <span className="text-2xl block mb-1">🛡️</span>
-                  <span className="font-bold text-sm sm:text-base block">Admin</span>
-                  <span className="text-xs text-gray-500 block mt-1">Review platform quality, access, and settings.</span>
-                </button>
-              </div>
-              <p className="text-xs text-gray-500 mt-2">
-                After signup, you will land in a dashboard tailored to the role you choose.
-              </p>
+            <div className="rounded-xl border border-purple-100 bg-purple-50 p-4">
+              <p className="font-semibold text-purple-900">👨‍👩‍👧 Parent account</p>
+              <p className="mt-1 text-sm text-purple-800">Create your family account, then link a child using a parent code. Teacher and administrator access is issued securely by an existing administrator.</p>
             </div>
 
             <button

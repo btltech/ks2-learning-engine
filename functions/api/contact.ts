@@ -1,12 +1,10 @@
-// Cloudflare Pages Function - Contact form submission handler
-// - Validates and saves contact submissions to Firestore via REST API
-// - Sends admin notification email via Resend (https://resend.com)
+// Cloudflare Pages Function - contact form submission handler.
 //
-// Required env vars (set in Cloudflare Pages → Settings → Environment Variables):
-//   VITE_FIREBASE_API_KEY         - Firebase web API key (already set)
-//   VITE_FIREBASE_PROJECT_ID      - Firebase project ID (already set)
-//   RESEND_API_KEY                - Resend API key (get from resend.com)
-//   CONTACT_EMAIL                 - Admin email to receive notifications (default: support@demiwuraks2.co.uk)
+// Submissions are written with a server-side Firebase service account.  This
+// deliberately avoids a public Firestore write rule, which would otherwise be
+// an easy spam bypass for a form intended for families and schools.
+
+import { SignJWT, importPKCS8 } from 'jose';
 
 type PagesFunction<E = unknown> = (context: {
   request: Request;
@@ -18,264 +16,294 @@ type PagesFunction<E = unknown> = (context: {
 }) => Response | Promise<Response>;
 
 interface Env {
-  VITE_FIREBASE_API_KEY?: string;
-  FIREBASE_API_KEY?: string;
-  VITE_FIREBASE_PROJECT_ID?: string;
   FIREBASE_PROJECT_ID?: string;
+  VITE_FIREBASE_PROJECT_ID?: string;
+  FIREBASE_SERVICE_ACCOUNT_JSON?: string;
+  FIREBASE_SERVICE_ACCOUNT_BASE64?: string;
   RESEND_API_KEY?: string;
-  /** Admin email to receive contact notifications. Defaults to support@demiwuraks2.co.uk */
   CONTACT_EMAIL?: string;
   ALLOWED_ORIGINS?: string;
+  TURNSTILE_SECRET_KEY?: string;
+  RATE_LIMIT_KV?: KVNamespace;
+}
+
+interface ContactData {
+  name: string;
+  email: string;
+  userType: string;
+  subject: string;
+  message: string;
+  submittedAt: number;
+  status: string;
 }
 
 const CORS_METHODS = 'POST, OPTIONS';
 const CORS_HEADERS = 'Content-Type';
+const RATE_LIMIT = 5;
+const RATE_WINDOW_MS = 60 * 1000;
+const contactRateLimits = new Map<string, { count: number; resetTime: number }>();
 
-function getCorsOrigin(request: Request, env: Env): string {
-  const origin = request.headers.get('Origin') ?? '';
-  const allowed = (env.ALLOWED_ORIGINS || 'https://demiwuraks2.co.uk,https://ks2-learning-engine.pages.dev')
+function allowedOrigins(env: Env): string[] {
+  return (env.ALLOWED_ORIGINS || 'https://demiwuraks2.co.uk,https://ks2-learning-engine.pages.dev')
     .split(',')
-    .map((o) => o.trim())
+    .map((origin) => origin.trim())
     .filter(Boolean);
-  // Allow any *.pages.dev preview deployment as well
-  if (allowed.includes(origin) || /^https:\/\/ks2-learning-engine-[^.]+\.pages\.dev$/.test(origin)) {
-    return origin;
-  }
-  // Allow localhost for development
-  if (/^http:\/\/localhost(:\d+)?$/.test(origin)) {
-    return origin;
-  }
-  return 'null';
 }
 
-function jsonResponse(status: number, body: unknown, corsOrigin: string): Response {
+function getCorsOrigin(request: Request, env: Env): string | null {
+  const origin = request.headers.get('Origin') ?? '';
+  if (allowedOrigins(env).includes(origin)) return origin;
+  if (/^https:\/\/ks2-learning-engine-[^.]+\.pages\.dev$/.test(origin)) return origin;
+  if (/^http:\/\/localhost(:\d+)?$/.test(origin)) return origin;
+  return null;
+}
+
+function corsHeaders(corsOrigin: string | null): Record<string, string> {
+  return {
+    'Access-Control-Allow-Origin': corsOrigin || 'null',
+    'Access-Control-Allow-Methods': CORS_METHODS,
+    'Access-Control-Allow-Headers': CORS_HEADERS,
+    'Vary': 'Origin',
+  };
+}
+
+function jsonResponse(status: number, body: unknown, corsOrigin: string | null): Response {
   return new Response(JSON.stringify(body), {
     status,
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': corsOrigin,
-      'Access-Control-Allow-Methods': CORS_METHODS,
-      'Access-Control-Allow-Headers': CORS_HEADERS,
-      'Vary': 'Origin',
-    },
+    headers: { 'Content-Type': 'application/json', ...corsHeaders(corsOrigin) },
   });
 }
 
-/** Strip HTML special chars and zero-width chars to prevent injection */
+function getClientIp(request: Request): string {
+  const cfIp = request.headers.get('CF-Connecting-IP');
+  if (cfIp?.trim()) return cfIp.trim();
+  const forwarded = request.headers.get('X-Forwarded-For');
+  if (forwarded?.trim()) return forwarded.split(',')[0].trim();
+  return 'unknown';
+}
+
+async function checkRateLimit(env: Env, key: string): Promise<{ allowed: boolean; retryAfter: number }> {
+  const now = Date.now();
+  if (env.RATE_LIMIT_KV) {
+    try {
+      const stored = await env.RATE_LIMIT_KV.get(key, 'json') as { count: number; resetTime: number } | null;
+      if (!stored || stored.resetTime <= now) {
+        await env.RATE_LIMIT_KV.put(key, JSON.stringify({ count: 1, resetTime: now + RATE_WINDOW_MS }), { expirationTtl: 120 });
+        return { allowed: true, retryAfter: 0 };
+      }
+      if (stored.count >= RATE_LIMIT) {
+        return { allowed: false, retryAfter: Math.max(1, Math.ceil((stored.resetTime - now) / 1000)) };
+      }
+      await env.RATE_LIMIT_KV.put(key, JSON.stringify({ count: stored.count + 1, resetTime: stored.resetTime }), { expirationTtl: 120 });
+      return { allowed: true, retryAfter: 0 };
+    } catch {
+      // Use the process-local limiter if a configured KV binding is temporarily unavailable.
+    }
+  }
+
+  const stored = contactRateLimits.get(key);
+  if (!stored || stored.resetTime <= now) {
+    contactRateLimits.set(key, { count: 1, resetTime: now + RATE_WINDOW_MS });
+    return { allowed: true, retryAfter: 0 };
+  }
+  if (stored.count >= RATE_LIMIT) {
+    return { allowed: false, retryAfter: Math.max(1, Math.ceil((stored.resetTime - now) / 1000)) };
+  }
+  stored.count += 1;
+  return { allowed: true, retryAfter: 0 };
+}
+
 function sanitizeText(value: unknown, maxLen: number): string {
   if (typeof value !== 'string') return '';
   return value
-    .replace(/[\u200B-\u200D\uFEFF]/g, '') // zero-width chars
-    .replace(/[<>]/g, '')                   // strip HTML angle brackets
-    .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '') // control chars
+    .replace(/[\u200B-\u200D\uFEFF]/g, '')
+    .replace(/[<>]/g, '')
+    .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '')
     .trim()
     .slice(0, maxLen);
 }
 
-function escapeHtml(s: string): string {
-  return s
+function escapeHtml(value: string): string {
+  return value
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
 }
 
-// ─── Firestore REST ───────────────────────────────────────────────────────────
-
-async function saveToFirestore(
-  projectId: string,
-  apiKey: string,
-  data: {
-    name: string;
-    email: string;
-    userType: string;
-    subject: string;
-    message: string;
-    submittedAt: number;
-    status: string;
-  }
-): Promise<void> {
-  const url =
-    `https://firestore.googleapis.com/v1/projects/${encodeURIComponent(projectId)}` +
-    `/databases/(default)/documents/contactSubmissions?key=${encodeURIComponent(apiKey)}`;
-
-  const body = {
-    fields: {
-      name:        { stringValue: data.name },
-      email:       { stringValue: data.email },
-      userType:    { stringValue: data.userType },
-      subject:     { stringValue: data.subject },
-      message:     { stringValue: data.message },
-      submittedAt: { integerValue: String(data.submittedAt) },
-      status:      { stringValue: data.status },
-    },
-  };
-
-  const resp = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-  });
-
-  if (!resp.ok) {
-    const err: any = await resp.json().catch(() => ({}));
-    throw new Error(err?.error?.message || `Firestore write failed (${resp.status})`);
-  }
+function getProjectId(env: Env): string | null {
+  return env.FIREBASE_PROJECT_ID || env.VITE_FIREBASE_PROJECT_ID || null;
 }
 
-// ─── Resend email ─────────────────────────────────────────────────────────────
+function getServiceAccount(env: Env): { client_email: string; private_key: string } | null {
+  const raw = env.FIREBASE_SERVICE_ACCOUNT_JSON;
+  const encoded = env.FIREBASE_SERVICE_ACCOUNT_BASE64;
+  try {
+    if (raw?.trim()) return JSON.parse(raw);
+    if (encoded?.trim()) return JSON.parse(atob(encoded));
+  } catch {
+    return null;
+  }
+  return null;
+}
+
+async function getGoogleAccessToken(serviceAccount: { client_email: string; private_key: string }): Promise<string> {
+  const now = Math.floor(Date.now() / 1000);
+  const privateKey = await importPKCS8(serviceAccount.private_key, 'RS256');
+  const assertion = await new SignJWT({ scope: 'https://www.googleapis.com/auth/cloud-platform' })
+    .setProtectedHeader({ alg: 'RS256', typ: 'JWT' })
+    .setIssuer(serviceAccount.client_email)
+    .setSubject(serviceAccount.client_email)
+    .setAudience('https://oauth2.googleapis.com/token')
+    .setIssuedAt(now)
+    .setExpirationTime(now + 5 * 60)
+    .sign(privateKey);
+
+  const response = await fetch('https://oauth2.googleapis.com/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+      assertion,
+    }).toString(),
+  });
+  const data: any = await response.json().catch(() => ({}));
+  if (!response.ok || typeof data?.access_token !== 'string') {
+    throw new Error(data?.error_description || data?.error || 'Unable to authenticate contact storage');
+  }
+  return data.access_token;
+}
+
+async function saveToFirestore(projectId: string, accessToken: string, data: ContactData): Promise<void> {
+  const url = `https://firestore.googleapis.com/v1/projects/${encodeURIComponent(projectId)}/databases/(default)/documents/contactSubmissions`;
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      fields: {
+        name: { stringValue: data.name },
+        email: { stringValue: data.email },
+        userType: { stringValue: data.userType },
+        subject: { stringValue: data.subject },
+        message: { stringValue: data.message },
+        submittedAt: { integerValue: String(data.submittedAt) },
+        status: { stringValue: data.status },
+      },
+    }),
+  });
+  const body: any = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(body?.error?.message || `Contact storage failed (${response.status})`);
+}
+
+async function verifyTurnstile(secret: string, token: string, ip: string): Promise<boolean> {
+  const form = new URLSearchParams({ secret, response: token });
+  if (ip !== 'unknown') form.set('remoteip', ip);
+  const response = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: form.toString(),
+  });
+  const body: any = await response.json().catch(() => ({}));
+  return response.ok && body?.success === true;
+}
 
 async function sendAdminNotification(
   resendApiKey: string,
   adminEmail: string,
-  sub: { name: string; email: string; userType: string; subject: string; message: string }
+  submission: Pick<ContactData, 'name' | 'email' | 'userType' | 'subject' | 'message'>,
 ): Promise<void> {
-  const safeName    = escapeHtml(sub.name);
-  const safeEmail   = escapeHtml(sub.email);
-  const safeType    = escapeHtml(sub.userType);
-  const safeSubject = escapeHtml(sub.subject);
-  const safeMessage = escapeHtml(sub.message).replace(/\n/g, '<br>');
-
-  const html = `
-    <!DOCTYPE html>
-    <html>
-    <head><meta charset="UTF-8"></head>
-    <body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;margin:0;padding:0;background:#f3f4f6;">
-      <div style="max-width:560px;margin:32px auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.1);">
-        <div style="background:linear-gradient(135deg,#667eea,#764ba2);padding:24px;">
-          <h1 style="color:#fff;margin:0;font-size:20px;">📬 New Contact Form Submission</h1>
-        </div>
-        <div style="padding:24px;">
-          <table style="width:100%;border-collapse:collapse;font-size:14px;">
-            <tr><td style="padding:10px 12px;font-weight:600;color:#374151;width:110px;background:#f9fafb;border-radius:4px;">Name</td>
-                <td style="padding:10px 12px;color:#1f2937;">${safeName}</td></tr>
-            <tr><td style="padding:10px 12px;font-weight:600;color:#374151;background:#f9fafb;border-radius:4px;">Email</td>
-                <td style="padding:10px 12px;"><a href="mailto:${safeEmail}" style="color:#3b82f6;">${safeEmail}</a></td></tr>
-            <tr><td style="padding:10px 12px;font-weight:600;color:#374151;background:#f9fafb;border-radius:4px;">User type</td>
-                <td style="padding:10px 12px;color:#1f2937;text-transform:capitalize;">${safeType}</td></tr>
-            <tr><td style="padding:10px 12px;font-weight:600;color:#374151;background:#f9fafb;border-radius:4px;">Subject</td>
-                <td style="padding:10px 12px;color:#1f2937;">${safeSubject}</td></tr>
-          </table>
-          <div style="margin-top:16px;padding:16px;background:#eff6ff;border-left:4px solid #3b82f6;border-radius:0 8px 8px 0;">
-            <p style="font-weight:600;color:#1e40af;margin:0 0 8px;">Message</p>
-            <p style="color:#1f2937;margin:0;line-height:1.6;">${safeMessage}</p>
-          </div>
-          <p style="margin-top:20px;font-size:13px;color:#6b7280;">
-            Reply to this person: <a href="mailto:${safeEmail}" style="color:#3b82f6;">${safeEmail}</a>
-          </p>
-        </div>
-      </div>
-    </body>
-    </html>`;
-
-  const resp = await fetch('https://api.resend.com/emails', {
+  const safeName = escapeHtml(submission.name);
+  const safeEmail = escapeHtml(submission.email);
+  const safeType = escapeHtml(submission.userType);
+  const safeSubject = escapeHtml(submission.subject);
+  const safeMessage = escapeHtml(submission.message).replace(/\n/g, '<br>');
+  const response = await fetch('https://api.resend.com/emails', {
     method: 'POST',
-    headers: {
-      Authorization: `Bearer ${resendApiKey}`,
-      'Content-Type': 'application/json',
-    },
+    headers: { Authorization: `Bearer ${resendApiKey}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      // Use Resend's pre-verified domain so emails deliver without custom DNS setup.
-      // Switch to 'noreply@demiwuraks2.co.uk' once the domain is verified in Resend dashboard.
-      from: 'KS2 Learning Engine <onboarding@resend.dev>',
+      from: 'DemiWura <onboarding@resend.dev>',
       to: [adminEmail],
-      reply_to: sub.email,
-      subject: `📬 Contact: ${sub.subject}`,
-      html,
+      reply_to: submission.email,
+      subject: `Contact: ${submission.subject}`,
+      html: `<h1>New contact submission</h1><p><strong>Name:</strong> ${safeName}</p><p><strong>Email:</strong> <a href="mailto:${safeEmail}">${safeEmail}</a></p><p><strong>User type:</strong> ${safeType}</p><p><strong>Subject:</strong> ${safeSubject}</p><p>${safeMessage}</p>`,
     }),
   });
-
-  if (!resp.ok) {
-    const err: any = await resp.json().catch(() => ({}));
-    throw new Error(err?.message || `Resend error (${resp.status})`);
-  }
+  const body: any = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(body?.message || `Email notification failed (${response.status})`);
 }
 
-// ─── Handlers ─────────────────────────────────────────────────────────────────
-
 export const onRequestOptions: PagesFunction<Env> = async (context) => {
-  const corsOrigin = getCorsOrigin(context.request, context.env);
-  return new Response(null, {
-    status: 204,
-    headers: {
-      'Access-Control-Allow-Origin': corsOrigin,
-      'Access-Control-Allow-Methods': CORS_METHODS,
-      'Access-Control-Allow-Headers': CORS_HEADERS,
-      'Vary': 'Origin',
-    },
-  });
+  const origin = getCorsOrigin(context.request, context.env);
+  return new Response(null, { status: origin ? 204 : 403, headers: corsHeaders(origin) });
 };
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
   const { request, env } = context;
-  const corsOrigin = getCorsOrigin(request, env);
+  const origin = getCorsOrigin(request, env);
+  if (!origin) return jsonResponse(403, { error: 'Origin not allowed' }, null);
 
-  // Parse body
-  let body: unknown;
+  const clientIp = getClientIp(request);
+  const rate = await checkRateLimit(env, `contact:${clientIp}`);
+  if (!rate.allowed) {
+    return new Response(JSON.stringify({ error: 'Too many contact requests. Please try again later.' }), {
+      status: 429,
+      headers: { 'Content-Type': 'application/json', ...corsHeaders(origin), 'Retry-After': String(rate.retryAfter) },
+    });
+  }
+
+  let body: Record<string, unknown>;
   try {
-    body = await request.json();
+    const parsed = await request.json();
+    if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) {
+      return jsonResponse(400, { error: 'Body must be a JSON object' }, origin);
+    }
+    body = parsed as Record<string, unknown>;
   } catch {
-    return jsonResponse(400, { error: 'Invalid JSON body' }, corsOrigin);
+    return jsonResponse(400, { error: 'Invalid JSON body' }, origin);
   }
 
-  if (typeof body !== 'object' || body === null) {
-    return jsonResponse(400, { error: 'Body must be a JSON object' }, corsOrigin);
-  }
-
-  const b = body as Record<string, unknown>;
-
-  // Validate and sanitize
-  const name    = sanitizeText(b.name,    100);
-  const email   = sanitizeText(b.email,   200);
-  const subject = sanitizeText(b.subject, 200);
-  const message = sanitizeText(b.message, 5000);
-  const rawType = sanitizeText(b.userType, 20);
-
+  const name = sanitizeText(body.name, 100);
+  const email = sanitizeText(body.email, 200);
+  const subject = sanitizeText(body.subject, 200);
+  const message = sanitizeText(body.message, 5000);
+  const rawType = sanitizeText(body.userType, 20);
+  const turnstileToken = sanitizeText(body.turnstileToken, 4096);
   if (!name || !email || !subject || !message) {
-    return jsonResponse(400, { error: 'name, email, subject and message are required' }, corsOrigin);
+    return jsonResponse(400, { error: 'name, email, subject and message are required' }, origin);
   }
-
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
-    return jsonResponse(400, { error: 'Invalid email address' }, corsOrigin);
+    return jsonResponse(400, { error: 'Invalid email address' }, origin);
   }
+  const userType = new Set(['parent', 'teacher', 'student', 'admin', 'other']).has(rawType) ? rawType : 'other';
 
-  const VALID_TYPES = new Set(['parent', 'teacher', 'student', 'admin', 'other']);
-  const userType = VALID_TYPES.has(rawType) ? rawType : 'other';
-
-  const projectId = env.FIREBASE_PROJECT_ID || env.VITE_FIREBASE_PROJECT_ID;
-  const apiKey    = env.FIREBASE_API_KEY    || env.VITE_FIREBASE_API_KEY;
-
-  // 1. Save to Firestore (best-effort)
-  if (projectId && apiKey) {
-    try {
-      await saveToFirestore(projectId, apiKey, {
-        name, email, userType, subject, message,
-        submittedAt: Date.now(),
-        status: 'new',
-      });
-    } catch (err) {
-      console.error('[contact] Firestore save failed:', err);
-      // Continue — email notification is the critical path
+  if (env.TURNSTILE_SECRET_KEY?.trim()) {
+    if (!turnstileToken || !(await verifyTurnstile(env.TURNSTILE_SECRET_KEY.trim(), turnstileToken, clientIp))) {
+      return jsonResponse(400, { error: 'Please complete the CAPTCHA and try again.' }, origin);
     }
-  } else {
-    console.warn('[contact] Firebase credentials not configured — skipping Firestore write');
   }
 
-  // 2. Email admin notification (best-effort)
-  const resendApiKey = env.RESEND_API_KEY;
-  const adminEmail   = env.CONTACT_EMAIL || 'support@demiwuraks2.co.uk';
+  const projectId = getProjectId(env);
+  const serviceAccount = getServiceAccount(env);
+  if (!projectId || !serviceAccount?.client_email || !serviceAccount.private_key) {
+    return jsonResponse(503, { error: 'Contact service is temporarily unavailable. Please email support@demiwuraks2.co.uk.' }, origin);
+  }
 
-  if (resendApiKey) {
+  const submission: ContactData = { name, email, userType, subject, message, submittedAt: Date.now(), status: 'new' };
+  try {
+    const accessToken = await getGoogleAccessToken(serviceAccount);
+    await saveToFirestore(projectId, accessToken, submission);
+  } catch (error: any) {
+    return jsonResponse(503, { error: error?.message || 'Unable to save your message. Please try again shortly.' }, origin);
+  }
+
+  let notificationSent = false;
+  if (env.RESEND_API_KEY?.trim()) {
     try {
-      await sendAdminNotification(resendApiKey, adminEmail, { name, email, userType, subject, message });
-      console.log(`[contact] Email sent to ${adminEmail}`);
-    } catch (err) {
-      // Log full error so it's visible in Cloudflare Pages → Functions → Logs
-      console.error('[contact] Email notification failed:', JSON.stringify(err instanceof Error ? { message: err.message, stack: err.stack } : err));
+      await sendAdminNotification(env.RESEND_API_KEY, env.CONTACT_EMAIL || 'support@demiwuraks2.co.uk', submission);
+      notificationSent = true;
+    } catch (error) {
+      console.error('[contact] Notification failed after successful storage', error);
     }
-  } else {
-    console.warn('[contact] RESEND_API_KEY not set — skipping admin notification email');
   }
-
-  return jsonResponse(200, { success: true }, corsOrigin);
+  return jsonResponse(200, { success: true, notificationSent }, origin);
 };

@@ -56,7 +56,7 @@ describe('FirebaseAuthService', () => {
   });
 
   describe('register', () => {
-    it('should create a new user with email and password', async () => {
+    it('should create a new parent account with email and password', async () => {
       const mockUserCredential = {
         user: mockFirebaseUser('test-uid-123')
       };
@@ -68,7 +68,7 @@ describe('FirebaseAuthService', () => {
         'test@example.com',
         'password123',
         'Test User',
-        'student',
+        'parent',
         9
       );
 
@@ -77,8 +77,15 @@ describe('FirebaseAuthService', () => {
       expect(sendEmailVerification).toHaveBeenCalled();
       expect(result.id).toBe('test-uid-123');
       expect(result.name).toBe('Test User');
-      expect(result.role).toBe('student');
+      expect(result.role).toBe('parent');
       expect(result.age).toBe(9);
+    });
+
+    it('rejects public registration for privileged or child roles', async () => {
+      await expect(
+        firebaseAuthService.register('test@example.com', 'password123', 'Test User', 'teacher')
+      ).rejects.toThrow(/parent accounts only/i);
+      expect(createUserWithEmailAndPassword).not.toHaveBeenCalled();
     });
 
     it('should create a parent user correctly', async () => {
@@ -110,7 +117,7 @@ describe('FirebaseAuthService', () => {
 
       try {
         await expect(
-          firebaseAuthService.register('test@example.com', 'password', 'Test', 'student')
+          firebaseAuthService.register('test@example.com', 'password', 'Test', 'parent')
         ).rejects.toThrow();
       } finally {
         consoleErrorSpy.mockRestore();

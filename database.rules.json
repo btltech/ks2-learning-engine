@@ -2,10 +2,11 @@
   "rules": {
     "battles": {
       "$battleId": {
-        // Anyone can read a battle (needed for joining)
-        ".read": true,
-        // Only authenticated users or anyone (for demo) can write
-        ".write": true,
+        // Battles contain children's display names and answers.  A signed-in
+        // user is the minimum safe boundary while the battle protocol is
+        // client-hosted.  Do not change these back to `true`.
+        ".read": "auth != null",
+        ".write": "auth != null",
         
         "host": {
           ".validate": "newData.hasChildren(['id', 'name', 'score', 'isReady'])"
@@ -20,8 +21,10 @@
     },
     "battleCodes": {
       "$code": {
-        ".read": true,
-        ".write": true,
+        // Codes are only useful to authenticated players.  Keeping this
+        // private prevents anonymous code enumeration and room scraping.
+        ".read": "auth != null",
+        ".write": "auth != null",
         ".validate": "newData.hasChildren(['battleId', 'createdAt'])"
       }
     }
