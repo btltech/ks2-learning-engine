@@ -83,8 +83,9 @@ export const firebaseAuthService = {
       // Create Firebase Auth account
       const userCredential = await createUserWithEmailAndPassword(auth, normalizedEmail, normalizedPassword);
       firebaseUser = userCredential.user;
-      // Ensure we have a fresh token before hitting Firestore rules.
-      await firebaseUser.getIdToken(true);
+      // Account creation already returns a freshly-issued token. Do not force a
+      // second Secure Token API exchange before the first Firestore request.
+      await firebaseUser.getIdToken();
 
       // Generate unique codes
       const userId = firebaseUser.uid;
@@ -296,8 +297,10 @@ export const firebaseAuthService = {
 
       const userCredential = await signInWithEmailAndPassword(auth, normalizedEmail, normalizedPassword);
       firebaseUser = userCredential.user;
-      // Ensure token/claims are current before Firestore reads/writes.
-      await firebaseUser.getIdToken(true);
+      // Password sign-in already returns a freshly-issued token containing the
+      // current claims. Forcing an immediate refresh adds an unnecessary
+      // /token request and can turn a successful sign-in into a 400 failure.
+      await firebaseUser.getIdToken();
 
       // Fetch user profile from Firestore
       const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid));
@@ -429,7 +432,8 @@ export const firebaseAuthService = {
 
     const userCredential = await signInWithCustomToken(auth, data.customToken);
     const firebaseUser = userCredential.user;
-    await firebaseUser.getIdToken(true);
+    // Custom-token sign-in also returns a fresh ID token.
+    await firebaseUser.getIdToken();
 
     const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid));
     if (!userDoc.exists()) {

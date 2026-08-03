@@ -148,6 +148,7 @@ describe('FirebaseAuthService', () => {
       const result = await firebaseAuthService.login('test@example.com', 'password123');
 
       expect(signInWithEmailAndPassword).toHaveBeenCalled();
+      expect(mockUserCredential.user.getIdToken).toHaveBeenCalledWith();
       expect(result.id).toBe('test-uid-123');
       expect(result.name).toBe('Test User');
     });
