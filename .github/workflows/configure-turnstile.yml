@@ -1,0 +1,76 @@
+name: Configure live Turnstile
+
+# This is intentionally a one-time setup workflow. It only runs for the
+# commit that adds it, then is removed after the live configuration is checked.
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/configure-turnstile.yml
+
+permissions:
+  contents: read
+
+jobs:
+  configure:
+    if: github.event.head_commit.message == 'chore: configure live Turnstile'
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      PAGES_PROJECT: ks2-learning-engine
+      WIDGET_NAME: DemiWura KS2 production
+      WRANGLER_VERSION: 4.109.0
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Create widget and store Pages variables
+        shell: bash
+        run: |
+          set -euo pipefail
+          umask 077
+          response_file="$(mktemp)"
+          secrets_file="$(mktemp)"
+          cleanup() {
+            rm -f "$response_file" "$secrets_file"
+          }
+          trap cleanup EXIT
+
+          curl --fail-with-body --silent --show-error \
+            --request POST "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/challenges/widgets" \
+            --header "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
+            --header "Content-Type: application/json" \
+            --data '{"name":"DemiWura KS2 production","domains":["demiwuraks2.co.uk","localhost","127.0.0.1"],"mode":"managed"}' \
+            --output "$response_file"
+
+          jq --exit-status '.success == true and (.result.sitekey | type == "string" and length > 0) and (.result.secret | type == "string" and length > 0)' "$response_file" >/dev/null
+          sitekey="$(jq --raw-output '.result.sitekey' "$response_file")"
+          secret="$(jq --raw-output '.result.secret' "$response_file")"
+          printf 'TURNSTILE_SITE_KEY=%s\nTURNSTILE_SECRET_KEY=%s\n' "$sitekey" "$secret" > "$secrets_file"
+
+          WRANGLER_WRITE_LOGS=false WRANGLER_LOG=log WRANGLER_LOG_SANITIZE=true \
+            npx --yes "wrangler@${WRANGLER_VERSION}" pages secret bulk "$secrets_file" --project-name "$PAGES_PROJECT"
+          unset secret
+          rm -f "$response_file"
+          printf 'Configured Turnstile site key: %s\n' "$sitekey"
+
+      - name: Build and deploy after configuration
+        run: |
+          npm ci
+          npm run build
+          WRANGLER_WRITE_LOGS=false WRANGLER_LOG=log WRANGLER_LOG_SANITIZE=true \
+            npx --yes "wrangler@${WRANGLER_VERSION}" pages deploy dist --project-name "$PAGES_PROJECT"
+        env:
+          VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
+          VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
+          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+          VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
+          VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
+          VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
+          VITE_GEMINI_API_KEY: ${{ secrets.VITE_GEMINI_API_KEY }}

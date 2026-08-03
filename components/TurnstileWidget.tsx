@@ -43,6 +43,7 @@ export const TurnstileWidget: React.FC<TurnstileWidgetProps> = ({ siteKey, onTok
 
         widgetIdRef.current = turnstile.render(containerRef.current, {
           sitekey: siteKey,
+          action: 'turnstile-spin-v2',
           theme,
           callback: (token: string) => onToken(token),
           'expired-callback': () => onToken(''),
