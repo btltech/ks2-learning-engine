@@ -10,7 +10,7 @@ import {
 } from './contentValidator';
 import { contentMonitor } from './contentMonitor';
 import { offlineManager } from './offlineManager';
-import { getQuestionsForCurriculumUnit } from '../data/questionBank';
+import { getCanonicalQuestionsForCurriculumUnit } from './cloudQuestionRepository';
 import { getUsedQuestions, markQuestionsAsUsed, resetUsedQuestions } from './questionTracker';
 import { 
   filterPoorlyPerformingQuestions, 
@@ -151,6 +151,12 @@ export const generateLesson = async (subject: string, topic: string, difficulty:
       specificInstructions += " Use standard Yoruba orthography, including underdots and tone marks (for example: Ẹ ṣé, ọmọ, ìyá). Explain that tone changes meaning and never replace Yoruba letters with approximate English spelling.";
     } else if (subjectLower === 'romanian') {
       specificInstructions += " Use Romanian diacritics accurately (ă, â, î, ș, ț) and model natural Romanian word order.";
+    } else if (subjectLower === 'mandarin') {
+      specificInstructions += " Use simplified Chinese characters with accurate Hanyu Pinyin and tone marks. Do not replace tones with English-style spellings.";
+    } else if (subjectLower === 'japanese') {
+      specificInstructions += " Use age-appropriate Japanese script, give accurate kana readings for new kanji, and distinguish polite forms from casual forms.";
+    } else if (subjectLower === 'korean') {
+      specificInstructions += " Use accurate Hangul and natural polite Korean. Do not rely on approximate English spelling when Hangul can be shown.";
     }
   } else if (subjectLower === 'maths' || subjectLower === 'mathematics') {
     specificInstructions = "For Maths, 'Modelled Example' must show concise step-by-step working.";
@@ -168,6 +174,8 @@ export const generateLesson = async (subject: string, topic: string, difficulty:
     specificInstructions = "For PE, act as a knowledge companion: explain safe technique and reflection, require suitable space and adult or teacher supervision where relevant, and never diagnose injury.";
   } else if (subjectLower === 'd&t' || subjectLower === 'design & technology') {
     specificInstructions = "For Design & Technology, connect user need, design criteria, making and evaluation. Any tools, heat, food or electrical work must follow the published safety note and appropriate supervision.";
+  } else if (subjectLower === 'religious education') {
+    specificInstructions = "For Religious Education, use respectful, accurate and age-appropriate language. Present religious and non-religious worldviews without treating any belief claim as universally accepted fact, distinguish belief from historical evidence, and encourage reasoned comparison rather than devotion.";
   }
 
   // SATs Revision Logic (Year 6)
@@ -260,11 +268,11 @@ export const generateQuiz = async (
   studentQuizHistory?: Array<{ score: number; difficulty: string }>,
   studentProfile?: import('./adaptiveLearningEngine').StudentPerformanceProfile
 ): Promise<QuizQuestion[]> => {
-  // Sensitive personal-development content is reviewed and deterministic, never improvised by AI.
+  // Human-reviewed questions lead the live bank. Stored questions are read and
+  // normalized in memory; the source records in Firestore are never changed.
   const reviewedQuestions = getReviewedQuestions(subject, topic, studentAge);
-  if (reviewedQuestions.length > 0) return reviewedQuestions;
   const reviewedLanguageQuestions = getReviewedLanguageQuestions(subject, topic, studentAge);
-  if (reviewedLanguageQuestions.length > 0) return reviewedLanguageQuestions;
+  const priorityQuestions = [...reviewedQuestions, ...reviewedLanguageQuestions];
 
   // ADAPTIVE DIFFICULTY: Adjust based on student performance
   const adaptedDifficulty = studentQuizHistory 
@@ -292,18 +300,28 @@ export const generateQuiz = async (
   // STEP 1: Reviewed static questions. Difficulty and age may relax, but topic never does.
   const curriculumUnit = getCurriculumUnit(subject, topic, studentAge);
   if (curriculumUnit) {
-    let bankQuestions = await getQuestionsForCurriculumUnit(
+    let bankQuestions = await getCanonicalQuestionsForCurriculumUnit(
       subject,
       curriculumUnit.bankTopic,
       studentAge,
       adaptedDifficulty,
       10,
-      usedQuestionIds
+      usedQuestionIds,
+      priorityQuestions,
     );
     bankQuestions = filterPoorlyPerformingQuestions(bankQuestions);
     bankQuestions = filterSimilarQuestions(bankQuestions, existingQuestionTexts);
     finalQuestions = bankQuestions;
     existingQuestionTexts.push(...bankQuestions.map((question) => question.question));
+  }
+
+  // Reviewed safeguarding/language topics may use validated stored questions,
+  // but are never padded with newly improvised AI questions.
+  if (priorityQuestions.length > 0 && finalQuestions.length < 10) {
+    if (finalQuestions.length === 0) finalQuestions = priorityQuestions;
+    const questionIds = finalQuestions.map((question) => question.id).filter(Boolean) as string[];
+    markQuestionsAsUsed(subject, topic, studentAge, adaptedDifficulty, questionIds);
+    return finalQuestions;
   }
   
   if (finalQuestions.length >= 10) {
@@ -360,6 +378,19 @@ export const generateQuiz = async (
       - Include audio-friendly questions like "How do you say 'hello' in French?"
       - Mix question types: translations both ways, fill-in-the-blank, matching
       - Avoid complex grammar - focus on practical, usable vocabulary
+      `;
+      if (subjectLower === 'yoruba') specificQuizInstructions += '\n- Preserve Yoruba underdots and tone marks in every question and answer.';
+      if (subjectLower === 'romanian') specificQuizInstructions += '\n- Preserve Romanian diacritics (ă, â, î, ș, ț) in every question and answer.';
+      if (subjectLower === 'mandarin') specificQuizInstructions += '\n- Use accurate simplified characters and Hanyu Pinyin tone marks.';
+      if (subjectLower === 'japanese') specificQuizInstructions += '\n- Use accurate Japanese script and kana readings appropriate to the learner.';
+      if (subjectLower === 'korean') specificQuizInstructions += '\n- Use accurate Hangul and natural polite Korean.';
+  } else if (subjectLower === 'religious education') {
+      specificQuizInstructions = `
+      RELIGIOUS EDUCATION INSTRUCTIONS:
+      - Use respectful, neutral wording about religious and non-religious worldviews
+      - Attribute beliefs accurately (for example, "Many Christians believe...") rather than presenting belief claims as universal facts
+      - Test understanding, comparison and reasoning; never test or reward personal faith
+      - Avoid stereotypes and acknowledge diversity within traditions
       `;
   }
 

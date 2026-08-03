@@ -7,12 +7,30 @@
  */
 
 import { db } from './firebase';
-import { doc, updateDoc, increment, getDoc, setDoc, collection, query, where, getDocs, orderBy, limit } from 'firebase/firestore';
+import { collection, query, where, getDocs, orderBy, limit } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
+import { normalizeCloudQuestion } from './cloudQuestionRepository';
+import { getCloudSubjectAliases, getCloudTopicAliases } from '../data/questionTopicAliases';
+import { CURATED_LANGUAGES, getCurriculumUnits } from '../data/curriculumSequences';
 
 const STORAGE_KEY = 'ks2_question_performance';
 const MIN_SAMPLES_FOR_SCORING = 3; // Minimum times shown before calculating effectiveness
 const POOR_PERFORMANCE_THRESHOLD = 0.15; // Questions with < 15% correct rate are likely poorly worded
 const HIGH_PERFORMANCE_THRESHOLD = 0.95; // Questions with > 95% correct are too easy
+const ADMIN_STATS_CACHE_KEY = 'ks2_admin_question_bank_stats_v2';
+const ADMIN_STATS_CACHE_MS = 6 * 60 * 60 * 1000;
+
+interface QuestionBankStats {
+  totalQuestions: number;
+  displayableQuestions: number;
+  publishedQuestions: number;
+  questionsWithPerformanceData: number;
+  questionsAttempted: number;
+  totalAttempts: number;
+  averageCorrectRate: number;
+  poorlyPerformingCount: number;
+  wellPerformingCount: number;
+}
 
 export interface QuestionPerformanceData {
   questionId: string;
@@ -127,61 +145,37 @@ export const recordQuestionAttempt = (
   }
   
   savePerformanceStore(store);
-  
-  // Sync to Firebase for centralized analytics
-  syncPerformanceToFirebase(questionId, isCorrect, timeToAnswer);
 };
 
-// Sync performance data to Firebase (non-blocking)
-const syncPerformanceToFirebase = async (
-  questionId: string,
-  isCorrect: boolean,
-  timeToAnswer: number | null
+// Shared analytics are written through a trusted server endpoint. Firestore
+// rules intentionally deny direct browser writes to the aggregate collection.
+const syncQuizAttemptsToBackend = async (
+  results: Array<{ id?: string; question: string; isCorrect: boolean; timeToAnswer?: number }>,
+  subject: string,
+  topic: string,
+  difficulty: string,
 ): Promise<void> => {
   try {
-    // Update the question document with performance stats
-    const questionRef = doc(db, 'questions', questionId);
-    const questionDoc = await getDoc(questionRef);
-    
-    if (questionDoc.exists()) {
-      // Atomic increment for existing questions
-      await updateDoc(questionRef, {
-        'performance.timesShown': increment(1),
-        'performance.timesCorrect': increment(isCorrect ? 1 : 0),
-        'performance.lastAttemptAt': new Date(),
-        ...(timeToAnswer !== null && {
-          'performance.totalTimeSpent': increment(timeToAnswer)
-        })
-      });
-    } else {
-      // Question doesn't exist in Firebase (might be from static bank)
-      // We'll track these in a separate collection
-      const perfRef = doc(db, 'questionPerformance', questionId);
-      const perfDoc = await getDoc(perfRef);
-      
-      if (perfDoc.exists()) {
-        await updateDoc(perfRef, {
-          timesShown: increment(1),
-          timesCorrect: increment(isCorrect ? 1 : 0),
-          lastAttemptAt: new Date(),
-          ...(timeToAnswer !== null && {
-            totalTimeSpent: increment(timeToAnswer)
-          })
-        });
-      } else {
-        await setDoc(perfRef, {
-          questionId,
-          timesShown: 1,
-          timesCorrect: isCorrect ? 1 : 0,
-          totalTimeSpent: timeToAnswer ?? 0,
-          lastAttemptAt: new Date(),
-          createdAt: new Date()
-        });
-      }
-    }
+    const user = getAuth().currentUser;
+    if (!user) return;
+    const token = await user.getIdToken();
+    const response = await fetch('/api/question-attempts', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify({ attempts: results.slice(0, 20).map((result) => ({
+        questionId: result.id || hashQuestion(result.question),
+        question: result.question,
+        isCorrect: result.isCorrect,
+        timeToAnswer: result.timeToAnswer ?? null,
+        subject,
+        topic,
+        difficulty,
+      })) }),
+    });
+    if (!response.ok) throw new Error(`Question analytics endpoint returned ${response.status}`);
   } catch (error) {
-    // Silently fail - localStorage is the backup
-    console.debug('Firebase performance sync skipped:', (error as Error).message);
+    // Local analytics were already saved, so this never blocks a learner.
+    console.warn('Unable to sync question performance:', error);
   }
 };
 
@@ -198,48 +192,67 @@ export const getPoorlyPerformingQuestionsFromFirebase = async (
   topic: string;
 }>> => {
   try {
-    let q = query(
+    const liveQuery = query(
       collection(db, 'questions'),
       where('performance.timesShown', '>=', minAttempts),
       orderBy('performance.timesShown', 'desc'),
       limit(100)
     );
-    
-    const snapshot = await getDocs(q);
-    const results: Array<{
+    const aggregateQuery = query(
+      collection(db, 'questionPerformance'),
+      where('timesShown', '>=', minAttempts),
+      orderBy('timesShown', 'desc'),
+      limit(100)
+    );
+    const [snapshot, aggregateSnapshot] = await Promise.all([getDocs(liveQuery), getDocs(aggregateQuery)]);
+    const combined = new Map<string, {
       id: string;
       question: string;
-      correctRate: number;
       timesShown: number;
+      timesCorrect: number;
       subject: string;
       topic: string;
-    }> = [];
+    }>();
     
     snapshot.forEach((doc) => {
       const data = doc.data();
       const perf = data.performance || {};
-      const timesShown = perf.timesShown || 0;
-      const timesCorrect = perf.timesCorrect || 0;
-      const correctRate = timesShown > 0 ? timesCorrect / timesShown : 0;
-      
-      // Filter by subject if specified
       if (subject && data.subject !== subject) return;
-      
-      // Only include poorly performing questions (< 15% or > 95%)
-      if (correctRate < POOR_PERFORMANCE_THRESHOLD || correctRate > HIGH_PERFORMANCE_THRESHOLD) {
-        results.push({
-          id: doc.id,
-          question: data.question,
-          correctRate,
-          timesShown,
-          subject: data.subject,
-          topic: data.topic
-        });
-      }
+      combined.set(doc.id, {
+        id: doc.id,
+        question: data.question || `Question ${doc.id}`,
+        timesShown: Number(perf.timesShown) || 0,
+        timesCorrect: Number(perf.timesCorrect) || 0,
+        subject: data.subject || 'Unknown',
+        topic: data.topic || 'Unknown',
+      });
+    });
+
+    aggregateSnapshot.forEach((doc) => {
+      const data = doc.data();
+      if (subject && data.subject !== subject) return;
+      const existing = combined.get(doc.id);
+      combined.set(doc.id, {
+        id: doc.id,
+        question: data.question || existing?.question || `Question ${doc.id}`,
+        timesShown: (Number(data.timesShown) || 0) + (existing?.timesShown || 0),
+        timesCorrect: (Number(data.timesCorrect) || 0) + (existing?.timesCorrect || 0),
+        subject: data.subject || existing?.subject || 'Unknown',
+        topic: data.topic || existing?.topic || 'Unknown',
+      });
     });
     
-    // Sort by correctRate (worst performing first)
-    return results.sort((a, b) => a.correctRate - b.correctRate);
+    return [...combined.values()]
+      .map((entry) => ({
+        id: entry.id,
+        question: entry.question,
+        correctRate: entry.timesShown > 0 ? entry.timesCorrect / entry.timesShown : 0,
+        timesShown: entry.timesShown,
+        subject: entry.subject,
+        topic: entry.topic,
+      }))
+      .filter((entry) => entry.correctRate < POOR_PERFORMANCE_THRESHOLD || entry.correctRate > HIGH_PERFORMANCE_THRESHOLD)
+      .sort((a, b) => a.correctRate - b.correctRate);
   } catch (error) {
     console.error('Error fetching poorly performing questions:', error);
     return [];
@@ -247,52 +260,119 @@ export const getPoorlyPerformingQuestionsFromFirebase = async (
 };
 
 // Get overall question bank stats from Firebase
-export const getQuestionBankStats = async (): Promise<{
-  totalQuestions: number;
-  questionsWithPerformanceData: number;
-  averageCorrectRate: number;
-  poorlyPerformingCount: number;
-  wellPerformingCount: number;
-}> => {
+export const getQuestionBankStats = async (): Promise<QuestionBankStats> => {
   try {
-    const snapshot = await getDocs(collection(db, 'questions'));
+    const cached = typeof localStorage === 'undefined' ? null : localStorage.getItem(ADMIN_STATS_CACHE_KEY);
+    if (cached) {
+      const parsed = JSON.parse(cached) as { expiresAt?: number; stats?: QuestionBankStats };
+      if (parsed.stats && Number(parsed.expiresAt) > Date.now()) return parsed.stats;
+    }
+  } catch {
+    // A blocked/full browser store should not prevent fresh stats.
+  }
+
+  try {
+    const [snapshot, staticPerformanceSnapshot] = await Promise.all([
+      getDocs(collection(db, 'questions')),
+      getDocs(collection(db, 'questionPerformance')),
+    ]);
+
+    const publishedLocations = [
+      'Maths', 'English', 'Science', 'History', 'Geography', 'Art', 'Computing',
+      'Music', 'PE', 'PSHE', 'D&T', 'Religious Education', ...CURATED_LANGUAGES,
+    ].flatMap((subject) => [7, 8, 9, 10, 11].flatMap((age) =>
+      getCurriculumUnits(subject, age).map((unit) => ({
+        subject,
+        bankTopic: unit.bankTopic,
+        subjects: new Set(getCloudSubjectAliases(subject)),
+        topics: new Set(getCloudTopicAliases(subject, unit.bankTopic)),
+      })),
+    ));
     
     let total = 0;
-    let withPerf = 0;
-    let totalCorrectRate = 0;
-    let poorCount = 0;
-    let goodCount = 0;
+    let displayable = 0;
+    let published = 0;
+    const performanceByQuestion = new Map<string, { timesShown: number; timesCorrect: number }>();
     
     snapshot.forEach((doc) => {
       total++;
       const data = doc.data();
       const perf = data.performance;
-      
-      if (perf && perf.timesShown >= MIN_SAMPLES_FOR_SCORING) {
-        withPerf++;
-        const rate = perf.timesCorrect / perf.timesShown;
-        totalCorrectRate += rate;
-        
-        if (rate < POOR_PERFORMANCE_THRESHOLD || rate > HIGH_PERFORMANCE_THRESHOLD) {
-          poorCount++;
-        } else if (rate >= 0.3 && rate <= 0.8) {
-          goodCount++;
-        }
+      const rawSubject = String(data.subject || '').trim();
+      const rawTopic = String(data.topic || '').trim();
+      const location = publishedLocations.find((candidate) =>
+        candidate.subjects.has(rawSubject) && candidate.topics.has(rawTopic)
+      );
+      if (normalizeCloudQuestion(doc.id, data, location?.subject || rawSubject, location?.bankTopic || rawTopic)) {
+        displayable++;
+        if (location) published++;
+      }
+
+      const timesShown = Number(perf?.timesShown) || 0;
+      const timesCorrect = Number(perf?.timesCorrect) || 0;
+      if (timesShown > 0) {
+        performanceByQuestion.set(doc.id, { timesShown, timesCorrect });
       }
     });
+
+    staticPerformanceSnapshot.forEach((performanceDoc) => {
+      const data = performanceDoc.data();
+      const timesShown = Number(data.timesShown) || 0;
+      const timesCorrect = Number(data.timesCorrect) || 0;
+      if (timesShown <= 0) return;
+      const existing = performanceByQuestion.get(performanceDoc.id);
+      performanceByQuestion.set(performanceDoc.id, {
+        timesShown: timesShown + (existing?.timesShown || 0),
+        timesCorrect: timesCorrect + (existing?.timesCorrect || 0),
+      });
+    });
+
+    let withPerf = 0;
+    let totalAttempts = 0;
+    let totalCorrect = 0;
+    let poorCount = 0;
+    let goodCount = 0;
+    performanceByQuestion.forEach(({ timesShown, timesCorrect }) => {
+      totalAttempts += timesShown;
+      totalCorrect += timesCorrect;
+      if (timesShown < MIN_SAMPLES_FOR_SCORING) return;
+      withPerf++;
+      const rate = timesCorrect / timesShown;
+      if (rate < POOR_PERFORMANCE_THRESHOLD || rate > HIGH_PERFORMANCE_THRESHOLD) poorCount++;
+      else if (rate >= 0.3 && rate <= 0.8) goodCount++;
+    });
     
-    return {
+    const stats: QuestionBankStats = {
       totalQuestions: total,
+      displayableQuestions: displayable,
+      publishedQuestions: published,
       questionsWithPerformanceData: withPerf,
-      averageCorrectRate: withPerf > 0 ? totalCorrectRate / withPerf : 0,
+      questionsAttempted: performanceByQuestion.size,
+      totalAttempts,
+      averageCorrectRate: totalAttempts > 0 ? totalCorrect / totalAttempts : 0,
       poorlyPerformingCount: poorCount,
       wellPerformingCount: goodCount
     };
+    try {
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem(ADMIN_STATS_CACHE_KEY, JSON.stringify({
+          expiresAt: Date.now() + ADMIN_STATS_CACHE_MS,
+          stats,
+        }));
+      }
+    } catch {
+      // Stats still render when browser storage is unavailable.
+    }
+    return stats;
   } catch (error) {
     console.error('Error fetching question bank stats:', error);
     return {
       totalQuestions: 0,
+      displayableQuestions: 0,
+      publishedQuestions: 0,
       questionsWithPerformanceData: 0,
+      questionsAttempted: 0,
+      totalAttempts: 0,
       averageCorrectRate: 0,
       poorlyPerformingCount: 0,
       wellPerformingCount: 0
@@ -324,6 +404,7 @@ export const recordQuizAttempts = (
       difficulty
     );
   });
+  void syncQuizAttemptsToBackend(results, subject, topic, difficulty);
 };
 
 // Get effectiveness score for a question (null if not enough data)

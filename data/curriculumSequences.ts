@@ -15,7 +15,7 @@ export interface CurriculumUnit {
 type UnitSpec = readonly [title: string, objective: string, bankTopic: string, practicalNote?: string];
 type YearSequence = Record<YearGroup, readonly UnitSpec[]>;
 
-export const CURATED_LANGUAGES = ['French', 'Spanish', 'German', 'Welsh', 'Yoruba', 'Romanian'] as const;
+export const CURATED_LANGUAGES = ['French', 'Spanish', 'German', 'Welsh', 'Yoruba', 'Romanian', 'Mandarin', 'Japanese', 'Korean'] as const;
 
 const coreSequences: Record<string, YearSequence> = {
   Maths: {
@@ -297,6 +297,24 @@ const foundationSequences: Record<string, YearSequence> = {
       ['Design innovation', 'Generate, model and justify alternative solutions.', 'Design Process'],
       ['Electrical and programmed products', 'Combine electrical or computing control in a purposeful design.', 'Technical Knowledge', 'Electrical construction requires suitable equipment and supervision.'],
       ['Make, test and refine', 'Manufacture accurately, test systematically and refine the outcome.', 'Make', 'Use tools with appropriate adult or teacher supervision.'],
+    ],
+  },
+  'Religious Education': {
+    [YearGroup.Year3]: [
+      ['Beliefs and communities', 'Compare how religious and non-religious beliefs shape communities and daily life.', 'Beliefs and Communities'],
+      ['Stories and good choices', 'Explain how religious and non-religious stories can guide choices about right and wrong.', 'Ethics and Choices'],
+    ],
+    [YearGroup.Year4]: [
+      ['Jesus and Christianity', 'Explore accounts about Jesus and explain their importance to Christians.', 'Christianity'],
+      ['Creation stories', 'Compare a Christian creation account with other ways people understand origins.', 'Creation Stories'],
+    ],
+    [YearGroup.Year5]: [
+      ['Sikhism, langar and service', 'Explain how langar expresses equality, service and community in Sikhism.', 'Sikhism'],
+      ['Comparing belief and practice', 'Compare how people express belief through worship, service and everyday choices.', 'Beliefs and Communities'],
+    ],
+    [YearGroup.Year6]: [
+      ['Religion and ethical decisions', 'Use reasons and evidence to discuss religious and non-religious responses to ethical questions.', 'Ethics and Choices'],
+      ['Belief in a diverse society', 'Compare viewpoints respectfully and explain how freedom of religion and belief supports a diverse society.', 'Beliefs and Communities'],
     ],
   },
 };

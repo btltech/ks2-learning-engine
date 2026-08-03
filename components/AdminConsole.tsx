@@ -11,7 +11,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { useUser } from '../context/UserContext';
-import { analyticsService } from '../services/analyticsService';
 import { getQuestionBankStats, getPoorlyPerformingQuestionsFromFirebase } from '../services/questionPerformance';
 import { useToast } from './Toast';
 import { auth, firebaseAuthService } from '../services/firebaseAuthService';
@@ -27,10 +26,13 @@ import CloudBankMonitor from './CloudBankMonitor';
 interface SystemStats {
   totalUsers: number;
   activeToday: number;
-  totalQuizzes: number;
   avgAccuracy: number;
   totalQuestions: number;
+  displayableQuestions: number;
+  publishedQuestions: number;
   questionsWithData: number;
+  questionsAttempted: number;
+  totalAttempts: number;
 }
 
 interface UserSummary {
@@ -57,10 +59,13 @@ export const AdminConsole: React.FC<AdminConsoleProps> = ({ onClose, onOpenQuest
   const [systemStats, setSystemStats] = useState<SystemStats>({
     totalUsers: 0,
     activeToday: 0,
-    totalQuizzes: 0,
     avgAccuracy: 0,
     totalQuestions: 0,
+    displayableQuestions: 0,
+    publishedQuestions: 0,
     questionsWithData: 0,
+    questionsAttempted: 0,
+    totalAttempts: 0,
   });
   const [loading, setLoading] = useState(true);
 
@@ -78,16 +83,16 @@ export const AdminConsole: React.FC<AdminConsoleProps> = ({ onClose, onOpenQuest
       // Get question bank stats
       const qStats = await getQuestionBankStats();
       
-      // Get analytics summary
-      const analyticsSummary = analyticsService.getSummary();
-      
       setSystemStats({
         totalUsers: 0, // Would come from Firebase
         activeToday: 0,
-        totalQuizzes: analyticsSummary.totalQuizzes,
-        avgAccuracy: analyticsSummary.overallAccuracy,
+        avgAccuracy: Math.round(qStats.averageCorrectRate * 100),
         totalQuestions: qStats.totalQuestions,
+        displayableQuestions: qStats.displayableQuestions,
+        publishedQuestions: qStats.publishedQuestions,
         questionsWithData: qStats.questionsWithPerformanceData,
+        questionsAttempted: qStats.questionsAttempted,
+        totalAttempts: qStats.totalAttempts,
       });
     } catch (error) {
       console.error('Error loading system stats:', error);
@@ -239,10 +244,10 @@ const DashboardView: React.FC<{
   }, []);
 
   const statCards = [
-    { label: 'Total Questions', value: stats.totalQuestions, icon: '❓', color: 'bg-blue-500' },
-    { label: 'Questions with Data', value: stats.questionsWithData, icon: '📊', color: 'bg-green-500' },
-    { label: 'Total Quizzes', value: stats.totalQuizzes, icon: '📝', color: 'bg-purple-500' },
-    { label: 'Avg Accuracy', value: `${stats.avgAccuracy}%`, icon: '🎯', color: 'bg-orange-500' },
+    { label: 'Stored Questions', value: stats.totalQuestions, icon: '❓', color: 'bg-blue-500' },
+    { label: 'Playable Format', value: stats.displayableQuestions, icon: '✅', color: 'bg-green-500' },
+    { label: 'Published to Lessons', value: stats.publishedQuestions, icon: '📚', color: 'bg-purple-500' },
+    { label: 'Answer Attempts', value: stats.totalAttempts, icon: '🎯', color: 'bg-orange-500' },
   ];
 
   return (
@@ -336,6 +341,18 @@ const DashboardView: React.FC<{
                 <p className="text-gray-500 text-sm">{stat.label}</p>
               </div>
             ))}
+          </div>
+          <div className="rounded-xl border border-blue-200 bg-blue-50 p-4 text-sm text-blue-950">
+            <p className="font-bold">What these numbers mean</p>
+            <p className="mt-1">
+              Stored is every Firestore record. Playable Format means the app can display and score it.
+              Published to Lessons means its subject and topic are connected to the current curriculum menu.
+              Answer Attempts counts answers recorded against both live and bundled questions.
+            </p>
+            <p className="mt-2 text-blue-800">
+              {stats.questionsAttempted} different questions have been attempted
+              {stats.totalAttempts > 0 ? `, with ${Math.round((stats.avgAccuracy || 0))}% average accuracy across those recorded answers.` : '.'}
+            </p>
           </div>
 
           {/* Quick Actions */}
@@ -611,7 +628,12 @@ const ContentQualityView: React.FC<{
 }) => {
   const { showToast } = useToast();
   const [pendingFeedback, setPendingFeedback] = useState<ContentFeedback[]>(() => contentQualityService.getPendingFeedback());
-  const [questionStats, setQuestionStats] = useState<{ totalQuestions: number; questionsWithPerformanceData: number } | null>(null);
+  const [questionStats, setQuestionStats] = useState<{
+    totalQuestions: number;
+    displayableQuestions: number;
+    publishedQuestions: number;
+    questionsWithPerformanceData: number;
+  } | null>(null);
   const [poorQuestionCount, setPoorQuestionCount] = useState<number | null>(null);
 
   const refreshModerationQueue = () => {
@@ -785,7 +807,7 @@ const ContentQualityView: React.FC<{
           </div>
           <p className="text-gray-600 text-sm mb-4">
             {questionStats
-              ? `${questionStats.totalQuestions} questions are available, with ${questionStats.questionsWithPerformanceData} carrying performance data. Use quality review for the actionable queue until direct editing is connected.`
+              ? `${questionStats.totalQuestions} questions are stored. ${questionStats.displayableQuestions} have a playable format and ${questionStats.publishedQuestions} are mapped to the current lesson menu. ${questionStats.questionsWithPerformanceData} have enough answer data for quality scoring.`
               : 'Loading question-bank statistics. Direct editing still needs a management endpoint before records can be safely changed here.'}
           </p>
           <button

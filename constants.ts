@@ -11,7 +11,8 @@ import {
   MusicalNoteIcon,
   TrophyIcon,
   HeartIcon,
-  WrenchScrewdriverIcon
+  WrenchScrewdriverIcon,
+  BuildingLibraryIcon,
 } from '@heroicons/react/24/solid';
 
 export const SUBJECTS: Subject[] = [
@@ -27,7 +28,7 @@ export const SUBJECTS: Subject[] = [
   { name: 'PE', icon: TrophyIcon, color: 'text-rose-600', bgColor: 'bg-rose-100' },
   { name: 'PSHE', icon: HeartIcon, color: 'text-cyan-600', bgColor: 'bg-cyan-100' },
   { name: 'D&T', icon: WrenchScrewdriverIcon, color: 'text-slate-600', bgColor: 'bg-slate-100' },
-  // Religious Education remains hidden until a reviewed syllabus is published.
+  { name: 'Religious Education', icon: BuildingLibraryIcon, color: 'text-amber-700', bgColor: 'bg-amber-100' },
   // Primary citizenship is taught through the reviewed PSHE sequence.
 ];
 
@@ -38,6 +39,9 @@ export const LANGUAGES = [
   { name: 'Welsh', flag: '🏴󠁧󠁢󠁷󠁬󠁳󠁿', greeting: 'Helo' },
   { name: 'Yoruba', flag: '🇳🇬', greeting: 'Báwo ni?' },
   { name: 'Romanian', flag: '🇷🇴', greeting: 'Salut' },
+  { name: 'Mandarin', flag: '🇨🇳', greeting: '你好' },
+  { name: 'Japanese', flag: '🇯🇵', greeting: 'こんにちは' },
+  { name: 'Korean', flag: '🇰🇷', greeting: '안녕하세요' },
 ];
 
 // Design System Tokens (Fix #2)
@@ -157,5 +161,12 @@ export const SUBJECT_COLORS = {
     text: 'text-slate-600',
     ring: 'ring-slate-500',
     intent: 'making',
+  },
+  'Religious Education': {
+    gradient: 'from-amber-500 to-orange-600',
+    bg: 'bg-amber-100',
+    text: 'text-amber-700',
+    ring: 'ring-amber-500',
+    intent: 'worldviews',
   },
 } as const;

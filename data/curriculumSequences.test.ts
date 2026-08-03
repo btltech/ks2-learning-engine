@@ -29,8 +29,9 @@ describe('published curriculum sequences', () => {
     }
   });
 
-  it('does not publish unsupported RE or standalone citizenship cards', () => {
-    expect(SUBJECTS.some((subject) => ['Religious Education', 'Citizenship'].includes(subject.name))).toBe(false);
+  it('publishes RE while keeping citizenship inside PSHE', () => {
+    expect(SUBJECTS.some((subject) => subject.name === 'Religious Education')).toBe(true);
+    expect(SUBJECTS.some((subject) => subject.name === 'Citizenship')).toBe(false);
   });
 
   it('connects Yoruba and Romanian to their reviewed starter question banks', async () => {

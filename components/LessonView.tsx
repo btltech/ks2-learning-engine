@@ -11,7 +11,7 @@ import PronunciationHelper from './PronunciationHelper';
 import { getCommonWords, getSupportedLanguages } from '../services/phoneticsService';
 import DOMPurify from 'dompurify';
 import { CURATED_LANGUAGES, getCurriculumUnit, getYearGroupForAge } from '../data/curriculumSequences';
-import { getQuestionsForCurriculumUnit } from '../data/questionBank';
+import { getCanonicalQuestionsForCurriculumUnit } from '../services/cloudQuestionRepository';
 import { getReviewedQuestions } from '../data/reviewedQuestions';
 import { getReviewedLanguageQuestions, getReviewedLanguageVocabulary } from '../data/reviewedLanguageContent';
 
@@ -165,9 +165,15 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
       ...getReviewedQuestions(subject, topic, studentAge),
       ...getReviewedLanguageQuestions(subject, topic, studentAge),
     ];
-    const questionsPromise = reviewed.length > 0
-      ? Promise.resolve(reviewed.slice(0, 2))
-      : getQuestionsForCurriculumUnit(subject, curriculumUnit.bankTopic, studentAge, difficulty, 2);
+    const questionsPromise = getCanonicalQuestionsForCurriculumUnit(
+      subject,
+      curriculumUnit.bankTopic,
+      studentAge,
+      difficulty,
+      2,
+      [],
+      reviewed,
+    );
     void questionsPromise
       .then((questions) => {
         if (active) setPracticeQuestions(questions.filter((question) => question.options.length >= 2));

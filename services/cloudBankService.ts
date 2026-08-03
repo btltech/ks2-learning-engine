@@ -16,10 +16,29 @@ export interface CloudBankStats {
   averagePerDay: number;
 }
 
+const CLOUD_BANK_STATS_CACHE_KEY = 'ks2_cloud_bank_stats_v2';
+const CLOUD_BANK_STATS_CACHE_MS = 6 * 60 * 60 * 1000;
+
 /**
  * Get statistics about the Cloud Bank (AI-generated questions in Firestore)
  */
 export const getCloudBankStats = async (): Promise<CloudBankStats> => {
+  try {
+    const cached = typeof localStorage === 'undefined' ? null : localStorage.getItem(CLOUD_BANK_STATS_CACHE_KEY);
+    if (cached) {
+      const parsed = JSON.parse(cached) as { expiresAt?: number; stats?: Omit<CloudBankStats, 'oldestQuestion' | 'newestQuestion'> & { oldestQuestion: string | null; newestQuestion: string | null } };
+      if (parsed.stats && Number(parsed.expiresAt) > Date.now()) {
+        return {
+          ...parsed.stats,
+          oldestQuestion: parsed.stats.oldestQuestion ? new Date(parsed.stats.oldestQuestion) : null,
+          newestQuestion: parsed.stats.newestQuestion ? new Date(parsed.stats.newestQuestion) : null,
+        };
+      }
+    }
+  } catch {
+    // Continue with a fresh read if browser storage is unavailable.
+  }
+
   try {
     const snapshot = await getDocs(collection(db, 'questions'));
     
@@ -47,9 +66,14 @@ export const getCloudBankStats = async (): Promise<CloudBankStats> => {
       const difficulty = data.difficulty || 'Unknown';
       stats.byDifficulty[difficulty] = (stats.byDifficulty[difficulty] || 0) + 1;
 
-      // Count by age group
-      const age = data.age || 0;
-      stats.byAgeGroup[age] = (stats.byAgeGroup[age] || 0) + 1;
+      // Count both current `ageGroup: number[]` and legacy `age: number` records.
+      const ages = Array.isArray(data.ageGroup) && data.ageGroup.length > 0
+        ? data.ageGroup
+        : [data.age].filter((age) => Number.isFinite(Number(age)));
+      ages.forEach((rawAge) => {
+        const age = Number(rawAge);
+        stats.byAgeGroup[age] = (stats.byAgeGroup[age] || 0) + 1;
+      });
 
       // Track oldest/newest
       if (data.createdAt) {
@@ -77,6 +101,16 @@ export const getCloudBankStats = async (): Promise<CloudBankStats> => {
       }
     }
 
+    try {
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem(CLOUD_BANK_STATS_CACHE_KEY, JSON.stringify({
+          expiresAt: Date.now() + CLOUD_BANK_STATS_CACHE_MS,
+          stats,
+        }));
+      }
+    } catch {
+      // Stats still render when browser storage is unavailable.
+    }
     return stats;
   } catch (error) {
     console.error('Error fetching Cloud Bank stats:', error);

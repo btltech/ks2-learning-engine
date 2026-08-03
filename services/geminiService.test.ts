@@ -19,8 +19,8 @@ vi.mock('firebase/auth', () => ({
   getAuth: vi.fn(() => ({ currentUser: { uid: 'test-uid', getIdToken: vi.fn() } })),
 }));
 
-vi.mock('../data/questionBank', () => ({
-  getQuestionsForCurriculumUnit: mockGetUnitQuestions,
+vi.mock('./cloudQuestionRepository', () => ({
+  getCanonicalQuestionsForCurriculumUnit: mockGetUnitQuestions,
 }));
 
 vi.mock('./offlineManager', () => ({
@@ -93,7 +93,7 @@ describe('geminiService curriculum boundaries', () => {
     });
 
     const questions = await generateQuiz('Maths', 'Algebra', Difficulty.Easy, 10);
-    expect(mockGetUnitQuestions).toHaveBeenCalledWith('Maths', 'Algebra', 10, Difficulty.Easy, 10, []);
+    expect(mockGetUnitQuestions).toHaveBeenCalledWith('Maths', 'Algebra', 10, Difficulty.Easy, 10, [], []);
     expect(questions).toHaveLength(6);
     expect(questions[0].id).toBe('bank-1');
   });
