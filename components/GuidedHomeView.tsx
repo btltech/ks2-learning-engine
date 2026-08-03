@@ -133,6 +133,7 @@ const GuidedHomeView: React.FC<GuidedHomeViewProps> = ({
                 passesCount={gamesUnlockStatus.passesCount}
                 requiredPasses={gamesUnlockStatus.requiredPasses}
                 lastQuiz={gamesUnlockStatus.lastQuiz}
+                onClick={onOpenMiniGames}
               />
             ) : (
               <BigActionButton

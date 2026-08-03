@@ -28,9 +28,11 @@ export const GamesLockOverlay: React.FC<GamesLockOverlayProps> = ({
   const quizzesLeft = requiredPasses - passesCount;
 
   return (
-    <div 
-      className="relative cursor-pointer group"
+    <button
+      type="button"
+      className="relative cursor-pointer group w-full text-left rounded-xl focus:outline-none focus-visible:ring-4 focus-visible:ring-cyan-300"
       onClick={onClick}
+      aria-label={`Mini Games locked. ${passesCount} of ${requiredPasses} passing quizzes completed. Open games for details.`}
     >
       {/* Locked card appearance */}
       <div className="bg-gradient-to-br from-gray-400 to-gray-500 rounded-xl p-4 text-white shadow-lg 
@@ -95,7 +97,7 @@ export const GamesLockOverlay: React.FC<GamesLockOverlayProps> = ({
               : 'Start a quiz to earn games! 🎯'}
         </p>
       </div>
-    </div>
+    </button>
   );
 };
 

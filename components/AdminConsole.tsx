@@ -898,22 +898,16 @@ const SettingsView: React.FC = () => {
 
         <div className="bg-white rounded-xl shadow-sm p-6">
           <h3 className="text-lg font-semibold text-gray-800">Rewards</h3>
-          <p className="text-sm text-gray-500 mb-4">Motivation rules for games, points, and learner momentum.</p>
-          <div className="space-y-4">
-            <SettingRow
-              label="Questions to Unlock Games"
-              description="Correct answers needed to unlock mini games"
-              type="number"
-              value={settings.questionsToUnlockGames}
-              onChange={(value) => updateSetting('questionsToUnlockGames', Number(value))}
-            />
-            <SettingRow
-              label="Points per Correct Answer"
-              description="XP earned for each correct answer"
-              type="number"
-              value={settings.pointsPerCorrectAnswer}
-              onChange={(value) => updateSetting('pointsPerCorrectAnswer', Number(value))}
-            />
+          <p className="text-sm text-gray-500 mb-4">Server-enforced motivation rules for games and learner momentum.</p>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div className="rounded-xl border border-indigo-100 bg-indigo-50 p-4">
+              <p className="text-sm font-bold text-indigo-900">Game unlock policy</p>
+              <p className="mt-1 text-sm text-indigo-800">Three quizzes at 70% or above earn two game plays. Plays and progress sync across devices.</p>
+            </div>
+            <div className="rounded-xl border border-emerald-100 bg-emerald-50 p-4">
+              <p className="text-sm font-bold text-emerald-900">Game XP policy</p>
+              <p className="mt-1 text-sm text-emerald-800">Five XP per correct answer, plus a 20 XP perfect-score bonus, calculated by the server.</p>
+            </div>
           </div>
         </div>
 

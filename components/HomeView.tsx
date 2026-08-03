@@ -29,6 +29,7 @@ interface GamesUnlockStatus {
   totalQuestions: number;
   passesCount: number;
   requiredPasses: number;
+  activeSessionId?: string | null;
   lastQuiz?: { correct: number; total: number; passed: boolean; at: string };
 }
 
@@ -304,6 +305,7 @@ const HomeView: React.FC<HomeViewProps> = ({
                       passesCount={gamesUnlockStatus.passesCount}
                       requiredPasses={gamesUnlockStatus.requiredPasses}
                       lastQuiz={gamesUnlockStatus.lastQuiz}
+                      onClick={onOpenMiniGames}
                     />
                   ) : (
                     <ActionCard
@@ -311,7 +313,9 @@ const HomeView: React.FC<HomeViewProps> = ({
                       label="Mini Games"
                       description={
                         gamesUnlockStatus
-                          ? `Fun learning games (${gamesUnlockStatus.gamesRemaining} left)`
+                          ? gamesUnlockStatus.activeSessionId
+                            ? 'Resume your saved game'
+                            : `Fun learning games (${gamesUnlockStatus.gamesRemaining} left)`
                           : 'Fun learning games'
                       }
                       onClick={onOpenMiniGames}

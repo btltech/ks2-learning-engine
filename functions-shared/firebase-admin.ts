@@ -153,6 +153,7 @@ export function parseFirestoreDocument(document: any): Record<string, any> | nul
   if (!document?.name || !document?.fields) return null;
   return {
     id: String(document.name).split('/').pop(),
+    ...(typeof document.updateTime === 'string' ? { __updateTime: document.updateTime } : {}),
     ...parseFirestoreFields(document.fields),
   };
 }

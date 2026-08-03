@@ -1,1315 +1,640 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { FormEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import confetti from 'canvas-confetti';
-import { gameService, GameHighScore } from '../services/gameService';
-import { QuizQuestion } from '../types';
-import { soundEffects } from '../utils/soundEffects';
+import { useGameSounds } from '../hooks/useGameSounds';
+import {
+  GameId,
+  GameResult,
+  GameSession,
+  GameStatus,
+  gameService,
+} from '../services/gameService';
+import { gamesUnlockService } from '../services/gamesUnlockService';
 
 interface MiniGamesProps {
   onClose: () => void;
   onXpEarned?: (xp: number) => void;
-  onGameStarted?: () => void;
+  status: GameStatus;
 }
 
-type GameType = 'number_ninja' | 'times_table_sprint' | 'spelling_bee' | 'science_sorter' | 'history_match';
-
-interface GameState {
-  score: number;
-  level: number;
-  lives: number;
-  streak: number;
-  isPlaying: boolean;
-  gameOver: boolean;
+interface GameDefinition {
+  id: GameId;
+  name: string;
+  icon: string;
+  subject: string;
+  description: string;
+  learningGoal: string;
+  colour: string;
+  questions: number;
+  needsYearGroup?: boolean;
+  needsTable?: boolean;
 }
 
-const MiniGames: React.FC<MiniGamesProps> = ({ onClose, onXpEarned, onGameStarted }) => {
-  const [selectedGame, setSelectedGame] = useState<GameType | null>(null);
-  const [highScores, setHighScores] = useState<Record<string, number>>({});
+const GAMES: GameDefinition[] = [
+  {
+    id: 'maths_mission',
+    name: 'Maths Mission',
+    icon: '🧭',
+    subject: 'Maths',
+    description: 'Solve real problems using number, fractions, measure and reasoning.',
+    learningGoal: 'Explain and apply maths—not just answer quickly.',
+    colour: 'from-blue-500 to-indigo-700',
+    questions: 10,
+    needsYearGroup: true,
+  },
+  {
+    id: 'times_table_sprint',
+    name: 'Times Table Sprint',
+    icon: '⚡',
+    subject: 'Maths',
+    description: 'Build fluent multiplication recall with accuracy-first scoring.',
+    learningGoal: 'Master one table or practise a mixed 2–12 challenge.',
+    colour: 'from-violet-500 to-purple-700',
+    questions: 20,
+    needsTable: true,
+  },
+  {
+    id: 'spelling_workshop',
+    name: 'Spelling Workshop',
+    icon: '🐝',
+    subject: 'English',
+    description: 'Practise statutory KS2 words with British spelling and useful clues.',
+    learningGoal: 'Notice spelling patterns, roots and tricky letter groups.',
+    colour: 'from-amber-500 to-orange-600',
+    questions: 10,
+    needsYearGroup: true,
+  },
+  {
+    id: 'science_lab',
+    name: 'Science Classification Lab',
+    icon: '🔬',
+    subject: 'Science',
+    description: 'Classify living things, materials, light and electricity evidence.',
+    learningGoal: 'Use scientific properties and read an explanation after every answer.',
+    colour: 'from-emerald-500 to-teal-700',
+    questions: 12,
+    needsYearGroup: true,
+  },
+  {
+    id: 'history_detective',
+    name: 'History Detective',
+    icon: '🔎',
+    subject: 'History',
+    description: 'Investigate chronology, sources, cause, consequence and significance.',
+    learningGoal: 'Think like a historian instead of memorising isolated dates.',
+    colour: 'from-rose-500 to-purple-700',
+    questions: 10,
+  },
+];
 
-  useEffect(() => {
-    const loadScores = async () => {
-      const scores = await gameService.getUserHighScores();
-      setHighScores(scores);
-    };
-    loadScores();
+const gameById = (gameId: GameId) => GAMES.find((game) => game.id === gameId) || GAMES[0];
+
+const MiniGames: React.FC<MiniGamesProps> = ({ onClose, onXpEarned, status }) => {
+  const [currentStatus, setCurrentStatus] = useState(status);
+  const [selectedGame, setSelectedGame] = useState<GameId | null>(null);
+  const [activeSession, setActiveSession] = useState<GameSession | null>(null);
+  const [completedResult, setCompletedResult] = useState<GameResult | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [starting, setStarting] = useState(false);
+  const [abandoning, setAbandoning] = useState(false);
+  const [error, setError] = useState('');
+  const [yearGroup, setYearGroup] = useState<'3-4' | '5-6'>('3-4');
+  const [table, setTable] = useState<number | 'mixed'>('mixed');
+
+  const updateStatus = useCallback((next: GameStatus) => {
+    setCurrentStatus(next);
+    gamesUnlockService.setStatus(next);
   }, []);
 
-  const games = [
-    {
-      id: 'number_ninja' as GameType,
-      name: 'Number Ninja',
-      icon: '🥷',
-      subject: 'Maths',
-      description: 'Solve maths problems fast before time runs out!',
-      color: 'from-red-500 to-orange-600',
-    },
-    {
-      id: 'times_table_sprint' as GameType,
-      name: 'Times Table Sprint',
-      icon: '⚡',
-      subject: 'Maths',
-      description: 'Race through 20 multiplication questions as fast as you can!',
-      color: 'from-violet-500 to-purple-700',
-    },
-    {
-      id: 'spelling_bee' as GameType,
-      name: 'Spelling Bee',
-      icon: '🐝',
-      subject: 'English',
-      description: 'Hear the word spoken aloud and spell it correctly!',
-      color: 'from-yellow-500 to-amber-600',
-    },
-    {
-      id: 'science_sorter' as GameType,
-      name: 'Science Sorter',
-      icon: '🔬',
-      subject: 'Science',
-      description: 'Sort animals, materials and more into the right categories!',
-      color: 'from-green-500 to-emerald-600',
-    },
-    {
-      id: 'history_match' as GameType,
-      name: 'History Match',
-      icon: '🏛️',
-      subject: 'History',
-      description: 'Match historical events with their dates!',
-      color: 'from-purple-500 to-indigo-600',
-    },
-  ];
+  useEffect(() => setCurrentStatus(status), [status]);
 
-  const handleGameExit = async (gameId: string, score: number) => {
-    if (score > (highScores[gameId] || 0)) {
-      await gameService.saveHighScore(gameId, score);
-      setHighScores(prev => ({ ...prev, [gameId]: score }));
-      soundEffects.playWin();
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 }
+  useEffect(() => {
+    let cancelled = false;
+    gameService.getState()
+      .then((state) => {
+        if (cancelled) return;
+        updateStatus(state.status);
+        setActiveSession(state.activeSession);
+        if (state.activeSession) setSelectedGame(state.activeSession.gameId);
+      })
+      .catch((reason) => {
+        if (!cancelled) setError(reason instanceof Error ? reason.message : 'Unable to load games.');
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
       });
+    return () => { cancelled = true; };
+  }, [updateStatus]);
+
+  const selectedDefinition = selectedGame ? gameById(selectedGame) : null;
+
+  const startGame = async () => {
+    if (!selectedDefinition || starting) return;
+    setStarting(true);
+    setError('');
+    try {
+      const response = await gameService.startGame(selectedDefinition.id, {
+        yearGroup,
+        table: selectedDefinition.needsTable ? table : undefined,
+      });
+      setActiveSession(response.session);
+      updateStatus(response.status);
+      setCompletedResult(null);
+    } catch (reason) {
+      const serviceError = reason as Error & { data?: { activeSession?: GameSession; status?: GameStatus } };
+      if (serviceError.data?.status) updateStatus(serviceError.data.status);
+      if (serviceError.data?.activeSession) {
+        setActiveSession(serviceError.data.activeSession);
+        setSelectedGame(serviceError.data.activeSession.gameId);
+      }
+      setError(serviceError.message || 'Unable to start this game.');
+    } finally {
+      setStarting(false);
     }
-    setSelectedGame(null);
   };
 
-  if (selectedGame) {
-    const game = games.find(g => g.id === selectedGame);
-    
-    return (
-      <div className="fixed inset-0 z-50 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 overflow-y-auto">
-        <div className="min-h-screen p-4 sm:p-6">
-          <div className="max-w-2xl mx-auto">
-            <button
-              onClick={() => setSelectedGame(null)}
-              className="text-white/70 hover:text-white mb-6 flex items-center gap-2 transition-colors"
-            >
-              <span className="text-xl">←</span>
-              <span>Back to Games</span>
-            </button>
+  const completeGame = (session: GameSession, result: GameResult, nextStatus: GameStatus) => {
+    setActiveSession(session);
+    setCompletedResult(result);
+    updateStatus(nextStatus);
+    onXpEarned?.(result.xpEarned);
+    const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    if (!reduceMotion && result.stars >= 2) {
+      confetti({ particleCount: 80, spread: 65, origin: { y: 0.7 } });
+    }
+  };
 
-            {selectedGame === 'number_ninja' && (
-              <NumberNinjaGame 
-                onExit={(score) => handleGameExit('number_ninja', score)} 
-                onXpEarned={onXpEarned}
-              />
-            )}
-            {selectedGame === 'times_table_sprint' && (
-              <TimesTableSprintGame
-                onExit={(score) => handleGameExit('times_table_sprint', score)}
-                onXpEarned={onXpEarned}
-              />
-            )}
-            {selectedGame === 'spelling_bee' && (
-              <SpellingBeeGame 
-                onExit={(score) => handleGameExit('spelling_bee', score)} 
-                onXpEarned={onXpEarned}
-              />
-            )}
-            {selectedGame === 'science_sorter' && (
-              <ScienceSorterGame
-                onExit={(score) => handleGameExit('science_sorter', score)}
-                onXpEarned={onXpEarned}
-              />
-            )}
-            {selectedGame === 'history_match' && (
-              <HistoryMatchGame 
-                onExit={(score) => handleGameExit('history_match', score)} 
-                onXpEarned={onXpEarned}
-              />
-            )}
-          </div>
+  const abandonActiveGame = async () => {
+    if (!activeSession || abandoning) return;
+    if (!window.confirm('End this game? The play has already started and will not be returned.')) return;
+    setAbandoning(true);
+    setError('');
+    try {
+      const response = await gameService.abandonGame(activeSession.sessionId);
+      updateStatus(response.status);
+      setActiveSession(null);
+      setSelectedGame(null);
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : 'Unable to end this game.');
+    } finally {
+      setAbandoning(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <GamesShell onHome={onClose}>
+        <div className="max-w-xl mx-auto rounded-2xl bg-white/10 p-10 text-center text-white" role="status">
+          Loading your games…
         </div>
-      </div>
+      </GamesShell>
+    );
+  }
+
+  if (selectedDefinition && activeSession?.gameId === selectedDefinition.id && activeSession.status === 'active') {
+    return (
+      <GamesShell onHome={onClose} onBack={() => setSelectedGame(null)}>
+        <GamePlayer
+          definition={selectedDefinition}
+          session={activeSession}
+          onSessionChange={setActiveSession}
+          onStatusChange={updateStatus}
+          onComplete={completeGame}
+          onLeave={() => setSelectedGame(null)}
+        />
+      </GamesShell>
+    );
+  }
+
+  if (selectedDefinition && completedResult) {
+    return (
+      <GamesShell onHome={onClose} onBack={() => { setSelectedGame(null); setCompletedResult(null); }}>
+        <GameResultCard
+          definition={selectedDefinition}
+          result={completedResult}
+          highScore={currentStatus.highScores[selectedDefinition.id] || completedResult.score}
+          gamesRemaining={currentStatus.gamesRemaining}
+          onPlayAgain={() => {
+            setActiveSession(null);
+            setCompletedResult(null);
+          }}
+          onGames={() => {
+            setSelectedGame(null);
+            setActiveSession(null);
+            setCompletedResult(null);
+          }}
+        />
+      </GamesShell>
+    );
+  }
+
+  if (selectedDefinition) {
+    return (
+      <GamesShell onHome={onClose} onBack={() => { setSelectedGame(null); setError(''); }}>
+        <GameIntroduction
+          definition={selectedDefinition}
+          status={currentStatus}
+          yearGroup={yearGroup}
+          table={table}
+          starting={starting}
+          error={error}
+          onYearGroup={setYearGroup}
+          onTable={setTable}
+          onStart={startGame}
+        />
+      </GamesShell>
     );
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 overflow-y-auto">
-      <div className="min-h-screen p-4 sm:p-6">
-        <div className="max-w-2xl mx-auto">
-          {/* Header */}
-          <div className="flex items-center justify-between mb-6">
-            <button
-              onClick={onClose}
-              className="flex items-center gap-2 text-white/70 hover:text-white transition-colors"
-            >
-              <span className="text-xl">←</span>
-              <span>Back to Home</span>
-            </button>
-          </div>
-          
-          <div className="text-center mb-8">
-            <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">🎮 Mini Games</h1>
-            <p className="text-white/60">Learn while having fun!</p>
-          </div>
+    <GamesShell onHome={onClose}>
+      <main className="max-w-4xl mx-auto" id="games-main">
+        <div className="text-center mb-6">
+          <h1 className="text-3xl sm:text-4xl font-black text-white mb-2">🎮 Learning Games</h1>
+          <p className="text-white/75">Every game teaches a KS2 skill and explains the answers.</p>
+        </div>
 
-          {/* Games Grid */}
-          <div className="grid gap-4">
-          {games.map(game => (
+        <GameCreditPanel status={currentStatus} />
+
+        {activeSession?.status === 'active' && (
+          <section className="mb-5 rounded-2xl border-2 border-yellow-300 bg-yellow-300/15 p-4 text-white" aria-label="Saved game">
+            <p className="font-bold">{gameById(activeSession.gameId).name} is saved</p>
+            <p className="text-sm text-white/75">Question {activeSession.currentIndex + 1} of {activeSession.totalQuestions}</p>
+            <div className="mt-3 flex flex-wrap gap-3">
+              <button type="button" onClick={() => setSelectedGame(activeSession.gameId)} className="rounded-lg bg-yellow-300 px-4 py-2 font-bold text-slate-900 focus-visible:ring-4 focus-visible:ring-yellow-100">
+                Resume game
+              </button>
+              <button type="button" onClick={() => void abandonActiveGame()} disabled={abandoning} className="rounded-lg bg-white/15 px-4 py-2 font-bold text-white focus-visible:ring-4 focus-visible:ring-white disabled:opacity-50">
+                {abandoning ? 'Ending…' : 'End game'}
+              </button>
+            </div>
+          </section>
+        )}
+
+        {error && <p className="mb-4 rounded-xl bg-red-100 p-3 text-red-800" role="alert">{error}</p>}
+
+        <div className="grid gap-4 sm:grid-cols-2" aria-label="Available learning games">
+          {GAMES.map((game) => (
             <button
+              type="button"
               key={game.id}
-              onClick={() => {
-                onGameStarted?.();
-                setSelectedGame(game.id);
-              }}
-              className={`bg-gradient-to-r ${game.color} rounded-2xl p-6 text-left hover:scale-[1.02] hover:shadow-2xl transition-all relative overflow-hidden`}
+              onClick={() => { setSelectedGame(game.id); setError(''); }}
+              className={`bg-gradient-to-br ${game.colour} rounded-2xl p-5 text-left shadow-lg transition motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-2xl focus:outline-none focus-visible:ring-4 focus-visible:ring-white`}
+              aria-label={`${game.name}, ${game.subject}. ${game.description}`}
             >
-              <div className="flex items-center gap-4 relative z-10">
-                <span className="text-5xl">{game.icon}</span>
-                <div className="flex-1">
-                  <h3 className="text-xl font-bold text-white">{game.name}</h3>
-                  <p className="text-white/80 text-sm">{game.description}</p>
-                  <div className="flex items-center gap-3 mt-2">
-                    <span className="inline-block px-3 py-1 bg-white/20 rounded-full text-xs text-white">
-                      {game.subject}
-                    </span>
-                    {highScores[game.id] !== undefined && (
-                      <span className="text-yellow-300 text-xs font-bold">
-                        🏆 High Score: {highScores[game.id]}
-                      </span>
+              <div className="flex items-start gap-4">
+                <span className="text-5xl" aria-hidden="true">{game.icon}</span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-xl font-black text-white">{game.name}</span>
+                  <span className="block text-sm text-white/85 mt-1">{game.description}</span>
+                  <span className="mt-3 flex flex-wrap items-center gap-2 text-xs">
+                    <span className="rounded-full bg-white/20 px-3 py-1 text-white">{game.subject}</span>
+                    <span className="rounded-full bg-black/15 px-3 py-1 text-white">{game.questions} questions</span>
+                    {currentStatus.highScores[game.id] > 0 && (
+                      <span className="font-bold text-yellow-200">Best: {currentStatus.highScores[game.id]}</span>
                     )}
-                  </div>
-                </div>
-                <span className="text-3xl text-white/50">→</span>
+                  </span>
+                </span>
+                <span className="text-2xl text-white/70" aria-hidden="true">→</span>
               </div>
             </button>
           ))}
-          </div>
         </div>
-      </div>
-    </div>
+      </main>
+    </GamesShell>
   );
 };
 
-// Number Ninja Game
-const NumberNinjaGame: React.FC<{ onExit: (score: number) => void; onXpEarned?: (xp: number) => void }> = ({ onExit, onXpEarned }) => {
-  const [gameState, setGameState] = useState<GameState>({
-    score: 0, level: 1, lives: 3, streak: 0, isPlaying: false, gameOver: false,
-  });
-  const [problem, setProblem] = useState({ question: '', answer: 0, options: [0] });
-  const [timeLeft, setTimeLeft] = useState(10);
-  const [feedback, setFeedback] = useState<'correct' | 'wrong' | null>(null);
-
-  const generateProblem = useCallback((level: number) => {
-    const operations = level < 5 ? ['+', '-', '×'] : ['+', '-', '×', '÷'];
-    const op = operations[Math.floor(Math.random() * operations.length)];
-    let a: number, b: number, answer: number;
-
-    switch (op) {
-      case '+':
-        a = Math.floor(Math.random() * (10 * level)) + 1;
-        b = Math.floor(Math.random() * (10 * level)) + 1;
-        answer = a + b;
-        break;
-      case '-':
-        a = Math.floor(Math.random() * (10 * level)) + 10;
-        b = Math.floor(Math.random() * a) + 1;
-        answer = a - b;
-        break;
-      case '×':
-        a = Math.floor(Math.random() * 12) + 1;
-        b = Math.floor(Math.random() * 12) + 1;
-        answer = a * b;
-        break;
-      case '÷': {
-        // Always produce a clean division
-        b = Math.floor(Math.random() * 11) + 2; // divisor 2–12
-        answer = Math.floor(Math.random() * 12) + 1; // quotient 1–12
-        a = b * answer;
-        break;
-      }
-      default:
-        a = 5; b = 5; answer = 10;
-    }
-
-    const options = [answer];
-    while (options.length < 4) {
-      const wrong = answer + Math.floor(Math.random() * 20) - 10;
-      if (wrong !== answer && wrong > 0 && !options.includes(wrong)) {
-        options.push(wrong);
-      }
-    }
-
-    setProblem({
-      question: `${a} ${op} ${b} = ?`,
-      answer,
-      options: options.sort(() => Math.random() - 0.5),
-    });
-    setTimeLeft(Math.max(5, 10 - level));
-  }, []);
-
-  useEffect(() => {
-    if (gameState.isPlaying && !gameState.gameOver) {
-      generateProblem(gameState.level);
-    }
-  }, [gameState.isPlaying, gameState.level, generateProblem, gameState.gameOver]);
-
-  useEffect(() => {
-    if (!gameState.isPlaying || gameState.gameOver) return;
-
-    const timer = setInterval(() => {
-      setTimeLeft(prev => {
-        if (prev <= 1) {
-          handleAnswer(-1);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [gameState.isPlaying, gameState.gameOver, problem]);
-
-  const handleAnswer = (selected: number) => {
-    if (feedback) return;
-    soundEffects.playClick();
-
-    const isCorrect = selected === problem.answer;
-    if (isCorrect) {
-      soundEffects.playCorrect();
-    } else {
-      soundEffects.playWrong();
-    }
-    setFeedback(isCorrect ? 'correct' : 'wrong');
-
-    setTimeout(() => {
-      setFeedback(null);
-      
-      if (isCorrect) {
-        const newStreak = gameState.streak + 1;
-        const points = 10 + (timeLeft * 2) + (newStreak >= 3 ? 5 : 0);
-        const newScore = gameState.score + points;
-        const newLevel = Math.floor(newScore / 50) + 1;
-
-        setGameState(prev => ({
-          ...prev,
-          score: newScore,
-          streak: newStreak,
-          level: Math.min(newLevel, 10),
-        }));
-        generateProblem(newLevel);
-      } else {
-        const newLives = gameState.lives - 1;
-        if (newLives <= 0) {
-          setGameState(prev => ({ ...prev, lives: 0, gameOver: true }));
-          onXpEarned?.(Math.floor(gameState.score / 2));
-        } else {
-          setGameState(prev => ({ ...prev, lives: newLives, streak: 0 }));
-          generateProblem(gameState.level);
-        }
-      }
-    }, 500);
-  };
-
-  if (!gameState.isPlaying) {
-    return (
-      <div className="bg-gradient-to-br from-red-500 to-orange-600 rounded-2xl p-8 text-center">
-        <div className="text-8xl mb-4">🥷</div>
-        <h2 className="text-3xl font-bold text-white mb-4">Number Ninja</h2>
-        <p className="text-white/80 mb-6">
-          Slash through maths problems as fast as you can!
-          Answer quickly for bonus points!
-        </p>
-        <button
-          onClick={() => setGameState(prev => ({ ...prev, isPlaying: true }))}
-          className="px-8 py-4 bg-white text-red-600 rounded-xl font-bold text-xl hover:bg-white/90 transition-all"
-        >
-          Start Game
+const GamesShell: React.FC<{ onHome: () => void; onBack?: () => void; children: React.ReactNode }> = ({ onHome, onBack, children }) => (
+  <div className="fixed inset-0 z-50 overflow-y-auto bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900">
+    <div className="min-h-screen p-4 sm:p-6">
+      <div className="max-w-5xl mx-auto mb-6 flex items-center justify-between">
+        {onBack ? (
+          <button type="button" onClick={onBack} className="rounded-lg px-3 py-2 text-white/80 hover:text-white focus-visible:ring-4 focus-visible:ring-cyan-300">
+            ← Back to games
+          </button>
+        ) : <span />}
+        <button type="button" onClick={onHome} className="rounded-lg px-3 py-2 text-white/80 hover:text-white focus-visible:ring-4 focus-visible:ring-cyan-300">
+          Home
         </button>
       </div>
-    );
-  }
+      {children}
+    </div>
+  </div>
+);
 
-  if (gameState.gameOver) {
-    return (
-      <div className="bg-gradient-to-br from-red-500 to-orange-600 rounded-2xl p-8 text-center">
-        <div className="text-8xl mb-4">🎯</div>
-        <h2 className="text-3xl font-bold text-white mb-2">Game Over!</h2>
-        <p className="text-6xl font-bold text-white mb-4">{gameState.score}</p>
-        <p className="text-white/80 mb-6">
-          You earned {Math.floor(gameState.score / 2)} XP!
-        </p>
-        <div className="flex gap-4 justify-center">
-          <button
-            onClick={() => setGameState({
-              score: 0, level: 1, lives: 3, streak: 0, isPlaying: true, gameOver: false,
-            })}
-            className="px-6 py-3 bg-white text-red-600 rounded-xl font-bold hover:bg-white/90"
-          >
-            Play Again
-          </button>
-          <button
-            onClick={() => onExit(gameState.score)}
-            className="px-6 py-3 bg-white/20 text-white rounded-xl font-bold hover:bg-white/30"
-          >
-            Exit
-          </button>
-        </div>
-      </div>
-    );
-  }
-
+const GameCreditPanel: React.FC<{ status: GameStatus }> = ({ status }) => {
+  const quizzesLeft = Math.max(0, status.requiredPasses - status.passesCount);
   return (
-    <div className="bg-gradient-to-br from-red-500 to-orange-600 rounded-2xl p-6">
-      {/* Stats Bar */}
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex gap-1">
-          {Array.from({ length: 3 }).map((_, i) => (
-            <span key={i} className="text-2xl">{i < gameState.lives ? '❤️' : '🖤'}</span>
+    <section className="mb-6 rounded-2xl border border-white/15 bg-white/10 p-4 text-white" aria-labelledby="game-credit-title">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h2 id="game-credit-title" className="font-bold">Game plays: {status.gamesRemaining}</h2>
+          <p className="text-sm text-white/70">
+            {status.gamesRemaining > 0
+              ? 'A play is used only when you press Start.'
+              : `Pass ${quizzesLeft} more ${quizzesLeft === 1 ? 'quiz' : 'quizzes'} with 70% or more to earn two plays.`}
+          </p>
+        </div>
+        <div className="flex gap-2" aria-label={`${status.passesCount} of ${status.requiredPasses} passing quizzes completed`}>
+          {Array.from({ length: status.requiredPasses }, (_, index) => (
+            <span key={index} className="text-2xl" aria-hidden="true">{index < status.passesCount ? '⭐' : '☆'}</span>
           ))}
         </div>
-        <div className="text-white font-bold text-xl">Score: {gameState.score}</div>
-        <div className={`text-2xl font-bold ${timeLeft <= 3 ? 'text-yellow-300 animate-pulse' : 'text-white'}`}>
-          ⏱️ {timeLeft}
-        </div>
       </div>
-
-      {/* Problem */}
-      <div className={`bg-white/20 rounded-2xl p-8 mb-6 text-center transition-all ${
-        feedback === 'correct' ? 'bg-green-500/50' :
-        feedback === 'wrong' ? 'bg-red-500/50' : ''
-      }`}>
-        {gameState.streak >= 3 && (
-          <p className="text-yellow-300 text-sm mb-2">🔥 {gameState.streak} streak!</p>
-        )}
-        <p className="text-4xl font-bold text-white">{problem.question}</p>
-      </div>
-
-      {/* Options */}
-      <div className="grid grid-cols-2 gap-4">
-        {problem.options.map((option, i) => (
-          <button
-            key={i}
-            onClick={() => handleAnswer(option)}
-            disabled={feedback !== null}
-            className="py-6 bg-white/20 hover:bg-white/30 rounded-xl text-2xl font-bold text-white transition-all disabled:opacity-50"
-          >
-            {option}
-          </button>
-        ))}
-      </div>
-    </div>
+    </section>
   );
 };
 
-// Times Table Sprint Game
-const TimesTableSprintGame: React.FC<{ onExit: (score: number) => void; onXpEarned?: (xp: number) => void }> = ({ onExit, onXpEarned }) => {
-  const TOTAL_QUESTIONS = 20;
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [score, setScore] = useState(0);
-  const [qIndex, setQIndex] = useState(0);
-  const [question, setQuestion] = useState<{ text: string; answer: number; options: number[] } | null>(null);
-  const [elapsedSec, setElapsedSec] = useState(0);
-  const [correct, setCorrect] = useState(0);
-  const [feedback, setFeedback] = useState<'correct' | 'wrong' | null>(null);
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+interface GameIntroductionProps {
+  definition: GameDefinition;
+  status: GameStatus;
+  yearGroup: '3-4' | '5-6';
+  table: number | 'mixed';
+  starting: boolean;
+  error: string;
+  onYearGroup: (value: '3-4' | '5-6') => void;
+  onTable: (value: number | 'mixed') => void;
+  onStart: () => void;
+}
 
-  const makeQuestion = useCallback(() => {
-    const a = Math.floor(Math.random() * 11) + 2; // 2–12
-    const b = Math.floor(Math.random() * 11) + 2;
-    const answer = a * b;
-    const opts = new Set<number>([answer]);
-    while (opts.size < 4) {
-      const wrong = answer + (Math.floor(Math.random() * 10) - 5) * (Math.floor(Math.random() * 2) === 0 ? 1 : -1);
-      if (wrong > 0 && wrong !== answer) opts.add(wrong);
-    }
-    return { text: `${a} × ${b} = ?`, answer, options: [...opts].sort(() => Math.random() - 0.5) };
-  }, []);
+const GameIntroduction: React.FC<GameIntroductionProps> = ({
+  definition, status, yearGroup, table, starting, error, onYearGroup, onTable, onStart,
+}) => (
+  <main className="max-w-2xl mx-auto">
+    <div className={`rounded-3xl bg-gradient-to-br ${definition.colour} p-6 sm:p-9 text-center shadow-2xl`}>
+      <div className="text-7xl mb-3" aria-hidden="true">{definition.icon}</div>
+      <h1 className="text-3xl font-black text-white">{definition.name}</h1>
+      <p className="mt-3 text-white/85">{definition.description}</p>
+      <p className="mt-2 rounded-xl bg-black/15 p-3 text-sm text-white"><strong>Learning goal:</strong> {definition.learningGoal}</p>
 
-  const startGame = () => {
-    setScore(0);
-    setQIndex(0);
-    setCorrect(0);
-    setElapsedSec(0);
-    setIsPlaying(true);
-    setQuestion(makeQuestion());
-    timerRef.current = setInterval(() => setElapsedSec(s => s + 1), 1000);
-    soundEffects.playClick();
-  };
-
-  useEffect(() => () => { if (timerRef.current) clearInterval(timerRef.current); }, []);
-
-  const handleAnswer = (chosen: number) => {
-    if (feedback) return;
-    const isCorrect = chosen === question!.answer;
-    if (isCorrect) {
-      soundEffects.playCorrect();
-      setCorrect(c => c + 1);
-      setScore(s => s + Math.max(5, 20 - Math.floor(elapsedSec / TOTAL_QUESTIONS)));
-    } else {
-      soundEffects.playWrong();
-    }
-    setFeedback(isCorrect ? 'correct' : 'wrong');
-
-    setTimeout(() => {
-      setFeedback(null);
-      const next = qIndex + 1;
-      if (next >= TOTAL_QUESTIONS) {
-        // done
-        if (timerRef.current) clearInterval(timerRef.current);
-        setIsPlaying(false);
-        soundEffects.playWin();
-      } else {
-        setQIndex(next);
-        setQuestion(makeQuestion());
-      }
-    }, 600);
-  };
-
-  const starsEarned = () => {
-    if (correct < 10) return 0;
-    if (elapsedSec < 60) return 3;
-    if (elapsedSec < 100) return 2;
-    return 1;
-  };
-
-  const formatTime = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
-
-  if (!isPlaying) {
-    const stars = starsEarned();
-    return (
-      <div className="bg-gradient-to-br from-violet-500 to-purple-700 rounded-2xl p-8 text-center">
-        <div className="text-8xl mb-4">⚡</div>
-        <h2 className="text-3xl font-bold text-white mb-2">Times Table Sprint</h2>
-        {score === 0 ? (
-          <>
-            <p className="text-white/80 mb-2">Answer {TOTAL_QUESTIONS} times table questions as fast as you can!</p>
-            <p className="text-white/60 text-sm mb-6">⭐⭐⭐ under 60s · ⭐⭐ under 100s · ⭐ rest</p>
-          </>
-        ) : (
-          <div className="mb-6">
-            <div className="text-4xl mb-2">{stars === 3 ? '⭐⭐⭐' : stars === 2 ? '⭐⭐' : stars === 1 ? '⭐' : '💪'}</div>
-            <p className="text-white text-xl font-bold">{correct}/{TOTAL_QUESTIONS} correct · {formatTime(elapsedSec)}</p>
-            <p className="text-white/70">Score: {score}</p>
+      {definition.needsYearGroup && (
+        <fieldset className="mt-6">
+          <legend className="mb-2 font-bold text-white">Choose your practice level</legend>
+          <div className="grid grid-cols-2 gap-3">
+            {(['3-4', '5-6'] as const).map((group) => (
+              <button
+                type="button"
+                key={group}
+                onClick={() => onYearGroup(group)}
+                aria-pressed={yearGroup === group}
+                className={`rounded-xl px-4 py-3 font-bold focus-visible:ring-4 focus-visible:ring-white ${yearGroup === group ? 'bg-white text-slate-900' : 'bg-white/20 text-white'}`}
+              >
+                Years {group.replace('-', '–')}
+              </button>
+            ))}
           </div>
-        )}
-        <div className="flex gap-4 justify-center">
-          <button onClick={startGame} className="px-8 py-4 bg-white text-purple-700 rounded-xl font-bold text-xl">
-            {score === 0 ? 'Start Sprint!' : 'Play Again'}
-          </button>
-          {score > 0 && (
-            <button onClick={() => { onXpEarned?.(score); onExit(score); }} className="px-8 py-4 bg-white/20 text-white rounded-xl font-bold text-xl hover:bg-white/30">
-              Exit
-            </button>
-          )}
-        </div>
-      </div>
-    );
-  }
+        </fieldset>
+      )}
 
-  return (
-    <div className="bg-gradient-to-br from-violet-500 to-purple-700 rounded-2xl p-6">
-      <div className="flex justify-between mb-3 text-white font-bold">
-        <span>Q {qIndex + 1}/{TOTAL_QUESTIONS}</span>
-        <span>⏱ {formatTime(elapsedSec)}</span>
-        <span>✓ {correct}</span>
-      </div>
-
-      <div className="w-full bg-white/20 rounded-full h-2 mb-6">
-        <div className="bg-white h-2 rounded-full transition-all" style={{ width: `${((qIndex) / TOTAL_QUESTIONS) * 100}%` }} />
-      </div>
-
-      <div className={`bg-white/20 rounded-2xl p-8 text-center mb-6 transition-all ${feedback === 'correct' ? 'bg-green-400/40' : feedback === 'wrong' ? 'bg-red-400/40' : ''}`}>
-        <p className="text-5xl font-bold text-white">{question?.text}</p>
-        {feedback && (
-          <p className="text-white font-bold mt-2">{feedback === 'correct' ? '✓ Correct!' : `✗ ${question?.answer}`}</p>
-        )}
-      </div>
-
-      <div className="grid grid-cols-2 gap-3">
-        {question?.options.map(opt => (
-          <button
-            key={opt}
-            onClick={() => handleAnswer(opt)}
-            disabled={!!feedback}
-            className="py-4 bg-white/20 hover:bg-white/30 text-white font-bold text-2xl rounded-xl transition-all disabled:opacity-60"
+      {definition.needsTable && (
+        <label className="mt-6 block text-left font-bold text-white">
+          Times table
+          <select
+            value={table}
+            onChange={(event) => onTable(event.target.value === 'mixed' ? 'mixed' : Number(event.target.value))}
+            className="mt-2 w-full rounded-xl bg-white px-4 py-3 text-slate-900"
           >
-            {opt}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-};
+            <option value="mixed">Mixed 2–12</option>
+            {Array.from({ length: 11 }, (_, index) => index + 2).map((value) => (
+              <option key={value} value={value}>{value} times table</option>
+            ))}
+          </select>
+        </label>
+      )}
 
-const SpellingBeeGame: React.FC<{ onExit: (score: number) => void; onXpEarned?: (xp: number) => void }> = ({ onExit, onXpEarned }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [score, setScore] = useState(0);
-  const [currentWord, setCurrentWord] = useState({ word: 'ELEPHANT', hint: 'A large grey animal with a trunk' });
-  const [userInput, setUserInput] = useState('');
-  const [feedback, setFeedback] = useState('');
-  const [round, setRound] = useState(1);
-  const [gameWords, setGameWords] = useState<{ word: string; hint: string }[]>([]);
-  const [totalRounds] = useState(10);
-  const [loading, setLoading] = useState(false);
-
-  // Comprehensive spelling words for KS2 (Years 3-6)
-  const allWords = [
-    // Animals
-    { word: 'ELEPHANT', hint: 'A large grey animal with a trunk' },
-    { word: 'GIRAFFE', hint: 'Tallest animal with a very long neck' },
-    { word: 'DOLPHIN', hint: 'A clever sea mammal that jumps and plays' },
-    { word: 'PENGUIN', hint: 'A black and white bird that cannot fly but can swim' },
-    { word: 'LEOPARD', hint: 'A big cat with spots' },
-    { word: 'CHEETAH', hint: 'The fastest land animal' },
-    { word: 'GORILLA', hint: 'A large ape that lives in forests' },
-    { word: 'BUTTERFLY', hint: 'An insect with colorful wings' },
-    { word: 'SQUIRREL', hint: 'A small animal that collects nuts' },
-    { word: 'CROCODILE', hint: 'A large reptile with powerful jaws' },
-    { word: 'RHINOCEROS', hint: 'A large animal with a horn on its nose' },
-    { word: 'HIPPOPOTAMUS', hint: 'A large animal that loves water' },
-    { word: 'KANGAROO', hint: 'An Australian animal that hops' },
-    { word: 'OCTOPUS', hint: 'A sea creature with eight arms' },
-    { word: 'MOSQUITO', hint: 'A tiny insect that bites and buzzes' },
-    
-    // Adjectives
-    { word: 'BEAUTIFUL', hint: 'Very pretty or attractive' },
-    { word: 'DIFFERENT', hint: 'Not the same as another' },
-    { word: 'IMPORTANT', hint: 'Something that matters a lot' },
-    { word: 'INTERESTING', hint: 'Something that makes you want to learn more' },
-    { word: 'DANGEROUS', hint: 'Something that could hurt you' },
-    { word: 'MYSTERIOUS', hint: 'Something strange and hard to explain' },
-    { word: 'ENORMOUS', hint: 'Extremely large' },
-    { word: 'DELICIOUS', hint: 'Tastes really good' },
-    { word: 'COMFORTABLE', hint: 'Feeling cozy and relaxed' },
-    { word: 'INVISIBLE', hint: 'Cannot be seen' },
-    { word: 'INCREDIBLE', hint: 'Hard to believe, amazing' },
-    { word: 'SPECTACULAR', hint: 'Really impressive to look at' },
-    { word: 'MAGNIFICENT', hint: 'Extremely beautiful or impressive' },
-    { word: 'EXTRAORDINARY', hint: 'Very unusual or remarkable' },
-    { word: 'COURAGEOUS', hint: 'Very brave' },
-    
-    // School subjects
-    { word: 'SCIENCE', hint: 'Study of the natural world' },
-    { word: 'GEOGRAPHY', hint: 'Study of places and maps' },
-    { word: 'MATHEMATICS', hint: 'Study of numbers and shapes' },
-    { word: 'LITERATURE', hint: 'Study of books and stories' },
-    { word: 'TECHNOLOGY', hint: 'Study of machines and computers' },
-    { word: 'PHYSICAL', hint: 'Related to the body' },
-    { word: 'EDUCATION', hint: 'Learning at school' },
-    { word: 'EXPERIMENT', hint: 'A test to discover something' },
-    { word: 'DICTIONARY', hint: 'A book with word definitions' },
-    { word: 'ENCYCLOPEDIA', hint: 'A book with information about everything' },
-    
-    // Common tricky words
-    { word: 'NECESSARY', hint: 'Something you must have or do' },
-    { word: 'SEPARATE', hint: 'To divide or keep apart' },
-    { word: 'ESPECIALLY', hint: 'More than usual, particularly' },
-    { word: 'DEFINITELY', hint: 'For certain, without doubt' },
-    { word: 'IMMEDIATELY', hint: 'Right now, at once' },
-    { word: 'OCCASIONALLY', hint: 'Sometimes, now and then' },
-    { word: 'UNFORTUNATELY', hint: 'Sadly, unluckily' },
-    { word: 'ENVIRONMENT', hint: 'The world around us, nature' },
-    { word: 'GOVERNMENT', hint: 'People who run a country' },
-    { word: 'RESTAURANT', hint: 'A place to eat meals' },
-    { word: 'CHOCOLATE', hint: 'A sweet brown treat' },
-    { word: 'VEGETABLE', hint: 'A healthy plant food' },
-    { word: 'FAVOURITE', hint: 'The one you like best' },
-    { word: 'CALENDAR', hint: 'Shows days and months' },
-    { word: 'FEBRUARY', hint: 'The second month of the year' },
-    { word: 'WEDNESDAY', hint: 'The middle day of the work week' },
-    { word: 'KNOWLEDGE', hint: 'What you know and have learned' },
-    { word: 'BEGINNING', hint: 'The start of something' },
-    { word: 'DISAPPEAR', hint: 'To vanish or go away' },
-    { word: 'APPRECIATE', hint: 'To be thankful for something' },
-    
-    // Places and things
-    { word: 'MOUNTAIN', hint: 'A very tall natural land formation' },
-    { word: 'ISLAND', hint: 'Land surrounded by water' },
-    { word: 'LIBRARY', hint: 'A place with lots of books' },
-    { word: 'MUSEUM', hint: 'A building with historical items' },
-    { word: 'HOSPITAL', hint: 'Where sick people get better' },
-    { word: 'ORCHESTRA', hint: 'A large group of musicians' },
-    { word: 'TREASURE', hint: 'Valuable things like gold' },
-    { word: 'LIGHTNING', hint: 'A flash of light in a storm' },
-    { word: 'ATMOSPHERE', hint: 'The air around Earth' },
-    { word: 'ADVENTURE', hint: 'An exciting journey' },
-    
-    // Actions
-    { word: 'BELIEVE', hint: 'To think something is true' },
-    { word: 'IMAGINE', hint: 'To picture something in your mind' },
-    { word: 'REMEMBER', hint: 'To not forget' },
-    { word: 'EXERCISE', hint: 'Physical activity to stay healthy' },
-    { word: 'SURPRISE', hint: 'Something unexpected' },
-    { word: 'RECOGNIZE', hint: 'To know who someone is' },
-    { word: 'CELEBRATE', hint: 'To have a party for something special' },
-    { word: 'DESCRIBE', hint: 'To explain what something is like' },
-    { word: 'PERSUADE', hint: 'To convince someone' },
-    { word: 'COMPLETE', hint: 'To finish something' },
-    
-    // More challenging words
-    { word: 'PARLIAMENT', hint: 'Where laws are made in the UK' },
-    { word: 'OPPORTUNITY', hint: 'A chance to do something' },
-    { word: 'TEMPERATURE', hint: 'How hot or cold something is' },
-    { word: 'COMPETITION', hint: 'A contest to see who wins' },
-    { word: 'COMMUNICATION', hint: 'Sharing information with others' },
-    { word: 'PRONUNCIATION', hint: 'How you say a word' },
-    { word: 'EXAGGERATE', hint: 'To make something sound bigger than it is' },
-    { word: 'QUESTIONNAIRE', hint: 'A form with questions' },
-    { word: 'ACCOMMODATE', hint: 'To make room for' },
-    { word: 'CONSCIENCE', hint: 'Knowing right from wrong inside you' },
-  ];
-
-  const shuffleWords = () => {
-    const shuffled = [...allWords].sort(() => Math.random() - 0.5);
-    return shuffled.slice(0, totalRounds);
-  };
-
-  const handleSubmit = () => {
-    soundEffects.playClick();
-    if (userInput.toUpperCase() === currentWord.word) {
-      soundEffects.playCorrect();
-      const points = 20 + (currentWord.word.length > 8 ? 10 : 0);
-      setScore(prev => prev + points);
-      setFeedback(`Correct! +${points} points! 🎉`);
-      setTimeout(() => {
-        if (round < totalRounds) {
-          setRound(prev => prev + 1);
-          setCurrentWord(gameWords[round]);
-          setUserInput('');
-          setFeedback('');
-        } else {
-          soundEffects.playWin();
-          onXpEarned?.(score + points);
-          setIsPlaying(false);
-        }
-      }, 1000);
-    } else {
-      soundEffects.playWrong();
-      setFeedback('Try again! 🤔');
-      setTimeout(() => setFeedback(''), 1000);
-    }
-  };
-
-  const speakWord = useCallback(() => {
-    speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(currentWord.word);
-    utterance.rate = 0.7;
-    speechSynthesis.speak(utterance);
-  }, [currentWord.word]);
-
-  // Auto-speak when a new word loads
-  useEffect(() => {
-    if (isPlaying && currentWord.word) {
-      const t = setTimeout(() => speakWord(), 400);
-      return () => clearTimeout(t);
-    }
-  }, [currentWord.word, isPlaying, speakWord]);
-
-  const startGame = async () => {
-    setLoading(true);
-    try {
-      // Try to fetch from qbank first
-      const questions = await gameService.getQuestionsForGame('English', 30);
-      
-      // Filter for questions that look like spelling/vocab questions
-      // We want single word answers
-      const qbankWords = questions
-        .filter(q => q.correctAnswer && q.correctAnswer.trim().split(' ').length === 1 && q.correctAnswer.length > 2)
-        .map(q => ({
-          word: q.correctAnswer.toUpperCase().trim(),
-          hint: q.question
-        }));
-
-      let words: { word: string; hint: string }[] = [];
-      
-      if (qbankWords.length >= 5) {
-        // Use qbank words if we have enough
-        words = qbankWords.sort(() => Math.random() - 0.5).slice(0, totalRounds);
-      } else {
-        // Fallback to hardcoded
-        words = shuffleWords();
-      }
-
-      setGameWords(words);
-      setCurrentWord(words[0]);
-      setIsPlaying(true);
-      setScore(0);
-      setRound(1);
-      setUserInput('');
-      setFeedback('');
-    } catch (error) {
-      console.error("Error starting game:", error);
-      // Fallback
-      const words = shuffleWords();
-      setGameWords(words);
-      setCurrentWord(words[0]);
-      setIsPlaying(true);
-      setScore(0);
-      setRound(1);
-      setUserInput('');
-      setFeedback('');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  if (!isPlaying) {
-    return (
-      <div className="bg-gradient-to-br from-yellow-500 to-amber-600 rounded-2xl p-8 text-center">
-        <div className="text-8xl mb-4">🐝</div>
-        <h2 className="text-3xl font-bold text-white mb-4">Spelling Bee</h2>
-        <p className="text-white/80 mb-6">Listen to the word and spell it correctly! {totalRounds} rounds with KS2 words.</p>
-        {score > 0 && <p className="text-white mb-4">Final Score: {score}</p>}
-        <div className="flex gap-4 justify-center">
-          <button
-            onClick={startGame}
-            disabled={loading}
-            className="px-8 py-4 bg-white text-amber-600 rounded-xl font-bold text-xl disabled:opacity-50"
-          >
-            {loading ? 'Loading...' : 'Start Game'}
-          </button>
-          {score > 0 && (
-            <button
-              onClick={() => onExit(score)}
-              className="px-8 py-4 bg-white/20 text-white rounded-xl font-bold text-xl hover:bg-white/30"
-            >
-              Exit
-            </button>
-          )}
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="bg-gradient-to-br from-yellow-500 to-amber-600 rounded-2xl p-6">
-      <div className="flex justify-between mb-4">
-        <span className="text-white font-bold">Round {round}/{totalRounds}</span>
-        <span className="text-white font-bold">Score: {score}</span>
-      </div>
-
-      <div className="bg-white/20 rounded-xl p-6 mb-4 text-center">
-        <button
-          onClick={speakWord}
-          className="text-5xl mb-2 hover:scale-110 transition-transform"
-        >
-          🔊
-        </button>
-        <p className="text-white text-xs font-semibold mb-3">Tap to hear again</p>
-        <p className="text-white/80 text-sm">Hint: {currentWord.hint}</p>
-        <p className="text-white/60 text-xs mt-2">({currentWord.word.length} letters)</p>
-      </div>
-
-      <input
-        type="text"
-        value={userInput}
-        onChange={(e) => setUserInput(e.target.value.toUpperCase())}
-        onKeyPress={(e) => e.key === 'Enter' && handleSubmit()}
-        className="w-full px-4 py-3 bg-white rounded-xl text-amber-600 font-bold text-xl text-center mb-4"
-        placeholder="Type the word..."
-        autoFocus
-      />
-
-      {feedback && <p className="text-center text-white font-bold mb-4">{feedback}</p>}
+      {error && <p className="mt-4 rounded-xl bg-red-100 p-3 text-left text-red-800" role="alert">{error}</p>}
 
       <button
-        onClick={handleSubmit}
-        className="w-full py-3 bg-white text-amber-600 rounded-xl font-bold"
+        type="button"
+        onClick={onStart}
+        disabled={starting || status.gamesRemaining <= 0}
+        className="mt-6 w-full rounded-xl bg-white px-6 py-4 text-xl font-black text-indigo-700 shadow-lg hover:bg-indigo-50 focus-visible:ring-4 focus-visible:ring-yellow-300 disabled:cursor-not-allowed disabled:opacity-50"
       >
-        Check Spelling
+        {starting ? 'Starting…' : status.gamesRemaining > 0 ? `Start game · ${status.gamesRemaining} ${status.gamesRemaining === 1 ? 'play' : 'plays'} left` : 'Games locked'}
       </button>
+      {status.gamesRemaining <= 0 && (
+        <p className="mt-3 text-sm text-white/85">Pass three quizzes with at least 70% to earn two game plays.</p>
+      )}
     </div>
-  );
-};
+  </main>
+);
 
-const ScienceSorterGame: React.FC<{ onExit: (score: number) => void; onXpEarned?: (xp: number) => void }> = ({ onExit, onXpEarned }) => {
-  type SorterSet = { title: string; categories: string[]; cards: { label: string; category: string }[] };
+interface GamePlayerProps {
+  definition: GameDefinition;
+  session: GameSession;
+  onSessionChange: (session: GameSession) => void;
+  onStatusChange: (status: GameStatus) => void;
+  onComplete: (session: GameSession, result: GameResult, status: GameStatus) => void;
+  onLeave: () => void;
+}
 
-  const SETS: SorterSet[] = [
-    {
-      title: 'Vertebrate or Invertebrate?',
-      categories: ['Vertebrate', 'Invertebrate'],
-      cards: [
-        { label: 'Dog', category: 'Vertebrate' },
-        { label: 'Ant', category: 'Invertebrate' },
-        { label: 'Salmon', category: 'Vertebrate' },
-        { label: 'Spider', category: 'Invertebrate' },
-        { label: 'Eagle', category: 'Vertebrate' },
-        { label: 'Worm', category: 'Invertebrate' },
-        { label: 'Frog', category: 'Vertebrate' },
-        { label: 'Snail', category: 'Invertebrate' },
-        { label: 'Snake', category: 'Vertebrate' },
-        { label: 'Jellyfish', category: 'Invertebrate' },
-        { label: 'Shark', category: 'Vertebrate' },
-        { label: 'Butterfly', category: 'Invertebrate' },
-      ],
-    },
-    {
-      title: 'Solid, Liquid or Gas?',
-      categories: ['Solid', 'Liquid', 'Gas'],
-      cards: [
-        { label: 'Ice', category: 'Solid' },
-        { label: 'Water', category: 'Liquid' },
-        { label: 'Steam', category: 'Gas' },
-        { label: 'Rock', category: 'Solid' },
-        { label: 'Milk', category: 'Liquid' },
-        { label: 'Oxygen', category: 'Gas' },
-        { label: 'Wood', category: 'Solid' },
-        { label: 'Juice', category: 'Liquid' },
-        { label: 'Carbon Dioxide', category: 'Gas' },
-        { label: 'Iron', category: 'Solid' },
-        { label: 'Honey', category: 'Liquid' },
-        { label: 'Nitrogen', category: 'Gas' },
-      ],
-    },
-    {
-      title: 'Living or Non-Living?',
-      categories: ['Living', 'Non-Living'],
-      cards: [
-        { label: 'Mushroom', category: 'Living' },
-        { label: 'Stone', category: 'Non-Living' },
-        { label: 'Tree', category: 'Living' },
-        { label: 'Cloud', category: 'Non-Living' },
-        { label: 'Bacteria', category: 'Living' },
-        { label: 'Wind', category: 'Non-Living' },
-        { label: 'Moss', category: 'Living' },
-        { label: 'Fire', category: 'Non-Living' },
-        { label: 'Seaweed', category: 'Living' },
-        { label: 'Sand', category: 'Non-Living' },
-        { label: 'Coral', category: 'Living' },
-        { label: 'Rain', category: 'Non-Living' },
-      ],
-    },
-    {
-      title: 'Which animal class?',
-      categories: ['Mammal', 'Bird', 'Reptile', 'Amphibian', 'Fish'],
-      cards: [
-        { label: 'Whale', category: 'Mammal' },
-        { label: 'Robin', category: 'Bird' },
-        { label: 'Crocodile', category: 'Reptile' },
-        { label: 'Newt', category: 'Amphibian' },
-        { label: 'Trout', category: 'Fish' },
-        { label: 'Bat', category: 'Mammal' },
-        { label: 'Penguin', category: 'Bird' },
-        { label: 'Tortoise', category: 'Reptile' },
-        { label: 'Toad', category: 'Amphibian' },
-        { label: 'Clownfish', category: 'Fish' },
-        { label: 'Dolphin', category: 'Mammal' },
-        { label: 'Parrot', category: 'Bird' },
-      ],
-    },
-  ];
+const GamePlayer: React.FC<GamePlayerProps> = ({ definition, session, onSessionChange, onStatusChange, onComplete, onLeave }) => {
+  const { playCorrect, playIncorrect, playClick, soundEnabled, toggleSound } = useGameSounds();
+  const [answer, setAnswer] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const [feedback, setFeedback] = useState<{ correct: boolean; answer: string; explanation: string } | null>(null);
+  const [error, setError] = useState('');
+  const [speechMessage, setSpeechMessage] = useState('');
+  const [elapsed, setElapsed] = useState(() => Math.max(0, Math.floor((Date.now() - Date.parse(session.startedAt)) / 1000)));
+  const promptRef = useRef<HTMLHeadingElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const nextResponseRef = useRef<Awaited<ReturnType<typeof gameService.answerQuestion>> | null>(null);
 
-  const TOTAL_ROUNDS = 12;
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [score, setScore] = useState(0);
-  const [lives, setLives] = useState(3);
-  const [round, setRound] = useState(0);
-  const [currentSet, setCurrentSet] = useState<SorterSet | null>(null);
-  const [deck, setDeck] = useState<{ label: string; category: string }[]>([]);
-  const [cardIdx, setCardIdx] = useState(0);
-  const [feedback, setFeedback] = useState<'correct' | 'wrong' | null>(null);
-  const [streak, setStreak] = useState(0);
+  const question = session.question;
 
-  const startGame = () => {
-    const chosenSet = SETS[Math.floor(Math.random() * SETS.length)];
-    const shuffled = [...chosenSet.cards].sort(() => Math.random() - 0.5).slice(0, TOTAL_ROUNDS);
-    setCurrentSet(chosenSet);
-    setDeck(shuffled);
-    setCardIdx(0);
-    setRound(0);
-    setScore(0);
-    setLives(3);
-    setStreak(0);
+  useEffect(() => {
+    const timer = window.setInterval(() => setElapsed(Math.max(0, Math.floor((Date.now() - Date.parse(session.startedAt)) / 1000))), 1000);
+    return () => window.clearInterval(timer);
+  }, [session.startedAt]);
+
+  useEffect(() => {
+    setAnswer('');
     setFeedback(null);
-    setIsPlaying(true);
-    soundEffects.playClick();
-  };
+    setError('');
+    window.setTimeout(() => {
+      promptRef.current?.focus();
+      if (question?.kind === 'text') inputRef.current?.focus();
+    }, 50);
+  }, [question?.id]);
 
-  const handleSort = (chosen: string) => {
-    if (feedback) return;
-    const card = deck[cardIdx];
-    const isCorrect = chosen === card.category;
-    if (isCorrect) {
-      soundEffects.playCorrect();
-      const bonus = streak >= 2 ? 5 : 0;
-      setScore(s => s + 15 + bonus);
-      setStreak(s => s + 1);
-      setFeedback('correct');
-    } else {
-      soundEffects.playWrong();
-      setLives(l => l - 1);
-      setStreak(0);
-      setFeedback('wrong');
+  const speakWord = useCallback(() => {
+    if (!question?.speak) return;
+    if (!('speechSynthesis' in window)) {
+      setSpeechMessage('Speech is not available on this device. Use the sentence and spelling hint instead.');
+      return;
     }
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(question.speak);
+    const britishVoice = window.speechSynthesis.getVoices().find((voice) => voice.lang.toLowerCase().startsWith('en-gb'));
+    if (britishVoice) utterance.voice = britishVoice;
+    utterance.lang = 'en-GB';
+    utterance.rate = 0.72;
+    window.speechSynthesis.speak(utterance);
+    setSpeechMessage('Word played.');
+  }, [question?.speak]);
 
-    setTimeout(() => {
-      setFeedback(null);
-      const nextIdx = cardIdx + 1;
-      const nextRound = round + 1;
-      if (nextRound >= TOTAL_ROUNDS || lives - (isCorrect ? 0 : 1) <= 0) {
-        if (timerRef.current) clearInterval(timerRef.current);
-        onXpEarned?.(score + (isCorrect ? 15 : 0));
-        setIsPlaying(false);
-        soundEffects.playWin();
-      } else {
-        setCardIdx(nextIdx);
-        setRound(nextRound);
-      }
-    }, 700);
+  useEffect(() => () => window.speechSynthesis?.cancel(), []);
+
+  const submitAnswer = async (chosen: string) => {
+    if (!question || submitting || feedback) return;
+    const value = chosen.trim();
+    if (!value) {
+      setError('Choose or type an answer first.');
+      return;
+    }
+    setSubmitting(true);
+    setError('');
+    playClick();
+    try {
+      const response = await gameService.answerQuestion(session.sessionId, question.id, value);
+      nextResponseRef.current = response;
+      setFeedback({ correct: response.correct, answer: response.correctAnswer, explanation: response.explanation });
+      response.correct ? playCorrect() : playIncorrect();
+      window.setTimeout(() => {
+        const next = nextResponseRef.current;
+        if (!next) return;
+        onStatusChange(next.status);
+        if (next.completed && next.result) onComplete(next.session, next.result, next.status);
+        else onSessionChange(next.session);
+        nextResponseRef.current = null;
+      }, 1400);
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : 'Unable to submit your answer.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  useEffect(() => () => { if (timerRef.current) clearInterval(timerRef.current); }, []);
+  const submitText = (event: FormEvent) => {
+    event.preventDefault();
+    void submitAnswer(answer);
+  };
 
-  const currentCard = deck[cardIdx];
+  const progress = Math.round((session.currentIndex / session.totalQuestions) * 100);
+  const formatTime = (seconds: number) => `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
 
-  if (!isPlaying) {
-    return (
-      <div className="bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl p-8 text-center">
-        <div className="text-8xl mb-4">🔬</div>
-        <h2 className="text-3xl font-bold text-white mb-2">Science Sorter</h2>
-        {score === 0 ? (
-          <p className="text-white/80 mb-6">Sort science cards into the right categories! {TOTAL_ROUNDS} cards, 3 lives. Streak bonuses available!</p>
-        ) : (
-          <div className="mb-6">
-            <p className="text-white text-xl font-bold">Score: {score}</p>
-            <p className="text-white/70">Lives left: {'❤️'.repeat(lives)}</p>
-          </div>
-        )}
-        <div className="flex gap-4 justify-center">
-          <button onClick={startGame} className="px-8 py-4 bg-white text-emerald-600 rounded-xl font-bold text-xl">
-            {score === 0 ? 'Start Sorting!' : 'Play Again'}
-          </button>
-          {score > 0 && (
-            <button onClick={() => onExit(score)} className="px-8 py-4 bg-white/20 text-white rounded-xl font-bold text-xl hover:bg-white/30">
-              Exit
-            </button>
-          )}
-        </div>
-      </div>
-    );
-  }
+  if (!question) return <p className="text-center text-white" role="status">Preparing the next question…</p>;
 
   return (
-    <div className="bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl p-6">
-      <div className="flex justify-between mb-2 text-white">
-        <span className="font-bold">{'❤️'.repeat(lives)}{'🖤'.repeat(3 - lives)}</span>
-        <span className="font-bold">{round + 1}/{TOTAL_ROUNDS}</span>
-        <span className="font-bold">Score: {score}</span>
-      </div>
-      {streak >= 2 && <p className="text-yellow-200 text-center text-sm font-bold mb-1">🔥 {streak}× streak!</p>}
-
-      <p className="text-white/80 text-center text-sm font-semibold mb-4">{currentSet?.title}</p>
-
-      {/* Card */}
-      <div className={`bg-white rounded-2xl p-8 text-center mb-6 shadow-lg transition-all ${feedback === 'correct' ? 'ring-4 ring-yellow-300' : feedback === 'wrong' ? 'ring-4 ring-red-400' : ''}`}>
-        <p className="text-4xl font-bold text-emerald-700">{currentCard?.label}</p>
-        {feedback && (
-          <p className={`mt-2 font-bold ${feedback === 'correct' ? 'text-green-600' : 'text-red-500'}`}>
-            {feedback === 'correct' ? '✓ Correct!' : `✗ It's a ${currentCard?.category}`}
-          </p>
-        )}
-      </div>
-
-      {/* Category buttons */}
-      <div className="grid grid-cols-2 gap-3">
-        {currentSet?.categories.map(cat => (
+    <main className="max-w-2xl mx-auto">
+      <div className={`rounded-3xl bg-gradient-to-br ${definition.colour} p-4 sm:p-7 shadow-2xl`}>
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-2 text-sm font-bold text-white">
+          <span>{definition.icon} {definition.name}</span>
+          <span>Question {session.currentIndex + 1}/{session.totalQuestions}</span>
+          <span aria-label={`Elapsed time ${formatTime(elapsed)}`}>⏱ {formatTime(elapsed)}</span>
           <button
-            key={cat}
-            onClick={() => handleSort(cat)}
-            disabled={!!feedback}
-            className="py-3 bg-white/20 hover:bg-white/30 text-white font-bold rounded-xl transition-all disabled:opacity-60 text-sm"
+            type="button"
+            onClick={toggleSound}
+            className="rounded-lg bg-white/15 px-3 py-1 focus-visible:ring-4 focus-visible:ring-white"
+            aria-pressed={soundEnabled}
+            aria-label={soundEnabled ? 'Turn game sounds off' : 'Turn game sounds on'}
           >
-            {cat}
+            {soundEnabled ? '🔊 Sound on' : '🔇 Sound off'}
           </button>
-        ))}
+        </div>
+
+        <div className="mb-5 h-3 overflow-hidden rounded-full bg-black/20" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress} aria-label="Game progress">
+          <div className="h-full rounded-full bg-white transition-all motion-reduce:transition-none" style={{ width: `${progress}%` }} />
+        </div>
+
+        <section className="rounded-2xl bg-white p-5 sm:p-7 text-center shadow-lg">
+          <h1 ref={promptRef} tabIndex={-1} className="text-2xl sm:text-3xl font-black text-slate-900 focus:outline-none">{question.prompt}</h1>
+          {question.context && <p className="mt-3 text-slate-600">{question.context}</p>}
+          {question.speak && (
+            <div className="mt-4">
+              <button type="button" onClick={speakWord} className="rounded-xl bg-amber-100 px-5 py-3 font-bold text-amber-900 focus-visible:ring-4 focus-visible:ring-amber-400">
+                🔊 Hear the word
+              </button>
+              <p className="mt-2 text-sm text-slate-500">{question.hint} · {question.speak.length} letters</p>
+              <span className="sr-only" aria-live="polite">{speechMessage}</span>
+            </div>
+          )}
+        </section>
+
+        <div className="mt-4">
+          {question.kind === 'choice' ? (
+            <div className="grid gap-3 sm:grid-cols-2" aria-label="Answer choices">
+              {question.options?.map((option) => (
+                <button
+                  type="button"
+                  key={option}
+                  onClick={() => void submitAnswer(option)}
+                  disabled={submitting || !!feedback}
+                  className="min-h-16 rounded-xl bg-white/20 px-4 py-3 text-base font-bold text-white hover:bg-white/30 focus-visible:ring-4 focus-visible:ring-yellow-300 disabled:opacity-60"
+                >
+                  {option}
+                </button>
+              ))}
+            </div>
+          ) : (
+            <form onSubmit={submitText}>
+              <label htmlFor="spelling-answer" className="sr-only">Type the missing word</label>
+              <input
+                ref={inputRef}
+                id="spelling-answer"
+                value={answer}
+                onChange={(event) => setAnswer(event.target.value)}
+                disabled={submitting || !!feedback}
+                autoComplete="off"
+                spellCheck={false}
+                className="w-full rounded-xl bg-white px-4 py-4 text-center text-xl font-bold text-slate-900 focus-visible:ring-4 focus-visible:ring-yellow-300"
+                placeholder="Type the word"
+              />
+              <button type="submit" disabled={submitting || !!feedback || !answer.trim()} className="mt-3 w-full rounded-xl bg-slate-950 px-5 py-4 font-bold text-white focus-visible:ring-4 focus-visible:ring-yellow-300 disabled:opacity-50">
+                {submitting ? 'Checking…' : 'Check spelling'}
+              </button>
+            </form>
+          )}
+        </div>
+
+        <div className="mt-4 min-h-24" aria-live="polite" aria-atomic="true">
+          {feedback && (
+            <div className={`rounded-xl p-4 ${feedback.correct ? 'bg-emerald-100 text-emerald-900' : 'bg-rose-100 text-rose-900'}`} role="status">
+              <p className="font-black">{feedback.correct ? '✓ Correct!' : `Not quite — the answer is ${feedback.answer}.`}</p>
+              <p className="mt-1 text-sm">{feedback.explanation}</p>
+            </div>
+          )}
+          {error && <p className="rounded-xl bg-red-100 p-3 text-red-800" role="alert">{error}</p>}
+        </div>
+
+        <button type="button" onClick={onLeave} className="mt-2 rounded-lg px-3 py-2 text-sm font-semibold text-white/80 underline focus-visible:ring-4 focus-visible:ring-white">
+          Save and return to games
+        </button>
       </div>
-    </div>
+    </main>
   );
 };
 
-const HistoryMatchGame: React.FC<{ onExit: (score: number) => void; onXpEarned?: (xp: number) => void }> = ({ onExit, onXpEarned }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [score, setScore] = useState(0);
-  const [cards, setCards] = useState<{ id: number; content: string; type: 'event' | 'date'; matched: boolean; flipped: boolean }[]>([]);
-  const [flipped, setFlipped] = useState<number[]>([]);
-  const [matches, setMatches] = useState(0);
-  const [currentPairs, setCurrentPairs] = useState<{ event: string; date: string }[]>([]);
-  const [difficulty, setDifficulty] = useState<'easy' | 'medium' | 'hard'>('easy');
-  const [loading, setLoading] = useState(false);
-
-  // Comprehensive history pairs for KS2
-  const allPairs = {
-    // British History
-    british: [
-      { event: 'Great Fire of London', date: '1666' },
-      { event: 'Battle of Hastings', date: '1066' },
-      { event: 'Queen Victoria became Queen', date: '1837' },
-      { event: 'Queen Elizabeth II Coronation', date: '1953' },
-      { event: 'Gunpowder Plot', date: '1605' },
-      { event: 'King Henry VIII became King', date: '1509' },
-      { event: 'English Civil War began', date: '1642' },
-      { event: 'The Plague in London', date: '1665' },
-      { event: 'Magna Carta signed', date: '1215' },
-      { event: 'Battle of Trafalgar', date: '1805' },
-      { event: 'Queen Elizabeth I became Queen', date: '1558' },
-      { event: 'Spanish Armada defeated', date: '1588' },
-      { event: 'Battle of Waterloo', date: '1815' },
-      { event: 'The Blitz began', date: '1940' },
-      { event: 'NHS was created', date: '1948' },
-    ],
-    // World History
-    world: [
-      { event: 'First Moon Landing', date: '1969' },
-      { event: 'World War 1 began', date: '1914' },
-      { event: 'World War 2 ended', date: '1945' },
-      { event: 'Berlin Wall fell', date: '1989' },
-      { event: 'Christopher Columbus reached America', date: '1492' },
-      { event: 'French Revolution began', date: '1789' },
-      { event: 'American Independence', date: '1776' },
-      { event: 'Titanic sank', date: '1912' },
-      { event: 'First aeroplane flight', date: '1903' },
-      { event: 'World War 2 began', date: '1939' },
-      { event: 'Martin Luther King "I Have a Dream"', date: '1963' },
-      { event: 'Nelson Mandela freed', date: '1990' },
-      { event: 'First computer invented', date: '1946' },
-      { event: 'Internet created', date: '1991' },
-      { event: 'First mobile phone call', date: '1973' },
-    ],
-    // Ancient History
-    ancient: [
-      { event: 'Pyramids of Giza built (approx)', date: '2560 BC' },
-      { event: 'Roman Empire began', date: '27 BC' },
-      { event: 'Julius Caesar died', date: '44 BC' },
-      { event: 'Romans invaded Britain', date: '43 AD' },
-      { event: 'Romans left Britain', date: '410 AD' },
-      { event: 'Vikings first raided Britain', date: '793 AD' },
-      { event: 'Ancient Olympics began (approx)', date: '776 BC' },
-      { event: 'Alexander the Great died', date: '323 BC' },
-      { event: 'Cleopatra became Queen', date: '51 BC' },
-      { event: 'Great Wall of China built (approx)', date: '221 BC' },
-    ],
-    // Famous People
-    people: [
-      { event: 'Leonardo da Vinci born', date: '1452' },
-      { event: 'Shakespeare born', date: '1564' },
-      { event: 'Isaac Newton discovered gravity', date: '1687' },
-      { event: 'Charles Darwin "Origin of Species"', date: '1859' },
-      { event: 'Florence Nightingale in Crimea', date: '1854' },
-      { event: 'Albert Einstein born', date: '1879' },
-      { event: 'Winston Churchill became PM', date: '1940' },
-      { event: 'Princess Diana died', date: '1997' },
-      { event: 'Barack Obama elected President', date: '2008' },
-      { event: 'Queen Elizabeth II died', date: '2022' },
-    ],
-  };
-
-  const selectPairs = (diff: 'easy' | 'medium' | 'hard', sourcePairs?: { event: string; date: string }[]) => {
-    const count = diff === 'easy' ? 4 : diff === 'medium' ? 6 : 8;
-    
-    let allAvailable: { event: string; date: string }[] = [];
-
-    if (sourcePairs && sourcePairs.length >= count) {
-      allAvailable = sourcePairs;
-    } else {
-      // Mix from different categories (fallback)
-      allAvailable = [
-        ...allPairs.british,
-        ...allPairs.world,
-        ...allPairs.ancient.slice(0, 5),
-        ...allPairs.people,
-      ];
-    }
-    
-    const shuffled = [...allAvailable].sort(() => Math.random() - 0.5);
-    return shuffled.slice(0, count);
-  };
-
-  const startGame = async (diff: 'easy' | 'medium' | 'hard') => {
-    setDifficulty(diff);
-    setLoading(true);
-
-    try {
-      // Try to fetch from qbank
-      const questions = await gameService.getQuestionsForGame('History', 30);
-      
-      // Filter for questions that look like date questions
-      // We want short answers (dates usually)
-      const qbankPairs = questions
-        .filter(q => q.correctAnswer && q.correctAnswer.length < 20) // Arbitrary length check for "date-like" or short answer
-        .map(q => ({
-          event: q.question,
-          date: q.correctAnswer
-        }));
-
-      const selectedPairs = selectPairs(diff, qbankPairs);
-      setCurrentPairs(selectedPairs);
-      
-      const newCards = selectedPairs.flatMap((pair, i) => [
-        { id: i * 2, content: pair.event, type: 'event' as const, matched: false, flipped: false },
-        { id: i * 2 + 1, content: pair.date, type: 'date' as const, matched: false, flipped: false },
-      ]).sort(() => Math.random() - 0.5);
-      
-      setCards(newCards);
-      setMatches(0);
-      setFlipped([]);
-      setScore(0);
-      setIsPlaying(true);
-    } catch (error) {
-      console.error("Error starting history game:", error);
-      // Fallback
-      const selectedPairs = selectPairs(diff);
-      setCurrentPairs(selectedPairs);
-      
-      const newCards = selectedPairs.flatMap((pair, i) => [
-        { id: i * 2, content: pair.event, type: 'event' as const, matched: false, flipped: false },
-        { id: i * 2 + 1, content: pair.date, type: 'date' as const, matched: false, flipped: false },
-      ]).sort(() => Math.random() - 0.5);
-      
-      setCards(newCards);
-      setMatches(0);
-      setFlipped([]);
-      setScore(0);
-      setIsPlaying(true);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleCardClick = (index: number) => {
-    if (flipped.length === 2 || cards[index].flipped || cards[index].matched) return;
-    soundEffects.playClick();
-
-    const newCards = [...cards];
-    newCards[index].flipped = true;
-    setCards(newCards);
-    
-    const newFlipped = [...flipped, index];
-    setFlipped(newFlipped);
-
-    if (newFlipped.length === 2) {
-      const [first, second] = newFlipped;
-      const card1 = cards[first];
-      const card2 = cards[second];
-
-      // Check if they match
-      const pair = currentPairs.find(p => 
-        (p.event === card1.content && p.date === card2.content) ||
-        (p.event === card2.content && p.date === card1.content)
-      );
-
-      setTimeout(() => {
-        if (pair) {
-          soundEffects.playCorrect();
-          newCards[first].matched = true;
-          newCards[second].matched = true;
-          setCards([...newCards]);
-          const points = difficulty === 'easy' ? 25 : difficulty === 'medium' ? 30 : 35;
-          setScore(prev => prev + points);
-          setMatches(prev => {
-            const newMatches = prev + 1;
-            if (newMatches === currentPairs.length) {
-              soundEffects.playWin();
-              onXpEarned?.(score + points);
-              setIsPlaying(false);
-            }
-            return newMatches;
-          });
-        } else {
-          soundEffects.playWrong();
-          newCards[first].flipped = false;
-          newCards[second].flipped = false;
-          setCards([...newCards]);
-        }
-        setFlipped([]);
-      }, 1000);
-    }
-  };
-
-  if (!isPlaying) {
-    return (
-      <div className="bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl p-8 text-center">
-        <div className="text-8xl mb-4">🏛️</div>
-        <h2 className="text-3xl font-bold text-white mb-4">History Match</h2>
-        <p className="text-white/80 mb-6">Match historical events with their dates!</p>
-        {score > 0 && <p className="text-white mb-4">Final Score: {score}</p>}
-        
-        <div className="space-y-3">
-          <button
-            onClick={() => startGame('easy')}
-            disabled={loading}
-            className="w-full px-8 py-4 bg-green-500 text-white rounded-xl font-bold text-lg hover:bg-green-600 disabled:opacity-50"
-          >
-            {loading ? 'Loading...' : 'Easy (4 pairs)'}
+const GameResultCard: React.FC<{
+  definition: GameDefinition;
+  result: GameResult;
+  highScore: number;
+  gamesRemaining: number;
+  onPlayAgain: () => void;
+  onGames: () => void;
+}> = ({ definition, result, highScore, gamesRemaining, onPlayAgain, onGames }) => {
+  const stars = result.stars ? '⭐'.repeat(result.stars) : '🌱';
+  return (
+    <main className="max-w-xl mx-auto">
+      <div className={`rounded-3xl bg-gradient-to-br ${definition.colour} p-7 sm:p-10 text-center text-white shadow-2xl`}>
+        <div className="text-6xl" aria-hidden="true">{stars}</div>
+        <h1 className="mt-3 text-3xl font-black">Mission complete!</h1>
+        <p className="mt-4 text-5xl font-black">{result.accuracy}%</p>
+        <p className="mt-2 text-white/85">{result.correct} of {result.total} correct</p>
+        <div className="mt-6 grid grid-cols-2 gap-3 text-left">
+          <div className="rounded-xl bg-white/15 p-3"><span className="block text-sm text-white/70">Score</span><strong>{result.score}</strong></div>
+          <div className="rounded-xl bg-white/15 p-3"><span className="block text-sm text-white/70">Best</span><strong>{highScore}</strong></div>
+          <div className="rounded-xl bg-white/15 p-3"><span className="block text-sm text-white/70">XP earned</span><strong>+{result.xpEarned}</strong></div>
+          <div className="rounded-xl bg-white/15 p-3"><span className="block text-sm text-white/70">Time</span><strong>{Math.floor(result.durationSeconds / 60)}:{String(result.durationSeconds % 60).padStart(2, '0')}</strong></div>
+        </div>
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
+          <button type="button" onClick={onGames} className="rounded-xl bg-white/20 px-6 py-3 font-bold focus-visible:ring-4 focus-visible:ring-white">Choose another game</button>
+          <button type="button" onClick={onPlayAgain} disabled={gamesRemaining <= 0} className="rounded-xl bg-white px-6 py-3 font-bold text-indigo-700 focus-visible:ring-4 focus-visible:ring-yellow-300 disabled:opacity-50">
+            {gamesRemaining > 0 ? 'Play again' : 'Earn more plays'}
           </button>
-          <button
-            onClick={() => startGame('medium')}
-            disabled={loading}
-            className="w-full px-8 py-4 bg-yellow-500 text-white rounded-xl font-bold text-lg hover:bg-yellow-600 disabled:opacity-50"
-          >
-            {loading ? 'Loading...' : 'Medium (6 pairs)'}
-          </button>
-          <button
-            onClick={() => startGame('hard')}
-            disabled={loading}
-            className="w-full px-8 py-4 bg-red-500 text-white rounded-xl font-bold text-lg hover:bg-red-600 disabled:opacity-50"
-          >
-            {loading ? 'Loading...' : 'Hard (8 pairs)'}
-          </button>
-          {score > 0 && (
-            <button
-              onClick={() => onExit(score)}
-              className="w-full px-8 py-4 bg-white/20 text-white rounded-xl font-bold text-lg hover:bg-white/30"
-            >
-              Exit & Save Score
-            </button>
-          )}
         </div>
       </div>
-    );
-  }
-
-  const gridCols = difficulty === 'easy' ? 'grid-cols-4' : difficulty === 'medium' ? 'grid-cols-4' : 'grid-cols-4';
-
-  return (
-    <div className="bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl p-6">
-      <div className="flex justify-between mb-4">
-        <span className="text-white font-bold">Matches: {matches}/{currentPairs.length}</span>
-        <span className="text-white font-bold">Score: {score}</span>
-      </div>
-
-      <div className={`grid ${gridCols} gap-2`}>
-        {cards.map((card, i) => (
-          <button
-            key={card.id}
-            onClick={() => handleCardClick(i)}
-            className={`aspect-square rounded-xl font-bold text-xs sm:text-sm p-1 sm:p-2 transition-all ${
-              card.matched
-                ? 'bg-green-500 text-white'
-                : card.flipped
-                ? 'bg-white text-indigo-600'
-                : 'bg-white/20 text-white hover:bg-white/30'
-            }`}
-          >
-            {card.flipped || card.matched ? card.content : '?'}
-          </button>
-        ))}
-      </div>
-      
-      <p className="text-white/60 text-xs text-center mt-4">
-        Match each event with its year
-      </p>
-    </div>
+    </main>
   );
 };
 

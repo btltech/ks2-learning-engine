@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense, lazy } from 'react';
+import React, { useState, useEffect, useRef, Suspense, lazy } from 'react';
 import { Routes, Route, useNavigate, useLocation, useParams, Navigate } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -137,20 +137,30 @@ const AppContent: React.FC = () => {
   // Games unlock state
   const [gamesUnlockStatus, setGamesUnlockStatus] = useState(() => gamesUnlockService.getStatus());
   const [showGamesUnlockedCelebration, setShowGamesUnlockedCelebration] = useState(false);
+  const gamesStatusReady = useRef(false);
   
   // Subscribe to games unlock changes
   useEffect(() => {
     const unsubscribe = gamesUnlockService.subscribe(() => {
       const newStatus = gamesUnlockService.getStatus();
-      const wasLocked = !gamesUnlockStatus.isUnlocked;
-      setGamesUnlockStatus(newStatus);
-      // Show celebration when games just unlocked
-      if (wasLocked && newStatus.isUnlocked) {
-        setShowGamesUnlockedCelebration(true);
-      }
+      setGamesUnlockStatus((previous) => {
+        if (gamesStatusReady.current && !previous.isUnlocked && newStatus.isUnlocked) {
+          setShowGamesUnlockedCelebration(true);
+        }
+        gamesStatusReady.current = true;
+        return newStatus;
+      });
     });
     return unsubscribe;
-  }, [gamesUnlockStatus.isUnlocked]);
+  }, []);
+
+  useEffect(() => {
+    gamesUnlockService.clear();
+    gamesStatusReady.current = false;
+    if (user && hasRole(user, 'student')) {
+      void gamesUnlockService.refresh().catch(() => undefined);
+    }
+  }, [user?.id]);
   
   // Use age from user profile, default to 9 if not set
   const studentAge = user?.age || 9;
@@ -580,7 +590,7 @@ const AppContent: React.FC = () => {
                   <GuidedHomeView
                     onSelectSubject={(s) => navigate(`/subject/${encodeURIComponent(s.name)}`)}
                     onStartDailyChallenge={handleStartDailyChallenge}
-                    onOpenMiniGames={gamesUnlockStatus.isUnlocked ? () => navigate('/games') : undefined}
+                    onOpenMiniGames={() => navigate('/games')}
                     onOpenAchievements={() => setShowAchievements(true)}
                     onOpenAvatarCustomization={() => navigate('/avatar')}
                     progress={progress}
@@ -596,7 +606,7 @@ const AppContent: React.FC = () => {
                     onOpenAchievements={() => setShowAchievements(true)}
                     onOpenClassroom={featureVisibility.showClassroomMode ? () => navigate('/classroom') : undefined}
                     onOpenAnalytics={featureVisibility.showAnalytics ? () => setShowAnalytics(true) : undefined}
-                    onOpenMiniGames={gamesUnlockStatus.isUnlocked ? () => navigate('/games') : undefined}
+                    onOpenMiniGames={() => navigate('/games')}
                     onOpenArtStudio={() => navigate('/art-studio')}
                     onOpenCurriculumCoverage={featureVisibility.showCurriculumCoverage ? () => setShowCurriculumCoverage(true) : undefined}
                     onOpenSATsPractice={featureVisibility.showSATsPractice ? () => setShowSATsPractice(true) : undefined}
@@ -651,18 +661,11 @@ const AppContent: React.FC = () => {
 
               {/* Full Page Feature Routes */}
               <Route path="/games" element={
-                gamesUnlockStatus.isUnlocked ? (
-                  <MiniGames
-                    onClose={() => navigate('/')}
-                    onXpEarned={(xp) => {
-                      addPoints(xp);
-                      if (user?.id) void firebaseAuthService.incrementUserPoints(user.id, xp);
-                    }}
-                    onGameStarted={() => gamesUnlockService.recordGamePlay()}
-                  />
-                ) : (
-                  <Navigate to="/" />
-                )
+                <MiniGames
+                  onClose={() => navigate('/')}
+                  onXpEarned={(xp) => addPoints(xp)}
+                  status={gamesUnlockStatus}
+                />
               } />
               
               <Route path="/avatar" element={

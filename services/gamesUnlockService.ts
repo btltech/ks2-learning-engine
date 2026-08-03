@@ -1,166 +1,74 @@
-/**
- * Games Unlock Service
- * 
- * Manages the unlock system for Mini Games - games are locked until
- * students complete a quiz with a good score.
- */
+import { GameStatus, gameService } from './gameService';
 
-const GAMES_UNLOCK_KEY = 'ks2_games_unlock';
-const STORAGE_VERSION = 3;
-const REQUIRED_CORRECT = 7; // per quiz, out of REQUIRED_TOTAL
-const REQUIRED_TOTAL = 10;
-const REQUIRED_PASSES = 3;  // number of passing quizzes needed to unlock games
-const MAX_GAMES_PER_PASS = 2;
-
-interface GamesUnlockDataV3 {
-  version: 3;
-  gamesRemaining: number;
-  passesCount: number;  // accumulated passing quizzes toward next unlock
-  lastQuiz?: {
-    correct: number;
-    total: number;
-    passed: boolean;
-    at: string; // ISO
-  };
-}
+const EMPTY_STATUS: GameStatus = {
+  isUnlocked: false,
+  gamesRemaining: 0,
+  requiredCorrect: 7,
+  totalQuestions: 10,
+  passesCount: 0,
+  requiredPasses: 3,
+  highScores: {},
+  gamesPlayed: 0,
+  activeSessionId: null,
+};
 
 class GamesUnlockService {
-  private data: GamesUnlockDataV3;
-  private listeners: Set<() => void> = new Set();
+  private status: GameStatus = EMPTY_STATUS;
+  private listeners = new Set<() => void>();
+  private refreshPromise: Promise<GameStatus> | null = null;
+  private retryTimers: ReturnType<typeof setTimeout>[] = [];
 
-  constructor() {
-    this.data = this.loadData();
+  getStatus(): GameStatus {
+    return this.status;
   }
 
-  private loadData(): GamesUnlockDataV3 {
-    try {
-      const stored = localStorage.getItem(GAMES_UNLOCK_KEY);
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        // Migrate v2 → v3
-        if (parsed?.version === 2 && typeof parsed?.gamesRemaining === 'number') {
-          return { version: 3, gamesRemaining: parsed.gamesRemaining, passesCount: 0, lastQuiz: parsed.lastQuiz };
-        }
-        if (parsed?.version === STORAGE_VERSION && typeof parsed?.gamesRemaining === 'number') {
-          return parsed as GamesUnlockDataV3;
-        }
-      }
-    } catch (e) {
-      console.error('Error loading games unlock data:', e);
-    }
-    return { version: STORAGE_VERSION, gamesRemaining: 0, passesCount: 0 };
+  setStatus(status: GameStatus) {
+    this.status = status;
+    this.listeners.forEach((listener) => listener());
   }
 
-  private saveData(): void {
-    try {
-      localStorage.setItem(GAMES_UNLOCK_KEY, JSON.stringify(this.data));
-    } catch (e) {
-      console.error('Error saving games unlock data:', e);
-    }
+  clear() {
+    this.retryTimers.forEach(clearTimeout);
+    this.retryTimers = [];
+    this.status = EMPTY_STATUS;
+    this.listeners.forEach((listener) => listener());
   }
 
-  private notifyListeners(): void {
-    this.listeners.forEach(listener => listener());
+  async refresh(): Promise<GameStatus> {
+    if (this.refreshPromise) return this.refreshPromise;
+    this.refreshPromise = gameService.getState()
+      .then(({ status }) => {
+        this.setStatus(status);
+        return status;
+      })
+      .finally(() => {
+        this.refreshPromise = null;
+      });
+    return this.refreshPromise;
   }
 
   /**
-   * Record quiz completion. Accumulates passing quizzes; unlocks games after REQUIRED_PASSES passes.
+   * Quiz history is persisted by UserContext. Show the latest result
+   * immediately, then refresh the server-derived credit balance after that
+   * profile write has had time to complete.
    */
   recordQuizResult(params: { correct: number; total: number }): void {
     const total = Math.max(1, Math.trunc(params.total));
-    const correct = Math.max(0, Math.trunc(params.correct));
-    const passed = total === REQUIRED_TOTAL
-      ? correct >= REQUIRED_CORRECT
-      : (correct / total) >= (REQUIRED_CORRECT / REQUIRED_TOTAL);
-
-    const now = new Date().toISOString();
-    this.data.lastQuiz = { correct, total, passed, at: now };
-
-    if (passed) {
-      this.data.passesCount = (this.data.passesCount || 0) + 1;
-      if (this.data.passesCount >= REQUIRED_PASSES) {
-        this.data.gamesRemaining = MAX_GAMES_PER_PASS;
-        this.data.passesCount = 0; // reset for next unlock cycle
-      }
-    }
-
-    this.saveData();
-    this.notifyListeners();
+    const correct = Math.max(0, Math.min(total, Math.trunc(params.correct)));
+    const passed = correct / total >= 0.7;
+    this.setStatus({
+      ...this.status,
+      lastQuiz: { correct, total, passed, at: new Date().toISOString() },
+    });
+    this.retryTimers.forEach(clearTimeout);
+    this.retryTimers = [1200, 3500].map((delay) => setTimeout(() => {
+      void this.refresh().catch(() => undefined);
+    }, delay));
   }
 
-  /**
-   * Get current unlock status
-   */
-  getStatus(): {
-    requiredCorrect: number;
-    totalQuestions: number;
-    isUnlocked: boolean;
-    gamesRemaining: number;
-    passesCount: number;
-    requiredPasses: number;
-    lastQuiz?: GamesUnlockDataV3['lastQuiz'];
-  } {
-    const gamesRemaining = Math.max(0, this.data.gamesRemaining);
-    return {
-      requiredCorrect: REQUIRED_CORRECT,
-      totalQuestions: REQUIRED_TOTAL,
-      isUnlocked: gamesRemaining > 0,
-      gamesRemaining,
-      passesCount: this.data.passesCount || 0,
-      requiredPasses: REQUIRED_PASSES,
-      lastQuiz: this.data.lastQuiz,
-    };
-  }
-
-  /**
-   * Check if games are unlocked
-   */
-  isUnlocked(): boolean {
-    return this.data.gamesRemaining > 0;
-  }
-
-  /**
-   * Record a game play session
-   */
-  recordGamePlay(): void {
-    if (this.data.gamesRemaining > 0) {
-      this.data.gamesRemaining -= 1;
-    }
-    this.saveData();
-    this.notifyListeners();
-  }
-
-  /**
-   * Subscribe to unlock status changes
-   */
   subscribe(listener: () => void): () => void {
     this.listeners.add(listener);
     return () => this.listeners.delete(listener);
-  }
-
-  /**
-   * Force unlock (for admin/testing)
-   */
-  forceUnlock(): void {
-    this.data.gamesRemaining = MAX_GAMES_PER_PASS;
-    this.saveData();
-    this.notifyListeners();
-  }
-
-  /**
-   * Reset for testing
-   */
-  reset(): void {
-    this.data = { version: STORAGE_VERSION, gamesRemaining: 0, passesCount: 0 };
-    this.saveData();
-    this.notifyListeners();
-  }
-
-  /**
-   * Get required correct answers constant
-   */
-  getRequiredAnswers(): { requiredCorrect: number; totalQuestions: number } {
-    return { requiredCorrect: REQUIRED_CORRECT, totalQuestions: REQUIRED_TOTAL };
   }
 }
 

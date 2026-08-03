@@ -76,7 +76,7 @@ const CURRICULUM_PATHS: any[] = [
     subject: 'Maths' as string,
     difficulty: Difficulty.Easy,
     estimatedHours: 10,
-    badges: ['number_ninja', 'addition_ace'],
+    badges: ['maths_mission', 'addition_ace'],
     steps: [
       {
         id: 'maths-1-1',
