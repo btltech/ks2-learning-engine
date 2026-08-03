@@ -20,6 +20,7 @@ import {
 import { CURATED_LANGUAGES, getCurriculumUnit, getCurriculumUnits, getYearGroupForAge } from '../data/curriculumSequences';
 import { getReviewedLesson } from '../data/reviewedLessons';
 import { getReviewedQuestions } from '../data/reviewedQuestions';
+import { getReviewedLanguageLesson, getReviewedLanguageQuestions } from '../data/reviewedLanguageContent';
 
 const LANGUAGE_SUBJECTS = CURATED_LANGUAGES.map((language) => language.toLowerCase());
 
@@ -121,7 +122,8 @@ export const getTopicsForSubject = async (subject: string, studentAge: number): 
 
 export const generateLesson = async (subject: string, topic: string, difficulty: Difficulty, studentAge: number): Promise<string> => {
   const cacheKey = createCacheKey('lesson', subject, topic, difficulty, studentAge.toString());
-  const reviewedLesson = getReviewedLesson(subject, topic, studentAge);
+  const reviewedLesson = getReviewedLesson(subject, topic, studentAge)
+    || getReviewedLanguageLesson(subject, topic, studentAge);
   if (reviewedLesson) return reviewedLesson;
   const curriculumUnit = getCurriculumUnit(subject, topic, studentAge);
   
@@ -261,6 +263,8 @@ export const generateQuiz = async (
   // Sensitive personal-development content is reviewed and deterministic, never improvised by AI.
   const reviewedQuestions = getReviewedQuestions(subject, topic, studentAge);
   if (reviewedQuestions.length > 0) return reviewedQuestions;
+  const reviewedLanguageQuestions = getReviewedLanguageQuestions(subject, topic, studentAge);
+  if (reviewedLanguageQuestions.length > 0) return reviewedLanguageQuestions;
 
   // ADAPTIVE DIFFICULTY: Adjust based on student performance
   const adaptedDifficulty = studentQuizHistory 

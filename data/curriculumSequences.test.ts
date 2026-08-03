@@ -3,6 +3,7 @@ import { SUBJECTS, LANGUAGES } from '../constants';
 import { CURATED_LANGUAGES, getCurriculumUnits } from './curriculumSequences';
 import { getQuestionsForCurriculumUnit } from './questionBank';
 import { Difficulty } from '../types';
+import { getReviewedLanguageLesson, getReviewedLanguageQuestions } from './reviewedLanguageContent';
 
 describe('published curriculum sequences', () => {
   it('gives every visible learning subject an ordered sequence in every KS2 year', () => {
@@ -36,5 +37,16 @@ describe('published curriculum sequences', () => {
     expect(romanian).toHaveLength(5);
     expect(romanian.every((question) => question.topic === 'Romanian: Numbers')).toBe(true);
     expect(romanian.some((question) => question.correctAnswer === 'Cinci')).toBe(true);
+  });
+
+  it('provides reviewed lessons and questions for every Yoruba and Romanian unit', () => {
+    for (const language of ['Yoruba', 'Romanian']) {
+      for (const age of [7, 8, 9, 10]) {
+        for (const unit of getCurriculumUnits(language, age)) {
+          expect(getReviewedLanguageLesson(language, unit.title, age), `${language}: ${unit.title}`).toContain('# Modelled Example');
+          expect(getReviewedLanguageQuestions(language, unit.title, age), `${language}: ${unit.title}`).toHaveLength(4);
+        }
+      }
+    }
   });
 });

@@ -13,6 +13,7 @@ import DOMPurify from 'dompurify';
 import { CURATED_LANGUAGES, getCurriculumUnit, getYearGroupForAge } from '../data/curriculumSequences';
 import { getQuestionsForCurriculumUnit } from '../data/questionBank';
 import { getReviewedQuestions } from '../data/reviewedQuestions';
+import { getReviewedLanguageQuestions } from '../data/reviewedLanguageContent';
 
 // A simple markdown to HTML converter
 const Markdown: React.FC<{ content: string }> = ({ content }) => {
@@ -157,7 +158,10 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
       setPracticeQuestions([]);
       return () => { active = false; };
     }
-    const reviewed = getReviewedQuestions(subject, topic, studentAge);
+    const reviewed = [
+      ...getReviewedQuestions(subject, topic, studentAge),
+      ...getReviewedLanguageQuestions(subject, topic, studentAge),
+    ];
     const questionsPromise = reviewed.length > 0
       ? Promise.resolve(reviewed.slice(0, 2))
       : getQuestionsForCurriculumUnit(subject, curriculumUnit.bankTopic, studentAge, difficulty, 2);
