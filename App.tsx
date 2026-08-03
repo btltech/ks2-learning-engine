@@ -265,8 +265,11 @@ const AppContent: React.FC = () => {
       : Difficulty.Medium;
 
   const handleLoginWrapper = (userProfile: UserProfile) => {
-    // Set the user in context and localStorage
+    // Set the authenticated profile, then leave the public login route.
+    // Without this navigation, the authenticated route table keeps rendering
+    // LoginView at /login even though the header already shows the user.
     setUser(userProfile);
+    navigate('/', { replace: true });
   };
 
   const handleQuizSubmit = (results: QuizResult[]) => {
@@ -570,7 +573,7 @@ const AppContent: React.FC = () => {
         <div className="mobile-shell py-4 mobile:py-5 sm:py-6 lg:py-10">
           <Suspense fallback={<LoadingSpinner />}>
             <Routes>
-              <Route path="/login" element={<LoginView onLogin={handleLoginWrapper} />} />
+              <Route path="/login" element={<Navigate to="/" replace />} />
               
               <Route path="/" element={
                 // Route based on user role
