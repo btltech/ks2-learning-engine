@@ -379,7 +379,7 @@ async function findChildrenByNameAgeUnderParent(
   accessToken: string,
   parentUid: string,
   child: { name: string; age: number }
-): Promise<Array<{ uid: string; loginKeyHash?: string }>> {
+): Promise<Array<{ uid: string; loginKeyHash?: string; pinHash?: string }>> {
   const url = `https://firestore.googleapis.com/v1/projects/${encodeURIComponent(projectId)}/databases/(default)/documents:runQuery`;
   const body = {
     structuredQuery: {
@@ -410,7 +410,7 @@ async function findChildrenByNameAgeUnderParent(
   }
 
   const desiredName = child.name.trim().toLowerCase();
-  const matches: Array<{ uid: string; loginKeyHash?: string }> = [];
+  const matches: Array<{ uid: string; loginKeyHash?: string; pinHash?: string }> = [];
   for (const row of Array.isArray(data) ? data : []) {
     const doc = row?.document;
     const docName = doc?.name;
@@ -430,6 +430,7 @@ async function findChildrenByNameAgeUnderParent(
       matches.push({
         uid,
         loginKeyHash: parseFirestoreString(fields.childLoginKeyHash) || undefined,
+        pinHash: parseFirestoreString(fields.childPinHash) || undefined,
       });
     }
   }
@@ -513,7 +514,8 @@ async function findChildByPinHash(
   projectId: string,
   accessToken: string,
   parentUid: string,
-  pin: string
+  pin: string,
+  child: { name: string; age: number }
 ): Promise<{ uid: string } | null> {
   // We don't query on pin hash directly because the hash includes childId.
   // Instead, fetch the parent's children and check for a matching hash.
@@ -556,6 +558,10 @@ async function findChildByPinHash(
     const fields = doc?.fields || {};
     const role = parseFirestoreString(fields.role);
     if (role && role !== 'student') continue;
+
+    const storedName = parseFirestoreString(fields.name);
+    const storedAge = parseFirestoreInteger(fields.age);
+    if (storedName?.trim().toLowerCase() !== child.name.trim().toLowerCase() || storedAge !== child.age) continue;
 
     const stored = parseFirestoreString(fields.childPinHash);
     if (!stored) continue;
@@ -1067,8 +1073,10 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       return jsonResponse(400, { error: 'Invalid parent code' }, cors.headers);
     }
 
-    // PIN is optional for now; validate if provided.
-    if (pin && !/^[0-9]{4,6}$/.test(pin)) {
+    if (!pin) {
+      return jsonResponse(400, { error: 'PIN is required. Ask your parent to create or reset it.' }, cors.headers);
+    }
+    if (!/^[0-9]{4,6}$/.test(pin)) {
       return jsonResponse(400, { error: 'PIN must be 4 to 6 digits.' }, cors.headers);
     }
 
@@ -1078,7 +1086,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
     if (pin) {
       // Preferred: parent-set PIN stored as childPinHash = sha256("pin:{childId}:{pin}")
-      const byPinHash = await findChildByPinHash(projectId, accessToken, parent.uid, pin);
+      const byPinHash = await findChildByPinHash(projectId, accessToken, parent.uid, pin, { name, age });
       if (byPinHash?.uid) {
         existingChildUid = byPinHash.uid;
       }
@@ -1096,6 +1104,10 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
           if (matches.length === 1) {
             const match = matches[0];
+            // A parent-set PIN must never be replaced from the public child login form.
+            if (match.pinHash) {
+              return jsonResponse(400, { error: 'Incorrect PIN for this child.' }, cors.headers);
+            }
             if (match.loginKeyHash && match.loginKeyHash !== loginKeyHash) {
               return jsonResponse(400, { error: 'Incorrect PIN for this child.' }, cors.headers);
             }
@@ -1113,22 +1125,14 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       }
     }
 
-    // Legacy fallback when PIN is not provided (keeps older clients working).
-    if (!existingChildUid && !pin) {
-      const matches = await findChildrenByNameAgeUnderParent(projectId, accessToken, parent.uid, { name, age });
-      existingChildUid = matches[0]?.uid || null;
+    if (!existingChildUid) {
+      return jsonResponse(404, {
+        error: 'Child profile not found. Ask your parent to create it in the Parent Portal first.',
+      }, cors.headers);
     }
 
-    const childUid = existingChildUid || `child_${crypto.randomUUID()}`;
-    if (existingChildUid) {
-      await commitEnsureParentLink(projectId, accessToken, parent.uid, childUid, { name, age });
-    } else {
-      const pinHash = pin ? await sha256Hex(`pin:${childUid}:${pin}`) : undefined;
-      await commitCreateChildAndLink(projectId, accessToken, parent.uid, childUid, { name, age, loginKeyHash });
-      if (pinHash) {
-        await commitSetChildPinHash(projectId, accessToken, childUid, pinHash);
-      }
-    }
+    const childUid = existingChildUid;
+    await commitEnsureParentLink(projectId, accessToken, parent.uid, childUid, { name, age });
 
     const customToken = await createFirebaseCustomToken(serviceAccount, childUid);
     return jsonResponse(200, { customToken }, cors.headers);

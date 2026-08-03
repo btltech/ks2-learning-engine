@@ -9,6 +9,9 @@ interface ChildSelectorProps {
   onRefresh?: () => void | Promise<void>;
   onCopyCode?: () => void;
   onRegenerateCode?: () => void | Promise<void>;
+  onCreateChild?: (details: { name: string; age: number; pin: string }) =>
+    | Promise<{ id: string; name: string; age: number }>
+    | { id: string; name: string; age: number };
   onSetChildPin?: (childId: string, pin: string) => void | Promise<void>;
   onRenameChild?: (childId: string, newName: string) => void | Promise<void>;
   onUnlinkChild?: (childId: string) => void | Promise<void>;
@@ -23,6 +26,7 @@ const ChildSelector: React.FC<ChildSelectorProps> = ({
   onRefresh,
   onCopyCode,
   onRegenerateCode,
+  onCreateChild,
   onSetChildPin,
   onRenameChild,
   onUnlinkChild,
@@ -31,6 +35,15 @@ const ChildSelector: React.FC<ChildSelectorProps> = ({
   const [copiedText, setCopiedText] = useState(false);
   const [busyAction, setBusyAction] = useState<null | 'regenerate' | 'rename' | 'unlink' | 'delete'>(null);
   const [settingPin, setSettingPin] = useState(false);
+  const [showCreateChild, setShowCreateChild] = useState(children.length === 0);
+  const [childName, setChildName] = useState('');
+  const [childAge, setChildAge] = useState(9);
+  const [childPin, setChildPin] = useState('');
+  const [confirmChildPin, setConfirmChildPin] = useState('');
+  const [showPin, setShowPin] = useState(false);
+  const [createError, setCreateError] = useState('');
+  const [creatingChild, setCreatingChild] = useState(false);
+  const [createdDetails, setCreatedDetails] = useState<{ name: string; pin: string } | null>(null);
 
   const handleCopyCode = () => {
     if (parentCode) {
@@ -105,6 +118,55 @@ const ChildSelector: React.FC<ChildSelectorProps> = ({
     }
   };
 
+  const generatePin = () => {
+    const values = new Uint32Array(1);
+    crypto.getRandomValues(values);
+    const generated = String(values[0] % 1_000_000).padStart(6, '0');
+    setChildPin(generated);
+    setConfirmChildPin(generated);
+    setShowPin(true);
+    setCreateError('');
+  };
+
+  const handleCreateChild = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (!onCreateChild) return;
+    const name = childName.trim();
+    if (!name || name.length > 40) {
+      setCreateError('Enter a child name (maximum 40 characters).');
+      return;
+    }
+    if (!Number.isInteger(childAge) || childAge < 5 || childAge > 18) {
+      setCreateError('Choose an age between 5 and 18.');
+      return;
+    }
+    if (!/^[0-9]{4,6}$/.test(childPin)) {
+      setCreateError('PIN must be 4 to 6 digits.');
+      return;
+    }
+    if (childPin !== confirmChildPin) {
+      setCreateError('PINs do not match.');
+      return;
+    }
+
+    setCreatingChild(true);
+    setCreateError('');
+    try {
+      const pinToShare = childPin;
+      const child = await onCreateChild({ name, age: childAge, pin: pinToShare });
+      setCreatedDetails({ name: child.name, pin: pinToShare });
+      setChildName('');
+      setChildAge(9);
+      setChildPin('');
+      setConfirmChildPin('');
+      setShowCreateChild(false);
+    } catch (error: any) {
+      setCreateError(error?.message || 'Failed to create child profile.');
+    } finally {
+      setCreatingChild(false);
+    }
+  };
+
   return (
     <div className="bg-white rounded-xl shadow-md p-6 mb-8 border-2 border-purple-100">
       <div className="flex items-center justify-between mb-6">
@@ -157,8 +219,110 @@ const ChildSelector: React.FC<ChildSelectorProps> = ({
           <UserGroupIcon className="h-12 w-12 text-gray-300 mx-auto mb-3" />
           <p className="text-gray-600 font-bold">No children linked yet</p>
           <p className="text-sm text-gray-500">
-            Give your parent code to your child. On the login page they choose “Child” and enter
-            their name, age, and your parent code.
+            Create their profile and PIN below. Then they can sign in using their details and your parent code.
+          </p>
+        </div>
+      )}
+
+      {onCreateChild && (
+        <div className="mt-4">
+          {!showCreateChild ? (
+            <button
+              type="button"
+              onClick={() => {
+                setShowCreateChild(true);
+                setCreatedDetails(null);
+              }}
+              className="px-4 py-2 rounded-lg font-bold bg-emerald-600 text-white hover:bg-emerald-700"
+            >
+              + Add child and PIN
+            </button>
+          ) : (
+            <form onSubmit={handleCreateChild} className="p-5 bg-emerald-50 rounded-xl border border-emerald-200">
+              <div className="flex items-start justify-between gap-3 mb-4">
+                <div>
+                  <h4 className="font-bold text-emerald-950">Create a child profile</h4>
+                  <p className="text-sm text-emerald-800">Choose their name, age and private login PIN.</p>
+                </div>
+                {children.length > 0 && (
+                  <button type="button" onClick={() => setShowCreateChild(false)} className="text-sm font-bold text-gray-600 hover:text-gray-900">
+                    Cancel
+                  </button>
+                )}
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <label className="text-sm font-bold text-gray-700">
+                  Child's name
+                  <input
+                    value={childName}
+                    onChange={(event) => setChildName(event.target.value)}
+                    maxLength={40}
+                    autoComplete="off"
+                    className="mt-1 w-full px-3 py-2 bg-white border border-gray-300 rounded-lg font-normal"
+                    required
+                  />
+                </label>
+                <label className="text-sm font-bold text-gray-700">
+                  Age
+                  <input
+                    type="number"
+                    min={5}
+                    max={18}
+                    value={childAge}
+                    onChange={(event) => setChildAge(Number(event.target.value))}
+                    className="mt-1 w-full px-3 py-2 bg-white border border-gray-300 rounded-lg font-normal"
+                    required
+                  />
+                </label>
+                <label className="text-sm font-bold text-gray-700">
+                  PIN (4–6 digits)
+                  <input
+                    type={showPin ? 'text' : 'password'}
+                    inputMode="numeric"
+                    pattern="[0-9]{4,6}"
+                    value={childPin}
+                    onChange={(event) => setChildPin(event.target.value.replace(/\D/g, '').slice(0, 6))}
+                    autoComplete="new-password"
+                    className="mt-1 w-full px-3 py-2 bg-white border border-gray-300 rounded-lg font-normal tracking-widest"
+                    required
+                  />
+                </label>
+                <label className="text-sm font-bold text-gray-700">
+                  Confirm PIN
+                  <input
+                    type={showPin ? 'text' : 'password'}
+                    inputMode="numeric"
+                    pattern="[0-9]{4,6}"
+                    value={confirmChildPin}
+                    onChange={(event) => setConfirmChildPin(event.target.value.replace(/\D/g, '').slice(0, 6))}
+                    autoComplete="new-password"
+                    className="mt-1 w-full px-3 py-2 bg-white border border-gray-300 rounded-lg font-normal tracking-widest"
+                    required
+                  />
+                </label>
+              </div>
+              <div className="flex flex-wrap items-center gap-2 mt-4">
+                <button type="button" onClick={generatePin} className="px-4 py-2 rounded-lg font-bold bg-white border border-emerald-300 text-emerald-800 hover:bg-emerald-100">
+                  Generate secure PIN
+                </button>
+                <button type="button" onClick={() => setShowPin((value) => !value)} className="px-4 py-2 rounded-lg font-bold text-gray-700 hover:bg-white">
+                  {showPin ? 'Hide PIN' : 'Show PIN'}
+                </button>
+                <button type="submit" disabled={creatingChild} className="sm:ml-auto px-5 py-2 rounded-lg font-bold bg-emerald-600 text-white hover:bg-emerald-700 disabled:opacity-50">
+                  {creatingChild ? 'Creating…' : 'Create child'}
+                </button>
+              </div>
+              {createError && <p role="alert" className="mt-3 text-sm font-bold text-red-700">{createError}</p>}
+            </form>
+          )}
+        </div>
+      )}
+
+      {createdDetails && (
+        <div className="mt-4 p-4 bg-green-50 border border-green-300 rounded-xl" role="status">
+          <p className="font-bold text-green-900">✓ {createdDetails.name}'s profile is ready</p>
+          <p className="text-sm text-green-800 mt-1">
+            Their PIN is <code className="font-mono font-bold text-base">{createdDetails.pin}</code>. Save it now—only its secure hash is stored, so it cannot be displayed again.
           </p>
         </div>
       )}
@@ -193,7 +357,7 @@ const ChildSelector: React.FC<ChildSelectorProps> = ({
           )}
         </div>
         <p className="text-xs text-purple-700 mt-2">
-          Tip: If you think someone is guessing your code, regenerate it.
+          Child sign-in needs this parent code plus the PIN you create for that child.
         </p>
       </div>
 

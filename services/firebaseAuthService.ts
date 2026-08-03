@@ -287,6 +287,38 @@ export const firebaseAuthService = {
   },
 
   /**
+   * Create and link a child profile from the authenticated parent portal.
+   * The server stores only a child-specific hash of the PIN.
+   */
+  createChild: async (params: { name: string; age: number; pin: string }): Promise<{ id: string; name: string; age: number }> => {
+    const firebaseUser = auth.currentUser;
+    if (!firebaseUser) throw new Error('You must be logged in as a parent.');
+
+    const name = stripZeroWidth(params.name).trim();
+    const pin = stripZeroWidth(params.pin).trim();
+    if (!name || name.length > 40) throw new Error('Child name must be between 1 and 40 characters.');
+    if (!Number.isInteger(params.age) || params.age < 5 || params.age > 18) {
+      throw new Error('Child age must be between 5 and 18.');
+    }
+    if (!/^[0-9]{4,6}$/.test(pin)) throw new Error('PIN must be 4 to 6 digits.');
+
+    const token = await firebaseUser.getIdToken();
+    const response = await fetch('/api/parent/create-child', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ name, age: params.age, pin }),
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok || !data?.child?.id) {
+      throw new Error(data?.error || 'Failed to create child profile.');
+    }
+    return data.child;
+  },
+
+  /**
    * Login user with email and password
    */
   login: async (email: string, password: string): Promise<UserProfile> => {

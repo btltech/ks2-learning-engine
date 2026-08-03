@@ -389,7 +389,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
             {loginAs === 'child' ? (
               <form onSubmit={handleChildStart} className="space-y-4 sm:space-y-5">
                 <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg text-sm text-blue-800">
-                  Enter your name, age, and your parent’s code to start learning.
+                  Ask your parent to create your profile first, then enter the same name, age, parent code and PIN.
                 </div>
 
                 <div>
@@ -450,7 +450,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
                     autoComplete="off"
                   />
                   <p className="text-xs text-gray-500 mt-1">
-                    This helps keep your profile unique (so we don’t create duplicates).
+                    Use the private PIN your parent created for your profile.
                   </p>
                 </div>
 

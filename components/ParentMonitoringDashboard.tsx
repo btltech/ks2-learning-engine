@@ -103,6 +103,13 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
     await firebaseAuthService.setChildPin(childId, pin);
   };
 
+  const handleCreateChild = async (details: { name: string; age: number; pin: string }) => {
+    const child = await firebaseAuthService.createChild(details);
+    await refreshLinkedChildren();
+    selectChild(child.id);
+    return child;
+  };
+
   const handleUnlinkChild = async (childId: string) => {
     await firebaseAuthService.unlinkChild(childId);
     await refreshLinkedChildren();
@@ -205,6 +212,7 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
           parentCode={user?.parentCode}
           onRefresh={refreshLinkedChildren}
           onRegenerateCode={handleRegenerateParentCode}
+          onCreateChild={handleCreateChild}
           onSetChildPin={handleSetChildPin}
           onRenameChild={handleRenameChild}
           onUnlinkChild={handleUnlinkChild}
