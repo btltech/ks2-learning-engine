@@ -41,6 +41,9 @@ const CODE_LOCK_MS = 30 * 60 * 1000; // 30 minutes
 
 const LOCK_DOC_TTL_MS = 7 * 24 * 60 * 60 * 1000; // 7 days (cleanup via TTL if enabled)
 
+const isQuotaError = (error: unknown): boolean =>
+  /quota|resource[_ -]?exhausted/i.test(error instanceof Error ? error.message : String(error));
+
 function checkRateLimit(key: string): { allowed: boolean; remaining: number } {
   const now = Date.now();
   const record = rateLimitMap.get(key);
@@ -1137,6 +1140,11 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     const customToken = await createFirebaseCustomToken(serviceAccount, childUid);
     return jsonResponse(200, { customToken }, cors.headers);
   } catch (err: any) {
+    if (isQuotaError(err)) {
+      return jsonResponse(503, {
+        error: 'Child sign-in is temporarily unavailable because Firebase daily quota is exhausted. Your child profile is safe; please try again after the quota resets.',
+      }, cors.headers);
+    }
     return jsonResponse(500, { error: err?.message || 'Failed to create child session' }, cors.headers);
   }
 };
