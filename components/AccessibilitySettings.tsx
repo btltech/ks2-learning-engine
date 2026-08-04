@@ -5,6 +5,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { useModalAccessibility } from '../hooks/useModalAccessibility';
 import { accessibilityService, AccessibilitySettings, ACCESSIBILITY_CSS, COLOR_BLIND_FILTERS } from '../services/accessibilityService';
 
 interface AccessibilitySettingsModalProps {
@@ -13,6 +14,7 @@ interface AccessibilitySettingsModalProps {
 
 export const AccessibilitySettingsModal: React.FC<AccessibilitySettingsModalProps> = ({ onClose }) => {
   const [settings, setSettings] = useState<AccessibilitySettings>(accessibilityService.getSettings());
+  const dialogRef = useModalAccessibility(onClose);
 
   useEffect(() => {
     const unsubscribe = accessibilityService.subscribe(setSettings);
@@ -40,13 +42,13 @@ export const AccessibilitySettingsModal: React.FC<AccessibilitySettingsModalProp
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" role="presentation">
+      <div ref={dialogRef} tabIndex={-1} className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col" role="dialog" aria-modal="true" aria-labelledby="accessibility-settings-title">
         {/* Header */}
         <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-6">
           <div className="flex justify-between items-start">
             <div>
-              <h2 className="text-2xl font-bold mb-1">♿ Accessibility Settings</h2>
+              <h2 id="accessibility-settings-title" className="text-2xl font-bold mb-1">♿ Accessibility Settings</h2>
               <p className="text-blue-200">Customize your learning experience</p>
             </div>
             <button

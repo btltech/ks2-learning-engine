@@ -114,7 +114,8 @@ const Header: React.FC<HeaderProps> = ({
               {hasRole(user, 'student') && (
               <button
                 onClick={() => handleNavClick(onOpenLeaderboard)}
-                className="touch-target text-gray-600 hover:text-yellow-600 hover:bg-yellow-100 rounded-xl transition-all duration-200 hover:shadow-md"
+                className="hidden sm:flex touch-target text-gray-600 hover:text-yellow-600 hover:bg-yellow-100 rounded-xl transition-all duration-200 hover:shadow-md"
+                aria-label="Open leaderboard"
                 title="Leaderboard"
               >
                 <TrophyIcon className="h-6 w-6 sm:h-8 sm:w-8" />
@@ -125,7 +126,8 @@ const Header: React.FC<HeaderProps> = ({
               {hasRole(user, 'student') && (
               <button
                 onClick={() => handleNavClick(onOpenProgress)}
-                className="touch-target text-gray-600 hover:text-green-600 hover:bg-green-100 rounded-xl transition-all duration-200 hover:shadow-md"
+                className="hidden sm:flex touch-target text-gray-600 hover:text-green-600 hover:bg-green-100 rounded-xl transition-all duration-200 hover:shadow-md"
+                aria-label="Open progress"
                 title="My Progress"
               >
                 <ChartBarIcon className="h-6 w-6 sm:h-8 sm:w-8" />
@@ -139,19 +141,20 @@ const Header: React.FC<HeaderProps> = ({
                   playClick();
                   setShowAdaptiveDashboard(true);
                 }}
-                className="touch-target text-gray-600 hover:text-purple-600 hover:bg-purple-100 rounded-xl transition-all duration-200 hover:shadow-md"
+                className="hidden sm:flex touch-target text-gray-600 hover:text-purple-600 hover:bg-purple-100 rounded-xl transition-all duration-200 hover:shadow-md"
+                aria-label="Open AI learning assistant"
                 title="AI Learning Assistant"
               >
                 <span className="text-2xl">🧠</span>
               </button>
             )}
 
-            {/* 
             {/* Store Button - Students only */}
               {hasRole(user, 'student') && (
               <button
                 onClick={() => handleNavClick(onOpenStore)}
-                className="touch-target text-gray-600 hover:text-orange-500 hover:bg-orange-100 rounded-xl transition-all duration-200 hover:shadow-md"
+                className="hidden sm:flex touch-target text-gray-600 hover:text-orange-500 hover:bg-orange-100 rounded-xl transition-all duration-200 hover:shadow-md"
+                aria-label="Open store"
                 title="Open Store"
               >
                 <ShoppingBagIcon className="h-6 w-6 sm:h-8 sm:w-8" />
@@ -182,7 +185,9 @@ const Header: React.FC<HeaderProps> = ({
 
             {/* UI Mode Badge */}
             {onOpenUISettings && (
-              <UIModeBadge onClick={() => handleNavClick(onOpenUISettings)} />
+              <div className="hidden sm:block">
+                <UIModeBadge onClick={() => handleNavClick(onOpenUISettings)} />
+              </div>
             )}
 
             {/* User Profile / Logout */}
@@ -198,7 +203,7 @@ const Header: React.FC<HeaderProps> = ({
                     playClick();
                     setIsMenuOpen(!isMenuOpen);
                   }}
-                  className="relative hover:scale-110 transition-transform"
+                  className="relative touch-target hover:scale-105 transition-transform"
                   aria-label="User menu"
                   aria-expanded={isMenuOpen}
                 >
@@ -216,6 +221,49 @@ const Header: React.FC<HeaderProps> = ({
                       <p className="font-semibold text-gray-900">{user.name}</p>
                       <p className="text-xs text-gray-500 capitalize">{user.role}</p>
                     </div>
+
+                    {hasRole(user, 'student') && (
+                      <>
+                        <button
+                          onClick={() => { handleNavClick(onOpenLeaderboard); setIsMenuOpen(false); }}
+                          className="w-full text-left px-4 py-3 text-gray-700 hover:bg-yellow-50 hover:text-yellow-700 flex items-center gap-2 transition-colors sm:hidden"
+                        >
+                          <TrophyIcon className="h-5 w-5" aria-hidden="true" />
+                          Leaderboard
+                        </button>
+                        <button
+                          onClick={() => { handleNavClick(onOpenProgress); setIsMenuOpen(false); }}
+                          className="w-full text-left px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-green-700 flex items-center gap-2 transition-colors sm:hidden"
+                        >
+                          <ChartBarIcon className="h-5 w-5" aria-hidden="true" />
+                          My Progress
+                        </button>
+                        <button
+                          onClick={() => { playClick(); setShowAdaptiveDashboard(true); setIsMenuOpen(false); }}
+                          className="w-full text-left px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-700 flex items-center gap-2 transition-colors sm:hidden"
+                        >
+                          <span aria-hidden="true">🧠</span>
+                          AI Learning Assistant
+                        </button>
+                        <button
+                          onClick={() => { handleNavClick(onOpenStore); setIsMenuOpen(false); }}
+                          className="w-full text-left px-4 py-3 text-gray-700 hover:bg-orange-50 hover:text-orange-700 flex items-center gap-2 transition-colors sm:hidden"
+                        >
+                          <ShoppingBagIcon className="h-5 w-5" aria-hidden="true" />
+                          Store
+                        </button>
+                      </>
+                    )}
+
+                    {onOpenUISettings && (
+                      <button
+                        onClick={() => { handleNavClick(onOpenUISettings); setIsMenuOpen(false); }}
+                        className="w-full text-left px-4 py-3 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 flex items-center gap-2 transition-colors sm:hidden"
+                      >
+                        <span aria-hidden="true">⚙️</span>
+                        Display settings
+                      </button>
+                    )}
                     
                     {hasRole(user, 'parent') && (
                       <button

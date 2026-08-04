@@ -56,7 +56,6 @@ const Toast: React.FC<ToastProps> = ({ type, message, duration = 3000, onClose }
   return (
     <div
       className={`
-        fixed bottom-4 right-4 z-50
         flex items-center gap-3
         px-4 py-3 rounded-xl border
         ${config.bgColor} ${config.borderColor}
@@ -101,7 +100,7 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
   return (
     <ToastContext.Provider value={{ showToast }}>
       {children}
-      <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2">
+      <div className="fixed bottom-4 right-4 z-50 flex max-w-[min(24rem,calc(100vw-2rem))] flex-col gap-2" role="region" aria-label="Notifications">
         {toasts.map(toast => (
           <Toast
             key={toast.id}

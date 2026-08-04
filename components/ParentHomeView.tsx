@@ -10,7 +10,9 @@
  */
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
+import { useModalAccessibility } from '../hooks/useModalAccessibility';
 
 interface ParentHomeViewProps {
   onOpenParentDashboard: () => void;
@@ -26,8 +28,14 @@ export const ParentHomeView: React.FC<ParentHomeViewProps> = ({
   onSwitchToChild,
 }) => {
   const { user, currentChild } = useUser();
+  const navigate = useNavigate();
   const [showWelcome, setShowWelcome] = useState(true);
   const [showChildPreview, setShowChildPreview] = useState(false);
+  const childPreviewRef = useModalAccessibility(() => setShowChildPreview(false), showChildPreview);
+  const quizzesThisWeek = currentChild?.quizHistory?.filter((quiz) => {
+    const completedAt = new Date(quiz.completedAt).getTime();
+    return Number.isFinite(completedAt) && Date.now() - completedAt < 7 * 24 * 60 * 60 * 1000;
+  }).length || 0;
 
   const openChildPreview = () => {
     if (!currentChild) {
@@ -61,8 +69,8 @@ export const ParentHomeView: React.FC<ParentHomeViewProps> = ({
     },
     {
       icon: '👧',
-      title: 'Switch to Child View',
-      description: 'See what your child sees',
+      title: currentChild ? 'Preview Child View' : 'Link a Child',
+      description: currentChild ? 'See a read-only view of your child’s progress' : 'Connect your first learner',
       color: 'from-pink-500 to-rose-600',
       onClick: openChildPreview,
     },
@@ -174,7 +182,7 @@ export const ParentHomeView: React.FC<ParentHomeViewProps> = ({
         <StatCard 
           icon="📚" 
           label="Quizzes Done" 
-          value={currentChild?.quizHistory?.length || 0} 
+          value={quizzesThisWeek}
           subtext="This week" 
         />
         <StatCard 
@@ -206,7 +214,7 @@ export const ParentHomeView: React.FC<ParentHomeViewProps> = ({
               key={i}
               onClick={action.onClick}
               className={`bg-gradient-to-br ${action.color} rounded-xl p-5 text-white text-left
-                         transform transition-all hover:scale-[1.02] hover:shadow-lg ${
+                         transform transition-all hover:scale-[1.02] hover:shadow-lg focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-purple-500 focus-visible:ring-offset-2 ${
                            i === 0 ? 'md:col-span-2 ring-4 ring-purple-100' : ''
                          }`}
             >
@@ -269,23 +277,24 @@ export const ParentHomeView: React.FC<ParentHomeViewProps> = ({
             <h3 className="font-semibold text-gray-800">Need Help?</h3>
             <p className="text-sm text-gray-600">Learn how to make the most of your parent dashboard</p>
           </div>
-          <button className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+          <button onClick={() => navigate('/parent-guide')} className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
             View Guide
           </button>
         </div>
       </div>
 
       {showChildPreview && currentChild && (
-        <div className="fixed inset-0 z-50 bg-black/50 p-4 flex items-center justify-center">
-          <div className="bg-white rounded-xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-auto">
+        <div className="fixed inset-0 z-50 bg-black/50 p-4 flex items-center justify-center" role="presentation">
+          <div ref={childPreviewRef} tabIndex={-1} className="bg-white rounded-xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-auto" role="dialog" aria-modal="true" aria-labelledby="child-preview-title">
             <div className="bg-gradient-to-r from-pink-500 to-purple-600 text-white p-5 rounded-t-xl flex items-start justify-between gap-4">
               <div>
                 <p className="text-xs uppercase tracking-wide text-pink-100 font-bold">Read-only child preview</p>
-                <h2 className="text-2xl font-bold">{currentChild.name}'s learning home</h2>
+                <h2 id="child-preview-title" className="text-2xl font-bold">{currentChild.name}'s learning home</h2>
                 <p className="text-pink-100 text-sm mt-1">This preview lets you check momentum without leaving your parent account.</p>
               </div>
               <button
                 onClick={() => setShowChildPreview(false)}
+                aria-label="Close child preview"
                 className="bg-white/20 hover:bg-white/30 px-3 py-2 rounded-lg font-bold"
               >
                 Close

@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { useModalAccessibility } from '../hooks/useModalAccessibility';
 import { UserProfile, StoreItem } from '../types';
 import { storeService, RARITY_COLORS } from '../services/storeService';
 import { authService } from '../services/authService';
@@ -15,9 +16,11 @@ type SortBy = 'default' | 'price-low' | 'price-high' | 'rarity';
 type FilterBy = 'all' | 'owned' | 'affordable' | 'locked';
 
 const StoreView: React.FC<StoreViewProps> = ({ user, onUpdateUser, onClose }) => {
+  const dialogRef = useModalAccessibility(onClose);
   const [activeTab, setActiveTab] = useState<ItemType>('color');
   const [buyingItem, setBuyingItem] = useState<string | null>(null);
   const [showConfirmModal, setShowConfirmModal] = useState<StoreItem | null>(null);
+  const purchaseDialogRef = useModalAccessibility(() => setShowConfirmModal(null), !!showConfirmModal);
   const [sortBy, setSortBy] = useState<SortBy>('default');
   const [filterBy, setFilterBy] = useState<FilterBy>('all');
   const [showFilters, setShowFilters] = useState(false);
@@ -150,8 +153,8 @@ const StoreView: React.FC<StoreViewProps> = ({ user, onUpdateUser, onClose }) =>
   }, [user.unlockedItems]);
 
   return (
-    <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4 backdrop-blur-sm">
-      <div className="bg-white rounded-3xl shadow-2xl w-full max-w-5xl max-h-[95vh] overflow-hidden flex flex-col animate-pop-in">
+    <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4 backdrop-blur-sm" role="presentation">
+      <div ref={dialogRef} tabIndex={-1} className="bg-white rounded-3xl shadow-2xl w-full max-w-5xl max-h-[95vh] overflow-hidden flex flex-col animate-pop-in" role="dialog" aria-modal="true" aria-labelledby="store-title">
         {/* Header */}
         <div className="p-6 bg-gradient-to-r from-amber-400 via-orange-500 to-pink-500 text-white relative overflow-hidden">
           {/* Decorative sparkles */}
@@ -163,8 +166,8 @@ const StoreView: React.FC<StoreViewProps> = ({ user, onUpdateUser, onClose }) =>
           
           <div className="flex justify-between items-start relative z-10">
             <div>
-              <h2 className="text-4xl font-black flex items-center gap-3">
-                <span className="text-5xl">🛍️</span> Gift Shop
+                <h2 id="store-title" className="text-4xl font-black flex items-center gap-3">
+                <span className="text-5xl" aria-hidden="true">🛍️</span> Gift Shop
               </h2>
               <p className="opacity-90 mt-1 font-medium">Customize your avatar with amazing items!</p>
               
@@ -192,6 +195,7 @@ const StoreView: React.FC<StoreViewProps> = ({ user, onUpdateUser, onClose }) =>
               <button 
                 onClick={onClose}
                 className="bg-white/20 hover:bg-white/30 p-3 rounded-full transition-all hover:rotate-90 duration-300"
+                aria-label="Close gift shop"
               >
                 <span className="text-2xl">✕</span>
               </button>
@@ -386,11 +390,11 @@ const StoreView: React.FC<StoreViewProps> = ({ user, onUpdateUser, onClose }) =>
 
         {/* Purchase Confirmation Modal */}
         {showConfirmModal && (
-          <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4 backdrop-blur-sm">
-            <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8 animate-pop-in">
+          <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4 backdrop-blur-sm" role="presentation">
+            <div ref={purchaseDialogRef} tabIndex={-1} className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8 animate-pop-in" role="dialog" aria-modal="true" aria-labelledby="purchase-title">
               <div className="text-center">
                 <div className="text-7xl mb-4">{showConfirmModal.icon}</div>
-                <h3 className="text-2xl font-black text-gray-800 mb-2">{showConfirmModal.name}</h3>
+                <h3 id="purchase-title" className="text-2xl font-black text-gray-800 mb-2">{showConfirmModal.name}</h3>
                 <p className="text-gray-600 mb-4">{showConfirmModal.description}</p>
                 
                 <div className="bg-orange-50 rounded-xl p-4 mb-6">

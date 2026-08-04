@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useModalAccessibility } from '../hooks/useModalAccessibility';
 import { 
   ChartBarIcon, 
   ExclamationTriangleIcon, 
@@ -36,6 +37,7 @@ interface BankStats {
 }
 
 const QuestionQualityDashboard: React.FC<QuestionQualityDashboardProps> = ({ onClose }) => {
+  const dialogRef = useModalAccessibility(onClose);
   const [isLoading, setIsLoading] = useState(true);
   const [stats, setStats] = useState<BankStats | null>(null);
   const [localStats, setLocalStats] = useState<ReturnType<typeof getPerformanceStats> | null>(null);
@@ -98,14 +100,14 @@ const QuestionQualityDashboard: React.FC<QuestionQualityDashboardProps> = ({ onC
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-5xl max-h-[90vh] overflow-hidden flex flex-col animate-pop-in">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" role="presentation">
+      <div ref={dialogRef} tabIndex={-1} className="bg-white rounded-2xl shadow-2xl w-full max-w-5xl max-h-[90vh] overflow-hidden flex flex-col animate-pop-in" role="dialog" aria-modal="true" aria-labelledby="question-quality-title">
         {/* Header */}
         <div className="p-6 bg-gradient-to-r from-indigo-600 to-purple-600 text-white flex justify-between items-center">
           <div>
             <h2 className="text-2xl font-bold flex items-center gap-2">
               <ChartBarIcon className="w-7 h-7" />
-              Question Quality Dashboard
+              <span id="question-quality-title">Question Quality Dashboard</span>
             </h2>
             <p className="opacity-90 text-sm">Monitor and improve your question bank</p>
           </div>
@@ -115,12 +117,14 @@ const QuestionQualityDashboard: React.FC<QuestionQualityDashboardProps> = ({ onC
               disabled={isLoading}
               className="bg-white/20 hover:bg-white/30 p-2 rounded-full transition-colors disabled:opacity-50"
               title="Refresh data"
+              aria-label="Refresh question quality data"
             >
               <ArrowPathIcon className={`w-5 h-5 ${isLoading ? 'animate-spin' : ''}`} />
             </button>
             <button 
               onClick={onClose}
               className="bg-white/20 hover:bg-white/30 p-2 rounded-full transition-colors"
+              aria-label="Close question quality dashboard"
             >
               ✕
             </button>

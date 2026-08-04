@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useModalAccessibility } from '../hooks/useModalAccessibility';
 import { 
   streakRewardsService, 
   DailyStreak, 
@@ -21,6 +22,7 @@ const StreakRewards: React.FC<StreakRewardsProps> = ({ onClose, onXpEarned }) =>
   const [challenges, setChallenges] = useState<Challenge[]>(streakRewardsService.getChallenges());
   const [notifications, setNotifications] = useState<RewardNotification[]>([]);
   const [showNotification, setShowNotification] = useState<RewardNotification | null>(null);
+  const notificationRef = useModalAccessibility(() => dismissNotification(), !!showNotification);
 
   useEffect(() => {
     // Check daily login
@@ -78,15 +80,15 @@ const StreakRewards: React.FC<StreakRewardsProps> = ({ onClose, onXpEarned }) =>
     <div className="min-h-screen bg-gradient-to-br from-orange-900 via-red-900 to-pink-900 p-4">
       {/* Notification Modal */}
       {showNotification && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-gradient-to-br from-yellow-500 to-orange-600 rounded-2xl p-6 max-w-sm w-full text-center animate-bounce-in">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" role="presentation">
+          <div ref={notificationRef} tabIndex={-1} className="bg-gradient-to-br from-yellow-500 to-orange-600 rounded-2xl p-6 max-w-sm w-full text-center animate-bounce-in" role="dialog" aria-modal="true" aria-labelledby="streak-notification-title">
             <div className="text-6xl mb-4">
               {showNotification.type === 'streak' && '🔥'}
               {showNotification.type === 'daily_reward' && '🎁'}
               {showNotification.type === 'challenge_complete' && '🎯'}
               {showNotification.type === 'achievement' && '🏆'}
             </div>
-            <h2 className="text-2xl font-bold text-white mb-2">{showNotification.title}</h2>
+            <h2 id="streak-notification-title" className="text-2xl font-bold text-white mb-2">{showNotification.title}</h2>
             <p className="text-white/90 mb-4">{showNotification.message}</p>
             {showNotification.reward && (
               <div className="bg-white/20 rounded-xl p-3 mb-4">

@@ -7,6 +7,7 @@
 
 import React from 'react';
 import { useUISettings, UIMode } from '../context/UISettingsContext';
+import { useModalAccessibility } from '../hooks/useModalAccessibility';
 
 interface UIModeOption {
   mode: UIMode;
@@ -61,6 +62,7 @@ const MODE_OPTIONS: UIModeOption[] = [
 
 export const UIModeSelector: React.FC<{ onClose?: () => void }> = ({ onClose }) => {
   const { settings, setMode } = useUISettings();
+  const dialogRef = useModalAccessibility(onClose || (() => {}));
 
   const handleSelectMode = (mode: UIMode) => {
     setMode(mode);
@@ -68,9 +70,9 @@ export const UIModeSelector: React.FC<{ onClose?: () => void }> = ({ onClose }) 
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-xl overflow-hidden max-w-2xl mx-auto">
+    <div ref={dialogRef} tabIndex={-1} className="bg-white rounded-2xl shadow-xl overflow-hidden max-w-2xl mx-auto" role="dialog" aria-modal="true" aria-labelledby="ui-mode-title">
       <div className="bg-gradient-to-r from-indigo-500 to-purple-600 px-6 py-4 text-white">
-        <h2 className="text-xl font-bold">Choose Your Experience</h2>
+        <h2 id="ui-mode-title" className="text-xl font-bold">Choose Your Experience</h2>
         <p className="text-white/80 text-sm">Select the mode that works best for you</p>
       </div>
 

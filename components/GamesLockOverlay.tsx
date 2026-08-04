@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import { useModalAccessibility } from '../hooks/useModalAccessibility';
 
 interface GamesLockOverlayProps {
   requiredCorrect: number;
@@ -129,13 +130,14 @@ export const GamesUnlockedCelebration: React.FC<{
   onDismiss: () => void;
   onGoToGames: () => void;
 }> = ({ onDismiss, onGoToGames }) => {
+  const dialogRef = useModalAccessibility(onDismiss);
   return (
     <div 
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 animate-fade-in"
     >
-      <div className="bg-white rounded-2xl p-8 text-center shadow-2xl transform animate-bounce-in max-w-sm mx-4">
+      <div ref={dialogRef} tabIndex={-1} className="bg-white rounded-2xl p-8 text-center shadow-2xl transform animate-bounce-in max-w-sm mx-4" role="dialog" aria-modal="true" aria-labelledby="games-unlocked-title">
         <div className="text-6xl mb-4 animate-pulse">🎮🎉</div>
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">Games Unlocked!</h2>
+        <h2 id="games-unlocked-title" className="text-2xl font-bold text-gray-800 mb-2">Games Unlocked!</h2>
         <p className="text-gray-600 mb-6">
           Amazing work! You passed 3 quizzes and earned 2 game plays. Ready to play?
         </p>

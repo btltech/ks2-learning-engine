@@ -96,7 +96,7 @@ const GuidedHomeView: React.FC<GuidedHomeViewProps> = ({
               <button
                 key={subject.name}
                 onClick={() => onSelectSubject(subject)}
-                className={`w-full p-5 rounded-2xl text-left transition-all hover:scale-[1.02] active:scale-[0.98] shadow-md ${subject.bgColor}`}
+                className={`w-full p-5 rounded-2xl text-left transition-all hover:scale-[1.02] active:scale-[0.98] shadow-md focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-500 focus-visible:ring-offset-2 ${subject.bgColor}`}
                 aria-label={`Study ${subject.name}`}
               >
                 <div className="flex items-center gap-4">
@@ -182,7 +182,7 @@ interface BigActionButtonProps {
 const BigActionButton: React.FC<BigActionButtonProps> = ({ icon, label, color, onClick }) => (
   <button
     onClick={onClick}
-    className={`relative overflow-hidden p-6 rounded-2xl text-center transition-all hover:scale-[1.02] active:scale-[0.98] shadow-md`}
+    className="relative overflow-hidden p-6 rounded-2xl text-center transition-all hover:scale-[1.02] active:scale-[0.98] shadow-md focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
   >
     <div className={`absolute inset-0 bg-gradient-to-br ${color}`} />
     <div className="relative z-10">

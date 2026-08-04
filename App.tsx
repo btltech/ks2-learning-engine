@@ -593,8 +593,7 @@ const AppContent: React.FC = () => {
                     onOpenParentMonitoring={() => navigate('/parent-monitoring')}
                     onOpenAnalytics={() => setShowAnalytics(true)}
                     onSwitchToChild={() => {
-                      // Switch to child view if child is linked
-                      showToast('info', 'Switch to your child\'s view to see their learning experience');
+                      showToast('info', 'Link a child first to preview their learning view.');
                     }}
                   />
                 ) : isGuidedMode ? (
@@ -886,7 +885,7 @@ const AppContent: React.FC = () => {
       )}
 
       {showUIModeSelector && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50" role="presentation">
           <UIModeSelector onClose={() => setShowUIModeSelector(false)} />
         </div>
       )}
@@ -959,6 +958,7 @@ const AppContent: React.FC = () => {
             <button 
               onClick={() => setShowCurriculumCoverage(false)}
               className="absolute top-4 right-4 z-10 p-2 bg-white rounded-full shadow-md hover:bg-gray-100"
+              aria-label="Close curriculum coverage"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

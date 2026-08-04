@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useModalAccessibility } from '../hooks/useModalAccessibility';
 import { ParentStats } from '../types';
 import { authService } from '../services/authService';
 import { useUser } from '../context/UserContext';
@@ -16,6 +17,7 @@ const ParentDashboard: React.FC<ParentDashboardProps> = ({ onClose }) => {
   const [isGeneratingReport, setIsGeneratingReport] = useState(false);
   const [isGeneratingInsights, setIsGeneratingInsights] = useState(false);
   const { user, getPerformanceTrends } = useUser();
+  const dialogRef = useModalAccessibility(onClose);
 
   useEffect(() => {
     // In a real app, this would be an async call
@@ -55,19 +57,20 @@ const ParentDashboard: React.FC<ParentDashboardProps> = ({ onClose }) => {
   if (!stats) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto animate-pop-in">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" role="presentation">
+      <div ref={dialogRef} tabIndex={-1} className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto animate-pop-in" role="dialog" aria-modal="true" aria-labelledby="parent-dashboard-title">
         {/* Header */}
         <div className="p-6 bg-gradient-to-r from-purple-500 to-indigo-600 text-white flex justify-between items-center sticky top-0 z-10">
           <div>
             <h2 className="text-3xl font-bold flex items-center gap-2">
-              👨‍👩‍👧 Parent Dashboard
+              <span id="parent-dashboard-title">👨‍👩‍👧 Parent Dashboard</span>
             </h2>
             <p className="opacity-90">Track your child's progress</p>
           </div>
           <button 
             onClick={onClose}
             className="bg-white/20 hover:bg-white/30 p-2 rounded-full transition-colors"
+            aria-label="Close parent dashboard"
           >
             ✕
           </button>

@@ -37,8 +37,8 @@ interface HomeViewProps {
   onSelectSubject: (subject: Subject) => void;
   onStartDailyChallenge: (challenge: DailyChallenge) => void;
   onOpenReviewMode: () => void;
-  onOpenQuizBattle: () => void;
-  onOpenLearningPaths: () => void;
+  onOpenQuizBattle?: () => void;
+  onOpenLearningPaths?: () => void;
   onOpenAchievements: () => void;
   onOpenClassroom?: () => void;
   onOpenAnalytics?: () => void;
@@ -148,7 +148,7 @@ const HomeView: React.FC<HomeViewProps> = ({
       </div>
 
       {/* Navigation Tabs */}
-      <div className="flex justify-center mb-6">
+      <div className="flex justify-center mb-6" role="tablist" aria-label="Home sections">
         <div className="inline-flex bg-gray-100 rounded-2xl p-1.5 gap-1">
           <TabButton 
             active={activeTab === 'learn'} 
@@ -172,7 +172,7 @@ const HomeView: React.FC<HomeViewProps> = ({
       </div>
 
       {/* Tab Content */}
-      <div className="min-h-[400px]">
+      <div id="home-tabpanel" role="tabpanel" tabIndex={0} aria-label={`${activeTab} section`} className="min-h-[400px]">
         {activeTab === 'learn' && (
           <div className="space-y-6 animate-fadeIn">
             {user?.role === 'student' && (
@@ -249,13 +249,15 @@ const HomeView: React.FC<HomeViewProps> = ({
                   onClick={onOpenReviewMode}
                   gradient={GRADIENTS.purple}
                 />
-                <ActionCard
-                  icon="🎯"
-                  label="Learning Paths"
-                  description="Structured courses"
-                  onClick={onOpenLearningPaths}
-                  gradient={GRADIENTS.emerald}
-                />
+                {onOpenLearningPaths && (
+                  <ActionCard
+                    icon="🎯"
+                    label="Learning Paths"
+                    description="Structured courses"
+                    onClick={onOpenLearningPaths}
+                    gradient={GRADIENTS.emerald}
+                  />
+                )}
                 {onOpenSATsPractice && (
                   <ActionCard
                     icon="📝"
@@ -289,14 +291,16 @@ const HomeView: React.FC<HomeViewProps> = ({
             {/* Fun Activities */}
             <SectionCard title="🎮 Games & Challenges" subtitle="Learn while having fun!">
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                <ActionCard
-                  icon="⚔️"
-                  label="Quiz Battle"
-                  description="Challenge friends"
-                  onClick={onOpenQuizBattle}
-                  gradient={GRADIENTS.danger}
-                  featured
-                />
+                {onOpenQuizBattle && (
+                  <ActionCard
+                    icon="⚔️"
+                    label="Quiz Battle"
+                    description="Challenge friends"
+                    onClick={onOpenQuizBattle}
+                    gradient={GRADIENTS.danger}
+                    featured
+                  />
+                )}
                 {onOpenMiniGames && (
                   gamesUnlockStatus && !gamesUnlockStatus.isUnlocked ? (
                     <GamesLockOverlay
@@ -429,13 +433,15 @@ const HomeView: React.FC<HomeViewProps> = ({
                     gradient="from-orange-500 to-red-600"
                   />
                 )}
-                <ActionCard
-                  icon="🎯"
-                  label="Learning Paths"
-                  description="Course progress"
-                  onClick={onOpenLearningPaths}
-                  gradient="from-emerald-500 to-teal-600"
-                />
+                {onOpenLearningPaths && (
+                  <ActionCard
+                    icon="🎯"
+                    label="Learning Paths"
+                    description="Course progress"
+                    onClick={onOpenLearningPaths}
+                    gradient="from-emerald-500 to-teal-600"
+                  />
+                )}
               </div>
             </SectionCard>
 
@@ -479,7 +485,12 @@ interface TabButtonProps {
 
 const TabButton: React.FC<TabButtonProps> = ({ active, onClick, icon, label }) => (
   <button
+    type="button"
     onClick={onClick}
+    role="tab"
+    aria-selected={active}
+    aria-controls="home-tabpanel"
+    tabIndex={active ? 0 : -1}
     className={`flex items-center gap-2 px-5 py-2.5 ${RADIUS.button} font-semibold text-sm transition-all motion-safe:hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 ${
       active
         ? `bg-white text-gray-900 ${SHADOWS.secondary}`

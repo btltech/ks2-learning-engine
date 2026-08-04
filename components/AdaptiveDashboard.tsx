@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useModalAccessibility } from '../hooks/useModalAccessibility';
 import {
   adaptiveLearningEngine,
   type AdaptiveRecommendation,
@@ -21,6 +22,7 @@ export default function AdaptiveDashboard({ studentId, onClose }: AdaptiveDashbo
   const [smartRecs, setSmartRecs] = useState<RecommendationItem[]>([]);
   const [learningPath, setLearningPath] = useState<LearningPath | null>(null);
   const [activeTab, setActiveTab] = useState<'profile' | 'recommendations' | 'path'>('profile');
+  const dialogRef = useModalAccessibility(onClose);
 
   useEffect(() => {
     loadData();
@@ -63,8 +65,8 @@ export default function AdaptiveDashboard({ studentId, onClose }: AdaptiveDashbo
 
   if (!profile) {
     return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div className="bg-white rounded-lg p-8">
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" role="presentation">
+        <div className="bg-white rounded-lg p-8" role="status" aria-live="polite">
           <div className="text-center">Loading adaptive analysis...</div>
         </div>
       </div>
@@ -72,18 +74,19 @@ export default function AdaptiveDashboard({ studentId, onClose }: AdaptiveDashbo
   }
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 overflow-y-auto">
-      <div className="bg-white rounded-xl shadow-2xl w-full max-w-6xl max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 overflow-y-auto" role="presentation">
+      <div ref={dialogRef} tabIndex={-1} className="bg-white rounded-xl shadow-2xl w-full max-w-6xl max-h-[90vh] overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="adaptive-dashboard-title">
         {/* Header */}
         <div className="sticky top-0 bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-6 rounded-t-xl">
           <div className="flex justify-between items-center">
             <div>
-              <h2 className="text-2xl font-bold">🧠 AI-Powered Learning Dashboard</h2>
+              <h2 id="adaptive-dashboard-title" className="text-2xl font-bold">🧠 AI-Powered Learning Dashboard</h2>
               <p className="text-purple-100 mt-1">Personalized insights and recommendations</p>
             </div>
             <button
               onClick={onClose}
               className="text-white hover:bg-white hover:bg-opacity-20 rounded-lg p-2 transition-colors"
+              aria-label="Close AI learning dashboard"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

@@ -5,6 +5,7 @@
  */
 
 import React, { useState } from 'react';
+import { useModalAccessibility } from '../hooks/useModalAccessibility';
 import { contentQualityService, FLAG_REASONS, FlagReason } from '../services/contentQualityService';
 import { HandThumbUpIcon, HandThumbDownIcon, FlagIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { HandThumbUpIcon as HandThumbUpSolid, HandThumbDownIcon as HandThumbDownSolid } from '@heroicons/react/24/solid';
@@ -205,12 +206,13 @@ const FlagModal: React.FC<{
   setFlagMessage: (m: string) => void;
   submitted: boolean;
 }> = ({ onClose, onSubmit, selectedReason, setSelectedReason, flagMessage, setFlagMessage, submitted }) => {
+  const dialogRef = useModalAccessibility(onClose);
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-      <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" role="presentation">
+      <div ref={dialogRef} tabIndex={-1} className="bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl" role="dialog" aria-modal="true" aria-labelledby="report-problem-title">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-bold text-gray-800">Report a Problem</h3>
-          <button onClick={onClose} className="p-1 text-gray-400 hover:text-gray-600">
+          <h3 id="report-problem-title" className="text-lg font-bold text-gray-800">Report a Problem</h3>
+          <button onClick={onClose} aria-label="Close report form" className="p-1 text-gray-400 hover:text-gray-600">
             <XMarkIcon className="h-5 w-5" />
           </button>
         </div>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useModalAccessibility } from '../hooks/useModalAccessibility';
 
 interface UserFeedbackModalProps {
   isOpen: boolean;
@@ -10,6 +11,7 @@ const UserFeedbackModal: React.FC<UserFeedbackModalProps> = ({ isOpen, onClose }
   const [message, setMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const dialogRef = useModalAccessibility(onClose, isOpen);
 
   if (!isOpen) return null;
 
@@ -31,13 +33,13 @@ const UserFeedbackModal: React.FC<UserFeedbackModalProps> = ({ isOpen, onClose }
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fade-in">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden animate-pop-in">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fade-in" role="presentation">
+      <div ref={dialogRef} tabIndex={-1} className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden animate-pop-in" role="dialog" aria-modal="true" aria-labelledby="feedback-modal-title">
         <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-4 text-white flex justify-between items-center">
-          <h2 className="text-xl font-bold flex items-center gap-2">
+          <h2 id="feedback-modal-title" className="text-xl font-bold flex items-center gap-2">
             <span>💬</span> Give Feedback
           </h2>
-          <button onClick={onClose} className="text-white/80 hover:text-white text-2xl">&times;</button>
+          <button onClick={onClose} aria-label="Close feedback form" className="text-white/80 hover:text-white text-2xl">&times;</button>
         </div>
 
         <div className="p-6">
