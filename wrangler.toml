@@ -20,5 +20,13 @@ bucket_name = "demiwuraks2-yoruba-audio"
 [env.production]
 name = "production"
 
+[[env.production.r2_buckets]]
+binding = "YORUBA_AUDIO"
+bucket_name = "demiwuraks2-yoruba-audio"
+
 [env.preview]
 name = "preview"
+
+[[env.preview.r2_buckets]]
+binding = "YORUBA_AUDIO"
+bucket_name = "demiwuraks2-yoruba-audio"
