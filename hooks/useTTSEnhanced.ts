@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { speakNaturally, stopSpeaking, speakCelebration, speakAsMiRa, pauseSpeaking, resumeSpeaking } from '../services/naturalTTS';
+import { pauseYorubaAudio, playYorubaAudio, resumeYorubaAudio, stopYorubaAudio } from '../services/yorubaAudio';
 
 const LANGUAGE_LOCALE_MAP: Record<string, { locale: string; label: string }> = {
   english: { locale: 'en-GB', label: 'English' },
@@ -72,6 +73,21 @@ export const useTTSEnhanced = (language?: string, _options?: Record<string, unkn
     try {
       setProgress(50);
       setIsSpeaking(true);
+
+      // Prefer the reviewed, tone-marked R2 recording for exact Yoruba entries.
+      // Generated lesson text that is not in the pack continues through the
+      // normal TTS fallback below.
+      if (label === 'Yoruba') {
+        const played = await playYorubaAudio(cleanText);
+        if (played) {
+          setProgress(100);
+          setIsLoading(false);
+          setIsSpeaking(false);
+          setIsPaused(false);
+          setProgress(null);
+          return;
+        }
+      }
       
       // Choose speaking style based on options
       if (options?.asMiRa) {
@@ -103,6 +119,7 @@ export const useTTSEnhanced = (language?: string, _options?: Record<string, unkn
   const pause = useCallback(() => {
     if (isSpeaking && !isPaused) {
       pauseSpeaking();
+      if (resolveLocale(language).label === 'Yoruba') pauseYorubaAudio();
       setIsPaused(true);
     }
   }, [isSpeaking, isPaused]);
@@ -110,6 +127,7 @@ export const useTTSEnhanced = (language?: string, _options?: Record<string, unkn
   const resume = useCallback(() => {
     if (isSpeaking && isPaused) {
       resumeSpeaking();
+      if (resolveLocale(language).label === 'Yoruba') resumeYorubaAudio();
       setIsPaused(false);
     }
   }, [isSpeaking, isPaused]);
@@ -120,6 +138,7 @@ export const useTTSEnhanced = (language?: string, _options?: Record<string, unkn
       cancelTimerRef.current = null;
     }
     stopSpeaking();
+    stopYorubaAudio();
 
     setIsSpeaking(false);
     setIsPaused(false);

@@ -371,9 +371,8 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
                     {vocabularyWords.map((item, index) => (
                       <button
                         key={index}
-                        onClick={() => subject !== 'Yoruba' && setSelectedWord(item.word)}
-                        disabled={subject === 'Yoruba'}
-                        className="p-3 bg-gradient-to-r from-purple-50 to-blue-50 border-2 border-purple-100 rounded-xl hover:border-purple-400 hover:shadow-md transition-all text-left group disabled:cursor-default"
+                        onClick={() => setSelectedWord(item.word)}
+                        className="p-3 bg-gradient-to-r from-purple-50 to-blue-50 border-2 border-purple-100 rounded-xl hover:border-purple-400 hover:shadow-md transition-all text-left group"
                       >
                         <div className="font-bold text-gray-800 group-hover:text-purple-600 transition-colors">
                           {item.word}

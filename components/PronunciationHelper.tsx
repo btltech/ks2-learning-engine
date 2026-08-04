@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { SpeakerWaveIcon, ArrowPathIcon } from '@heroicons/react/24/solid';
 import { getPhonetics, getPronunciationRules, breakIntoSyllables } from '../services/phoneticsService';
 import { speakPronunciation } from '../services/naturalTTS';
+import { playYorubaAudio, stopYorubaAudio } from '../services/yorubaAudio';
 
 interface PronunciationHelperProps {
   word: string;
@@ -62,10 +63,17 @@ const PronunciationHelper: React.FC<PronunciationHelperProps> = ({
   const isYoruba = language === 'Yoruba';
   const tones = phoneticsData?.tones?.split('-') || [];
 
+  React.useEffect(() => () => stopYorubaAudio(), []);
+
+  const speakWithBestAudio = async (text: string) => {
+    if (isYoruba && await playYorubaAudio(text, speed === 'slow' ? 0.8 : 1)) return;
+    await speakPronunciation(text, language);
+  };
+
   const handleSpeak = async () => {
     setIsSpeaking(true);
     try {
-      await speakPronunciation(word, language);
+      await speakWithBestAudio(word);
     } catch (error) {
       console.error('Pronunciation error:', error);
     }
@@ -76,7 +84,7 @@ const PronunciationHelper: React.FC<PronunciationHelperProps> = ({
     setCurrentSyllable(index);
     setIsSpeaking(true);
     try {
-      await speakPronunciation(syllable, language);
+        await speakWithBestAudio(syllable);
     } catch (error) {
       console.error('Syllable pronunciation error:', error);
     }
@@ -208,7 +216,7 @@ const PronunciationHelper: React.FC<PronunciationHelperProps> = ({
         <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm mb-3">
           <span className="font-semibold text-amber-800">⚠️ Audio Note:</span>
           <span className="text-amber-700 ml-2">
-            Computer voices can't speak Yoruba perfectly. Use the phonetic spelling above and practice the tones!
+            Reviewed Yoruba audio is used when available; new or longer text falls back to the device voice.
           </span>
         </div>
       )}

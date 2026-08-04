@@ -5,6 +5,11 @@ name = "ks2-learning-engine"
 pages_build_output_dir = "dist"
 compatibility_date = "2026-08-03"
 
+# Private, read-only audio storage for the reviewed Yoruba lesson pack.
+[[r2_buckets]]
+binding = "YORUBA_AUDIO"
+bucket_name = "demiwuraks2-yoruba-audio"
+
 # Optional: bind a KV namespace for persistent rate limiting across cold starts.
 # Steps to enable:
 #   1. Create a KV namespace in the Cloudflare dashboard (Workers & Pages → KV)
