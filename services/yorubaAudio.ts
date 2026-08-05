@@ -4,6 +4,9 @@ export interface YorubaAudioEntry {
   hash: string;
   objectKey: string;
   contentType?: string;
+  category?: string;
+  source?: string;
+  topics?: string[];
 }
 
 interface YorubaAudioManifest { version?: string; entries?: YorubaAudioEntry[]; }
@@ -21,7 +24,7 @@ const manifestKeyVariants = (value: string): string[] => {
 };
 
 async function loadEntries(): Promise<YorubaAudioEntry[]> {
-  const response = await fetch(MANIFEST_URL, { headers: { Accept: 'application/json' } });
+  const response = await fetch(MANIFEST_URL, { cache: 'no-cache', headers: { Accept: 'application/json' } });
   if (!response.ok) throw new Error(`Yoruba audio manifest unavailable (${response.status})`);
   const manifest = await response.json() as YorubaAudioManifest;
   return (manifest.entries || []).filter((entry) => entry && typeof entry.text === 'string' && /^[a-f0-9]{32}$/i.test(entry.hash));

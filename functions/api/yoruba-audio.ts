@@ -55,7 +55,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   const object = await env.YORUBA_AUDIO.get(key);
   if (!object) return jsonResponse(404, { error: 'Audio not found' }, headers);
 
-  headers.set('Cache-Control', 'public, max-age=31536000, immutable');
+  headers.set('Cache-Control', wantsManifest ? 'public, max-age=60, must-revalidate' : 'public, max-age=31536000, immutable');
   headers.set('Content-Type', object.httpMetadata?.contentType || (wantsManifest ? 'application/json' : 'audio/mpeg'));
   if (object.httpEtag) headers.set('ETag', object.httpEtag);
   if (object.size !== undefined) headers.set('Content-Length', String(object.size));

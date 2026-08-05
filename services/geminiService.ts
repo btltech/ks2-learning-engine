@@ -103,6 +103,7 @@ const enrichYorubaLesson = async (_lesson: string, topic: string): Promise<strin
   const entries = await getYorubaAudioEntries();
   if (entries.length === 0) throw new Error('The live Yoruba content pack is empty.');
   const lessonEntries = getYorubaLessonEntries(entries, topic, 12);
+  if (lessonEntries.length === 0) throw new Error(`No reviewed Yoruba audio is assigned to ${topic}.`);
   const liveVocabulary = lessonEntries.map((entry) => `* ${entry.text} — ${entry.english || 'English translation unavailable'}`).join('\n');
   return [
     `# ${topic}`,
@@ -111,7 +112,7 @@ const enrichYorubaLesson = async (_lesson: string, topic: string): Promise<strin
     '# Key Vocabulary',
     liveVocabulary,
     '# Listen, say and write',
-    'Open Vocabulary and Tone Practice below. Tap a phrase to hear its reviewed recording, say it aloud, then copy it with the correct marks.',
+    'Use Topic Audio Practice below. Tap a phrase to hear its reviewed recording, say it aloud, then copy it with the correct marks.',
     '# Remember',
     'Yorùbá tone marks and the letters ẹ, ọ and ṣ are part of the spelling and can change meaning.',
   ].join('\n');
@@ -123,8 +124,7 @@ const buildYorubaPackQuestions = (
   difficulty: Difficulty,
   entries: Awaited<ReturnType<typeof getYorubaAudioEntries>>,
 ): QuizQuestion[] => {
-  const topicEntries = getYorubaLessonEntries(entries, topic, entries.length);
-  const ordered = topicEntries.length > 0 ? topicEntries : entries;
+  const ordered = getYorubaLessonEntries(entries, topic, entries.length);
   return ordered.map((entry, index) => {
     const distractors = ordered
       .slice(index + 1)
