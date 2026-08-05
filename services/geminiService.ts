@@ -127,19 +127,16 @@ const YORUBA_TOPIC_TERMS: Record<string, string[]> = {
 };
 
 const enrichYorubaLesson = async (lesson: string, topic: string): Promise<string> => {
-  try {
-    const entries = await getYorubaAudioEntries();
-    const terms = YORUBA_TOPIC_TERMS[topic.toLowerCase()] || [];
-    const selected = entries.filter((entry) => {
-      const english = (entry.english || '').toLowerCase();
-      return terms.length === 0 || terms.some((term) => english.includes(term));
-    }).slice(0, 6);
-    if (selected.length === 0) return lesson;
-    const liveVocabulary = selected.map((entry) => `* ${entry.text} — ${entry.english || 'Yorùbá phrase'}`).join('\n');
-    return lesson.replace(/(# Key Vocabulary\n)([\s\S]*?)(\n# Teach)/, `$1${liveVocabulary}$3`);
-  } catch {
-    return lesson;
-  }
+  const entries = await getYorubaAudioEntries();
+  if (entries.length === 0) throw new Error('The live Yoruba content pack is empty.');
+  const terms = YORUBA_TOPIC_TERMS[topic.toLowerCase()] || [];
+  const selected = entries.filter((entry) => {
+    const english = (entry.english || '').toLowerCase();
+    return terms.length === 0 || terms.some((term) => english.includes(term));
+  });
+  const lessonEntries = (selected.length > 0 ? selected : entries).slice(0, 6);
+  const liveVocabulary = lessonEntries.map((entry) => `* ${entry.text} — ${entry.english || 'Yorùbá phrase'}`).join('\n');
+  return lesson.replace(/(# Key Vocabulary\n)([\s\S]*?)(\n# Teach)/, `$1${liveVocabulary}$3`);
 };
 
 const buildYorubaPackQuestions = (
@@ -375,9 +372,9 @@ export const generateQuiz = async (
         markQuestionsAsUsed(subject, topic, studentAge, difficulty, selected.map((question) => question.id || ''));
         return selected;
       }
-    } catch {
-      // If R2 is temporarily unavailable, continue through the existing
-      // reviewed/static path rather than blocking the lesson.
+      throw new Error('The live Yoruba quiz pack is empty.');
+    } catch (error) {
+      throw new Error(`The live Yoruba quiz pack could not be loaded: ${error instanceof Error ? error.message : 'unknown error'}`);
     }
   }
 
