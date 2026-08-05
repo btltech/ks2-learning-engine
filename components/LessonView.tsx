@@ -14,6 +14,7 @@ import { CURATED_LANGUAGES, getCurriculumUnit, getYearGroupForAge } from '../dat
 import { getCanonicalQuestionsForCurriculumUnit } from '../services/cloudQuestionRepository';
 import { getReviewedQuestions } from '../data/reviewedQuestions';
 import { getReviewedLanguageQuestions, getReviewedLanguageVocabulary } from '../data/reviewedLanguageContent';
+import { getYorubaAudioEntries, type YorubaAudioEntry } from '../services/yorubaAudio';
 
 // A simple markdown to HTML converter
 const Markdown: React.FC<{ content: string }> = ({ content }) => {
@@ -60,6 +61,8 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
   const [selectedWord, setSelectedWord] = useState<string | null>(null);
   const [practiceQuestions, setPracticeQuestions] = useState<BankQuestion[]>([]);
   const [practiceAnswers, setPracticeAnswers] = useState<Record<string, string>>({});
+  const [yorubaAudioEntries, setYorubaAudioEntries] = useState<YorubaAudioEntry[]>([]);
+  const [audioSearch, setAudioSearch] = useState('');
   
   // Detect language for native pronunciation
   const isLanguageSubject = (CURATED_LANGUAGES as readonly string[]).includes(subject);
@@ -69,6 +72,22 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
   const vocabularyWords = subject === 'Yoruba' && reviewedTopicVocabulary.length > 0
     ? reviewedTopicVocabulary
     : supportsPhonetics ? getCommonWords(subject).slice(0, 12) : [];
+
+  useEffect(() => {
+    if (subject !== 'Yoruba') {
+      setYorubaAudioEntries([]);
+      return;
+    }
+    let active = true;
+    void getYorubaAudioEntries()
+      .then((entries) => { if (active) setYorubaAudioEntries(entries); })
+      .catch(() => { if (active) setYorubaAudioEntries([]); });
+    return () => { active = false; };
+  }, [subject]);
+
+  const filteredYorubaAudio = audioSearch.trim()
+    ? yorubaAudioEntries.filter((entry) => `${entry.text} ${entry.english || ''}`.toLocaleLowerCase().includes(audioSearch.toLocaleLowerCase())).slice(0, 60)
+    : yorubaAudioEntries.slice(0, 60);
   
   const { speak, pause, resume, cancel, isSpeaking, isPaused, isLoading: isTTSLoading, errorMessage: ttsError, needsGesture, setNeedsGesture } = useTTSEnhanced(detectedLanguage, {
     googleCloudApiKey: (import.meta as unknown as { env: { VITE_GOOGLE_CLOUD_TTS_API_KEY?: string } }).env?.VITE_GOOGLE_CLOUD_TTS_API_KEY
@@ -387,6 +406,43 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
               )}
             </div>
           )}
+        </div>
+      )}
+
+      {subject === 'Yoruba' && !loading && !error && yorubaAudioEntries.length > 0 && (
+        <div className="mt-6 bg-white rounded-2xl shadow-xl overflow-hidden">
+          <div className="px-6 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white">
+            <div className="flex items-center justify-between gap-3">
+              <h2 className="font-bold text-lg">Yorùbá Audio Library</h2>
+              <span className="text-sm font-semibold bg-white/20 rounded-full px-3 py-1">{yorubaAudioEntries.length} phrases</span>
+            </div>
+            <p className="text-sm text-emerald-50 mt-1">Every phrase includes its English meaning and reviewed audio.</p>
+          </div>
+          <div className="p-4 sm:p-6">
+            <input
+              value={audioSearch}
+              onChange={(event) => setAudioSearch(event.target.value)}
+              placeholder="Search Yoruba or English…"
+              aria-label="Search Yoruba audio library"
+              className="w-full rounded-lg border border-emerald-200 px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+            />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-[32rem] overflow-y-auto pr-1">
+              {filteredYorubaAudio.map((entry) => (
+                <button
+                  key={entry.hash}
+                  onClick={() => setSelectedWord(entry.text)}
+                  className="text-left rounded-xl border border-emerald-100 bg-emerald-50/50 hover:bg-emerald-100 px-3 py-3 transition-colors"
+                >
+                  <div className="font-bold text-gray-800">{entry.text}</div>
+                  <div className="text-sm text-gray-600 mt-1">{entry.english || 'Yorùbá practice phrase'}</div>
+                </button>
+              ))}
+            </div>
+            {filteredYorubaAudio.length === 0 && <p className="text-center text-gray-500 py-4">No matching phrase found.</p>}
+            {!audioSearch.trim() && yorubaAudioEntries.length > filteredYorubaAudio.length && (
+              <p className="text-xs text-gray-500 mt-3 text-center">Showing the first {filteredYorubaAudio.length}. Search to find any of the {yorubaAudioEntries.length} phrases.</p>
+            )}
+          </div>
         </div>
       )}
 

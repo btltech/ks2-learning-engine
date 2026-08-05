@@ -208,8 +208,9 @@ export const isGoogleCloudConfigured = () => Boolean(googleCloudConfig?.apiKey);
  * Check if a language is supported by Google Cloud TTS
  */
 export const isLanguageSupportedByGoogleCloud = (language: string): boolean => {
-  // Only Latin is truly unsupported
-  const unsupportedLanguages = ['Latin'];
+  // Google has no native Yoruba voice. Its previous fallback used an English
+  // voice, which is unsuitable for language learning and can consume quota.
+  const unsupportedLanguages = ['Latin', 'Yoruba'];
   return !unsupportedLanguages.includes(language);
 };
 

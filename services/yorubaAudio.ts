@@ -9,6 +9,7 @@ export interface YorubaAudioEntry {
 interface YorubaAudioManifest { version?: string; entries?: YorubaAudioEntry[]; }
 
 const MANIFEST_URL = '/api/yoruba-audio?manifest=1';
+let entriesPromise: Promise<YorubaAudioEntry[]> | null = null;
 let manifestPromise: Promise<Map<string, YorubaAudioEntry>> | null = null;
 let currentAudio: HTMLAudioElement | null = null;
 
@@ -19,20 +20,28 @@ const manifestKeyVariants = (value: string): string[] => {
   return withoutTerminalPunctuation && withoutTerminalPunctuation !== normalized ? [normalized, withoutTerminalPunctuation] : [normalized];
 };
 
-async function loadManifest(): Promise<Map<string, YorubaAudioEntry>> {
+async function loadEntries(): Promise<YorubaAudioEntry[]> {
   const response = await fetch(MANIFEST_URL, { headers: { Accept: 'application/json' } });
   if (!response.ok) throw new Error(`Yoruba audio manifest unavailable (${response.status})`);
   const manifest = await response.json() as YorubaAudioManifest;
-  const index = new Map<string, YorubaAudioEntry>();
-  for (const entry of manifest.entries || []) {
-    if (!entry || typeof entry.text !== 'string' || !/^[a-f0-9]{32}$/i.test(entry.hash)) continue;
-    for (const key of manifestKeyVariants(entry.text)) if (!index.has(key)) index.set(key, entry);
-  }
-  return index;
+  return (manifest.entries || []).filter((entry) => entry && typeof entry.text === 'string' && /^[a-f0-9]{32}$/i.test(entry.hash));
+}
+
+export async function getYorubaAudioEntries(): Promise<YorubaAudioEntry[]> {
+  if (!entriesPromise) entriesPromise = loadEntries().catch((error) => { entriesPromise = null; throw error; });
+  return entriesPromise;
 }
 
 function getManifestIndex(): Promise<Map<string, YorubaAudioEntry>> {
-  if (!manifestPromise) manifestPromise = loadManifest().catch((error) => { manifestPromise = null; throw error; });
+  if (!manifestPromise) {
+    manifestPromise = getYorubaAudioEntries().then((entries) => {
+      const index = new Map<string, YorubaAudioEntry>();
+      for (const entry of entries) {
+        for (const key of manifestKeyVariants(entry.text)) if (!index.has(key)) index.set(key, entry);
+      }
+      return index;
+    }).catch((error) => { manifestPromise = null; throw error; });
+  }
   return manifestPromise;
 }
 
