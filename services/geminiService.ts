@@ -142,6 +142,43 @@ const enrichYorubaLesson = async (lesson: string, topic: string): Promise<string
   }
 };
 
+const buildYorubaPackQuestions = (
+  topic: string,
+  age: number,
+  difficulty: Difficulty,
+  entries: Awaited<ReturnType<typeof getYorubaAudioEntries>>,
+): QuizQuestion[] => {
+  const terms = YORUBA_TOPIC_TERMS[topic.toLowerCase()] || [];
+  const matches = entries.filter((entry) => {
+    const english = (entry.english || '').toLowerCase();
+    return terms.length > 0 && terms.some((term) => english.includes(term));
+  });
+  const topicOffset = [...topic].reduce((sum, character) => sum + character.charCodeAt(0), 0) % Math.max(entries.length, 1);
+  const rotated = entries.slice(topicOffset).concat(entries.slice(0, topicOffset));
+  const ordered = [...matches, ...rotated.filter((entry) => !matches.some((match) => match.hash === entry.hash))];
+  return ordered.map((entry, index) => {
+    const distractors = ordered
+      .slice(index + 1)
+      .concat(ordered.slice(0, index))
+      .map((candidate) => candidate.text)
+      .filter((candidate) => candidate !== entry.text)
+      .slice(0, 3);
+    return {
+      id: `r2-yoruba-${entry.hash}`,
+      subject: 'Yoruba',
+      topic,
+      ageGroup: [age],
+      difficulty,
+      question: `Which Yoruba phrase means “${entry.english || 'this meaning'}”?`,
+      options: [entry.text, ...distractors],
+      correctAnswer: entry.text,
+      explanation: `${entry.text} means “${entry.english || 'this phrase'}”.`,
+      questionType: QType.MultipleChoice,
+      cognitiveLevel: CLevel.Remember,
+    };
+  });
+};
+
 /**
  * Retry an async operation with exponential backoff.
  * Retries up to `maxRetries` times on transient errors. Delays: 1s, 2s, 4s…
@@ -315,6 +352,35 @@ export const generateQuiz = async (
   studentQuizHistory?: Array<{ score: number; difficulty: string }>,
   studentProfile?: import('./adaptiveLearningEngine').StudentPerformanceProfile
 ): Promise<QuizQuestion[]> => {
+  // The R2 pack is the authoritative Yoruba quiz source. This runs before
+  // the legacy cache/bank path so old cached questions cannot hide the new
+  // reviewed phrases. Stable IDs let the normal usage tracker cycle through
+  // the full pack without repeating questions unnecessarily.
+  if (subject === 'Yoruba') {
+    try {
+      const liveQuestions = buildYorubaPackQuestions(
+        topic,
+        studentAge,
+        difficulty,
+        await getYorubaAudioEntries(),
+      );
+      if (liveQuestions.length > 0) {
+        const usedIds = getUsedQuestions(subject, topic, studentAge, difficulty);
+        let available = liveQuestions.filter((question) => !usedIds.includes(question.id || ''));
+        if (available.length < 10) {
+          resetUsedQuestions(subject, topic, studentAge, difficulty);
+          available = liveQuestions;
+        }
+        const selected = available.slice(0, 10);
+        markQuestionsAsUsed(subject, topic, studentAge, difficulty, selected.map((question) => question.id || ''));
+        return selected;
+      }
+    } catch {
+      // If R2 is temporarily unavailable, continue through the existing
+      // reviewed/static path rather than blocking the lesson.
+    }
+  }
+
   // Human-reviewed questions lead the live bank. Stored questions are read and
   // normalized in memory; the source records in Firestore are never changed.
   const reviewedQuestions = getReviewedQuestions(subject, topic, studentAge);
