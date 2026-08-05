@@ -319,6 +319,43 @@ const foundationSequences: Record<string, YearSequence> = {
   },
 };
 
+const yorubaLanguageSequence: YearSequence = {
+  [YearGroup.Year3]: [
+    ['Greetings and introductions', 'Listen, respond and introduce yourself using familiar phrases.', 'Greetings'],
+    ['Alphabet and pronunciation', 'Recognise Yoruba letters, underdots, tone marks and common syllables.', 'Alphabet and Pronunciation'],
+    ['Numbers and age', 'Recognise, say and write numbers in short exchanges.', 'Numbers'],
+    ['Colours and classroom objects', 'Describe familiar objects using accurate vocabulary.', 'Colors'],
+    ['Family and people', 'Name close family members and describe people respectfully.', 'Family'],
+    ['Body and health', 'Name common body parts and say simple wellbeing phrases.', 'Body and Health'],
+  ],
+  [YearGroup.Year4]: [
+    ['Food and preferences', 'Express likes, dislikes and simple requests.', 'Vocabulary'],
+    ['School and daily routine', 'Use classroom vocabulary and describe a simple school day.', 'School and Routine'],
+    ['Home and everyday objects', 'Name rooms, furniture and everyday household items.', 'Home'],
+    ['Clothing', 'Name common clothes and describe colours and what someone is wearing.', 'Clothing'],
+    ['Animals and nature', 'Name familiar domestic animals, wild animals, birds and fish.', 'Animals and Nature'],
+    ['Weather and seasons', 'Describe rain, heat, cold, wind and familiar seasons.', 'Weather'],
+  ],
+  [YearGroup.Year5]: [
+    ['Time and calendar', 'Use today, tomorrow, yesterday, weekdays, months and simple dates.', 'Time and Calendar'],
+    ['Transport and road safety', 'Name transport and use simple safe-travel instructions.', 'Transport'],
+    ['Places and directions', 'Ask for and give simple location and route information.', 'Places and Directions'],
+    ['Shopping and money', 'Ask for items, prices and quantities in a market exchange.', 'Shopping'],
+    ['Hobbies and free time', 'Talk about sport, reading, music, dancing and creative activities.', 'Hobbies'],
+    ['Community and public places', 'Recognise community helpers and ask for help in public places.', 'Community'],
+    ['Reading short texts', 'Read short authentic-style passages and identify key details.', 'Reading and Comprehension'],
+  ],
+  [YearGroup.Year6]: [
+    ['Yoruba culture and identity', 'Explore names, festivals, clothing, music, food, respect and simple proverbs.', 'Culture'],
+    ['Conversations and opinions', 'Take part in short exchanges and justify simple opinions.', 'Speaking and Pronunciation'],
+    ['Grammar and sentence patterns', 'Apply pronouns, verbs, questions, negatives, adjectives and basic plurals.', 'Grammar'],
+    ['Reading stories, poems and songs', 'Read and respond to short stories, poems and age-appropriate song texts.', 'Reading and Comprehension'],
+    ['Listening and dictation', 'Understand short conversations, instructions and dictated marked words.', 'Listening'],
+    ['Speaking and presentations', 'Role-play, answer questions, describe pictures and give a short presentation.', 'Speaking'],
+    ['Writing connected sentences', 'Copy, complete and write simple paragraphs while preserving tone marks.', 'Writing'],
+  ],
+};
+
 const sharedLanguageSequence: YearSequence = {
   [YearGroup.Year3]: [
     ['Greetings and introductions', 'Listen, respond and introduce yourself using familiar phrases.', 'Greetings'],
@@ -370,7 +407,8 @@ export const getCurriculumUnits = (subject: string, age: number): CurriculumUnit
   if (sequence) return buildUnits(subject, yearGroup, sequence[yearGroup]);
 
   if ((CURATED_LANGUAGES as readonly string[]).includes(subject)) {
-    return buildUnits(subject, yearGroup, sharedLanguageSequence[yearGroup]).map((unit) => ({
+    const sequence = subject === 'Yoruba' ? yorubaLanguageSequence : sharedLanguageSequence;
+    return buildUnits(subject, yearGroup, sequence[yearGroup]).map((unit) => ({
       ...unit,
       bankTopic: unit.bankTopic.includes(':') ? unit.bankTopic : `${subject}: ${unit.bankTopic}`,
     }));
