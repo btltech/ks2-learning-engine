@@ -461,6 +461,9 @@ export const speakWithGoogleCloud = async (
     pitch?: number;
   }
 ): Promise<boolean> => {
+  // Never send Yoruba to Google. The configured Yoruba mapping is an English
+  // voice and is not acceptable for teaching Yoruba pronunciation.
+  if (/^(yoruba|yo|yo-ng)$/i.test(language.trim())) return false;
   console.log('🔊 speakWithGoogleCloud called:', { text: text.substring(0, 30), language, options });
   
   if (!googleCloudConfig?.apiKey) {

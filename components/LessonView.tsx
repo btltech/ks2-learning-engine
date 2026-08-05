@@ -69,9 +69,15 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
   const detectedLanguage = isLanguageSubject ? subject : 'English';
   const supportsPhonetics = getSupportedLanguages().includes(subject);
   const reviewedTopicVocabulary = getReviewedLanguageVocabulary(subject, topic);
-  const vocabularyWords = subject === 'Yoruba' && reviewedTopicVocabulary.length > 0
-    ? reviewedTopicVocabulary
-    : supportsPhonetics ? getCommonWords(subject).slice(0, 12) : [];
+  const vocabularyWords = subject === 'Yoruba' && yorubaAudioEntries.length > 0
+    ? yorubaAudioEntries.slice(0, 24).map((entry) => ({
+      word: entry.text,
+      english: entry.english || 'Yorùbá practice phrase',
+      phonetic: 'tone-marked spelling',
+    }))
+    : subject === 'Yoruba' && reviewedTopicVocabulary.length > 0
+      ? reviewedTopicVocabulary
+      : supportsPhonetics ? getCommonWords(subject).slice(0, 12) : [];
 
   useEffect(() => {
     if (subject !== 'Yoruba') {

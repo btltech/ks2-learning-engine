@@ -21,6 +21,7 @@ import { CURATED_LANGUAGES, getCurriculumUnit, getCurriculumUnits, getYearGroupF
 import { getReviewedLesson } from '../data/reviewedLessons';
 import { getReviewedQuestions } from '../data/reviewedQuestions';
 import { getReviewedLanguageLesson, getReviewedLanguageQuestions } from '../data/reviewedLanguageContent';
+import { getYorubaAudioEntries } from './yorubaAudio';
 
 const LANGUAGE_SUBJECTS = CURATED_LANGUAGES.map((language) => language.toLowerCase());
 
@@ -97,6 +98,50 @@ const ai = USE_PROXY ? createProxyAI() : new GoogleGenAI({ apiKey: apiKey || '' 
 
 const model = 'gemini-2.5-flash';
 
+const YORUBA_TOPIC_TERMS: Record<string, string[]> = {
+  'greetings and introductions': ['morning', 'afternoon', 'evening', 'name', 'how are', 'please', 'sorry', 'welcome', 'goodbye'],
+  'alphabet and pronunciation': ['listen', 'sound', 'tone', 'syllable', 'say it again'],
+  'numbers and age': ['one', 'two', 'three', 'five', 'ten', 'age', 'old', 'number', 'books'],
+  'colours and classroom objects': ['red', 'blue', 'green', 'black', 'white', 'yellow', 'purple', 'book', 'chair'],
+  'family and people': ['mother', 'father', 'family', 'child', 'sibling', 'uncle', 'aunt', 'cousin', 'friend'],
+  'body and health': ['body', 'head', 'eye', 'arm', 'hand', 'leg', 'health', 'illness', 'doctor'],
+  'food and preferences': ['food', 'rice', 'water', 'yam', 'beans', 'meat', 'fish', 'eat', 'drink', 'like'],
+  'school and daily routine': ['school', 'teacher', 'student', 'study', 'book', 'classroom', 'help'],
+  'home and everyday objects': ['house', 'home', 'room', 'chair', 'sofa', 'table', 'bed', 'kitchen'],
+  'clothing': ['clothes', 'wearing', 'shirt', 'trousers', 'dress', 'shoes', 'hat'],
+  'animals and nature': ['animal', 'dog', 'cat', 'sheep', 'chicken', 'bird', 'fish', 'lion', 'tree', 'flower'],
+  'weather and seasons': ['rain', 'wind', 'weather', 'season', 'hot', 'cold', 'sunny'],
+  'time and calendar': ['today', 'tomorrow', 'yesterday', 'month', 'january', 'monday', 'time', 'clock'],
+  'transport and road safety': ['road', 'car', 'bus', 'bicycle', 'walk', 'cross', 'driver'],
+  'shopping and money': ['price', 'money', 'market', 'buy', 'sell', 'how much'],
+  'hobbies and free time': ['music', 'football', 'dance', 'reading', 'draw', 'swim', 'sport'],
+  'community and public places': ['doctor', 'hospital', 'police', 'fire', 'library', 'market', 'help'],
+  'yoruba culture and identity': ['culture', 'traditional', 'festival', 'clothing', 'music', 'food', 'elder'],
+  'conversations and opinions': ['like', 'because', 'what', 'who', 'when', 'yes', 'no'],
+  'grammar and sentence patterns': ['i ', 'you', 'they', 'and', 'but', 'because'],
+  'reading short texts': ['read', 'story', 'picture', 'school', 'today'],
+  'reading stories, poems and songs': ['read', 'story', 'poem', 'music', 'song'],
+  'listening and dictation': ['listen', 'hear', 'say it again', 'please listen'],
+  'speaking and presentations': ['talk', 'say', 'describe', 'name', 'please listen'],
+  'writing connected sentences': ['write', 'sentence', 'copy', 'school', 'home'],
+};
+
+const enrichYorubaLesson = async (lesson: string, topic: string): Promise<string> => {
+  try {
+    const entries = await getYorubaAudioEntries();
+    const terms = YORUBA_TOPIC_TERMS[topic.toLowerCase()] || [];
+    const selected = entries.filter((entry) => {
+      const english = (entry.english || '').toLowerCase();
+      return terms.length === 0 || terms.some((term) => english.includes(term));
+    }).slice(0, 6);
+    if (selected.length === 0) return lesson;
+    const liveVocabulary = selected.map((entry) => `* ${entry.text} — ${entry.english || 'Yorùbá phrase'}`).join('\n');
+    return lesson.replace(/(# Key Vocabulary\n)([\s\S]*?)(\n# Teach)/, `$1${liveVocabulary}$3`);
+  } catch {
+    return lesson;
+  }
+};
+
 /**
  * Retry an async operation with exponential backoff.
  * Retries up to `maxRetries` times on transient errors. Delays: 1s, 2s, 4s…
@@ -124,7 +169,9 @@ export const generateLesson = async (subject: string, topic: string, difficulty:
   const cacheKey = createCacheKey('lesson', subject, topic, difficulty, studentAge.toString());
   const reviewedLesson = getReviewedLesson(subject, topic, studentAge)
     || getReviewedLanguageLesson(subject, topic, studentAge);
-  if (reviewedLesson) return reviewedLesson;
+  if (reviewedLesson) {
+    return subject === 'Yoruba' ? enrichYorubaLesson(reviewedLesson, topic) : reviewedLesson;
+  }
   const curriculumUnit = getCurriculumUnit(subject, topic, studentAge);
   
   // 1. Check Local Cache
@@ -1311,7 +1358,7 @@ export const generateProgressReport = async (
   }
 
   const masteryData = userProfile.mastery || {};
-  const totalPoints = userProfile.points || 0;
+  const totalPoints = userProfile.totalPoints ?? userProfile.points ?? 0;
   const streak = userProfile.streak || 0;
 
   // Calculate overall statistics
