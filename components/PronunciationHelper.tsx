@@ -66,7 +66,10 @@ const PronunciationHelper: React.FC<PronunciationHelperProps> = ({
   React.useEffect(() => () => stopYorubaAudio(), []);
 
   const speakWithBestAudio = async (text: string) => {
-    if (isYoruba && await playYorubaAudio(text, speed === 'slow' ? 0.8 : 1)) return;
+    if (isYoruba) {
+      if (await playYorubaAudio(text, speed === 'slow' ? 0.8 : 1)) return;
+      throw new Error('No reviewed Yorùbá recording is available for this text.');
+    }
     await speakPronunciation(text, language);
   };
 
@@ -93,6 +96,10 @@ const PronunciationHelper: React.FC<PronunciationHelperProps> = ({
   };
 
   const handleSpeakAllSyllables = async () => {
+    if (isYoruba) {
+      await handleSpeak();
+      return;
+    }
     setIsSpeaking(true);
     for (let i = 0; i < syllables.length; i++) {
       setCurrentSyllable(i);

@@ -87,6 +87,7 @@ export const useTTSEnhanced = (language?: string, _options?: Record<string, unkn
           setProgress(null);
           return;
         }
+        throw new Error('No reviewed Yorùbá recording is available for this text.');
       }
       
       // Choose speaking style based on options

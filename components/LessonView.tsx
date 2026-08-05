@@ -15,6 +15,7 @@ import { getCanonicalQuestionsForCurriculumUnit } from '../services/cloudQuestio
 import { getReviewedQuestions } from '../data/reviewedQuestions';
 import { getReviewedLanguageQuestions, getReviewedLanguageVocabulary } from '../data/reviewedLanguageContent';
 import { getYorubaAudioEntries, type YorubaAudioEntry } from '../services/yorubaAudio';
+import { getYorubaLessonEntries } from '../services/yorubaLessonContent';
 
 // A simple markdown to HTML converter
 const Markdown: React.FC<{ content: string }> = ({ content }) => {
@@ -69,8 +70,11 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
   const detectedLanguage = isLanguageSubject ? subject : 'English';
   const supportsPhonetics = getSupportedLanguages().includes(subject);
   const reviewedTopicVocabulary = getReviewedLanguageVocabulary(subject, topic);
+  const topicYorubaAudioEntries = subject === 'Yoruba'
+    ? getYorubaLessonEntries(yorubaAudioEntries, topic, 24)
+    : [];
   const vocabularyWords = subject === 'Yoruba' && yorubaAudioEntries.length > 0
-    ? yorubaAudioEntries.slice(0, 24).map((entry) => ({
+    ? topicYorubaAudioEntries.map((entry) => ({
       word: entry.text,
       english: entry.english || 'Yorùbá practice phrase',
       phonetic: 'tone-marked spelling',
@@ -228,7 +232,7 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
           </div>
           {!loading && !error && (
             <div className="flex items-center gap-2">
-              {isLanguageSubject && (
+              {isLanguageSubject && subject !== 'Yoruba' && (
                 <button
                   onClick={() => {
                     playClick();
@@ -246,7 +250,7 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
                   )}
                 </button>
               )}
-              <button 
+              {subject !== 'Yoruba' && <button
                 onClick={handleSpeak}
                 onDoubleClick={handleStop}
                 disabled={isTTSLoading}
@@ -259,7 +263,7 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
                 ) : (
                   <SpeakerWaveIcon className="h-6 w-6" />
                 )}
-              </button>
+              </button>}
             </div>
           )}
         </div>
@@ -291,9 +295,16 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
             </div>
           </div>
         ) : (
-          <div className="prose max-w-none text-lg text-gray-700 leading-relaxed">
-            <Markdown content={lesson} />
-          </div>
+          <>
+            <div className="prose max-w-none text-lg text-gray-700 leading-relaxed">
+              <Markdown content={lesson} />
+            </div>
+            {subject === 'Yoruba' && (
+              <p className="mt-5 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-900">
+                Use the phrase cards below to hear the reviewed Yorùbá recordings. This lesson does not use browser or Google text-to-speech.
+              </p>
+            )}
+          </>
         )}
       </article>
 

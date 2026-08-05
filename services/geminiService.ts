@@ -22,6 +22,7 @@ import { getReviewedLesson } from '../data/reviewedLessons';
 import { getReviewedQuestions } from '../data/reviewedQuestions';
 import { getReviewedLanguageLesson, getReviewedLanguageQuestions } from '../data/reviewedLanguageContent';
 import { getYorubaAudioEntries } from './yorubaAudio';
+import { getYorubaLessonEntries } from './yorubaLessonContent';
 
 const LANGUAGE_SUBJECTS = CURATED_LANGUAGES.map((language) => language.toLowerCase());
 
@@ -98,45 +99,22 @@ const ai = USE_PROXY ? createProxyAI() : new GoogleGenAI({ apiKey: apiKey || '' 
 
 const model = 'gemini-2.5-flash';
 
-const YORUBA_TOPIC_TERMS: Record<string, string[]> = {
-  'greetings and introductions': ['morning', 'afternoon', 'evening', 'name', 'how are', 'please', 'sorry', 'welcome', 'goodbye'],
-  'alphabet and pronunciation': ['listen', 'sound', 'tone', 'syllable', 'say it again'],
-  'numbers and age': ['one', 'two', 'three', 'five', 'ten', 'age', 'old', 'number', 'books'],
-  'colours and classroom objects': ['red', 'blue', 'green', 'black', 'white', 'yellow', 'purple', 'book', 'chair'],
-  'family and people': ['mother', 'father', 'family', 'child', 'sibling', 'uncle', 'aunt', 'cousin', 'friend'],
-  'body and health': ['body', 'head', 'eye', 'arm', 'hand', 'leg', 'health', 'illness', 'doctor'],
-  'food and preferences': ['food', 'rice', 'water', 'yam', 'beans', 'meat', 'fish', 'eat', 'drink', 'like'],
-  'school and daily routine': ['school', 'teacher', 'student', 'study', 'book', 'classroom', 'help'],
-  'home and everyday objects': ['house', 'home', 'room', 'chair', 'sofa', 'table', 'bed', 'kitchen'],
-  'clothing': ['clothes', 'wearing', 'shirt', 'trousers', 'dress', 'shoes', 'hat'],
-  'animals and nature': ['animal', 'dog', 'cat', 'sheep', 'chicken', 'bird', 'fish', 'lion', 'tree', 'flower'],
-  'weather and seasons': ['rain', 'wind', 'weather', 'season', 'hot', 'cold', 'sunny'],
-  'time and calendar': ['today', 'tomorrow', 'yesterday', 'month', 'january', 'monday', 'time', 'clock'],
-  'transport and road safety': ['road', 'car', 'bus', 'bicycle', 'walk', 'cross', 'driver'],
-  'shopping and money': ['price', 'money', 'market', 'buy', 'sell', 'how much'],
-  'hobbies and free time': ['music', 'football', 'dance', 'reading', 'draw', 'swim', 'sport'],
-  'community and public places': ['doctor', 'hospital', 'police', 'fire', 'library', 'market', 'help'],
-  'yoruba culture and identity': ['culture', 'traditional', 'festival', 'clothing', 'music', 'food', 'elder'],
-  'conversations and opinions': ['like', 'because', 'what', 'who', 'when', 'yes', 'no'],
-  'grammar and sentence patterns': ['i ', 'you', 'they', 'and', 'but', 'because'],
-  'reading short texts': ['read', 'story', 'picture', 'school', 'today'],
-  'reading stories, poems and songs': ['read', 'story', 'poem', 'music', 'song'],
-  'listening and dictation': ['listen', 'hear', 'say it again', 'please listen'],
-  'speaking and presentations': ['talk', 'say', 'describe', 'name', 'please listen'],
-  'writing connected sentences': ['write', 'sentence', 'copy', 'school', 'home'],
-};
-
-const enrichYorubaLesson = async (lesson: string, topic: string): Promise<string> => {
+const enrichYorubaLesson = async (_lesson: string, topic: string): Promise<string> => {
   const entries = await getYorubaAudioEntries();
   if (entries.length === 0) throw new Error('The live Yoruba content pack is empty.');
-  const terms = YORUBA_TOPIC_TERMS[topic.toLowerCase()] || [];
-  const selected = entries.filter((entry) => {
-    const english = (entry.english || '').toLowerCase();
-    return terms.length === 0 || terms.some((term) => english.includes(term));
-  });
-  const lessonEntries = (selected.length > 0 ? selected : entries).slice(0, 6);
-  const liveVocabulary = lessonEntries.map((entry) => `* ${entry.text} — ${entry.english || 'Yorùbá phrase'}`).join('\n');
-  return lesson.replace(/(# Key Vocabulary\n)([\s\S]*?)(\n# Teach)/, `$1${liveVocabulary}$3`);
+  const lessonEntries = getYorubaLessonEntries(entries, topic, 12);
+  const liveVocabulary = lessonEntries.map((entry) => `* ${entry.text} — ${entry.english || 'English translation unavailable'}`).join('\n');
+  return [
+    `# ${topic}`,
+    '## Learn with reviewed Yorùbá audio',
+    'This lesson uses the current reviewed Yorùbá phrase pack. Keep the tone marks and underdotted letters exactly as shown.',
+    '# Key Vocabulary',
+    liveVocabulary,
+    '# Listen, say and write',
+    'Open Vocabulary and Tone Practice below. Tap a phrase to hear its reviewed recording, say it aloud, then copy it with the correct marks.',
+    '# Remember',
+    'Yorùbá tone marks and the letters ẹ, ọ and ṣ are part of the spelling and can change meaning.',
+  ].join('\n');
 };
 
 const buildYorubaPackQuestions = (
@@ -145,14 +123,8 @@ const buildYorubaPackQuestions = (
   difficulty: Difficulty,
   entries: Awaited<ReturnType<typeof getYorubaAudioEntries>>,
 ): QuizQuestion[] => {
-  const terms = YORUBA_TOPIC_TERMS[topic.toLowerCase()] || [];
-  const matches = entries.filter((entry) => {
-    const english = (entry.english || '').toLowerCase();
-    return terms.length > 0 && terms.some((term) => english.includes(term));
-  });
-  const topicOffset = [...topic].reduce((sum, character) => sum + character.charCodeAt(0), 0) % Math.max(entries.length, 1);
-  const rotated = entries.slice(topicOffset).concat(entries.slice(0, topicOffset));
-  const ordered = [...matches, ...rotated.filter((entry) => !matches.some((match) => match.hash === entry.hash))];
+  const topicEntries = getYorubaLessonEntries(entries, topic, entries.length);
+  const ordered = topicEntries.length > 0 ? topicEntries : entries;
   return ordered.map((entry, index) => {
     const distractors = ordered
       .slice(index + 1)
