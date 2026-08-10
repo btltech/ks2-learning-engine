@@ -10,6 +10,11 @@ compatibility_date = "2026-08-03"
 binding = "YORUBA_AUDIO"
 bucket_name = "demiwuraks2-yoruba-audio"
 
+# Private, read-only reusable UI audio (praise, encouragement and milestones).
+[[r2_buckets]]
+binding = "APP_AUDIO"
+bucket_name = "demiwuraks2-app-audio"
+
 # Optional: bind a KV namespace for persistent rate limiting across cold starts.
 # Steps to enable:
 #   1. Create a KV namespace in the Cloudflare dashboard (Workers & Pages → KV)
@@ -24,9 +29,17 @@ name = "production"
 binding = "YORUBA_AUDIO"
 bucket_name = "demiwuraks2-yoruba-audio"
 
+[[env.production.r2_buckets]]
+binding = "APP_AUDIO"
+bucket_name = "demiwuraks2-app-audio"
+
 [env.preview]
 name = "preview"
 
 [[env.preview.r2_buckets]]
 binding = "YORUBA_AUDIO"
 bucket_name = "demiwuraks2-yoruba-audio"
+
+[[env.preview.r2_buckets]]
+binding = "APP_AUDIO"
+bucket_name = "demiwuraks2-app-audio"

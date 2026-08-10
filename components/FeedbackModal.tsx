@@ -37,7 +37,6 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ quizResults, studentAge, 
   useEffect(() => {
     if (percentage >= 70) {
       playSuccess();
-      // Speak celebration message
       const messages = [
         `Amazing work! You got ${score} out of ${total} correct!`,
         `Fantastic! ${score} out of ${total}! You're doing brilliantly!`,
@@ -45,22 +44,25 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ quizResults, studentAge, 
         `Brilliant! ${percentage}% correct! Keep up the great work!`
       ];
       const message = messages[Math.floor(Math.random() * messages.length)];
-      setTimeout(() => speakCelebration(message), 500);
+      const category = percentage === 100 ? 'perfect_score' : 'high_score';
+      setTimeout(() => speakCelebration(message, 'English', category), 250);
     } else if (percentage >= 40) {
-      // Encouraging message for medium scores
       const messages = [
         `Good effort! You got ${score} out of ${total}. Keep practicing!`,
         `Nice try! ${score} out of ${total}. You're getting better!`,
         `Well done for trying! Let's review the ones you missed.`
       ];
       const message = messages[Math.floor(Math.random() * messages.length)];
-      setTimeout(() => speakNaturally(message), 500);
+      setTimeout(() => speakCelebration(message, 'English', 'effort'), 250);
     } else {
       playIncorrect();
-      // Supportive message for low scores
       setTimeout(() => {
-        speakNaturally("Don't worry! Everyone learns at their own pace. Let's look at the explanations together.");
-      }, 500);
+        speakCelebration(
+          "Don't worry! Everyone learns at their own pace. Let's look at the explanations together.",
+          'English',
+          'retry',
+        );
+      }, 250);
     }
     
     // Cleanup: stop speaking when modal closes

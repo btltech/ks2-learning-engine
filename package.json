@@ -1,7 +1,7 @@
 {
   "name": "ks2-learning-engine",
   "private": true,
-  "version": "1.5.1",
+  "version": "1.6.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,7 +11,9 @@
     "test": "vitest",
     "auth:debug": "node scripts/auth-debug.mjs",
     "auth:update-email": "node scripts/auth-update-email.mjs",
-    "audit:questions:firestore": "node scripts/audit-firestore-questions.mjs"
+    "audit:questions:firestore": "node scripts/audit-firestore-questions.mjs",
+    "audio:encouragement:generate": "node scripts/generate-gemini-encouragement-audio.mjs",
+    "audio:encouragement:upload": "node scripts/upload-encouragement-r2-pack.mjs"
   },
   "dependencies": {
     "@google/genai": "^1.30.0",

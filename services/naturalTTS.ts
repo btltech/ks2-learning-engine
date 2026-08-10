@@ -3,41 +3,20 @@
  * 
  * This module provides enhanced Text-to-Speech with:
  * - Free browser speech for lessons, questions, explanations and pronunciation
- * - Optional Google Cloud TTS only for short celebration messages when explicitly enabled
+ * - Pre-generated Gemini encouragement clips served from private R2 storage
  * - Context-aware expression (excitement, encouragement, calmness)
  * - Kid-friendly pacing and pronunciation
  * - Natural prosody with pitch and rate variations
  * - Smart voice selection preferring neural/natural voices
  */
 
-import { initializeGoogleCloudTTS, isGoogleCloudConfigured, speakWithGoogleCloud, stopGoogleCloudAudio, pauseGoogleCloudAudio, resumeGoogleCloudAudio, isLanguageSupportedByGoogleCloud } from './googleCloudTTS';
-
-// Lazy initialization flag
-let googleTTSInitialized = false;
-
-const isPaidCelebrationTTSEnabled = (): boolean =>
-  import.meta.env?.VITE_ENABLE_PAID_CELEBRATION_TTS === 'true';
-
-/**
- * Initialize Google Cloud TTS lazily (called before each speak attempt)
- * This ensures import.meta.env is available
- */
-const ensureGoogleCloudTTS = (): boolean => {
-  // Already initialized?
-  if (googleTTSInitialized && isGoogleCloudConfigured()) {
-    return true;
-  }
-
-  try {
-    initializeGoogleCloudTTS();
-    googleTTSInitialized = true;
-    console.log('✅ Google Cloud TTS proxy initialized successfully');
-    return true;
-  } catch (e) {
-    console.warn('Could not initialize Google Cloud TTS:', e);
-  }
-  return false;
-};
+import {
+  pauseEncouragementAudio,
+  playEncouragementAudio,
+  resumeEncouragementAudio,
+  stopEncouragementAudio,
+  type EncouragementCategory,
+} from './encouragementAudio';
 
 // Language to BCP47 mapping
 const LANGUAGE_MAP: Record<string, string> = {
@@ -330,34 +309,17 @@ export const speakAsMiRa = async (
 };
 
 /**
- * Celebrate achievement - excited and happy!
- * Paid speech is opt-in and limited to short celebrations. It is disabled by
- * default; the normal fallback is free browser speech plus existing sound effects.
+ * Celebrate achievement with a reusable recording from R2. No provider API is
+ * called at runtime. Browser speech remains a free fallback for offline/error cases.
  */
 export const speakCelebration = async (
   text: string, 
-  language: string = 'English'
+  language: string = 'English',
+  category: EncouragementCategory = 'achievement'
 ): Promise<void> => {
-  if (
-    isPaidCelebrationTTSEnabled()
-    && ensureGoogleCloudTTS()
-    && isGoogleCloudConfigured()
-    && isLanguageSupportedByGoogleCloud(language)
-  ) {
-    console.log('🎉 Celebration with Google Cloud TTS:', text.substring(0, 50) + '...');
-    try {
-      const success = await speakWithGoogleCloud(prepareText(text), language, {
-        speakingRate: 1.1,
-        pitch: 4 // Higher pitch for excitement
-      });
-      if (success) {
-        console.log('✅ Celebration Google Cloud TTS played successfully');
-        return;
-      }
-      console.warn('⚠️ Celebration Google Cloud TTS returned false, falling back');
-    } catch (error) {
-      console.warn('Google Cloud TTS failed for celebration:', error);
-    }
+  if (language === 'English') {
+    const played = await playEncouragementAudio(category);
+    if (played) return;
   }
 
   // Use Web Speech API for unsupported languages or as fallback
@@ -425,8 +387,7 @@ export const speakPronunciation = async (
  * Stop all speech (both Google Cloud TTS and Web Speech API)
  */
 export const stopSpeaking = (): void => {
-  // Stop Google Cloud TTS audio
-  stopGoogleCloudAudio();
+  stopEncouragementAudio();
   
   // Stop Web Speech API
   if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
@@ -438,7 +399,7 @@ export const stopSpeaking = (): void => {
  * Pause speech
  */
 export const pauseSpeaking = (): void => {
-  pauseGoogleCloudAudio();
+  pauseEncouragementAudio();
   if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
     window.speechSynthesis.pause();
   }
@@ -448,7 +409,7 @@ export const pauseSpeaking = (): void => {
  * Resume speech
  */
 export const resumeSpeaking = (): void => {
-  resumeGoogleCloudAudio();
+  resumeEncouragementAudio();
   if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
     window.speechSynthesis.resume();
   }

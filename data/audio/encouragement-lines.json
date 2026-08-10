@@ -1,0 +1,106 @@
+{
+  "version": "1.0.0",
+  "language": "en-GB",
+  "categories": {
+    "correct": [
+      "Correct! Great thinking!",
+      "That is exactly right!",
+      "Brilliant answer!",
+      "Excellent work!",
+      "You got it! Well done!",
+      "Super thinking! That is correct!",
+      "Spot on! Keep going!",
+      "Fantastic! You found the answer!"
+    ],
+    "effort": [
+      "Good effort! Keep practising!",
+      "Nice try! You are making progress!",
+      "Well done for giving it a go!",
+      "Keep going! You are getting better!",
+      "Good thinking! Let us try the next one!",
+      "Every attempt helps you learn!",
+      "You worked hard on that one!",
+      "That was a strong effort!"
+    ],
+    "retry": [
+      "Not quite, but do not give up!",
+      "That is okay. Let us try again!",
+      "Keep thinking. You can do this!",
+      "Almost there! Have another go!",
+      "Mistakes help our brains grow!",
+      "Take your time and try once more!",
+      "Do not worry. Learning takes practice!",
+      "Let us look carefully and try again!"
+    ],
+    "quiz_complete": [
+      "Quiz complete! Well done for finishing!",
+      "You finished the quiz! Great work!",
+      "Excellent effort! You completed the quiz!",
+      "Well done! Another quiz completed!",
+      "Great perseverance! You reached the end!",
+      "You did it! The quiz is complete!",
+      "Fantastic focus from start to finish!",
+      "Strong work! You completed every question!"
+    ],
+    "high_score": [
+      "Amazing result! You should be proud!",
+      "Fantastic score! You are doing brilliantly!",
+      "Brilliant work! Keep up the great learning!",
+      "Wow! That was an excellent result!",
+      "Superb work! Your practice is paying off!",
+      "What a strong score! Well done!",
+      "Excellent learning! You really know this topic!",
+      "Outstanding effort and a wonderful result!"
+    ],
+    "perfect_score": [
+      "A perfect score! You are a superstar!",
+      "Every answer correct! Absolutely brilliant!",
+      "One hundred percent! Outstanding work!",
+      "Perfect! Your hard work has paid off!",
+      "Flawless work! You mastered that quiz!",
+      "What an achievement! A completely correct quiz!",
+      "Top marks! That was exceptional!",
+      "Incredible! You got every question right!"
+    ],
+    "lesson_complete": [
+      "Lesson complete! Great learning today!",
+      "Well done! You finished the lesson!",
+      "Another lesson mastered! Keep it up!",
+      "Fantastic focus! You completed the lesson!",
+      "Great work! You are building your knowledge!",
+      "You did it! That lesson is complete!",
+      "Excellent learning from beginning to end!",
+      "Wonderful effort! You are ready for the next step!"
+    ],
+    "daily_challenge": [
+      "Daily challenge complete! Fantastic work!",
+      "You completed today's challenge! Well done!",
+      "Challenge conquered! Keep up the momentum!",
+      "Brilliant! Today's challenge is finished!",
+      "Great determination! You completed the daily challenge!",
+      "Today's challenge is done! You should be proud!",
+      "Excellent work! Come back tomorrow for a new challenge!",
+      "You rose to the challenge! Fantastic learning!"
+    ],
+    "streak": [
+      "Your learning streak is growing! Keep going!",
+      "Another day of learning! Brilliant consistency!",
+      "You kept your streak alive! Well done!",
+      "Fantastic dedication! Your streak continues!",
+      "Great habit building! Keep that streak going!",
+      "You came back to learn again! Excellent work!",
+      "Your steady practice is making you stronger!",
+      "What a brilliant learning streak!"
+    ],
+    "achievement": [
+      "Achievement unlocked! Fantastic work!",
+      "You earned a new achievement! Well done!",
+      "A new badge is yours! Brilliant effort!",
+      "Wonderful news! You reached a new milestone!",
+      "Your hard work earned a special reward!",
+      "Milestone reached! You should feel proud!",
+      "Fantastic progress! A new achievement is unlocked!",
+      "Well deserved! You earned this achievement!"
+    ]
+  }
+}
