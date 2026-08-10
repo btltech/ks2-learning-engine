@@ -3,7 +3,7 @@ import { Difficulty } from '../types';
 import { validateLesson } from './contentValidator';
 
 export const LESSON_MODEL = 'gemini-2.5-flash';
-export const LESSON_PROMPT_VERSION = 'ks2-lesson-v2';
+export const LESSON_PROMPT_VERSION = 'ks2-lesson-v3';
 
 export interface LessonRequestContext {
   subject: string;
@@ -20,6 +20,35 @@ const REQUIRED_SECTIONS = [
   'Guided Practice',
   'Independent Check',
 ] as const;
+
+const SECTION_LOOKUP = new Map(
+  REQUIRED_SECTIONS.map((section) => [section.toLowerCase(), section] as const),
+);
+
+/**
+ * Gemini sometimes follows the requested section names but emits bold or plain
+ * numbered labels instead of Markdown headings. Canonicalise only exact known
+ * section-label lines so valid lesson content is not rejected for presentation
+ * syntax alone.
+ */
+export function normalizeLessonHeadings(content: string): string {
+  const headingPattern = /^\s*(?:#{1,6}\s*)?(?:\d+[.)]\s*)?(?:\*\*|__)?(Learning Objective|Key Vocabulary|Teach|Modelled Example|Guided Practice|Independent Check)(?:\*\*|__)?(?:\s*\([^)]*\))?\s*:?[ \t]*(.*)$/i;
+
+  return content
+    .replace(/^```(?:markdown|md)?\s*$/gim, '')
+    .replace(/^```\s*$/gim, '')
+    .split('\n')
+    .flatMap((line) => {
+      const match = line.match(headingPattern);
+      if (!match) return [line];
+      const canonical = SECTION_LOOKUP.get(match[1].toLowerCase());
+      if (!canonical) return [line];
+      const remainder = match[2].trim();
+      return remainder ? [`# ${canonical}`, remainder] : [`# ${canonical}`];
+    })
+    .join('\n')
+    .trim();
+}
 
 function subjectInstructions(subject: string, studentAge: number): string {
   const subjectLower = subject.toLowerCase();
@@ -98,13 +127,15 @@ ${curriculumUnit.practicalNote ? `\nSAFETY / PRACTICAL LIMIT: ${curriculumUnit.p
 
 Make the lesson compact and engaging. It must explicitly teach, model, practise and check the objective.
 
-STRICT FORMAT (headings only, no extra sections):
-1. Learning Objective (1 short sentence)
-2. Key Vocabulary (3–6 words with very short KS2-friendly meanings)
-3. Teach (2–4 short sentences, no long paragraphs)
-4. Modelled Example (one worked or demonstrated example with the reasoning made visible)
-5. Guided Practice (one short task with a hint or scaffold)
-6. Independent Check (one short task that directly checks the published objective)
+STRICT FORMAT (use these exact Markdown heading lines, with no numbering and no extra sections):
+# Learning Objective
+# Key Vocabulary
+# Teach
+# Modelled Example
+# Guided Practice
+# Independent Check
+
+Under those headings include, respectively: one short objective sentence; 3–6 vocabulary words with very short meanings; 2–4 teaching sentences; one concise worked example with visible reasoning; one short guided task with a hint; and one short independent task that directly checks the objective.
 
 RULES:
 - Use friendly, clear, calm language – not babyish and not over-excited.
@@ -119,10 +150,11 @@ Output clean markdown with exactly those 6 headings.`;
 }
 
 export function validateGeneratedLessonContent(content: string) {
-  const validation = validateLesson(content);
+  const normalizedContent = normalizeLessonHeadings(content);
+  const validation = validateLesson(normalizedContent);
   const missingSections = REQUIRED_SECTIONS.filter((section) => {
     const escaped = section.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    return !new RegExp(`^#{1,3}\\s*(?:\\d+\\.?\\s*)?${escaped}\\s*$`, 'im').test(content);
+    return !new RegExp(`^#{1,3}\\s*${escaped}\\s*$`, 'im').test(normalizedContent);
   });
   const issues = [
     ...validation.issues,
@@ -132,6 +164,6 @@ export function validateGeneratedLessonContent(content: string) {
     ...validation,
     isValid: issues.length === 0,
     issues,
-    sanitizedContent: content.trim(),
+    sanitizedContent: normalizedContent,
   };
 }

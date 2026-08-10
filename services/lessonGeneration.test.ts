@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { Difficulty } from '../types';
-import { buildLessonPrompt, validateGeneratedLessonContent } from './lessonGeneration';
+import { buildLessonPrompt, normalizeLessonHeadings, validateGeneratedLessonContent } from './lessonGeneration';
 
 const VALID_LESSON = `# Learning Objective
 I can explain how place value works in numbers to 1,000.
@@ -38,6 +38,21 @@ describe('lesson generation guardrails', () => {
     expect(validateGeneratedLessonContent(incomplete).issues).toContain(
       'Lesson is missing the required Independent Check heading',
     );
+  });
+
+  it('canonicalises plain, bold and numbered section labels before validation', () => {
+    const looselyFormatted = VALID_LESSON
+      .replace('# Learning Objective', '**Learning Objective:**')
+      .replace('# Key Vocabulary', '2. Key Vocabulary')
+      .replace('# Teach', 'Teach:')
+      .replace('# Modelled Example', '4) **Modelled Example**')
+      .replace('# Guided Practice', '## Guided Practice')
+      .replace('# Independent Check', '__Independent Check__');
+
+    const normalized = normalizeLessonHeadings(looselyFormatted);
+    expect(normalized).toContain('# Learning Objective');
+    expect(normalized).toContain('# Independent Check');
+    expect(validateGeneratedLessonContent(looselyFormatted).isValid).toBe(true);
   });
 
   it('rejects a topic outside the published curriculum', () => {
