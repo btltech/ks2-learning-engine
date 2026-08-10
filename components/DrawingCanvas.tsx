@@ -7,6 +7,17 @@ interface DrawingCanvasProps {
   initialImage?: string; // Optional background image to draw on
 }
 
+export const getCanvasPoint = (
+  clientX: number,
+  clientY: number,
+  rect: Pick<DOMRect, 'left' | 'top' | 'width' | 'height'>,
+  canvasWidth: number,
+  canvasHeight: number,
+) => ({
+  x: (clientX - rect.left) * (rect.width > 0 ? canvasWidth / rect.width : 1),
+  y: (clientY - rect.top) * (rect.height > 0 ? canvasHeight / rect.height : 1),
+});
+
 export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({ 
   onSave, 
   width = 600, 
@@ -59,8 +70,7 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
     
     const canvas = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const { x, y } = getCanvasPoint(e.clientX, e.clientY, rect, canvas.width, canvas.height);
 
     context.beginPath();
     context.moveTo(x, y);
@@ -75,8 +85,7 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
 
     const canvas = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const { x, y } = getCanvasPoint(e.clientX, e.clientY, rect, canvas.width, canvas.height);
 
     context.lineTo(x, y);
     context.stroke();
@@ -123,7 +132,8 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
           {['#000000', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FFA500', '#800080'].map((c) => (
             <button
               key={c}
-              className={`w-8 h-8 rounded-full border-2 ${color === c ? 'border-gray-600 scale-110' : 'border-transparent'}`}
+              type="button"
+              className={`w-11 h-11 rounded-full border-2 ${color === c ? 'border-gray-600 scale-105' : 'border-transparent'}`}
               style={{ backgroundColor: c }}
               onClick={() => setColor(c)}
               aria-label={`Select color ${c}`}
@@ -133,7 +143,8 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
             type="color" 
             value={color} 
             onChange={(e) => setColor(e.target.value)}
-            className="w-8 h-8 rounded-full overflow-hidden cursor-pointer"
+            className="w-11 h-11 rounded-full overflow-hidden cursor-pointer"
+            aria-label="Choose a custom drawing colour"
           />
         </div>
 
@@ -147,11 +158,13 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
             value={lineWidth}
             onChange={(e) => setLineWidth(parseInt(e.target.value))}
             className="w-24"
+            aria-label="Brush size"
           />
         </div>
 
         {/* Actions */}
         <button
+          type="button"
           onClick={clearCanvas}
           className="px-4 py-2 text-sm font-medium text-red-600 bg-red-50 rounded-lg hover:bg-red-100 transition-colors"
         >
@@ -170,10 +183,12 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
           onPointerLeave={stopDrawing}
           className="cursor-crosshair touch-none"
           style={{ maxWidth: '100%', height: 'auto' }}
+          aria-label="Drawing canvas"
         />
       </div>
 
       <button
+        type="button"
         onClick={handleSave}
         className="w-full py-3 bg-purple-600 text-white font-bold rounded-xl hover:bg-purple-700 transition-colors shadow-md"
       >

@@ -26,9 +26,10 @@ interface QuizViewProps {
   studentName?: string;
   onSubmit: (results: QuizResult[]) => void;
   mode?: 'standard' | 'speed';
+  questionCount?: number;
 }
 
-const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, studentAge, studentName, onSubmit, mode = 'standard' }) => {
+const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, studentAge, studentName, onSubmit, mode = 'standard', questionCount }) => {
   const { user } = useUser();
 
   // Build adaptive profile from current user's quiz history (already Firestore-synced via UserContext)
@@ -178,7 +179,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
       if (!generatedQuestions || generatedQuestions.length === 0) {
         setError('We couldn\'t create quiz questions right now. Please try again.');
       } else {
-        setQuestions(generatedQuestions);
+        setQuestions(questionCount ? generatedQuestions.slice(0, questionCount) : generatedQuestions);
       }
     } catch (err) {
       console.error('Error generating quiz:', err);
@@ -190,7 +191,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
       );
     }
     setLoading(false);
-  }, [subject, topic, difficulty, studentAge, studentProfile, mode]);
+  }, [subject, topic, difficulty, studentAge, studentProfile, mode, questionCount]);
 
   useEffect(() => {
     fetchQuiz();

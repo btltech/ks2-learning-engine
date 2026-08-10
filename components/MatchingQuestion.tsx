@@ -80,7 +80,7 @@ export const MatchingQuestion: React.FC<MatchingQuestionProps> = ({ pairs, onCom
         Click an item on the left, then click its match on the right
       </p>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {/* Left Column */}
         <div className="space-y-2">
           <h4 className="text-sm font-bold text-gray-500 text-center mb-3">Match From</h4>
@@ -97,41 +97,43 @@ export const MatchingQuestion: React.FC<MatchingQuestionProps> = ({ pairs, onCom
             } else if (isMatched) {
               bgColor = 'bg-indigo-100 border-indigo-400';
             } else if (isSelected) {
-              bgColor = 'bg-yellow-100 border-yellow-400 scale-105 shadow-md';
+              bgColor = 'bg-yellow-100 border-yellow-400 shadow-md';
             }
 
             return (
-              <button
-                key={pair.left}
-                onClick={() => handleLeftClick(pair.left)}
-                disabled={isSubmitted}
-                className={`w-full p-3 rounded-xl border-2 text-left transition-all ${bgColor}`}
-              >
-                <div className="flex items-center justify-between">
-                  <span className="font-medium text-gray-800">{pair.left}</span>
+              <div key={pair.left} className={`flex items-stretch rounded-xl border-2 transition-all overflow-hidden ${bgColor}`}>
+                <button
+                  type="button"
+                  onClick={() => handleLeftClick(pair.left)}
+                  disabled={isSubmitted}
+                  aria-pressed={isSelected}
+                  className="min-h-11 flex-1 p-3 text-left focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-blue-300"
+                >
+                  <span className="flex items-center justify-between gap-2">
+                    <span className="font-medium text-gray-800">{pair.left}</span>
+                    {isSubmitted && (
+                      <span className="text-lg" aria-hidden="true">
+                        {matches[pair.left] === pair.right ? '✓' : '✗'}
+                      </span>
+                    )}
+                  </span>
+                  {isMatched && (
+                    <span className="block mt-1 text-sm text-indigo-700 font-medium">
+                      → {matches[pair.left]}
+                    </span>
+                  )}
+                </button>
                   {isMatched && !isSubmitted && (
                     <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleRemoveMatch(pair.left);
-                      }}
-                      className="text-gray-400 hover:text-red-500"
+                      type="button"
+                      onClick={() => handleRemoveMatch(pair.left)}
+                      className="min-w-11 px-3 text-gray-500 hover:text-red-700 hover:bg-white/50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-red-300"
+                      aria-label={`Remove match for ${pair.left}`}
                     >
                       ✕
                     </button>
                   )}
-                  {isSubmitted && (
-                    <span className="text-lg">
-                      {matches[pair.left] === pair.right ? '✓' : '✗'}
-                    </span>
-                  )}
-                </div>
-                {isMatched && (
-                  <div className="mt-1 text-sm text-indigo-600 font-medium">
-                    → {matches[pair.left]}
-                  </div>
-                )}
-              </button>
+              </div>
             );
           })}
         </div>
@@ -159,6 +161,7 @@ export const MatchingQuestion: React.FC<MatchingQuestionProps> = ({ pairs, onCom
             return (
               <button
                 key={right}
+                type="button"
                 onClick={() => handleRightClick(right)}
                 disabled={isSubmitted || !selectedLeft}
                 className={`w-full p-3 rounded-xl border-2 text-left transition-all ${bgColor}`}
@@ -180,6 +183,7 @@ export const MatchingQuestion: React.FC<MatchingQuestionProps> = ({ pairs, onCom
       {/* Submit Button */}
       {!isSubmitted && (
         <button
+          type="button"
           onClick={handleSubmit}
           disabled={!allMatched}
           className={`w-full py-3 rounded-xl font-bold text-lg transition-all ${

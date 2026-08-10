@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { MicroSession } from '../services/microlearningService';
-import { useNavigate } from 'react-router-dom';
 
 interface Props {
   session: MicroSession;
@@ -9,30 +8,18 @@ interface Props {
 
 const MicrolearningCard: React.FC<Props> = ({ session, onStart }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const navigate = useNavigate();
 
   const handleStart = () => {
     onStart(session);
-    navigate('/quiz', {
-      state: {
-        subject: session.subject,
-        topic: session.topic,
-        difficulty: session.difficulty,
-        questionCount: session.questionCount,
-        isMicroSession: true,
-        sessionId: session.id,
-      },
-    });
   };
 
   return (
-    <div
-      className={`relative bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 cursor-pointer ${
+    <article
+      className={`relative bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 ${
         isHovered ? 'transform scale-105 shadow-2xl' : ''
       }`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={handleStart}
     >
       {/* Header with gradient */}
       <div className={`h-2 ${
@@ -83,6 +70,8 @@ const MicrolearningCard: React.FC<Props> = ({ session, onStart }) => {
 
         {/* Start button */}
         <button
+          type="button"
+          onClick={handleStart}
           className={`w-full py-3 rounded-lg font-bold text-white transition-all duration-300 ${
             (session.subject as string) === 'Maths' ? 'bg-blue-500 hover:bg-blue-600' :
             (session.subject as string) === 'English' ? 'bg-green-500 hover:bg-green-600' :
@@ -92,7 +81,7 @@ const MicrolearningCard: React.FC<Props> = ({ session, onStart }) => {
           Start Challenge →
         </button>
       </div>
-    </div>
+    </article>
   );
 };
 

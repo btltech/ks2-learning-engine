@@ -2,7 +2,11 @@ import { useState, useEffect } from 'react';
 import { microlearningService, MicroSession } from '../services/microlearningService';
 import MicrolearningCard from './MicrolearningCard';
 
-export default function MicrolearningDashboard() {
+interface MicrolearningDashboardProps {
+  onSelectSession: (session: MicroSession) => void;
+}
+
+export default function MicrolearningDashboard({ onSelectSession }: MicrolearningDashboardProps) {
   const [sessions, setSessions] = useState<MicroSession[]>([]);
   const [progress, setProgress] = useState({ completed: 0, goal: 3, percentage: 0 });
   const [dailyChallenge, setDailyChallenge] = useState<MicroSession | null>(null);
@@ -17,7 +21,7 @@ export default function MicrolearningDashboard() {
   }, []);
 
   const handleSessionStart = (session: MicroSession) => {
-    console.log('Starting micro session:', session);
+    onSelectSession(session);
   };
 
   return (

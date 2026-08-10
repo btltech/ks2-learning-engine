@@ -38,6 +38,7 @@ export const DragDropQuestion: React.FC<DragDropQuestionProps> = ({ items, zones
     if (isSubmitted) return;
     e.preventDefault();
     const itemId = e.dataTransfer.getData('text/plain');
+    if (!itemId || !items.some(item => item.id === itemId)) return;
     
     // Remove item from previous zone if any
     const newPlacements = { ...placements };
@@ -49,7 +50,7 @@ export const DragDropQuestion: React.FC<DragDropQuestionProps> = ({ items, zones
     newPlacements[itemId] = zoneId;
     setPlacements(newPlacements);
     setDraggedItem(null);
-  }, [placements, isSubmitted]);
+  }, [placements, isSubmitted, items]);
 
   // Handle drag over
   const handleDragOver = useCallback((e: React.DragEvent) => {
@@ -122,14 +123,17 @@ export const DragDropQuestion: React.FC<DragDropQuestionProps> = ({ items, zones
           <h4 className="text-sm font-bold text-gray-500 mb-3">Items to Sort</h4>
           <div className="flex flex-wrap gap-2">
             {unplacedItems.map((item) => (
-              <div
+              <button
+                type="button"
                 key={item.id}
                 draggable={!isSubmitted}
                 onDragStart={(e) => handleDragStart(e, item.id)}
                 onDragEnd={handleDragEnd}
                 onClick={() => handleItemClick(item.id)}
+                aria-pressed={selectedItem === item.id}
+                aria-label={`Select ${item.content}`}
                 className={`
-                  px-4 py-2 rounded-full cursor-grab active:cursor-grabbing
+                  min-h-11 px-4 py-2 rounded-full cursor-grab active:cursor-grabbing
                   font-medium transition-all select-none
                   ${draggedItem === item.id 
                     ? 'opacity-50' 
@@ -140,14 +144,14 @@ export const DragDropQuestion: React.FC<DragDropQuestionProps> = ({ items, zones
                 `}
               >
                 {item.content}
-              </div>
+              </button>
             ))}
           </div>
         </div>
       )}
 
       {/* Drop Zones */}
-      <div className="grid gap-4" style={{ gridTemplateColumns: `repeat(${Math.min(zones.length, 3)}, 1fr)` }}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {zones.map((zone) => {
           const zoneItems = getItemsInZone(zone.id);
           const isCorrectZone = isSubmitted && zoneItems.every(
@@ -166,11 +170,10 @@ export const DragDropQuestion: React.FC<DragDropQuestionProps> = ({ items, zones
               key={zone.id}
               onDrop={(e) => handleDrop(e, zone.id)}
               onDragOver={handleDragOver}
-              onClick={() => handleZoneClick(zone.id)}
               className={`
                 min-h-[120px] p-4 rounded-xl border-2 transition-all
                 ${borderColor}
-                ${selectedItem ? 'hover:bg-indigo-50 cursor-pointer' : ''}
+                ${selectedItem ? 'bg-indigo-50' : ''}
                 ${isSubmitted ? (isCorrectZone ? 'bg-green-50' : 'bg-red-50') : 'bg-white'}
               `}
             >
@@ -181,6 +184,17 @@ export const DragDropQuestion: React.FC<DragDropQuestionProps> = ({ items, zones
               }`}>
                 {zone.label}
               </h4>
+
+              {selectedItem && !isSubmitted && (
+                <button
+                  type="button"
+                  onClick={() => handleZoneClick(zone.id)}
+                  className="w-full min-h-11 mb-3 rounded-lg border-2 border-dashed border-indigo-400 bg-white text-indigo-700 font-semibold hover:bg-indigo-100 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-indigo-300"
+                  aria-label={`Place selected item in ${zone.label}`}
+                >
+                  Place here
+                </button>
+              )}
               
               <div className="flex flex-wrap gap-2 min-h-[40px]">
                 {zoneItems.map((item) => {
@@ -203,11 +217,10 @@ export const DragDropQuestion: React.FC<DragDropQuestionProps> = ({ items, zones
                       {item.content}
                       {!isSubmitted && (
                         <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleRemoveItem(item.id);
-                          }}
+                          type="button"
+                          onClick={() => handleRemoveItem(item.id)}
                           className="text-xs hover:text-red-600"
+                          aria-label={`Remove ${item.content} from ${zone.label}`}
                         >
                           ✕
                         </button>
@@ -240,6 +253,7 @@ export const DragDropQuestion: React.FC<DragDropQuestionProps> = ({ items, zones
       {/* Submit Button */}
       {!isSubmitted && (
         <button
+          type="button"
           onClick={handleSubmit}
           disabled={!allPlaced}
           className={`w-full py-3 rounded-xl font-bold text-lg transition-all ${

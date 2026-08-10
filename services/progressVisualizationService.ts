@@ -65,8 +65,8 @@ class ProgressVisualizationService {
   private certificates: Certificate[] = [];
 
   constructor() {
-    this.loadData();
     this.initializeSkillTrees();
+    this.loadData();
   }
 
   // ============ SKILL TREES ============

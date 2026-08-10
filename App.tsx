@@ -17,11 +17,12 @@ import { SUBJECTS } from './constants';
 import { spacedRepetitionService } from './services/spacedRepetitionService';
 import { adaptiveLearningEngine } from './services/adaptiveLearningEngine';
 import { dailyChallengeService, DailyChallenge } from './services/dailyChallengeService';
-import { Artwork, DrawingLesson } from './data/artResources';
+import { getArtworkById, getDrawingLessonById } from './data/artResources';
 import { firebaseAuthService } from './services/firebaseAuthService';
 import { teacherWorkspaceService } from './services/teacherWorkspaceService';
 import { CURATED_LANGUAGES } from './data/curriculumSequences';
 import { resolveMultipleChoiceAnswer } from './services/quizScoring';
+import { microlearningService } from './services/microlearningService';
 
 // Initialize accessibility features lazily
 const initAccessibility = () => {
@@ -111,8 +112,6 @@ const AppContent: React.FC = () => {
 
   const [showStore, setShowStore] = useState(false);
   const [showParentDashboard, setShowParentDashboard] = useState(false);
-  const [showLeaderboard, setShowLeaderboard] = useState(false);
-  const [showProgress, setShowProgress] = useState(false);
   
   // New feature states
   const [showAccessibilitySettings, setShowAccessibilitySettings] = useState(false);
@@ -125,12 +124,9 @@ const AppContent: React.FC = () => {
   const [showLearningPaths, setShowLearningPaths] = useState(false);
   const [showTeacherDashboard, setShowTeacherDashboard] = useState(false);
   const [showQuestionQuality, setShowQuestionQuality] = useState(false);
-  const [showAnalytics, setShowAnalytics] = useState(false);
   const [showCurriculumCoverage, setShowCurriculumCoverage] = useState(false);
   const [adminConsoleView, setAdminConsoleView] = useState<'dashboard' | 'users' | 'content' | 'analytics' | 'settings'>('dashboard');
   const [showSATsPractice, setShowSATsPractice] = useState(false);
-  const [selectedDrawingLesson, setSelectedDrawingLesson] = useState<DrawingLesson | null>(null);
-  const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null);
   
   // Games unlock state
   const [gamesUnlockStatus, setGamesUnlockStatus] = useState(() => gamesUnlockService.getStatus());
@@ -275,9 +271,14 @@ const AppContent: React.FC = () => {
     const scorePercentage = scoredResults.length > 0 ? (correctAnswers / scoredResults.length) * 100 : 0;
     const timeSpentSeconds = Math.max(1, Math.round((Date.now() - quizStartTimeRef.current) / 1000));
     const homeworkId = new URLSearchParams(location.search).get('homework');
+    const microSessionId = new URLSearchParams(location.search).get('microSession');
     
     setPointsEarned(earned);
     setQuizResults(results);
+
+    if (microSessionId) {
+      microlearningService.completeSession(microSessionId);
+    }
     
     // Update Context
     addPoints(earned);
@@ -554,8 +555,8 @@ const AppContent: React.FC = () => {
         user={user}
         onOpenStore={() => setShowStore(true)}
         onOpenParentDashboard={() => setShowParentDashboard(true)}
-        onOpenLeaderboard={() => setShowLeaderboard(true)}
-        onOpenProgress={() => setShowProgress(true)}
+        onOpenLeaderboard={() => navigate('/leaderboard')}
+        onOpenProgress={() => navigate('/progress')}
         onOpenAvatar={() => navigate('/avatar')}
         onOpenUISettings={() => setShowUIModeSelector(true)}
         onOpenQuestionQuality={() => setShowQuestionQuality(true)}
@@ -584,14 +585,14 @@ const AppContent: React.FC = () => {
                     onOpenTeacherDashboard={() => setShowTeacherDashboard(true)}
                     onOpenClassroom={() => navigate('/classroom')}
                     onOpenQuestionQuality={() => setShowQuestionQuality(true)}
-                    onOpenAnalytics={() => setShowAnalytics(true)}
+                    onOpenAnalytics={() => setShowTeacherDashboard(true)}
                     onOpenCurriculumCoverage={() => setShowCurriculumCoverage(true)}
                   />
                 ) : hasRole(user, 'parent') ? (
                   <ParentHomeView
                     onOpenParentDashboard={() => setShowParentDashboard(true)}
                     onOpenParentMonitoring={() => navigate('/parent-monitoring')}
-                    onOpenAnalytics={() => setShowAnalytics(true)}
+                    onOpenAnalytics={() => navigate('/parent-monitoring')}
                     onSwitchToChild={() => {
                       showToast('info', 'Link a child first to preview their learning view.');
                     }}
@@ -615,7 +616,7 @@ const AppContent: React.FC = () => {
                     onOpenLearningPaths={featureVisibility.showLearningPaths ? () => setShowLearningPaths(true) : undefined}
                     onOpenAchievements={() => setShowAchievements(true)}
                     onOpenClassroom={featureVisibility.showClassroomMode ? () => navigate('/classroom') : undefined}
-                    onOpenAnalytics={featureVisibility.showAnalytics ? () => setShowAnalytics(true) : undefined}
+                    onOpenAnalytics={featureVisibility.showAnalytics ? () => navigate('/analytics') : undefined}
                     onOpenMiniGames={() => navigate('/games')}
                     onOpenArtStudio={() => navigate('/art-studio')}
                     onOpenCurriculumCoverage={featureVisibility.showCurriculumCoverage ? () => setShowCurriculumCoverage(true) : undefined}
@@ -691,11 +692,9 @@ const AppContent: React.FC = () => {
                 <ArtGalleryView
                   studentAge={studentAge}
                   onSelectArtwork={(artwork) => {
-                    setSelectedArtwork(artwork);
                     navigate(`/art-studio/quiz/${artwork.id}`);
                   }}
                   onSelectLesson={(lesson) => {
-                    setSelectedDrawingLesson(lesson);
                     navigate(`/art-studio/draw/${lesson.id}`);
                   }}
                   onBack={() => navigate('/')}
@@ -703,36 +702,15 @@ const AppContent: React.FC = () => {
               } />
               
               <Route path="/art-studio/draw/:lessonId" element={
-                selectedDrawingLesson ? (
-                  <DrawingLessonView
-                    lesson={selectedDrawingLesson}
-                    studentAge={studentAge}
-                    onComplete={() => {
-                      setSelectedDrawingLesson(null);
-                      navigate('/art-studio');
-                    }}
-                    onBack={() => {
-                      setSelectedDrawingLesson(null);
-                      navigate('/art-studio');
-                    }}
-                  />
-                ) : <Navigate to="/art-studio" />
+                <DrawingLessonRouteWrapper studentAge={studentAge} />
               } />
 
               <Route path="/art-studio/quiz/:artworkId" element={
-                selectedArtwork ? (
-                  <QuizView
-                    subject="Art"
-                    topic={selectedArtwork.title}
-                    difficulty={difficulty}
-                    studentAge={studentAge}
-                    studentName={user?.name}
-                    onSubmit={(results) => {
-                      handleQuizSubmit(results);
-                      navigate('/art-studio');
-                    }}
-                  />
-                ) : <Navigate to="/art-studio" />
+                <ArtworkQuizRouteWrapper
+                  studentAge={studentAge}
+                  difficulty={difficulty}
+                  onSubmit={handleQuizSubmit}
+                />
               } />
 
               <Route path="/rewards" element={
@@ -764,18 +742,37 @@ const AppContent: React.FC = () => {
               
               {/* Phase 2: New Progress & Social Routes */}
               <Route path="/progress" element={
-                <Suspense fallback={<LoadingSpinner />}>
-                  <ProgressView />
-                </Suspense>
+                hasRole(user, 'student') ? <ProgressView /> : <Navigate to="/" replace />
+              } />
+
+              <Route path="/leaderboard" element={
+                hasRole(user, 'student')
+                  ? <LeaderboardView onBack={() => navigate('/')} />
+                  : <Navigate to="/" replace />
+              } />
+
+              <Route path="/analytics" element={
+                hasRole(user, 'student')
+                  ? <AnalyticsDashboard onClose={() => navigate('/')} />
+                  : <Navigate to="/" replace />
               } />
               
               <Route path="/microlearning" element={
-                <MicrolearningDashboard
-                  onSelectSession={(session) => {
-                    // Navigate to quiz with microlearning context
-                    navigate(`/subject/${session.subject}/topic/${session.topic}/quiz?difficulty=${session.difficulty}&microlearning=true`);
-                  }}
-                />
+                hasRole(user, 'student') ? (
+                  <MicrolearningDashboard
+                    onSelectSession={(session) => {
+                      const subject = encodeURIComponent(session.subject);
+                      const topic = encodeURIComponent(session.topic);
+                      const query = new URLSearchParams({
+                        difficulty: session.difficulty,
+                        microlearning: 'true',
+                        microSession: session.id,
+                        questionCount: String(session.questionCount),
+                      });
+                      navigate(`/subject/${subject}/topic/${topic}/quiz?${query.toString()}`);
+                    }}
+                  />
+                ) : <Navigate to="/" replace />
               } />
               
               {/* Info & Policy Pages */}
@@ -860,18 +857,6 @@ const AppContent: React.FC = () => {
         </Suspense>
       )}
 
-      {showLeaderboard && (
-        <Suspense fallback={<LoadingSpinner />}>
-          <LeaderboardView onBack={() => setShowLeaderboard(false)} />
-        </Suspense>
-      )}
-
-      {showProgress && (
-        <Suspense fallback={<LoadingSpinner />}>
-          <ProgressView onBack={() => setShowProgress(false)} />
-        </Suspense>
-      )}
-
       {/* Question Quality Dashboard - Admin/Teacher only */}
       {showQuestionQuality && (
         <Suspense fallback={<LoadingSpinner />}>
@@ -948,10 +933,6 @@ const AppContent: React.FC = () => {
         </Suspense>
       )}
 
-      {showAnalytics && (
-        <AnalyticsDashboard onClose={() => setShowAnalytics(false)} />
-      )}
-
       {showCurriculumCoverage && (
         <div className="fixed inset-0 z-50 overflow-y-auto bg-white">
           <div className="relative min-h-screen">
@@ -991,6 +972,54 @@ const AppContent: React.FC = () => {
 
 
 // Route Wrappers to handle params
+const DrawingLessonRouteWrapper = ({ studentAge }: { studentAge: number }) => {
+  const { lessonId } = useParams();
+  const navigate = useNavigate();
+  const lesson = lessonId ? getDrawingLessonById(decodeURIComponent(lessonId)) : undefined;
+
+  if (!lesson) return <Navigate to="/art-studio" replace />;
+
+  return (
+    <DrawingLessonView
+      lesson={lesson}
+      studentAge={studentAge}
+      onComplete={() => navigate('/art-studio')}
+      onBack={() => navigate('/art-studio')}
+    />
+  );
+};
+
+const ArtworkQuizRouteWrapper = ({
+  studentAge,
+  difficulty,
+  onSubmit,
+}: {
+  studentAge: number;
+  difficulty: Difficulty;
+  onSubmit: (results: QuizResult[]) => void;
+}) => {
+  const { artworkId } = useParams();
+  const navigate = useNavigate();
+  const { user } = useUser();
+  const artwork = artworkId ? getArtworkById(decodeURIComponent(artworkId)) : undefined;
+
+  if (!artwork) return <Navigate to="/art-studio" replace />;
+
+  return (
+    <QuizView
+      subject="Art"
+      topic={artwork.title}
+      difficulty={difficulty}
+      studentAge={studentAge}
+      studentName={user?.name}
+      onSubmit={(results) => {
+        onSubmit(results);
+        navigate('/art-studio');
+      }}
+    />
+  );
+};
+
 const SubjectRouteWrapper = ({ studentAge, progress }: { studentAge: number, progress: ProgressData }) => {
   const { subjectName } = useParams();
   const navigate = useNavigate();
@@ -1107,7 +1136,12 @@ const QuizRouteWrapper = ({ studentAge, difficulty, onSubmit }: { studentAge: nu
   const { subjectName, topicName } = useParams();
   const { search } = useLocation();
   const { user } = useUser();
-  const mode = new URLSearchParams(search).get('mode') === 'speed' ? 'speed' : 'standard';
+  const searchParams = new URLSearchParams(search);
+  const mode = searchParams.get('mode') === 'speed' ? 'speed' : 'standard';
+  const requestedQuestionCount = Number.parseInt(searchParams.get('questionCount') || '', 10);
+  const questionCount = Number.isFinite(requestedQuestionCount)
+    ? Math.min(20, Math.max(1, requestedQuestionCount))
+    : undefined;
   
   if (!subjectName || !topicName) return <Navigate to="/" />;
 
@@ -1120,6 +1154,7 @@ const QuizRouteWrapper = ({ studentAge, difficulty, onSubmit }: { studentAge: nu
       studentName={user?.name}
       onSubmit={onSubmit} 
       mode={mode}
+      questionCount={questionCount}
     />
   );
 };
