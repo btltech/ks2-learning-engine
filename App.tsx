@@ -72,6 +72,7 @@ const GamesUnlockedCelebration = lazy(() => import('./components/GamesLockOverla
 const UIModeSelector = lazy(() => import('./components/UIModeSelector').then(m => ({ default: m.UIModeSelector })));
 const CurriculumCoverageDashboard = lazy(() => import('./components/CurriculumCoverageDashboard').then(m => ({ default: m.CurriculumCoverageDashboard })));
 const SATsPracticeMode = lazy(() => import('./components/SATsPracticeMode').then(m => ({ default: m.SATsPracticeMode })));
+const YorubaAudioLibrary = lazy(() => import('./components/YorubaAudioLibrary'));
 
 // Phase 1 & 2 - New Features
 const MicrolearningDashboard = lazy(() => import('./components/MicrolearningDashboard'));
@@ -632,6 +633,12 @@ const AppContent: React.FC = () => {
               } />
               
               <Route path="/subject/Languages/:language" element={<LanguageTopicWrapper studentAge={studentAge} progress={progress} />} />
+
+              <Route path="/subject/Languages/Yoruba/library" element={
+                hasRole(user, 'student') ? (
+                  <YorubaAudioLibrary onBack={() => navigate('/subject/Languages/Yoruba')} />
+                ) : <Navigate to="/" replace />
+              } />
               
               <Route path="/subject/Languages/:language/topic/:topicName" element={
                 <LanguageLessonWrapper 
@@ -1055,6 +1062,12 @@ const LanguageTopicWrapper = ({ studentAge, progress }: { studentAge: number, pr
       onSelect={(topic) => navigate(`/subject/Languages/${encodeURIComponent(languageName)}/topic/${encodeURIComponent(topic)}`)} 
       onBack={() => navigate('/subject/Languages')} 
       progress={progress}
+      supplementaryAction={languageName === 'Yoruba' ? {
+        label: 'Yorùbá Audio Library',
+        description: 'Search and hear all 450 reviewed words and phrases.',
+        icon: '🔊',
+        onClick: () => navigate('/subject/Languages/Yoruba/library'),
+      } : undefined}
     />
   );
 };
@@ -1076,6 +1089,7 @@ const LanguageLessonWrapper = ({ studentAge, difficulty: _difficulty }: { studen
       studentAge={studentAge} 
       onStartQuiz={(mode = 'standard') => navigate(`${location.pathname}/quiz?mode=${mode}`)} 
       onBack={() => navigate(`/subject/Languages/${language}`)} 
+      onOpenYorubaLibrary={languageName === 'Yoruba' ? () => navigate('/subject/Languages/Yoruba/library') : undefined}
     />
   );
 };

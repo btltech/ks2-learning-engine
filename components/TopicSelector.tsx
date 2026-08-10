@@ -15,9 +15,15 @@ interface TopicSelectorProps {
   onSelect: (topic: string) => void;
   onBack: () => void;
   progress: ProgressData;
+  supplementaryAction?: {
+    label: string;
+    description: string;
+    icon: string;
+    onClick: () => void;
+  };
 }
 
-const TopicSelector: React.FC<TopicSelectorProps> = ({ subject, studentAge, onSelect, onBack, progress }) => {
+const TopicSelector: React.FC<TopicSelectorProps> = ({ subject, studentAge, onSelect, onBack, progress, supplementaryAction }) => {
   const [topics, setTopics] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -84,6 +90,23 @@ const TopicSelector: React.FC<TopicSelectorProps> = ({ subject, studentAge, onSe
         Year {getYearGroupForAge(studentAge)} · Follow the units in order so each lesson builds on the last.
       </p>
       <p className="text-sm text-gray-500 mb-6 sm:mb-8 px-4">You can revisit any earlier unit whenever you need a reminder.</p>
+
+      {supplementaryAction && (
+        <button
+          type="button"
+          onClick={supplementaryAction.onClick}
+          className="mb-6 flex w-full items-center justify-between gap-4 rounded-2xl border border-emerald-200 bg-gradient-to-r from-emerald-50 to-teal-50 p-4 text-left shadow-sm transition-shadow hover:shadow-md focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-emerald-200"
+        >
+          <span className="flex items-center gap-3">
+            <span className="text-3xl" aria-hidden="true">{supplementaryAction.icon}</span>
+            <span>
+              <span className="block text-lg font-bold text-emerald-950">{supplementaryAction.label}</span>
+              <span className="block text-sm text-emerald-800">{supplementaryAction.description}</span>
+            </span>
+          </span>
+          <span className="font-bold text-emerald-800" aria-hidden="true">→</span>
+        </button>
+      )}
       
       <div role="main" aria-live="polite" aria-busy={loading}>
       {loading ? (

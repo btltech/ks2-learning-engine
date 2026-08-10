@@ -18,7 +18,6 @@ import { SharedClass, SharedHomework, teacherWorkspaceService } from '../service
 import { GRADIENTS, SHADOWS, RADIUS } from '../constants';
 
 // Phase 2: Lazy load new widgets
-const FriendsOnlineWidget = lazy(() => import('./FriendsOnlineWidget'));
 const SkillProgressWidget = lazy(() => import('./SkillProgressWidget'));
 const NextCertificateWidget = lazy(() => import('./NextCertificateWidget'));
 
@@ -200,6 +199,11 @@ const HomeView: React.FC<HomeViewProps> = ({
                       ))}
                     </div>
                   )}
+                  {onOpenClassroom && (
+                    <button type="button" onClick={onOpenClassroom} className="min-h-11 rounded-xl border border-indigo-200 bg-indigo-50 px-4 text-sm font-bold text-indigo-700 hover:bg-indigo-100">
+                      Join a live classroom session
+                    </button>
+                  )}
                   {homework.length > 0 && (
                     <div className="grid gap-3 sm:grid-cols-2">
                       {homework.map((assignment) => {
@@ -249,6 +253,13 @@ const HomeView: React.FC<HomeViewProps> = ({
                   onClick={onOpenReviewMode}
                   gradient={GRADIENTS.purple}
                 />
+                <ActionCard
+                  icon="⚡"
+                  label="5-Minute Challenge"
+                  description="Quick focused practice"
+                  onClick={() => navigate('/microlearning')}
+                  gradient={GRADIENTS.info}
+                />
                 {onOpenLearningPaths && (
                   <ActionCard
                     icon="🎯"
@@ -265,15 +276,6 @@ const HomeView: React.FC<HomeViewProps> = ({
                     description="Year 6 Exam Prep"
                     onClick={onOpenSATsPractice}
                     gradient={GRADIENTS.primary}
-                  />
-                )}
-                {onOpenClassroom && (
-                  <ActionCard
-                    icon="🏫"
-                    label="Classroom"
-                    description="Join a session"
-                    onClick={onOpenClassroom}
-                    gradient={GRADIENTS.violet}
                   />
                 )}
               </div>
@@ -382,10 +384,7 @@ const HomeView: React.FC<HomeViewProps> = ({
             )}
 
             {/* Phase 2: New Widgets Row */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <React.Suspense fallback={<CardSkeleton shadow="secondary" />}>
-                <FriendsOnlineWidget />
-              </React.Suspense>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <React.Suspense fallback={<CardSkeleton shadow="secondary" />}>
                 <SkillProgressWidget />
               </React.Suspense>
@@ -415,31 +414,6 @@ const HomeView: React.FC<HomeViewProps> = ({
                     onClick={onOpenCurriculumCoverage}
                     gradient="from-teal-500 to-emerald-600"
                     featured
-                  />
-                )}
-                <ActionCard
-                  icon="🏆"
-                  label="Achievements"
-                  description="Your rewards"
-                  onClick={onOpenAchievements}
-                  gradient="from-amber-500 to-orange-600"
-                />
-                {onOpenStreakRewards && (
-                  <ActionCard
-                    icon="📅"
-                    label="Streaks"
-                    description="Daily progress"
-                    onClick={onOpenStreakRewards}
-                    gradient="from-orange-500 to-red-600"
-                  />
-                )}
-                {onOpenLearningPaths && (
-                  <ActionCard
-                    icon="🎯"
-                    label="Learning Paths"
-                    description="Course progress"
-                    onClick={onOpenLearningPaths}
-                    gradient="from-emerald-500 to-teal-600"
                   />
                 )}
               </div>

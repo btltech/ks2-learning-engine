@@ -52,9 +52,10 @@ interface LessonViewProps {
   studentAge: number;
   onStartQuiz: (mode?: 'standard' | 'speed') => void;
   onBack: () => void;
+  onOpenYorubaLibrary?: () => void;
 }
 
-const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, studentAge, onStartQuiz, onBack }) => {
+const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, studentAge, onStartQuiz, onBack, onOpenYorubaLibrary }) => {
   const [lesson, setLesson] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -63,15 +64,13 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
   const [practiceQuestions, setPracticeQuestions] = useState<BankQuestion[]>([]);
   const [practiceAnswers, setPracticeAnswers] = useState<Record<string, string>>({});
   const [yorubaAudioEntries, setYorubaAudioEntries] = useState<YorubaAudioEntry[]>([]);
-  const [audioSearch, setAudioSearch] = useState('');
-  const [showAllYorubaAudio, setShowAllYorubaAudio] = useState(false);
   
   // Detect language for native pronunciation
   const isLanguageSubject = (CURATED_LANGUAGES as readonly string[]).includes(subject);
   const detectedLanguage = isLanguageSubject ? subject : 'English';
   const supportsPhonetics = getSupportedLanguages().includes(subject);
   const topicYorubaAudioEntries = subject === 'Yoruba'
-    ? getYorubaLessonEntries(yorubaAudioEntries, topic, yorubaAudioEntries.length)
+    ? getYorubaLessonEntries(yorubaAudioEntries, topic, 12)
     : [];
   const reviewedTopicVocabulary = getReviewedLanguageVocabulary(subject, topic);
   const vocabularyWords = reviewedTopicVocabulary.length > 0
@@ -90,11 +89,6 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
     return () => { active = false; };
   }, [subject]);
 
-  const yorubaLibrarySource = showAllYorubaAudio ? yorubaAudioEntries : topicYorubaAudioEntries;
-  const filteredYorubaAudio = audioSearch.trim()
-    ? yorubaLibrarySource.filter((entry) => `${entry.text} ${entry.english || ''}`.toLocaleLowerCase().includes(audioSearch.toLocaleLowerCase())).slice(0, 60)
-    : yorubaLibrarySource.slice(0, 60);
-  
   const { speak, pause, resume, cancel, isSpeaking, isPaused, isLoading: isTTSLoading, errorMessage: ttsError, needsGesture, setNeedsGesture } = useTTSEnhanced(detectedLanguage);
   
   const { playClick } = useGameSounds();
@@ -422,35 +416,26 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
         <div className="mt-6 bg-white rounded-2xl shadow-xl overflow-hidden">
           <div className="px-6 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white">
             <div className="flex items-center justify-between gap-3">
-              <h2 className="font-bold text-lg">{showAllYorubaAudio ? 'Complete Yorùbá Audio Library' : `${topic}: Audio Practice`}</h2>
-              <span className="text-sm font-semibold bg-white/20 rounded-full px-3 py-1">{yorubaLibrarySource.length} phrases</span>
+              <h2 className="font-bold text-lg">{topic}: Audio Practice</h2>
+              <span className="text-sm font-semibold bg-white/20 rounded-full px-3 py-1">{topicYorubaAudioEntries.length} phrases</span>
             </div>
-            <p className="text-sm text-emerald-50 mt-1">
-              {showAllYorubaAudio
-                ? 'Browse all 450 reviewed recordings.'
-                : 'These recordings are assigned specifically to this curriculum topic.'}
-            </p>
+            <p className="text-sm text-emerald-50 mt-1">A focused set of reviewed recordings assigned to this curriculum topic.</p>
           </div>
           <div className="p-4 sm:p-6">
             <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
               <p className="text-sm font-semibold text-gray-600">Every phrase includes its English translation.</p>
-              <button
-                type="button"
-                onClick={() => { setShowAllYorubaAudio((showAll) => !showAll); setAudioSearch(''); }}
-                className="rounded-full border border-emerald-300 px-4 py-2 text-sm font-bold text-emerald-700 hover:bg-emerald-50"
-              >
-                {showAllYorubaAudio ? `Back to ${topic}` : `Browse all ${yorubaAudioEntries.length}`}
-              </button>
+              {onOpenYorubaLibrary && (
+                <button
+                  type="button"
+                  onClick={onOpenYorubaLibrary}
+                  className="min-h-11 rounded-full border border-emerald-300 px-4 py-2 text-sm font-bold text-emerald-700 hover:bg-emerald-50"
+                >
+                  Open all {yorubaAudioEntries.length} recordings
+                </button>
+              )}
             </div>
-            <input
-              value={audioSearch}
-              onChange={(event) => setAudioSearch(event.target.value)}
-              placeholder="Search Yoruba or English…"
-              aria-label="Search Yoruba audio library"
-              className="w-full rounded-lg border border-emerald-200 px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-emerald-400"
-            />
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-[32rem] overflow-y-auto pr-1">
-              {filteredYorubaAudio.map((entry) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {topicYorubaAudioEntries.map((entry) => (
                 <button
                   key={entry.hash}
                   type="button"
@@ -467,10 +452,7 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
                 </button>
               ))}
             </div>
-            {filteredYorubaAudio.length === 0 && <p className="text-center text-gray-500 py-4">No matching phrase found.</p>}
-            {!audioSearch.trim() && yorubaLibrarySource.length > filteredYorubaAudio.length && (
-              <p className="text-xs text-gray-500 mt-3 text-center">Showing the first {filteredYorubaAudio.length} of {yorubaLibrarySource.length}. Use search to find another phrase.</p>
-            )}
+            {topicYorubaAudioEntries.length === 0 && <p className="text-center text-gray-500 py-4">No topic recording is assigned yet. Open the full library to practise another phrase.</p>}
           </div>
         </div>
       )}
