@@ -95,9 +95,7 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
     ? yorubaLibrarySource.filter((entry) => `${entry.text} ${entry.english || ''}`.toLocaleLowerCase().includes(audioSearch.toLocaleLowerCase())).slice(0, 60)
     : yorubaLibrarySource.slice(0, 60);
   
-  const { speak, pause, resume, cancel, isSpeaking, isPaused, isLoading: isTTSLoading, errorMessage: ttsError, needsGesture, setNeedsGesture } = useTTSEnhanced(detectedLanguage, {
-    googleCloudApiKey: (import.meta as unknown as { env: { VITE_GOOGLE_CLOUD_TTS_API_KEY?: string } }).env?.VITE_GOOGLE_CLOUD_TTS_API_KEY
-  });
+  const { speak, pause, resume, cancel, isSpeaking, isPaused, isLoading: isTTSLoading, errorMessage: ttsError, needsGesture, setNeedsGesture } = useTTSEnhanced(detectedLanguage);
   
   const { playClick } = useGameSounds();
   const curriculumUnit = getCurriculumUnit(subject, topic, studentAge);

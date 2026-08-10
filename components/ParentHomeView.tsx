@@ -32,10 +32,13 @@ export const ParentHomeView: React.FC<ParentHomeViewProps> = ({
   const [showWelcome, setShowWelcome] = useState(true);
   const [showChildPreview, setShowChildPreview] = useState(false);
   const childPreviewRef = useModalAccessibility(() => setShowChildPreview(false), showChildPreview);
-  const quizzesThisWeek = currentChild?.quizHistory?.filter((quiz) => {
-    const completedAt = new Date(quiz.completedAt).getTime();
-    return Number.isFinite(completedAt) && Date.now() - completedAt < 7 * 24 * 60 * 60 * 1000;
-  }).length || 0;
+  const recentQuizzes = [...(currentChild?.quizHistory || [])]
+    .filter((quiz) => Number.isFinite(new Date(quiz.completedAt).getTime()))
+    .sort((a, b) => new Date(b.completedAt).getTime() - new Date(a.completedAt).getTime());
+  const quizzesThisWeek = recentQuizzes.filter((quiz) => {
+    const elapsed = Date.now() - new Date(quiz.completedAt).getTime();
+    return elapsed >= 0 && elapsed < 7 * 24 * 60 * 60 * 1000;
+  }).length;
 
   const openChildPreview = () => {
     if (!currentChild) {
@@ -233,7 +236,7 @@ export const ParentHomeView: React.FC<ParentHomeViewProps> = ({
           <h3 className="text-lg font-semibold text-gray-800 mb-4">Recent Activity</h3>
           {currentChild?.quizHistory && currentChild.quizHistory.length > 0 ? (
             <div className="space-y-3">
-              {currentChild.quizHistory.slice(-5).reverse().map((quiz, i) => (
+              {recentQuizzes.slice(0, 5).map((quiz, i) => (
                 <div key={i} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                   <span className="text-xl">📝</span>
                   <div className="flex-1">
@@ -325,7 +328,7 @@ export const ParentHomeView: React.FC<ParentHomeViewProps> = ({
                 <h3 className="font-bold text-gray-800 mb-3">Recent quizzes</h3>
                 {currentChild.quizHistory?.length ? (
                   <div className="space-y-3">
-                    {currentChild.quizHistory.slice(-5).reverse().map((quiz) => (
+                    {recentQuizzes.slice(0, 5).map((quiz) => (
                       <div key={quiz.id} className="bg-gray-50 border border-gray-100 rounded-lg p-3 flex justify-between gap-3">
                         <div>
                           <p className="font-semibold text-gray-800">{quiz.subject} · {quiz.topic}</p>

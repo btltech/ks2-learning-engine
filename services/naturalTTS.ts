@@ -2,7 +2,8 @@
  * Natural TTS Service - Exciting & Natural Voices for Students
  * 
  * This module provides enhanced Text-to-Speech with:
- * - Google Cloud TTS (high quality neural voices) when API key is available
+ * - Free browser speech for lessons, questions, explanations and pronunciation
+ * - Optional Google Cloud TTS only for short celebration messages when explicitly enabled
  * - Context-aware expression (excitement, encouragement, calmness)
  * - Kid-friendly pacing and pronunciation
  * - Natural prosody with pitch and rate variations
@@ -13,6 +14,9 @@ import { initializeGoogleCloudTTS, isGoogleCloudConfigured, speakWithGoogleCloud
 
 // Lazy initialization flag
 let googleTTSInitialized = false;
+
+const isPaidCelebrationTTSEnabled = (): boolean =>
+  import.meta.env?.VITE_ENABLE_PAID_CELEBRATION_TTS === 'true';
 
 /**
  * Initialize Google Cloud TTS lazily (called before each speak attempt)
@@ -25,24 +29,15 @@ const ensureGoogleCloudTTS = (): boolean => {
   }
 
   try {
-    // Vite exposes env vars through import.meta.env
-    const key = import.meta.env?.VITE_GOOGLE_CLOUD_TTS_API_KEY;
-    if (key && typeof key === 'string' && key.length > 10) {
-      initializeGoogleCloudTTS(key);
-      googleTTSInitialized = true;
-      console.log('✅ Google Cloud TTS initialized successfully');
-      return true;
-    } else {
-      console.log('ℹ️ No Google Cloud TTS API key found in environment');
-    }
+    initializeGoogleCloudTTS();
+    googleTTSInitialized = true;
+    console.log('✅ Google Cloud TTS proxy initialized successfully');
+    return true;
   } catch (e) {
     console.warn('Could not initialize Google Cloud TTS:', e);
   }
   return false;
 };
-
-// Try immediate initialization (may work if module loads after env is ready)
-ensureGoogleCloudTTS();
 
 // Language to BCP47 mapping
 const LANGUAGE_MAP: Record<string, string> = {
@@ -244,39 +239,13 @@ const splitIntoSentences = (text: string): string[] => {
 
 /**
  * Main speak function with natural expression
- * Uses Google Cloud TTS if available, falls back to Web Speech API
+ * Always uses the free Web Speech API. Lesson and quiz read-aloud must never
+ * create a paid provider request.
  */
 export const speakNaturally = async (
   text: string, 
   language: string = 'English'
 ): Promise<void> => {
-  // Ensure Google Cloud TTS is initialized (lazy init)
-  ensureGoogleCloudTTS();
-  
-  // Try Google Cloud TTS first (highest quality) - only for supported languages
-  if (isGoogleCloudConfigured() && isLanguageSupportedByGoogleCloud(language)) {
-    console.log('🎤 Using Google Cloud TTS for:', text.substring(0, 50) + '...');
-    try {
-      const expression = analyzeContent(text);
-      const success = await speakWithGoogleCloud(prepareText(text), language, {
-        speakingRate: expression.rate,
-        pitch: Math.round((expression.pitch - 1) * 10) // Convert to Google's scale
-      });
-      if (success) {
-        console.log('✅ Google Cloud TTS played successfully');
-        return;
-      }
-      console.warn('⚠️ Google Cloud TTS returned false, falling back');
-    } catch (error) {
-      console.warn('Google Cloud TTS failed, falling back to Web Speech:', error);
-    }
-  } else if (!isLanguageSupportedByGoogleCloud(language)) {
-    console.log(`ℹ️ ${language} not supported by Google Cloud TTS, using Web Speech API`);
-  } else {
-    console.log('ℹ️ Google Cloud TTS not configured, using Web Speech API');
-  }
-
-  // Fallback to Web Speech API
   if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
     console.warn('Speech synthesis not available');
     return;
@@ -328,34 +297,12 @@ const speakSentence = (
 
 /**
  * Speak as MiRa - warm, friendly, encouraging
- * Uses Google Cloud TTS for best quality
+ * Uses free browser speech so MiRa prompts do not create provider charges.
  */
 export const speakAsMiRa = async (
   text: string, 
   language: string = 'English'
 ): Promise<void> => {
-  // Ensure Google Cloud TTS is initialized (lazy init)
-  ensureGoogleCloudTTS();
-  
-  // Try Google Cloud TTS first - only for supported languages
-  if (isGoogleCloudConfigured() && isLanguageSupportedByGoogleCloud(language)) {
-    console.log('🤖 MiRa speaking with Google Cloud TTS:', text.substring(0, 50) + '...');
-    try {
-      const success = await speakWithGoogleCloud(prepareText(text), language, {
-        speakingRate: 0.95,
-        pitch: 2 // Slightly higher for friendly tone
-      });
-      if (success) {
-        console.log('✅ MiRa Google Cloud TTS played successfully');
-        return;
-      }
-      console.warn('⚠️ MiRa Google Cloud TTS returned false, falling back');
-    } catch (error) {
-      console.warn('Google Cloud TTS failed for MiRa:', error);
-    }
-  }
-
-  // Use Web Speech API for unsupported languages or as fallback
   if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
     return;
   }
@@ -384,17 +331,19 @@ export const speakAsMiRa = async (
 
 /**
  * Celebrate achievement - excited and happy!
- * Uses Google Cloud TTS for best quality
+ * Paid speech is opt-in and limited to short celebrations. It is disabled by
+ * default; the normal fallback is free browser speech plus existing sound effects.
  */
 export const speakCelebration = async (
   text: string, 
   language: string = 'English'
 ): Promise<void> => {
-  // Ensure Google Cloud TTS is initialized (lazy init)
-  ensureGoogleCloudTTS();
-  
-  // Try Google Cloud TTS first - only for supported languages
-  if (isGoogleCloudConfigured() && isLanguageSupportedByGoogleCloud(language)) {
+  if (
+    isPaidCelebrationTTSEnabled()
+    && ensureGoogleCloudTTS()
+    && isGoogleCloudConfigured()
+    && isLanguageSupportedByGoogleCloud(language)
+  ) {
     console.log('🎉 Celebration with Google Cloud TTS:', text.substring(0, 50) + '...');
     try {
       const success = await speakWithGoogleCloud(prepareText(text), language, {
@@ -440,35 +389,13 @@ export const speakCelebration = async (
 
 /**
  * Read pronunciation slowly and clearly
- * Uses Google Cloud TTS for supported languages, Web Speech API for others
+ * Uses free browser speech. Reviewed Yorùbá audio is selected by the calling
+ * hook before this fallback is reached.
  */
 export const speakPronunciation = async (
   text: string, 
   language: string = 'English'
 ): Promise<void> => {
-  // Ensure Google Cloud TTS is initialized (lazy init)
-  ensureGoogleCloudTTS();
-  
-  // Try Google Cloud TTS first - but only for supported languages
-  // Yoruba and other unsupported languages sound terrible with English voice
-  if (isGoogleCloudConfigured() && isLanguageSupportedByGoogleCloud(language)) {
-    console.log('📖 Pronunciation with Google Cloud TTS:', text);
-    try {
-      const success = await speakWithGoogleCloud(text, language, {
-        speakingRate: 0.75, // Very slow for pronunciation
-        pitch: 0
-      });
-      if (success) {
-        console.log('✅ Pronunciation Google Cloud TTS played successfully');
-        return;
-      }
-      console.warn('⚠️ Pronunciation Google Cloud TTS returned false, falling back');
-    } catch (error) {
-      console.warn('Google Cloud TTS failed for pronunciation:', error);
-    }
-  }
-
-  // Use Web Speech API for unsupported languages or as fallback
   if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
     return;
   }

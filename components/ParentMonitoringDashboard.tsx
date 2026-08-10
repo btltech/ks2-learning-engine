@@ -47,14 +47,18 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
       
       subjects[subject] = {
         progress: avgProgress,
-        lastActive: 'Recently', // Would need activity tracking for accurate data
+        lastActive: selectedChild.lastLoginDate
+          ? new Date(selectedChild.lastLoginDate).toLocaleDateString()
+          : 'No activity yet',
         topicsMastered: mastered
       };
     });
 
     // Get recent activity from quiz history
-    const quizHistory = selectedChild.quizHistory || [];
-    const recentActivity = quizHistory.slice(-5).reverse().map((quiz) => {
+    const quizHistory = [...(selectedChild.quizHistory || [])]
+      .filter((quiz) => Number.isFinite(new Date(quiz.completedAt).getTime()))
+      .sort((a, b) => new Date(b.completedAt).getTime() - new Date(a.completedAt).getTime());
+    const recentActivity = quizHistory.slice(0, 5).map((quiz) => {
       const date = new Date(quiz.completedAt);
       const today = new Date();
       const diffDays = Math.floor((today.getTime() - date.getTime()) / (1000 * 60 * 60 * 24));

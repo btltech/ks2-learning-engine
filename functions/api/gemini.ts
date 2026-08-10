@@ -2,6 +2,28 @@
 // Keeps API key server-side, never exposed to browser
 
 import { createRemoteJWKSet, jwtVerify } from 'jose';
+import {
+  commit,
+  documentName,
+  firestoreFields,
+  getDocument,
+  getGoogleAccessToken,
+  getServiceAccount,
+} from '../../functions-shared/firebase-admin';
+import {
+  buildLessonDocument,
+  getCanonicalStoredLesson,
+  getLegacyStoredLesson,
+  legacyLessonDocumentId,
+  lessonDocumentId,
+  parseLessonContext,
+  type CanonicalLessonContext,
+} from '../../functions-shared/lesson-cache';
+import {
+  buildLessonPrompt,
+  LESSON_MODEL,
+  validateGeneratedLessonContent,
+} from '../../services/lessonGeneration';
 
 // Type definition for Cloudflare Pages Functions
 type PagesFunction<E = unknown> = (context: {
@@ -14,9 +36,11 @@ type PagesFunction<E = unknown> = (context: {
 }) => Response | Promise<Response>;
 
 interface Env {
-  VITE_GEMINI_API_KEY: string;
+  GEMINI_API_KEY: string;
   FIREBASE_PROJECT_ID?: string;
   VITE_FIREBASE_PROJECT_ID?: string;
+  FIREBASE_SERVICE_ACCOUNT_JSON?: string;
+  FIREBASE_SERVICE_ACCOUNT_BASE64?: string;
   ALLOWED_ORIGINS?: string; // comma-separated
   /** Optional Cloudflare KV namespace binding for persistent rate limiting.
    *  When bound, rate limit state survives cold starts. Falls back to in-memory. */
@@ -41,6 +65,41 @@ const ALLOWED_MODELS = new Set([
 const jwks = createRemoteJWKSet(
   new URL('https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com')
 );
+
+function extractResponseText(data: unknown): string {
+  if (!data || typeof data !== 'object') return '';
+  const candidates = (data as { candidates?: unknown }).candidates;
+  if (!Array.isArray(candidates) || !candidates[0] || typeof candidates[0] !== 'object') return '';
+  const content = (candidates[0] as { content?: unknown }).content;
+  if (!content || typeof content !== 'object') return '';
+  const parts = (content as { parts?: unknown }).parts;
+  if (!Array.isArray(parts) || !parts[0] || typeof parts[0] !== 'object') return '';
+  const text = (parts[0] as { text?: unknown }).text;
+  return typeof text === 'string' ? text.trim() : '';
+}
+
+function cachedLessonPayload(content: string, source: 'firestore' | 'legacy-cache') {
+  return {
+    candidates: [{ content: { role: 'model', parts: [{ text: content }] }, finishReason: 'STOP' }],
+    lessonCache: { source, persisted: true },
+  };
+}
+
+async function saveCanonicalLesson(
+  projectId: string,
+  accessToken: string,
+  context: CanonicalLessonContext,
+  content: string,
+  source: 'gemini' | 'gemini-legacy-rewrite' | 'legacy-cache',
+) {
+  const document = buildLessonDocument(context, content, source);
+  await commit(projectId, accessToken, [{
+    update: {
+      name: documentName(projectId, `content/${lessonDocumentId(context)}`),
+      fields: firestoreFields(document),
+    },
+  }]);
+}
 
 export function buildProviderPayload(prompt: string, clientConfig: Record<string, unknown> = {}) {
   const responseMimeType = clientConfig.responseMimeType === 'application/json' ? 'application/json' : undefined;
@@ -238,16 +297,71 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
     }
-    const { model, contents, generationConfig } = body;
+    const { model, contents, generationConfig, lessonContext } = body;
+    const canonicalLessonContext = lessonContext === undefined ? null : parseLessonContext(lessonContext);
+    if (lessonContext !== undefined && !canonicalLessonContext) {
+      return new Response(JSON.stringify({ error: 'Invalid or unpublished lesson context' }), {
+        status: 400,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
 
-    if (!env.VITE_GEMINI_API_KEY) {
+    let firestoreAccessToken: string | null = null;
+    let legacyLessonDraft: string | null = null;
+    if (canonicalLessonContext) {
+      const serviceAccount = getServiceAccount(env);
+      if (!serviceAccount?.client_email || !serviceAccount.private_key) {
+        return new Response(JSON.stringify({ error: 'Shared Firebase lesson storage is not configured' }), {
+          status: 500,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        });
+      }
+
+      try {
+        firestoreAccessToken = await getGoogleAccessToken(serviceAccount);
+        const canonical = await getDocument(
+          projectId,
+          firestoreAccessToken,
+          `content/${lessonDocumentId(canonicalLessonContext)}`,
+        );
+        const storedContent = getCanonicalStoredLesson(canonical, canonicalLessonContext);
+        if (storedContent) {
+          console.log(JSON.stringify({ event: 'lesson_cache_hit', requestId, uid, source: 'firestore', lessonId: lessonDocumentId(canonicalLessonContext) }));
+          return new Response(JSON.stringify(cachedLessonPayload(storedContent, 'firestore')), {
+            status: 200,
+            headers: { ...corsHeaders, 'Content-Type': 'application/json', 'Cache-Control': 'private, no-store' },
+          });
+        }
+
+        const legacy = await getDocument(
+          projectId,
+          firestoreAccessToken,
+          `content_cache/${legacyLessonDocumentId(canonicalLessonContext)}`,
+        );
+        const legacyContent = getLegacyStoredLesson(legacy);
+        if (legacyContent) {
+          // Old Firebase lessons used a five-section format. Preserve the useful
+          // draft as source material, but rewrite and revalidate it against the
+          // current published objective before sharing it again.
+          legacyLessonDraft = legacyContent;
+          console.log(JSON.stringify({ event: 'legacy_lesson_found', requestId, uid, lessonId: lessonDocumentId(canonicalLessonContext) }));
+        }
+      } catch (error) {
+        firestoreAccessToken = null;
+        console.error(JSON.stringify({ event: 'lesson_cache_read_failed', requestId, message: error instanceof Error ? error.message : 'Unknown error' }));
+      }
+    }
+
+    if (!env.GEMINI_API_KEY) {
       return new Response(
         JSON.stringify({ error: 'API key not configured' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    const selectedModel = typeof model === 'string' && model.trim() ? model.trim() : 'gemini-2.5-flash';
+    const selectedModel = canonicalLessonContext
+      ? LESSON_MODEL
+      : (typeof model === 'string' && model.trim() ? model.trim() : LESSON_MODEL);
     if (!ALLOWED_MODELS.has(selectedModel)) {
       return new Response(
         JSON.stringify({ error: `Model not allowed: ${selectedModel}` }),
@@ -255,19 +369,25 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       );
     }
 
-    // Basic payload validation/limits
-    if (!Array.isArray(contents) || contents.length !== 1) {
-      return new Response(
-        JSON.stringify({ error: 'Invalid contents' }),
-        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
+    // Lesson prompts are reconstructed from the published server-side curriculum.
+    // Generic AI calls still accept one bounded text prompt.
+    let prompt = canonicalLessonContext ? buildLessonPrompt(canonicalLessonContext) : '';
+    if (canonicalLessonContext && legacyLessonDraft) {
+      prompt += `\n\nEXISTING FIREBASE LESSON DRAFT:\nUse any correct, relevant teaching from this earlier draft, but correct inaccuracies and rewrite it into the required six-section format. The published objective and all current safety rules above take priority.\n\n${legacyLessonDraft}`;
     }
-
-    const content = contents[0] as { parts?: unknown } | null;
-    const parts = content && Array.isArray(content.parts) ? content.parts : [];
-    const prompt = parts.length === 1 && typeof (parts[0] as { text?: unknown })?.text === 'string'
-      ? (parts[0] as { text: string }).text
-      : '';
+    if (!canonicalLessonContext) {
+      if (!Array.isArray(contents) || contents.length !== 1) {
+        return new Response(
+          JSON.stringify({ error: 'Invalid contents' }),
+          { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+      const content = contents[0] as { parts?: unknown } | null;
+      const parts = content && Array.isArray(content.parts) ? content.parts : [];
+      prompt = parts.length === 1 && typeof (parts[0] as { text?: unknown })?.text === 'string'
+        ? (parts[0] as { text: string }).text
+        : '';
+    }
     if (!prompt || prompt.length > MAX_PROMPT_CHARS) {
       return new Response(
         JSON.stringify({ error: 'Contents must contain one bounded text prompt' }),
@@ -280,7 +400,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       : {};
 
     // Forward to Gemini API
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${env.VITE_GEMINI_API_KEY}`;
+    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${env.GEMINI_API_KEY}`;
     
     const geminiResponse = await fetch(geminiUrl, {
       method: 'POST',
@@ -302,6 +422,46 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       data = JSON.parse(responseText);
     } catch {
       data = { error: 'AI provider returned an invalid response' };
+    }
+
+    if (canonicalLessonContext && geminiResponse.ok) {
+      const lessonText = extractResponseText(data);
+      const validation = validateGeneratedLessonContent(lessonText);
+      if (!validation.isValid) {
+        console.error(JSON.stringify({
+          event: 'lesson_validation_failed',
+          requestId,
+          uid,
+          lessonId: lessonDocumentId(canonicalLessonContext),
+          issues: validation.issues,
+        }));
+        return new Response(JSON.stringify({ error: 'The generated lesson did not pass curriculum validation. Please try again.' }), {
+          status: 502,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        });
+      }
+
+      if (firestoreAccessToken) {
+        try {
+          await saveCanonicalLesson(
+            projectId,
+            firestoreAccessToken,
+            canonicalLessonContext,
+            validation.sanitizedContent || lessonText,
+            legacyLessonDraft ? 'gemini-legacy-rewrite' : 'gemini',
+          );
+          if (data && typeof data === 'object') {
+            (data as Record<string, unknown>).lessonCache = { source: 'generated', persisted: true };
+          }
+        } catch (error) {
+          console.error(JSON.stringify({ event: 'lesson_cache_write_failed', requestId, message: error instanceof Error ? error.message : 'Unknown error' }));
+          if (data && typeof data === 'object') {
+            (data as Record<string, unknown>).lessonCache = { source: 'generated', persisted: false };
+          }
+        }
+      } else if (data && typeof data === 'object') {
+        (data as Record<string, unknown>).lessonCache = { source: 'generated', persisted: false };
+      }
     }
     console.log(JSON.stringify({ event: 'gemini_request_complete', requestId, uid, model: selectedModel, status: geminiResponse.status }));
     

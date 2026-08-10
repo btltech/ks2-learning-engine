@@ -113,6 +113,38 @@ export const languagesQuestions: BankQuestion[] = [
   { id: 'l-yo-fa-04', subject: 'Languages', topic: 'Yoruba: Family', ageGroup: [7, 8, 9, 10, 11], difficulty: Difficulty.Medium, question: 'Which Yoruba word means “older sibling”?', options: ['Ẹ̀gbọ́n', 'Àbúrò', 'Ìyá', 'Bàbá'], correctAnswer: 'Ẹ̀gbọ́n' },
   { id: 'l-yo-fa-05', subject: 'Languages', topic: 'Yoruba: Family', ageGroup: [7, 8, 9, 10, 11], difficulty: Difficulty.Medium, question: 'Which Yoruba word means “younger sibling”?', options: ['Àbúrò', 'Ẹ̀gbọ́n', 'Ọmọ', 'Ọ̀rẹ́'], correctAnswer: 'Àbúrò' },
 
+  // Colours and classroom objects
+  { id: 'l-yo-co-01', subject: 'Languages', topic: 'Yoruba: Colours', ageGroup: [7, 8, 9, 10, 11], difficulty: Difficulty.Easy, question: 'Which Yoruba word means “red”?', options: ['Pupa', 'Dúdú', 'Funfun', 'Búlúù'], correctAnswer: 'Pupa' },
+  { id: 'l-yo-co-02', subject: 'Languages', topic: 'Yoruba: Colours', ageGroup: [7, 8, 9, 10, 11], difficulty: Difficulty.Easy, question: 'Which Yoruba word means “black”?', options: ['Dúdú', 'Pupa', 'Yẹ́lò', 'Píìnkì'], correctAnswer: 'Dúdú' },
+  { id: 'l-yo-co-03', subject: 'Languages', topic: 'Yoruba: Colours', ageGroup: [9, 10, 11], difficulty: Difficulty.Medium, question: 'Which Yoruba word means “blue”?', options: ['Búlúù', 'Funfun', 'Pupa', 'Àwọ̀ ewé'], correctAnswer: 'Búlúù' },
+  { id: 'l-yo-co-04', subject: 'Languages', topic: 'Yoruba: Colours', ageGroup: [9, 10, 11], difficulty: Difficulty.Medium, question: 'Which Yoruba phrase means “green”?', options: ['Àwọ̀ ewé', 'Dúdú', 'Píìnkì', 'Yẹ́lò'], correctAnswer: 'Àwọ̀ ewé' },
+  { id: 'l-yo-co-05', subject: 'Languages', topic: 'Yoruba: Colours', ageGroup: [9, 10, 11], difficulty: Difficulty.Medium, question: 'Which Yoruba word means “yellow”?', options: ['Yẹ́lò', 'Búlúù', 'Funfun', 'Pupa'], correctAnswer: 'Yẹ́lò' },
+
+  // Numbers and age
+  { id: 'l-yo-nu-01', subject: 'Languages', topic: 'Yoruba: Numbers', ageGroup: [7, 8, 9, 10, 11], difficulty: Difficulty.Easy, question: 'Which Yoruba word means “zero”?', options: ['Òdo', 'Ọ̀kan', 'Ogún', 'Mẹ́wàá'], correctAnswer: 'Òdo' },
+  { id: 'l-yo-nu-02', subject: 'Languages', topic: 'Yoruba: Numbers', ageGroup: [7, 8, 9, 10, 11], difficulty: Difficulty.Easy, question: 'Which Yoruba word means “five”?', options: ['Àrún', 'Mẹ́fà', 'Méje', 'Ẹ̀rin'], correctAnswer: 'Àrún' },
+  { id: 'l-yo-nu-03', subject: 'Languages', topic: 'Yoruba: Numbers', ageGroup: [7, 8, 9, 10, 11], difficulty: Difficulty.Easy, question: 'Which Yoruba word means “ten”?', options: ['Mẹ́wàá', 'Ogún', 'Ọ̀kànlá', 'Mẹ́sàn-án'], correctAnswer: 'Mẹ́wàá' },
+  { id: 'l-yo-nu-04', subject: 'Languages', topic: 'Yoruba: Numbers', ageGroup: [9, 10, 11], difficulty: Difficulty.Medium, question: 'Which Yoruba word means “fifteen”?', options: ['Ẹ̀ẹ́dógún', 'Ẹ̀tàlá', 'Mẹ́rìnlá', 'Ogún'], correctAnswer: 'Ẹ̀ẹ́dógún' },
+  { id: 'l-yo-nu-05', subject: 'Languages', topic: 'Yoruba: Numbers', ageGroup: [9, 10, 11], difficulty: Difficulty.Medium, question: 'Which Yoruba word means “twenty”?', options: ['Ogún', 'Mẹ́wàá', 'Ọ̀kànlá', 'Mẹ́fà'], correctAnswer: 'Ogún' },
+
+  // Days and months
+  { id: 'l-yo-da-01', subject: 'Languages', topic: 'Yoruba: Days', ageGroup: [7, 8, 9, 10, 11], difficulty: Difficulty.Easy, question: 'Which Yoruba phrase means “Sunday”?', options: ['Ọjọ́ Àìkú', 'Ọjọ́ Ajé', 'Ọjọ́ Ẹtì', 'Ọjọ́bọ'], correctAnswer: 'Ọjọ́ Àìkú' },
+  { id: 'l-yo-da-02', subject: 'Languages', topic: 'Yoruba: Days', ageGroup: [7, 8, 9, 10, 11], difficulty: Difficulty.Easy, question: 'Which Yoruba phrase means “Monday”?', options: ['Ọjọ́ Ajé', 'Ọjọ́rú', 'Ọjọ́ Àbámẹ́ta', 'Ọjọ́ Ìṣẹ́gun'], correctAnswer: 'Ọjọ́ Ajé' },
+  { id: 'l-yo-da-03', subject: 'Languages', topic: 'Yoruba: Days', ageGroup: [9, 10, 11], difficulty: Difficulty.Medium, question: 'Which Yoruba phrase means “Friday”?', options: ['Ọjọ́ Ẹtì', 'Ọjọ́bọ', 'Ọjọ́ Ajé', 'Ọjọ́ Àìkú'], correctAnswer: 'Ọjọ́ Ẹtì' },
+  { id: 'l-yo-da-04', subject: 'Languages', topic: 'Yoruba: Days', ageGroup: [9, 10, 11], difficulty: Difficulty.Medium, question: 'Which Yoruba phrase means “Saturday”?', options: ['Ọjọ́ Àbámẹ́ta', 'Ọjọ́rú', 'Ọjọ́ Ẹtì', 'Ọjọ́ Ìṣẹ́gun'], correctAnswer: 'Ọjọ́ Àbámẹ́ta' },
+  { id: 'l-yo-mo-01', subject: 'Languages', topic: 'Yoruba: Months', ageGroup: [7, 8, 9, 10, 11], difficulty: Difficulty.Easy, question: 'Which Yoruba month name means “January”?', options: ['Oṣù Ṣẹ́rẹ́', 'Oṣù Èrèlè', 'Oṣù Ògún', 'Oṣù Ọ̀pẹ̀'], correctAnswer: 'Oṣù Ṣẹ́rẹ́' },
+  { id: 'l-yo-mo-02', subject: 'Languages', topic: 'Yoruba: Months', ageGroup: [9, 10, 11], difficulty: Difficulty.Medium, question: 'Which Yoruba month name means “March”?', options: ['Oṣù Ẹrẹ̀nà', 'Oṣù Ìgbé', 'Oṣù Agẹmọ', 'Oṣù Bélú'], correctAnswer: 'Oṣù Ẹrẹ̀nà' },
+  { id: 'l-yo-mo-03', subject: 'Languages', topic: 'Yoruba: Months', ageGroup: [9, 10, 11], difficulty: Difficulty.Medium, question: 'Which Yoruba month name means “August”?', options: ['Oṣù Ògún', 'Oṣù Òkúdu', 'Oṣù Ọ̀wàrà', 'Oṣù Èrèlè'], correctAnswer: 'Oṣù Ògún' },
+  { id: 'l-yo-mo-04', subject: 'Languages', topic: 'Yoruba: Months', ageGroup: [9, 10, 11], difficulty: Difficulty.Medium, question: 'Which Yoruba month name means “December”?', options: ['Oṣù Ọ̀pẹ̀', 'Oṣù Bélú', 'Oṣù Owewe', 'Oṣù Ẹ̀bìbí'], correctAnswer: 'Oṣù Ọ̀pẹ̀' },
+
+  // Animals, weather and health
+  { id: 'l-yo-an-01', subject: 'Languages', topic: 'Yoruba: Animals', ageGroup: [7, 8, 9, 10, 11], difficulty: Difficulty.Easy, question: 'Which Yoruba word means “dog”?', options: ['Ajá', 'Ológbò', 'Ẹṣin', 'Ẹyẹ'], correctAnswer: 'Ajá' },
+  { id: 'l-yo-an-02', subject: 'Languages', topic: 'Yoruba: Animals', ageGroup: [7, 8, 9, 10, 11], difficulty: Difficulty.Easy, question: 'Which Yoruba word means “cat”?', options: ['Ológbò', 'Ajá', 'Àgùtàn', 'Adìẹ'], correctAnswer: 'Ológbò' },
+  { id: 'l-yo-we-01', subject: 'Languages', topic: 'Yoruba: Weather', ageGroup: [7, 8, 9, 10, 11], difficulty: Difficulty.Easy, question: 'Which Yoruba word means “rain”?', options: ['Òjò', 'Ooru', 'Òtútù', 'Afẹ́fẹ́'], correctAnswer: 'Òjò' },
+  { id: 'l-yo-we-02', subject: 'Languages', topic: 'Yoruba: Weather', ageGroup: [9, 10, 11], difficulty: Difficulty.Medium, question: 'Which Yoruba phrase means “it is raining”?', options: ['Òjò ń rọ̀', 'Ìgbà ooru', 'Afẹ́fẹ́', 'Hámátàn'], correctAnswer: 'Òjò ń rọ̀' },
+  { id: 'l-yo-he-01', subject: 'Languages', topic: 'Yoruba: Body and health', ageGroup: [7, 8, 9, 10, 11], difficulty: Difficulty.Easy, question: 'Which Yoruba word means “head”?', options: ['Orí', 'Ojú', 'Etí', 'Ẹnu'], correctAnswer: 'Orí' },
+  { id: 'l-yo-he-02', subject: 'Languages', topic: 'Yoruba: Body and health', ageGroup: [9, 10, 11], difficulty: Difficulty.Medium, question: 'Which Yoruba word means “doctor”?', options: ['Oníṣègùn', 'Olùkọ́', 'Akẹ́kọ̀ọ́', 'Awakọ̀'], correctAnswer: 'Oníṣègùn' },
+
   // ===== ROMANIAN =====
   // Greetings
   { id: 'l-ro-gr-01', subject: 'Languages', topic: 'Romanian: Greetings', ageGroup: [9, 10], difficulty: Difficulty.Medium, question: 'Hello', options: ['Salut', 'Pa', 'Mulțumesc', 'Da'], correctAnswer: 'Salut' },

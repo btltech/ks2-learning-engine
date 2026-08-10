@@ -108,9 +108,10 @@ export const authService = {
     return authService.updateUser({ avatarConfig: newAvatarConfig });
   },
 
-  // Get real parent stats from stored user data
-  getParentStats: (): ParentStats => {
-    const user = authService.getCurrentUser();
+  // Get real learner stats. A profile can be supplied for parent dashboards so
+  // reports are generated for the selected child rather than the parent account.
+  getParentStats: (profile?: UserProfile | null): ParentStats => {
+    const user = profile || authService.getCurrentUser();
     if (!user) {
       return {
         totalTimeSpent: 0,

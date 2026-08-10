@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useModalAccessibility } from '../hooks/useModalAccessibility';
 import { ParentStats } from '../types';
 import { authService } from '../services/authService';
@@ -16,20 +16,35 @@ const ParentDashboard: React.FC<ParentDashboardProps> = ({ onClose }) => {
   const [learningInsights, setLearningInsights] = useState<string>('');
   const [isGeneratingReport, setIsGeneratingReport] = useState(false);
   const [isGeneratingInsights, setIsGeneratingInsights] = useState(false);
-  const { user, getPerformanceTrends } = useUser();
+  const { currentChild } = useUser();
   const dialogRef = useModalAccessibility(onClose);
+  const childTrend = useMemo(() => {
+    const quizzes = currentChild?.quizHistory || [];
+    if (quizzes.length === 0) return { avgScore: 0, trend: 'stable' as const };
+    const recent = quizzes.slice(-3);
+    const previous = quizzes.slice(-6, -3);
+    const recentAverage = recent.reduce((sum, quiz) => sum + quiz.score, 0) / recent.length;
+    const previousAverage = previous.length
+      ? previous.reduce((sum, quiz) => sum + quiz.score, 0) / previous.length
+      : recentAverage;
+    const difference = recentAverage - previousAverage;
+    return {
+      avgScore: Math.round(recentAverage),
+      trend: difference > 5 ? 'improving' as const : difference < -5 ? 'declining' as const : 'stable' as const,
+    };
+  }, [currentChild]);
 
   useEffect(() => {
-    // In a real app, this would be an async call
-    const data = authService.getParentStats();
-    setStats(data);
-  }, []);
+    setStats(currentChild ? authService.getParentStats(currentChild) : null);
+    setProgressReport('');
+    setLearningInsights('');
+  }, [currentChild]);
 
   const handleGenerateProgressReport = async () => {
-    if (!user) return;
+    if (!currentChild) return;
     setIsGeneratingReport(true);
     try {
-      const report = await generateProgressReport(user, user.age, user.name);
+      const report = await generateProgressReport(currentChild, currentChild.age, currentChild.name);
       setProgressReport(report);
     } catch (error) {
       console.error('Error generating progress report:', error);
@@ -40,11 +55,15 @@ const ParentDashboard: React.FC<ParentDashboardProps> = ({ onClose }) => {
   };
 
   const handleGenerateLearningInsights = async () => {
-    if (!user) return;
+    if (!currentChild) return;
     setIsGeneratingInsights(true);
     try {
-      // We'll need to get recent quiz results - for now using empty array
-      const insights = await generateLearningInsights(user, [], user.age, user.name);
+      const insights = await generateLearningInsights(
+        currentChild,
+        currentChild.quizHistory || [],
+        currentChild.age,
+        currentChild.name,
+      );
       setLearningInsights(insights);
     } catch (error) {
       console.error('Error generating learning insights:', error);
@@ -54,7 +73,22 @@ const ParentDashboard: React.FC<ParentDashboardProps> = ({ onClose }) => {
     }
   };
 
-  if (!stats) return null;
+  if (!currentChild || !stats) {
+    return (
+      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" role="presentation">
+        <div ref={dialogRef} tabIndex={-1} className="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-8" role="dialog" aria-modal="true" aria-labelledby="parent-dashboard-empty-title">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <h2 id="parent-dashboard-empty-title" className="text-2xl font-bold text-gray-800">No learner selected</h2>
+              <p className="text-gray-600 mt-2">Link a child and select their profile to view progress reports and insights.</p>
+            </div>
+            <button onClick={onClose} aria-label="Close parent dashboard" className="p-2 rounded-lg hover:bg-gray-100">✕</button>
+          </div>
+          <button onClick={onClose} className="mt-6 w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 font-semibold">Close</button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" role="presentation">
@@ -65,7 +99,7 @@ const ParentDashboard: React.FC<ParentDashboardProps> = ({ onClose }) => {
             <h2 className="text-3xl font-bold flex items-center gap-2">
               <span id="parent-dashboard-title">👨‍👩‍👧 Parent Dashboard</span>
             </h2>
-            <p className="opacity-90">Track your child's progress</p>
+            <p className="opacity-90">Tracking {currentChild.name}'s progress</p>
           </div>
           <button 
             onClick={onClose}
@@ -155,13 +189,13 @@ const ParentDashboard: React.FC<ParentDashboardProps> = ({ onClose }) => {
           </div>
 
           {/* Time Spent Learning Per Subject */}
-          {user?.timeSpentLearning && Object.keys(user.timeSpentLearning).length > 0 && (
+          {currentChild.timeSpentLearning && Object.keys(currentChild.timeSpentLearning).length > 0 && (
             <div className="bg-white p-6 rounded-xl border border-gray-200">
               <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
                 ⏱️ Time Spent Learning (by Subject)
               </h3>
               <div className="space-y-3">
-                {Object.entries(user.timeSpentLearning).map(([subject, minutes]) => {
+                {Object.entries(currentChild.timeSpentLearning).map(([subject, minutes]) => {
                   const minutesNum = typeof minutes === 'number' ? minutes : 0;
                   return (
                     <div key={subject} className="flex items-center justify-between">
@@ -185,7 +219,7 @@ const ParentDashboard: React.FC<ParentDashboardProps> = ({ onClose }) => {
           )}
 
           {/* Weekly Progress & Goals */}
-          {user?.weeklyProgress && (
+          {currentChild.weeklyProgress && (
             <div className="bg-white p-6 rounded-xl border border-gray-200">
               <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
                 📅 Weekly Progress
@@ -193,27 +227,27 @@ const ParentDashboard: React.FC<ParentDashboardProps> = ({ onClose }) => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
                   <p className="text-sm text-gray-600">Minutes This Week</p>
-                  <p className="text-3xl font-bold text-blue-600">{user.weeklyProgress.minutesLearned}</p>
-                  <p className="text-xs text-gray-500 mt-1">Goal: {user.weeklyGoal} mins</p>
+                  <p className="text-3xl font-bold text-blue-600">{currentChild.weeklyProgress.minutesLearned}</p>
+                  <p className="text-xs text-gray-500 mt-1">Goal: {currentChild.weeklyGoal} mins</p>
                 </div>
                 <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
                   <p className="text-sm text-gray-600">Quizzes This Week</p>
-                  <p className="text-3xl font-bold text-purple-600">{user.weeklyProgress.quizzesTaken}</p>
-                  <p className="text-xs text-gray-500 mt-1">Avg: {user.weeklyProgress.averageScore}%</p>
+                  <p className="text-3xl font-bold text-purple-600">{currentChild.weeklyProgress.quizzesTaken}</p>
+                  <p className="text-xs text-gray-500 mt-1">Avg: {currentChild.weeklyProgress.averageScore}%</p>
                 </div>
-                <div className={`p-4 rounded-lg border ${user.weeklyProgress.goalMet ? 'bg-green-50 border-green-200' : 'bg-orange-50 border-orange-200'}`}>
+                <div className={`p-4 rounded-lg border ${currentChild.weeklyProgress.goalMet ? 'bg-green-50 border-green-200' : 'bg-orange-50 border-orange-200'}`}>
                   <p className="text-sm text-gray-600">Weekly Goal</p>
-                  <p className={`text-3xl font-bold ${user.weeklyProgress.goalMet ? 'text-green-600' : 'text-orange-600'}`}>
-                    {user.weeklyProgress.goalMet ? '✅' : `${Math.round((user.weeklyProgress.minutesLearned / (user.weeklyGoal || 180)) * 100)}%`}
+                  <p className={`text-3xl font-bold ${currentChild.weeklyProgress.goalMet ? 'text-green-600' : 'text-orange-600'}`}>
+                    {currentChild.weeklyProgress.goalMet ? '✅' : `${Math.round((currentChild.weeklyProgress.minutesLearned / (currentChild.weeklyGoal || 180)) * 100)}%`}
                   </p>
-                  <p className="text-xs text-gray-500 mt-1">{user.weeklyProgress.goalMet ? 'Goal Met!' : 'Keep going!'}</p>
+                  <p className="text-xs text-gray-500 mt-1">{currentChild.weeklyProgress.goalMet ? 'Goal Met!' : 'Keep going!'}</p>
                 </div>
               </div>
             </div>
           )}
 
           {/* Performance Trends */}
-          {user && (
+          {currentChild && (
             <div className="bg-white p-6 rounded-xl border border-gray-200">
               <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
                 📈 Performance Trends
@@ -223,14 +257,14 @@ const ParentDashboard: React.FC<ParentDashboardProps> = ({ onClose }) => {
                   <p className="text-sm text-gray-700 font-semibold mb-2">Overall Performance</p>
                   <div className="flex items-end gap-2">
                     <div className="text-3xl font-bold text-blue-600">
-                      {getPerformanceTrends().avgScore}%
+                      {childTrend.avgScore}%
                     </div>
                     <div className="text-sm font-semibold mb-1" style={{
-                      color: getPerformanceTrends().trend === 'improving' ? '#10b981' : 
-                             getPerformanceTrends().trend === 'declining' ? '#ef4444' : '#f59e0b'
+                      color: childTrend.trend === 'improving' ? '#10b981' :
+                             childTrend.trend === 'declining' ? '#ef4444' : '#f59e0b'
                     }}>
-                      {getPerformanceTrends().trend === 'improving' ? '📈 Improving' :
-                       getPerformanceTrends().trend === 'declining' ? '📉 Declining' : '➡️ Stable'}
+                      {childTrend.trend === 'improving' ? '📈 Improving' :
+                       childTrend.trend === 'declining' ? '📉 Declining' : '➡️ Stable'}
                     </div>
                   </div>
                 </div>
@@ -238,10 +272,10 @@ const ParentDashboard: React.FC<ParentDashboardProps> = ({ onClose }) => {
                   <p className="text-sm text-gray-700 font-semibold mb-2">Total Quizzes Taken</p>
                   <div className="flex items-end gap-2">
                     <div className="text-3xl font-bold text-green-600">
-                      {user.quizHistory?.length || 0}
+                      {currentChild.quizHistory?.length || 0}
                     </div>
                     <div className="text-sm text-gray-600 mb-1">
-                      Streak: {user.streak} days 🔥
+                      Streak: {currentChild.streak} days 🔥
                     </div>
                   </div>
                 </div>
@@ -250,7 +284,7 @@ const ParentDashboard: React.FC<ParentDashboardProps> = ({ onClose }) => {
           )}
 
           {/* Curriculum Tracking */}
-          {user && <CurriculumTracking user={user} />}
+          {currentChild && <CurriculumTracking user={currentChild} />}
 
           {/* Recent Activity */}
           <div>

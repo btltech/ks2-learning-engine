@@ -1,10 +1,8 @@
-import { GoogleGenAI, Type } from "@google/genai";
 import { getAuth } from 'firebase/auth';
 import type { QuizQuestion, QuizResult, Explanation, QuestionType, CognitiveLevel } from '../types';
 import { QuestionType as QType, CognitiveLevel as CLevel, Difficulty } from '../types';
-import { createCacheKey, getFromCache, setInCache } from './cacheService';
+import { createCacheKey, getFromCache, setInCache, TTL } from './cacheService';
 import { 
-  validateLesson, 
   validateQuizQuestion, 
   validateExplanation 
 } from './contentValidator';
@@ -23,17 +21,22 @@ import { getReviewedQuestions } from '../data/reviewedQuestions';
 import { getReviewedLanguageLesson, getReviewedLanguageQuestions } from '../data/reviewedLanguageContent';
 import { getYorubaAudioEntries } from './yorubaAudio';
 import { getYorubaLessonEntries } from './yorubaLessonContent';
+import {
+  LESSON_MODEL,
+  LESSON_PROMPT_VERSION,
+  type LessonRequestContext,
+  validateGeneratedLessonContent,
+} from './lessonGeneration';
 
 const LANGUAGE_SUBJECTS = CURATED_LANGUAGES.map((language) => language.toLowerCase());
 
-// In production, the API key is handled server-side via Cloudflare Pages Functions
-// In development, we use the VITE_ env var directly
-const USE_PROXY = import.meta.env.PROD;
-const apiKey = USE_PROXY ? 'proxy' : ((import.meta as any).env.VITE_GEMINI_API_KEY as string);
-
-if (!USE_PROXY && !apiKey) {
-  console.warn('⚠️ VITE_GEMINI_API_KEY is not set. AI features will not work. Please configure your environment variables.');
-}
+// JSON schema values expected by the server-controlled Gemini request.
+const Type = {
+  OBJECT: 'OBJECT',
+  ARRAY: 'ARRAY',
+  STRING: 'STRING',
+  NUMBER: 'NUMBER',
+} as const;
 
 const getFirebaseIdToken = async (): Promise<string> => {
   const auth = getAuth();
@@ -55,7 +58,8 @@ const getFirebaseIdToken = async (): Promise<string> => {
   return user.getIdToken();
 };
 
-// Proxy-based AI client for production
+// All browser AI calls use the authenticated backend. No billable provider key
+// or provider SDK is needed in the client bundle.
 const createProxyAI = () => ({
   models: {
     generateContent: async (params: { model: string; contents: string; config?: any }) => {
@@ -94,10 +98,31 @@ const createProxyAI = () => ({
   }
 });
 
-// Use proxy in production, direct SDK in development
-const ai = USE_PROXY ? createProxyAI() : new GoogleGenAI({ apiKey: apiKey || '' });
+const ai = createProxyAI();
 
-const model = 'gemini-2.5-flash';
+const model = LESSON_MODEL;
+
+const requestFirebaseLesson = async (context: LessonRequestContext): Promise<string> => {
+  const token = await getFirebaseIdToken();
+  const response = await fetch('/api/gemini', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ model, lessonContext: context }),
+  });
+  if (!response.ok) {
+    const payload = await response.json().catch(() => ({})) as { error?: string };
+    throw new Error(payload.error || 'Unable to load the shared lesson');
+  }
+  const payload = await response.json() as {
+    candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }>;
+  };
+  const text = payload.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || '';
+  if (!text) throw new Error('The shared lesson was empty');
+  return text;
+};
 
 const enrichYorubaLesson = async (_lesson: string, topic: string): Promise<string> => {
   const entries = await getYorubaAudioEntries();
@@ -172,15 +197,14 @@ export const getTopicsForSubject = async (subject: string, studentAge: number): 
 };
 
 export const generateLesson = async (subject: string, topic: string, difficulty: Difficulty, studentAge: number): Promise<string> => {
-  const cacheKey = createCacheKey('lesson', subject, topic, difficulty, studentAge.toString());
+  const lessonContext = { subject, topic, difficulty, studentAge };
+  const cacheKey = createCacheKey('lesson', LESSON_PROMPT_VERSION, subject, topic, difficulty, studentAge.toString());
   const reviewedLesson = getReviewedLesson(subject, topic, studentAge)
     || getReviewedLanguageLesson(subject, topic, studentAge);
   if (reviewedLesson) {
     return subject === 'Yoruba' ? enrichYorubaLesson(reviewedLesson, topic) : reviewedLesson;
   }
-  const curriculumUnit = getCurriculumUnit(subject, topic, studentAge);
-  
-  // 1. Check Local Cache
+  // The device cache is only a short-lived mirror. Firestore remains the shared source.
   const cachedLesson = getFromCache<string>(cacheKey);
   if (cachedLesson) {
     console.log(`Cache hit for lesson: ${subject} - ${topic} (${difficulty}, age ${studentAge})`);
@@ -192,104 +216,12 @@ export const generateLesson = async (subject: string, topic: string, difficulty:
     return "You're currently offline. This lesson hasn't been downloaded yet. Please connect to the internet to load new lessons, or choose a topic you've studied before!";
   }
   
-  let contents = '';
-  const subjectLower = subject.toLowerCase();
-  
-  let specificInstructions = "";
-  if (subjectLower === 'computing' || subjectLower === 'coding') {
-    specificInstructions = "For Computing, ensure 'Teach' and 'Modelled Example' include a short Python or Scratch-style example where appropriate, and explain how it works.";
-  } else if (LANGUAGE_SUBJECTS.includes(subjectLower)) {
-    specificInstructions = "For Languages, 'Key Vocabulary' must include the foreign word, a simple pronunciation guide in brackets, and English meaning. 'Teach' should focus on short useful phrases and usage, with one accurately modelled exchange.";
-    if (subjectLower === 'yoruba') {
-      specificInstructions += " Use standard Yoruba orthography, including underdots and tone marks (for example: Ẹ ṣé, ọmọ, ìyá). Explain that tone changes meaning and never replace Yoruba letters with approximate English spelling.";
-    } else if (subjectLower === 'romanian') {
-      specificInstructions += " Use Romanian diacritics accurately (ă, â, î, ș, ț) and model natural Romanian word order.";
-    } else if (subjectLower === 'mandarin') {
-      specificInstructions += " Use simplified Chinese characters with accurate Hanyu Pinyin and tone marks. Do not replace tones with English-style spellings.";
-    } else if (subjectLower === 'japanese') {
-      specificInstructions += " Use age-appropriate Japanese script, give accurate kana readings for new kanji, and distinguish polite forms from casual forms.";
-    } else if (subjectLower === 'korean') {
-      specificInstructions += " Use accurate Hangul and natural polite Korean. Do not rely on approximate English spelling when Hangul can be shown.";
-    }
-  } else if (subjectLower === 'maths' || subjectLower === 'mathematics') {
-    specificInstructions = "For Maths, 'Modelled Example' must show concise step-by-step working.";
-  } else if (subjectLower === 'science') {
-    specificInstructions = "For Science, distinguish evidence from explanation and include a safe observation or enquiry step. Never instruct a child to handle hazardous materials.";
-  } else if (subjectLower === 'history') {
-    specificInstructions = "For History, establish chronology and explain how evidence supports claims. Do not present legends or contested interpretations as settled fact.";
-  } else if (subjectLower === 'geography') {
-    specificInstructions = "For Geography, use a real place or map skill and distinguish human from physical processes.";
-  } else if (subjectLower === 'art') {
-    specificInstructions = "For Art, teach one observable technique, prompt a short sketchbook experiment, and treat the creative outcome as unscored.";
-  } else if (subjectLower === 'music') {
-    specificInstructions = "For Music, include a safe listening, clapping or performance task; describe rhythm or pitch precisely and do not claim to assess a performance the app cannot hear.";
-  } else if (subjectLower === 'pe') {
-    specificInstructions = "For PE, act as a knowledge companion: explain safe technique and reflection, require suitable space and adult or teacher supervision where relevant, and never diagnose injury.";
-  } else if (subjectLower === 'd&t' || subjectLower === 'design & technology') {
-    specificInstructions = "For Design & Technology, connect user need, design criteria, making and evaluation. Any tools, heat, food or electrical work must follow the published safety note and appropriate supervision.";
-  } else if (subjectLower === 'religious education') {
-    specificInstructions = "For Religious Education, use respectful, accurate and age-appropriate language. Present religious and non-religious worldviews without treating any belief claim as universally accepted fact, distinguish belief from historical evidence, and encourage reasoned comparison rather than devotion.";
-  }
-
-  // SATs Revision Logic (Year 6)
-  const isYear6 = getYearGroupForAge(studentAge) === 6;
-  if (isYear6 && (subjectLower === 'maths' || subjectLower === 'mathematics')) {
-    specificInstructions += `
-    SATs FOCUS (Year 6):
-    - Align with KS2 SATs Arithmetic and Reasoning papers.
-    - 'Teach' MUST include a specific "SATs Tip" (e.g., "Remember to check units!", "Show your working").
-    - Practice and check tasks should mirror SATs question styles (e.g., "Calculate...", "Explain why...").
-    - Emphasize formal written methods where applicable.`;
-  } else if (isYear6 && (subjectLower === 'english' || subjectLower === 'literacy')) {
-    specificInstructions += `
-    SATs FOCUS (Year 6):
-    - Align with KS2 SATs Reading and GPS (SPaG) papers.
-    - 'Key Vocabulary' MUST include formal grammatical terms (e.g., 'subjunctive', 'passive', 'determiner') if relevant.
-    - 'Teach' MUST include a "SATs Tip" (e.g., "Look for evidence in the text", "Check your punctuation").
-    - Practice and check tasks should mirror SATs style (e.g., "Tick one box", "Circle the adjective").`;
-  }
-
-  contents = `You are MiRa, an AI tutor for KS2 students (ages 7–11).
-Create a SHORT KS2 lesson for the published curriculum unit '${topic}' in the subject '${subject}'.
-The learner is in Year ${getYearGroupForAge(studentAge)} and the support level is ${difficulty}.
-
-PUBLISHED LEARNING OBJECTIVE (do not replace or broaden it):
-${curriculumUnit?.objective || `Build secure KS2 understanding of ${topic}.`}
-${curriculumUnit?.practicalNote ? `\nSAFETY / PRACTICAL LIMIT: ${curriculumUnit.practicalNote}` : ''}
-
-Make the lesson compact and engaging. It must explicitly teach, model, practise and check the objective.
-
-STRICT FORMAT (headings only, no extra sections):
-1. Learning Objective (1 short sentence)
-2. Key Vocabulary (3–6 words with very short KS2-friendly meanings)
-3. Teach (2–4 short sentences, no long paragraphs)
-4. Modelled Example (one worked or demonstrated example with the reasoning made visible)
-5. Guided Practice (one short task with a hint or scaffold)
-6. Independent Check (one short task that directly checks the published objective)
-
-RULES:
-- Use friendly, clear, calm language – not babyish, not over-excited.
-- Keep everything as SHORT as possible while still clear.
-- Use exactly one small modelled example.
-- Tasks must be answerable by KS2 children without extra resources.
-- Avoid any long lists, big blocks of text, or repeated information.
-${specificInstructions}
-- Do NOT add introductions, unrelated facts or closing speeches outside the headings.
-
-Output using clean markdown with only those 6 headings.`;
-
-
   try {
-    const response = await withRetry(() => ai.models.generateContent({
-      model,
-      contents,
-    }));
-    const lessonText = response.text;
+    const lessonText = await withRetry(() => requestFirebaseLesson(lessonContext));
     
-    // Validate lesson content
-    const validation = validateLesson(lessonText);
+    // The backend performs the authoritative check; repeat it here before rendering.
+    const validation = validateGeneratedLessonContent(lessonText);
     if (!validation.isValid) {
-      // Log non-critical validation issues to content monitor only
       contentMonitor.logValidationIssue({
         timestamp: new Date(),
         type: 'lesson',
@@ -298,13 +230,10 @@ Output using clean markdown with only those 6 headings.`;
         validationIssues: validation.issues,
         wasBlocked: lessonText.length < 50
       });
-      // For critical issues, throw error
-      if (lessonText.length < 50) {
-        throw new Error('Generated lesson is too short');
-      }
+      throw new Error(`Generated lesson failed validation: ${validation.issues.join('; ')}`);
     }
     
-    setInCache(cacheKey, validation.sanitizedContent || lessonText);
+    setInCache(cacheKey, validation.sanitizedContent || lessonText, TTL.LESSON);
     
     return validation.sanitizedContent || lessonText;
   } catch (error) {

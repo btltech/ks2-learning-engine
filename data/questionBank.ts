@@ -1,6 +1,7 @@
 /* eslint-disable no-case-declarations -- each case returns immediately; declarations are not shared. */
 import { Difficulty, QuestionType, BankQuestion } from '../types';
 import { CURATED_LANGUAGES } from './curriculumSequences';
+import { applyQuestionQualityControls } from './questionQualityOverrides';
 
 export type { BankQuestion };
 
@@ -136,16 +137,12 @@ export const loadQuestionsForSubject = async (subject: string): Promise<BankQues
 
   // Cache the loaded questions
   if (questions.length > 0) {
-    // Filter out invalid questions (missing text, options, or correct answer)
-    const validQuestions = questions.filter(q => 
-      q.question && 
-      q.options && 
-      q.options.length > 0 && 
-      q.correctAnswer
-    );
+    const validQuestions = questions
+      .map(applyQuestionQualityControls)
+      .filter((question): question is BankQuestion => Boolean(question));
     
     if (questions.length !== validQuestions.length) {
-      console.warn(`Filtered out ${questions.length - validQuestions.length} invalid questions for ${s}`);
+      console.warn(`Quarantined ${questions.length - validQuestions.length} invalid or context-free questions for ${s}`);
     }
     
     questionCache.set(s, validQuestions);

@@ -3,14 +3,9 @@
 
 import { getAuth } from 'firebase/auth';
 
-// Use proxy in production to keep API keys server-side
-const USE_TTS_PROXY = import.meta.env.PROD;
+// Paid TTS is always called through the authenticated server proxy. Keeping a
+// direct browser mode would require shipping a billable API key to every user.
 const TTS_PROXY_URL = '/api/tts';
-
-interface GoogleCloudTTSConfig {
-  apiKey: string;
-  projectId?: string;
-}
 
 interface SynthesisRequest {
   input: { text?: string; ssml?: string };
@@ -175,7 +170,7 @@ const GOOGLE_CLOUD_VOICES: Record<string, {
   }
 };
 
-let googleCloudConfig: GoogleCloudTTSConfig | null = null;
+let googleCloudConfigured = false;
 const audioCache = new Map<string, string>();
 let currentAudio: HTMLAudioElement | null = null;
 
@@ -191,18 +186,18 @@ const getFirebaseIdToken = async (): Promise<string | null> => {
 
 /**
  * Initialize Google Cloud TTS service
- * @param apiKey - Google Cloud API key for TTS
- * @param projectId - Optional Google Cloud project ID
+ * Mark the authenticated server proxy as available. The API key is configured
+ * only on the server as GOOGLE_CLOUD_TTS_API_KEY.
  */
-export const initializeGoogleCloudTTS = (apiKey: string, projectId?: string) => {
-  googleCloudConfig = { apiKey, projectId };
-  console.log('Google Cloud TTS initialized');
+export const initializeGoogleCloudTTS = () => {
+  googleCloudConfigured = true;
+  console.log('Google Cloud TTS proxy initialized');
 };
 
 /**
  * Check if Google Cloud TTS has been configured with an API key
  */
-export const isGoogleCloudConfigured = () => Boolean(googleCloudConfig?.apiKey);
+export const isGoogleCloudConfigured = () => googleCloudConfigured;
 
 /**
  * Check if a language is supported by Google Cloud TTS
@@ -269,8 +264,8 @@ export const synthesizeGoogleCloudTTS = async (
     pitch?: number;
   }
 ): Promise<string | null> => {
-  if (!googleCloudConfig?.apiKey) {
-    console.warn('❌ Google Cloud TTS not initialized. Provide an API key.');
+  if (!googleCloudConfigured) {
+    console.warn('❌ Google Cloud TTS proxy is not enabled.');
     return null;
   }
 
@@ -310,26 +305,19 @@ export const synthesizeGoogleCloudTTS = async (
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 15000);
 
-    // Use proxy in production to keep API key server-side
-    const apiUrl = USE_TTS_PROXY 
-      ? TTS_PROXY_URL 
-      : `https://texttospeech.googleapis.com/v1/text:synthesize?key=${googleCloudConfig.apiKey}`;
-
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
     };
 
-    if (USE_TTS_PROXY) {
-      const token = await getFirebaseIdToken();
-      if (!token) {
-        console.warn('❌ Not signed in. TTS proxy requires authentication.');
-        return null;
-      }
-      headers.Authorization = `Bearer ${token}`;
+    const token = await getFirebaseIdToken();
+    if (!token) {
+      console.warn('❌ Not signed in. TTS proxy requires authentication.');
+      return null;
     }
+    headers.Authorization = `Bearer ${token}`;
 
     const response = await fetch(
-      apiUrl,
+      TTS_PROXY_URL,
       {
         method: 'POST',
         headers,
@@ -466,8 +454,8 @@ export const speakWithGoogleCloud = async (
   if (/^(yoruba|yo|yo-ng)$/i.test(language.trim())) return false;
   console.log('🔊 speakWithGoogleCloud called:', { text: text.substring(0, 30), language, options });
   
-  if (!googleCloudConfig?.apiKey) {
-    console.error('❌ Google Cloud TTS not configured - no API key');
+  if (!googleCloudConfigured) {
+    console.error('❌ Google Cloud TTS proxy is not enabled');
     return false;
   }
   
@@ -533,8 +521,8 @@ export const getAvailableVoices = (language: string) => {
 export const testGoogleTTS = async () => {
   console.log('🧪 Testing Google Cloud TTS...');
   
-  if (!USE_TTS_PROXY && !googleCloudConfig?.apiKey) {
-    console.error('❌ No API key configured');
+  if (!googleCloudConfigured) {
+    console.error('❌ Google Cloud TTS proxy is not enabled');
     return false;
   }
   
@@ -557,23 +545,16 @@ export const testGoogleTTS = async () => {
     console.log('📤 Sending request...');
     const startTime = Date.now();
     
-    // Use proxy in production to keep API key server-side
-    const apiUrl = USE_TTS_PROXY 
-      ? TTS_PROXY_URL 
-      : `https://texttospeech.googleapis.com/v1/text:synthesize?key=${googleCloudConfig.apiKey}`;
-
     const headers: Record<string, string> = { 'Content-Type': 'application/json' };
-    if (USE_TTS_PROXY) {
-      const token = await getFirebaseIdToken();
-      if (!token) {
-        console.error('❌ Not signed in. TTS proxy requires authentication.');
-        return false;
-      }
-      headers.Authorization = `Bearer ${token}`;
+    const token = await getFirebaseIdToken();
+    if (!token) {
+      console.error('❌ Not signed in. TTS proxy requires authentication.');
+      return false;
     }
+    headers.Authorization = `Bearer ${token}`;
     
     const response = await fetch(
-      apiUrl,
+      TTS_PROXY_URL,
       {
         method: 'POST',
         headers,

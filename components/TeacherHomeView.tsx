@@ -11,7 +11,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useUser } from '../context/UserContext';
-import { teacherWorkspaceService } from '../services/teacherWorkspaceService';
+import { SharedStudentSummary, teacherWorkspaceService } from '../services/teacherWorkspaceService';
 
 interface TeacherHomeViewProps {
   onOpenTeacherDashboard: () => void;
@@ -37,13 +37,25 @@ export const TeacherHomeView: React.FC<TeacherHomeViewProps> = ({
     averageScore: 0,
     needsHelp: 0,
   });
+  const [summaryLoading, setSummaryLoading] = useState(true);
+  const [summaryError, setSummaryError] = useState<string | null>(null);
+  const [summaryRefresh, setSummaryRefresh] = useState(0);
 
   useEffect(() => {
-    if (!user?.id) return;
+    if (!user?.id) {
+      setSummaryLoading(false);
+      return;
+    }
     let cancelled = false;
+    setSummaryLoading(true);
+    setSummaryError(null);
     void teacherWorkspaceService.getClasses().then((classes) => {
       if (cancelled) return;
-      const students = classes.flatMap((entry) => entry.students || []);
+      const studentsById = new Map<string, SharedStudentSummary>();
+      classes.forEach((entry) => {
+        (entry.students || []).forEach((student) => studentsById.set(student.studentId, student));
+      });
+      const students = [...studentsById.values()];
       setClassSummary({
         classCount: classes.length,
         studentCount: students.length,
@@ -53,13 +65,15 @@ export const TeacherHomeView: React.FC<TeacherHomeViewProps> = ({
           : 0,
         needsHelp: students.filter((student) => student.totalQuizzes > 0 && student.averageScore < 60).length,
       });
-    }).catch(() => {
-      // The full dashboard shows the actionable error state.
+    }).catch((reason) => {
+      if (!cancelled) setSummaryError(reason instanceof Error ? reason.message : 'Unable to load class summary.');
+    }).finally(() => {
+      if (!cancelled) setSummaryLoading(false);
     });
     return () => {
       cancelled = true;
     };
-  }, [user?.id]);
+  }, [user?.id, summaryRefresh]);
 
   const hasClasses = classSummary.classCount > 0;
 
@@ -120,6 +134,7 @@ export const TeacherHomeView: React.FC<TeacherHomeViewProps> = ({
           <button
             onClick={() => setShowWelcome(false)}
             className="absolute top-4 right-4 text-white/60 hover:text-white"
+            aria-label="Dismiss welcome message"
           >
             ✕
           </button>
@@ -152,29 +167,38 @@ export const TeacherHomeView: React.FC<TeacherHomeViewProps> = ({
       )}
 
       {/* Stats Overview */}
+      {summaryError && (
+        <div className="mb-6 rounded-xl border border-red-200 bg-red-50 p-4 text-red-800" role="alert">
+          <p className="font-semibold">Class summary unavailable</p>
+          <p className="text-sm mt-1">{summaryError}</p>
+          <button onClick={() => setSummaryRefresh((value) => value + 1)} className="mt-3 bg-red-700 text-white px-3 py-2 rounded-lg font-semibold hover:bg-red-800">
+            Retry
+          </button>
+        </div>
+      )}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
         <StatCard
           icon="👥"
           label="Students"
-          value={hasClasses ? classSummary.studentCount : 'Not set'}
+          value={summaryLoading ? '…' : hasClasses ? classSummary.studentCount : 'Not set'}
           subtext={hasClasses ? `${classSummary.classCount} class${classSummary.classCount === 1 ? '' : 'es'}` : 'Create or connect a class'}
         />
         <StatCard
           icon="📝"
           label="Quizzes"
-          value={hasClasses ? classSummary.totalQuizzes : 'None'}
+          value={summaryLoading ? '…' : hasClasses ? classSummary.totalQuizzes : 'None'}
           subtext={hasClasses ? 'From class activity' : 'Assign practice from dashboard'}
         />
         <StatCard
           icon="📊"
           label="Class Trend"
-          value={hasClasses && classSummary.totalQuizzes > 0 ? `${classSummary.averageScore}%` : 'Waiting'}
+          value={summaryLoading ? '…' : hasClasses && classSummary.totalQuizzes > 0 ? `${classSummary.averageScore}%` : 'Waiting'}
           subtext={classSummary.totalQuizzes > 0 ? 'Average score' : 'Appears after quizzes'}
         />
         <StatCard
           icon="⚡"
           label="Needs Support"
-          value={hasClasses ? classSummary.needsHelp : 'Check'}
+          value={summaryLoading ? '…' : hasClasses ? classSummary.needsHelp : 'Check'}
           subtext={hasClasses ? 'Students below 60%' : 'Question quality queue'}
         />
       </div>

@@ -4,7 +4,7 @@
  * This will trigger automatic cache clearing on user devices.
  */
 
-export const APP_VERSION = '1.4.2'; // Increment this on each deployment
+export const APP_VERSION = '1.5.0'; // Increment this on each deployment
 export const BUILD_DATE = new Date().toISOString();
 
 // Version check interval (check every 5 minutes)

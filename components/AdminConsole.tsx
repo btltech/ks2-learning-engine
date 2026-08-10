@@ -59,20 +59,22 @@ export const AdminConsole: React.FC<AdminConsoleProps> = ({ onClose, onOpenQuest
     totalAttempts: 0,
   });
   const [loading, setLoading] = useState(true);
+  const [statsError, setStatsError] = useState<string | null>(null);
 
   useEffect(() => {
-    loadSystemStats();
+    void loadSystemStats();
   }, []);
 
   useEffect(() => {
     setActiveView(initialView);
   }, [initialView]);
 
-  const loadSystemStats = async () => {
+  const loadSystemStats = async (forceRefresh = false) => {
     setLoading(true);
+    setStatsError(null);
     try {
       // Get question bank stats
-      const qStats = await getQuestionBankStats();
+      const qStats = await getQuestionBankStats({ forceRefresh });
       
       setSystemStats({
         totalUsers: 0, // Would come from Firebase
@@ -87,6 +89,7 @@ export const AdminConsole: React.FC<AdminConsoleProps> = ({ onClose, onOpenQuest
       });
     } catch (error) {
       console.error('Error loading system stats:', error);
+      setStatsError(error instanceof Error ? error.message : 'Unable to load platform statistics.');
     } finally {
       setLoading(false);
     }
@@ -130,6 +133,7 @@ export const AdminConsole: React.FC<AdminConsoleProps> = ({ onClose, onOpenQuest
               <button
                 onClick={onClose}
                 className="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition-colors"
+                aria-label="Exit admin console"
               >
                 Exit Admin
               </button>
@@ -138,9 +142,9 @@ export const AdminConsole: React.FC<AdminConsoleProps> = ({ onClose, onOpenQuest
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto p-4 flex gap-6">
+      <div className="max-w-7xl mx-auto p-4 flex flex-col lg:flex-row gap-6">
         {/* Sidebar Navigation */}
-        <div className="w-64 flex-shrink-0">
+        <div className="w-full lg:w-64 flex-shrink-0">
           <nav className="bg-white rounded-xl shadow-sm p-3 sticky top-4 space-y-4">
             {navGroups.map(group => (
               <div key={group.label}>
@@ -152,6 +156,7 @@ export const AdminConsole: React.FC<AdminConsoleProps> = ({ onClose, onOpenQuest
                     <button
                       key={item.id}
                       onClick={() => setActiveView(item.id)}
+                      aria-current={activeView === item.id ? 'page' : undefined}
                       className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-colors border ${
                         activeView === item.id
                           ? 'bg-indigo-50 text-indigo-700 font-semibold border-indigo-200 shadow-sm'
@@ -174,6 +179,8 @@ export const AdminConsole: React.FC<AdminConsoleProps> = ({ onClose, onOpenQuest
             <DashboardView
               stats={systemStats}
               loading={loading}
+              error={statsError}
+              onRefresh={() => void loadSystemStats(true)}
               onNavigate={setActiveView}
               onOpenQuestionQuality={onOpenQuestionQuality}
             />
@@ -197,9 +204,11 @@ export const AdminConsole: React.FC<AdminConsoleProps> = ({ onClose, onOpenQuest
 const DashboardView: React.FC<{
   stats: SystemStats;
   loading: boolean;
+  error: string | null;
+  onRefresh: () => void;
   onNavigate: (view: AdminView) => void;
   onOpenQuestionQuality?: () => void;
-}> = ({ stats, loading, onNavigate, onOpenQuestionQuality }) => {
+}> = ({ stats, loading, error, onRefresh, onNavigate, onOpenQuestionQuality }) => {
   const { showToast } = useToast();
   const [claimsLoading, setClaimsLoading] = useState(false);
   const [claimsError, setClaimsError] = useState<string | null>(null);
@@ -242,12 +251,32 @@ const DashboardView: React.FC<{
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-gray-800">System Overview</h2>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div>
+          <h2 className="text-2xl font-bold text-gray-800">System Overview</h2>
+          <p className="text-sm text-gray-500 mt-1">Question totals are read from Firestore and may include legacy records.</p>
+        </div>
+        <button
+          onClick={onRefresh}
+          disabled={loading}
+          className="self-start sm:self-auto bg-gray-900 disabled:bg-gray-400 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors font-semibold"
+        >
+          {loading ? 'Refreshing…' : 'Refresh metrics'}
+        </button>
+      </div>
       
       {loading ? (
         <div className="text-center py-12">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading system stats...</p>
+        </div>
+      ) : error ? (
+        <div className="rounded-xl border border-red-200 bg-red-50 p-6" role="alert">
+          <h3 className="font-bold text-red-900">Platform metrics unavailable</h3>
+          <p className="text-sm text-red-800 mt-1">{error}</p>
+          <button onClick={onRefresh} className="mt-4 bg-red-700 text-white px-4 py-2 rounded-lg hover:bg-red-800 font-semibold">
+            Try again
+          </button>
         </div>
       ) : (
         <>
@@ -475,6 +504,7 @@ const UserManagementView: React.FC = () => {
       }
 
       showToast('success', 'Roles updated. User must sign out/in.');
+      await loadUsers();
     } catch (e: any) {
       showToast('error', e?.message || 'Failed to update roles');
     } finally {

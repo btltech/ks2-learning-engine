@@ -39,7 +39,26 @@ export const DailyChallengeCard: React.FC<DailyChallengeCardProps> = ({ onStartC
     return null;
   }
 
-  const isCompleted = challenge.isCompleted;
+  if (challenge.isCompleted) {
+    return (
+      <div
+        className="mb-4 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-emerald-900 shadow-sm"
+        role="status"
+        aria-label={`Daily challenge complete. Score ${challenge.scoreAchieved || 0} percent.`}
+      >
+        <div className="flex items-center gap-2">
+          <span className="text-xl" aria-hidden="true">✅</span>
+          <div>
+            <p className="font-bold">Daily challenge complete</p>
+            <p className="text-sm text-emerald-700">
+              {challenge.scoreAchieved || 0}% · +{challenge.bonusPoints} points
+            </p>
+          </div>
+        </div>
+        <span className="text-xs font-medium text-emerald-700">A new challenge arrives tomorrow</span>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl mobile-lg:rounded-3xl p-5 sm:p-6 text-white shadow-lg touch-only-shadow mb-6">
@@ -65,26 +84,18 @@ export const DailyChallengeCard: React.FC<DailyChallengeCardProps> = ({ onStartC
         <div className="bg-white/20 rounded-full h-3 overflow-hidden">
           <div 
             className="bg-white h-full rounded-full transition-all duration-500"
-            style={{ width: isCompleted ? '100%' : '0%' }}
+            style={{ width: '0%' }}
           />
         </div>
       </div>
 
-      {/* Action Button */}
       <div className="mt-4">
-        {isCompleted ? (
-          <div className="flex items-center justify-center gap-2 bg-white/20 rounded-lg py-3 px-3 mobile:px-4">
-            <span className="text-xl">✅</span>
-            <span className="font-medium">Challenge Complete! Score: {challenge.scoreAchieved}%</span>
-          </div>
-        ) : (
-          <button
-            onClick={handleStartChallenge}
-            className="w-full bg-white text-orange-600 font-bold rounded-lg hover:bg-amber-50 transition-colors touch-target shadow-subtle hover:shadow-lifted"
-          >
-            Start Challenge
-          </button>
-        )}
+        <button
+          onClick={handleStartChallenge}
+          className="w-full bg-white text-orange-600 font-bold rounded-lg hover:bg-amber-50 transition-colors touch-target shadow-subtle hover:shadow-lifted"
+        >
+          Start Challenge
+        </button>
       </div>
 
       {/* Achievement Popup */}

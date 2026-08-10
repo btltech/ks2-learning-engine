@@ -14,7 +14,7 @@ type PagesFunction<E = unknown> = (context: {
 }) => Response | Promise<Response>;
 
 interface Env {
-  VITE_GOOGLE_CLOUD_TTS_API_KEY: string;
+  GOOGLE_CLOUD_TTS_API_KEY: string;
   FIREBASE_PROJECT_ID?: string;
   VITE_FIREBASE_PROJECT_ID?: string;
   ALLOWED_ORIGINS?: string; // comma-separated
@@ -152,7 +152,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     const body = await request.json();
     const { input, voice, audioConfig } = body as any;
 
-    if (!env.VITE_GOOGLE_CLOUD_TTS_API_KEY) {
+    if (!env.GOOGLE_CLOUD_TTS_API_KEY) {
       return new Response(
         JSON.stringify({ error: 'API key not configured' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -178,7 +178,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     }
 
     // Forward to Google Cloud TTS API
-    const ttsUrl = `https://texttospeech.googleapis.com/v1/text:synthesize?key=${env.VITE_GOOGLE_CLOUD_TTS_API_KEY}`;
+    const ttsUrl = `https://texttospeech.googleapis.com/v1/text:synthesize?key=${env.GOOGLE_CLOUD_TTS_API_KEY}`;
     
     const ttsResponse = await fetch(ttsUrl, {
       method: 'POST',

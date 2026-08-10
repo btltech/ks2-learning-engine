@@ -1,11 +1,12 @@
 import { collection, getDocs, query, where, type DocumentData } from 'firebase/firestore';
 import { getQuestionsForCurriculumUnit } from '../data/questionBank';
 import { getCloudSubjectAliases, getCloudTopicAliases } from '../data/questionTopicAliases';
+import { applyQuestionQualityControls } from '../data/questionQualityOverrides';
 import { BankQuestion, CognitiveLevel, Difficulty, QuestionType } from '../types';
 import { db } from './firebase';
 
 const QUERY_CHUNK_SIZE = 30;
-const CLOUD_TOPIC_CACHE_PREFIX = 'ks2_cloud_topic_questions_v1:';
+const CLOUD_TOPIC_CACHE_PREFIX = 'ks2_cloud_topic_questions_v2:';
 const CLOUD_TOPIC_CACHE_TTL_MS = 24 * 60 * 60 * 1000;
 const cloudTopicCache = new Map<string, Promise<BankQuestion[]>>();
 
@@ -94,7 +95,7 @@ export const normalizeCloudQuestion = (
       ? [legacyAge]
       : [7, 8, 9, 10, 11];
 
-  return {
+  return applyQuestionQualityControls({
     id,
     subject: publishedSubject,
     topic: publishedTopic,
@@ -116,7 +117,7 @@ export const normalizeCloudQuestion = (
     dropZones: Array.isArray(data.dropZones) ? data.dropZones.map(String) : undefined,
     timesShown: Number(data.performance?.timesShown ?? data.timesShown) || undefined,
     timesCorrect: Number(data.performance?.timesCorrect ?? data.timesCorrect) || undefined,
-  };
+  });
 };
 
 const chunk = <T,>(values: T[], size: number): T[][] => {

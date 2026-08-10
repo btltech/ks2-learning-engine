@@ -1,0 +1,4930 @@
+{
+  "schemaVersion": 1,
+  "language": "yo",
+  "languageName": "Yorùbá",
+  "targetTotal": 450,
+  "existingProductionEntries": 83,
+  "pendingCandidateEntries": 376,
+  "status": "pending-native-review",
+  "source": "COERLL-Yorùbá-Yé-Mi",
+  "sourceLicense": "CC BY",
+  "attribution": "Yorùbá Yé Mi, Center for Open Educational Resources and Language Learning (COERLL), University of Texas at Austin",
+  "entries": [
+    {
+      "text": "àgbàdo",
+      "english": "corn",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "bọ́ọ̀lù",
+      "english": "ball",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ẹmu",
+      "english": "palm wine",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "Ìbàdàn",
+      "english": "a city in south western Nigeria",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "Ọ̀gbẹ́ni",
+      "english": "Mr.",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "owó",
+      "english": "money",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "aagoo yín",
+      "english": "your clock/wristwatch",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "bàbáa Fúnmi",
+      "english": "Fúnmi’s father",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ìwéè mi",
+      "english": "my book",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ó tì",
+      "english": "no",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ọkọ̀ọ wa",
+      "english": "our vehicle",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "fẹ́",
+      "english": "to want",
+      "language": "yo",
+      "category": "Verbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "jẹun",
+      "english": "to eat",
+      "language": "yo",
+      "category": "Verbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "tàbí",
+      "english": "or",
+      "language": "yo",
+      "category": "Conjunctions",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "Kí ni nǹkan?",
+      "english": "how are things?",
+      "language": "yo",
+      "category": "Interrogatives",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required",
+        "Unresolved legacy glyph 'õ'; verify the syllabic nasal/tone",
+        "Automatically corrected against a modern Yoruba spelling reference; confirm before approval"
+      ]
+    },
+    {
+      "text": "ṣé dáadáa ni?",
+      "english": "how are you? How are things?",
+      "language": "yo",
+      "category": "Interrogatives",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "àlàáfíà ni",
+      "english": "fine/I am fine/ things are fine/peace",
+      "language": "yo",
+      "category": "Other Expressions",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "káàbọ̀ o",
+      "english": "you are welcome",
+      "language": "yo",
+      "category": "Other Expressions",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "mo kàn sáré wá kí ẹ ni",
+      "english": "I quickly came to say ‘hi’ to you",
+      "language": "yo",
+      "category": "Other Expressions",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "àpẹẹrẹ",
+      "english": "example",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "àwòrán",
+      "english": "picture",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "fáìlì",
+      "english": "file",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "gbólóhùn",
+      "english": "sentence",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ilẹ̀kùn",
+      "english": "door",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ìrésà, ìpàwérẹ́",
+      "english": "eraser",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ìwée gírámà",
+      "english": "grammar book",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "kííbọọ̀dù, àtẹ-ìtẹ̀wé",
+      "english": "keyboard",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "lọ́pọ̀lọpọ̀",
+      "english": "very much",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "nọ́ńbà",
+      "english": "number",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ọ̀jọ̀gbọ́n",
+      "english": "a professor",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ọlọ́pàá",
+      "english": "police",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "pàjáwìrì",
+      "english": "emergency",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "pẹ́ẹ̀nì",
+      "english": "pen",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "rárá",
+      "english": "no",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "síídiì, àwo-mọ́ńbé",
+      "english": "CD",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "tẹlifóònù",
+      "english": "telephone",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "yàrá-ìkẹ́kọ̀ọ́, kíláàsì",
+      "english": "classroom",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "akẹ́kọ̀ọ́ obìnrin",
+      "english": "a female student",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "bébà àjákọ",
+      "english": "piece of paper",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "gbogboo yín",
+      "english": "all of you",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "iná ìlẹ́tíríìkì",
+      "english": "electric light",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "yangàn",
+      "english": "boast of",
+      "language": "yo",
+      "category": "Verbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "mú ìwé ìṣiròo yín jáde",
+      "english": "bring out your math books",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "tó tèlé ìyẹn",
+      "english": "that follows (that one)",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ẹ dákẹ́ ariwo",
+      "english": "(You all) be quiet",
+      "language": "yo",
+      "category": "Other Expressions",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ojú-ìwé karùnúnlélọ́gbọ̀n",
+      "english": "page 35",
+      "language": "yo",
+      "category": "Other Expressions",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ó ku ẹẹ̀sànán",
+      "english": "nine is left",
+      "language": "yo",
+      "category": "Other Expressions",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "yọ ..............nínú",
+      "english": "take………..away from",
+      "language": "yo",
+      "category": "Other Expressions",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ìdúnta",
+      "english": "three years ago",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "Ìdáhùn",
+      "english": "answer",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "koríko",
+      "english": "grass",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "orílẹ̀-èdè",
+      "english": "country",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ọdún",
+      "english": "year",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ọdún márùnún sẹ́yìn",
+      "english": "five years ago",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ọjọ́ márùnún òní",
+      "english": "four days from now",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ọjọ́ wo?",
+      "english": "what/which day?",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "yìí",
+      "english": "this",
+      "language": "yo",
+      "category": "Verbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ewé",
+      "english": "leaf (green color)",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ibi ọjọ́-ìbí",
+      "english": "birthday venue",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ìsìn ọmọdé",
+      "english": "children’s service/worship",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "jí",
+      "english": "to wake up",
+      "language": "yo",
+      "category": "Verbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "wá",
+      "english": "to come",
+      "language": "yo",
+      "category": "Verbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "bá mi ṣeré",
+      "english": "play with me",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "jẹun alẹ́",
+      "english": "to eat dinner",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "sọ fún",
+      "english": "to tell…(e.g. someone)",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "píìnkì",
+      "english": "pink",
+      "language": "yo",
+      "category": "Adjectives",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "bíi",
+      "english": "like",
+      "language": "yo",
+      "category": "Adverbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required",
+        "Split from slash-separated source alternatives; review synonym independently"
+      ]
+    },
+    {
+      "text": "bí",
+      "english": "like",
+      "language": "yo",
+      "category": "Adverbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required",
+        "Split from slash-separated source alternatives; review synonym independently"
+      ]
+    },
+    {
+      "text": "kúkú",
+      "english": "just",
+      "language": "yo",
+      "category": "Adverbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ní ẹ̀yìn ọ̀sẹ̀",
+      "english": "at the end of the week",
+      "language": "yo",
+      "category": "Conjunctions",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "Nígbà wo ni ?",
+      "english": "when?",
+      "language": "yo",
+      "category": "Interrogatives",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ó funfun bí eérú",
+      "english": "It is white like ashes (grey)",
+      "language": "yo",
+      "category": "Other Expressions",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ọmọ ọdún mélòó?",
+      "english": "how old?",
+      "language": "yo",
+      "category": "Other Expressions",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ó ti yá jù",
+      "english": "It is too early",
+      "language": "yo",
+      "category": "Other Expressions",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "àgbà",
+      "english": "older person",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "àdúgbò",
+      "english": "neighborhood",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "àkójọpọ̀",
+      "english": "collection",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "apòògùn",
+      "english": "pharmacist",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "baálé",
+      "english": "male head (of family)",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ẹ̀kọ́",
+      "english": "studies",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ìdàgbàsókè",
+      "english": "progress, development",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ìdílé",
+      "english": "family (immediate)",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ìpàdé",
+      "english": "meeting",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ìtumọ̀",
+      "english": "the meaning",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "mọ̀lẹ́bí",
+      "english": "family (extended)",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "olórí",
+      "english": "head",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ọ̀sọ̀ọ̀sẹ̀",
+      "english": "every week",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "píparí",
+      "english": "settling of; completion of",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "bùrọ̀dáa lágbájá",
+      "english": "brother (of somebody)",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "fún",
+      "english": "for",
+      "language": "yo",
+      "category": "Verbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "jẹ",
+      "english": "to eat",
+      "language": "yo",
+      "category": "Verbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "kúnlẹ̀",
+      "english": "kneel down",
+      "language": "yo",
+      "category": "Verbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "tí",
+      "english": "if",
+      "language": "yo",
+      "category": "Verbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "wí pé",
+      "english": "said that",
+      "language": "yo",
+      "category": "Verbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "kóra jọ",
+      "english": "to get together",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "máa ń wáyé",
+      "english": "always takes place",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ṣe kókó",
+      "english": "is important; is crucial",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "kéré",
+      "english": "small",
+      "language": "yo",
+      "category": "Adjectives",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "tóbi",
+      "english": "big",
+      "language": "yo",
+      "category": "Adjectives",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "péré",
+      "english": "only",
+      "language": "yo",
+      "category": "Adverbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "nípa",
+      "english": "about",
+      "language": "yo",
+      "category": "Adverbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "mélòó ni",
+      "english": "how many?",
+      "language": "yo",
+      "category": "Adverbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ìdí èyí ni wí pé",
+      "english": "this/that is why",
+      "language": "yo",
+      "category": "Other Expressions",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ọgbọ́n àti òye",
+      "english": "wisdom and understanding",
+      "language": "yo",
+      "category": "Other Expressions",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "àgbò",
+      "english": "ram",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "àmàlà",
+      "english": "yam floured meal",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ewúrẹ́",
+      "english": "goat",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ilá",
+      "english": "okra/okro",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "Ìrìn-àjò",
+      "english": "journey",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "kẹ̀kẹ́",
+      "english": "bicycle",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ọ̀gẹ̀dẹ̀",
+      "english": "plantain",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ọlọ́jọ́",
+      "english": "periodic",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "méje-méje",
+      "english": "in sevens",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "àwọn ọjà kan",
+      "english": "some markets",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ẹ̀kọ mímu",
+      "english": "pap",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ẹ̀yà ọkọ̀",
+      "english": "car parts",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ọjà oko",
+      "english": "farm market/ village market",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "alákọ̀wé",
+      "english": "educated person",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "àlejò",
+      "english": "visitor, guest",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "àkàrà",
+      "english": "food made from black eye peas/beans",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "awó",
+      "english": "guinea fowl",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "bọ́tà",
+      "english": "butter",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "dòdò",
+      "english": "fried plantain",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "èpìyà",
+      "english": "tilapia (fish)",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ewédú",
+      "english": "a type of leafy green",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ẹran",
+      "english": "meat/beef",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ẹ̀dọ̀",
+      "english": "liver",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ẹlẹ́dẹ̀",
+      "english": "pork(pig)",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ẹ̀pà",
+      "english": "peanut",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "fùfú",
+      "english": "food made from cassava",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "gúgúrú",
+      "english": "popcorn",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ìbẹ́pẹ",
+      "english": "papaya",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ìkọ́kọrẹ́",
+      "english": "wateryam porridge",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ìpékeré",
+      "english": "plantain chips",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ìgbéyáwó",
+      "english": "marriage ceremony",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "iṣu",
+      "english": "yam",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "kókà oòtù",
+      "english": "Quaker Oats",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "kọfí",
+      "english": "coffee",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "mílíìkì",
+      "english": "milk",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ọ̀bọ̀kún",
+      "english": "a type of fish",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ògúfe",
+      "english": "goat meat",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ọjọ́-ìbí",
+      "english": "birthday",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ọ̀pẹ̀ òyìnbó",
+      "english": "pineapple",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ọsàn",
+      "english": "orange",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "pẹpusí",
+      "english": "Pepsi",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "tíì",
+      "english": "tea",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "sẹ́fúnọọ̀pù",
+      "english": "7 UP",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ṣàkì",
+      "english": "tripe",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ṣinṣíìnì",
+      "english": "chinchin (fried snack made with flour)",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "tòlótòló",
+      "english": "turkey",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "àmàlà iṣu",
+      "english": "food made from yam",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "àwọn aláṣọ",
+      "english": "fabric sellers",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ẹja gbígbẹ",
+      "english": "dried/smoked fish",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ẹran ìgbẹ́",
+      "english": "bush meat",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "jọ̀lọ́ọ̀fù ráìsì",
+      "english": "jollof rice",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ọ̀gẹ̀dẹ̀ àgbagbà",
+      "english": "plantain",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ohun-èlò oúnjẹ",
+      "english": "food ingredients",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ọdún egúngún",
+      "english": "the masquerading festival",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ọ̀bẹ̀ ẹ̀gúsí",
+      "english": "melon stew",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ọ̀nà méji",
+      "english": "two ways",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "fẹ́ràn",
+      "english": "love/ like",
+      "language": "yo",
+      "category": "Verbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ná",
+      "english": "shop/bargain/haggle",
+      "language": "yo",
+      "category": "Verbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "fún mi",
+      "english": "give me",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "pín sí",
+      "english": "categorized into",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "tún lè rí",
+      "english": "can also find/see",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "nìyẹn",
+      "english": "that",
+      "language": "yo",
+      "category": "Adjectives",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ju òmíràn lọ",
+      "english": "than another one",
+      "language": "yo",
+      "category": "Adjectives",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "lẹ́ẹ̀kọ̀ọ̀kan",
+      "english": "once in a while",
+      "language": "yo",
+      "category": "Adjectives",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "bí ó ti lẹ̀ jẹ́ pe",
+      "english": "in spite of the fact that",
+      "language": "yo",
+      "category": "Other Expressions",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "oúnjẹ tí kì í ṣe olókèlè",
+      "english": "food (not rolled into morsels",
+      "language": "yo",
+      "category": "Other Expressions",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "àgbo",
+      "english": "concoction",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "apá",
+      "english": "arm",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "babaláwo",
+      "english": "the healers",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "eré sísá",
+      "english": "athletics",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ẹsẹ̀",
+      "english": "leg/foot",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "gbajúmọ̀",
+      "english": "common",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "irin ìsẹ́",
+      "english": "tool",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "nọ́ọ̀sì",
+      "english": "nurse",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "oníṣègùn",
+      "english": "doctor",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "yọyínyọyín (dókítà eyín)",
+      "english": "dentist",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "alábòójútó erée bọ́ọ̀lù àfẹsẹ̀gbá",
+      "english": "soccer referee",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required",
+        "Split from slash-separated source alternatives; review synonym independently"
+      ]
+    },
+    {
+      "text": "rẹfirí",
+      "english": "soccer referee",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required",
+        "Split from slash-separated source alternatives; review synonym independently"
+      ]
+    },
+    {
+      "text": "bọ́ọ̀lù àjùsáwọ̀n",
+      "english": "basketball",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "dókítà àrùn ọpọlọ",
+      "english": "psychiatrist",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "dókítà ojú",
+      "english": "optometrist",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "dókítà ọmọdé",
+      "english": "pediatrician",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "eré ìdárayá",
+      "english": "sport/ game",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ilé ìta òògùn",
+      "english": "pharmacy",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ilé ìwòsàn ìjọba",
+      "english": "Government/General hospital",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "iṣẹ́ àrùn wíwò",
+      "english": "the job of curing diseases",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ìtọ́jú aboyún",
+      "english": "pre-natal care",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ìtọ́jú ọmọdé",
+      "english": "children’s care",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ohun búburú",
+      "english": "evil",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "olùrànlọ́wọ́ rẹfirí",
+      "english": "assistant referee/line man",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "òyìnbó amúnisìn",
+      "english": "colonial master",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "pápá ìṣeré",
+      "english": "playground",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "fò",
+      "english": "to jump",
+      "language": "yo",
+      "category": "Verbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "gbọ́rọ̀",
+      "english": "to hear",
+      "language": "yo",
+      "category": "Verbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "juwọ́",
+      "english": "to wave hand",
+      "language": "yo",
+      "category": "Verbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "kàwèé",
+      "english": "to read",
+      "language": "yo",
+      "category": "Verbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "lò",
+      "english": "to use",
+      "language": "yo",
+      "category": "Verbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "rẹ́rìnín",
+      "english": "to laugh",
+      "language": "yo",
+      "category": "Verbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ronú",
+      "english": "to think",
+      "language": "yo",
+      "category": "Verbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "sín",
+      "english": "to sneeze",
+      "language": "yo",
+      "category": "Verbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "wẹ̀",
+      "english": "to take a bath",
+      "language": "yo",
+      "category": "Verbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "fojú sí",
+      "english": "to observe",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "fun fèrè",
+      "english": "to play trumpet; to blow balloon",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "gba ìwé àṣẹ",
+      "english": "to get permission",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "jẹ́ ohun tí",
+      "english": "is something that",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "jogún àìsàn wíwò",
+      "english": "to inherit the healing of diseases",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "jọ̀ọ́ kúrò ojère",
+      "english": "please, leave me alone",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "láti fi ṣe",
+      "english": "to make",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "láti já ewé",
+      "english": "to pluck leaves",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "láti mọ irú àrùn",
+      "english": "to know what type of disease",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "lọ rí (serial verb)",
+      "english": "to go see",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "máa ń dá ifá",
+      "english": "to consult the oracle",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "mọ̀ wípé",
+      "english": "to know that",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ran lọ́wọ́",
+      "english": "to help",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "sọ wípé",
+      "english": "to say that",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "tọ́ nǹkan wò",
+      "english": "to taste something",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required",
+        "Unresolved legacy glyph 'õ'; verify the syllabic nasal/tone",
+        "Automatically corrected against a modern Yoruba spelling reference; confirm before approval"
+      ]
+    },
+    {
+      "text": "wọ aṣọ",
+      "english": "to put on clothes",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ọ̀pọ̀lọpọ̀",
+      "english": "several",
+      "language": "yo",
+      "category": "Adjectives",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "wọ́pọ̀",
+      "english": "common",
+      "language": "yo",
+      "category": "Adjectives",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "tún",
+      "english": "also",
+      "language": "yo",
+      "category": "Adverbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "bíi Òṣun àti Ọya",
+      "english": "such as Ò«un and Æya",
+      "language": "yo",
+      "category": "Adverbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "kí ayé tó di ayé ọ̀làjú",
+      "english": "before the world became civilized",
+      "language": "yo",
+      "category": "Adverbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "láti fi ṣe ìtọ́jú",
+      "english": "for taking care of",
+      "language": "yo",
+      "category": "Adverbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "láti òkè òkun",
+      "english": "from abroad/ from overseas",
+      "language": "yo",
+      "category": "Adverbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "láti ọwọ́ àwọn babańlá",
+      "english": "from the ancestors",
+      "language": "yo",
+      "category": "Adverbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ní àárín",
+      "english": "in between/in the middle of",
+      "language": "yo",
+      "category": "Adverbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "nítòrí ìdí èyí",
+      "english": "for this reason; because of this",
+      "language": "yo",
+      "category": "Adverbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "àwọn èyí tí ó wọ́pọ̀",
+      "english": "the most common",
+      "language": "yo",
+      "category": "Other Expressions",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "Ìlera ni oògùn ọrọ̀",
+      "english": "health is wealth",
+      "language": "yo",
+      "category": "Other Expressions",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ó ṣe pàtàkì láti",
+      "english": "it is important to",
+      "language": "yo",
+      "category": "Other Expressions",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "tí ó bá ń bá ènìyàn jà",
+      "english": "that people are afflicted with",
+      "language": "yo",
+      "category": "Other Expressions",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "akọ̀pẹ",
+      "english": "palm tree tapper",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "aláró",
+      "english": "tie-dyer",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "alájàpá",
+      "english": "person who travels with goods in a truck",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "awakọ̀",
+      "english": "driver",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ìránṣọ",
+      "english": "sewing",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "méjéèjì",
+      "english": "both",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "onídìrí",
+      "english": "hair braider",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "oníwóróbo",
+      "english": "petty trader",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "pẹjapẹja",
+      "english": "fisherman",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "àtẹ títà",
+      "english": "display of goods for sale",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "dókítà ẹsẹ̀",
+      "english": "podiatrist",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "Ilé-ìwé olùkọ́ni àgbà",
+      "english": "College of Education",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "Ilé-ìwé mẹ́wàá",
+      "english": "secondary school",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "Iṣẹ́ aṣerunlóge",
+      "english": "hair dresser",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ìwé kíkà",
+      "english": "studies",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ohun tí ó wúlò",
+      "english": "something that is useful",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ọjà etílé",
+      "english": "town market",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ọjọ́ iwájú",
+      "english": "(in )the future",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "oníwé ìròyìn",
+      "english": "journalist/newspaper columnist",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "Yunifásítì ẹ̀kọ́ àgbẹ̀",
+      "english": "University of Agriculture",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "gbayì",
+      "english": "honored/valued",
+      "language": "yo",
+      "category": "Verbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "yàn",
+      "english": "to choose",
+      "language": "yo",
+      "category": "Verbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "dẹ̀gbẹ́",
+      "english": "to hunt",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "gbé ìgbésẹ̀",
+      "english": "take up the responsibility",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "kò burú",
+      "english": "that’s fine",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "kò tí ì di géńdé",
+      "english": "has not become an adult",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "máa ń pẹ́ láti gbà",
+      "english": "to take a long time to obtain",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "pàtẹ irè oko",
+      "english": "to display farm products",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "rọ irin",
+      "english": "to melt metals",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "tẹ̀lé",
+      "english": "to follow",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "yàn láàyò",
+      "english": "to favor by choice",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "léwu púpọ̀",
+      "english": "to be very dangerous",
+      "language": "yo",
+      "category": "Adjectives",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "nípa ìgbésí ayé",
+      "english": "about life",
+      "language": "yo",
+      "category": "Adverbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ní òde-òní",
+      "english": "today",
+      "language": "yo",
+      "category": "Adverbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "tí ó yẹ",
+      "english": "that is required (of them)",
+      "language": "yo",
+      "category": "Other Expressions",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "afínjú",
+      "english": "clean (person)",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "àga onítìmùtìmù",
+      "english": "sofa",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "aṣọ ìnura (táwẹ̀ẹ̀lì)",
+      "english": "towel",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "balùwẹ̀",
+      "english": "bathroom",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "dìódóráõtì",
+      "english": "deodorant",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required",
+        "Unresolved legacy glyph 'õ'; verify the syllabic nasal/tone"
+      ]
+    },
+    {
+      "text": "ẹ̀dá ènìyàn",
+      "english": "human beings",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "fúláàtì",
+      "english": "apartment / flat",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ibùsùn",
+      "english": "bed",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required",
+        "Split from slash-separated source alternatives; review synonym independently"
+      ]
+    },
+    {
+      "text": "bẹ́ẹ̀dì",
+      "english": "bed",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required",
+        "Split from slash-separated source alternatives; review synonym independently"
+      ]
+    },
+    {
+      "text": "igi ìfọyín",
+      "english": "toothbrush",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required",
+        "Split from slash-separated source alternatives; review synonym independently"
+      ]
+    },
+    {
+      "text": "búrọ́ọ̀ṣì",
+      "english": "toothbrush",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required",
+        "Split from slash-separated source alternatives; review synonym independently"
+      ]
+    },
+    {
+      "text": "ilé ìgbọ̀nsẹ̀",
+      "english": "toilet",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ìlú òkèèrè",
+      "english": "foreign country",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ìpara",
+      "english": "body lotion",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "jíígí",
+      "english": "mirror",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "kàhìnkàhìn",
+      "english": "sponge",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "kóòmù",
+      "english": "comb",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "mèremère",
+      "english": "precious things",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ojúlé",
+      "english": "room",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ọ̀lẹ",
+      "english": "laziness",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required",
+        "Split from slash-separated source alternatives; review synonym independently"
+      ]
+    },
+    {
+      "text": "ìmẹ́lẹ́",
+      "english": "laziness",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required",
+        "Split from slash-separated source alternatives; review synonym independently"
+      ]
+    },
+    {
+      "text": "pálọ̀",
+      "english": "living room",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "síńkì",
+      "english": "sink",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required",
+        "Unresolved legacy glyph 'õ'; verify the syllabic nasal/tone",
+        "Automatically corrected against a modern Yoruba spelling reference; confirm before approval"
+      ]
+    },
+    {
+      "text": "tọ́ọ̀bù",
+      "english": "bathtub",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "àsìkòo fọ́ọ̀lù",
+      "english": "fall season",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "àsìkòo wíńtà",
+      "english": "winter season",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "aṣọ pípa láró",
+      "english": "tie-dying",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ẹní híhun",
+      "english": "mat weaving",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ilé alámọ̀",
+      "english": "brick house",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ìlẹ̀kẹ̀ sínsín",
+      "english": "bead-making",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "omi tútù",
+      "english": "cold water",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ọṣẹ ìwẹ̀",
+      "english": "bath soap",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "tẹ́pá mọ́ṣẹ́",
+      "english": "to be hardworking",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "tónítóní",
+      "english": "stainless",
+      "language": "yo",
+      "category": "Adjectives",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "gèlè",
+      "english": "a scarflike headgear",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ìborùn",
+      "english": "shawl",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ìbọ̀wọ́",
+      "english": "glove(s)",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ìró",
+      "english": "a wrap-around cloth/ wrapper",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "iyì",
+      "english": "honor",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "jíìnsì",
+      "english": "jeans",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "obìnrin",
+      "english": "female",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ọyẹ́",
+      "english": "harmattan",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "súwẹ́tà",
+      "english": "sweater",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "yẹtí",
+      "english": "earring(s)",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "àsìkò mẹ́rin ọ̀tọ̀ọ̀tọ̀",
+      "english": "four different seasons",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "aṣọ òde",
+      "english": "formal wear",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "aṣọ òjò",
+      "english": "clothes for the rainy season",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "aṣọ tẹ́ẹ́rẹ́",
+      "english": "strip of cloth",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ẹ̀wùu kòlápá",
+      "english": "sleeveless clothing",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ìgbà ooru",
+      "english": "hot weather",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "látàrí ooru",
+      "english": "as a result of heat",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "dé",
+      "english": "to wear, e.g. a hat",
+      "language": "yo",
+      "category": "Verbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required",
+        "Split from slash-separated source alternatives; review synonym independently"
+      ]
+    },
+    {
+      "text": "gẹ̀",
+      "english": "to wear, e.g. a hat",
+      "language": "yo",
+      "category": "Verbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required",
+        "Split from slash-separated source alternatives; review synonym independently"
+      ]
+    },
+    {
+      "text": "ró",
+      "english": "to wrap around",
+      "language": "yo",
+      "category": "Verbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "di ìgbàdí",
+      "english": "wrap-around waist",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "irú wo?",
+      "english": "what type?",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "pa òwe",
+      "english": "say proverbially",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "áàtì",
+      "english": "arts",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required",
+        "Split from slash-separated source alternatives; review synonym independently"
+      ]
+    },
+    {
+      "text": "ọnà",
+      "english": "arts",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required",
+        "Split from slash-separated source alternatives; review synonym independently"
+      ]
+    },
+    {
+      "text": "agbègbè",
+      "english": "area",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "akẹ́gbẹ́ẹ",
+      "english": "colleague",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "alákòóso",
+      "english": "governing council",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "àyè",
+      "english": "opportunity",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "BÍ-EÈ",
+      "english": "B.A.",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "dáná",
+      "english": "cook",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ẹlòmíìn",
+      "english": "another person",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "Ẹ́M-ẸẸ̀DÌ",
+      "english": "M. Ed.",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ibùgbé",
+      "english": "residence",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ìdárayá",
+      "english": "entertainment",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "Ilé-ìkàwé",
+      "english": "library",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ìṣẹ́jú",
+      "english": "minute",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "kàõtíìnì",
+      "english": "canteen/restaurant",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required",
+        "Unresolved legacy glyph 'õ'; verify the syllabic nasal/tone"
+      ]
+    },
+    {
+      "text": "kíkẹ́kọ̀ọ́",
+      "english": "the study of",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "lítíréṣọ̀",
+      "english": "literature",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "òtítọ́",
+      "english": "truth",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ọ́ọ̀lù",
+      "english": "hall",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ọ̀tun",
+      "english": "new",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "títì",
+      "english": "street",
+      "language": "yo",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "òfin àti ìlànà ìtọ́ sọ́nà",
+      "english": "rules and regulations",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "Ẹ̀ka àṣà àti ijó",
+      "english": "Department of Culture and Dance",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "Ẹ̀ka ẹ̀kọ́ iṣẹ́ àgbẹ̀",
+      "english": "Faculty of Agriculture",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ẹ̀kọ́ onípò àkọ́kọ́",
+      "english": "first degree",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ìbàmú pẹ̀lú òfin ilé-ìwé",
+      "english": "in accordance with university rules",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "Ilé-ẹ̀kọ́ọ sẹ́kọ́ńdìrì àgbà",
+      "english": "Senior Secondary School (SSS)",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ilé-ìfowópamọ́sí",
+      "english": "bank",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "Ilé-ẹ̀kọ́ alákọ̀ọ́bẹ̀rẹ̀",
+      "english": "primary/ elementary school",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "iṣẹ́-ọnà aláràbarà",
+      "english": "artistic work",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "kíláàsì sáyẹ́ǹsì",
+      "english": "science class",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required",
+        "Unresolved legacy glyph 'õ'; verify the syllabic nasal/tone",
+        "Automatically corrected against a modern Yoruba spelling reference; confirm before approval"
+      ]
+    },
+    {
+      "text": "odidi ọdún mẹ́fà",
+      "english": "a whole/ good six years",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ọgbàa yunifásítì",
+      "english": "university campus/campus",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required",
+        "Split from slash-separated source alternatives; review synonym independently"
+      ]
+    },
+    {
+      "text": "kámpọ́ọ̀sì",
+      "english": "university campus/campus",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required",
+        "Split from slash-separated source alternatives; review synonym independently"
+      ]
+    },
+    {
+      "text": "ọmọ ilé-ẹ̀kọ́",
+      "english": "student",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "tiatà ìdánilẹ́kọ̀ọ́",
+      "english": "lecture theatre",
+      "language": "yo",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "jọrọ̀",
+      "english": "to enjoy the benefits",
+      "language": "yo",
+      "category": "Verbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "rántí",
+      "english": "to remember",
+      "language": "yo",
+      "category": "Verbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "rojọ́",
+      "english": "to complain",
+      "language": "yo",
+      "category": "Verbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required",
+        "Split from slash-separated source alternatives; review synonym independently"
+      ]
+    },
+    {
+      "text": "wíjọ́",
+      "english": "to complain",
+      "language": "yo",
+      "category": "Verbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required",
+        "Split from slash-separated source alternatives; review synonym independently"
+      ]
+    },
+    {
+      "text": "yìn",
+      "english": "to praise",
+      "language": "yo",
+      "category": "Verbs",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "dojú kọ",
+      "english": "to be faced with",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "gba ìgbéga",
+      "english": "to be promoted",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "má ṣèyọnu",
+      "english": "don’t worry/never mind",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ri dájú wipe",
+      "english": "ensure that",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "wọ̀ ___ lọ́rùn",
+      "english": "to be overwhelmed",
+      "language": "yo",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "ní gẹ́lẹ́",
+      "english": "as soon as",
+      "language": "yo",
+      "category": "Adjectives",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "já fáfá",
+      "english": "smart",
+      "language": "yo",
+      "category": "Other Expressions",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    },
+    {
+      "text": "tó mòye",
+      "english": "that are knowledgeable",
+      "language": "yo",
+      "category": "Other Expressions",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "sourceLicense": "CC BY",
+      "reviewed": false,
+      "status": "pending-native-review",
+      "reviewNotes": [
+        "PDF text-layer normalization; native-speaker approval required"
+      ]
+    }
+  ]
+}

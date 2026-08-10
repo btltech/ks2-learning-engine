@@ -77,7 +77,7 @@ const GuidedHomeView: React.FC<GuidedHomeViewProps> = ({
         )}
       </div>
 
-      {/* Daily Challenge - Big and Prominent */}
+      {/* Daily challenge collapses to a compact status row after completion. */}
       <div className="mb-8">
         <DailyChallengeCard onStartChallenge={onStartDailyChallenge} />
       </div>

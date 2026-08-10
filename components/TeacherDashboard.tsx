@@ -8,6 +8,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useUser } from '../context/UserContext';
+import { useModalAccessibility } from '../hooks/useModalAccessibility';
 import { Difficulty } from '../types';
 import {
   SharedClass,
@@ -62,10 +63,10 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onClose }) =
   const [newClassGrade, setNewClassGrade] = useState('Year 5');
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const [view, setView] = useState<'overview' | 'students' | 'assignments' | 'reports'>('overview');
-  const [timeRange, setTimeRange] = useState<'week' | 'month' | 'term'>('week');
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+  const dialogRef = useModalAccessibility(onClose);
 
   useEffect(() => {
     if (!user?.id) return;
@@ -156,6 +157,14 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onClose }) =
   };
 
   // Calculate stats from actual student data
+  const averageMastery = students.reduce<Record<string, { total: number; count: number }>>((result, student) => {
+    Object.entries(student.subjectMastery || {}).forEach(([subject, value]) => {
+      const current = result[subject] || { total: 0, count: 0 };
+      result[subject] = { total: current.total + (Number(value) || 0), count: current.count + 1 };
+    });
+    return result;
+  }, {});
+
   const classStats: ClassStats = {
     totalStudents: students.length,
     averagePoints: students.length > 0 
@@ -164,37 +173,34 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onClose }) =
     averageStreak: students.length > 0 
       ? Math.round(students.reduce((sum, s) => sum + s.streak, 0) / students.length) 
       : 0,
-    averageMastery: students.length > 0 
-      ? {
-          Maths: Math.round(students.reduce((sum, s) => sum + (s.subjectMastery.Maths || 0), 0) / students.length),
-          English: Math.round(students.reduce((sum, s) => sum + (s.subjectMastery.English || 0), 0) / students.length),
-          Science: Math.round(students.reduce((sum, s) => sum + (s.subjectMastery.Science || 0), 0) / students.length),
-        }
-      : { Maths: 0, English: 0, Science: 0 },
+    averageMastery: Object.fromEntries(
+      (Object.entries(averageMastery) as Array<[string, { total: number; count: number }]>).map(([subject, values]) => [subject, Math.round(values.total / values.count)])
+    ),
     topPerformers: [...students].sort((a, b) => b.averageScore - a.averageScore).slice(0, 3),
     strugglingStudents: students.filter(s => s.averageScore < 60),
     recentActivity: [], // Would be populated from activity log
   };
 
   return (
-    <div className="fixed inset-0 bg-gray-100 z-50 overflow-hidden flex flex-col">
+    <div className="fixed inset-0 bg-gray-100 z-50 overflow-hidden flex flex-col" role="presentation">
       {/* Header */}
       <div className="bg-gradient-to-r from-indigo-700 to-purple-700 text-white p-4 shadow-lg">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div>
-            <h1 className="text-2xl font-bold">👩‍🏫 Teacher Dashboard</h1>
+            <h1 id="teacher-dashboard-title" className="text-2xl font-bold">👩‍🏫 Teacher Dashboard</h1>
             <p className="text-indigo-200">Class Overview & Student Progress</p>
           </div>
           <button
             onClick={onClose}
             className="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg"
+            aria-label="Close teacher dashboard"
           >
             Close Dashboard
           </button>
         </div>
 
         {/* Navigation Tabs */}
-        <div className="max-w-7xl mx-auto mt-4 flex gap-2 overflow-x-auto">
+        <div className="max-w-7xl mx-auto mt-4 flex gap-2 overflow-x-auto" role="tablist" aria-label="Teacher dashboard sections">
           {[
             { id: 'overview', label: '📊 Overview', icon: '📊' },
             { id: 'students', label: '👨‍🎓 Students', icon: '👨‍🎓' },
@@ -204,6 +210,9 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onClose }) =
             <button
               key={tab.id}
               onClick={() => setView(tab.id as any)}
+              role="tab"
+              aria-selected={view === tab.id}
+              tabIndex={view === tab.id ? 0 : -1}
               className={`px-4 py-2 rounded-lg whitespace-nowrap transition-colors ${
                 view === tab.id
                   ? 'bg-white text-indigo-700 font-bold'
@@ -217,7 +226,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onClose }) =
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 overflow-auto p-6">
+      <div ref={dialogRef} tabIndex={-1} className="flex-1 overflow-auto p-6" role="dialog" aria-modal="true" aria-labelledby="teacher-dashboard-title">
         <div className="max-w-7xl mx-auto">
           {error && (
             <div className="mb-4 rounded-lg border border-red-200 bg-red-50 p-3 text-red-800" role="alert">
@@ -292,7 +301,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onClose }) =
           )}
 
           {view === 'overview' && (
-            <OverviewView stats={classStats} students={students} timeRange={timeRange} setTimeRange={setTimeRange} />
+            <OverviewView stats={classStats} students={students} />
           )}
           {view === 'students' && (
             <StudentsView 
@@ -321,28 +330,11 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onClose }) =
 const OverviewView: React.FC<{
   stats: ClassStats;
   students: Student[];
-  timeRange: string;
-  setTimeRange: (range: 'week' | 'month' | 'term') => void;
-}> = ({ stats, students, timeRange, setTimeRange }) => {
+}> = ({ stats, students }) => {
   return (
     <div className="space-y-6">
-      {/* Time Range Selector */}
-      <div className="flex justify-end">
-        <div className="bg-white rounded-lg p-1 inline-flex gap-1">
-          {['week', 'month', 'term'].map((range) => (
-            <button
-              key={range}
-              onClick={() => setTimeRange(range as any)}
-              className={`px-3 py-1 rounded ${
-                timeRange === range
-                  ? 'bg-indigo-600 text-white'
-                  : 'text-gray-600 hover:bg-gray-100'
-              }`}
-            >
-              This {range.charAt(0).toUpperCase() + range.slice(1)}
-            </button>
-          ))}
-        </div>
+      <div className="rounded-lg border border-indigo-100 bg-indigo-50 px-4 py-3 text-sm text-indigo-900">
+        These overview figures are cumulative for the selected class. Activity timestamps are shown on individual learner records.
       </div>
 
       {/* Stats Cards */}
@@ -377,7 +369,9 @@ const OverviewView: React.FC<{
       <div className="bg-white rounded-xl p-6 shadow">
         <h3 className="text-lg font-bold text-gray-900 mb-4">📚 Class Mastery by Subject</h3>
         <div className="space-y-4">
-          {Object.entries(stats.averageMastery).map(([subject, mastery]) => {
+          {Object.keys(stats.averageMastery).length === 0 ? (
+            <p className="text-sm text-gray-500">Subject mastery will appear after learners complete quizzes.</p>
+          ) : Object.entries(stats.averageMastery).map(([subject, mastery]) => {
             const masteryValue = mastery as number;
             return (
               <div key={subject}>
@@ -894,13 +888,16 @@ const StatCard: React.FC<{
 
 // Helper Functions
 function isToday(date: Date): boolean {
+  if (!Number.isFinite(date.getTime())) return false;
   const today = new Date();
   return date.toDateString() === today.toDateString();
 }
 
 function formatTimeAgo(date: Date): string {
+  if (!Number.isFinite(date.getTime()) || date.getTime() <= 0) return 'No activity yet';
   const now = new Date();
   const diff = now.getTime() - date.getTime();
+  if (diff < 0) return 'just now';
   const minutes = Math.floor(diff / 60000);
   const hours = Math.floor(minutes / 60);
   const days = Math.floor(hours / 24);

@@ -68,6 +68,26 @@ describe('cloudQuestionRepository', () => {
     }, 'Maths', 'Algebra')).toBeNull();
   });
 
+  it('applies reviewed corrections and quarantines context-free cloud records', () => {
+    const corrected = normalizeCloudQuestion('geo-plac-mirgtd6f-1', {
+      question: 'Old ambiguous Thames wording',
+      options: ['True', 'False'],
+      correctAnswer: 'True',
+      questionType: 'true-false',
+      ageGroup: [7, 8],
+      difficulty: 'Easy',
+    }, 'Geography', 'Place Knowledge');
+    expect(corrected?.question).toContain('entirely within England');
+
+    expect(normalizeCloudQuestion('context-free', {
+      question: 'What happened first in our county?',
+      options: ['A', 'B'],
+      correctAnswer: 'A',
+      ageGroup: [8],
+      difficulty: 'Medium',
+    }, 'History', 'Local History')).toBeNull();
+  });
+
   it('keeps reviewed priority order while deduplicating live and offline records', () => {
     const makeQuestion = (id: string, question: string, ageGroup: number[], difficulty: Difficulty): BankQuestion => ({
       id, subject: 'Maths', topic: 'Algebra', ageGroup, difficulty, question,

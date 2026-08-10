@@ -262,10 +262,11 @@ export const getPoorlyPerformingQuestionsFromFirebase = async (
 };
 
 // Get overall question bank stats from Firebase
-export const getQuestionBankStats = async (): Promise<QuestionBankStats> => {
+export const getQuestionBankStats = async (options?: { forceRefresh?: boolean }): Promise<QuestionBankStats> => {
   try {
+    const forceRefresh = options?.forceRefresh === true;
     const cached = typeof localStorage === 'undefined' ? null : localStorage.getItem(ADMIN_STATS_CACHE_KEY);
-    if (cached) {
+    if (!forceRefresh && cached) {
       const parsed = JSON.parse(cached) as { expiresAt?: number; stats?: QuestionBankStats };
       if (parsed.stats && Number(parsed.expiresAt) > Date.now()) return parsed.stats;
     }
@@ -368,17 +369,7 @@ export const getQuestionBankStats = async (): Promise<QuestionBankStats> => {
     return stats;
   } catch (error) {
     console.error('Error fetching question bank stats:', error);
-    return {
-      totalQuestions: 0,
-      displayableQuestions: 0,
-      publishedQuestions: 0,
-      questionsWithPerformanceData: 0,
-      questionsAttempted: 0,
-      totalAttempts: 0,
-      averageCorrectRate: 0,
-      poorlyPerformingCount: 0,
-      wellPerformingCount: 0
-    };
+    throw error instanceof Error ? error : new Error('Unable to load question bank statistics.');
   }
 };
 

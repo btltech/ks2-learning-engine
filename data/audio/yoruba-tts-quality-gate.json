@@ -1,0 +1,9 @@
+{
+  "language": "yo",
+  "provider": "facebook/mms-tts-yor",
+  "status": "rejected",
+  "sampleCount": 20,
+  "productionUploadAllowed": false,
+  "reason": "The project owner found the 20-sample listening test had unacceptable Yoruba pronunciation for a children's learning product.",
+  "nextStep": "Evaluate a server-side African-language TTS provider or use native-speaker recordings before generating the full pack."
+}

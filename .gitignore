@@ -8,6 +8,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+__pycache__/
 dist
 dist-ssr
 *.local
@@ -28,6 +29,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Locally generated TTS audio and review artefacts. Approved audio is published
+# to R2; reusable source manifests remain under data/audio/.
+/audio/
 
 # Firebase
 .firebaserc

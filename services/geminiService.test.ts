@@ -1,22 +1,13 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { Difficulty, QuestionType } from '../types';
 
-vi.stubEnv('VITE_GEMINI_API_KEY', 'test-api-key');
-
 const { mockGenerateContent, mockGetUnitQuestions } = vi.hoisted(() => ({
   mockGenerateContent: vi.fn(),
   mockGetUnitQuestions: vi.fn(),
 }));
 
-vi.mock('@google/genai', () => ({
-  GoogleGenAI: class {
-    get models() { return { generateContent: mockGenerateContent }; }
-  },
-  Type: { OBJECT: 'OBJECT', ARRAY: 'ARRAY', STRING: 'STRING' },
-}));
-
 vi.mock('firebase/auth', () => ({
-  getAuth: vi.fn(() => ({ currentUser: { uid: 'test-uid', getIdToken: vi.fn() } })),
+  getAuth: vi.fn(() => ({ currentUser: { uid: 'test-uid', getIdToken: vi.fn().mockResolvedValue('test-token') } })),
 }));
 
 vi.mock('./cloudQuestionRepository', () => ({
@@ -31,6 +22,7 @@ vi.mock('./cacheService', () => ({
   createCacheKey: vi.fn().mockReturnValue('test-key'),
   getFromCache: vi.fn().mockReturnValue(null),
   setInCache: vi.fn(),
+  TTL: { LESSON: 14 * 24 * 60 * 60 * 1000 },
 }));
 
 vi.mock('./contentMonitor', () => ({ contentMonitor: { logValidationIssue: vi.fn() } }));
@@ -45,12 +37,19 @@ vi.mock('./questionPerformance', () => ({
   getAdaptedDifficulty: vi.fn((difficulty) => difficulty),
 }));
 
-import { generateQuiz, getTopicsForSubject } from './geminiService';
+import { generateLesson, generateQuiz, getTopicsForSubject } from './geminiService';
 
 describe('geminiService curriculum boundaries', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mockGetUnitQuestions.mockResolvedValue([]);
+    vi.stubGlobal('fetch', vi.fn(async (_url: string, init?: RequestInit) => {
+      const request = JSON.parse(String(init?.body || '{}'));
+      const generated = await mockGenerateContent(request);
+      return new Response(JSON.stringify({
+        candidates: [{ content: { parts: [{ text: generated.text }] } }],
+      }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+    }));
   });
 
   it('returns the fixed ordered Year 6 Maths sequence without asking AI for topics', async () => {
@@ -72,6 +71,38 @@ describe('geminiService curriculum boundaries', () => {
     expect(questions).toHaveLength(3);
     expect(questions.every((question) => question.questionType === QuestionType.MultipleChoice)).toBe(true);
     expect(mockGenerateContent).not.toHaveBeenCalled();
+  });
+
+  it('generates a curriculum-grounded lesson with the complete six-section contract', async () => {
+    mockGenerateContent.mockResolvedValue({
+      text: `# Learning Objective
+I can explain place value in numbers to 1,000.
+
+# Key Vocabulary
+Digit means one numeral. Place means position. Value means what a digit represents.
+
+# Teach
+Each digit belongs to a column. Its column tells us how much the digit is worth in the whole number.
+
+# Modelled Example
+In 472, the 4 is worth 400 because it is in the hundreds column. The 7 is worth 70 and the 2 is worth 2.
+
+# Guided Practice
+Find the value of 6 in 361. Hint: identify its column first.
+
+# Independent Check
+Write 805 as hundreds, tens and ones.`,
+    });
+
+    const lesson = await generateLesson('Maths', 'Place value to 1,000', Difficulty.Medium, 7);
+    expect(lesson).toContain('# Independent Check');
+    expect(mockGenerateContent).toHaveBeenCalledWith(expect.objectContaining({
+      lessonContext: expect.objectContaining({
+        subject: 'Maths',
+        topic: 'Place value to 1,000',
+        studentAge: 7,
+      }),
+    }));
   });
 
   it('uses only the exact curriculum bank topic before filling a sparse quiz with AI', async () => {

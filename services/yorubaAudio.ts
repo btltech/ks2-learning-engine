@@ -16,7 +16,17 @@ let entriesPromise: Promise<YorubaAudioEntry[]> | null = null;
 let manifestPromise: Promise<Map<string, YorubaAudioEntry>> | null = null;
 let currentAudio: HTMLAudioElement | null = null;
 
-const normalizeText = (value: string): string => value.normalize('NFC').replace(/[\u0000-\u001f\u007f]/g, '').replace(/\s+/g, ' ').trim().toLocaleLowerCase('yo-NG');
+const stripControlCharacters = (value: string): string => Array.from(value)
+  .filter((character) => {
+    const codePoint = character.codePointAt(0) ?? 0;
+    return codePoint > 31 && codePoint !== 127;
+  })
+  .join('');
+
+const normalizeText = (value: string): string => stripControlCharacters(value.normalize('NFC'))
+  .replace(/\s+/g, ' ')
+  .trim()
+  .toLocaleLowerCase('yo-NG');
 const manifestKeyVariants = (value: string): string[] => {
   const normalized = normalizeText(value);
   const withoutTerminalPunctuation = normalized.replace(/[.!?]+$/u, '').trim();
