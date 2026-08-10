@@ -7,7 +7,7 @@
 
 import React from 'react';
 import { useUISettings, UIMode } from '../context/UISettingsContext';
-import { useModalAccessibility } from '../hooks/useModalAccessibility';
+import { ModalShell } from './layout/AppShells';
 
 interface UIModeOption {
   mode: UIMode;
@@ -60,22 +60,30 @@ const MODE_OPTIONS: UIModeOption[] = [
   },
 ];
 
-export const UIModeSelector: React.FC<{ onClose?: () => void }> = ({ onClose }) => {
+export const UIModeSelector: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const { settings, setMode } = useUISettings();
-  const dialogRef = useModalAccessibility(onClose || (() => {}));
 
   const handleSelectMode = (mode: UIMode) => {
     setMode(mode);
-    onClose?.();
+    onClose();
   };
 
   return (
-    <div ref={dialogRef} tabIndex={-1} className="bg-white rounded-2xl shadow-xl overflow-hidden max-w-2xl mx-auto" role="dialog" aria-modal="true" aria-labelledby="ui-mode-title">
-      <div className="bg-gradient-to-r from-indigo-500 to-purple-600 px-6 py-4 text-white">
-        <h2 id="ui-mode-title" className="text-xl font-bold">Choose Your Experience</h2>
-        <p className="text-white/80 text-sm">Select the mode that works best for you</p>
-      </div>
-
+    <ModalShell
+      title="Choose Your Experience"
+      subtitle="Select the mode that works best for you"
+      onClose={onClose}
+      tone="purple"
+      footer={(
+        <button
+          type="button"
+          onClick={onClose}
+          className="w-full min-h-11 py-2 bg-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-300 transition-colors"
+        >
+          Done
+        </button>
+      )}
+    >
       <div className="p-6 space-y-4">
         {MODE_OPTIONS.map((option) => (
           <button
@@ -121,16 +129,6 @@ export const UIModeSelector: React.FC<{ onClose?: () => void }> = ({ onClose }) 
         ))}
       </div>
 
-      {onClose && (
-        <div className="px-6 py-4 bg-gray-50 border-t border-gray-100">
-          <button
-            onClick={onClose}
-            className="w-full py-2 bg-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-300 transition-colors"
-          >
-            Done
-          </button>
-        </div>
-      )}
-    </div>
+    </ModalShell>
   );
 };

@@ -4,6 +4,7 @@ import { leaderboardService, LeaderboardEntry } from '../services/leaderboardSer
 import { TrophyIcon, FireIcon, StarIcon } from '@heroicons/react/24/solid';
 import LoadingSpinner from './LoadingSpinner';
 import AvatarDisplay from './AvatarDisplay';
+import { PageShell } from './layout/AppShells';
 
 interface LeaderboardViewProps {
   onBack: () => void;
@@ -31,19 +32,18 @@ const LeaderboardView: React.FC<LeaderboardViewProps> = ({ onBack }) => {
   }, []);
 
   return (
-    <div className="w-full max-w-2xl mx-auto p-4">
-      <button 
-        onClick={onBack}
-        className="mb-6 text-blue-600 hover:text-blue-800 font-bold flex items-center"
-      >
-        ← Back
-      </button>
-
+    <PageShell
+      title="Global Leaderboard"
+      subtitle="See how you compare with other learners"
+      icon="🏆"
+      onBack={onBack}
+      maxWidth="2xl"
+      tone="blue"
+    >
       <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
         <div className="bg-gradient-to-r from-yellow-400 to-orange-500 p-6 text-white text-center">
           <TrophyIcon className="h-16 w-16 mx-auto mb-2 text-yellow-100" />
-          <h1 className="text-3xl font-bold">Global Leaderboard</h1>
-          <p className="opacity-90">See how you compare with other learners!</p>
+          <p className="text-lg font-semibold">Earn points through learning and climb the table.</p>
         </div>
 
         <div className="p-4">
@@ -103,9 +103,8 @@ const LeaderboardView: React.FC<LeaderboardViewProps> = ({ onBack }) => {
           )}
         </div>
       </div>
-    </div>
+    </PageShell>
   );
 };
 
 export default LeaderboardView;
-

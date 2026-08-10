@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { microlearningService, MicroSession } from '../services/microlearningService';
 import MicrolearningCard from './MicrolearningCard';
+import { PageShell } from './layout/AppShells';
 
 interface MicrolearningDashboardProps {
   onSelectSession: (session: MicroSession) => void;
@@ -25,18 +26,7 @@ export default function MicrolearningDashboard({ onSelectSession }: Microlearnin
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 p-6">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
-            5-Minute Challenges ⚡
-          </h1>
-          <p className="text-gray-600 text-lg">
-            Quick learning sessions that fit into your day
-          </p>
-        </div>
-
+    <PageShell title="5-Minute Challenges" subtitle="Quick learning sessions that fit into your day" icon="⚡" tone="purple">
         {/* Daily Progress Card */}
         <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
           <div className="flex items-center justify-between mb-4">
@@ -142,7 +132,6 @@ export default function MicrolearningDashboard({ onSelectSession }: Microlearnin
             </li>
           </ul>
         </div>
-      </div>
-    </div>
+    </PageShell>
   );
 }

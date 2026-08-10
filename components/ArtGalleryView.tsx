@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { famousArtworks, drawingLessons, Artwork, DrawingLesson } from '../data/artResources';
+import { PageShell } from './layout/AppShells';
 
 interface ArtGalleryViewProps {
   onSelectArtwork: (artwork: Artwork) => void;
@@ -47,23 +48,7 @@ export const ArtGalleryView: React.FC<ArtGalleryViewProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-100 to-pink-100 p-4">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <button
-            onClick={onBack}
-            className="flex items-center gap-2 text-purple-600 hover:text-purple-800 transition-colors"
-          >
-            <span className="text-xl">←</span>
-            <span className="font-medium">Back</span>
-          </button>
-          <h1 className="text-2xl font-bold text-purple-800 flex items-center gap-2">
-            <span>🎨</span> Art Studio
-          </h1>
-          <div className="w-20" /> {/* Spacer */}
-        </div>
-
+    <PageShell title="Art Studio" subtitle="Explore famous art and practise drawing" icon="🎨" onBack={onBack} maxWidth="4xl" tone="purple">
         {/* Tabs */}
         <div className="flex gap-2 mb-6">
           <button
@@ -252,8 +237,7 @@ export const ArtGalleryView: React.FC<ArtGalleryViewProps> = ({
             </div>
           </div>
         )}
-      </div>
-    </div>
+    </PageShell>
   );
 };
 

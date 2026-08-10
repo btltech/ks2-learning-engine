@@ -5,6 +5,7 @@ import ProgressChart from '../components/ProgressChart';
 import CertificateGallery from '../components/CertificateGallery';
 import { progressVisualizationService } from '../services/progressVisualizationService';
 import { socialLearningService } from '../services/socialLearningService';
+import { PageShell } from '../components/layout/AppShells';
 
 type ProgressTab = 'progress' | 'certificates' | 'friends';
 
@@ -55,13 +56,7 @@ export default function ProgressView() {
   };
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 py-8 px-4" aria-labelledby="progress-heading">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-8">
-          <h1 id="progress-heading" className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">Your Progress</h1>
-          <p className="text-gray-600">Track your learning journey and achievements</p>
-        </div>
-
+    <PageShell title="Your Progress" subtitle="Track your learning journey and achievements" icon="📈" tone="blue">
         <div className="bg-white rounded-2xl shadow-lg p-2 mb-6 grid grid-cols-1 sm:grid-cols-3 gap-2" role="tablist" aria-label="Progress sections">
           {([
             ['progress', '📈 Progress & Skills'],
@@ -159,11 +154,9 @@ export default function ProgressView() {
             )}
           </div>
         )}
-      </div>
-
       {showSkillTree && (
         <SkillTreeView subject={skillTreeSubject} onClose={() => setShowSkillTree(false)} />
       )}
-    </section>
+    </PageShell>
   );
 }

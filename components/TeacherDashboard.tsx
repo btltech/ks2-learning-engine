@@ -9,7 +9,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
-import { useModalAccessibility } from '../hooks/useModalAccessibility';
 import { Difficulty } from '../types';
 import {
   SharedClass,
@@ -18,6 +17,7 @@ import {
   teacherWorkspaceService,
 } from '../services/teacherWorkspaceService';
 import { parseTeacherDashboardView } from '../utils/dashboardRoutes';
+import { DashboardShell } from './layout/AppShells';
 
 interface Student {
   id: string;
@@ -69,7 +69,6 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onClose }) =
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
-  const dialogRef = useModalAccessibility(onClose);
 
   useEffect(() => {
     if (!user?.id) return;
@@ -185,30 +184,20 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onClose }) =
   };
 
   return (
-    <div className="fixed inset-0 bg-gray-100 z-50 overflow-hidden flex flex-col" role="presentation">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-indigo-700 to-purple-700 text-white p-4 shadow-lg">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div>
-            <h1 id="teacher-dashboard-title" className="text-2xl font-bold">👩‍🏫 Teacher Dashboard</h1>
-            <p className="text-indigo-200">Class Overview & Student Progress</p>
-          </div>
-          <button
-            onClick={onClose}
-            className="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg"
-            aria-label="Close teacher dashboard"
-          >
-            Close Dashboard
-          </button>
-        </div>
-
-        {/* Navigation Tabs */}
-        <div className="max-w-7xl mx-auto mt-4 flex gap-2 overflow-x-auto" role="tablist" aria-label="Teacher dashboard sections">
+    <DashboardShell
+      title="Teacher Dashboard"
+      subtitle="Class overview and student progress"
+      icon="👩‍🏫"
+      onExit={onClose}
+      exitLabel="Back to teacher home"
+      tone="purple"
+      navigation={(
+        <div className="flex gap-2 overflow-x-auto" role="tablist" aria-label="Teacher dashboard sections">
           {[
-            { id: 'overview', label: '📊 Overview', icon: '📊' },
-            { id: 'students', label: '👨‍🎓 Students', icon: '👨‍🎓' },
-            { id: 'assignments', label: '📝 Assignments', icon: '📝' },
-            { id: 'reports', label: '📈 Reports', icon: '📈' },
+            { id: 'overview', label: '📊 Overview' },
+            { id: 'students', label: '👨‍🎓 Students' },
+            { id: 'assignments', label: '📝 Assignments' },
+            { id: 'reports', label: '📈 Reports' },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -227,11 +216,8 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onClose }) =
             </button>
           ))}
         </div>
-      </div>
-
-      {/* Main Content */}
-      <div ref={dialogRef} tabIndex={-1} className="flex-1 overflow-auto p-6" role="dialog" aria-modal="true" aria-labelledby="teacher-dashboard-title">
-        <div className="max-w-7xl mx-auto">
+      )}
+    >
           {error && (
             <div className="mb-4 rounded-lg border border-red-200 bg-red-50 p-3 text-red-800" role="alert">
               {error}
@@ -324,9 +310,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onClose }) =
             />
           )}
           {view === 'reports' && <ReportsView stats={classStats} students={students} />}
-        </div>
-      </div>
-    </div>
+    </DashboardShell>
   );
 };
 
