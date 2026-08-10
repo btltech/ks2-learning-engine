@@ -47,7 +47,6 @@ const OfflineIndicator = lazy(() => import('./components/OfflineIndicator'));
 const LessonView = lazy(() => import('./components/LessonView'));
 const QuizView = lazy(() => import('./components/QuizView'));
 const StoreView = lazy(() => import('./components/StoreView'));
-const ParentDashboard = lazy(() => import('./components/ParentDashboard'));
 const ParentMonitoringDashboard = lazy(() => import('./components/ParentMonitoringDashboard'));
 const LeaderboardView = lazy(() => import('./components/LeaderboardView'));
 const ProgressView = lazy(() => import('./views/ProgressView'));
@@ -111,7 +110,6 @@ const AppContent: React.FC = () => {
   const location = useLocation();
 
   const [showStore, setShowStore] = useState(false);
-  const [showParentDashboard, setShowParentDashboard] = useState(false);
   
   // New feature states
   const [showAccessibilitySettings, setShowAccessibilitySettings] = useState(false);
@@ -122,7 +120,6 @@ const AppContent: React.FC = () => {
   const [showAchievements, setShowAchievements] = useState(false);
   const [showQuizBattle, setShowQuizBattle] = useState(false);
   const [showLearningPaths, setShowLearningPaths] = useState(false);
-  const [showTeacherDashboard, setShowTeacherDashboard] = useState(false);
   const [showQuestionQuality, setShowQuestionQuality] = useState(false);
   const [showCurriculumCoverage, setShowCurriculumCoverage] = useState(false);
   const [adminConsoleView, setAdminConsoleView] = useState<'dashboard' | 'users' | 'content' | 'analytics' | 'settings'>('dashboard');
@@ -423,7 +420,7 @@ const AppContent: React.FC = () => {
   const handleMiRaQuickAction = (action: string): string | void => {
     switch (action) {
       case 'teacher-revision':
-        setShowTeacherDashboard(true);
+        navigate('/teacher-dashboard?tab=assignments');
         return 'Opening the class dashboard so you can build the revision set from real class data.';
       case 'teacher-weak-questions':
         setShowQuestionQuality(true);
@@ -554,7 +551,7 @@ const AppContent: React.FC = () => {
         onHomeClick={() => navigate('/')} 
         user={user}
         onOpenStore={() => setShowStore(true)}
-        onOpenParentDashboard={() => setShowParentDashboard(true)}
+        onOpenParentDashboard={() => navigate('/parent-monitoring')}
         onOpenLeaderboard={() => navigate('/leaderboard')}
         onOpenProgress={() => navigate('/progress')}
         onOpenAvatar={() => navigate('/avatar')}
@@ -582,17 +579,16 @@ const AppContent: React.FC = () => {
                   />
                 ) : hasRole(user, 'teacher') ? (
                   <TeacherHomeView
-                    onOpenTeacherDashboard={() => setShowTeacherDashboard(true)}
+                    onOpenTeacherDashboard={() => navigate('/teacher-dashboard')}
                     onOpenClassroom={() => navigate('/classroom')}
                     onOpenQuestionQuality={() => setShowQuestionQuality(true)}
-                    onOpenAnalytics={() => setShowTeacherDashboard(true)}
+                    onOpenAnalytics={() => navigate('/teacher-dashboard?tab=reports')}
                     onOpenCurriculumCoverage={() => setShowCurriculumCoverage(true)}
                   />
                 ) : hasRole(user, 'parent') ? (
                   <ParentHomeView
-                    onOpenParentDashboard={() => setShowParentDashboard(true)}
                     onOpenParentMonitoring={() => navigate('/parent-monitoring')}
-                    onOpenAnalytics={() => navigate('/parent-monitoring')}
+                    onOpenAnalytics={() => navigate('/parent-monitoring?tab=insights')}
                     onSwitchToChild={() => {
                       showToast('info', 'Link a child first to preview their learning view.');
                     }}
@@ -732,6 +728,14 @@ const AppContent: React.FC = () => {
                 />
               } />
 
+              <Route path="/teacher-dashboard" element={
+                hasRole(user, 'teacher') ? (
+                  <TeacherDashboard onClose={() => navigate('/')} />
+                ) : (
+                  <Navigate to="/" replace />
+                )
+              } />
+
               <Route path="/parent-monitoring" element={
                 hasRole(user, 'parent') ? (
                   <ParentMonitoringDashboard onLogout={logout} />
@@ -851,12 +855,6 @@ const AppContent: React.FC = () => {
         </Suspense>
       )}
 
-      {showParentDashboard && (
-        <Suspense fallback={<LoadingSpinner />}>
-          <ParentDashboard onClose={() => setShowParentDashboard(false)} />
-        </Suspense>
-      )}
-
       {/* Question Quality Dashboard - Admin/Teacher only */}
       {showQuestionQuality && (
         <Suspense fallback={<LoadingSpinner />}>
@@ -925,12 +923,6 @@ const AppContent: React.FC = () => {
           onStartLesson={handleStartLearningPathLesson}
           onClose={() => setShowLearningPaths(false)}
         />
-      )}
-
-      {showTeacherDashboard && (
-        <Suspense fallback={<LoadingSpinner />}>
-          <TeacherDashboard onClose={() => setShowTeacherDashboard(false)} />
-        </Suspense>
       )}
 
       {showCurriculumCoverage && (

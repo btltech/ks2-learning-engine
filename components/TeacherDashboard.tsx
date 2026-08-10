@@ -7,6 +7,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
 import { useModalAccessibility } from '../hooks/useModalAccessibility';
 import { Difficulty } from '../types';
@@ -16,6 +17,7 @@ import {
   homeworkStats,
   teacherWorkspaceService,
 } from '../services/teacherWorkspaceService';
+import { parseTeacherDashboardView } from '../utils/dashboardRoutes';
 
 interface Student {
   id: string;
@@ -55,6 +57,7 @@ interface TeacherDashboardProps {
 
 export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onClose }) => {
   const { user } = useUser();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [students, setStudents] = useState<Student[]>([]);
   const [classes, setClasses] = useState<SharedClass[]>([]);
   const [homework, setHomework] = useState<SharedHomework[]>([]);
@@ -62,7 +65,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onClose }) =
   const [newClassName, setNewClassName] = useState('');
   const [newClassGrade, setNewClassGrade] = useState('Year 5');
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
-  const [view, setView] = useState<'overview' | 'students' | 'assignments' | 'reports'>('overview');
+  const view = parseTeacherDashboardView(searchParams.get('tab'));
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
@@ -209,7 +212,8 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onClose }) =
           ].map((tab) => (
             <button
               key={tab.id}
-              onClick={() => setView(tab.id as any)}
+              type="button"
+              onClick={() => setSearchParams(tab.id === 'overview' ? {} : { tab: tab.id })}
               role="tab"
               aria-selected={view === tab.id}
               tabIndex={view === tab.id ? 0 : -1}

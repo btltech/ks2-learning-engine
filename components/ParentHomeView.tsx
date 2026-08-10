@@ -15,14 +15,12 @@ import { useUser } from '../context/UserContext';
 import { useModalAccessibility } from '../hooks/useModalAccessibility';
 
 interface ParentHomeViewProps {
-  onOpenParentDashboard: () => void;
   onOpenParentMonitoring: () => void;
   onOpenAnalytics: () => void;
   onSwitchToChild: () => void;
 }
 
 export const ParentHomeView: React.FC<ParentHomeViewProps> = ({
-  onOpenParentDashboard,
   onOpenParentMonitoring,
   onOpenAnalytics,
   onSwitchToChild,
@@ -57,18 +55,18 @@ export const ParentHomeView: React.FC<ParentHomeViewProps> = ({
       onClick: onOpenParentMonitoring,
     },
     {
-      icon: '📊',
-      title: 'Parent Dashboard',
-      description: 'Overview of all children',
-      color: 'from-blue-500 to-cyan-600',
-      onClick: onOpenParentDashboard,
-    },
-    {
       icon: '📈',
       title: 'Learning Analytics',
-      description: 'Performance insights',
+      description: 'See strengths and areas for support',
       color: 'from-green-500 to-teal-600',
       onClick: onOpenAnalytics,
+    },
+    {
+      icon: '📄',
+      title: 'Reports',
+      description: 'Create a progress report or recommendations',
+      color: 'from-blue-500 to-cyan-600',
+      onClick: () => navigate('/parent-monitoring?tab=reports'),
     },
     {
       icon: '👧',

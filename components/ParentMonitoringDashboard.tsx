@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { AcademicCapIcon, FireIcon, StarIcon, Cog6ToothIcon, TrashIcon } from '@heroicons/react/24/solid';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import ChildSelector from './ChildSelector';
 import ParentActivityLog from './ParentActivityLog';
 import ProgressNotifications, { Notification } from './ProgressNotifications';
@@ -7,6 +8,8 @@ import AgeGroupedLeaderboard from './AgeGroupedLeaderboard';
 import SubjectProgressCharts from './SubjectProgressCharts';
 import { useUser } from '../context/UserContext';
 import { firebaseAuthService } from '../services/firebaseAuthService';
+import { generateLearningInsights, generateProgressReport } from '../services/geminiService';
+import { parseParentWorkspaceTab } from '../utils/dashboardRoutes';
 
 interface ParentMonitoringDashboardProps {
   onLogout: () => void | Promise<void>;
@@ -14,9 +17,15 @@ interface ParentMonitoringDashboardProps {
 
 const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ onLogout }) => {
   const { user, setUser, currentChild, linkedChildren, selectedChildId, selectChild, refreshLinkedChildren } = useUser();
-  const [activeTab, setActiveTab] = useState<'overview' | 'progress' | 'insights' | 'reports' | 'leaderboard' | 'settings'>('overview');
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const activeTab = parseParentWorkspaceTab(searchParams.get('tab'));
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [progressReport, setProgressReport] = useState('');
+  const [learningReport, setLearningReport] = useState('');
+  const [reportLoading, setReportLoading] = useState<'progress' | 'learning' | null>(null);
+  const [reportError, setReportError] = useState('');
 
   // Get real child data from context
   const selectedChild = currentChild || linkedChildren?.[0] || null;
@@ -127,6 +136,30 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
     setNotifications((prev) => prev.filter((n) => n.id !== id));
   };
 
+  const handleGenerateReport = async (kind: 'progress' | 'learning') => {
+    if (!selectedChild) return;
+    setReportLoading(kind);
+    setReportError('');
+    try {
+      if (kind === 'progress') {
+        const report = await generateProgressReport(selectedChild, selectedChild.age, selectedChild.name);
+        setProgressReport(report);
+      } else {
+        const report = await generateLearningInsights(
+          selectedChild,
+          selectedChild.quizHistory || [],
+          selectedChild.age,
+          selectedChild.name,
+        );
+        setLearningReport(report);
+      }
+    } catch (reason) {
+      setReportError(reason instanceof Error ? reason.message : 'Unable to generate this report right now.');
+    } finally {
+      setReportLoading(null);
+    }
+  };
+
   const handleResetActivity = async () => {
     if (!selectedChild) return;
     try {
@@ -190,10 +223,10 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             <div className="flex items-center space-x-3">
-              <AcademicCapIcon className="h-10 w-10 text-purple-500" />
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-800 hidden sm:block">
-                Parent Portal
-              </h1>
+              <button type="button" onClick={() => navigate('/')} className="flex items-center gap-3 rounded-lg p-2 hover:bg-purple-50" aria-label="Return to parent home">
+                <AcademicCapIcon className="h-10 w-10 text-purple-500" />
+                <span className="text-2xl sm:text-3xl font-extrabold text-gray-800 hidden sm:block">Parent Portal</span>
+              </button>
             </div>
             <button
               onClick={onLogout}
@@ -278,7 +311,9 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
           {(['overview', 'progress', 'insights', 'leaderboard', 'reports', 'settings'] as const).map((tab) => (
             <button
               key={tab}
-              onClick={() => setActiveTab(tab)}
+              type="button"
+              onClick={() => setSearchParams(tab === 'overview' ? {} : { tab })}
+              aria-current={activeTab === tab ? 'page' : undefined}
               className={`px-6 py-3 rounded-lg font-bold whitespace-nowrap transition-all ${
                 activeTab === tab
                   ? 'bg-purple-600 text-white shadow-lg'
@@ -413,20 +448,46 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
         {activeTab === 'reports' && (
           <div className="bg-white rounded-xl shadow-md p-8">
             <h3 className="text-2xl font-bold text-gray-800 mb-6">Reports & Analysis</h3>
-            <div className="space-y-4">
-              <button className="w-full p-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg font-bold hover:shadow-lg transition-shadow text-left">
-                📊 Generate Monthly Progress Report
-              </button>
-              <button className="w-full p-4 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg font-bold hover:shadow-lg transition-shadow text-left">
-                📈 Subject Performance Analysis
-              </button>
-              <button className="w-full p-4 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg font-bold hover:shadow-lg transition-shadow text-left">
-                🎯 Learning Goals & Recommendations
-              </button>
-              <button className="w-full p-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-bold hover:shadow-lg transition-shadow text-left">
-                📧 Email Report to Family
-              </button>
-            </div>
+            {!selectedChild ? (
+              <div className="rounded-xl border border-amber-200 bg-amber-50 p-6 text-amber-900">
+                Select or create a child profile before generating a report.
+              </div>
+            ) : (
+              <div className="space-y-6">
+                <p className="text-gray-600">Reports use {selectedChild.name}'s saved quiz and mastery data. Generation only runs when you choose a report below.</p>
+                {reportError && <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-red-800" role="alert">{reportError}</div>}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <button
+                    type="button"
+                    onClick={() => void handleGenerateReport('progress')}
+                    disabled={reportLoading !== null}
+                    className="min-h-14 p-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg font-bold hover:shadow-lg transition-shadow text-left disabled:opacity-60"
+                  >
+                    {reportLoading === 'progress' ? 'Generating progress report…' : '📊 Generate Progress Report'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => void handleGenerateReport('learning')}
+                    disabled={reportLoading !== null}
+                    className="min-h-14 p-4 bg-gradient-to-r from-green-600 to-teal-700 text-white rounded-lg font-bold hover:shadow-lg transition-shadow text-left disabled:opacity-60"
+                  >
+                    {reportLoading === 'learning' ? 'Generating recommendations…' : '🎯 Generate Learning Recommendations'}
+                  </button>
+                </div>
+                {progressReport && (
+                  <section className="rounded-xl border border-blue-200 bg-blue-50 p-5" aria-labelledby="progress-report-heading">
+                    <h4 id="progress-report-heading" className="text-lg font-bold text-blue-950 mb-3">Progress Report</h4>
+                    <pre className="whitespace-pre-wrap font-sans text-sm text-gray-800">{progressReport}</pre>
+                  </section>
+                )}
+                {learningReport && (
+                  <section className="rounded-xl border border-green-200 bg-green-50 p-5" aria-labelledby="learning-report-heading">
+                    <h4 id="learning-report-heading" className="text-lg font-bold text-green-950 mb-3">Learning Recommendations</h4>
+                    <pre className="whitespace-pre-wrap font-sans text-sm text-gray-800">{learningReport}</pre>
+                  </section>
+                )}
+              </div>
+            )}
           </div>
         )}
 

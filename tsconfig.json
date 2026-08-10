@@ -27,6 +27,8 @@
     "noEmit": true
   },
   "exclude": [
+    "dist/**",
+    "node_modules/**",
     "data/questions/generated/**",
     "scripts/**",
     "functions/**",
