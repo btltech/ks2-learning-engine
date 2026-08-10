@@ -58,7 +58,7 @@ const GuidedHomeView: React.FC<GuidedHomeViewProps> = ({
   );
 
   return (
-    <div className="w-full max-w-lg mx-auto p-6" id="main-content">
+    <div className="w-full max-w-lg mx-auto p-4 sm:p-6">
       {/* Big Welcome Message */}
       <div className="text-center mb-8">
         <div className="text-6xl mb-4">👋</div>

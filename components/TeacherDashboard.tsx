@@ -204,6 +204,8 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onClose }) =
               type="button"
               onClick={() => setSearchParams(tab.id === 'overview' ? {} : { tab: tab.id })}
               role="tab"
+              id={`teacher-tab-${tab.id}`}
+              aria-controls={`teacher-panel-${tab.id}`}
               aria-selected={view === tab.id}
               tabIndex={view === tab.id ? 0 : -1}
               className={`px-4 py-2 rounded-lg whitespace-nowrap transition-colors ${
@@ -291,25 +293,35 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onClose }) =
           )}
 
           {view === 'overview' && (
-            <OverviewView stats={classStats} students={students} />
+            <div id="teacher-panel-overview" role="tabpanel" aria-labelledby="teacher-tab-overview">
+              <OverviewView stats={classStats} students={students} />
+            </div>
           )}
           {view === 'students' && (
-            <StudentsView 
-              students={students} 
-              selectedStudent={selectedStudent}
-              onSelectStudent={setSelectedStudent}
-              onRemoveStudent={handleRemoveStudent}
-            />
+            <div id="teacher-panel-students" role="tabpanel" aria-labelledby="teacher-tab-students">
+              <StudentsView
+                students={students}
+                selectedStudent={selectedStudent}
+                onSelectStudent={setSelectedStudent}
+                onRemoveStudent={handleRemoveStudent}
+              />
+            </div>
           )}
           {view === 'assignments' && (
-            <AssignmentsView
-              classes={classes}
-              selectedClassId={selectedClassId}
-              homework={homework}
-              onCreated={(created) => setHomework((current) => [created, ...current])}
-            />
+            <div id="teacher-panel-assignments" role="tabpanel" aria-labelledby="teacher-tab-assignments">
+              <AssignmentsView
+                classes={classes}
+                selectedClassId={selectedClassId}
+                homework={homework}
+                onCreated={(created) => setHomework((current) => [created, ...current])}
+              />
+            </div>
           )}
-          {view === 'reports' && <ReportsView stats={classStats} students={students} />}
+          {view === 'reports' && (
+            <div id="teacher-panel-reports" role="tabpanel" aria-labelledby="teacher-tab-reports">
+              <ReportsView stats={classStats} students={students} />
+            </div>
+          )}
     </DashboardShell>
   );
 };

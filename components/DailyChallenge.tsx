@@ -7,6 +7,7 @@
 import React, { useState, useEffect } from 'react';
 import { dailyChallengeService, DailyChallenge, Achievement } from '../services/dailyChallengeService';
 import { useUser } from '../context/UserContext';
+import { useModalAccessibility } from '../hooks/useModalAccessibility';
 
 interface DailyChallengeCardProps {
   onStartChallenge: (challenge: DailyChallenge) => void;
@@ -119,16 +120,17 @@ interface AchievementPopupProps {
 }
 
 const AchievementPopup: React.FC<AchievementPopupProps> = ({ achievement, onClose }) => {
+  const dialogRef = useModalAccessibility(onClose);
   useEffect(() => {
     const timer = setTimeout(onClose, 5000);
     return () => clearTimeout(timer);
   }, [onClose]);
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/50 animate-fadeIn">
-      <div className="bg-white rounded-2xl p-8 max-w-sm mx-4 text-center transform animate-bounceIn">
+    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/50 animate-fadeIn" role="presentation">
+      <div ref={dialogRef} tabIndex={-1} className="bg-white rounded-2xl p-8 max-w-sm mx-4 text-center transform animate-bounceIn" role="dialog" aria-modal="true" aria-labelledby="achievement-unlocked-title">
         <div className="text-6xl mb-4">{achievement.icon}</div>
-        <h3 className="text-2xl font-bold text-gray-900 mb-2">Achievement Unlocked!</h3>
+        <h3 id="achievement-unlocked-title" className="text-2xl font-bold text-gray-900 mb-2">Achievement Unlocked!</h3>
         <p className="text-lg font-medium text-gray-700 mb-1">{achievement.name}</p>
         <p className="text-gray-500 mb-4">{achievement.description}</p>
         <div className="bg-amber-100 text-amber-700 rounded-lg py-2 px-4 inline-block">
@@ -153,6 +155,7 @@ interface AchievementsGalleryProps {
 export const AchievementsGallery: React.FC<AchievementsGalleryProps> = ({ onClose }) => {
   const { currentChild } = useUser();
   const [achievements, setAchievements] = useState<Achievement[]>([]);
+  const dialogRef = useModalAccessibility(onClose);
 
   useEffect(() => {
     setAchievements(dailyChallengeService.getAllAchievements());
@@ -164,13 +167,13 @@ export const AchievementsGallery: React.FC<AchievementsGalleryProps> = ({ onClos
     .reduce((sum, a) => sum + a.bonusPoints, 0);
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" role="presentation">
+      <div ref={dialogRef} tabIndex={-1} className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col" role="dialog" aria-modal="true" aria-labelledby="achievements-gallery-title">
         {/* Header */}
         <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white p-6">
           <div className="flex justify-between items-start">
             <div>
-              <h2 className="text-2xl font-bold mb-1">🏆 Achievements</h2>
+              <h2 id="achievements-gallery-title" className="text-2xl font-bold mb-1">🏆 Achievements</h2>
               <p className="text-purple-200">
                 {unlockedCount}/{achievements.length} unlocked • {totalPoints} bonus points
               </p>
@@ -178,6 +181,7 @@ export const AchievementsGallery: React.FC<AchievementsGalleryProps> = ({ onClos
             <button
               onClick={onClose}
               className="text-white/80 hover:text-white text-2xl"
+              aria-label="Close achievements"
             >
               ✕
             </button>

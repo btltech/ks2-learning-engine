@@ -85,13 +85,14 @@ export const ParentHomeView: React.FC<ParentHomeViewProps> = ({
   ];
 
   return (
-    <div className="w-full max-w-6xl mx-auto p-6" id="main-content">
+    <div className="w-full max-w-6xl mx-auto p-4 sm:p-6">
       {/* Welcome Banner */}
       {showWelcome && (
         <div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl p-6 text-white mb-6 relative">
           <button
             onClick={() => setShowWelcome(false)}
             className="absolute top-4 right-4 text-white/60 hover:text-white"
+            aria-label="Dismiss welcome message"
           >
             ✕
           </button>

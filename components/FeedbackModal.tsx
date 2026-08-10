@@ -6,6 +6,7 @@ import type { QuizResult, Explanation } from '../types';
 import { useGameSounds } from '../hooks/useGameSounds';
 import { speakNaturally, speakCelebration, stopSpeaking } from '../services/naturalTTS';
 import { resolveMultipleChoiceAnswer } from '../services/quizScoring';
+import { useModalAccessibility } from '../hooks/useModalAccessibility';
 
 interface FeedbackModalProps {
   quizResults: QuizResult[];
@@ -21,6 +22,7 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ quizResults, studentAge, 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { playSuccess, playIncorrect } = useGameSounds();
+  const dialogRef = useModalAccessibility(onNewTopic);
 
   const scoredResults = useMemo(() => quizResults.filter((result) => result.isScored !== false), [quizResults]);
   const creativeTasks = quizResults.length - scoredResults.length;
@@ -89,13 +91,8 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ quizResults, studentAge, 
   }, [fetchFeedback]);
 
   return (
-    <div 
-      className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="feedback-title"
-    >
-      <div className="bg-white rounded-2xl shadow-2xl p-4 sm:p-8 max-w-2xl w-full text-center transform transition-all animate-pop-in max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50" role="presentation">
+      <div ref={dialogRef} tabIndex={-1} className="bg-white rounded-2xl shadow-2xl p-4 sm:p-8 max-w-2xl w-full text-center transform transition-all animate-pop-in max-h-[90vh] overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="feedback-title">
         <SparklesIcon className="h-12 w-12 sm:h-16 sm:w-16 text-yellow-400 mx-auto mb-4" aria-hidden="true"/>
         <h2 id="feedback-title" className="text-2xl sm:text-3xl font-extrabold text-gray-800">Quiz Complete!</h2>
         
@@ -180,8 +177,9 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ quizResults, studentAge, 
                               onClick={() => speakNaturally(`The correct answer is ${displayedCorrectAnswer}. ${explanation}`)}
                               className="shrink-0 p-1 hover:bg-blue-100 rounded-full transition-colors"
                               title="Listen to explanation"
+                              aria-label={`Listen to the explanation for question ${index + 1}`}
                             >
-                              <SpeakerWaveIcon className="h-5 w-5 text-blue-600" />
+                              <SpeakerWaveIcon className="h-5 w-5 text-blue-600" aria-hidden="true" />
                             </button>
                             <span>{explanation}</span>
                         </div>

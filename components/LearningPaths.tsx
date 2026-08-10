@@ -8,6 +8,7 @@ import React, { useState, useEffect } from 'react';
 import { learningPathsService, LearningPath, LearningPathStep, Certificate } from '../services/learningPathsService';
 import { useUser } from '../context/UserContext';
 import { Subject, Difficulty } from '../types';
+import { useModalAccessibility } from '../hooks/useModalAccessibility';
 
 interface LearningPathsProps {
   onStartLesson: (subject: Subject, topic: string, difficulty: Difficulty) => void;
@@ -20,6 +21,7 @@ export const LearningPathsView: React.FC<LearningPathsProps> = ({ onStartLesson,
   const [selectedPath, setSelectedPath] = useState<LearningPath | null>(null);
   const [view, setView] = useState<'list' | 'detail' | 'certificates'>('list');
   const [filter, setFilter] = useState<'all' | Subject>('all');
+  const dialogRef = useModalAccessibility(onClose, true, view);
 
   useEffect(() => {
     loadPaths();
@@ -41,13 +43,13 @@ export const LearningPathsView: React.FC<LearningPathsProps> = ({ onStartLesson,
   // Path List View
   if (view === 'list') {
     return (
-      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-        <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col">
+      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" role="presentation">
+        <div ref={dialogRef} tabIndex={-1} className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col" role="dialog" aria-modal="true" aria-labelledby="learning-paths-title">
           {/* Header */}
           <div className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white p-6">
             <div className="flex justify-between items-start">
               <div>
-                <h2 className="text-2xl font-bold mb-1">🎯 Learning Paths</h2>
+                <h2 id="learning-paths-title" className="text-2xl font-bold mb-1">🎯 Learning Paths</h2>
                 <p className="text-emerald-200">
                   Structured journeys through the KS2 curriculum
                 </p>
@@ -62,6 +64,7 @@ export const LearningPathsView: React.FC<LearningPathsProps> = ({ onStartLesson,
                 <button
                   onClick={onClose}
                   className="text-white/80 hover:text-white text-2xl ml-2"
+                  aria-label="Close learning paths"
                 >
                   ✕
                 </button>
@@ -112,8 +115,8 @@ export const LearningPathsView: React.FC<LearningPathsProps> = ({ onStartLesson,
     const progressPercent = (selectedPath.completedSteps / selectedPath.totalSteps) * 100;
 
     return (
-      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-        <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col">
+      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" role="presentation">
+        <div ref={dialogRef} tabIndex={-1} className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col" role="dialog" aria-modal="true" aria-labelledby="learning-path-detail-title">
           {/* Header */}
           <div className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white p-6">
             <button
@@ -122,7 +125,7 @@ export const LearningPathsView: React.FC<LearningPathsProps> = ({ onStartLesson,
             >
               ← Back to Paths
             </button>
-            <h2 className="text-2xl font-bold mb-1">{selectedPath.name}</h2>
+            <h2 id="learning-path-detail-title" className="text-2xl font-bold mb-1">{selectedPath.name}</h2>
             <p className="text-emerald-200 mb-4">{selectedPath.description}</p>
             
             {/* Progress Bar */}
@@ -199,8 +202,8 @@ export const LearningPathsView: React.FC<LearningPathsProps> = ({ onStartLesson,
     const certificates = learningPathsService.getUserCertificates(currentChild?.id || 'default');
     
     return (
-      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-        <div className="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-hidden flex flex-col">
+      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" role="presentation">
+        <div ref={dialogRef} tabIndex={-1} className="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-hidden flex flex-col" role="dialog" aria-modal="true" aria-labelledby="learning-certificates-title">
           {/* Header */}
           <div className="bg-gradient-to-r from-amber-500 to-orange-600 text-white p-6">
             <div className="flex justify-between items-start">
@@ -211,7 +214,7 @@ export const LearningPathsView: React.FC<LearningPathsProps> = ({ onStartLesson,
                 >
                   ← Back to Paths
                 </button>
-                <h2 className="text-2xl font-bold mb-1">🏅 My Certificates</h2>
+                <h2 id="learning-certificates-title" className="text-2xl font-bold mb-1">🏅 My Certificates</h2>
                 <p className="text-amber-200">
                   {certificates.length} certificate{certificates.length !== 1 ? 's' : ''} earned
                 </p>
@@ -219,6 +222,7 @@ export const LearningPathsView: React.FC<LearningPathsProps> = ({ onStartLesson,
               <button
                 onClick={onClose}
                 className="text-white/80 hover:text-white text-2xl"
+                aria-label="Close certificates"
               >
                 ✕
               </button>

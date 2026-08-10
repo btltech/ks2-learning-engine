@@ -211,7 +211,7 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
         <ArrowLeftIcon className="h-5 w-5 mr-2" aria-hidden="true"/>
         Back to Topics
       </button>
-      <article className="bg-white p-4 sm:p-8 rounded-2xl shadow-xl" role="main" aria-live="polite" aria-busy={loading}>
+      <article className="bg-white p-4 sm:p-8 rounded-2xl shadow-xl" aria-live="polite" aria-busy={loading}>
         <div className="flex justify-between items-start mb-4">
           <div>
             <p className="mb-1 text-sm font-bold uppercase tracking-wide text-indigo-600">Year {getYearGroupForAge(studentAge)} · Unit {curriculumUnit?.order || 1}</p>

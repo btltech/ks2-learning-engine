@@ -65,9 +65,9 @@ const Header: React.FC<HeaderProps> = ({
             aria-label="Go to home page"
           >
             <AcademicCapIcon className="h-8 w-8 sm:h-10 sm:w-10 text-blue-500 group-hover:text-blue-600 transition-colors" aria-hidden="true" />
-            <h1 className="text-xl sm:text-3xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors hidden sm:block tracking-tight">
+            <span className="text-xl sm:text-3xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors hidden sm:block tracking-tight">
               KS2 Learning
-            </h1>
+            </span>
           </button>
 
           {/* Right Side Actions */}
@@ -167,6 +167,7 @@ const Header: React.FC<HeaderProps> = ({
                 onClick={() => handleNavClick(onOpenParentDashboard)}
                 className="touch-target text-gray-600 hover:text-purple-600 hover:bg-purple-100 rounded-xl transition-all duration-200 hover:shadow-md hidden md:block"
                 title="Parent Dashboard"
+                aria-label="Open parent dashboard"
               >
                 <span className="text-2xl">👨‍👩‍👧</span>
               </button>
@@ -178,6 +179,7 @@ const Header: React.FC<HeaderProps> = ({
                 onClick={() => handleNavClick(onOpenQuestionQuality)}
                 className="touch-target text-gray-600 hover:text-indigo-600 hover:bg-indigo-100 rounded-xl transition-all duration-200 hover:shadow-md hidden md:flex items-center gap-1"
                 title="Question Quality Dashboard"
+                aria-label="Open question quality dashboard"
               >
                 <ChartBarIcon className="h-5 w-5 sm:h-6 sm:w-6" />
               </button>

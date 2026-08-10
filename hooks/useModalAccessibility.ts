@@ -10,7 +10,7 @@ const FOCUSABLE = [
 ].join(',');
 
 /** Adds Escape-to-close, focus restoration, and a small focus trap to dialogs. */
-export function useModalAccessibility(onClose: () => void, enabled = true) {
+export function useModalAccessibility(onClose: () => void, enabled = true, resetKey?: unknown) {
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef(onClose);
   closeRef.current = onClose;
@@ -52,7 +52,7 @@ export function useModalAccessibility(onClose: () => void, enabled = true) {
       document.removeEventListener('keydown', handleKeyDown);
       previousFocus?.focus();
     };
-  }, [enabled]);
+  }, [enabled, resetKey]);
 
   return dialogRef;
 }

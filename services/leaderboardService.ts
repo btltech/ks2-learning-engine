@@ -10,6 +10,7 @@ import {
 } from 'firebase/firestore';
 import { db } from './firebase';
 import { UserProfile } from '../types';
+import { getSafeLearnerName } from '../utils/learnerPrivacy';
 
 export interface LeaderboardEntry {
   userId: string;
@@ -34,7 +35,7 @@ export const leaderboardService = {
     try {
       const entry: LeaderboardEntry = {
         userId: user.id,
-        name: user.name,
+        name: getSafeLearnerName(user.name, user.id),
         age: typeof user.age === 'number' ? user.age : 9,
         points: user.totalPoints,
         avatar: user.avatarConfig?.color || 'blue', // Simplified avatar for now

@@ -127,7 +127,7 @@ export const TeacherHomeView: React.FC<TeacherHomeViewProps> = ({
   ];
 
   return (
-    <div className="w-full max-w-6xl mx-auto p-6" id="main-content">
+    <div className="w-full max-w-6xl mx-auto p-4 sm:p-6">
       {/* Welcome Banner */}
       {showWelcome && (
         <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-6 text-white mb-6 relative">

@@ -10,6 +10,7 @@ import { useUser } from '../context/UserContext';
 import { firebaseAuthService } from '../services/firebaseAuthService';
 import { generateLearningInsights, generateProgressReport } from '../services/geminiService';
 import { parseParentWorkspaceTab } from '../utils/dashboardRoutes';
+import { useModalAccessibility } from '../hooks/useModalAccessibility';
 
 interface ParentMonitoringDashboardProps {
   onLogout: () => void | Promise<void>;
@@ -26,6 +27,7 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
   const [learningReport, setLearningReport] = useState('');
   const [reportLoading, setReportLoading] = useState<'progress' | 'learning' | null>(null);
   const [reportError, setReportError] = useState('');
+  const resetDialogRef = useModalAccessibility(() => setShowResetConfirm(false), showResetConfirm);
 
   // Get real child data from context
   const selectedChild = currentChild || linkedChildren?.[0] || null;
@@ -307,13 +309,17 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-4 mb-8 overflow-x-auto pb-2">
+        <div className="flex gap-2 sm:gap-4 mb-8 overflow-x-auto pb-2" role="tablist" aria-label="Parent dashboard sections">
           {(['overview', 'progress', 'insights', 'leaderboard', 'reports', 'settings'] as const).map((tab) => (
             <button
               key={tab}
               type="button"
               onClick={() => setSearchParams(tab === 'overview' ? {} : { tab })}
-              aria-current={activeTab === tab ? 'page' : undefined}
+              role="tab"
+              id={`parent-tab-${tab}`}
+              aria-controls={`parent-panel-${tab}`}
+              aria-selected={activeTab === tab}
+              tabIndex={activeTab === tab ? 0 : -1}
               className={`px-6 py-3 rounded-lg font-bold whitespace-nowrap transition-all ${
                 activeTab === tab
                   ? 'bg-purple-600 text-white shadow-lg'
@@ -327,7 +333,7 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
 
         {/* Tab Content */}
         {activeTab === 'overview' && (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div id="parent-panel-overview" role="tabpanel" aria-labelledby="parent-tab-overview" className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Subject Progress Charts */}
             <div className="lg:col-span-2">
               <SubjectProgressCharts
@@ -349,7 +355,7 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
         )}
 
         {activeTab === 'progress' && (
-          <div className="bg-white rounded-xl shadow-md p-8">
+          <div id="parent-panel-progress" role="tabpanel" aria-labelledby="parent-tab-progress" className="bg-white rounded-xl shadow-md p-4 sm:p-8">
             <h3 className="text-2xl font-bold text-gray-800 mb-6">Learning Progress</h3>
             {Object.keys(studentData.subjects).length === 0 ? (
               <div className="text-center py-12 text-gray-500">
@@ -389,15 +395,17 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
         )}
 
         {activeTab === 'leaderboard' && (
-          <AgeGroupedLeaderboard
-            studentId={selectedChild?.id || 'default'}
-            studentAge={selectedChild?.age || 9}
-            limit={10}
-          />
+          <div id="parent-panel-leaderboard" role="tabpanel" aria-labelledby="parent-tab-leaderboard">
+            <AgeGroupedLeaderboard
+              studentId={selectedChild?.id || 'default'}
+              studentAge={selectedChild?.age || 9}
+              limit={10}
+            />
+          </div>
         )}
 
         {activeTab === 'insights' && (
-          <div className="bg-white rounded-xl shadow-md p-8">
+          <div id="parent-panel-insights" role="tabpanel" aria-labelledby="parent-tab-insights" className="bg-white rounded-xl shadow-md p-4 sm:p-8">
             <h3 className="text-2xl font-bold text-gray-800 mb-6">Learning Insights</h3>
             {Object.keys(studentData.subjects).length === 0 ? (
               <div className="text-center py-12 text-gray-500">
@@ -446,7 +454,7 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
         )}
 
         {activeTab === 'reports' && (
-          <div className="bg-white rounded-xl shadow-md p-8">
+          <div id="parent-panel-reports" role="tabpanel" aria-labelledby="parent-tab-reports" className="bg-white rounded-xl shadow-md p-4 sm:p-8">
             <h3 className="text-2xl font-bold text-gray-800 mb-6">Reports & Analysis</h3>
             {!selectedChild ? (
               <div className="rounded-xl border border-amber-200 bg-amber-50 p-6 text-amber-900">
@@ -492,7 +500,7 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
         )}
 
         {activeTab === 'settings' && (
-          <div className="bg-white rounded-xl shadow-md p-8">
+          <div id="parent-panel-settings" role="tabpanel" aria-labelledby="parent-tab-settings" className="bg-white rounded-xl shadow-md p-4 sm:p-8">
             <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
               <Cog6ToothIcon className="h-6 w-6 text-purple-500" />
               Settings & Actions
@@ -547,10 +555,10 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
 
               {/* Reset Confirmation Modal */}
               {showResetConfirm && (
-                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-                  <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full animate-pop-in">
-                    <h4 className="text-xl font-bold text-gray-800 mb-4">⚠️ Confirm Reset</h4>
-                    <p className="text-gray-600 mb-6">
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" role="presentation">
+                  <div ref={resetDialogRef} tabIndex={-1} className="bg-white rounded-2xl shadow-2xl p-4 sm:p-8 max-w-md w-full animate-pop-in" role="alertdialog" aria-modal="true" aria-labelledby="reset-activities-title" aria-describedby="reset-activities-description">
+                    <h4 id="reset-activities-title" className="text-xl font-bold text-gray-800 mb-4">⚠️ Confirm Reset</h4>
+                    <p id="reset-activities-description" className="text-gray-600 mb-6">
                       Are you sure you want to reset all activities for <strong>{studentData.name}</strong>? This includes:
                     </p>
                     <ul className="list-disc list-inside text-gray-600 mb-6 space-y-2">

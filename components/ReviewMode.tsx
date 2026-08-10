@@ -9,6 +9,7 @@ import { spacedRepetitionService, ReviewItem } from '../services/spacedRepetitio
 import { useUser } from '../context/UserContext';
 import { generateQuiz } from '../services/geminiService';
 import { QuizQuestion } from '../types';
+import { useModalAccessibility } from '../hooks/useModalAccessibility';
 
 interface ReviewModeProps {
   onComplete: (results: ReviewResults) => void;
@@ -36,6 +37,8 @@ export const ReviewMode: React.FC<ReviewModeProps> = ({ onComplete, onClose }) =
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
+  const reviewDialogState = loading ? 'loading' : session ? 'active' : 'empty';
+  const dialogRef = useModalAccessibility(onClose, true, reviewDialogState);
 
   useEffect(() => {
     initializeReview();
@@ -147,8 +150,8 @@ export const ReviewMode: React.FC<ReviewModeProps> = ({ onComplete, onClose }) =
   // Loading state
   if (loading) {
     return (
-      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-        <div className="bg-white rounded-2xl p-8 max-w-md mx-4 text-center">
+      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" role="presentation">
+        <div ref={dialogRef} tabIndex={-1} className="bg-white rounded-2xl p-8 max-w-md mx-4 text-center" role="dialog" aria-modal="true" aria-label="Loading review mode">
           <div className="animate-spin w-12 h-12 border-4 border-purple-600 border-t-transparent rounded-full mx-auto mb-4" />
           <p className="text-gray-600">Loading your review items...</p>
         </div>
@@ -159,10 +162,10 @@ export const ReviewMode: React.FC<ReviewModeProps> = ({ onComplete, onClose }) =
   // No items to review
   if (!session) {
     return (
-      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-        <div className="bg-white rounded-2xl p-8 max-w-md mx-4 text-center">
+      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" role="presentation">
+        <div ref={dialogRef} tabIndex={-1} className="bg-white rounded-2xl p-8 max-w-md mx-4 text-center" role="dialog" aria-modal="true" aria-labelledby="review-empty-title">
           <div className="text-6xl mb-4">🎉</div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">All Caught Up!</h2>
+          <h2 id="review-empty-title" className="text-2xl font-bold text-gray-900 mb-2">All Caught Up!</h2>
           <p className="text-gray-600 mb-6">
             You have no items due for review right now. Keep learning and come back later!
           </p>
@@ -181,12 +184,12 @@ export const ReviewMode: React.FC<ReviewModeProps> = ({ onComplete, onClose }) =
   const progress = ((session.currentIndex + 1) / session.items.length) * 100;
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-purple-900 to-indigo-900 flex flex-col z-50">
+    <div ref={dialogRef} tabIndex={-1} className="fixed inset-0 bg-gradient-to-br from-purple-900 to-indigo-900 flex flex-col z-50" role="dialog" aria-modal="true" aria-labelledby="review-mode-title">
       {/* Header */}
       <div className="bg-white/10 backdrop-blur-sm p-4">
         <div className="max-w-2xl mx-auto flex items-center justify-between">
           <div>
-            <h2 className="text-white font-bold text-lg">📚 Review Mode</h2>
+            <h2 id="review-mode-title" className="text-white font-bold text-lg">📚 Review Mode</h2>
             <p className="text-purple-200 text-sm">
               {currentItem.subject} - {currentItem.topic}
             </p>
@@ -198,6 +201,7 @@ export const ReviewMode: React.FC<ReviewModeProps> = ({ onComplete, onClose }) =
             <button
               onClick={onClose}
               className="text-white/80 hover:text-white text-2xl"
+              aria-label="Close review mode"
             >
               ✕
             </button>
@@ -326,6 +330,7 @@ interface ReviewSummaryProps {
 
 export const ReviewSummary: React.FC<ReviewSummaryProps> = ({ results, onClose }) => {
   const percentage = Math.round((results.correctCount / results.totalReviewed) * 100);
+  const dialogRef = useModalAccessibility(onClose);
   
   let message = '';
   let emoji = '';
@@ -345,10 +350,10 @@ export const ReviewSummary: React.FC<ReviewSummaryProps> = ({ results, onClose }
   }
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl max-w-md w-full p-8 text-center">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" role="presentation">
+      <div ref={dialogRef} tabIndex={-1} className="bg-white rounded-2xl max-w-md w-full p-4 sm:p-8 text-center" role="dialog" aria-modal="true" aria-labelledby="review-complete-title">
         <div className="text-6xl mb-4">{emoji}</div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Review Complete!</h2>
+        <h2 id="review-complete-title" className="text-2xl font-bold text-gray-900 mb-2">Review Complete!</h2>
         <p className="text-gray-600 mb-6">{message}</p>
 
         <div className="grid grid-cols-3 gap-4 mb-6">

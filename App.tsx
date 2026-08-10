@@ -807,7 +807,7 @@ const AppContent: React.FC = () => {
         </div>
       </main>
 
-      <GuideAvatar 
+      {hasRole(user, 'student') && (location.pathname === '/' || location.pathname.startsWith('/subject/')) && <GuideAvatar
         message={getGuideMessage()} 
         studentAge={studentAge}
         studentName={user?.name}
@@ -825,7 +825,7 @@ const AppContent: React.FC = () => {
         userRole={user?.role}
         quizScore={showFeedback && quizResults.some((result) => result.isScored !== false) ? Math.round((quizResults.filter(r => r.isScored !== false && r.isCorrect).length / quizResults.filter(r => r.isScored !== false).length) * 100) : undefined}
         onQuickAction={handleMiRaQuickAction}
-      />
+      />}
 
       {showFeedback && currentSubject && currentTopic && (
         <FeedbackModal 

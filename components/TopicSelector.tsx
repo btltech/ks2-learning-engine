@@ -108,7 +108,7 @@ const TopicSelector: React.FC<TopicSelectorProps> = ({ subject, studentAge, onSe
         </button>
       )}
       
-      <div role="main" aria-live="polite" aria-busy={loading}>
+      <div aria-live="polite" aria-busy={loading}>
       {loading ? (
         <LoadingSpinner message={`Finding exciting ${subject.name} topics for you...`} />
       ) : error ? (

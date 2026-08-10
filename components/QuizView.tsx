@@ -331,7 +331,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
   const isLastQuestion = currentQuestionIndex === questions.length - 1;
 
   return (
-    <div className="w-full max-w-3xl mx-auto bg-white p-4 sm:p-8 rounded-2xl shadow-[0_20px_25px_-5px_rgba(0,0,0,0.1),0_10px_10px_-5px_rgba(0,0,0,0.04)] border border-gray-100" role="main">
+    <section className="w-full max-w-3xl mx-auto bg-white p-4 sm:p-8 rounded-2xl shadow-[0_20px_25px_-5px_rgba(0,0,0,0.1),0_10px_10px_-5px_rgba(0,0,0,0.04)] border border-gray-100" aria-label={`${subject} ${topic} quiz`}>
       <div className="mb-4 sm:mb-6" role="status" aria-live="polite">
         <p className="text-sm font-bold text-blue-600 mb-2">Question {currentQuestionIndex + 1} of {questions.length}</p>
         <div className="w-full bg-gray-200 rounded-full h-3 mt-2 overflow-hidden" role="progressbar" aria-valuenow={currentQuestionIndex + 1} aria-valuemin={1} aria-valuemax={questions.length}>
@@ -603,7 +603,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
           {isLastQuestion ? 'Finish Quiz' : 'Next Question'}
         </button>
       </div>
-    </div>
+    </section>
   );
 };
 

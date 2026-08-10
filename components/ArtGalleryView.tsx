@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { famousArtworks, drawingLessons, Artwork, DrawingLesson } from '../data/artResources';
-import { PageShell } from './layout/AppShells';
+import { ModalShell, PageShell } from './layout/AppShells';
 
 interface ArtGalleryViewProps {
   onSelectArtwork: (artwork: Artwork) => void;
@@ -146,27 +146,25 @@ export const ArtGalleryView: React.FC<ArtGalleryViewProps> = ({
 
         {/* Artwork Detail Modal */}
         {selectedArtwork && (
-          <div className="fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+          <ModalShell
+            title={selectedArtwork.title}
+            subtitle={`by ${selectedArtwork.artist}`}
+            onClose={handleCloseModal}
+            maxWidth="lg"
+            tone="purple"
+            bodyClassName="p-0"
+          >
               {/* Artwork Image */}
-              <div className="relative">
+              <div>
                 <img
                   src={selectedArtwork.imageUrl}
                   alt={selectedArtwork.title}
                   className="w-full h-64 object-cover"
                 />
-                <button
-                  onClick={handleCloseModal}
-                  className="absolute top-3 right-3 w-10 h-10 bg-white/90 rounded-full flex items-center justify-center text-gray-600 hover:bg-white hover:text-black transition-all"
-                >
-                  ✕
-                </button>
               </div>
 
               {/* Artwork Info */}
               <div className="p-6">
-                <h2 className="text-2xl font-bold text-gray-800">{selectedArtwork.title}</h2>
-                <p className="text-lg text-gray-600">by {selectedArtwork.artist}</p>
                 <p className="text-sm text-gray-500 mt-1">{selectedArtwork.year} • {selectedArtwork.country}</p>
 
                 {/* Details */}
@@ -234,8 +232,7 @@ export const ArtGalleryView: React.FC<ArtGalleryViewProps> = ({
                   </button>
                 </div>
               </div>
-            </div>
-          </div>
+          </ModalShell>
         )}
     </PageShell>
   );

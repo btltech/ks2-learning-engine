@@ -5,6 +5,7 @@ import { TrophyIcon, FireIcon, StarIcon } from '@heroicons/react/24/solid';
 import LoadingSpinner from './LoadingSpinner';
 import AvatarDisplay from './AvatarDisplay';
 import { PageShell } from './layout/AppShells';
+import { getSafeLearnerName } from '../utils/learnerPrivacy';
 
 interface LeaderboardViewProps {
   onBack: () => void;
@@ -56,6 +57,7 @@ const LeaderboardView: React.FC<LeaderboardViewProps> = ({ onBack }) => {
           ) : (
             leaderboardData.map((player, index) => {
               const isCurrentUser = player.userId === user?.id;
+              const displayName = getSafeLearnerName(isCurrentUser ? user?.name : player.name, player.userId, isCurrentUser);
               return (
                 <div 
                   key={player.userId}
@@ -82,7 +84,7 @@ const LeaderboardView: React.FC<LeaderboardViewProps> = ({ onBack }) => {
 
                   <div className="flex-grow">
                     <h3 className={`font-bold text-lg ${isCurrentUser ? 'text-blue-700' : 'text-gray-800'}`}>
-                      {player.name} {isCurrentUser && '(You)'}
+                      {displayName} {isCurrentUser && '(You)'}
                     </h3>
                     <div className="flex items-center text-sm text-gray-500">
                       <FireIcon className="h-4 w-4 text-orange-500 mr-1" />

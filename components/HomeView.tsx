@@ -132,7 +132,7 @@ const HomeView: React.FC<HomeViewProps> = ({
   };
 
   return (
-    <div className="w-full max-w-screen-content mx-auto p-4 mobile:p-5 sm:p-6 md:p-8 content-visibility-auto" id="main-content">
+    <div className="w-full max-w-screen-content mx-auto p-4 mobile:p-5 sm:p-6 md:p-8 content-visibility-auto">
       {/* Welcome Header */}
       <div className="text-center mb-6">
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
@@ -171,7 +171,7 @@ const HomeView: React.FC<HomeViewProps> = ({
       </div>
 
       {/* Tab Content */}
-      <div id="home-tabpanel" role="tabpanel" tabIndex={0} aria-label={`${activeTab} section`} className="min-h-[400px]">
+      <div id="home-tabpanel" role="tabpanel" tabIndex={0} aria-labelledby={`home-tab-${activeTab}`} className="min-h-[400px]">
         {activeTab === 'learn' && (
           <div className="space-y-6 animate-fadeIn">
             {user?.role === 'student' && (
@@ -462,6 +462,8 @@ const TabButton: React.FC<TabButtonProps> = ({ active, onClick, icon, label }) =
     type="button"
     onClick={onClick}
     role="tab"
+    id={`home-tab-${label.toLowerCase()}`}
+    aria-label={label}
     aria-selected={active}
     aria-controls="home-tabpanel"
     tabIndex={active ? 0 : -1}
@@ -471,7 +473,7 @@ const TabButton: React.FC<TabButtonProps> = ({ active, onClick, icon, label }) =
         : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
     }`}
   >
-    <span className="text-lg">{icon}</span>
+    <span className="text-lg" aria-hidden="true">{icon}</span>
     <span className="hidden sm:inline">{label}</span>
   </button>
 );
