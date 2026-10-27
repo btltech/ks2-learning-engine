@@ -538,7 +538,7 @@ open SETUP_GUIDE.md
 - `FIREBASE_DEPLOYMENT_GUIDE.md` - Firebase setup
 
 ### Technical Guides
-- `GOOGLE_CLOUD_TTS_INTEGRATION_GUIDE.md` - Voice setup
+- `docs/KOKORO_TTS.md` - Voice setup
 - `REALTIME_FEATURES_INTEGRATION.md` - Collaboration
 - `KS2_CURRICULUM_MAPPING.md` - Educational content
 

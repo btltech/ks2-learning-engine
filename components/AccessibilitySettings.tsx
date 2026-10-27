@@ -6,6 +6,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useModalAccessibility } from '../hooks/useModalAccessibility';
+import { disableKokoro, enableKokoro, getKokoroState, subscribeKokoro, type KokoroState } from '../services/kokoroTTS';
 import { accessibilityService, AccessibilitySettings, ACCESSIBILITY_CSS, COLOR_BLIND_FILTERS } from '../services/accessibilityService';
 
 interface AccessibilitySettingsModalProps {
@@ -15,6 +16,16 @@ interface AccessibilitySettingsModalProps {
 export const AccessibilitySettingsModal: React.FC<AccessibilitySettingsModalProps> = ({ onClose }) => {
   const [settings, setSettings] = useState<AccessibilitySettings>(accessibilityService.getSettings());
   const dialogRef = useModalAccessibility(onClose);
+  const [kokoro, setKokoro] = useState<KokoroState>(getKokoroState());
+
+  useEffect(() => subscribeKokoro(setKokoro), []);
+
+  const kokoroDescription = (() => {
+    if (kokoro.status === 'loading') return `Downloading voice… ${Math.round(kokoro.progress * 100)}%`;
+    if (kokoro.status === 'ready') return 'Natural English voice is on (works offline once downloaded)';
+    if (kokoro.status === 'error') return kokoro.error || 'The natural voice could not start. Using the standard voice.';
+    return 'A more natural English voice. One-off download of about 90MB, best on Wi-Fi.';
+  })();
 
   useEffect(() => {
     const unsubscribe = accessibilityService.subscribe(setSettings);
@@ -140,6 +151,15 @@ export const AccessibilitySettingsModal: React.FC<AccessibilitySettingsModalProp
                 onChange={() => handleToggle('textToSpeech')}
               />
               
+              {settings.textToSpeech && (
+                <ToggleSetting
+                  label="Natural English Voice"
+                  description={kokoroDescription}
+                  checked={kokoro.status !== 'off'}
+                  onChange={() => (kokoro.status === 'off' ? enableKokoro() : disableKokoro())}
+                />
+              )}
+
               {settings.textToSpeech && (
                 <div className="bg-gray-50 rounded-xl p-4 ml-4">
                   <label className="block text-sm font-medium text-gray-900 mb-2">

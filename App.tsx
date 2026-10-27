@@ -23,6 +23,7 @@ import { teacherWorkspaceService } from './services/teacherWorkspaceService';
 import { CURATED_LANGUAGES } from './data/curriculumSequences';
 import { resolveMultipleChoiceAnswer } from './services/quizScoring';
 import { microlearningService } from './services/microlearningService';
+import { initKokoroFromPreference } from './services/kokoroTTS';
 
 // Initialize accessibility features lazily
 const initAccessibility = () => {
@@ -132,6 +133,11 @@ const AppContent: React.FC = () => {
   const [showGamesUnlockedCelebration, setShowGamesUnlockedCelebration] = useState(false);
   const gamesStatusReady = useRef(false);
   
+  // Restore the natural-voice preference (downloads the model only if the user opted in)
+  useEffect(() => {
+    initKokoroFromPreference();
+  }, []);
+
   // Subscribe to games unlock changes
   useEffect(() => {
     const unsubscribe = gamesUnlockService.subscribe(() => {

@@ -27,6 +27,7 @@
     "dompurify": "^3.3.0",
     "firebase": "^12.6.0",
     "jose": "^5.9.6",
+    "kokoro-js": "^1.2.1",
     "lucide-react": "^0.555.0",
     "react": "^19.2.0",
     "react-chartjs-2": "^5.3.1",

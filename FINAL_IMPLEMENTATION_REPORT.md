@@ -255,7 +255,6 @@ Use any email/password to create an account (development mode)
 ### Feature Guides
 - `ADVANCED_FEATURES.md`
 - `REALTIME_FEATURES_INTEGRATION.md`
-- `GOOGLE_CLOUD_TTS_IMPLEMENTATION_SUMMARY.md`
 
 ---
 

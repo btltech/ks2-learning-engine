@@ -3,15 +3,6 @@ import React from 'react';
 import { render, fireEvent, waitFor, act } from '@testing-library/react';
 import { useTTS } from './useTTS';
 
-// Mock Google Cloud TTS to force fallback to browser TTS
-vi.mock('../services/googleCloudTTS', () => ({
-  initializeGoogleCloudTTS: vi.fn(),
-  isGoogleCloudConfigured: vi.fn(() => false),
-  speakWithGoogleCloud: vi.fn(),
-  stopGoogleCloudAudio: vi.fn(),
-  isLanguageSupportedByGoogleCloud: vi.fn(() => false),
-}));
-
 // Mock window.speechSynthesis for testing
 const mockSpeak = vi.fn().mockImplementation((utterance) => {
   // Simulate speech duration
