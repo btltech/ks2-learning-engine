@@ -15,6 +15,7 @@ Opt-in, on-device text-to-speech using [Kokoro-82M](https://huggingface.co/onnx-
 
 - **Where it plugs in:** `services/naturalTTS.ts` (the path used by `useTTS` / `useTTSEnhanced`) tries `speakWithKokoro()` first and falls back to Web Speech.
 - **Opt-in:** Accessibility settings -> Audio -> "Natural English Voice". The preference is stored in `localStorage` (`ks2.kokoroVoice.enabled`); the ~90MB model downloads only after opting in. Until it is ready, speech uses Web Speech, so nothing waits on the download.
+- **Storage and offline use:** Model and voice files are cached on the device where browser storage is available. The ONNX runtime in `/onnxruntime/` is loaded on demand and is excluded from the service worker precache. Starting the natural voice again may need an internet connection, even after the model has downloaded; offline availability is not guaranteed. The browser can also clear cached files, requiring another download.
 - **English only:** `kokoro-js` phonemises English only. French/Spanish/etc. keep using Web Speech; Yorùbá keeps its reviewed audio pack.
 - **Privacy/cost:** runs in a Web Worker on the device, no text leaves the browser, no per-request cost.
 - **Voices:** `bf_emma` (lessons, celebration, pronunciation) and `bf_isabella` (MiRa). Change in `VOICES` in `services/kokoroTTS.ts`; keep `scripts/upload-kokoro-model-r2.mjs` and the allow-list in `functions/api/kokoro-model/[[path]].ts` in sync.
