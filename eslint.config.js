@@ -26,6 +26,7 @@ export default tseslint.config(
     ignores: [
       'dist/**',
       'node_modules/**',
+      '.venv-audio/**',
       'public/**',
       'firebase-functions/lib/**',
       'firebase-functions/node_modules/**',

@@ -22,9 +22,9 @@ export const AccessibilitySettingsModal: React.FC<AccessibilitySettingsModalProp
 
   const kokoroDescription = (() => {
     if (kokoro.status === 'loading') return `Downloading voice… ${Math.round(kokoro.progress * 100)}%`;
-    if (kokoro.status === 'ready') return 'Natural English voice is on (works offline once downloaded)';
+    if (kokoro.status === 'ready') return 'Natural English voice is on. An internet connection may be needed to start it again.';
     if (kokoro.status === 'error') return kokoro.error || 'The natural voice could not start. Using the standard voice.';
-    return 'A more natural English voice. One-off download of about 90MB, best on Wi-Fi.';
+    return 'A more natural English voice. Downloads about 90MB of voice data, best on Wi-Fi.';
   })();
 
   useEffect(() => {
