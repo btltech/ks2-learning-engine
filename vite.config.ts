@@ -85,6 +85,7 @@ export default defineConfig(({ mode }) => {
               // (The runtime actually used is the copy in /onnxruntime; this one is a bundler duplicate.)
               '**/kokoro.worker-*.js',
               '**/assets/ort-wasm-*.wasm',
+              '**/onnxruntime/**',
             ],
             maximumFileSizeToCacheInBytes: 30 * 1024 * 1024, // 30 MB
             // Runtime caching for safe resources only
