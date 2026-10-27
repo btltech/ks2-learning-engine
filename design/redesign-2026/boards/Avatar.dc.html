@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Make my picture</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&amp;family=Fredoka:wght@500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#1E55C8}a:hover{color:#163F96}
+button{font:inherit}
+
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+@keyframes tw{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(.6) rotate(25deg)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes look{0%,40%,100%{transform:translate(0,0)}50%,85%{transform:translate(-22px,0)}}
+@keyframes flame{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.7)}}
+.blink{animation:blink 4s infinite}
+.tw{animation:tw 2.4s ease-in-out infinite}.d2{animation-delay:.8s}.d3{animation-delay:1.6s}
+.look{animation:look 5s ease-in-out infinite}
+.flame{animation:flame .35s ease-in-out infinite}
+svg:hover .bob{animation:bob .6s ease-in-out}
+svg:hover .bob:nth-child(2n){animation-delay:.08s}
+@media (prefers-reduced-motion: reduce){.blink,.tw,.look,.flame,svg:hover .bob{animation:none}}
+
+.btn{transition:transform .12s, box-shadow .12s}
+.btn:hover{transform:translateY(2px);box-shadow:0 3px 0 #172033 !important}
+.btn:active{transform:translateY(5px);box-shadow:0 0 0 #172033 !important}
+.lift{transition:transform .15s}
+.lift:hover{transform:translateY(-4px) rotate(-1deg)}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:4px solid #1E55C8;outline-offset:3px}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.float{animation:float 4s ease-in-out infinite}
+@keyframes wave{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}
+.wave{animation:wave .9s ease-in-out infinite;transform-origin:center}
+@media (prefers-reduced-motion: reduce){.btn,.lift,.float,.wave{animation:none;transition:none}.lift:hover{transform:none}}
+
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#FFF9EC;background-image:radial-gradient(#F3E3B8 2px,transparent 2px);background-size:28px 28px;color:#172033;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;font-size:18px;line-height:1.6">
+  <header style="background:#FFFFFF;border-bottom:3px solid #172033">
+    <div style="max-width:1240px;margin:0 auto;padding:10px 24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px">
+      <a class="btn" href="Progress.dc.html" style="min-height:48px;box-sizing:border-box;padding:0 16px;border-radius:18px;border:3px solid #172033;background:#FFFFFF;color:#172033;font-weight:700;font-size:17px;display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;cursor:pointer;box-shadow:0 5px 0 #172033;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none"><path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/></svg>Back</a><h1 style="margin:0;font-family:'Fredoka','Lexend',sans-serif;font-weight:700;font-size:28px">Make my picture</h1><a class="btn" href="Progress.dc.html" style="min-height:48px;box-sizing:border-box;padding:0 16px;border-radius:18px;border:3px solid #172033;background:#FFC93C;color:#172033;font-weight:700;font-size:17px;display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;cursor:pointer;box-shadow:0 5px 0 #172033;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Save my picture</a>
+    </div>
+  </header>
+
+  <main style="max-width: 1240px; margin: 0 auto; padding: 28px 24px 64px; display: flex; flex-direction: column; gap: 24px"><div style="display:flex;align-items:center;gap:14px"><svg width="80" height="83" viewBox="-650 -1200 1300 1350" aria-hidden="true" style="display:block;overflow:visible;flex:none"><g transform="translate(0 0) scale(1)"><path d="M-250 -700 L-300 -905 L-120 -770z" fill="#F2A91C" stroke="#172033" stroke-width="36" stroke-linejoin="round"/><path d="M250 -700 L300 -905 L120 -770z" fill="#F2A91C" stroke="#172033" stroke-width="36" stroke-linejoin="round"/><ellipse cx="360" cy="-620" rx="95" ry="210" transform="rotate(35 360 -620)" fill="#F2A91C" stroke="#172033" stroke-width="36"/><ellipse cx="0" cy="-400" rx="330" ry="410" fill="#FFC93C" stroke="#172033" stroke-width="40"/><ellipse cx="-300" cy="-330" rx="95" ry="210" transform="rotate(18 -300 -330)" fill="#F2A91C" stroke="#172033" stroke-width="36"/><ellipse cx="0" cy="-270" rx="205" ry="230" fill="#FFF3CF"/><path d="M-125 -330q45 45 90 0" fill="none" stroke="#F2A91C" stroke-width="26" stroke-linecap="round"/><path d="M35 -330q45 45 90 0" fill="none" stroke="#F2A91C" stroke-width="26" stroke-linecap="round"/><path d="M-45 -250q45 45 90 0" fill="none" stroke="#F2A91C" stroke-width="26" stroke-linecap="round"/><path d="M-155 -180q45 45 90 0" fill="none" stroke="#F2A91C" stroke-width="26" stroke-linecap="round"/><path d="M65 -180q45 45 90 0" fill="none" stroke="#F2A91C" stroke-width="26" stroke-linecap="round"/><path d="M-45 -120q45 45 90 0" fill="none" stroke="#F2A91C" stroke-width="26" stroke-linecap="round"/><circle cx="-140" cy="-575" r="135" fill="#FFFFFF" stroke="#172033" stroke-width="38"/><path d="M-200 -545 q60 -80 120 0" fill="none" stroke="#172033" stroke-width="38" stroke-linecap="round"/><circle cx="140" cy="-575" r="135" fill="#FFFFFF" stroke="#172033" stroke-width="38"/><path d="M80 -545 q60 -80 120 0" fill="none" stroke="#172033" stroke-width="38" stroke-linecap="round"/><path d="M-55 -455 L0 -395 L55 -455 L0 -480z" fill="#FF9F1C" stroke="#172033" stroke-width="30" stroke-linejoin="round"/><ellipse cx="-245" cy="-430" rx="50" ry="30" fill="#FF6FB5"/><ellipse cx="245" cy="-430" rx="50" ry="30" fill="#FF6FB5"/><path d="M-130 -8 l-40 22 M-90 -8 v28 M-50 -8 l40 22 M50 -8 l-40 22 M90 -8 v28 M130 -8 l40 22" stroke="#FF9F1C" stroke-width="34" stroke-linecap="round"/></g></svg><div style="flex:1"><div style="position:relative;background:#FFF1C7;border:3px solid #172033;border-radius:22px;padding:14px 18px;font-size:20px;font-weight:700;line-height:1.4"><span aria-hidden="true" style="position:absolute;left:-14px;top:28px;border-width:12px 16px 12px 0;border-color:transparent #172033 transparent transparent;border-style:solid;width:0;height:0"></span>Looking great! Pick anything you like. You can change it any time.</div></div></div><div style="display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start">
+    <section aria-labelledby="preview" style="flex: 1 1 360px; background: #FFFFFF; border: 3px solid #172033; border-radius: 32px; box-shadow: 0 6px 0 #172033; padding: 28px; display: flex; flex-direction: column; align-items: center; gap: 16px">
+      <h2 id="preview" style="margin: 0; font-family:'Fredoka','Lexend',sans-serif; font-weight: 700; font-size: 22px; align-self: flex-start">My picture</h2>
+      <svg width="300" height="300" viewBox="0 0 200 200" style="overflow:visible" role="img" aria-label="{{ description }}">
+        <circle cx="100" cy="100" r="94" fill="{{ bg }}" stroke="#172033" stroke-width="5"/>
+        <g opacity="{{ hairLong }}">
+          <path d="M40 112C34 40 166 40 160 112L162 172C150 178 140 172 138 160L140 104C130 76 70 76 60 104L62 160C60 172 50 178 38 172Z" fill="{{ hairColor }}"/>
+        </g>
+        <g opacity="{{ hairScarf }}">
+          <path d="M36 118C28 34 172 34 164 118L170 186L30 186Z" fill="{{ hairColor }}"/>
+        </g>
+        <circle cx="46" cy="112" r="11" fill="{{ skin }}"/>
+        <circle cx="154" cy="112" r="11" fill="{{ skin }}"/>
+        <g opacity="{{ showHearing }}">
+          <path d="M40 98c-8 2-10 14-4 22" stroke="#1E55C8" stroke-width="6" fill="none" stroke-linecap="round"/>
+        </g>
+        <circle cx="100" cy="108" r="54" fill="{{ skin }}"/>
+        <g opacity="{{ hairShort }}">
+          <path d="M46 104C44 52 156 52 154 104C148 78 128 64 100 64C72 64 52 78 46 104Z" fill="{{ hairColor }}"/>
+        </g>
+        <g opacity="{{ hairCurly }}">
+          <circle cx="56" cy="84" r="18" fill="{{ hairColor }}"/>
+          <circle cx="74" cy="64" r="19" fill="{{ hairColor }}"/>
+          <circle cx="100" cy="56" r="21" fill="{{ hairColor }}"/>
+          <circle cx="126" cy="64" r="19" fill="{{ hairColor }}"/>
+          <circle cx="144" cy="84" r="18" fill="{{ hairColor }}"/>
+        </g>
+        <g opacity="{{ hairLongTop }}">
+          <path d="M46 104C44 52 156 52 154 104C140 80 120 72 100 72C80 72 60 80 46 104Z" fill="{{ hairColor }}"/>
+        </g>
+        <g opacity="{{ hairBraids }}">
+          <path d="M46 104C44 52 156 52 154 104C148 78 128 64 100 64C72 64 52 78 46 104Z" fill="{{ hairColor }}"/>
+          <circle cx="44" cy="128" r="9" fill="{{ hairColor }}"/>
+          <circle cx="44" cy="146" r="8" fill="{{ hairColor }}"/>
+          <circle cx="44" cy="162" r="7" fill="{{ hairColor }}"/>
+          <circle cx="156" cy="128" r="9" fill="{{ hairColor }}"/>
+          <circle cx="156" cy="146" r="8" fill="{{ hairColor }}"/>
+          <circle cx="156" cy="162" r="7" fill="{{ hairColor }}"/>
+        </g>
+        <g opacity="{{ hairScarf }}">
+          <path d="M48 100C52 56 148 56 152 100C140 76 60 76 48 100Z" fill="{{ hairColor }}"/>
+        </g>
+        <circle cx="82" cy="108" r="6" fill="#172033"/>
+        <circle cx="118" cy="108" r="6" fill="#172033"/>
+        <path d="M82 132c10 10 26 10 36 0" stroke="#172033" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <g opacity="{{ showGlasses }}">
+          <circle cx="82" cy="108" r="15" stroke="#172033" stroke-width="4" fill="none"/>
+          <circle cx="118" cy="108" r="15" stroke="#172033" stroke-width="4" fill="none"/>
+          <path d="M97 108h6" stroke="#172033" stroke-width="4"/>
+        </g>
+      </svg>
+      <div aria-hidden="true" style="display:flex;gap:14px"><svg width="26" height="26" viewBox="-110 -110 220 220" aria-hidden="true" style="display:block;overflow:visible"><path class="tw" d="M0 -90Q11.97 -11.97 90 0Q11.97 11.97 0 90Q-11.97 11.97 -90 0Q-11.97 -11.97 0 -90z" fill="#FFC93C" stroke="#172033" stroke-width="24" stroke-linejoin="round" style="transform-box:fill-box;transform-origin:center"/></svg><svg width="20" height="20" viewBox="-110 -110 220 220" aria-hidden="true" style="display:block;overflow:visible"><path class="tw d2" d="M0 -90Q11.97 -11.97 90 0Q11.97 11.97 0 90Q-11.97 11.97 -90 0Q-11.97 -11.97 0 -90z" fill="#FF6FB5" stroke="#172033" stroke-width="24" stroke-linejoin="round" style="transform-box:fill-box;transform-origin:center"/></svg><svg width="26" height="26" viewBox="-110 -110 220 220" aria-hidden="true" style="display:block;overflow:visible"><path class="tw d3" d="M0 -90Q11.97 -11.97 90 0Q11.97 11.97 0 90Q-11.97 11.97 -90 0Q-11.97 -11.97 0 -90z" fill="#3D8BFF" stroke="#172033" stroke-width="24" stroke-linejoin="round" style="transform-box:fill-box;transform-origin:center"/></svg></div><p style="margin: 0; color: #4A5568; text-align: center">{{ description }}</p>
+    </section>
+
+    <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+      <section aria-labelledby="h-skin" style="background: #FFFFFF; border: 3px solid #172033; border-radius: 28px; box-shadow: 0 6px 0 #172033; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+        <h2 id="h-skin" style="margin: 0; font-family:'Fredoka','Lexend',sans-serif; font-weight: 700; font-size: 22px">Skin</h2>
+        <div role="radiogroup" aria-labelledby="h-skin" style="display: flex; flex-wrap: wrap; gap: 10px">
+          <sc-for list="{{ skinOpts }}" as="o" hint-placeholder-count="6">
+            <button class="btn" type="button" role="radio" aria-checked="{{ o.checked }}" aria-label="{{ o.label }}" onClick="{{ o.pick }}" style="width: 64px; height: 64px; border-radius: 50%; border: {{ o.ring }}; background: {{ o.value }}; cursor: pointer"></button>
+          </sc-for>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-hair" style="background: #FFFFFF; border: 3px solid #172033; border-radius: 28px; box-shadow: 0 6px 0 #172033; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+        <h2 id="h-hair" style="margin: 0; font-family:'Fredoka','Lexend',sans-serif; font-weight: 700; font-size: 22px">Hair or head covering</h2>
+        <div role="radiogroup" aria-labelledby="h-hair" style="display: flex; flex-wrap: wrap; gap: 10px">
+          <sc-for list="{{ hairOpts }}" as="o" hint-placeholder-count="6">
+            <button class="btn" type="button" role="radio" aria-checked="{{ o.checked }}" onClick="{{ o.pick }}" style="min-height: 52px; padding: 0 18px; border-radius: 16px; border: {{ o.border }}; box-shadow: 0 4px 0 #172033; background: {{ o.bg }}; color: #172033; font-weight: 700; cursor: pointer">{{ o.label }}</button>
+          </sc-for>
+        </div>
+        <span id="l-hc" style="font-weight: 700; margin-top: 4px">Colour</span>
+        <div role="radiogroup" aria-labelledby="l-hc" style="display: flex; flex-wrap: wrap; gap: 10px">
+          <sc-for list="{{ hairColorOpts }}" as="o" hint-placeholder-count="6">
+            <button class="btn" type="button" role="radio" aria-checked="{{ o.checked }}" onClick="{{ o.pick }}" style="min-height: 52px; padding: 0 14px 0 10px; border-radius: 16px; border: {{ o.border }}; box-shadow: 0 4px 0 #172033; background: {{ o.bg }}; color: #172033; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; cursor: pointer"><span style="width: 26px; height: 26px; border-radius: 50%; background: {{ o.value }}; border: 3px solid #172033"></span>{{ o.label }}</button>
+          </sc-for>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-extra" style="background: #FFFFFF; border: 3px solid #172033; border-radius: 28px; box-shadow: 0 6px 0 #172033; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+        <h2 id="h-extra" style="margin: 0; font-family:'Fredoka','Lexend',sans-serif; font-weight: 700; font-size: 22px">Extras and background</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px">
+          <sc-for list="{{ extraOpts }}" as="o" hint-placeholder-count="2">
+            <button class="btn" type="button" aria-pressed="{{ o.checked }}" onClick="{{ o.pick }}" style="min-height: 52px; padding: 0 18px; border-radius: 16px; border: {{ o.border }}; box-shadow: 0 4px 0 #172033; background: {{ o.bg }}; color: #172033; font-weight: 700; cursor: pointer">{{ o.label }}</button>
+          </sc-for>
+        </div>
+        <span id="l-bg" style="font-weight: 700; margin-top: 4px">Background</span>
+        <div role="radiogroup" aria-labelledby="l-bg" style="display: flex; flex-wrap: wrap; gap: 10px">
+          <sc-for list="{{ bgOpts }}" as="o" hint-placeholder-count="5">
+            <button class="btn" type="button" role="radio" aria-checked="{{ o.checked }}" onClick="{{ o.pick }}" style="min-height: 52px; padding: 0 14px 0 10px; border-radius: 16px; border: {{ o.border }}; box-shadow: 0 4px 0 #172033; background: #FFFFFF; color: #172033; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; cursor: pointer"><span style="width: 26px; height: 26px; border-radius: 8px; background: {{ o.value }}; border: 3px solid #172033"></span>{{ o.label }}</button>
+          </sc-for>
+        </div>
+      </section>
+    </div>
+  </div></main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1070}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { skin: 's3', hair: 'curly', hairColor: 'black', glasses: false, hearing: false, bg: 'blue' };
+  }
+  pickList(key, options, extra) {
+    return options.map((o) => {
+      const on = this.state[key] === o.id;
+      return Object.assign({}, o, extra ? extra(on) : {}, {
+        checked: on ? 'true' : 'false',
+        border: on ? '4px solid #172033' : '3px solid #172033',
+        bg: on ? '#FFC93C' : '#FFFFFF',
+        ring: on ? '6px solid #FFC93C' : '3px solid #172033',
+        pick: () => this.setState({ [key]: o.id })
+      });
+    });
+  }
+  renderVals() {
+    const s = this.state;
+    const skins = [
+      { id: 's1', label: 'Skin tone 1', value: '#F6D7C3' },
+      { id: 's2', label: 'Skin tone 2', value: '#EAC09A' },
+      { id: 's3', label: 'Skin tone 3', value: '#D19A6A' },
+      { id: 's4', label: 'Skin tone 4', value: '#A86B42' },
+      { id: 's5', label: 'Skin tone 5', value: '#7A4A2A' },
+      { id: 's6', label: 'Skin tone 6', value: '#4E2F1C' }
+    ];
+    const hairs = [
+      { id: 'short', label: 'Short' },
+      { id: 'curly', label: 'Curly' },
+      { id: 'long', label: 'Long' },
+      { id: 'braids', label: 'Braids' },
+      { id: 'scarf', label: 'Headscarf' },
+      { id: 'none', label: 'None' }
+    ];
+    const hairColors = [
+      { id: 'black', label: 'Black', value: '#1F1A17' },
+      { id: 'brown', label: 'Brown', value: '#5A3A22' },
+      { id: 'auburn', label: 'Auburn', value: '#8A3B12' },
+      { id: 'blonde', label: 'Blonde', value: '#D8B25A' },
+      { id: 'grey', label: 'Grey', value: '#9AA0A6' },
+      { id: 'blue', label: 'Blue', value: '#1E55C8' }
+    ];
+    const bgs = [
+      { id: 'blue', label: 'Sky', value: '#E8EFFC' },
+      { id: 'teal', label: 'Sea', value: '#E2F3F0' },
+      { id: 'orange', label: 'Sunset', value: '#FDEEE4' },
+      { id: 'purple', label: 'Lavender', value: '#F0EAFA' },
+      { id: 'yellow', label: 'Sand', value: '#FBF1D9' }
+    ];
+    const find = (list, id) => list.find((x) => x.id === id) || list[0];
+    const hair = s.hair;
+    const hairLabel = find(hairs, hair).label.toLowerCase();
+    const colourLabel = find(hairColors, s.hairColor).label.toLowerCase();
+    let description = 'A smiling face';
+    description += hair === 'none' ? ' with no hair' : hair === 'scarf' ? ' wearing a ' + colourLabel + ' headscarf' : ' with ' + colourLabel + ' ' + hairLabel + ' hair';
+    if (s.glasses) description += ', wearing glasses';
+    if (s.hearing) description += ', with a hearing aid';
+    description += ', on a ' + find(bgs, s.bg).label.toLowerCase() + ' background.';
+    const toggle = (key) => () => this.setState({ [key]: !s[key] });
+    return {
+      skin: find(skins, s.skin).value,
+      hairColor: find(hairColors, s.hairColor).value,
+      bg: find(bgs, s.bg).value,
+      hairShort: hair === 'short' ? '1' : '0',
+      hairCurly: hair === 'curly' ? '1' : '0',
+      hairLong: hair === 'long' ? '1' : '0',
+      hairLongTop: hair === 'long' ? '1' : '0',
+      hairBraids: hair === 'braids' ? '1' : '0',
+      hairScarf: hair === 'scarf' ? '1' : '0',
+      showGlasses: s.glasses ? '1' : '0',
+      showHearing: s.hearing ? '1' : '0',
+      description,
+      skinOpts: this.pickList('skin', skins),
+      hairOpts: this.pickList('hair', hairs),
+      hairColorOpts: this.pickList('hairColor', hairColors),
+      bgOpts: this.pickList('bg', bgs),
+      extraOpts: [
+        { label: 'Glasses', checked: s.glasses ? 'true' : 'false', border: s.glasses ? '4px solid #172033' : '3px solid #172033', bg: s.glasses ? '#FFC93C' : '#FFFFFF', pick: toggle('glasses') },
+        { label: 'Hearing aid', checked: s.hearing ? 'true' : 'false', border: s.hearing ? '4px solid #172033' : '3px solid #172033', bg: s.hearing ? '#FFC93C' : '#FFFFFF', pick: toggle('hearing') }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

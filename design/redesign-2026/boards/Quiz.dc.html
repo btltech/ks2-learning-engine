@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Quiz question</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&amp;family=Fredoka:wght@500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#1E55C8}a:hover{color:#163F96}
+button{font:inherit}
+
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+@keyframes tw{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(.6) rotate(25deg)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes look{0%,40%,100%{transform:translate(0,0)}50%,85%{transform:translate(-22px,0)}}
+@keyframes flame{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.7)}}
+.blink{animation:blink 4s infinite}
+.tw{animation:tw 2.4s ease-in-out infinite}.d2{animation-delay:.8s}.d3{animation-delay:1.6s}
+.look{animation:look 5s ease-in-out infinite}
+.flame{animation:flame .35s ease-in-out infinite}
+svg:hover .bob{animation:bob .6s ease-in-out}
+svg:hover .bob:nth-child(2n){animation-delay:.08s}
+@media (prefers-reduced-motion: reduce){.blink,.tw,.look,.flame,svg:hover .bob{animation:none}}
+
+.btn{transition:transform .12s, box-shadow .12s}
+.btn:hover{transform:translateY(2px);box-shadow:0 3px 0 #172033 !important}
+.btn:active{transform:translateY(5px);box-shadow:0 0 0 #172033 !important}
+.lift{transition:transform .15s}
+.lift:hover{transform:translateY(-4px) rotate(-1deg)}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:4px solid #1E55C8;outline-offset:3px}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.float{animation:float 4s ease-in-out infinite}
+@keyframes wave{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}
+.wave{animation:wave .9s ease-in-out infinite;transform-origin:center}
+@media (prefers-reduced-motion: reduce){.btn,.lift,.float,.wave{animation:none;transition:none}.lift:hover{transform:none}}
+
+</style>
+</helmet>
+<div style="min-height:100vh;background:#FFF9EC;background-image:radial-gradient(#F3E3B8 2px,transparent 2px);background-size:28px 28px;color:#172033;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;font-size:18px;line-height:1.6">
+  <header style="background:#FFFFFF;border-bottom:3px solid #172033">
+    <div style="max-width:1100px;margin:0 auto;padding:10px 24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px">
+      <a class="btn" href="Subject.dc.html" style="min-height:48px;box-sizing:border-box;padding:0 16px;border-radius:18px;border:3px solid #172033;background:#FFFFFF;color:#172033;font-weight:700;font-size:17px;display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;cursor:pointer;box-shadow:0 5px 0 #172033;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none"><path d="M6 6l12 12"/><path d="M18 6 6 18"/></svg>Stop and save</a>
+      <div style="display:flex;flex-direction:column;gap:6px;align-items:center">
+        <div style="display:flex;gap:14px;font-weight:700"><span>Question 4 of 10</span><span style="display:inline-flex;align-items:center;gap:6px;color:#4A5568"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>No timer</span></div>
+        <div style="display:flex;gap:6px"><span aria-hidden="true" style="width:30px;height:30px;border-radius:50%;border:3px solid #172033;background:#FFC93C;display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span aria-hidden="true" style="width:30px;height:30px;border-radius:50%;border:3px solid #172033;background:#FFC93C;display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span aria-hidden="true" style="width:30px;height:30px;border-radius:50%;border:3px solid #172033;background:#FFC93C;display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span aria-hidden="true" style="width:30px;height:30px;border-radius:50%;border:3px solid #172033;background:#3D8BFF;outline:3px dashed #172033;outline-offset:3px;display:flex;align-items:center;justify-content:center"></span><span aria-hidden="true" style="width:30px;height:30px;border-radius:50%;border:3px solid #172033;background:#FFFFFF;display:flex;align-items:center;justify-content:center"></span><span aria-hidden="true" style="width:30px;height:30px;border-radius:50%;border:3px solid #172033;background:#FFFFFF;display:flex;align-items:center;justify-content:center"></span><span aria-hidden="true" style="width:30px;height:30px;border-radius:50%;border:3px solid #172033;background:#FFFFFF;display:flex;align-items:center;justify-content:center"></span><span aria-hidden="true" style="width:30px;height:30px;border-radius:50%;border:3px solid #172033;background:#FFFFFF;display:flex;align-items:center;justify-content:center"></span><span aria-hidden="true" style="width:30px;height:30px;border-radius:50%;border:3px solid #172033;background:#FFFFFF;display:flex;align-items:center;justify-content:center"></span><span aria-hidden="true" style="width:30px;height:30px;border-radius:50%;border:3px solid #172033;background:#FFFFFF;display:flex;align-items:center;justify-content:center"></span></div>
+      </div>
+      <a href="Settings.dc.html" aria-label="Voice and display settings" style="width:52px;height:52px;box-sizing:border-box;border-radius:16px;border:3px solid #172033;background:#FFFFFF;color:#172033;display:inline-flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none"><path d="M4 6h10"/><circle cx="16" cy="6" r="2"/><path d="M4 12h4"/><path d="M12 12h8"/><circle cx="10" cy="12" r="2"/><path d="M4 18h12"/><circle cx="18" cy="18" r="2"/></svg></a>
+    </div>
+  </header>
+  <main style="max-width:1100px;margin:0 auto;padding:32px 24px 64px;display:flex;flex-direction:column;gap:24px">
+    <section style="background:linear-gradient(180deg,#ECE6FF,#F7F4FF);border:3px solid #172033;border-radius:32px;box-shadow:0 6px 0 #172033;padding:24px 28px;display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+      <div style="flex:none;width:150px;display:flex;justify-content:center">
+        <sc-if value="{{ owlThink }}" hint-placeholder-val="{{ true }}"><svg width="140" height="146" viewBox="-650 -1200 1300 1350" role="img" aria-label="Wura is thinking" style="display:block;overflow:visible;flex:none"><g transform="translate(0 0) scale(1)"><path d="M-250 -700 L-300 -905 L-120 -770z" fill="#F2A91C" stroke="#172033" stroke-width="36" stroke-linejoin="round"/><path d="M250 -700 L300 -905 L120 -770z" fill="#F2A91C" stroke="#172033" stroke-width="36" stroke-linejoin="round"/><ellipse cx="0" cy="-400" rx="330" ry="410" fill="#FFC93C" stroke="#172033" stroke-width="40"/><ellipse cx="-300" cy="-330" rx="95" ry="210" transform="rotate(18 -300 -330)" fill="#F2A91C" stroke="#172033" stroke-width="36"/><ellipse cx="300" cy="-330" rx="95" ry="210" transform="rotate(-18 300 -330)" fill="#F2A91C" stroke="#172033" stroke-width="36"/><ellipse cx="0" cy="-270" rx="205" ry="230" fill="#FFF3CF"/><path d="M-125 -330q45 45 90 0" fill="none" stroke="#F2A91C" stroke-width="26" stroke-linecap="round"/><path d="M35 -330q45 45 90 0" fill="none" stroke="#F2A91C" stroke-width="26" stroke-linecap="round"/><path d="M-45 -250q45 45 90 0" fill="none" stroke="#F2A91C" stroke-width="26" stroke-linecap="round"/><path d="M-155 -180q45 45 90 0" fill="none" stroke="#F2A91C" stroke-width="26" stroke-linecap="round"/><path d="M65 -180q45 45 90 0" fill="none" stroke="#F2A91C" stroke-width="26" stroke-linecap="round"/><path d="M-45 -120q45 45 90 0" fill="none" stroke="#F2A91C" stroke-width="26" stroke-linecap="round"/><g class="blink" style="transform-box:fill-box;transform-origin:center"><circle cx="-140" cy="-575" r="135" fill="#FFFFFF" stroke="#172033" stroke-width="38"/><circle cx="-122" cy="-560" r="66" fill="#172033"/><circle cx="-100" cy="-588" r="22" fill="#FFFFFF"/><circle cx="140" cy="-575" r="135" fill="#FFFFFF" stroke="#172033" stroke-width="38"/><circle cx="158" cy="-560" r="66" fill="#172033"/><circle cx="180" cy="-588" r="22" fill="#FFFFFF"/></g><path d="M-55 -455 L0 -395 L55 -455 L0 -480z" fill="#FF9F1C" stroke="#172033" stroke-width="30" stroke-linejoin="round"/><path d="M-130 -8 l-40 22 M-90 -8 v28 M-50 -8 l40 22 M50 -8 l-40 22 M90 -8 v28 M130 -8 l40 22" stroke="#FF9F1C" stroke-width="34" stroke-linecap="round"/><text x="330" y="-760" font-family="Fredoka, Lexend, sans-serif" font-weight="700" font-size="300" fill="#8E6CFF" stroke="#172033" stroke-width="18" paint-order="stroke">?</text></g></svg></sc-if>
+        <sc-if value="{{ showCorrect }}" hint-placeholder-val="{{ false }}"><svg width="140" height="146" viewBox="-650 -1200 1300 1350" role="img" aria-label="Wura is cheering" style="display:block;overflow:visible;flex:none"><g transform="translate(0 0) scale(1)"><path d="M-250 -700 L-300 -905 L-120 -770z" fill="#F2A91C" stroke="#172033" stroke-width="36" stroke-linejoin="round"/><path d="M250 -700 L300 -905 L120 -770z" fill="#F2A91C" stroke="#172033" stroke-width="36" stroke-linejoin="round"/><ellipse cx="-360" cy="-620" rx="95" ry="210" transform="rotate(-35 -360 -620)" fill="#F2A91C" stroke="#172033" stroke-width="36"/><ellipse cx="360" cy="-620" rx="95" ry="210" transform="rotate(35 360 -620)" fill="#F2A91C" stroke="#172033" stroke-width="36"/><ellipse cx="0" cy="-400" rx="330" ry="410" fill="#FFC93C" stroke="#172033" stroke-width="40"/><ellipse cx="0" cy="-270" rx="205" ry="230" fill="#FFF3CF"/><path d="M-125 -330q45 45 90 0" fill="none" stroke="#F2A91C" stroke-width="26" stroke-linecap="round"/><path d="M35 -330q45 45 90 0" fill="none" stroke="#F2A91C" stroke-width="26" stroke-linecap="round"/><path d="M-45 -250q45 45 90 0" fill="none" stroke="#F2A91C" stroke-width="26" stroke-linecap="round"/><path d="M-155 -180q45 45 90 0" fill="none" stroke="#F2A91C" stroke-width="26" stroke-linecap="round"/><path d="M65 -180q45 45 90 0" fill="none" stroke="#F2A91C" stroke-width="26" stroke-linecap="round"/><path d="M-45 -120q45 45 90 0" fill="none" stroke="#F2A91C" stroke-width="26" stroke-linecap="round"/><circle cx="-140" cy="-575" r="135" fill="#FFFFFF" stroke="#172033" stroke-width="38"/><path d="M-200 -545 q60 -80 120 0" fill="none" stroke="#172033" stroke-width="38" stroke-linecap="round"/><circle cx="140" cy="-575" r="135" fill="#FFFFFF" stroke="#172033" stroke-width="38"/><path d="M80 -545 q60 -80 120 0" fill="none" stroke="#172033" stroke-width="38" stroke-linecap="round"/><path d="M-55 -455 L0 -395 L55 -455 L0 -480z" fill="#FF9F1C" stroke="#172033" stroke-width="30" stroke-linejoin="round"/><ellipse cx="-245" cy="-430" rx="50" ry="30" fill="#FF6FB5"/><ellipse cx="245" cy="-430" rx="50" ry="30" fill="#FF6FB5"/><path d="M-130 -8 l-40 22 M-90 -8 v28 M-50 -8 l40 22 M50 -8 l-40 22 M90 -8 v28 M130 -8 l40 22" stroke="#FF9F1C" stroke-width="34" stroke-linecap="round"/><rect class="tw" x="-480" y="-900" width="70" height="36" rx="12" transform="rotate(20 -480 -900)" fill="#FF5A4E" stroke="#172033" stroke-width="14" style="transform-box:fill-box;transform-origin:center"/><rect class="tw" x="-360" y="-1050" width="70" height="36" rx="12" transform="rotate(-30 -360 -1050)" fill="#3D8BFF" stroke="#172033" stroke-width="14" style="transform-box:fill-box;transform-origin:center"/><rect class="tw" x="440" y="-960" width="70" height="36" rx="12" transform="rotate(40 440 -960)" fill="#2FC27A" stroke="#172033" stroke-width="14" style="transform-box:fill-box;transform-origin:center"/><rect class="tw" x="520" y="-760" width="70" height="36" rx="12" transform="rotate(10 520 -760)" fill="#FF6FB5" stroke="#172033" stroke-width="14" style="transform-box:fill-box;transform-origin:center"/><rect class="tw" x="0" y="-1080" width="70" height="36" rx="12" transform="rotate(25 0 -1080)" fill="#8E6CFF" stroke="#172033" stroke-width="14" style="transform-box:fill-box;transform-origin:center"/><rect class="tw" x="-560" y="-640" width="70" height="36" rx="12" transform="rotate(-15 -560 -640)" fill="#FFC93C" stroke="#172033" stroke-width="14" style="transform-box:fill-box;transform-origin:center"/></g></svg></sc-if>
+        <sc-if value="{{ showWrong }}" hint-placeholder-val="{{ false }}"><svg width="140" height="146" viewBox="-650 -1200 1300 1350" role="img" aria-label="Wura says have another go" style="display:block;overflow:visible;flex:none"><g transform="translate(0 0) scale(1)"><path d="M-250 -700 L-300 -905 L-120 -770z" fill="#F2A91C" stroke="#172033" stroke-width="36" stroke-linejoin="round"/><path d="M250 -700 L300 -905 L120 -770z" fill="#F2A91C" stroke="#172033" stroke-width="36" stroke-linejoin="round"/><ellipse cx="360" cy="-620" rx="95" ry="210" transform="rotate(35 360 -620)" fill="#F2A91C" stroke="#172033" stroke-width="36"/><ellipse cx="0" cy="-400" rx="330" ry="410" fill="#FFC93C" stroke="#172033" stroke-width="40"/><ellipse cx="-300" cy="-330" rx="95" ry="210" transform="rotate(18 -300 -330)" fill="#F2A91C" stroke="#172033" stroke-width="36"/><ellipse cx="0" cy="-270" rx="205" ry="230" fill="#FFF3CF"/><path d="M-125 -330q45 45 90 0" fill="none" stroke="#F2A91C" stroke-width="26" stroke-linecap="round"/><path d="M35 -330q45 45 90 0" fill="none" stroke="#F2A91C" stroke-width="26" stroke-linecap="round"/><path d="M-45 -250q45 45 90 0" fill="none" stroke="#F2A91C" stroke-width="26" stroke-linecap="round"/><path d="M-155 -180q45 45 90 0" fill="none" stroke="#F2A91C" stroke-width="26" stroke-linecap="round"/><path d="M65 -180q45 45 90 0" fill="none" stroke="#F2A91C" stroke-width="26" stroke-linecap="round"/><path d="M-45 -120q45 45 90 0" fill="none" stroke="#F2A91C" stroke-width="26" stroke-linecap="round"/><g class="blink" style="transform-box:fill-box;transform-origin:center"><circle cx="-140" cy="-575" r="135" fill="#FFFFFF" stroke="#172033" stroke-width="38"/><circle cx="-122" cy="-560" r="66" fill="#172033"/><circle cx="-100" cy="-588" r="22" fill="#FFFFFF"/><circle cx="140" cy="-575" r="135" fill="#FFFFFF" stroke="#172033" stroke-width="38"/><circle cx="158" cy="-560" r="66" fill="#172033"/><circle cx="180" cy="-588" r="22" fill="#FFFFFF"/></g><path d="M-55 -455 L0 -395 L55 -455 L0 -480z" fill="#FF9F1C" stroke="#172033" stroke-width="30" stroke-linejoin="round"/><path d="M-130 -8 l-40 22 M-90 -8 v28 M-50 -8 l40 22 M50 -8 l-40 22 M90 -8 v28 M130 -8 l40 22" stroke="#FF9F1C" stroke-width="34" stroke-linecap="round"/></g></svg></sc-if>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;flex:1;min-width:280px">
+        <span style="display:flex;gap:8px;flex-wrap:wrap"><span style="display:inline-flex;align-items:center;gap:6px;padding:4px 14px;border-radius:999px;border:2px solid #172033;background:#DCEBFF;font-weight:700;font-size:16px;white-space:nowrap;">Maths</span><span style="display:inline-flex;align-items:center;gap:6px;padding:4px 14px;border-radius:999px;border:2px solid #172033;background:#FFFFFF;font-weight:700;font-size:16px;white-space:nowrap;">Fractions of amounts</span></span>
+        <h1 style="margin:0;font-family:'Fredoka','Lexend',sans-serif;font-weight:700;font-size:52px;line-height:1.15">What is ¾ of 12?</h1>
+      </div>
+      <button class="btn" type="button" style="min-height:56px;box-sizing:border-box;padding:0 22px;border-radius:18px;border:3px solid #172033;background:#FFFFFF;color:#172033;font-weight:700;font-size:19px;display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;cursor:pointer;box-shadow:0 5px 0 #172033;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19 6a8.5 8.5 0 0 1 0 12"/></svg>Read the question</button>
+    </section>
+
+    <fieldset style="margin:0;padding:0;border:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px">
+      <legend style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Choose one answer</legend>
+      <sc-for list="{{ options }}" as="opt" hint-placeholder-count="4">
+        <button class="btn" type="button" aria-pressed="{{ opt.pressed }}" onClick="{{ opt.pick }}" style="min-height:104px;box-sizing:border-box;border-radius:26px;border-width:{{ opt.borderWidth }};border-style:{{ opt.borderStyle }};border-color:{{ opt.borderColor }};background:{{ opt.bg }};color:#172033;box-shadow:0 6px 0 #172033;padding:16px 22px;display:flex;align-items:center;gap:18px;text-align:left;cursor:pointer">
+          <svg width="48" height="48" viewBox="0 0 48 48" aria-hidden="true" style="flex:none"><g opacity="{{ opt.tri }}"><path d="M24 6 44 40H4z" fill="#3D8BFF" stroke="#172033" stroke-width="3" stroke-linejoin="round"/></g><g opacity="{{ opt.circ }}"><circle cx="24" cy="25" r="18" fill="#FF6FB5" stroke="#172033" stroke-width="3"/></g><g opacity="{{ opt.sq }}"><rect x="7" y="8" width="34" height="34" rx="6" fill="#2FC27A" stroke="#172033" stroke-width="3"/></g><g opacity="{{ opt.star }}"><path d="M24 4l6 12.5 13.5 2-9.8 9.5 2.3 13.5L24 35l-12 6.5 2.3-13.5L4.5 18.5l13.5-2z" fill="#FFC93C" stroke="#172033" stroke-width="3" stroke-linejoin="round"/></g></svg>
+          <span style="font-family:'Fredoka','Lexend',sans-serif;font-weight:700;font-size:40px;line-height:1">{{ opt.label }}</span>
+          <span style="margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:18px;color:{{ opt.statusColor }}">{{ opt.status }}</span>
+        </button>
+      </sc-for>
+    </fieldset>
+
+    <sc-if value="{{ showCorrect }}" hint-placeholder-val="{{ false }}">
+      <div role="status" style="display:flex;gap:16px;align-items:flex-start;background:#DDF6E8;border:3px solid #172033;border-radius:26px;box-shadow:0 5px 0 #172033;padding:20px 24px">
+        <span style="flex:none;width:52px;height:52px;border-radius:50%;border:3px solid #172033;background:#2FC27A;display:flex;align-items:center;justify-content:center"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+        <div style="display:flex;flex-direction:column;gap:4px"><strong style="font-family:'Fredoka','Lexend',sans-serif;font-size:28px">Hooray! ¾ of 12 is 9.</strong><span style="font-size:20px">12 ÷ 4 = 3, so one quarter is 3. Three quarters is 3 + 3 + 3 = 9.</span></div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ showWrong }}" hint-placeholder-val="{{ false }}">
+      <div role="status" style="display:flex;gap:16px;align-items:flex-start;background:#FFE9D2;border:3px dashed #172033;border-radius:26px;padding:20px 24px">
+        <span style="flex:none;width:52px;height:52px;border-radius:50%;border:3px solid #172033;background:#FF9F1C;display:flex;align-items:center;justify-content:center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 5v6h-6"/></svg></span>
+        <div style="display:flex;flex-direction:column;gap:4px"><strong style="font-family:'Fredoka','Lexend',sans-serif;font-size:28px">Nearly! Have another go.</strong><span style="font-size:20px">Try finding one quarter of 12 first. Then think about three of those.</span></div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ showHint }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;gap:16px;align-items:flex-start;background:#FFF1C7;border:3px solid #172033;border-radius:26px;padding:20px 24px"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#8A5A00" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none"><path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg><span style="font-size:20px"><strong>Hint:</strong> share 12 counters into 4 equal groups. How many are in 3 of the groups?</span></div>
+    </sc-if>
+
+    <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;border-top:3px dashed #E6DCC3;padding-top:24px">
+      <button class="btn" type="button" onClick="{{ toggleHint }}" style="min-height:56px;padding:0 20px;border-radius:18px;border:3px solid #172033;background:#FFF1C7;color:#172033;box-shadow:0 5px 0 #172033;font-weight:700;font-size:19px;display:inline-flex;align-items:center;gap:8px;cursor:pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none"><path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg>{{ hintLabel }}</button>
+      <a href="Results.dc.html" style="min-height:56px;padding:0 12px;color:#172033;font-weight:700;display:inline-flex;align-items:center;text-underline-offset:4px">I don’t know yet</a>
+      <sc-if value="{{ showNext }}" hint-placeholder-val="{{ false }}">
+        <a class="btn" href="Results.dc.html" style="min-height:64px;box-sizing:border-box;padding:0 22px;border-radius:18px;border:3px solid #172033;background:#FFC93C;color:#172033;font-weight:700;font-size:22px;display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;cursor:pointer;box-shadow:0 5px 0 #172033;margin-left:auto"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>Next question</a>
+      </sc-if>
+      <sc-if value="{{ showCheck }}" hint-placeholder-val="{{ true }}">
+        <button class="btn" type="button" onClick="{{ check }}" disabled="{{ checkDisabled }}" style="margin-left:auto;min-height:64px;padding:0 32px;border-radius:18px;border:3px solid {{ checkBorder }};background:{{ checkBg }};color:{{ checkColor }};box-shadow:0 5px 0 {{ checkBorder }};font-weight:700;font-size:22px;cursor:pointer">Check answer</button>
+      </sc-if>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1150}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { picked: null, checked: false, hint: false };
+  }
+  renderVals() {
+    const answers = [
+      { id: 'a', label: '3', tri: '1', circ: '0', sq: '0', star: '0' },
+      { id: 'b', label: '8', tri: '0', circ: '1', sq: '0', star: '0' },
+      { id: 'c', label: '9', tri: '0', circ: '0', sq: '1', star: '0' },
+      { id: 'd', label: '16', tri: '0', circ: '0', sq: '0', star: '1' }
+    ];
+    const correctId = 'c';
+    const { picked, checked, hint } = this.state;
+    const isRight = checked && picked === correctId;
+    const isWrong = checked && picked !== null && picked !== correctId;
+    const options = answers.map((a) => {
+      const selected = picked === a.id;
+      let s = { borderWidth: '3px', borderStyle: 'solid', borderColor: '#172033', bg: '#FFFFFF', status: '', statusColor: '#172033' };
+      if (selected && !checked) s = { borderWidth: '5px', borderStyle: 'solid', borderColor: '#1E55C8', bg: '#DCEBFF', status: 'Your answer', statusColor: '#163F96' };
+      if (selected && isRight) s = { borderWidth: '5px', borderStyle: 'solid', borderColor: '#0F6E66', bg: '#DDF6E8', status: '✓ Correct', statusColor: '#0F6E66' };
+      if (selected && isWrong) s = { borderWidth: '5px', borderStyle: 'dashed', borderColor: '#B4470C', bg: '#FFE9D2', status: '↻ Try again', statusColor: '#9A3A08' };
+      return Object.assign({}, a, s, {
+        pressed: selected ? 'true' : 'false',
+        pick: () => { if (!isRight) this.setState({ picked: a.id, checked: false }); }
+      });
+    });
+    const canCheck = picked !== null && !checked;
+    return {
+      options,
+      owlThink: !isRight && !isWrong,
+      showCorrect: isRight,
+      showWrong: isWrong,
+      showHint: hint && !isRight,
+      showNext: isRight,
+      showCheck: !isRight,
+      checkDisabled: !canCheck,
+      checkBg: canCheck ? '#FFC93C' : '#EEF1F6',
+      checkColor: canCheck ? '#172033' : '#4A5568',
+      checkBorder: canCheck ? '#172033' : '#7A8496',
+      hintLabel: hint ? 'Hide hint' : 'Show a hint',
+      toggleHint: () => this.setState({ hint: !hint }),
+      check: () => { if (canCheck) this.setState({ checked: true }); }
+    };
+  }
+}
+</script>
+</body>
+</html>
