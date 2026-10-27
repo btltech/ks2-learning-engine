@@ -78,7 +78,14 @@ export default defineConfig(({ mode }) => {
             // IMPORTANT: do not precache version.json. The VersionService relies on fetching the
             // latest version from the network to detect updates and clear caches.
             // If version.json is precached, iOS/PWA clients can get stuck on stale bundles.
-            globIgnores: ['version.json', '**/version.json'],
+            globIgnores: [
+              'version.json',
+              '**/version.json',
+              // Opt-in natural voice: load on demand instead of adding ~24MB to every install.
+              // (The runtime actually used is the copy in /onnxruntime; this one is a bundler duplicate.)
+              '**/kokoro.worker-*.js',
+              '**/assets/ort-wasm-*.wasm',
+            ],
             maximumFileSizeToCacheInBytes: 30 * 1024 * 1024, // 30 MB
             // Runtime caching for safe resources only
             // NOTE: Google AI and TTS APIs are NOT cached because they contain API keys in URLs

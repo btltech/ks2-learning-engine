@@ -17,6 +17,13 @@ import {
   stopEncouragementAudio,
   type EncouragementCategory,
 } from './encouragementAudio';
+import {
+  isKokoroSpeaking,
+  pauseKokoro,
+  resumeKokoro,
+  speakWithKokoro,
+  stopKokoro,
+} from './kokoroTTS';
 
 // Language to BCP47 mapping
 const LANGUAGE_MAP: Record<string, string> = {
@@ -225,6 +232,11 @@ export const speakNaturally = async (
   text: string, 
   language: string = 'English'
 ): Promise<void> => {
+  const cleanText = prepareText(text);
+  const sentences = splitIntoSentences(cleanText);
+
+  if (await speakWithKokoro(sentences, language, 'lesson')) return;
+
   if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
     console.warn('Speech synthesis not available');
     return;
@@ -235,8 +247,6 @@ export const speakNaturally = async (
 
   const locale = LANGUAGE_MAP[language] || 'en-GB';
   const voice = getBestVoice(locale);
-  const cleanText = prepareText(text);
-  const sentences = splitIntoSentences(cleanText);
 
   // Speak sentences with natural expression
   for (const sentence of sentences) {
@@ -282,6 +292,9 @@ export const speakAsMiRa = async (
   text: string, 
   language: string = 'English'
 ): Promise<void> => {
+  const cleanText = prepareText(text);
+  if (await speakWithKokoro(splitIntoSentences(cleanText), language, 'mira')) return;
+
   if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
     return;
   }
@@ -290,7 +303,6 @@ export const speakAsMiRa = async (
 
   const locale = LANGUAGE_MAP[language] || 'en-GB';
   const voice = getBestVoice(locale);
-  const cleanText = prepareText(text);
 
   const utterance = new SpeechSynthesisUtterance(cleanText);
   utterance.lang = locale;
@@ -322,6 +334,9 @@ export const speakCelebration = async (
     if (played) return;
   }
 
+  const cleanText = prepareText(text);
+  if (await speakWithKokoro(splitIntoSentences(cleanText), language, 'celebration')) return;
+
   // Use Web Speech API for unsupported languages or as fallback
   if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
     return;
@@ -331,7 +346,6 @@ export const speakCelebration = async (
 
   const locale = LANGUAGE_MAP[language] || 'en-GB';
   const voice = getBestVoice(locale);
-  const cleanText = prepareText(text);
 
   const utterance = new SpeechSynthesisUtterance(cleanText);
   utterance.lang = locale;
@@ -358,6 +372,8 @@ export const speakPronunciation = async (
   text: string, 
   language: string = 'English'
 ): Promise<void> => {
+  if (await speakWithKokoro([text], language, 'pronunciation')) return;
+
   if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
     return;
   }
@@ -384,10 +400,11 @@ export const speakPronunciation = async (
 };
 
 /**
- * Stop all speech (both Google Cloud TTS and Web Speech API)
+ * Stop all speech (Kokoro, encouragement clips and Web Speech API)
  */
 export const stopSpeaking = (): void => {
   stopEncouragementAudio();
+  stopKokoro();
   
   // Stop Web Speech API
   if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
@@ -400,6 +417,7 @@ export const stopSpeaking = (): void => {
  */
 export const pauseSpeaking = (): void => {
   pauseEncouragementAudio();
+  pauseKokoro();
   if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
     window.speechSynthesis.pause();
   }
@@ -410,6 +428,7 @@ export const pauseSpeaking = (): void => {
  */
 export const resumeSpeaking = (): void => {
   resumeEncouragementAudio();
+  resumeKokoro();
   if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
     window.speechSynthesis.resume();
   }
@@ -419,6 +438,7 @@ export const resumeSpeaking = (): void => {
  * Check if currently speaking
  */
 export const isSpeaking = (): boolean => {
+  if (isKokoroSpeaking()) return true;
   if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
     return window.speechSynthesis.speaking;
   }
