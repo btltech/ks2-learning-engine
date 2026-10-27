@@ -14,6 +14,8 @@ dist-ssr
 *.local
 
 # Environment variables & secrets
+# Firebase Auth user exports contain emails and password hashes - never commit them.
+/users.json
 .env
 .env.local
 .env.*.local
