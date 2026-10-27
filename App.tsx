@@ -61,7 +61,6 @@ const DrawingLessonView = lazy(() => import('./components/DrawingLessonView'));
 const AchievementsGallery = lazy(() => import('./components/DailyChallenge').then(m => ({ default: m.AchievementsGallery })));
 const ReviewMode = lazy(() => import('./components/ReviewMode').then(m => ({ default: m.ReviewMode })));
 const ReviewSummary = lazy(() => import('./components/ReviewMode').then(m => ({ default: m.ReviewSummary })));
-const AccessibilitySettingsModal = lazy(() => import('./components/AccessibilitySettings').then(m => ({ default: m.AccessibilitySettingsModal })));
 const QuizBattleMode = lazy(() => import('./components/QuizBattleRealtime').then(m => ({ default: m.QuizBattleMode })));
 const LearningPathsView = lazy(() => import('./components/LearningPaths').then(m => ({ default: m.LearningPathsView })));
 const ClassroomMode = lazy(() => import('./components/ClassroomMode'));
@@ -115,7 +114,6 @@ const AppContent: React.FC = () => {
   const [showStore, setShowStore] = useState(false);
   
   // New feature states
-  const [showAccessibilitySettings, setShowAccessibilitySettings] = useState(false);
   const [showUIModeSelector, setShowUIModeSelector] = useState(false);
   const [showReviewMode, setShowReviewMode] = useState(false);
   const [showReviewSummary, setShowReviewSummary] = useState(false);
@@ -881,10 +879,6 @@ const AppContent: React.FC = () => {
       )}
 
       {/* New Feature Modals */}
-      {showAccessibilitySettings && (
-        <AccessibilitySettingsModal onClose={() => setShowAccessibilitySettings(false)} />
-      )}
-
       {showUIModeSelector && (
         <UIModeSelector onClose={() => setShowUIModeSelector(false)} />
       )}

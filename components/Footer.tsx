@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { Suspense, lazy, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserFeedbackModal from './UserFeedbackModal';
 import { GRADIENTS } from '../constants';
+
+const AccessibilitySettingsModal = lazy(() => import('./AccessibilitySettings').then(m => ({ default: m.AccessibilitySettingsModal })));
 
 interface FooterProps {
   userRole?: 'student' | 'teacher' | 'parent' | 'admin';
@@ -10,6 +12,7 @@ interface FooterProps {
 const Footer: React.FC<FooterProps> = () => {
   const navigate = useNavigate();
   const [showFeedback, setShowFeedback] = useState(false);
+  const [showAccessibilitySettings, setShowAccessibilitySettings] = useState(false);
   const currentYear = new Date().getFullYear();
 
   const handleNavigation = (path: string) => {
@@ -29,6 +32,7 @@ const Footer: React.FC<FooterProps> = () => {
             <button onClick={() => handleNavigation('/cookie-policy')} className="hover:text-white">Cookies</button>
             <button onClick={() => handleNavigation('/safeguarding')} className="hover:text-white">Safeguarding</button>
             <button onClick={() => handleNavigation('/accessibility')} className="hover:text-white">Accessibility</button>
+            <button onClick={() => setShowAccessibilitySettings(true)} aria-haspopup="dialog" className="hover:text-white">Voice &amp; display settings</button>
             <button onClick={() => handleNavigation('/help')} className="hover:text-white">Help</button>
             <button onClick={() => handleNavigation('/contact')} className="hover:text-white">Contact</button>
             <button onClick={() => setShowFeedback(true)} className="hover:text-white">Feedback</button>
@@ -36,6 +40,11 @@ const Footer: React.FC<FooterProps> = () => {
         </div>
       </footer>
       <UserFeedbackModal isOpen={showFeedback} onClose={() => setShowFeedback(false)} />
+      {showAccessibilitySettings && (
+        <Suspense fallback={null}>
+          <AccessibilitySettingsModal onClose={() => setShowAccessibilitySettings(false)} />
+        </Suspense>
+      )}
     </>
   );
 };
