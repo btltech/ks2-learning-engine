@@ -1,8 +1,19 @@
-# Kokoro natural English voice
+# Speech architecture and the Kokoro natural English voice
+
+All read-aloud goes through `services/naturalTTS.ts`, in this order:
+
+1. Reviewed Yorùbá recordings (`services/yorubaAudio.ts`) and pre-recorded encouragement clips (`services/encouragementAudio.ts`).
+2. Pre-generated French/Spanish pronunciation audio (`services/languageAudio.ts`, below).
+3. Kokoro on-device English voice, if the user opted in and it has loaded.
+4. The browser's Web Speech API, which always works and is the final fallback.
+
+No paid or cloud TTS provider is called from the app. The earlier Google Cloud TTS proxy, Edge/Piper/SpeechT5 experiments and `unifiedTTS` were removed because nothing used them.
+
+## Kokoro natural English voice
 
 Opt-in, on-device text-to-speech using [Kokoro-82M](https://huggingface.co/onnx-community/Kokoro-82M-v1.0-ONNX) via `kokoro-js`.
 
-- **Where it plugs in:** `services/naturalTTS.ts` (the path used by `useTTS` / `useTTSEnhanced`) tries `speakWithKokoro()` first and falls back to Web Speech. `services/unifiedTTS.ts` is not used by the app.
+- **Where it plugs in:** `services/naturalTTS.ts` (the path used by `useTTS` / `useTTSEnhanced`) tries `speakWithKokoro()` first and falls back to Web Speech.
 - **Opt-in:** Accessibility settings -> Audio -> "Natural English Voice". The preference is stored in `localStorage` (`ks2.kokoroVoice.enabled`); the ~90MB model downloads only after opting in. Until it is ready, speech uses Web Speech, so nothing waits on the download.
 - **English only:** `kokoro-js` phonemises English only. French/Spanish/etc. keep using Web Speech; Yorùbá keeps its reviewed audio pack.
 - **Privacy/cost:** runs in a Web Worker on the device, no text leaves the browser, no per-request cost.

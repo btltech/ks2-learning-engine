@@ -28,25 +28,6 @@ interface GeminiResponse {
   candidates?: any[];
 }
 
-interface TTSRequest {
-  input: { text?: string; ssml?: string };
-  voice: {
-    languageCode: string;
-    name?: string;
-    ssmlGender?: string;
-  };
-  audioConfig: {
-    audioEncoding: string;
-    speakingRate?: number;
-    pitch?: number;
-    effectsProfileId?: string[];
-  };
-}
-
-interface TTSResponse {
-  audioContent: string;
-}
-
 const getFirebaseIdToken = async (): Promise<string> => {
   const user = getAuth().currentUser;
   if (!user) {
@@ -97,38 +78,6 @@ export const callGeminiProxy = async (request: GeminiRequest): Promise<GeminiRes
   const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
   
   return { text, candidates: data.candidates };
-};
-
-/**
- * Call Google Cloud TTS through the proxy
- */
-export const callTTSProxy = async (request: TTSRequest): Promise<TTSResponse> => {
-  if (!USE_API_PROXY) {
-    throw new Error('Proxy not enabled - use direct API call');
-  }
-
-  const token = await getFirebaseIdToken();
-  const response = await fetch(`${getProxyBaseUrl()}/api/tts`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(request),
-  });
-
-  if (!response.ok) {
-    let errorMessage = 'TTS API call failed';
-    try {
-      const error = await response.json();
-      errorMessage = error?.error || errorMessage;
-    } catch {
-      // ignore
-    }
-    throw new Error(errorMessage);
-  }
-
-  return response.json();
 };
 
 /**

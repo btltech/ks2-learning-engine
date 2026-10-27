@@ -148,10 +148,6 @@ export const useTTSEnhanced = (language?: string, _options?: Record<string, unkn
     setNeedsGesture(false);
   }, []);
 
-  const switchProvider = useCallback((_provider: 'web-speech' | 'google-cloud' | 'piper') => {
-    // Natural TTS uses enhanced Web Speech API
-  }, []);
-
   return {
     speak,
     pause,
@@ -164,10 +160,6 @@ export const useTTSEnhanced = (language?: string, _options?: Record<string, unkn
     errorMessage,
     needsGesture,
     setNeedsGesture,
-    googleCloudAvailable: false,
-    activeProvider: 'web-speech' as const,
-    availableProviders: ['web-speech'] as const,
-    switchProvider
   };
 };
 
