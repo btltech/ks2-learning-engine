@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { OwlLogo } from './sunny/OwlLogo';
+import { Chip } from './sunny/Chip';
 import { analyticsService, AnalyticsSummary, TopicPerformance } from '../services/analyticsService';
 import { streakRewardsService } from '../services/streakRewardsService';
 
@@ -68,6 +70,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div>
+            <div className="sunny-role-brand"><OwlLogo height={32} sticker /><Chip>analytics</Chip></div>
             <h1 className="text-2xl font-bold text-white">📊 Analytics Dashboard</h1>
             <p className="text-white/60">Track your learning progress</p>
           </div>

@@ -8,6 +8,7 @@
  */
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { accessibilityService } from '../services/accessibilityService';
 
 export type UIMode = 'guided' | 'standard' | 'advanced';
 
@@ -122,6 +123,22 @@ export const UISettingsProvider: React.FC<{ children: React.ReactNode; userAge?:
   useEffect(() => {
     localStorage.setItem('ks2_ui_settings', JSON.stringify(settings));
   }, [settings]);
+
+  // One root switch gates every Sunny Owl animation. Honour either settings UI.
+  useEffect(() => {
+    const root = document.documentElement;
+    const applyMotion = () => root.classList.toggle('reduce-motion', settings.reducedAnimations || accessibilityService.getSettings().reducedMotion);
+    applyMotion();
+    const unsubscribe = accessibilityService.subscribe(applyMotion);
+    return () => { unsubscribe(); root.classList.remove('reduce-motion'); };
+  }, [settings.reducedAnimations]);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.toggle('sunny-high-contrast', settings.highContrast);
+    root.classList.toggle('sunny-large-text', settings.largerText);
+    return () => { root.classList.remove('sunny-high-contrast', 'sunny-large-text'); };
+  }, [settings.highContrast, settings.largerText]);
 
   const updateSettings = useCallback((updates: Partial<UISettings>) => {
     setSettings(prev => ({ ...prev, ...updates }));

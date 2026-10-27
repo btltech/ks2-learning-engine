@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
-import { AcademicCapIcon, StarIcon, ShoppingBagIcon, ChartBarIcon, ArrowRightOnRectangleIcon, FireIcon, TrophyIcon } from '@heroicons/react/24/solid';
+import { StarIcon, ShoppingBagIcon, ChartBarIcon, ArrowRightOnRectangleIcon, FireIcon, TrophyIcon } from '@heroicons/react/24/solid';
+import { OwlLogo } from './sunny/OwlLogo';
 import AvatarDisplay from './AvatarDisplay';
 import { UserProfile } from '../types';
 import { useGameSounds } from '../hooks/useGameSounds';
@@ -57,17 +58,14 @@ const Header: React.FC<HeaderProps> = ({
   return (
     <header className="bg-gradient-to-r from-white via-white to-blue-50/30 backdrop-blur-xl bg-white/80 border-b border-gray-200/50 shadow-sm w-full sticky top-0 z-40 safe-area-top" role="banner">
       <div className="mobile-shell">
-        <div className="flex items-center justify-between h-16 sm:h-20">
+        <div className="sunny-header-row flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
           <button 
             onClick={() => handleNavClick(onHomeClick)} 
-            className="flex items-center space-x-2 sm:space-x-3 group touch-target px-2"
+            className="sunny-brand-target flex min-w-0 items-center group touch-target px-2"
             aria-label="Go to home page"
           >
-            <AcademicCapIcon className="h-8 w-8 sm:h-10 sm:w-10 text-blue-500 group-hover:text-blue-600 transition-colors" aria-hidden="true" />
-            <span className="text-xl sm:text-3xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors hidden sm:block tracking-tight">
-              KS2 Learning
-            </span>
+            <OwlLogo height={48} decorative className="sunny-header-logo" />
           </button>
 
           {/* Right Side Actions */}
