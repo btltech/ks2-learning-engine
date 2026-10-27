@@ -1233,7 +1233,7 @@ export const generateFeedback = async (incorrectQuestions: QuizResult[], student
 export const askMiRa = async (
   question: string, 
   studentAge: number,
-  studentName?: string,
+  _studentName?: string,
   context?: { subject?: string; topic?: string },
   currentActivity?: string
 ): Promise<string> => {
@@ -1265,7 +1265,7 @@ YOUR PERSONALITY:
 - 🌟 Uses occasional emojis to be expressive but not overwhelming
 
 CURRENT CONTEXT:
-- Student: ${studentName || 'A learner'}, age ${studentAge}
+- Student: a learner, age ${studentAge}
 - Time: ${timeGreeting}
 ${contextInfo ? `- Currently studying: ${contextInfo}` : ''}
 ${currentActivity ? `- Current Activity: ${currentActivity}` : ''}
@@ -1307,7 +1307,7 @@ Now respond as MiRa:
 export const generateProgressReport = async (
   userProfile: any,
   studentAge: number,
-  studentName?: string
+  _studentName?: string
 ): Promise<string> => {
   const cacheKey = createCacheKey('progress-report', userProfile.id, studentAge.toString());
   const cachedReport = getFromCache<string>(cacheKey);
@@ -1339,7 +1339,7 @@ export const generateProgressReport = async (
 You are MiRa, creating a detailed progress report for parents about their ${studentAge}-year-old child's learning journey.
 
 STUDENT PROFILE:
-- Name: ${studentName || userProfile.name}
+- Learner identifier: not provided
 - Age: ${studentAge}
 - Total Points Earned: ${totalPoints}
 - Current Streak: ${streak} days
@@ -1393,7 +1393,7 @@ export const generateLearningInsights = async (
   userProfile: any,
   recentQuizResults: any[],
   studentAge: number,
-  studentName?: string
+  _studentName?: string
 ): Promise<string> => {
   const cacheKey = createCacheKey('learning-insights', userProfile.id, Date.now().toString());
   const cachedInsights = getFromCache<string>(cacheKey);
@@ -1425,7 +1425,7 @@ export const generateLearningInsights = async (
 You are MiRa, providing data-driven learning insights and recommendations for parents of a ${studentAge}-year-old KS2 student.
 
 STUDENT DATA:
-- Name: ${studentName || userProfile.name}
+- Learner identifier: not provided
 - Age: ${studentAge}
 - Current Mastery Levels: ${JSON.stringify(masteryData, null, 2)}
 
@@ -1476,7 +1476,7 @@ export const generateSubjectConnections = async (
   currentTopic: string,
   studentAge: number,
   masteryData: any,
-  studentName?: string
+  _studentName?: string
 ): Promise<string> => {
   const cacheKey = createCacheKey('subject-connections', currentSubject, currentTopic, studentAge.toString());
   const cachedConnections = getFromCache<string>(cacheKey);
@@ -1491,7 +1491,7 @@ export const generateSubjectConnections = async (
   }
 
   const prompt = `
-You are MiRa, helping ${studentName ? `${studentName}` : 'a student'}, a ${studentAge}-year-old, understand how "${currentTopic}" in ${currentSubject} connects to other subjects.
+You are MiRa, helping a ${studentAge}-year-old learner understand how "${currentTopic}" in ${currentSubject} connects to other subjects.
 
 CURRENT FOCUS: ${currentSubject} - ${currentTopic}
 
@@ -1537,7 +1537,7 @@ export const generateProjectSuggestions = async (
   topic: string,
   studentAge: number,
   masteryData: any,
-  studentName?: string
+  _studentName?: string
 ): Promise<string> => {
   const cacheKey = createCacheKey('project-suggestions', subject, topic, studentAge.toString());
   const cachedSuggestions = getFromCache<string>(cacheKey);
@@ -1552,10 +1552,10 @@ export const generateProjectSuggestions = async (
   }
 
   const prompt = `
-You are MiRa, suggesting creative projects for ${studentName ? `${studentName}` : 'a student'}, a ${studentAge}-year-old who just learned about "${topic}" in ${subject}.
+You are MiRa, suggesting creative projects for a ${studentAge}-year-old learner who just learned about "${topic}" in ${subject}.
 
 STUDENT PROFILE:
-- Name: ${studentName || 'Learner'}
+- Learner identifier: not provided
 - Age: ${studentAge}
 - Current topic: ${topic} (${subject})
 - Other subjects they're learning: ${Object.keys(masteryData).join(', ')}
@@ -1605,7 +1605,7 @@ export const generateQuizHint = async (
   subject: string,
   topic: string,
   studentAge: number,
-  studentName?: string
+  _studentName?: string
 ): Promise<string> => {
   // Don't cache hints as they should be contextual
   // Check if offline
@@ -1614,7 +1614,7 @@ export const generateQuizHint = async (
   }
 
   const prompt = `
-You are MiRa, providing a helpful hint for ${studentName ? `${studentName}` : 'a student'}, a ${studentAge}-year-old stuck on a quiz question.
+You are MiRa, providing a helpful hint for a ${studentAge}-year-old learner who is stuck on a quiz question.
 
 QUESTION: "${question}"
 OPTIONS: ${options.join(', ')}
@@ -1655,7 +1655,7 @@ export const generateConceptReinforcement = async (
   difficulty: Difficulty,
   studentAge: number,
   weakAreas?: string[],
-  studentName?: string
+  _studentName?: string
 ): Promise<string> => {
   const cacheKey = createCacheKey('concept-reinforcement', subject, topic, difficulty, studentAge.toString());
   const cachedReinforcement = getFromCache<string>(cacheKey);
@@ -1670,7 +1670,7 @@ export const generateConceptReinforcement = async (
   }
 
   const prompt = `
-You are MiRa, creating concept reinforcement exercises for ${studentName ? `${studentName}` : 'a student'}, a ${studentAge}-year-old who needs extra practice with "${topic}" in ${subject}.
+You are MiRa, creating concept reinforcement exercises for a ${studentAge}-year-old learner who needs extra practice with "${topic}" in ${subject}.
 
 DIFFICULTY: ${difficulty}
 WEAK AREAS TO FOCUS ON: ${weakAreas?.join(', ') || 'General practice needed'}

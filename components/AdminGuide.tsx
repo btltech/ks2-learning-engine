@@ -7,13 +7,12 @@ const AdminGuide: React.FC = () => {
     <InfoPage 
       title="Admin Guide" 
       emoji="⚙️"
-      lastUpdated="April 11, 2026"
+      lastUpdated="August 10, 2026"
     >
       <div className="prose max-w-none">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">Platform Administration & Management</h2>
         <p className="text-gray-700 mb-6">
-          This guide helps administrators manage the KS2 Learning Engine platform, monitor quality, 
-          and ensure optimal performance for all users.
+          This guide explains the administration tools currently available in DemiWura and their limits.
         </p>
 
         <div className={`bg-purple-50 ${RADIUS.card} p-6 mb-6`}>
@@ -21,10 +20,10 @@ const AdminGuide: React.FC = () => {
           <p className="text-gray-700 mb-3">Access comprehensive platform management tools:</p>
           <ul className="list-disc pl-6 text-gray-700 space-y-1">
             <li>Content Quality Dashboard</li>
-            <li>User Management & Analytics</li>
+            <li>User role management and directory search, where permissions allow</li>
             <li>Curriculum Coverage Analysis</li>
             <li>Question Performance Review</li>
-            <li>System Settings & Configuration</li>
+            <li>Device-local settings for testing and configuration review</li>
           </ul>
         </div>
 
@@ -52,9 +51,9 @@ const AdminGuide: React.FC = () => {
             <p className="text-gray-700 mt-2">Track platform usage and engagement:</p>
             <ul className="list-disc pl-6 text-gray-700 mt-2 space-y-1">
               <li>Active users (students, teachers, parents)</li>
-              <li>Daily/weekly quiz completion rates</li>
-              <li>Subject popularity and engagement trends</li>
-              <li>Device and browser distribution</li>
+              <li>Question-bank totals and recorded answer performance</li>
+              <li>User directory records when the admin claim and Firestore rules permit access</li>
+              <li>Wider usage analytics are not yet connected and must not be inferred from placeholder cards</li>
             </ul>
           </div>
 
@@ -80,7 +79,7 @@ const AdminGuide: React.FC = () => {
               <li>Review flagged content immediately</li>
               <li>Investigate user reports</li>
               <li>Ensure AI-generated content is age-appropriate</li>
-              <li>Respond to safeguarding concerns within 24 hours</li>
+              <li>Triage safeguarding concerns immediately and follow the documented escalation process</li>
             </ul>
           </div>
         </div>
@@ -88,8 +87,8 @@ const AdminGuide: React.FC = () => {
         <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">Settings & Configuration</h3>
         <div className={`bg-gray-50 ${RADIUS.card} p-4 mb-6`}>
           <p className="text-gray-700 mb-3">
-            <strong>⚠️ Important:</strong> Changes to platform settings affect all users. Always test changes 
-            in a staging environment first.
+            <strong>⚠️ Important:</strong> Settings on this page are currently stored on the administrator's device.
+            They do not become platform-wide controls until a trusted server-side settings service is connected.
           </p>
           <div className="space-y-2">
             <div>
@@ -98,11 +97,11 @@ const AdminGuide: React.FC = () => {
             </div>
             <div>
               <p className="font-bold text-gray-900">AI Generation Settings</p>
-              <p className="text-sm text-gray-600">Content moderation, difficulty thresholds, age-appropriate filters</p>
+              <p className="text-sm text-gray-600">Local configuration used to review intended AI and quality behaviour</p>
             </div>
             <div>
               <p className="font-bold text-gray-900">Access Controls</p>
-              <p className="text-sm text-gray-600">Feature flags, role permissions, parental controls</p>
+              <p className="text-sm text-gray-600">Role changes use the verified admin endpoint; other switches remain device-local</p>
             </div>
             <div>
               <p className="font-bold text-gray-900">Safety Settings</p>
@@ -138,37 +137,40 @@ const AdminGuide: React.FC = () => {
           <details className={`${RADIUS.card} bg-white p-4 shadow-sm`}>
             <summary className="font-bold text-gray-900 cursor-pointer">How do I add new content/questions?</summary>
             <p className="text-gray-700 mt-2">
-              Navigate to Admin Console → Content Management. Select subject and topic, then use the 
-              "Add Question" interface. All new content is automatically reviewed by the AI moderation system.
+              Direct question creation and editing are not yet available safely in the Admin Console. Use the maintained
+              question-source and deployment workflow, then verify the result in Question Quality. Do not write directly
+              to production Firestore unless the change has been reviewed and backed up.
             </p>
           </details>
 
           <details className={`${RADIUS.card} bg-white p-4 shadow-sm`}>
             <summary className="font-bold text-gray-900 cursor-pointer">How do I handle a safeguarding report?</summary>
             <p className="text-gray-700 mt-2">
-              1. Read the full report immediately<br />
-              2. Disable any flagged content<br />
-              3. Investigate the context<br />
-              4. Contact parents/teachers if needed<br />
-              5. Document all actions taken<br />
-              6. Respond to reporter within 24 hours
+              1. Assess whether a child is in immediate danger and call 999 where necessary<br />
+              2. Preserve only the records needed for the assessment<br />
+              3. Restrict the content, account, class or feature if that reduces risk<br />
+              4. Escalate to the appropriate safeguarding lead or authority<br />
+              5. Record the decision and actions without unnecessary child data<br />
+              6. Acknowledge the reporter when it is safe and lawful to do so
             </p>
           </details>
 
           <details className={`${RADIUS.card} bg-white p-4 shadow-sm`}>
             <summary className="font-bold text-gray-900 cursor-pointer">How do I manage teacher/parent accounts?</summary>
             <p className="text-gray-700 mt-2">
-              Admin Console → User Management. You can view all accounts, reset passwords, 
-              link/unlink child accounts, and assign roles. Always verify identity before making changes.
+              Admin Console → User Management can search the permitted directory and assign verified roles by email.
+              Password resets use Firebase's reset-email flow. Parents manage their own child profiles; the role tool
+              must not be used as a substitute for identity verification or child-profile management.
             </p>
           </details>
 
           <details className={`${RADIUS.card} bg-white p-4 shadow-sm`}>
             <summary className="font-bold text-gray-900 cursor-pointer">What if the platform is running slowly?</summary>
             <p className="text-gray-700 mt-2">
-              Check Admin Console → System Health. Review Firebase usage, API quotas, and error logs. 
-              Contact technical support at <a href="mailto:support@demiwuraks2.co.uk" className="text-blue-600 hover:underline">support@demiwuraks2.co.uk</a> 
-              {' '}if issues persist.
+              First confirm whether the failure affects one device or all users. Review the visible dashboard error,
+              Firebase quotas and Cloudflare deployment logs, then test the affected route in a clean browser. Contact{' '}
+              <a href="mailto:support@demiwuraks2.co.uk" className="text-blue-600 hover:underline">support@demiwuraks2.co.uk</a>
+              {' '}with the time, route and non-sensitive error text if it persists.
             </p>
           </details>
         </div>
@@ -183,7 +185,7 @@ const AdminGuide: React.FC = () => {
             Email: <a href="mailto:support@demiwuraks2.co.uk" className="text-blue-600 hover:underline">support@demiwuraks2.co.uk</a>
           </p>
           <p className="text-gray-700 mt-1">
-            Safeguarding Concerns: <a href="mailto:support@demiwuraks2.co.uk" className="text-blue-600 hover:underline">support@demiwuraks2.co.uk</a> (24hr response)
+            Safeguarding concerns: <a href="mailto:safeguarding@demiwuraks2.co.uk" className="text-blue-600 hover:underline">safeguarding@demiwuraks2.co.uk</a>. If a child is in immediate danger, call 999.
           </p>
         </div>
 

@@ -58,6 +58,12 @@ if (!admin.apps.length) {
     admin.initializeApp();
 }
 const db = admin.firestore();
+const escapeHtml = (value) => String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 // ─── Email via Resend ─────────────────────────────────────────────────────────
 async function sendEmailViaResend(apiKey, to, subject, html) {
     const resp = await fetch('https://api.resend.com/emails', {
@@ -67,7 +73,7 @@ async function sendEmailViaResend(apiKey, to, subject, html) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            from: 'KS2 Learning Engine <noreply@demiwuraks2.co.uk>',
+            from: 'DemiWura <noreply@demiwuraks2.co.uk>',
             to: [to],
             subject,
             html,
@@ -151,7 +157,7 @@ function buildEmailHtml(parentName, childReports) {
     const childrenHTML = childReports
         .map(({ name, stats }) => `
       <div style="background:#f9fafb;border-radius:12px;padding:24px;margin-bottom:24px;">
-        <h2 style="color:#1f2937;margin:0 0 16px;">${name}'s Week</h2>
+        <h2 style="color:#1f2937;margin:0 0 16px;">${escapeHtml(name)}'s Week</h2>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
           <div style="background:#fff;padding:16px;border-radius:8px;text-align:center;">
             <div style="font-size:32px;font-weight:700;color:#3b82f6;">${stats.quizzesCompleted}</div>
@@ -171,9 +177,9 @@ function buildEmailHtml(parentName, childReports) {
           </div>
         </div>
         <div style="margin-top:12px;font-size:14px;">
-          <p style="margin:6px 0;"><strong>🌟 Strongest Subject:</strong> ${stats.strongestSubject}</p>
-          <p style="margin:6px 0;"><strong>💪 Needs Practice:</strong> ${stats.weakestSubject}</p>
-          ${stats.badges.length > 0 ? `<p style="margin:6px 0;"><strong>🏆 Badges Earned:</strong> ${stats.badges.join(', ')}</p>` : ''}
+          <p style="margin:6px 0;"><strong>🌟 Strongest Subject:</strong> ${escapeHtml(stats.strongestSubject)}</p>
+          <p style="margin:6px 0;"><strong>💪 Needs Practice:</strong> ${escapeHtml(stats.weakestSubject)}</p>
+          ${stats.badges.length > 0 ? `<p style="margin:6px 0;"><strong>🏆 Badges Earned:</strong> ${stats.badges.map(escapeHtml).join(', ')}</p>` : ''}
         </div>
         ${stats.quizzesCompleted === 0
         ? '<p style="color:#ef4444;margin-top:12px;font-size:14px;">⚠️ No activity this week — encourage your child to practice!</p>'
@@ -192,14 +198,14 @@ function buildEmailHtml(parentName, childReports) {
       <p style="color:rgba(255,255,255,.85);margin:8px 0 0;">Your child's progress this week</p>
     </div>
     <div style="background:#fff;border-radius:12px;padding:24px;margin-bottom:24px;">
-      <p style="color:#1f2937;font-size:16px;line-height:1.6;margin:0 0 8px;">Hi ${parentName},</p>
+      <p style="color:#1f2937;font-size:16px;line-height:1.6;margin:0 0 8px;">Hi ${escapeHtml(parentName)},</p>
       <p style="color:#6b7280;font-size:16px;line-height:1.6;margin:0;">Here's a summary of your child's learning activity from the past week:</p>
     </div>
     ${childrenHTML}
     <div style="text-align:center;padding:24px;color:#6b7280;font-size:14px;">
       <p>Keep track of progress at <a href="https://demiwuraks2.co.uk" style="color:#3b82f6;">demiwuraks2.co.uk</a></p>
       <p style="margin-top:12px;font-size:12px;">
-        You're receiving this because you're a registered parent on KS2 Learning Engine.<br>
+        You're receiving this because you opted in to weekly reports from DemiWura.<br>
         To unsubscribe, update your settings in the app or email <a href="mailto:support@demiwuraks2.co.uk" style="color:#3b82f6;">support@demiwuraks2.co.uk</a>.
       </p>
     </div>
@@ -212,6 +218,10 @@ exports.sendWeeklyReports = functions.pubsub
     .schedule('0 18 * * 0') // Every Sunday at 6 pm
     .timeZone('Europe/London')
     .onRun(async () => {
+    if (process.env.WEEKLY_REPORTS_ENABLED !== 'true') {
+        console.log('Weekly reports are disabled');
+        return null;
+    }
     const resendApiKey = process.env.RESEND_API_KEY ?? '';
     if (!resendApiKey) {
         console.error('❌ RESEND_API_KEY env var not set — add it to firebase-functions/.env');
@@ -230,6 +240,9 @@ exports.sendWeeklyReports = functions.pubsub
         const parentId = parentDoc.id;
         const parentEmail = parent.email ?? '';
         const parentName = parent.name ?? parent.displayName ?? 'Parent';
+        if (parent.weeklyReportOptIn !== true) {
+            continue;
+        }
         if (!parentEmail) {
             console.warn(`Parent ${parentId} has no email — skipping`);
             continue;
@@ -269,7 +282,12 @@ exports.sendTestWeeklyReport = functions.https.onCall(async (data, context) => {
     if (!resendApiKey) {
         throw new functions.https.HttpsError('failed-precondition', 'RESEND_API_KEY environment variable not set — add it to firebase-functions/.env');
     }
-    const parentId = typeof data.parentId === 'string' ? data.parentId : context.auth.uid;
+    const requestedParentId = typeof data.parentId === 'string' ? data.parentId : context.auth.uid;
+    const isAdmin = context.auth.token?.admin === true;
+    if (requestedParentId !== context.auth.uid && !isAdmin) {
+        throw new functions.https.HttpsError('permission-denied', 'You may only send a test report to your own account');
+    }
+    const parentId = requestedParentId;
     const parentDoc = await db.collection('users').doc(parentId).get();
     if (!parentDoc.exists) {
         throw new functions.https.HttpsError('not-found', 'Parent not found');
@@ -277,6 +295,9 @@ exports.sendTestWeeklyReport = functions.https.onCall(async (data, context) => {
     const parent = parentDoc.data();
     if (parent.role !== 'parent') {
         throw new functions.https.HttpsError('permission-denied', 'User is not a parent');
+    }
+    if (parent.weeklyReportOptIn !== true) {
+        throw new functions.https.HttpsError('failed-precondition', 'Weekly reports are not enabled for this parent');
     }
     const parentEmail = parent.email ?? '';
     if (!parentEmail) {

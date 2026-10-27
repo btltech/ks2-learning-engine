@@ -7,10 +7,10 @@ const TeacherGuide: React.FC = () => {
     <InfoPage 
       title="Teacher Guide" 
       emoji="👩‍🏫"
-      lastUpdated="April 11, 2026"
+      lastUpdated="August 10, 2026"
     >
       <div className="prose max-w-none">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Using KS2 Learning Engine in Your Classroom</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-4">Using DemiWura in Your Classroom</h2>
         <p className="text-gray-700 mb-6">
           This guide helps teachers integrate our platform into their teaching practice and 
           maximize student outcomes.
@@ -19,10 +19,10 @@ const TeacherGuide: React.FC = () => {
         <div className={`bg-purple-50 ${RADIUS.card} p-6 mb-6`}>
           <h3 className="text-xl font-bold text-purple-900 mb-2">Getting Started</h3>
           <ol className="list-decimal pl-6 text-gray-700 space-y-1">
-            <li>Create a teacher account</li>
+            <li>Ask a DemiWura administrator to verify and enable teacher access</li>
             <li>Set up your first class</li>
-            <li>Generate student access codes</li>
-            <li>Share codes with students to join your class</li>
+            <li>Share the class's six-character join code with learners</li>
+            <li>Learners sign in through a parent-managed profile and enter the class code</li>
             <li>Start assigning quizzes and tracking progress</li>
           </ol>
         </div>
@@ -30,7 +30,7 @@ const TeacherGuide: React.FC = () => {
         <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">Classroom Features</h3>
         <ul className="list-disc pl-6 text-gray-700 space-y-2 mb-6">
           <li><strong>Class Dashboard:</strong> View aggregated performance across all students</li>
-          <li><strong>Custom Assignments:</strong> Create focused revision sets on specific topics</li>
+          <li><strong>Assignments:</strong> Create focused practice on available subjects and topics</li>
           <li><strong>Progress Tracking:</strong> Identify struggling students early</li>
           <li><strong>Question Quality:</strong> Find and flag unclear or problematic questions</li>
           <li><strong>Curriculum Coverage:</strong> Ensure all National Curriculum objectives are met</li>
@@ -58,11 +58,19 @@ const TeacherGuide: React.FC = () => {
           collaborative challenges, and real-time quiz battles.
         </p>
 
+        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">Privacy and Safeguarding</h3>
+        <ul className="list-disc pl-6 text-gray-700 space-y-2 mb-6">
+          <li>Do not display class codes publicly or reuse a code after a suspected disclosure.</li>
+          <li>Use only the learner information needed for the activity and avoid entering personal information into MiRa.</li>
+          <li>Preview AI-assisted content before relying on it for teaching; report inaccurate or inappropriate material.</li>
+          <li>Your school remains responsible for its own safeguarding and data-protection procedures when using DemiWura.</li>
+        </ul>
+
         <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">Support</h3>
         <p className="text-gray-700">
           For teacher-specific support:{' '}
-          <a href="mailto:teachers@demiwuraks2.co.uk" className="text-blue-600 hover:underline">
-            teachers@demiwuraks2.co.uk
+          <a href="mailto:support@demiwuraks2.co.uk" className="text-blue-600 hover:underline">
+            support@demiwuraks2.co.uk
           </a>
         </p>
       </div>

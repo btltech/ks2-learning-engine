@@ -109,7 +109,9 @@ describe('contact function', () => {
     const firestoreCall = mockFetch.mock.calls.find(([url]: [string]) => url.includes('firestore.googleapis.com'));
     expect(firestoreCall).toBeDefined();
     expect(firestoreCall![1].headers.Authorization).toBe('Bearer access-token');
-    expect(JSON.parse(firestoreCall![1].body).fields.userType.stringValue).toBe('parent');
+    const fields = JSON.parse(firestoreCall![1].body).fields;
+    expect(fields.userType.stringValue).toBe('parent');
+    expect(fields.expiresAt.timestampValue).toMatch(/^\d{4}-\d{2}-\d{2}T/);
   });
 
   it('returns 503 when Firestore rejects the saved submission', async () => {

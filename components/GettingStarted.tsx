@@ -10,10 +10,10 @@ const GettingStarted: React.FC = () => {
     <InfoPage 
       title="Getting Started" 
       emoji="🚀"
-      lastUpdated="April 11, 2026"
+      lastUpdated="August 10, 2026"
     >
       <div className="prose max-w-none">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Welcome to KS2 Learning Engine!</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-4">Welcome to DemiWura!</h2>
         <p className="text-gray-700 mb-6">
           Let's get you up and running in just a few steps.
         </p>
@@ -41,7 +41,7 @@ const GettingStarted: React.FC = () => {
           <div className={`${RADIUS.card} ${SHADOWS.secondary} p-6 bg-gradient-to-br from-orange-50 to-yellow-50`}>
             <div className="text-4xl mb-2">🎓</div>
             <h4 className="font-bold text-gray-900 mb-1">I'm a Student</h4>
-            <p className="text-sm text-gray-600">Ask your parent or teacher for your code!</p>
+            <p className="text-sm text-gray-600">Ask your parent for your sign-in details</p>
           </div>
         </div>
 
@@ -49,18 +49,18 @@ const GettingStarted: React.FC = () => {
         <ol className="list-decimal pl-6 text-gray-700 space-y-2 mb-6">
           <li>Create your parent account with email and password</li>
           <li>Create a child profile (first name, age, year group)</li>
-          <li>Note the unique child code shown</li>
-          <li>Your child logs in using that code to start learning</li>
+          <li>Save your six-character parent code and the child's private PIN</li>
+          <li>Your child signs in with their name, age, parent code and PIN</li>
           <li>Monitor progress from your Parent Dashboard</li>
         </ol>
 
         <h3 className="text-xl font-bold text-gray-900 mb-3">Quick Setup (Teachers)</h3>
         <ol className="list-decimal pl-6 text-gray-700 space-y-2 mb-6">
-          <li>Create your teacher account</li>
+          <li>Ask a DemiWura administrator to verify and enable teacher access</li>
           <li>Set up a class (give it a name and year group)</li>
-          <li>Generate student codes (one per student)</li>
-          <li>Share codes with students via printed handout or projection</li>
-          <li>Students create accounts using their codes</li>
+          <li>Share the class's six-character join code with your learners</li>
+          <li>Each learner signs in through their existing parent-managed profile</li>
+          <li>Learners enter the class code in My Class</li>
           <li>Assign quizzes and view class progress</li>
         </ol>
 

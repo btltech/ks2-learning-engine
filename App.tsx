@@ -79,6 +79,7 @@ const MicrolearningDashboard = lazy(() => import('./components/MicrolearningDash
 
 // Info & Policy Pages
 const PrivacyPolicy = lazy(() => import('./components/PrivacyPolicy'));
+const ChildPrivacy = lazy(() => import('./components/ChildPrivacy'));
 const TermsOfService = lazy(() => import('./components/TermsOfService'));
 const CookiePolicy = lazy(() => import('./components/CookiePolicy'));
 const SafeguardingPolicy = lazy(() => import('./components/SafeguardingPolicy'));
@@ -446,6 +447,7 @@ const AppContent: React.FC = () => {
   // Public routes that don't require authentication
   const publicRoutes = [
     '/privacy-policy',
+    '/privacy-for-children',
     '/terms-of-service',
     '/cookie-policy',
     '/safeguarding',
@@ -466,6 +468,8 @@ const AppContent: React.FC = () => {
     switch (location.pathname) {
       case '/privacy-policy':
         return <PrivacyPolicy />;
+      case '/privacy-for-children':
+        return <ChildPrivacy />;
       case '/terms-of-service':
         return <TermsOfService />;
       case '/cookie-policy':
@@ -788,6 +792,7 @@ const AppContent: React.FC = () => {
               
               {/* Info & Policy Pages */}
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/privacy-for-children" element={<ChildPrivacy />} />
               <Route path="/terms-of-service" element={<TermsOfService />} />
               <Route path="/cookie-policy" element={<CookiePolicy />} />
               <Route path="/safeguarding" element={<SafeguardingPolicy />} />

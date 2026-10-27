@@ -1,127 +1,94 @@
 import React from 'react';
 import InfoPage from './InfoPage';
 
-const SafeguardingPolicy: React.FC = () => {
-  return (
-    <InfoPage
-      title="Safeguarding & Child Protection"
-      emoji="🛡️"
-      lastUpdated="April 17, 2026"
-    >
-      <div className="prose max-w-none">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Keeping Children Safe Online</h2>
-        <p className="text-gray-700 mb-4">
-          The safety and wellbeing of children is DemiWura's highest priority. This policy outlines our
-          commitments under the <strong>UK Online Safety Act 2023</strong>, the{' '}
-          <strong>ICO Children's Code (Age Appropriate Design Code)</strong>, and broader child
-          safeguarding principles.
-        </p>
+const SafeguardingPolicy: React.FC = () => (
+  <InfoPage title="Safeguarding and Child Safety" emoji="🛡️" lastUpdated="August 10, 2026">
+    <div className="prose max-w-none">
+      <h2 className="text-2xl font-bold text-gray-900 mb-4">Keeping children safe on DemiWura</h2>
+      <p className="text-gray-700 mb-4">
+        DemiWura is designed mainly for children aged 7–11. We put the child's best interests, privacy and wellbeing
+        first when designing accounts, learning content, AI assistance, classes and competitive activities. This policy
+        explains our current safeguards and how to report a concern; it does not replace a school or organisation's own
+        statutory safeguarding procedures.
+      </p>
 
-        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">1. Who This Policy Protects</h3>
-        <p className="text-gray-700 mb-4">
-          DemiWura's primary users are children aged 7–11 (KS2). All platform design decisions treat
-          every user as potentially a child, applying the highest safeguarding standards by default.
-        </p>
+      <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">1. Our current safeguards</h3>
+      <ul className="list-disc pl-6 text-gray-700 space-y-2 mb-4">
+        <li><strong>Parent-managed child access:</strong> a parent creates each child profile and private PIN. Children do not need an email address.</li>
+        <li><strong>Limited social exposure:</strong> there is no public chat, direct messaging or public profile. A limited display name or alias may be visible to authorised participants in a class, quiz battle or leaderboard.</li>
+        <li><strong>No advertising:</strong> DemiWura does not display adverts or use child data for advertising profiles.</li>
+        <li><strong>No geolocation:</strong> child profiles do not request location, school, address, photograph or contact details.</li>
+        <li><strong>Role-based access:</strong> parent, teacher and administrator tools require the appropriate authenticated role.</li>
+        <li><strong>Security controls:</strong> PIN hashing, request validation, rate limits, Turnstile checks and restricted codes help reduce unauthorised access and abuse.</li>
+        <li><strong>Educational personalisation:</strong> progress and quiz results can adjust difficulty and recommend practice. This is not used for advertising or a legally significant decision.</li>
+      </ul>
 
-        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">2. Our Safeguarding Commitments</h3>
-        <ul className="list-disc pl-6 text-gray-700 space-y-2 mb-4">
-          <li>
-            <strong>No child-to-child communication:</strong> DemiWura has no public chat, messaging,
-            forums, or any feature that allows children to contact one another.
-          </li>
-          <li>
-            <strong>Privacy by default:</strong> Child accounts collect only the minimum data necessary
-            — first name and age. No surname, school, location, or contact details are collected for
-            children.
-          </li>
-          <li>
-            <strong>No behavioural profiling:</strong> We do not use children's data for advertising,
-            profiling, or any commercial purpose.
-          </li>
-          <li>
-            <strong>Age-appropriate content:</strong> All educational content is reviewed to be
-            curriculum-aligned, age-appropriate, inclusive, and free from inappropriate language or
-            imagery.
-          </li>
-          <li>
-            <strong>Parental oversight by design:</strong> Children can only access DemiWura via a
-            parent-generated code. Parents have full visibility via the monitoring dashboard.
-          </li>
-          <li>
-            <strong>Secure authentication:</strong> Child accounts use PIN-based login with
-            rate-limiting and lockout protection to prevent unauthorised access.
-          </li>
-          <li>
-            <strong>No advertising:</strong> DemiWura contains no advertising of any kind.
-          </li>
-        </ul>
+      <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">2. Classes, battles and leaderboards</h3>
+      <p className="text-gray-700 mb-3">
+        These features allow limited real-time or shared participation, so the following rules apply:
+      </p>
+      <ul className="list-disc pl-6 text-gray-700 space-y-2 mb-4">
+        <li>Class and battle codes must be shared only with the intended group and reset if disclosed.</li>
+        <li>Children must not use a display name to reveal a surname, school, contact information or other private detail.</li>
+        <li>Parents and teachers should supervise live activities and stop a session if unexpected participants or content appear.</li>
+        <li>Suspected bullying, impersonation, code misuse or unauthorised access should be reported immediately.</li>
+      </ul>
 
-        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">3. ICO Children's Code Compliance</h3>
-        <p className="text-gray-700 mb-2">
-          We have implemented the standards of the ICO Age Appropriate Design Code, including:
-        </p>
-        <ul className="list-disc pl-6 text-gray-700 space-y-1 mb-4">
-          <li>Best interests of the child as a primary consideration in all design decisions</li>
-          <li>High privacy settings switched on by default</li>
-          <li>No nudge techniques to encourage children to share more data than necessary</li>
-          <li>No geolocation tracking</li>
-          <li>Parental controls readily available</li>
-          <li>Content moderation proportionate to risk</li>
-        </ul>
+      <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">3. Learning and AI content</h3>
+      <p className="text-gray-700 mb-3">
+        DemiWura combines reviewed content, question-bank content and AI-assisted material. Generated material is subject
+        to automated validation and provider safety controls where supported, but it is not manually reviewed every time
+        before display and no automated system is perfect.
+      </p>
+      <ul className="list-disc pl-6 text-gray-700 space-y-2 mb-4">
+        <li>Children should not enter private information into MiRa.</li>
+        <li>Teachers should preview important AI-assisted material before using it in a lesson.</li>
+        <li>A child should stop and tell a trusted adult if a response is frightening, sexual, hateful, asks for secrecy or personal details, or appears seriously wrong.</li>
+        <li>Reported content is assessed for removal, correction, guardrail changes and any necessary escalation.</li>
+      </ul>
 
-        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">4. Content Safety</h3>
-        <p className="text-gray-700 mb-2">All quiz questions and educational content on DemiWura are:</p>
-        <ul className="list-disc pl-6 text-gray-700 space-y-1 mb-4">
-          <li>Aligned to the UK National Curriculum for KS2</li>
-          <li>Reviewed for age-appropriate language and difficulty</li>
-          <li>Free from discriminatory, violent, or inappropriate content</li>
-          <li>Inclusive and respectful of all backgrounds and abilities</li>
-        </ul>
-
-        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">5. AI-Generated Content</h3>
-        <p className="text-gray-700 mb-4">
-          DemiWura uses AI to generate some quiz questions. All AI-generated content is subject to
-          automated quality review before being presented to children. A quality scoring system flags
-          questions for manual review if they fall below accepted standards.
-        </p>
-
-        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">6. Reporting Safeguarding Concerns</h3>
-        <p className="text-gray-700 mb-2">
-          If you have any safeguarding concerns — including concerns about a child's welfare or
-          inappropriate content on the platform — please contact us immediately:
-        </p>
-        <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-4">
-          <p className="font-bold text-red-900">Safeguarding Contact</p>
-          <p className="text-red-800">
-            Email:{' '}
-            <a href="mailto:safeguarding@demiwuraks2.co.uk" className="underline">
-              safeguarding@demiwuraks2.co.uk
-            </a>
-          </p>
-          <p className="text-red-800 text-sm mt-1">
-            We aim to respond to all safeguarding reports within 24 hours.
-          </p>
-          <p className="text-red-800 text-sm mt-1">
-            <strong>In an emergency or if a child is in immediate danger, call 999 or contact
-            your local social services.</strong>
-          </p>
-        </div>
-
-        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">7. For Parents and Teachers</h3>
-        <p className="text-gray-700 mb-4">
-          We encourage active supervision of children's online learning. Use the monitoring dashboards
-          to review your child's or class's activity. If something doesn't look right, please contact
-          us immediately.
-        </p>
-
-        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">8. Policy Review</h3>
-        <p className="text-gray-700">
-          This safeguarding policy is reviewed at least annually and following any significant changes
-          to the platform or relevant legislation.
+      <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">4. Reporting a concern</h3>
+      <div className="bg-red-50 border-l-4 border-red-500 rounded-lg p-4 mb-5">
+        <p className="font-bold text-red-950">If a child is in immediate danger, call 999.</p>
+        <p className="text-red-900 mt-2">
+          For a concern involving DemiWura, email{' '}
+          <a href="mailto:safeguarding@demiwuraks2.co.uk" className="font-semibold underline">
+            safeguarding@demiwuraks2.co.uk
+          </a>{' '}
+          or use the Contact page and choose a safeguarding subject. Do not send unnecessary sensitive details.
         </p>
       </div>
-    </InfoPage>
-  );
-};
+      <p className="text-gray-700 mb-3">Other sources of help:</p>
+      <ul className="list-disc pl-6 text-gray-700 space-y-2 mb-4">
+        <li><a href="https://www.ceop.police.uk/Safety-Centre/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">CEOP Safety Centre</a> — report online sexual abuse or grooming concerns</li>
+        <li><a href="https://www.childline.org.uk/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Childline</a> — confidential help for children on 0800 1111</li>
+        <li><a href="https://www.nspcc.org.uk/keeping-children-safe/reporting-abuse/nspcc-helpline/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">NSPCC Helpline</a> — advice for adults worried about a child</li>
+      </ul>
+
+      <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">5. What happens after a report</h3>
+      <ol className="list-decimal pl-6 text-gray-700 space-y-2 mb-4">
+        <li>The BTLTECH safeguarding contact reviews the available information and assesses immediate risk.</li>
+        <li>We may preserve relevant records, restrict an account, class or feature, and ask the reporting adult for limited clarification.</li>
+        <li>We correct or remove platform content and strengthen technical controls where appropriate.</li>
+        <li>Where there is a risk of harm or a legal duty, information may be referred to the school, police, local authority, CEOP or another appropriate safeguarding body.</li>
+        <li>Information is shared only to the extent reasonably necessary for safety, investigation or legal compliance.</li>
+      </ol>
+
+      <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">6. Parents, teachers and schools</h3>
+      <p className="text-gray-700 mb-4">
+        Adults should use age-appropriate supervision, keep codes private, review dashboard activity and maintain clear
+        routes for children to ask for help. Schools remain responsible for their designated safeguarding lead, staff
+        vetting, acceptable-use rules, parental communications and referrals under their own policies.
+      </p>
+
+      <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">7. Risk review</h3>
+      <p className="text-gray-700 mb-4">
+        We review child privacy, content, contact and user-to-user risks when relevant features change and at least annually.
+        We assess the application of the ICO Children's Code and Online Safety Act duties to the service, document material
+        risks and prioritise controls that protect children rather than relying on policy wording alone.
+      </p>
+    </div>
+  </InfoPage>
+);
 
 export default SafeguardingPolicy;

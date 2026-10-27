@@ -124,7 +124,7 @@ class AccessibilityService {
     // Screen reader optimizations
     if (this.settings.screenReaderOptimized) {
       body.setAttribute('role', 'application');
-      body.setAttribute('aria-label', 'KS2 Learning Engine - Educational Application');
+      body.setAttribute('aria-label', 'DemiWura - Educational Application');
     } else {
       body.removeAttribute('role');
       body.removeAttribute('aria-label');

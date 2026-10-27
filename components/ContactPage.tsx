@@ -8,7 +8,7 @@ const ContactPage: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    userType: 'parent' as 'parent' | 'teacher' | 'student' | 'admin' | 'other',
+    userType: 'parent' as 'parent' | 'teacher' | 'admin' | 'other',
     subject: '',
     message: ''
   });
@@ -67,23 +67,31 @@ const ContactPage: React.FC = () => {
     <InfoPage 
       title="Contact Us" 
       emoji="📧"
-      lastUpdated="April 11, 2026"
+      lastUpdated="August 10, 2026"
     >
       <div className="prose max-w-none">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">Get in Touch</h2>
         <p className="text-gray-700 mb-6">
-          Have questions, feedback, or need support? We'd love to hear from you!
+          Adults can use this form for support, feedback, privacy, accessibility or safeguarding concerns.
         </p>
 
+        <div className={`bg-amber-50 border-l-4 border-amber-500 ${RADIUS.card} p-4 mb-6`}>
+          <p className="font-bold text-amber-950">Are you under 13?</p>
+          <p className="text-amber-900 mt-1">
+            Ask a parent, teacher or another trusted adult to contact us with you. Do not enter your surname, school,
+            address, phone number, passwords, parent code or PIN in this form.
+          </p>
+        </div>
+
         {submitted && (
-          <div className={`bg-green-50 border-l-4 border-green-500 ${RADIUS.card} p-4 mb-6`}>
+          <div className={`bg-green-50 border-l-4 border-green-500 ${RADIUS.card} p-4 mb-6`} role="status" aria-live="polite">
             <p className="font-bold text-green-900">✅ Message Sent!</p>
-            <p className="text-green-700">We'll get back to you within 24 hours.</p>
+            <p className="text-green-700">We aim to reply within two working days. Urgent safety concerns are prioritised.</p>
           </div>
         )}
 
         {error && (
-          <div className={`bg-red-50 border-l-4 border-red-500 ${RADIUS.card} p-4 mb-6`}>
+          <div className={`bg-red-50 border-l-4 border-red-500 ${RADIUS.card} p-4 mb-6`} role="alert">
             <p className="font-bold text-red-900">❌ Error</p>
             <p className="text-red-700">{error}</p>
           </div>
@@ -91,11 +99,12 @@ const ContactPage: React.FC = () => {
 
         <form onSubmit={handleSubmit} className="space-y-4 mb-8">
           <div>
-            <label className="block text-sm font-bold text-gray-900 mb-1">
+            <label htmlFor="contact-name" className="block text-sm font-bold text-gray-900 mb-1">
               Your Name *
             </label>
             <input
               type="text"
+              id="contact-name"
               name="name"
               value={formData.name}
               onChange={handleChange}
@@ -104,19 +113,13 @@ const ContactPage: React.FC = () => {
             />
           </div>
 
-          {turnstileSiteKey && (
-            <div>
-              <p className="block text-sm font-bold text-gray-900 mb-2">Security check</p>
-              <TurnstileWidget siteKey={turnstileSiteKey} onToken={setTurnstileToken} />
-            </div>
-          )}
-
           <div>
-            <label className="block text-sm font-bold text-gray-900 mb-1">
+            <label htmlFor="contact-email" className="block text-sm font-bold text-gray-900 mb-1">
               Email Address *
             </label>
             <input
               type="email"
+              id="contact-email"
               name="email"
               value={formData.email}
               onChange={handleChange}
@@ -126,10 +129,11 @@ const ContactPage: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-bold text-gray-900 mb-1">
+            <label htmlFor="contact-user-type" className="block text-sm font-bold text-gray-900 mb-1">
               I am a...
             </label>
             <select
+              id="contact-user-type"
               name="userType"
               value={formData.userType}
               onChange={handleChange}
@@ -137,18 +141,18 @@ const ContactPage: React.FC = () => {
             >
               <option value="parent">Parent</option>
               <option value="teacher">Teacher</option>
-              <option value="student">Student</option>
               <option value="admin">School Administrator</option>
-              <option value="other">Other</option>
+              <option value="other">Other adult</option>
             </select>
           </div>
 
           <div>
-            <label className="block text-sm font-bold text-gray-900 mb-1">
+            <label htmlFor="contact-subject" className="block text-sm font-bold text-gray-900 mb-1">
               Subject *
             </label>
             <input
               type="text"
+              id="contact-subject"
               name="subject"
               value={formData.subject}
               onChange={handleChange}
@@ -158,10 +162,11 @@ const ContactPage: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-bold text-gray-900 mb-1">
+            <label htmlFor="contact-message" className="block text-sm font-bold text-gray-900 mb-1">
               Message *
             </label>
             <textarea
+              id="contact-message"
               name="message"
               value={formData.message}
               onChange={handleChange}
@@ -170,6 +175,21 @@ const ContactPage: React.FC = () => {
               className={`w-full px-4 py-2 border border-gray-300 ${RADIUS.button} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500`}
             />
           </div>
+
+          <p className="text-sm text-gray-600">
+            We store the message to answer your enquiry and send a notification through Resend. Read our{' '}
+            <a href="/privacy-policy" className="text-blue-600 hover:underline">Privacy Policy</a>. Please include only
+            the information needed for us to help.
+          </p>
+
+          {turnstileSiteKey && (
+            <div>
+              <p className="block text-sm font-bold text-gray-900 mb-2" id="contact-security-check">Security check</p>
+              <div aria-labelledby="contact-security-check">
+                <TurnstileWidget siteKey={turnstileSiteKey} onToken={setTurnstileToken} />
+              </div>
+            </div>
+          )}
 
           <button
             type="submit"
@@ -189,7 +209,7 @@ const ContactPage: React.FC = () => {
           <div className={`${RADIUS.card} ${SHADOWS.secondary} p-4 bg-white`}>
             <p className="font-bold text-gray-900">🛡️ Safeguarding Concerns</p>
             <a href="mailto:safeguarding@demiwuraks2.co.uk" className="text-blue-600 hover:underline">safeguarding@demiwuraks2.co.uk</a>
-            <p className="text-sm text-red-600 mt-1">24-hour response for urgent concerns</p>
+            <p className="text-sm text-red-700 mt-1">If a child is in immediate danger, call 999. Do not wait for an email response.</p>
           </div>
           <div className={`${RADIUS.card} ${SHADOWS.secondary} p-4 bg-white`}>
             <p className="font-bold text-gray-900">🔒 Privacy & Data</p>

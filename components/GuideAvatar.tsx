@@ -439,6 +439,10 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
 
           {/* Chat Input */}
           <div className={`p-4 border-t border-gray-200 bg-white rounded-b-${RADIUS.container.replace('rounded-', '')}`}>
+            <p className="text-[11px] text-gray-500 mb-2 leading-snug">
+              MiRa uses Google AI. Do not share names, contact details, school details, passwords or codes.{' '}
+              <a href="/privacy-for-children" className="text-blue-700 underline">Privacy</a>
+            </p>
             <div className="flex space-x-2">
               <input
                 ref={inputRef}

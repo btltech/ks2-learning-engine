@@ -7,12 +7,12 @@ const ParentGuide: React.FC = () => {
     <InfoPage 
       title="Parent Guide" 
       emoji="👨‍👩‍👧‍👦"
-      lastUpdated="April 11, 2026"
+      lastUpdated="August 10, 2026"
     >
       <div className="prose max-w-none">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">Supporting Your Child's Learning Journey</h2>
         <p className="text-gray-700 mb-6">
-          Welcome to KS2 Learning Engine! This guide will help you support your child's education 
+          Welcome to DemiWura! This guide will help you support your child's education
           and make the most of our platform.
         </p>
 
@@ -20,9 +20,9 @@ const ParentGuide: React.FC = () => {
           <h3 className="text-xl font-bold text-blue-900 mb-2">Quick Start</h3>
           <ol className="list-decimal pl-6 text-gray-700 space-y-1">
             <li>Create a parent account</li>
-            <li>Link your child's account using their unique code</li>
-            <li>Review the monitoring dashboard</li>
-            <li>Set learning goals and time limits (optional)</li>
+            <li>Create a separate child profile and private PIN for each learner</li>
+            <li>Give your child their name, age, your parent code and their PIN</li>
+            <li>Select a child in Parent Monitoring to review their progress</li>
           </ol>
         </div>
 
@@ -33,7 +33,7 @@ const ParentGuide: React.FC = () => {
         <ul className="list-disc pl-6 text-gray-700 space-y-2 mb-6">
           <li>Recent quiz scores and learning streaks</li>
           <li>Subject progress and mastery levels</li>
-          <li>Time spent on each subject</li>
+          <li>Recorded learning time by subject, where available</li>
           <li>Areas where your child might need extra support</li>
         </ul>
 
@@ -59,11 +59,19 @@ const ParentGuide: React.FC = () => {
           like reading books, hands-on experiments, and outdoor play.
         </p>
 
+        <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">Codes, Privacy and MiRa</h3>
+        <ul className="list-disc pl-6 text-gray-700 space-y-2 mb-6">
+          <li>Keep the parent code and each child's PIN private. Reset a PIN if it is shared accidentally.</li>
+          <li>MiRa is an AI assistant and can make mistakes. Encourage your child to check uncertain answers with an adult.</li>
+          <li>Ask your child not to type names, contact details, school information or other personal details into MiRa.</li>
+          <li>You can delete an individual child profile from Parent Monitoring or contact us about wider data requests.</li>
+        </ul>
+
         <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">Need Help?</h3>
         <p className="text-gray-700">
           Contact us at{' '}
-          <a href="mailto:parents@demiwuraks2.co.uk" className="text-blue-600 hover:underline">
-            parents@demiwuraks2.co.uk
+          <a href="mailto:support@demiwuraks2.co.uk" className="text-blue-600 hover:underline">
+            support@demiwuraks2.co.uk
           </a>
         </p>
       </div>

@@ -24,6 +24,7 @@ const Footer: React.FC<FooterProps> = () => {
           <span className="font-semibold text-white">© {currentYear} DemiWura</span>
           <div className="flex flex-wrap gap-x-3 gap-y-1">
             <button onClick={() => handleNavigation('/privacy-policy')} className="hover:text-white">Privacy</button>
+            <button onClick={() => handleNavigation('/privacy-for-children')} className="hover:text-white">Children's Privacy</button>
             <button onClick={() => handleNavigation('/terms-of-service')} className="hover:text-white">Terms</button>
             <button onClick={() => handleNavigation('/cookie-policy')} className="hover:text-white">Cookies</button>
             <button onClick={() => handleNavigation('/safeguarding')} className="hover:text-white">Safeguarding</button>

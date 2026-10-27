@@ -53,7 +53,7 @@ const FEATURES = [
 
 const STEPS = [
   { step: '1', title: 'Parent signs up free', desc: 'Takes under 1 minute. You get a unique 6-character parent code.', emoji: '👋' },
-  { step: '2', title: 'Child joins with the code', desc: 'No email needed for your child. Just their name, age and your code.', emoji: '🧒' },
+  { step: '2', title: 'Parent creates a child profile', desc: 'Choose their first name, age and private PIN. No child email is needed.', emoji: '🧒' },
   { step: '3', title: 'Start learning!', desc: 'Pick a subject, complete quizzes, earn stars and unlock games.', emoji: '🚀' },
 ];
 
@@ -218,7 +218,7 @@ const LandingPage: React.FC = () => {
             <div className="bg-white rounded-2xl border border-indigo-100 p-6 shadow-sm">
               <div className="text-2xl mb-3">🔐</div>
               <h3 className="font-bold text-gray-900 mb-2">Family-led access</h3>
-              <p className="text-sm text-gray-600">Children can use a parent code rather than needing their own email account.</p>
+              <p className="text-sm text-gray-600">Parents create each child profile and PIN; children sign in with those details and the parent code.</p>
             </div>
             <div className="bg-white rounded-2xl border border-indigo-100 p-6 shadow-sm">
               <div className="text-2xl mb-3">🎯</div>

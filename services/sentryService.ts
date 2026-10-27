@@ -1,5 +1,5 @@
 // Sentry Error Tracking Configuration
-// Captures runtime errors and sends them to Sentry dashboard
+// Captures privacy-minimised runtime errors when a production DSN is configured.
 
 import * as Sentry from '@sentry/react';
 
@@ -19,9 +19,10 @@ export const initSentry = () => {
     
     // Only send errors in production
     enabled: (import.meta as any).env.PROD,
+    sendDefaultPii: false,
     
     // Sample rate for performance monitoring (0 = disabled, 1 = 100%)
-    tracesSampleRate: 0.1, // Capture 10% of transactions for performance
+    tracesSampleRate: 0,
     
     // Filter out known non-critical errors
     beforeSend(event) {
@@ -36,36 +37,28 @@ export const initSentry = () => {
         return null;
       }
       
+      // Never attach an authenticated learner identifier, cookies, auth headers,
+      // form bodies or session-replay material to an error report.
+      delete event.user;
+      if (event.request) {
+        delete event.request.cookies;
+        delete event.request.data;
+        if (event.request.headers) {
+          delete event.request.headers.Authorization;
+          delete event.request.headers.authorization;
+          delete event.request.headers.Cookie;
+          delete event.request.headers.cookie;
+        }
+      }
       return event;
     },
-    
-    // Set user context when available
-    integrations: [
-      Sentry.browserTracingIntegration(),
-      Sentry.replayIntegration({
-        // Mask all text for privacy (good for educational apps)
-        maskAllText: true,
-        blockAllMedia: true,
-      }),
-    ],
-    
-    // Capture 1% of all sessions for replay
-    replaysSessionSampleRate: 0.01,
-    // Capture 100% of sessions with errors
-    replaysOnErrorSampleRate: 1.0,
   });
 };
 
-// Set user context for error tracking
-export const setSentryUser = (userId: string | null, role?: string) => {
-  if (userId) {
-    Sentry.setUser({ 
-      id: userId,
-      role: role || 'unknown',
-    });
-  } else {
-    Sentry.setUser(null);
-  }
+// Retain only a broad role tag; never send a learner or account identifier.
+export const setSentryUser = (_userId: string | null, role?: string) => {
+  Sentry.setUser(null);
+  Sentry.setTag('user_role', role || 'signed_out');
 };
 
 // Capture custom errors

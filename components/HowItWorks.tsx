@@ -10,12 +10,12 @@ const HowItWorks: React.FC = () => {
     <InfoPage 
       title="How It Works" 
       emoji="🎯"
-      lastUpdated="April 11, 2026"
+      lastUpdated="August 10, 2026"
     >
       <div className="prose max-w-none">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">Learn, Practice, Master</h2>
         <p className="text-gray-700 mb-6">
-          KS2 Learning Engine makes mastering the National Curriculum fun and engaging. 
+          DemiWura makes practising the KS2 curriculum fun and engaging.
           Here's how our platform works.
         </p>
 
@@ -24,7 +24,7 @@ const HowItWorks: React.FC = () => {
             <div className="text-4xl mb-3">📚</div>
             <h3 className="text-lg font-bold text-gray-900 mb-2">1. Choose Your Subject</h3>
             <p className="text-gray-700 text-sm">
-              Pick from Maths, English, Science, and 7 other subjects aligned to the UK National Curriculum.
+              Pick from 13 subject areas, including languages, with age-appropriate curriculum sequences.
             </p>
           </div>
           <div className={`${RADIUS.card} ${SHADOWS.secondary} p-6 bg-gradient-to-br from-green-50 to-teal-50`}>
@@ -38,7 +38,8 @@ const HowItWorks: React.FC = () => {
             <div className="text-4xl mb-3">🏆</div>
             <h3 className="text-lg font-bold text-gray-900 mb-2">3. Track Progress</h3>
             <p className="text-gray-700 text-sm">
-              Watch your mastery grow! Parents and teachers can monitor your journey.
+              Watch your mastery grow. Parents can see linked-child progress, and teachers can see class activity
+              after a learner joins their class.
             </p>
           </div>
         </div>
@@ -49,7 +50,7 @@ const HowItWorks: React.FC = () => {
             <span className="text-2xl mr-3">🤖</span>
             <div>
               <p className="font-bold text-gray-900">MiRa AI Tutor</p>
-              <p className="text-gray-700 text-sm">Get instant help, hints, and explanations tailored to your age.</p>
+              <p className="text-gray-700 text-sm">Get short AI-assisted hints and explanations. MiRa can make mistakes, so check uncertain answers with an adult.</p>
             </div>
           </div>
           <div className="flex items-start">
@@ -70,7 +71,7 @@ const HowItWorks: React.FC = () => {
             <span className="text-2xl mr-3">🔊</span>
             <div>
               <p className="font-bold text-gray-900">Text-to-Speech</p>
-              <p className="text-gray-700 text-sm">Every question can be read aloud with natural voices.</p>
+              <p className="text-gray-700 text-sm">Read-aloud support is available where a compatible voice or reviewed recording is provided.</p>
             </div>
           </div>
         </div>

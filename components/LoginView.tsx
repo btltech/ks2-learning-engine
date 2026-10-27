@@ -251,7 +251,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
             {mode === 'forgot' ? '🔑' : mode === 'verify' ? '📧' : '🤖'}
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">
-            {mode === 'forgot' ? 'Reset Password' : mode === 'verify' ? 'Check Your Inbox' : mode === 'login' ? 'Welcome Back!' : 'Join KS2 Learning!'}
+            {mode === 'forgot' ? 'Reset Password' : mode === 'verify' ? 'Check Your Inbox' : mode === 'login' ? 'Welcome Back!' : 'Join DemiWura!'}
           </h1>
           <p className="text-gray-600 mt-2 text-sm sm:text-base">
             {mode === 'forgot' ? "We'll send you a reset link" : mode === 'verify' ? 'One last step before you start learning' : 'Your AI-powered learning buddy'}
@@ -597,7 +597,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
 
             <div className="rounded-xl border border-purple-100 bg-purple-50 p-4">
               <p className="font-semibold text-purple-900">👨‍👩‍👧 Parent account</p>
-              <p className="mt-1 text-sm text-purple-800">Create your family account, then link a child using a parent code. Teacher and administrator access is issued securely by an existing administrator.</p>
+              <p className="mt-1 text-sm text-purple-800">Create your family account, then create each child's profile and private PIN in Parent Monitoring. Teacher and administrator access is issued securely by an existing administrator.</p>
             </div>
 
             <button

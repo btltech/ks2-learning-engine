@@ -42,6 +42,10 @@ export const sendWeeklyReports = functions.pubsub
   .schedule('0 18 * * 0') // Every Sunday at 6pm
   .timeZone('Europe/London')
   .onRun(async (_context) => {
+    if (process.env.WEEKLY_REPORTS_ENABLED !== 'true') {
+      console.log('Weekly reports are disabled');
+      return null;
+    }
     console.log('Starting weekly report generation...');
 
     try {
@@ -56,6 +60,9 @@ export const sendWeeklyReports = functions.pubsub
       for (const parentDoc of parentsSnapshot.docs) {
         const parent = parentDoc.data();
         const parentId = parentDoc.id;
+
+        // Legacy function retained for reference: never send without an explicit opt-in.
+        if (parent.weeklyReportOptIn !== true) continue;
 
         // Get linked children
         const childrenSnapshot = await db
@@ -181,7 +188,7 @@ async function sendParentEmail(
   const htmlContent = generateEmailHTML(parentName, childReports);
 
   const mailOptions = {
-    from: '"KS2 Learning Engine" <noreply@demiwuraks2.co.uk>',
+    from: '"DemiWura" <noreply@demiwuraks2.co.uk>',
     to: email,
     subject: '📚 Weekly Learning Report - Your Child\'s Progress',
     html: htmlContent,
@@ -285,7 +292,7 @@ function generateEmailHTML(
         <div style="text-align: center; padding: 24px; color: #6b7280; font-size: 14px;">
           <p>Keep track of your child's progress at <a href="https://demiwuraks2.co.uk" style="color: #3b82f6;">demiwuraks2.co.uk</a></p>
           <p style="margin-top: 16px; font-size: 12px;">
-            You're receiving this email because you're a registered parent on KS2 Learning Engine.<br>
+            You're receiving this email because you opted in to weekly reports from DemiWura.<br>
             To unsubscribe, please update your settings in the app.
           </p>
         </div>
@@ -306,6 +313,9 @@ export const sendTestWeeklyReport = functions.https.onCall(async (data, context)
   }
 
   const parentId = data.parentId || context.auth.uid;
+  if (parentId !== context.auth.uid && context.auth.token?.admin !== true) {
+    throw new functions.https.HttpsError('permission-denied', 'You may only send a test report to your own account');
+  }
 
   // Get parent data
   const parentDoc = await db.collection('users').doc(parentId).get();
@@ -316,6 +326,9 @@ export const sendTestWeeklyReport = functions.https.onCall(async (data, context)
   const parent = parentDoc.data();
   if (!parent?.isParent) {
     throw new functions.https.HttpsError('permission-denied', 'User is not a parent');
+  }
+  if (parent.weeklyReportOptIn !== true) {
+    throw new functions.https.HttpsError('failed-precondition', 'Weekly reports are not enabled for this parent');
   }
 
   // Get linked children
