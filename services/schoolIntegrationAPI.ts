@@ -1,6 +1,6 @@
 /**
  * School Integration API
- * Connects KS2 Learning Engine with school information systems
+ * Connects DemiWura with school information systems
  * Supports data sync, SSO, and webhooks
  */
 
@@ -250,7 +250,7 @@ class SchoolIntegrationAPI {
    */
   public generateApiDocs(): string {
     return `
-# KS2 Learning Engine - School Integration API
+# DemiWura - School Integration API
 
 ## Base URL
 \`https://api.ks2learning.com/${this.API_VERSION}\`

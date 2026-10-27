@@ -130,6 +130,10 @@ const ParentDashboard: React.FC<ParentDashboardProps> = ({ onClose }) => {
           </div>
 
           {/* MiRa Reports */}
+          <p className="text-sm text-gray-600 bg-blue-50 border border-blue-100 rounded-lg p-3">
+            AI reports send limited age and learning summaries to Google Gemini without the child's name. AI may make mistakes;
+            review a report before acting on it. <a href="/privacy-policy" className="text-blue-700 underline">Privacy details</a>
+          </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="bg-white p-6 rounded-xl border border-gray-200">
               <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">

@@ -89,19 +89,6 @@ export default defineConfig(({ mode }) => {
                 handler: 'NetworkOnly',
               },
               {
-                // Cache Firebase Firestore data (uses auth tokens, not URL keys)
-                urlPattern: /^https:\/\/firestore\.googleapis\.com\/.*/i,
-                handler: 'NetworkFirst',
-                options: {
-                  cacheName: 'firestore-cache',
-                  expiration: {
-                    maxEntries: 200,
-                    maxAgeSeconds: 60 * 60 * 24, // 1 day
-                  },
-                  networkTimeoutSeconds: 10,
-                },
-              },
-              {
                 // Cache static assets from CDNs
                 urlPattern: /^https:\/\/fonts\.(?:googleapis|gstatic)\.com\/.*/i,
                 handler: 'CacheFirst',
@@ -116,8 +103,8 @@ export default defineConfig(({ mode }) => {
             ],
           },
           manifest: {
-            name: 'KS2 Learning Engine',
-            short_name: 'KS2 Learn',
+            name: 'DemiWura KS2 Learning',
+            short_name: 'DemiWura',
             description: 'AI-powered learning companion for KS2 students',
             theme_color: '#3b82f6',
             background_color: '#ffffff',

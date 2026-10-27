@@ -462,7 +462,11 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
               </div>
             ) : (
               <div className="space-y-6">
-                <p className="text-gray-600">Reports use {selectedChild.name}'s saved quiz and mastery data. Generation only runs when you choose a report below.</p>
+                <p className="text-gray-600">
+                  Reports send limited age, quiz and mastery summaries to Google Gemini without the child's name. Generation
+                  only runs when you choose a report. Review AI output before acting on it.{' '}
+                  <a href="/privacy-policy" className="text-blue-700 underline">Privacy details</a>
+                </p>
                 {reportError && <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-red-800" role="alert">{reportError}</div>}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <button

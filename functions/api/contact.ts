@@ -177,6 +177,7 @@ async function getGoogleAccessToken(serviceAccount: { client_email: string; priv
 
 async function saveToFirestore(projectId: string, accessToken: string, data: ContactData): Promise<void> {
   const url = `https://firestore.googleapis.com/v1/projects/${encodeURIComponent(projectId)}/databases/(default)/documents/contactSubmissions`;
+  const expiresAt = new Date(data.submittedAt + 365 * 24 * 60 * 60 * 1000).toISOString();
   const response = await fetch(url, {
     method: 'POST',
     headers: { Authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
@@ -188,6 +189,7 @@ async function saveToFirestore(projectId: string, accessToken: string, data: Con
         subject: { stringValue: data.subject },
         message: { stringValue: data.message },
         submittedAt: { integerValue: String(data.submittedAt) },
+        expiresAt: { timestampValue: expiresAt },
         status: { stringValue: data.status },
       },
     }),

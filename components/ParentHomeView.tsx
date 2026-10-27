@@ -139,9 +139,9 @@ export const ParentHomeView: React.FC<ParentHomeViewProps> = ({
             <div className="flex items-center gap-3">
               <span className="text-2xl">👋</span>
               <div>
-                <h3 className="font-semibold text-yellow-800">No child linked yet</h3>
+                <h3 className="font-semibold text-yellow-800">No child profile yet</h3>
                 <p className="text-yellow-700 text-sm">
-                  Share your parent code with your child's account to link them.
+                  Open Parent Monitoring to create the child's profile and private PIN.
                   Your parent code: <span className="font-mono font-bold">{user?.parentCode || 'N/A'}</span>
                 </p>
               </div>
@@ -162,19 +162,19 @@ export const ParentHomeView: React.FC<ParentHomeViewProps> = ({
           <div>
             <p className="text-xs uppercase tracking-wide text-purple-600 font-bold mb-1">Next best action</p>
             <h2 className="text-xl font-bold text-gray-800">
-              {currentChild ? `Check what ${currentChild.name} should practise next` : 'Invite your first learner'}
+              {currentChild ? `Check what ${currentChild.name} should practise next` : 'Create your first learner profile'}
             </h2>
             <p className="text-sm text-gray-600 mt-1">
               {currentChild
                 ? 'Review recent scores, streaks, and subject gaps before recommending practice.'
-                : 'Share your parent code so your child can start learning and appear in this dashboard.'}
+                : 'Create the child profile and PIN, then use them with your parent code at child sign-in.'}
             </p>
           </div>
           <button
             onClick={onOpenParentMonitoring}
             className="bg-purple-600 text-white px-5 py-3 rounded-lg hover:bg-purple-700 transition-colors font-bold"
           >
-            {currentChild ? 'Open Monitoring' : 'Show Parent Code'}
+            {currentChild ? 'Open Monitoring' : 'Create Child Profile'}
           </button>
         </div>
       </div>

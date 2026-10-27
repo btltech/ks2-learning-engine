@@ -7,7 +7,7 @@ const HelpCenter: React.FC = () => {
     <InfoPage 
       title="Help Center" 
       emoji="💬"
-      lastUpdated="April 11, 2026"
+      lastUpdated="August 10, 2026"
     >
       <div className="prose max-w-none">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">We're Here to Help</h2>
@@ -31,46 +31,75 @@ const HelpCenter: React.FC = () => {
           <details className={`${RADIUS.card} bg-white p-4 shadow-sm`}>
             <summary className="font-bold text-gray-900 cursor-pointer">How do I create a student account?</summary>
             <p className="text-gray-700 mt-2">
-              Parents or teachers need to create an account first, then generate a unique code for each child. 
-              Students use this code to create their profile.
+              A parent creates the child profile from the Parent Dashboard and chooses a private 4–6 digit PIN.
+              The child then signs in with the same first name and age, the parent's six-character code, and that PIN.
+              Children do not need an email address.
             </p>
           </details>
 
           <details className={`${RADIUS.card} bg-white p-4 shadow-sm`}>
-            <summary className="font-bold text-gray-900 cursor-pointer">How do I link my child to my parent account?</summary>
+            <summary className="font-bold text-gray-900 cursor-pointer">Where do I find my parent code and child PIN?</summary>
             <p className="text-gray-700 mt-2">
-              In your Parent Dashboard, click "Link Child" and enter the unique code shown in your child's account 
-              (found in their Settings page).
+              Your parent code appears in the Parent Dashboard. The PIN is shown once when you create it, so save it
+              privately. If it is lost, select the child in the dashboard and set a new PIN. Never post either code publicly.
             </p>
           </details>
 
           <details className={`${RADIUS.card} bg-white p-4 shadow-sm`}>
             <summary className="font-bold text-gray-900 cursor-pointer">Can multiple children use one account?</summary>
             <p className="text-gray-700 mt-2">
-              No. Each child should have their own account to track individual progress accurately. 
-              Parents can link multiple children to one parent account.
+              One parent account can manage several child profiles. Give each child their own profile and PIN so their
+              progress, rewards and recommendations remain separate.
+            </p>
+          </details>
+
+          <details className={`${RADIUS.card} bg-white p-4 shadow-sm`}>
+            <summary className="font-bold text-gray-900 cursor-pointer">How does a child join a teacher's class?</summary>
+            <p className="text-gray-700 mt-2">
+              The teacher shares a six-character class code. After the child signs in through their parent-managed
+              profile, they can enter that class code in My Class. A class code does not replace the parent code and PIN.
+            </p>
+          </details>
+
+          <details className={`${RADIUS.card} bg-white p-4 shadow-sm`}>
+            <summary className="font-bold text-gray-900 cursor-pointer">How does a teacher get access?</summary>
+            <p className="text-gray-700 mt-2">
+              Teacher access is issued by a DemiWura administrator after the account and role have been checked.
+              Public registration creates parent accounts only. Contact support if your school needs teacher access.
             </p>
           </details>
 
           <details className={`${RADIUS.card} bg-white p-4 shadow-sm`}>
             <summary className="font-bold text-gray-900 cursor-pointer">Is the content aligned with the National Curriculum?</summary>
             <p className="text-gray-700 mt-2">
-              Yes! All content is mapped to UK National Curriculum objectives for Key Stage 2 (ages 7-11).
+              Core and foundation subject sequences are designed around KS2 curriculum expectations. Language and
+              enrichment material follows age-appropriate learning sequences. Coverage and individual questions are
+              reviewed continuously, so please report anything unclear or inaccurate.
             </p>
           </details>
 
           <details className={`${RADIUS.card} bg-white p-4 shadow-sm`}>
             <summary className="font-bold text-gray-900 cursor-pointer">How does MiRa the AI tutor work?</summary>
             <p className="text-gray-700 mt-2">
-              MiRa uses AI to provide age-appropriate hints, explanations, and encouragement. 
-              All interactions are monitored for safety and appropriateness.
+              MiRa sends the child's question and relevant learning context to Google Gemini to provide short hints and
+              explanations. Automated safety checks are applied, but AI can still make mistakes. Children should not enter
+              personal information and should ask a trusted adult if an answer seems wrong or worrying.
             </p>
           </details>
 
           <details className={`${RADIUS.card} bg-white p-4 shadow-sm`}>
             <summary className="font-bold text-gray-900 cursor-pointer">Can I use this offline?</summary>
             <p className="text-gray-700 mt-2">
-              Some features work offline, but quizzes and AI assistance require an internet connection.
+              Previously cached pages and some device-only activities may remain available offline. Signing in, syncing
+              progress, loading uncached content, classroom features and MiRa require an internet connection.
+            </p>
+          </details>
+
+          <details className={`${RADIUS.card} bg-white p-4 shadow-sm`}>
+            <summary className="font-bold text-gray-900 cursor-pointer">How do I remove a child profile or request account deletion?</summary>
+            <p className="text-gray-700 mt-2">
+              Parents can delete a child profile from Parent Monitoring. To close an adult account or make a wider data
+              request, use the Contact page or email privacy@demiwuraks2.co.uk. We may need to verify your identity first.
             </p>
           </details>
         </div>
@@ -79,7 +108,7 @@ const HelpCenter: React.FC = () => {
         <div className={`bg-green-50 border-l-4 border-green-500 ${RADIUS.card} p-4`}>
           <p className="font-bold text-green-900">Need More Help?</p>
           <p className="text-gray-700 mt-2">Email us at: <a href="mailto:support@demiwuraks2.co.uk" className="text-blue-600 hover:underline">support@demiwuraks2.co.uk</a></p>
-          <p className="text-gray-700 text-sm mt-1">We typically respond within 24 hours (Monday-Friday).</p>
+          <p className="text-gray-700 text-sm mt-1">We aim to reply within two working days. Complex requests may take longer.</p>
         </div>
       </div>
     </InfoPage>

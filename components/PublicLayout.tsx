@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { GRADIENTS, SHADOWS, RADIUS } from '../constants';
 import { CookieBanner } from './CookieBanner';
 import Footer from './Footer';
+import { SkipToMainContent } from './SkipToMainContent';
 
 interface PublicLayoutProps {
   children: React.ReactNode;
@@ -17,6 +18,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
+      <SkipToMainContent />
       {/* Simple Header */}
       <header className={`bg-gradient-to-r ${GRADIENTS.primary} ${SHADOWS.large} sticky top-0 z-50`}>
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
@@ -45,7 +47,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
       </header>
 
       {/* Main Content */}
-      <main className="flex-grow w-full">
+      <main id="main-content" className="flex-grow w-full">
         {children}
       </main>
 
