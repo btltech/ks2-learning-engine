@@ -18,6 +18,13 @@ import {
   type EncouragementCategory,
 } from './encouragementAudio';
 import {
+  hasLanguageAudioFor,
+  pauseLanguageAudio,
+  playLanguageAudio,
+  resumeLanguageAudio,
+  stopLanguageAudio,
+} from './languageAudio';
+import {
   isKokoroSpeaking,
   pauseKokoro,
   resumeKokoro,
@@ -372,6 +379,11 @@ export const speakPronunciation = async (
   text: string, 
   language: string = 'English'
 ): Promise<void> => {
+  // French/Spanish words: use the pre-generated Kokoro recording when one exists.
+  if (hasLanguageAudioFor(language)) {
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) window.speechSynthesis.cancel();
+    if (await playLanguageAudio(text, language, 0.9)) return;
+  }
   if (await speakWithKokoro([text], language, 'pronunciation')) return;
 
   if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
@@ -405,6 +417,7 @@ export const speakPronunciation = async (
 export const stopSpeaking = (): void => {
   stopEncouragementAudio();
   stopKokoro();
+  stopLanguageAudio();
   
   // Stop Web Speech API
   if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
@@ -418,6 +431,7 @@ export const stopSpeaking = (): void => {
 export const pauseSpeaking = (): void => {
   pauseEncouragementAudio();
   pauseKokoro();
+  pauseLanguageAudio();
   if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
     window.speechSynthesis.pause();
   }
@@ -429,6 +443,7 @@ export const pauseSpeaking = (): void => {
 export const resumeSpeaking = (): void => {
   resumeEncouragementAudio();
   resumeKokoro();
+  resumeLanguageAudio();
   if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
     window.speechSynthesis.resume();
   }

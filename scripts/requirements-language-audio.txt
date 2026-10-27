@@ -1,0 +1,7 @@
+# Offline French/Spanish audio generation (scripts/generate-language-audio.py).
+# kokoro 0.9.x needs Python 3.10-3.12. Also install espeak-ng (apt install espeak-ng /
+# brew install espeak-ng) and ffmpeg; Kokoro uses espeak-ng for French and Spanish.
+kokoro>=0.9.4
+misaki[en]>=0.9.4
+soundfile
+numpy

@@ -18,3 +18,24 @@ The CSP only allows `'self'`, so the model is served from our own origin, not hu
 3. Local dev has no Pages Functions: run `node scripts/upload-kokoro-model-r2.mjs --download-only`, serve that folder, and set `VITE_KOKORO_MODEL_BASE` to it (the folder must be exposed as `<base>/v1.0/...`).
 
 Confirm the model licence before shipping (the ONNX repo metadata says Apache-2.0).
+
+## Pre-generated French and Spanish audio
+
+`kokoro-js` can't speak French/Spanish in the browser, so word and phrase pronunciation is generated offline with the Python Kokoro package and served as MP3s, like the Yorùbá pack.
+
+What is covered: the vocabulary in `services/phoneticsService.ts` plus the options/answers of the French and Spanish question-bank topics (84 entries, 54 French and 30 Spanish). Sentences written by Gemini at runtime are not covered and still use browser speech.
+
+```bash
+node scripts/build-language-audio-manifest.mjs          # -> data/audio/language-audio-manifest.json (committed)
+python3.12 -m venv .venv && . .venv/bin/activate         # kokoro 0.9.x needs Python 3.10-3.12
+pip install -r scripts/requirements-language-audio.txt   # also needs espeak-ng and ffmpeg installed
+python3 scripts/generate-language-audio.py               # -> audio/languages/kokoro-82m-v1.0/*.mp3 (gitignored)
+# LISTEN to the files, ideally with a French / Spanish speaker. generation-report.json lists automatic flags.
+node scripts/upload-language-audio-r2.mjs                # or: --approved-ids id1,id2,...
+```
+
+Voices: French `ff_siwis` (the only French voice), Spanish `ef_dora`; speed 0.9. To change a voice or the word list, edit `scripts/build-language-audio-manifest.mjs`; hashes change with the voice/text, so only changed entries are regenerated.
+
+At runtime `naturalTTS.speakPronunciation()` asks `services/languageAudio.ts` for a recording (`/api/language-audio`, served from R2 by `functions/api/language-audio.ts`) and falls back to browser speech when there isn't one, e.g. before the audio is uploaded.
+
+Review notes: some question-bank options are deliberate wrong answers (e.g. "Si" as a distractor for "sí"). They get recordings too; remove them from the manifest if you'd rather not have them spoken.
