@@ -1,0 +1,29 @@
+{
+  "browser": "Google Chrome for Testing",
+  "data": "synthetic local review fixture",
+  "viewports": [1280, 390],
+  "devicePixelRatio": 2,
+  "phone": {
+    "documentWidth": 390,
+    "scrollWidth": 390,
+    "visibleInteractiveTargetsBelow48px": 0,
+    "measuredCardOrControlOverflow": 0
+  },
+  "uiSettingsCombined": {
+    "rootClasses": ["reduce-motion", "sunny-high-contrast", "sunny-large-text"],
+    "bodyFontSize": "21.6px",
+    "runningAnimations": 0
+  },
+  "legacySettingsCombined": {
+    "rootClasses": ["high-contrast", "large-text", "reduce-motion"],
+    "bodyFontSize": "25.92px",
+    "dailyChallengeButtonText": "rgb(255, 255, 255)",
+    "dailyChallengeButtonBackground": "rgb(0, 0, 0)",
+    "runningAnimations": 0
+  },
+  "osReducedMotion": {
+    "mediaQueryMatched": true,
+    "appReducedMotionClass": false,
+    "runningAnimations": 0
+  }
+}

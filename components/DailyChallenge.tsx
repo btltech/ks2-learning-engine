@@ -4,6 +4,8 @@
  * Displays the daily challenge and achievements on the home screen
  */
 
+import { KidCard } from './sunny/KidCard';
+import { SubjectIcon } from './sunny/SubjectIcon';
 import React, { useState, useEffect } from 'react';
 import { dailyChallengeService, DailyChallenge, Achievement } from '../services/dailyChallengeService';
 import { useUser } from '../context/UserContext';
@@ -11,9 +13,10 @@ import { useModalAccessibility } from '../hooks/useModalAccessibility';
 
 interface DailyChallengeCardProps {
   onStartChallenge: (challenge: DailyChallenge) => void;
+  sunny?: boolean;
 }
 
-export const DailyChallengeCard: React.FC<DailyChallengeCardProps> = ({ onStartChallenge }) => {
+export const DailyChallengeCard: React.FC<DailyChallengeCardProps> = ({ onStartChallenge, sunny = false }) => {
   const { currentChild } = useUser();
   const [challenge, setChallenge] = useState<DailyChallenge | null>(null);
   const [newAchievements, setNewAchievements] = useState<Achievement[]>([]);
@@ -43,7 +46,7 @@ export const DailyChallengeCard: React.FC<DailyChallengeCardProps> = ({ onStartC
   if (challenge.isCompleted) {
     return (
       <div
-        className="mb-4 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-emerald-900 shadow-sm"
+        className={`${sunny ? 'sunny-daily-complete' : ''} mb-4 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-emerald-900 shadow-sm`}
         role="status"
         aria-label={`Daily challenge complete. Score ${challenge.scoreAchieved || 0} percent.`}
       >
@@ -61,8 +64,10 @@ export const DailyChallengeCard: React.FC<DailyChallengeCardProps> = ({ onStartC
     );
   }
 
+  const Card = sunny ? KidCard : 'div';
   return (
-    <div className="bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl mobile-lg:rounded-3xl p-5 sm:p-6 text-white shadow-lg touch-only-shadow mb-6">
+    <Card {...(sunny ? { tint: 'gold' as const } : {})} className={`${sunny ? 'sunny-daily-challenge' : ''} bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl mobile-lg:rounded-3xl p-5 sm:p-6 text-white shadow-lg touch-only-shadow mb-6`}>
+      {sunny && <SubjectIcon name="chest" size={100} className="sunny-challenge-chest" />}
       <div className="flex items-start justify-between">
         <div>
           <div className="flex items-center gap-2 mb-2">
@@ -109,7 +114,7 @@ export const DailyChallengeCard: React.FC<DailyChallengeCardProps> = ({ onStartC
           }}
         />
       )}
-    </div>
+    </Card>
   );
 };
 
