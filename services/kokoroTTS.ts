@@ -53,6 +53,8 @@ let context: AudioContext | null = null;
 let activeSource: AudioBufferSourceNode | null = null;
 let activeFinish: (() => void) | null = null;
 let playToken = 0;
+let sentenceGapTimer: ReturnType<typeof setTimeout> | null = null;
+let finishSentenceGap: (() => void) | null = null;
 
 const readEnabled = (): boolean => {
   try {
@@ -215,7 +217,14 @@ const playSamples = (samples: Float32Array, sampleRate: number): Promise<void> =
     source.start();
   });
 
-const sleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
+const sentenceGap = () => new Promise<void>((resolve) => {
+  const finish = () => {
+    if (finishSentenceGap === finish) { sentenceGapTimer = null; finishSentenceGap = null; }
+    resolve();
+  };
+  finishSentenceGap = finish;
+  sentenceGapTimer = setTimeout(finish, SENTENCE_GAP_MS);
+});
 
 /**
  * Speak pre-split sentences with Kokoro. Resolves true if speech was produced
@@ -242,11 +251,12 @@ export const speakWithKokoro = async (
     upcoming = generate(sentences[0], style);
     await upcoming;
   } catch {
-    return false;
+    return token !== playToken;
   }
 
   try {
     for (let i = 0; i < sentences.length; i++) {
+      if (token !== playToken) return true;
       const audio = await upcoming;
       if (token !== playToken) return true;
       if (i + 1 < sentences.length) {
@@ -256,7 +266,7 @@ export const speakWithKokoro = async (
       }
       await playSamples(audio.samples, audio.sampleRate);
       if (token !== playToken) return true;
-      if (i + 1 < sentences.length) await sleep(SENTENCE_GAP_MS);
+      if (i + 1 < sentences.length) await sentenceGap();
     }
   } catch {
     // Mid-speech failure: the first sentence already played, so don't double-speak via fallback.
@@ -266,6 +276,14 @@ export const speakWithKokoro = async (
 
 export const stopKokoro = (): void => {
   playToken++;
+  if (sentenceGapTimer !== null) clearTimeout(sentenceGapTimer);
+  sentenceGapTimer = null;
+  const settleGap = finishSentenceGap;
+  finishSentenceGap = null;
+  settleGap?.();
+  // Discard generated/prefetched audio and its timeouts, keeping the model loaded.
+  pending.forEach(({ reject }) => reject(new Error('Kokoro playback stopped')));
+  pending.clear();
   const finish = activeFinish;
   try {
     activeSource?.stop();
@@ -278,7 +296,7 @@ export const stopKokoro = (): void => {
 };
 
 export const pauseKokoro = (): void => {
-  if (activeSource && context?.state === 'running') void context.suspend();
+  if (context?.state === 'running') void context.suspend();
 };
 
 export const resumeKokoro = (): void => {

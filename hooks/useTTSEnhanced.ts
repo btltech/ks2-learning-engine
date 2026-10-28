@@ -46,21 +46,29 @@ export const useTTSEnhanced = (language?: string, _options?: Record<string, unkn
   const [progress, setProgress] = useState<number | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [needsGesture, setNeedsGesture] = useState(false);
-  const cancelTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const generationRef = useRef(0);
 
-  useEffect(() => {
-    return () => {
-      if (cancelTimerRef.current) {
-        clearTimeout(cancelTimerRef.current);
-      }
-      stopSpeaking();
-    };
+  const cancel = useCallback(() => {
+    generationRef.current++;
+    stopSpeaking();
+    stopYorubaAudio();
+    setIsSpeaking(false);
+    setIsPaused(false);
+    setIsLoading(false);
+    setProgress(null);
+    setErrorMessage(null);
+    setNeedsGesture(false);
   }, []);
+
+  useEffect(() => () => cancel(), [cancel, language]);
 
   const speak = useCallback(async (text: string, options?: { 
     celebratory?: boolean; 
     asMiRa?: boolean 
   }) => {
+    const generation = ++generationRef.current;
+    stopSpeaking();
+    stopYorubaAudio();
     const { label } = resolveLocale(language);
     const cleanText = text.replace(/[*#_`]/g, '');
 
@@ -79,6 +87,7 @@ export const useTTSEnhanced = (language?: string, _options?: Record<string, unkn
       // normal TTS fallback below.
       if (label === 'Yoruba') {
         const played = await playYorubaAudio(cleanText);
+        if (generation !== generationRef.current) return;
         if (played) {
           setProgress(100);
           setIsLoading(false);
@@ -99,12 +108,14 @@ export const useTTSEnhanced = (language?: string, _options?: Record<string, unkn
         await speakNaturally(cleanText, label);
       }
       
+      if (generation !== generationRef.current) return;
       setProgress(100);
       setIsLoading(false);
       setIsSpeaking(false);
       setIsPaused(false);
       setProgress(null);
     } catch (error) {
+      if (generation !== generationRef.current) return;
       console.error('TTS error:', error);
       if (error instanceof DOMException && error.name === 'NotAllowedError') {
         setNeedsGesture(true);
@@ -123,7 +134,7 @@ export const useTTSEnhanced = (language?: string, _options?: Record<string, unkn
       if (resolveLocale(language).label === 'Yoruba') pauseYorubaAudio();
       setIsPaused(true);
     }
-  }, [isSpeaking, isPaused]);
+  }, [isSpeaking, isPaused, language]);
 
   const resume = useCallback(() => {
     if (isSpeaking && isPaused) {
@@ -131,22 +142,7 @@ export const useTTSEnhanced = (language?: string, _options?: Record<string, unkn
       if (resolveLocale(language).label === 'Yoruba') resumeYorubaAudio();
       setIsPaused(false);
     }
-  }, [isSpeaking, isPaused]);
-
-  const cancel = useCallback(() => {
-    if (cancelTimerRef.current) {
-      clearTimeout(cancelTimerRef.current);
-      cancelTimerRef.current = null;
-    }
-    stopSpeaking();
-    stopYorubaAudio();
-
-    setIsSpeaking(false);
-    setIsPaused(false);
-    setProgress(null);
-    setErrorMessage(null);
-    setNeedsGesture(false);
-  }, []);
+  }, [isSpeaking, isPaused, language]);
 
   return {
     speak,
