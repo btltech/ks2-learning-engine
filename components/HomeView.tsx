@@ -171,7 +171,8 @@ const HomeView: React.FC<HomeViewProps> = ({
       </div>
 
       {/* Tab Content */}
-      <div id="home-tabpanel" role="tabpanel" tabIndex={0} aria-labelledby={`home-tab-${activeTab}`} className="min-h-[400px]">
+      <div id="home-tabpanel" className="min-h-[400px]">
+        <div id="home-tabpanel-learn" role="tabpanel" tabIndex={0} aria-labelledby="home-tab-learn" hidden={activeTab !== 'learn'}>
         {activeTab === 'learn' && (
           <div className="space-y-6 animate-fadeIn">
             {user?.role === 'student' && (
@@ -288,6 +289,8 @@ const HomeView: React.FC<HomeViewProps> = ({
           </div>
         )}
 
+        </div>
+        <div id="home-tabpanel-play" role="tabpanel" tabIndex={0} aria-labelledby="home-tab-play" hidden={activeTab !== 'play'}>
         {activeTab === 'play' && (
           <div className="space-y-6 animate-fadeIn">
             {/* Fun Activities */}
@@ -376,6 +379,8 @@ const HomeView: React.FC<HomeViewProps> = ({
           </div>
         )}
 
+        </div>
+        <div id="home-tabpanel-progress" role="tabpanel" tabIndex={0} aria-labelledby="home-tab-progress" hidden={activeTab !== 'progress'}>
         {activeTab === 'progress' && (
           <div className="space-y-6 animate-fadeIn">
             {/* Streak Display */}
@@ -444,6 +449,7 @@ const HomeView: React.FC<HomeViewProps> = ({
             </SectionCard>
           </div>
         )}
+        </div>
       </div>
     </div>
   );
@@ -461,11 +467,25 @@ const TabButton: React.FC<TabButtonProps> = ({ active, onClick, icon, label }) =
   <button
     type="button"
     onClick={onClick}
+    onFocus={onClick}
+    onKeyDown={(event) => {
+      if (event.altKey || event.ctrlKey || event.metaKey) return;
+      const directions = ['ArrowLeft', 'ArrowRight', 'Home', 'End'];
+      if (!directions.includes(event.key)) return;
+      const tabs = Array.from(event.currentTarget.closest('[role="tablist"]')?.querySelectorAll<HTMLButtonElement>('[role="tab"]') || []);
+      const index = tabs.indexOf(event.currentTarget);
+      if (index < 0) return;
+      event.preventDefault();
+      const nextIndex = event.key === 'Home' ? 0
+        : event.key === 'End' ? tabs.length - 1
+        : (index + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+      tabs[nextIndex].focus();
+    }}
     role="tab"
     id={`home-tab-${label.toLowerCase()}`}
     aria-label={label}
     aria-selected={active}
-    aria-controls="home-tabpanel"
+    aria-controls={`home-tabpanel-${label.toLowerCase()}`}
     tabIndex={active ? 0 : -1}
     className={`flex items-center gap-2 px-5 py-2.5 ${RADIUS.button} font-semibold text-sm transition-all motion-safe:hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 ${
       active
