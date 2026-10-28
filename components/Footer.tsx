@@ -8,9 +8,10 @@ const AccessibilitySettingsModal = lazy(() => import('./AccessibilitySettings').
 
 interface FooterProps {
   userRole?: 'student' | 'teacher' | 'parent' | 'admin';
+  variant?: 'default' | 'sunny';
 }
 
-const Footer: React.FC<FooterProps> = () => {
+const Footer: React.FC<FooterProps> = ({ variant = 'default' }) => {
   const navigate = useNavigate();
   const [showFeedback, setShowFeedback] = useState(false);
   const [showAccessibilitySettings, setShowAccessibilitySettings] = useState(false);
@@ -23,9 +24,9 @@ const Footer: React.FC<FooterProps> = () => {
 
   return (
     <>
-      <footer className={`bg-gradient-to-r ${GRADIENTS.primary} text-white w-full`}>
+      <footer className={variant === 'sunny' ? 'sunny-ui sunny-landing-footer' : `bg-gradient-to-r ${GRADIENTS.primary} text-white w-full`}>
         <div className="max-w-7xl mx-auto px-4 py-2 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 text-xs text-white/80">
-          <span className="flex items-center gap-2 font-semibold text-white">© {currentYear} <OwlLogo height={24} sticker /></span>
+          <span className="flex items-center gap-2 font-semibold text-white">© {currentYear} <OwlLogo height={variant === 'sunny' ? 48 : 24} sticker={variant !== 'sunny'} /></span>
           <div className="flex flex-wrap gap-x-3 gap-y-1">
             <button onClick={() => handleNavigation('/privacy-policy')} className="hover:text-white">Privacy</button>
             <button onClick={() => handleNavigation('/privacy-for-children')} className="hover:text-white">Children's Privacy</button>
