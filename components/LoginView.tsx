@@ -290,6 +290,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
             type="button"
             onClick={() => { setMode('login'); setError(null); setSuccessMessage(null); }}
             data-active={mode === 'login'}
+            aria-pressed={mode === 'login'}
             className={`flex-1 py-2 rounded-md text-sm font-medium transition-all ${
               mode === 'login' 
                 ? 'bg-white shadow text-blue-600' 
@@ -302,6 +303,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
             type="button"
             onClick={() => { setMode('register'); setLoginAs('parent'); setError(null); setSuccessMessage(null); }}
             data-active={mode === 'register'}
+            aria-pressed={mode === 'register'}
             className={`flex-1 py-2 rounded-md text-sm font-medium transition-all ${
               mode === 'register' 
                 ? 'bg-white shadow text-purple-600' 
@@ -391,6 +393,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
                 type="button"
                 onClick={() => { setLoginAs('parent'); setError(null); setSuccessMessage(null); setTurnstileToken(''); }}
                 data-active={loginAs === 'parent'}
+                aria-pressed={loginAs === 'parent'}
                 className={`flex-1 py-2 rounded-md text-sm font-medium transition-all ${
                   loginAs === 'parent'
                     ? 'bg-white shadow text-purple-600'
@@ -403,6 +406,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
                 type="button"
                 onClick={() => { setLoginAs('child'); setError(null); setSuccessMessage(null); setTurnstileToken(''); }}
                 data-active={loginAs === 'child'}
+                aria-pressed={loginAs === 'child'}
                 className={`flex-1 py-2 rounded-md text-sm font-medium transition-all ${
                   loginAs === 'child'
                     ? 'bg-white shadow text-blue-600'
@@ -440,6 +444,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
                         type="button"
                         onClick={() => setAge(ageOption)}
                         data-active={age === ageOption}
+                        aria-pressed={age === ageOption}
                         className={`p-3 rounded-lg border-2 transition-all text-center font-bold ${
                           age === ageOption
                             ? 'border-blue-500 bg-blue-50 text-blue-700'
@@ -477,7 +482,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
                     required
                     autoComplete="off"
                   />
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="sunny-pin-help text-xs text-gray-500 mt-1">
                     Use the private PIN your parent created for your profile.
                   </p>
                 </div>

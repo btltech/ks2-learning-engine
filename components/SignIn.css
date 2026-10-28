@@ -64,8 +64,7 @@
 .sunny-sign-in-emblem { display: none; }
 .sunny-sign-in :is(.sunny-auth-tabs, .sunny-login-type) { display: flex; gap: 10px; padding: 0; background: transparent; }
 .sunny-sign-in :is(.sunny-auth-tabs, .sunny-login-type) button { flex: 1 1 0; padding: 10px 8px; min-height: 56px; }
-.sunny-sign-in .sunny-auth-tabs button[data-active='true'], .sunny-sign-in button[type='submit'] { background: #1E55C8; color: #fff; }
-.sunny-sign-in .sunny-login-type button[data-active='true'] { background: var(--signin-gold); }
+.sunny-sign-in button[type='submit'] { background: #1E55C8; color: #fff; }
 .sunny-sign-in button[type='submit'] { min-height: 56px; font-size: 1.1875rem; }
 .sunny-sign-in[data-mode='login'][data-login-as='child'] button[type='submit'] { background: var(--signin-gold); color: var(--signin-ink); }
 .sunny-sign-in .relative input { padding-right: 88px; }
@@ -81,7 +80,8 @@
 .sunny-sign-in .sunny-age-options button:nth-child(3) { background: var(--signin-sky); }
 .sunny-sign-in .sunny-age-options button:nth-child(4) { background: var(--signin-pink); }
 .sunny-sign-in .sunny-age-options button:nth-child(5) { background: var(--signin-leaf); }
-.sunny-sign-in .sunny-age-options button[data-active='true'] { outline: 3px solid var(--signin-outline); outline-offset: 2px; text-decoration: underline; text-underline-offset: 4px; }
+.sunny-sign-in :is(.sunny-auth-tabs, .sunny-login-type, .sunny-age-options) button[aria-pressed='true'] { background: var(--signin-gold); color: var(--signin-ink); border-width: 4px; }
+.sunny-sign-in .sunny-pin-help { line-height: 1.5; margin-top: .5rem; }
 /* Parent management stays white and calm; only the child choices become picture cards. */
 .sunny-child-selector { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; border: 3px solid var(--signin-outline); border-radius: 28px; padding: 28px; box-shadow: 0 6px 0 var(--signin-outline); background: var(--signin-paper); }
 .sunny-child-selector > * { grid-column: 1 / -1; min-width: 0; margin-block: 0; }

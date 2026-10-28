@@ -39,6 +39,7 @@ The added data attributes are styling hooks; the added aria-hidden guide is
 ordinary decoration, not an announcement.
 
 New regression tests use nonexistent synthetic fixtures and mocked services.
+The review follow-up also verifies that pressed states track mode/type/age changes.
 They cover numeric PIN sanitisation and payloads, validation/server errors,
 Turnstile gating and token forwarding, parent sign-in and password visibility
 labels, registration/email verification, verification-return/reset messages,
@@ -50,8 +51,8 @@ announcements. They do not stand in for a real account sign-in test.
 Node 20, matching project CI:
 
 - `npm run lint`: passed, zero errors/warnings.
-- `npm test -- --run`: passed, 225 tests in 47 files.
-- `npm run build`: passed, `precache 125 entries (3865.02 KiB)`.
+- `npm test -- --run`: passed, 226 tests in 47 files.
+- `npm run build`: passed, `precache 125 entries (3865.05 KiB)`.
 - `git diff --check`: passed.
 
 Local dependencies were restored with `npm ci` from the unchanged lockfile after
@@ -101,11 +102,24 @@ preflight rejects Origin `http://127.0.0.1:3013` with HTTP 403. No origin header
 Turnstile requirements, authentication handlers, secrets or server safeguards
 were changed to work around that restriction.
 
-At the user's request, production child sign-in was opened separately in Chrome
-for Testing for the user to enter a test account directly. No account details or
-credentials have been recorded in these notes or screenshots. A successful real
-account sign-in has not yet been observed; this check remains pending. An online
-check would exercise production's existing UI/backend, not this undeployed branch.
+The owner has explicitly deferred real child and parent sign-in tests until after
+merging PR #7 first, then PR #8, and requested that PR #8 be marked ready for
+review after these style checks. No pre-merge real-account sign-in pass is claimed.
+No account details or credentials are recorded in these notes or screenshots.
+
+## PR review follow-up
+
+- All selected Sign In / Create Account, Parent / Teacher / Child and age choices
+  share gold `#FFC93C`, ink `#172033` and a 4px ink border. Main submit styles are
+  unchanged. The existing high-contrast override remains available.
+- Each of those choices now exposes its current state through `aria-pressed`.
+  No click handler, validation, Turnstile or authentication logic changed.
+- PIN helper text now has line height 1.5 and an 8px top margin. Browser computed
+  values at 1280px and 390px: 18px font, 27px line height, 8px margin, no horizontal
+  overflow. Gold/ink/4px selection styling was checked in the browser for both
+  account modes, sign-in types and the selected age.
+- The four after sign-in screenshots below were refreshed at both widths.
+  Child-picker and all before screenshots remain unchanged by this follow-up.
 
 ## Before and after
 

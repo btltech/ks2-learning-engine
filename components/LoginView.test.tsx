@@ -35,6 +35,23 @@ beforeEach(() => {
 afterEach(() => vi.restoreAllMocks());
 
 describe('sign-in behaviour through the redesigned controls', () => {
+  it('announces the selected mode, sign-in type and age as pressed', async () => {
+    renderLogin();
+    await screen.findByRole('heading', { name: 'Welcome Back!' });
+    expect(screen.getByRole('button', { name: 'Sign In', exact: true, pressed: true })).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: 'Create Account', exact: true, pressed: false }));
+    expect(screen.getByRole('button', { name: 'Create Account', exact: true, pressed: true })).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: 'Sign In', exact: true, pressed: false }));
+    expect(screen.getByRole('button', { name: 'Parent / Teacher', pressed: true })).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: 'Child', exact: true, pressed: false }));
+    expect(screen.getByRole('button', { name: 'Parent / Teacher', pressed: false })).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Child', exact: true, pressed: true })).toBeTruthy();
+    expect(screen.getByRole('button', { name: '9', exact: true, pressed: true })).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: '10', exact: true, pressed: false }));
+    expect(screen.getByRole('button', { name: '10', exact: true, pressed: true })).toBeTruthy();
+    for (const age of [7, 8, 9, 11]) expect(screen.getByRole('button', { name: String(age), exact: true, pressed: false })).toBeTruthy();
+  });
+
   it('keeps numeric PIN sanitisation and the child-session payload', async () => {
     const onLogin = vi.fn();
     const profile = { id: 'example-learner', role: 'student' };
