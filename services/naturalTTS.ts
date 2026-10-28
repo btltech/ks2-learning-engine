@@ -99,6 +99,39 @@ const scoreVoice = (voice: SpeechSynthesisVoice): number => {
   return score;
 };
 
+// A stopped or superseded reading must never enqueue another sentence.
+let speechGeneration = 0;
+let finishUtterance: (() => void) | null = null;
+let gapTimer: ReturnType<typeof setTimeout> | null = null;
+let finishGap: (() => void) | null = null;
+
+const playUtterance = (utterance: SpeechSynthesisUtterance, generation: number): Promise<void> =>
+  new Promise((resolve) => {
+    if (generation !== speechGeneration) { resolve(); return; }
+    let finished = false;
+    const finish = () => {
+      if (finished) return;
+      finished = true;
+      if (finishUtterance === finish) finishUtterance = null;
+      resolve();
+    };
+    finishUtterance = finish;
+    utterance.onend = finish;
+    utterance.onerror = finish;
+    window.speechSynthesis.speak(utterance);
+  });
+
+const waitBetweenSentences = (generation: number): Promise<void> =>
+  new Promise((resolve) => {
+    if (generation !== speechGeneration) { resolve(); return; }
+    const finish = () => {
+      if (finishGap === finish) { gapTimer = null; finishGap = null; }
+      resolve();
+    };
+    finishGap = finish;
+    gapTimer = setTimeout(finish, 200);
+  });
+
 // Cache for best voice per language
 const voiceCache = new Map<string, SpeechSynthesisVoice>();
 
@@ -239,10 +272,13 @@ export const speakNaturally = async (
   text: string, 
   language: string = 'English'
 ): Promise<void> => {
+  stopSpeaking();
+  const generation = speechGeneration;
   const cleanText = prepareText(text);
   const sentences = splitIntoSentences(cleanText);
 
-  if (await speakWithKokoro(sentences, language, 'lesson')) return;
+  const handled = await speakWithKokoro(sentences, language, 'lesson');
+  if (generation !== speechGeneration || handled) return;
 
   if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
     console.warn('Speech synthesis not available');
@@ -256,10 +292,11 @@ export const speakNaturally = async (
   const voice = getBestVoice(locale);
 
   // Speak sentences with natural expression
-  for (const sentence of sentences) {
-    await speakSentence(sentence, voice, locale);
-    // Natural pause between sentences
-    await new Promise(resolve => setTimeout(resolve, 200));
+  for (let index = 0; index < sentences.length; index++) {
+    if (generation !== speechGeneration) return;
+    await speakSentence(sentences[index], voice, locale, generation);
+    if (generation !== speechGeneration) return;
+    if (index + 1 < sentences.length) await waitBetweenSentences(generation);
   }
 };
 
@@ -269,26 +306,22 @@ export const speakNaturally = async (
 const speakSentence = (
   text: string, 
   voice: SpeechSynthesisVoice | null, 
-  locale: string
+  locale: string,
+  generation: number,
 ): Promise<void> => {
-  return new Promise((resolve) => {
-    const expression = analyzeContent(text);
-    const utterance = new SpeechSynthesisUtterance(text);
-    
-    utterance.lang = locale;
-    if (voice) utterance.voice = voice;
-    
-    // Apply expression with slight random variation for naturalness
-    const jitter = () => (Math.random() * 0.04) - 0.02;
-    utterance.rate = Math.max(0.6, Math.min(1.5, expression.rate + jitter()));
-    utterance.pitch = Math.max(0.5, Math.min(2.0, expression.pitch + jitter()));
-    utterance.volume = 1.0;
+  const expression = analyzeContent(text);
+  const utterance = new SpeechSynthesisUtterance(text);
 
-    utterance.onend = () => resolve();
-    utterance.onerror = () => resolve();
+  utterance.lang = locale;
+  if (voice) utterance.voice = voice;
 
-    window.speechSynthesis.speak(utterance);
-  });
+  // Apply expression with slight random variation for naturalness
+  const jitter = () => (Math.random() * 0.04) - 0.02;
+  utterance.rate = Math.max(0.6, Math.min(1.5, expression.rate + jitter()));
+  utterance.pitch = Math.max(0.5, Math.min(2.0, expression.pitch + jitter()));
+  utterance.volume = 1.0;
+
+  return playUtterance(utterance, generation);
 };
 
 /**
@@ -299,8 +332,11 @@ export const speakAsMiRa = async (
   text: string, 
   language: string = 'English'
 ): Promise<void> => {
+  stopSpeaking();
+  const generation = speechGeneration;
   const cleanText = prepareText(text);
-  if (await speakWithKokoro(splitIntoSentences(cleanText), language, 'mira')) return;
+  const handled = await speakWithKokoro(splitIntoSentences(cleanText), language, 'mira');
+  if (generation !== speechGeneration || handled) return;
 
   if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
     return;
@@ -320,11 +356,7 @@ export const speakAsMiRa = async (
   utterance.pitch = 1.1;
   utterance.volume = 1.0;
 
-  return new Promise((resolve) => {
-    utterance.onend = () => resolve();
-    utterance.onerror = () => resolve();
-    window.speechSynthesis.speak(utterance);
-  });
+  return playUtterance(utterance, generation);
 };
 
 /**
@@ -336,13 +368,16 @@ export const speakCelebration = async (
   language: string = 'English',
   category: EncouragementCategory = 'achievement'
 ): Promise<void> => {
+  stopSpeaking();
+  const generation = speechGeneration;
   if (language === 'English') {
     const played = await playEncouragementAudio(category);
-    if (played) return;
+    if (generation !== speechGeneration || played) return;
   }
 
   const cleanText = prepareText(text);
-  if (await speakWithKokoro(splitIntoSentences(cleanText), language, 'celebration')) return;
+  const handled = await speakWithKokoro(splitIntoSentences(cleanText), language, 'celebration');
+  if (generation !== speechGeneration || handled) return;
 
   // Use Web Speech API for unsupported languages or as fallback
   if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
@@ -363,11 +398,7 @@ export const speakCelebration = async (
   utterance.pitch = 1.2;
   utterance.volume = 1.0;
 
-  return new Promise((resolve) => {
-    utterance.onend = () => resolve();
-    utterance.onerror = () => resolve();
-    window.speechSynthesis.speak(utterance);
-  });
+  return playUtterance(utterance, generation);
 };
 
 /**
@@ -379,12 +410,16 @@ export const speakPronunciation = async (
   text: string, 
   language: string = 'English'
 ): Promise<void> => {
+  stopSpeaking();
+  const generation = speechGeneration;
   // French/Spanish words: use the pre-generated Kokoro recording when one exists.
   if (hasLanguageAudioFor(language)) {
     if (typeof window !== 'undefined' && 'speechSynthesis' in window) window.speechSynthesis.cancel();
-    if (await playLanguageAudio(text, language, 0.9)) return;
+    const played = await playLanguageAudio(text, language, 0.9);
+    if (generation !== speechGeneration || played) return;
   }
-  if (await speakWithKokoro([text], language, 'pronunciation')) return;
+  const handled = await speakWithKokoro([text], language, 'pronunciation');
+  if (generation !== speechGeneration || handled) return;
 
   if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
     return;
@@ -404,17 +439,23 @@ export const speakPronunciation = async (
   utterance.pitch = 1.0;
   utterance.volume = 1.0;
 
-  return new Promise((resolve) => {
-    utterance.onend = () => resolve();
-    utterance.onerror = () => resolve();
-    window.speechSynthesis.speak(utterance);
-  });
+  return playUtterance(utterance, generation);
 };
 
 /**
  * Stop all speech (Kokoro, encouragement clips and Web Speech API)
  */
 export const stopSpeaking = (): void => {
+  speechGeneration++;
+  if (gapTimer !== null) clearTimeout(gapTimer);
+  gapTimer = null;
+  const settleGap = finishGap;
+  finishGap = null;
+  settleGap?.();
+  // cancel() does not reliably emit onend/onerror in every browser.
+  const settleUtterance = finishUtterance;
+  finishUtterance = null;
+  settleUtterance?.();
   stopEncouragementAudio();
   stopKokoro();
   stopLanguageAudio();
@@ -422,6 +463,7 @@ export const stopSpeaking = (): void => {
   // Stop Web Speech API
   if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
     window.speechSynthesis.cancel();
+    if (window.speechSynthesis.paused) window.speechSynthesis.resume();
   }
 };
 
