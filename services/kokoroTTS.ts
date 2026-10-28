@@ -244,7 +244,8 @@ export const speakWithKokoro = async (
   const token = ++playToken;
   // Create/resume inside the caller's user gesture so autoplay rules are satisfied.
   const ctx = getContext();
-  if (ctx.state === 'suspended') void ctx.resume();
+  // Queue resume even if a preceding pause has not updated state yet.
+  void ctx.resume();
 
   let upcoming: Promise<{ samples: Float32Array; sampleRate: number }>;
   try {
@@ -296,11 +297,11 @@ export const stopKokoro = (): void => {
 };
 
 export const pauseKokoro = (): void => {
-  if (context?.state === 'running') void context.suspend();
+  if (context && context.state !== 'closed') void context.suspend();
 };
 
 export const resumeKokoro = (): void => {
-  if (context?.state === 'suspended') void context.resume();
+  if (context && context.state !== 'closed') void context.resume();
 };
 
 export const isKokoroSpeaking = (): boolean => activeSource !== null;

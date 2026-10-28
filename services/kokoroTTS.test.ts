@@ -187,4 +187,25 @@ describe('kokoroTTS', () => {
     stopKokoro(); await second; expect(vi.getTimerCount()).toBe(0);
   });
 
+  it('queues Resume while the preceding Pause transition is still pending', async () => {
+    vi.useFakeTimers(); FakeSource.autoFinish = false; enableKokoro(); ready();
+    const reading = speakWithKokoro(['First.', 'Second.'], 'English'); await vi.advanceTimersByTimeAsync(0);
+    const context = FakeAudioContext.instances[0];
+    context.resume.mockClear();
+    context.suspend.mockImplementation(() => new Promise<void>(() => {}));
+    pauseKokoro(); expect(context.state).toBe('running');
+    resumeKokoro(); expect(context.resume).toHaveBeenCalledOnce();
+    stopKokoro(); await reading;
+  });
+  it('queues a new Play after Stop even while an earlier Pause is still pending', async () => {
+    vi.useFakeTimers(); FakeSource.autoFinish = false; enableKokoro(); ready();
+    const first = speakWithKokoro(['First.'], 'English'); await vi.advanceTimersByTimeAsync(0);
+    const context = FakeAudioContext.instances[0];
+    context.suspend.mockImplementation(() => new Promise<void>(() => {}));
+    pauseKokoro(); stopKokoro(); await first; context.resume.mockClear();
+    const next = speakWithKokoro(['Restart.'], 'English'); await vi.advanceTimersByTimeAsync(0);
+    expect(context.resume).toHaveBeenCalledOnce();
+    stopKokoro(); await next;
+  });
+
 });
