@@ -1,3 +1,5 @@
+import { Owl } from './sunny/Owl';
+import './SunnyTopicsLesson.css';
 import React, { useState, useEffect, useCallback } from 'react';
 import { type BankQuestion, type Difficulty } from '../types';
 import { generateLesson } from '../services/geminiService';
@@ -21,11 +23,25 @@ import { getYorubaLessonEntries } from '../services/yorubaLessonContent';
 const Markdown: React.FC<{ content: string }> = ({ content }) => {
   const parts: string[] = [];
   let listOpen = false;
+  let sectionOpen = false;
   const closeList = () => {
     if (listOpen) parts.push('</ul>');
     listOpen = false;
   };
   for (const line of content.split('\n')) {
+    const heading = line.match(/^(#{1,3}) (.*)$/);
+    if (heading) {
+      closeList();
+      if (sectionOpen) parts.push('</section>');
+      const title = heading[2];
+      const kind = /vocabulary|words? to know/i.test(title) ? 'vocabulary'
+        : /example/i.test(title) ? 'example'
+        : /remember|tip|independent check/i.test(title) ? 'remember' : 'content';
+      const tag = heading[1].length === 3 ? 'h3' : 'h2';
+      parts.push(`<section class="sunny-lesson-block" data-kind="${kind}"><${tag}>${title}</${tag}>`);
+      sectionOpen = true;
+      continue;
+    }
     if (line.startsWith('* ')) {
       if (!listOpen) parts.push('<ul class="mb-4 list-disc space-y-2 pl-6">');
       listOpen = true;
@@ -33,12 +49,10 @@ const Markdown: React.FC<{ content: string }> = ({ content }) => {
       continue;
     }
     closeList();
-    if (line.startsWith('### ')) parts.push(`<h3 class="mt-5 text-xl font-bold">${line.substring(4)}</h3>`);
-    else if (line.startsWith('## ')) parts.push(`<h2 class="my-4 text-2xl font-bold">${line.substring(3)}</h2>`);
-    else if (line.startsWith('# ')) parts.push(`<h2 class="mb-3 mt-6 text-2xl font-bold text-gray-900">${line.substring(2)}</h2>`);
-    else if (line.trim() !== '') parts.push(`<p class="mb-4">${line}</p>`);
+    if (line.trim() !== '') parts.push(`<p class="mb-4">${line}</p>`);
   }
   closeList();
+  if (sectionOpen) parts.push('</section>');
   const htmlContent = parts.join('');
 
     const sanitizedContent = DOMPurify.sanitize(htmlContent);
@@ -202,7 +216,8 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
   }, [subject, topic, studentAge, difficulty, curriculumUnit?.id]);
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
+    <div className="sunny-lesson sunny-ui">
+      <div className="sunny-lesson-toolbar">
        <button 
          onClick={handleBack} 
          className="flex items-center text-gray-600 hover:text-gray-900 font-semibold transition-colors mb-4 sm:mb-6"
@@ -211,15 +226,24 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
         <ArrowLeftIcon className="h-5 w-5 mr-2" aria-hidden="true"/>
         Back to Topics
       </button>
-      <article className="bg-white p-4 sm:p-8 rounded-2xl shadow-xl" aria-live="polite" aria-busy={loading}>
+        <span aria-hidden="true">{topic}</span>
+      </div>
+      <div className="sunny-lesson-main">
+      <article className="sunny-storybook bg-white p-4 sm:p-8 rounded-2xl shadow-xl" aria-live="polite" aria-busy={loading}>
         <div className="flex justify-between items-start mb-4">
           <div>
             <p className="mb-1 text-sm font-bold uppercase tracking-wide text-indigo-600">Year {getYearGroupForAge(studentAge)} · Unit {curriculumUnit?.order || 1}</p>
             <h2 className="text-2xl sm:text-4xl font-extrabold text-gray-800">{topic}</h2>
             {curriculumUnit?.objective && <p className="mt-2 max-w-2xl text-base font-medium text-gray-600">{curriculumUnit.objective}</p>}
           </div>
+          {!loading && !error && subject !== 'Yoruba' && (
+            <div className="sunny-reader-art" aria-hidden="true" data-reading={isSpeaking && !isPaused}>
+              <Owl pose="reading" height={68} />
+              <div className="sunny-reading-caption"><strong>{isSpeaking ? isPaused ? 'Reading paused' : 'Reading aloud' : 'Read aloud'}</strong><span className="sunny-sound-bars"><i /><i /><i /><i /><i /></span></div>
+            </div>
+          )}
           {!loading && !error && (
-            <div className="flex items-center gap-2">
+            <div className={`sunny-reading-bar sunny-reading-actions flex items-center gap-2 ${subject === 'Yoruba' ? 'sunny-no-reader' : ''}`} role="region" aria-label="Reading aloud">
               {isLanguageSubject && subject !== 'Yoruba' && (
                 <button
                   onClick={() => {
@@ -284,7 +308,7 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
           </div>
         ) : (
           <>
-            <div className="prose max-w-none text-lg text-gray-700 leading-relaxed">
+            <div className="sunny-lesson-copy prose max-w-none text-lg text-gray-700 leading-relaxed">
               <Markdown content={lesson} />
             </div>
             {subject === 'Yoruba' && (
@@ -297,7 +321,7 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
       </article>
 
       {!loading && !error && practiceQuestions.length > 0 && (
-        <section className="mt-6 rounded-2xl border border-indigo-100 bg-white p-4 shadow-xl sm:p-8" aria-labelledby="guided-check-title">
+        <section className="sunny-guided-practice mt-6 rounded-2xl border border-indigo-100 bg-white p-4 shadow-xl sm:p-8" aria-labelledby="guided-check-title">
           <div className="mb-5 flex flex-col justify-between gap-2 sm:flex-row sm:items-end">
             <div>
               <p className="text-sm font-bold uppercase tracking-wide text-indigo-600">Guided practice</p>
@@ -331,6 +355,7 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
                           disabled={Boolean(selected)}
                           onClick={() => setPracticeAnswers((answers) => ({ ...answers, [questionKey]: option }))}
                           className={`rounded-xl border-2 p-3 text-left font-semibold transition-colors ${answerClass}`}
+                          data-feedback={selected ? isCorrect ? 'correct' : isSelected ? 'retry' : undefined : undefined}
                           role="radio"
                           aria-checked={isSelected}
                         >
@@ -341,6 +366,7 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
                   </div>
                   {selected && (
                     <div className={`mt-3 rounded-lg p-3 text-sm font-semibold ${selected === correct ? 'bg-green-100 text-green-800' : 'bg-amber-100 text-amber-900'}`} role="status">
+                      <span aria-hidden="true">{selected === correct ? '✓ ' : '↻ '}</span>
                       {selected === correct ? 'Correct — well reasoned.' : `Not quite. The correct answer is ${correct}.`}
                       {question.explanation ? ` ${question.explanation}` : ''}
                     </div>
@@ -354,7 +380,7 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
 
       {/* Vocabulary Practice Section - Only for language subjects with phonetics support */}
       {!loading && !error && subject !== 'Yoruba' && supportsPhonetics && vocabularyWords.length > 0 && (
-        <div className="mt-6 bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div className="sunny-lesson-extra mt-6 bg-white rounded-2xl shadow-xl overflow-hidden">
           <button
             onClick={() => setShowVocabulary(!showVocabulary)}
             className="w-full px-6 py-4 flex items-center justify-between bg-gradient-to-r from-purple-500 to-blue-500 text-white font-bold text-lg hover:from-purple-600 hover:to-blue-600 transition-colors"
@@ -413,7 +439,7 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
       )}
 
       {subject === 'Yoruba' && !loading && !error && yorubaAudioEntries.length > 0 && (
-        <div className="mt-6 bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div className="sunny-lesson-extra mt-6 bg-white rounded-2xl shadow-xl overflow-hidden">
           <div className="px-6 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white">
             <div className="flex items-center justify-between gap-3">
               <h2 className="font-bold text-lg">{topic}: Audio Practice</h2>
@@ -458,14 +484,14 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
       )}
 
       {!loading && !error && (
-        <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+        <div className="sunny-lesson-next mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
           <button
             onClick={() => handleStartQuiz('standard')}
             disabled={!practiceComplete}
             aria-label="Start the quiz for this lesson"
             className="px-6 py-3 sm:px-10 sm:py-4 bg-green-500 text-white font-bold text-lg sm:text-xl rounded-full shadow-lg hover:bg-green-600 transform hover:scale-105 transition-transform duration-300 disabled:cursor-not-allowed disabled:bg-gray-400 disabled:shadow-none disabled:hover:scale-100"
           >
-            Ready for a Quiz?
+            Next: try one
           </button>
           
           <button
@@ -498,6 +524,7 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
           </button>
         </div>
       )}
+      </div>
     </div>
   );
 };

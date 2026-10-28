@@ -4,6 +4,7 @@
  * Structured learning journeys with milestones and certificates
  */
 
+import './SunnyTopicsLesson.css';
 import React, { useState, useEffect } from 'react';
 import { learningPathsService, LearningPath, LearningPathStep, Certificate } from '../services/learningPathsService';
 import { useUser } from '../context/UserContext';
@@ -43,7 +44,7 @@ export const LearningPathsView: React.FC<LearningPathsProps> = ({ onStartLesson,
   // Path List View
   if (view === 'list') {
     return (
-      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" role="presentation">
+      <div className="sunny-learning-paths sunny-ui fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" role="presentation">
         <div ref={dialogRef} tabIndex={-1} className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col" role="dialog" aria-modal="true" aria-labelledby="learning-paths-title">
           {/* Header */}
           <div className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white p-6">
@@ -115,7 +116,7 @@ export const LearningPathsView: React.FC<LearningPathsProps> = ({ onStartLesson,
     const progressPercent = (selectedPath.completedSteps / selectedPath.totalSteps) * 100;
 
     return (
-      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" role="presentation">
+      <div className="sunny-learning-paths sunny-ui fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" role="presentation">
         <div ref={dialogRef} tabIndex={-1} className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col" role="dialog" aria-modal="true" aria-labelledby="learning-path-detail-title">
           {/* Header */}
           <div className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white p-6">
@@ -145,7 +146,7 @@ export const LearningPathsView: React.FC<LearningPathsProps> = ({ onStartLesson,
 
           {/* Steps List */}
           <div className="flex-1 overflow-y-auto p-6">
-            <div className="space-y-3">
+            <ol className="sunny-learning-steps space-y-3">
               {selectedPath.steps.map((step, index) => {
                 const isLocked = step.prerequisites?.some(prereqId => {
                   const prereqStep = selectedPath.steps.find(s => s.id === prereqId);
@@ -163,7 +164,7 @@ export const LearningPathsView: React.FC<LearningPathsProps> = ({ onStartLesson,
                   />
                 );
               })}
-            </div>
+            </ol>
 
             {/* Completion Message */}
             {selectedPath.completedAt && (
@@ -202,7 +203,7 @@ export const LearningPathsView: React.FC<LearningPathsProps> = ({ onStartLesson,
     const certificates = learningPathsService.getUserCertificates(currentChild?.id || 'default');
     
     return (
-      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" role="presentation">
+      <div className="sunny-learning-paths sunny-ui fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" role="presentation">
         <div ref={dialogRef} tabIndex={-1} className="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-hidden flex flex-col" role="dialog" aria-modal="true" aria-labelledby="learning-certificates-title">
           {/* Header */}
           <div className="bg-gradient-to-r from-amber-500 to-orange-600 text-white p-6">
@@ -279,9 +280,11 @@ const PathCard: React.FC<{
   };
 
   return (
-    <div
+    <button
+      type="button"
+      aria-label={`Open ${path.name}`}
       onClick={onClick}
-      className={`border-2 rounded-xl p-4 cursor-pointer transition-all hover:shadow-lg ${
+      className={`sunny-path-choice border-2 rounded-xl p-4 cursor-pointer transition-all hover:shadow-lg ${
         isCompleted
           ? 'border-emerald-300 bg-emerald-50'
           : isStarted
@@ -329,7 +332,7 @@ const PathCard: React.FC<{
           ))}
         </div>
       )}
-    </div>
+    </button>
   );
 };
 
@@ -342,8 +345,9 @@ const StepCard: React.FC<{
   onStart: () => void;
 }> = ({ step, index, isLocked, isNext, onStart }) => {
   return (
-    <div
-      className={`flex items-center gap-4 p-4 rounded-xl border-2 transition-all ${
+    <li
+      data-state={step.isCompleted ? 'done' : isLocked ? 'locked' : isNext ? 'current' : 'new'}
+      className={`sunny-learning-step flex items-center gap-4 p-4 rounded-xl border-2 transition-all ${
         step.isCompleted
           ? 'border-emerald-300 bg-emerald-50'
           : isLocked
@@ -369,6 +373,8 @@ const StepCard: React.FC<{
       {/* Step Content */}
       <div className="flex-1">
         <h4 className="font-bold text-gray-900">{step.title}</h4>
+        {step.isCompleted && <span className="sunny-step-status">✓ Done</span>}
+        {isNext && !isLocked && !step.isCompleted && <span className="sunny-step-status">★ You are here</span>}
         <p className="text-sm text-gray-600">{step.description}</p>
         <div className="flex items-center gap-2 mt-1 text-xs text-gray-500">
           <span>~{step.estimatedMinutes} min</span>
@@ -400,7 +406,7 @@ const StepCard: React.FC<{
       {isLocked && (
         <span className="text-gray-400 text-xl">🔒</span>
       )}
-    </div>
+    </li>
   );
 };
 
