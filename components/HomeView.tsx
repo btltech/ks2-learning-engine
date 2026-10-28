@@ -5,7 +5,11 @@
  */
 
 import React, { useEffect, useState, lazy } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { HomeOverview } from './sunny/HomeOverview';
+import { KidCard } from './sunny/KidCard';
+import { SUBJECTS } from '../constants';
+import './SunnyHome.css';
 import SubjectSelector from './SubjectSelector';
 import { DailyChallengeCard, StreakMilestone } from './DailyChallenge';
 import { ReviewDueBadge } from './ReviewMode';
@@ -73,9 +77,14 @@ const HomeView: React.FC<HomeViewProps> = ({
 }) => {
   const { user, currentChild } = useUser();
   const navigate = useNavigate();
+  const location = useLocation();
   const streak = currentChild?.streak || user?.streak || 0;
   const userId = currentChild?.id || user?.id || 'default';
   const [activeTab, setActiveTab] = useState<ActiveTab>('learn');
+  useEffect(() => {
+    if (location.hash === '#subjects') setActiveTab('learn');
+  }, [location.key, location.hash]);
+
   const [classes, setClasses] = useState<SharedClass[]>([]);
   const [homework, setHomework] = useState<SharedHomework[]>([]);
   const [classCode, setClassCode] = useState('');
@@ -132,20 +141,28 @@ const HomeView: React.FC<HomeViewProps> = ({
   };
 
   return (
-    <div className="w-full max-w-screen-content mx-auto p-4 mobile:p-5 sm:p-6 md:p-8 content-visibility-auto">
-      {/* Welcome Header */}
-      <div className="text-center mb-6">
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+    <div className="sunny-home sunny-ui">
+      {activeTab === 'learn' ? (
+        <HomeOverview
+          learner={currentChild || user}
+          greeting={`Welcome back, ${currentChild?.name || user?.name || 'Learner'}! 👋`}
+          subjects={SUBJECTS}
+          progress={progress}
+          onSelectSubject={onSelectSubject}
+          onOpenAchievements={onOpenAchievements}
+          dailyChallenge={<DailyChallengeCard sunny onStartChallenge={onStartDailyChallenge} />}
+        >
+          <section id="subjects" className="sunny-explore" aria-labelledby="sunny-subject-heading">
+            <h2 id="sunny-subject-heading">Where shall we explore?</h2>
+            <p>Pick a subject to start learning</p>
+            <SubjectSelector sunny onSelect={onSelectSubject} progress={progress} />
+          </section>
+        </HomeOverview>
+      ) : (
+        <h1 className="sunny-other-tab-greeting">
           Welcome back, {currentChild?.name || user?.name || 'Learner'}! 👋
         </h1>
-        {streak > 0 && (
-          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-100 to-amber-100 px-4 py-2 rounded-full">
-            <span className="text-2xl">🔥</span>
-            <span className="font-bold text-orange-700">{streak} day streak!</span>
-          </div>
-        )}
-      </div>
-
+      )}
       {/* Navigation Tabs */}
       <div className="flex justify-center mb-6" role="tablist" aria-label="Home sections">
         <div className="inline-flex bg-gray-100 rounded-2xl p-1.5 gap-1">
@@ -235,13 +252,10 @@ const HomeView: React.FC<HomeViewProps> = ({
               </SectionCard>
             )}
 
-            {/* Daily Challenge - Hero Card */}
-            <DailyChallengeCard onStartChallenge={onStartDailyChallenge} />
-
             {/* Review Due Badge */}
-            <div className="flex justify-center">
+            <KidCard className="sunny-review-due flex justify-center">
               <ReviewDueBadge userId={userId} onClick={onOpenReviewMode} />
-            </div>
+            </KidCard>
 
             {/* Learning Actions */}
             <SectionCard title="📖 Study" subtitle="Choose how you want to learn">
@@ -281,10 +295,6 @@ const HomeView: React.FC<HomeViewProps> = ({
               </div>
             </SectionCard>
 
-            {/* Subject Selection */}
-            <SectionCard title="📚 Subjects" subtitle="Pick a subject to start learning">
-              <SubjectSelector onSelect={onSelectSubject} progress={progress} />
-            </SectionCard>
           </div>
         )}
 
@@ -380,16 +390,16 @@ const HomeView: React.FC<HomeViewProps> = ({
           <div className="space-y-6 animate-fadeIn">
             {/* Streak Display */}
             {streak > 0 && (
-              <StreakMilestone streak={streak} />
+              <KidCard className="sunny-existing-widget"><StreakMilestone streak={streak} /></KidCard>
             )}
 
             {/* Phase 2: New Widgets Row */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <React.Suspense fallback={<CardSkeleton shadow="secondary" />}>
-                <SkillProgressWidget />
+                <KidCard className="sunny-existing-widget"><SkillProgressWidget /></KidCard>
               </React.Suspense>
               <React.Suspense fallback={<CardSkeleton shadow="secondary" />}>
-                <NextCertificateWidget />
+                <KidCard className="sunny-existing-widget"><NextCertificateWidget /></KidCard>
               </React.Suspense>
             </div>
 
@@ -486,7 +496,7 @@ interface SectionCardProps {
 }
 
 const SectionCard: React.FC<SectionCardProps> = ({ title, subtitle, children }) => (
-  <div className={`bg-white ${RADIUS.container} ${SHADOWS.tertiary} border border-gray-100 overflow-hidden`}>
+  <KidCard className="sunny-home-section">
     <div className="px-5 py-4 border-b border-gray-100">
       <h2 className="text-lg font-bold text-gray-900">{title}</h2>
       <p className="text-sm text-gray-500">{subtitle}</p>
@@ -494,7 +504,7 @@ const SectionCard: React.FC<SectionCardProps> = ({ title, subtitle, children }) 
     <div className="p-4">
       {children}
     </div>
-  </div>
+  </KidCard>
 );
 
 // Action Card Component
@@ -510,7 +520,7 @@ interface ActionCardProps {
 const ActionCard: React.FC<ActionCardProps> = ({ icon, label, description, onClick, gradient, featured }) => (
   <button
     onClick={onClick}
-    className={`relative overflow-hidden p-4 ${RADIUS.card} text-left transition-all ${
+    className={`sunny-home-action relative overflow-hidden p-4 ${RADIUS.card} text-left transition-all ${
       featured ? `motion-safe:hover:scale-105 ${SHADOWS.primary}` : `motion-safe:hover:scale-[1.02] ${SHADOWS.secondary}`
     } motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 ${
       featured ? 'col-span-1 sm:col-span-1' : ''
@@ -534,11 +544,11 @@ interface StatCardProps {
 }
 
 const StatCard: React.FC<StatCardProps> = ({ icon, value, label, color }) => (
-  <div className={`${color} ${RADIUS.card} p-4 text-center`}>
+  <KidCard className={`${color} sunny-home-stat ${RADIUS.card} p-4 text-center`}>
     <span className="text-2xl block mb-1">{icon}</span>
     <p className="text-2xl font-bold">{value.toLocaleString()}</p>
     <p className="text-xs opacity-75">{label}</p>
-  </div>
+  </KidCard>
 );
 
 export default HomeView;

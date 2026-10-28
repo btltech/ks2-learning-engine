@@ -10,6 +10,10 @@
  */
 
 import React from 'react';
+import { HomeOverview } from './sunny/HomeOverview';
+import { HomeSubjectIcon } from './sunny/HomeSubjectIcon';
+import { KidCard } from './sunny/KidCard';
+import './SunnyHome.css';
 import { Subject, ProgressData } from '../types';
 import { useUser } from '../context/UserContext';
 import { DailyChallengeCard } from './DailyChallenge';
@@ -58,69 +62,56 @@ const GuidedHomeView: React.FC<GuidedHomeViewProps> = ({
   );
 
   return (
-    <div className="w-full max-w-lg mx-auto p-4 sm:p-6">
-      {/* Big Welcome Message */}
-      <div className="text-center mb-8">
-        <div className="text-6xl mb-4">👋</div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          Hi, {user?.name || 'Friend'}!
-        </h1>
-        <p className="text-xl text-gray-600">
-          Ready to learn today?
-        </p>
-        
-        {streak > 0 && (
-          <div className="mt-4 inline-flex items-center gap-2 bg-gradient-to-r from-orange-400 to-amber-400 px-6 py-3 rounded-full text-white font-bold text-lg shadow-lg">
-            <span className="text-2xl">🔥</span>
-            <span>{streak} day streak!</span>
-          </div>
-        )}
-      </div>
-
-      {/* Daily challenge collapses to a compact status row after completion. */}
-      <div className="mb-8">
-        <DailyChallengeCard onStartChallenge={onStartDailyChallenge} />
-      </div>
-
-      {/* Subject Selection - Large Cards */}
-      <div className="mb-8">
-        <h2 className="text-xl font-bold text-gray-800 mb-4 text-center">
-          📚 Pick a Subject
-        </h2>
-        <div className="space-y-3">
-          {guidedSubjects.map((subject) => {
-            const subjectProgress = progress[subject.name] || {};
-            const topicCount = Object.keys(subjectProgress).length;
+    <div className="sunny-home sunny-ui sunny-guided-home">
+      <HomeOverview
+        learner={user}
+        greeting={`Hi, ${user?.name || 'Friend'}!`}
+        subjects={guidedSubjects}
+        progress={progress}
+        onSelectSubject={onSelectSubject}
+        onOpenAchievements={onOpenAchievements}
+        dailyChallenge={<DailyChallengeCard sunny onStartChallenge={onStartDailyChallenge} />}
+      >
+        {/* Subject Selection - Large Cards */}
+        <section id="subjects" className="sunny-explore">
+          <h2 className="text-xl font-bold text-gray-800 mb-4 text-center">
+            Where shall we explore?
+          </h2>
+          <div className="sunny-subject-grid sunny-guided-subjects">
+            {guidedSubjects.map((subject) => {
+              const subjectProgress = progress[subject.name] || {};
+              const topicCount = Object.keys(subjectProgress).length;
             
-            return (
-              <button
-                key={subject.name}
-                onClick={() => onSelectSubject(subject)}
-                className={`w-full p-5 rounded-2xl text-left transition-all hover:scale-[1.02] active:scale-[0.98] shadow-md focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-500 focus-visible:ring-offset-2 ${subject.bgColor}`}
-                aria-label={`Study ${subject.name}`}
-              >
-                <div className="flex items-center gap-4">
-                  <div className="w-16 h-16 rounded-xl bg-white/30 flex items-center justify-center">
-                    <subject.icon className={`w-10 h-10 ${subject.color}`} />
+              return (
+                <button
+                  key={subject.name}
+                  onClick={() => onSelectSubject(subject)}
+                  className={`sunny-subject-tile w-full p-5 rounded-2xl text-left transition-all hover:scale-[1.02] active:scale-[0.98] shadow-md focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-500 focus-visible:ring-offset-2 ${subject.bgColor}`}
+                  aria-label={`Study ${subject.name}`}
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 rounded-xl bg-white/30 flex items-center justify-center">
+                      <HomeSubjectIcon subject={subject} size={72} />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-xl font-bold text-gray-800">{subject.name}</p>
+                      {topicCount > 0 && (
+                        <p className="text-sm text-gray-600">
+                          {topicCount} topic{topicCount !== 1 ? 's' : ''} started
+                        </p>
+                      )}
+                    </div>
+                    <span className="text-3xl">→</span>
                   </div>
-                  <div className="flex-1">
-                    <p className="text-xl font-bold text-gray-800">{subject.name}</p>
-                    {topicCount > 0 && (
-                      <p className="text-sm text-gray-600">
-                        {topicCount} topic{topicCount !== 1 ? 's' : ''} started
-                      </p>
-                    )}
-                  </div>
-                  <span className="text-3xl">→</span>
-                </div>
-              </button>
-            );
-          })}
-        </div>
-      </div>
+                </button>
+              );
+            })}
+          </div>
+        </section>
+      </HomeOverview>
 
       {/* Fun Section - Big Buttons */}
-      <div className="mb-8">
+      <KidCard className="sunny-home-section mb-8">
         <h2 className="text-xl font-bold text-gray-800 mb-4 text-center">
           🎮 Fun Stuff
         </h2>
@@ -159,7 +150,7 @@ const GuidedHomeView: React.FC<GuidedHomeViewProps> = ({
             />
           )}
         </div>
-      </div>
+      </KidCard>
 
       {/* Encouraging Message */}
       <div className="text-center py-4">
@@ -182,7 +173,7 @@ interface BigActionButtonProps {
 const BigActionButton: React.FC<BigActionButtonProps> = ({ icon, label, color, onClick }) => (
   <button
     onClick={onClick}
-    className="relative overflow-hidden p-6 rounded-2xl text-center transition-all hover:scale-[1.02] active:scale-[0.98] shadow-md focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+    className="sunny-home-action relative overflow-hidden p-6 rounded-2xl text-center transition-all hover:scale-[1.02] active:scale-[0.98] shadow-md focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
   >
     <div className={`absolute inset-0 bg-gradient-to-br ${color}`} />
     <div className="relative z-10">

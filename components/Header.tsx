@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
 import { StarIcon, ShoppingBagIcon, ChartBarIcon, ArrowRightOnRectangleIcon, FireIcon, TrophyIcon } from '@heroicons/react/24/solid';
+import { ChildNavigation } from './sunny/ChildNavigation';
+import './SunnyHome.css';
 import { OwlLogo } from './sunny/OwlLogo';
 import AvatarDisplay from './AvatarDisplay';
 import { UserProfile } from '../types';
@@ -55,8 +57,10 @@ const Header: React.FC<HeaderProps> = ({
     void action();
   };
 
+  const isChild = hasRole(user, 'student') && !['parent', 'teacher', 'admin'].some(role => hasRole(user, role as UserProfile['role']));
+
   return (
-    <header className="bg-gradient-to-r from-white via-white to-blue-50/30 backdrop-blur-xl bg-white/80 border-b border-gray-200/50 shadow-sm w-full sticky top-0 z-40 safe-area-top" role="banner">
+    <header className={`${isChild ? 'sunny-child-header sunny-ui' : ''} bg-gradient-to-r from-white via-white to-blue-50/30 backdrop-blur-xl bg-white/80 border-b border-gray-200/50 shadow-sm w-full sticky top-0 z-40 safe-area-top`} role="banner">
       <div className="mobile-shell">
         <div className="sunny-header-row flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
@@ -68,12 +72,14 @@ const Header: React.FC<HeaderProps> = ({
             <OwlLogo height={48} decorative className="sunny-header-logo" />
           </button>
 
+          {isChild && <ChildNavigation playClick={playClick} />}
+
           {/* Right Side Actions */}
             <div className="flex items-center gap-1 sm:gap-4">
             {/* Badges Display - Students only */}
               {hasRole(user, 'student') && (
               <div 
-                className="hidden md:flex items-center space-x-1 bg-gradient-to-r from-blue-50 to-blue-100 text-blue-800 font-semibold px-4 py-2 rounded-full shadow-sm border border-blue-200/50 cursor-help hover:shadow-md transition-shadow"
+                className="sunny-header-badges hidden md:flex items-center space-x-1 bg-gradient-to-r from-blue-50 to-blue-100 text-blue-800 font-semibold px-4 py-2 rounded-full shadow-sm border border-blue-200/50 cursor-help hover:shadow-md transition-shadow"
                 role="status"
                 aria-label={`Badges earned: ${user.badges?.length || 0}`}
                 title={`Badges: ${user.badges?.map(b => b.name).join(', ') || 'None yet'}`}
@@ -86,7 +92,7 @@ const Header: React.FC<HeaderProps> = ({
             {/* Streak Display - Students only */}
               {hasRole(user, 'student') && (
               <div 
-                className="flex items-center space-x-1 bg-gradient-to-r from-orange-50 to-orange-100 text-orange-800 font-semibold px-2 sm:px-4 py-1 sm:py-2 rounded-full shadow-sm border border-orange-200/50 hover:shadow-md transition-shadow"
+                className="sunny-header-streak flex items-center space-x-1 bg-gradient-to-r from-orange-50 to-orange-100 text-orange-800 font-semibold px-2 sm:px-4 py-1 sm:py-2 rounded-full shadow-sm border border-orange-200/50 hover:shadow-md transition-shadow"
                 role="status"
                 aria-label={`Current streak: ${user.streak || 0} days`}
                 title="Daily Streak"
@@ -99,7 +105,7 @@ const Header: React.FC<HeaderProps> = ({
             {/* Points Display - Students only */}
               {hasRole(user, 'student') && (
               <div 
-                className="flex items-center space-x-1 sm:space-x-2 bg-gradient-to-r from-yellow-50 to-yellow-100 text-yellow-800 font-semibold px-2 sm:px-4 py-1 sm:py-2 rounded-full shadow-sm border border-yellow-200/50 hover:shadow-md transition-shadow"
+                className="sunny-header-points flex items-center space-x-1 sm:space-x-2 bg-gradient-to-r from-yellow-50 to-yellow-100 text-yellow-800 font-semibold px-2 sm:px-4 py-1 sm:py-2 rounded-full shadow-sm border border-yellow-200/50 hover:shadow-md transition-shadow"
                 role="status"
                 aria-label={`Total points: ${user.totalPoints}`}
               >
@@ -112,7 +118,7 @@ const Header: React.FC<HeaderProps> = ({
               {hasRole(user, 'student') && (
               <button
                 onClick={() => handleNavClick(onOpenLeaderboard)}
-                className="hidden sm:flex touch-target text-gray-600 hover:text-yellow-600 hover:bg-yellow-100 rounded-xl transition-all duration-200 hover:shadow-md"
+                className="sunny-header-extra hidden sm:flex touch-target text-gray-600 hover:text-yellow-600 hover:bg-yellow-100 rounded-xl transition-all duration-200 hover:shadow-md"
                 aria-label="Open leaderboard"
                 title="Leaderboard"
               >
@@ -124,7 +130,7 @@ const Header: React.FC<HeaderProps> = ({
               {hasRole(user, 'student') && (
               <button
                 onClick={() => handleNavClick(onOpenProgress)}
-                className="hidden sm:flex touch-target text-gray-600 hover:text-green-600 hover:bg-green-100 rounded-xl transition-all duration-200 hover:shadow-md"
+                className="sunny-header-extra hidden sm:flex touch-target text-gray-600 hover:text-green-600 hover:bg-green-100 rounded-xl transition-all duration-200 hover:shadow-md"
                 aria-label="Open progress"
                 title="My Progress"
               >
@@ -139,7 +145,7 @@ const Header: React.FC<HeaderProps> = ({
                   playClick();
                   setShowAdaptiveDashboard(true);
                 }}
-                className="hidden sm:flex touch-target text-gray-600 hover:text-purple-600 hover:bg-purple-100 rounded-xl transition-all duration-200 hover:shadow-md"
+                className="sunny-header-extra hidden sm:flex touch-target text-gray-600 hover:text-purple-600 hover:bg-purple-100 rounded-xl transition-all duration-200 hover:shadow-md"
                 aria-label="Open AI learning assistant"
                 title="AI Learning Assistant"
               >
@@ -151,7 +157,7 @@ const Header: React.FC<HeaderProps> = ({
               {hasRole(user, 'student') && (
               <button
                 onClick={() => handleNavClick(onOpenStore)}
-                className="hidden sm:flex touch-target text-gray-600 hover:text-orange-500 hover:bg-orange-100 rounded-xl transition-all duration-200 hover:shadow-md"
+                className="sunny-header-extra hidden sm:flex touch-target text-gray-600 hover:text-orange-500 hover:bg-orange-100 rounded-xl transition-all duration-200 hover:shadow-md"
                 aria-label="Open store"
                 title="Open Store"
               >
@@ -185,13 +191,16 @@ const Header: React.FC<HeaderProps> = ({
 
             {/* UI Mode Badge */}
             {onOpenUISettings && (
-              <div className="hidden sm:block">
+              <div className="sunny-mode-badge hidden sm:block">
                 <UIModeBadge onClick={() => handleNavClick(onOpenUISettings)} />
               </div>
             )}
 
+            {isChild && onOpenUISettings && (
+              <button type="button" className="sunny-settings-button" aria-label="Display settings" title="Change UI Mode" onClick={() => handleNavClick(onOpenUISettings)}>⚙<span className="sr-only">Display settings</span></button>
+            )}
             {/* User Profile / Logout */}
-            <div className="flex items-center gap-2 sm:gap-3 pl-2 sm:pl-4 border-l border-gray-200" ref={menuRef}>
+            <div className="sunny-profile flex items-center gap-2 sm:gap-3 pl-2 sm:pl-4 border-l border-gray-200" ref={menuRef}>
               <div className="flex flex-col items-end hidden lg:flex">
                 <span className="font-semibold text-gray-900">{user.name}</span>
                 <span className="text-xs text-gray-500 capitalize">{user.role}</span>
@@ -203,7 +212,7 @@ const Header: React.FC<HeaderProps> = ({
                     playClick();
                     setIsMenuOpen(!isMenuOpen);
                   }}
-                  className="relative touch-target hover:scale-105 transition-transform"
+                  className="sunny-avatar-button relative touch-target hover:scale-105 transition-transform"
                   aria-label="User menu"
                   aria-expanded={isMenuOpen}
                 >
@@ -216,12 +225,13 @@ const Header: React.FC<HeaderProps> = ({
                 
                 {/* Dropdown Menu */}
                 {isMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl py-2 transform origin-top-right z-50 border border-gray-100 animate-fade-in-down">
+                  <div className="sunny-user-dropdown absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl py-2 transform origin-top-right z-50 border border-gray-100 animate-fade-in-down">
                     <div className="px-4 py-2 border-b border-gray-100 lg:hidden">
                       <p className="font-semibold text-gray-900">{user.name}</p>
                       <p className="text-xs text-gray-500 capitalize">{user.role}</p>
                     </div>
 
+                    {isChild && <div className="sunny-menu-stats"><p>⭐ {user.totalPoints} points</p><p title={`Badges: ${user.badges?.map(b => b.name).join(', ') || 'None yet'}`}>🏅 {user.badges?.length || 0} badges</p><p>🔥 {user.streak || 0} day streak</p></div>}
                     {hasRole(user, 'student') && (
                       <>
                         <button
@@ -319,6 +329,8 @@ const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
       </div>
+
+      {isChild && <ChildNavigation mobile playClick={playClick} />}
 
       {/* AI Adaptive Dashboard Modal */}
       {showAdaptiveDashboard && hasRole(user, 'student') && (
