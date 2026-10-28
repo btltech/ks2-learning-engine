@@ -1,0 +1,156 @@
+/* Sunny Owl sign-in and the existing parent-portal child picker only. */
+.sunny-sign-in, .sunny-child-selector, .sunny-sign-in-loading {
+  --signin-ink: #172033;
+  --signin-paper: #fff;
+  --signin-outline: #172033;
+  --signin-gold: #FFC93C;
+  --signin-sky: #DCEBFF;
+  --signin-pink: #FFE3F1;
+  --signin-leaf: #DDF6E8;
+  --signin-grape: #ECE6FF;
+  color: var(--signin-ink);
+  font: 400 1.125rem/1.6 var(--sunny-body);
+}
+/* Legacy styles assign a font to every element; inherit within these components. */
+:is(.sunny-sign-in, .sunny-child-selector) :where(*) { font-family: inherit; color: var(--signin-ink); }
+:is(.sunny-sign-in, .sunny-child-selector) :is(h1, h2, h3, h4) { font-family: var(--sunny-display); font-weight: 700; line-height: 1.2; }
+:is(.sunny-sign-in, .sunny-child-selector) :is(p, label, button, input, code, span) { font-size: 1.125rem; }
+:is(.sunny-sign-in, .sunny-child-selector) :is(button, input, select) { min-height: 48px; min-width: 48px; }
+:is(.sunny-sign-in, .sunny-child-selector) :is(button, input, select, a):focus-visible {
+  outline: 4px solid #1E55C8 !important; outline-offset: 3px !important;
+}
+:is(.sunny-sign-in, .sunny-child-selector) :is(input, select) {
+  min-height: 56px; border: 3px solid var(--signin-outline); border-radius: 16px;
+  padding: 10px 16px; background: var(--signin-paper); color: var(--signin-ink);
+  box-shadow: none;
+}
+:is(.sunny-sign-in, .sunny-child-selector) input::placeholder { color: var(--signin-ink); opacity: .7; }
+:is(.sunny-sign-in, .sunny-child-selector) button {
+  border: 3px solid var(--signin-outline); border-radius: 18px;
+  padding: 10px 16px; background: var(--signin-paper); color: var(--signin-ink);
+  font-weight: 700; line-height: 1.4; box-shadow: 0 5px 0 var(--signin-outline);
+}
+:is(.sunny-sign-in, .sunny-child-selector) button:hover { background: var(--signin-paper); color: var(--signin-ink); }
+:is(.sunny-sign-in, .sunny-child-selector) button:not(:disabled) { transform: none; }
+:is(.sunny-sign-in, .sunny-child-selector) button:disabled { cursor: not-allowed; }
+:is(.sunny-sign-in, .sunny-child-selector) :where(*) { animation: none; transition: none; }
+.sunny-sign-in {
+  display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); align-items: start;
+  max-width: 1280px; margin: 0 auto; padding: 32px 40px 72px; gap: 28px;
+  background-color: #FFF9EC;
+  background-image: radial-gradient(#F3E3B8 2px, transparent 2px); background-size: 28px 28px;
+}
+.sunny-sign-in-welcome {
+  position: relative; padding: 32px; border: 3px solid var(--signin-outline); border-radius: 32px;
+  box-shadow: 0 6px 0 var(--signin-outline); background: linear-gradient(180deg, #BFE0FF, #E6F1FF);
+  display: flex; flex-direction: column; gap: 28px; min-width: 0;
+}
+.sunny-sign-in-greeting { display: flex; align-items: center; gap: 18px; position: relative; }
+.sunny-sign-in-owl { flex: 0 0 auto; max-width: 25% !important; }
+.sunny-sign-in-greeting > div { min-width: 0; display: grid; gap: 14px; }
+.sunny-sign-in-greeting h2 { font-size: 2.75rem; margin: 0; }
+.sunny-sign-in-greeting .kid-speech-bubble { background: var(--signin-paper); border-color: var(--signin-outline); font-size: 1.25rem; padding: 14px 18px; }
+.sunny-sign-in-sparkle { position: absolute; top: 22px; right: 22px; }
+.sunny-sign-in-guide { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.sunny-sign-in-guide li { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; border: 3px solid var(--signin-outline); border-radius: 28px; background: var(--signin-paper); padding: 18px; font: 600 1.375rem var(--sunny-display); box-shadow: 0 5px 0 var(--signin-outline); text-align: center; }
+.sunny-sign-in-guide li > span { width: 100px; height: 100px; border: 3px solid var(--signin-outline); border-radius: 50%; display: flex; align-items: center; justify-content: center; font: 700 2rem var(--sunny-display); }
+.sunny-sign-in-guide li:nth-child(1) > span { background: var(--signin-pink); }
+.sunny-sign-in-guide li:nth-child(2) > span { background: var(--signin-leaf); }
+.sunny-sign-in-guide li:nth-child(3) > span { background: var(--signin-sky); }
+.sunny-sign-in-guide li:nth-child(4) > span { background: var(--signin-grape); }
+.sunny-sign-in-panel { min-width: 0; background: var(--signin-paper); border: 3px solid var(--signin-outline); border-radius: 28px; padding: 28px; box-shadow: 0 6px 0 var(--signin-outline); }
+.sunny-sign-in-title { margin-bottom: 24px; }
+.sunny-sign-in-title h1 { font-size: 1.875rem; }
+.sunny-sign-in-emblem { display: none; }
+.sunny-sign-in :is(.sunny-auth-tabs, .sunny-login-type) { display: flex; gap: 10px; padding: 0; background: transparent; }
+.sunny-sign-in :is(.sunny-auth-tabs, .sunny-login-type) button { flex: 1 1 0; padding: 10px 8px; min-height: 56px; }
+.sunny-sign-in .sunny-auth-tabs button[data-active='true'], .sunny-sign-in button[type='submit'] { background: #1E55C8; color: #fff; }
+.sunny-sign-in .sunny-login-type button[data-active='true'] { background: var(--signin-gold); }
+.sunny-sign-in button[type='submit'] { min-height: 56px; font-size: 1.1875rem; }
+.sunny-sign-in[data-mode='login'][data-login-as='child'] button[type='submit'] { background: var(--signin-gold); color: var(--signin-ink); }
+.sunny-sign-in .relative input { padding-right: 88px; }
+.sunny-sign-in .relative button { box-shadow: none; min-width: 72px; border-width: 0 0 0 3px; border-radius: 0 13px 13px 0; margin: 3px; }
+.sunny-sign-in :is(.sunny-auth-error, .sunny-auth-success) { border: 3px solid var(--signin-outline); border-radius: 18px; }
+.sunny-sign-in .sunny-auth-error { background: #FFE1DE; }
+.sunny-sign-in .sunny-auth-success { background: var(--signin-leaf); }
+.sunny-sign-in form > div[class*='bg-'] { border: 3px solid var(--signin-outline); border-radius: 18px; background: var(--signin-sky); }
+.sunny-sign-in .sunny-age-options { gap: 8px; }
+.sunny-sign-in .sunny-age-options button { padding: 8px 4px; min-height: 56px; }
+.sunny-sign-in .sunny-age-options button:nth-child(1) { background: #FFF1C7; }
+.sunny-sign-in .sunny-age-options button:nth-child(2) { background: var(--signin-grape); }
+.sunny-sign-in .sunny-age-options button:nth-child(3) { background: var(--signin-sky); }
+.sunny-sign-in .sunny-age-options button:nth-child(4) { background: var(--signin-pink); }
+.sunny-sign-in .sunny-age-options button:nth-child(5) { background: var(--signin-leaf); }
+.sunny-sign-in .sunny-age-options button[data-active='true'] { outline: 3px solid var(--signin-outline); outline-offset: 2px; text-decoration: underline; text-underline-offset: 4px; }
+/* Parent management stays white and calm; only the child choices become picture cards. */
+.sunny-child-selector { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; border: 3px solid var(--signin-outline); border-radius: 28px; padding: 28px; box-shadow: 0 6px 0 var(--signin-outline); background: var(--signin-paper); }
+.sunny-child-selector > * { grid-column: 1 / -1; min-width: 0; margin-block: 0; }
+.sunny-child-selector > div:first-child { flex-wrap: wrap; gap: 16px; }
+.sunny-child-selector h3 { font-size: 1.875rem; }
+.sunny-child-selector code { font-family: ui-monospace, monospace; overflow-wrap: anywhere; }
+.sunny-child-selector .sunny-child-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 18px; }
+.sunny-child-selector .sunny-child-picture { padding: 18px 22px; border-radius: 28px; text-align: center; min-width: 0; }
+.sunny-child-picture > div:first-child { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.sunny-child-picture > div:first-child > div:first-child { order: 2; }
+.sunny-child-picture .sunny-child-avatar { order: 1; width: 110px; height: 110px; border: 3px solid var(--signin-outline); border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--signin-pink); font-size: 3.25rem; }
+.sunny-child-picture:nth-child(even) .sunny-child-avatar { background: var(--signin-leaf); }
+.sunny-child-picture p:first-child { font: 700 1.375rem var(--sunny-display); overflow-wrap: anywhere; }
+.sunny-child-selector .sunny-child-picture[data-selected='true'] { background: #FFF1C7; border-color: var(--signin-outline); outline: 3px solid var(--signin-outline); outline-offset: 3px; box-shadow: 0 5px 0 var(--signin-outline); }
+.sunny-child-selector .sunny-child-picture > div + div { border-color: var(--signin-outline); }
+.sunny-child-selector .sunny-add-child { border-style: dashed; min-height: 200px; width: 100%; box-shadow: none; border-radius: 28px; display: flex; align-items: center; justify-content: center; background: var(--signin-paper); font: 600 1.375rem var(--sunny-display); }
+.sunny-child-selector[data-has-children='true'][data-create-open='false'][data-can-create='true'] { grid-template-columns: minmax(0, 1fr) 200px; }
+.sunny-child-selector[data-has-children='true'][data-create-open='false'][data-can-create='true'] .sunny-child-list { grid-column: 1; }
+.sunny-child-selector[data-has-children='true'][data-create-open='false'][data-can-create='true'] .sunny-child-create { grid-column: 2; grid-row: 2; align-self: start; }
+.sunny-child-selector .sunny-child-create form { border: 3px solid var(--signin-outline); border-radius: 24px; background: var(--signin-paper); }
+.sunny-child-selector :is([role='alert'], [role='status']) { border: 3px solid var(--signin-outline); border-radius: 18px; padding: 16px; }
+.sunny-child-selector [role='alert'] { background: #FFE1DE; }
+.sunny-child-selector [role='status'] { background: var(--signin-leaf); }
+.sunny-child-selector > div:not(.sunny-child-list):not(.sunny-child-create):not(:first-child) { border-color: var(--signin-outline); border-radius: 24px; }
+.sunny-child-selector > div > .flex.items-center { flex-wrap: wrap; }
+@media (max-width: 1050px) {
+  .sunny-sign-in { padding-inline: 24px; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .sunny-sign-in-welcome { padding: 24px; }
+  .sunny-sign-in-greeting { flex-direction: column; align-items: flex-start; }
+  .sunny-sign-in-greeting h2 { font-size: 2.125rem; }
+  .sunny-sign-in-owl { max-width: 100% !important; }
+}
+@media (max-width: 767px) {
+  .sunny-sign-in { grid-template-columns: minmax(0, 1fr); padding: 24px 20px 48px; gap: 24px; }
+  .sunny-sign-in-welcome, .sunny-sign-in-panel { padding: 22px; }
+  .sunny-sign-in-greeting { gap: 14px; }
+  .sunny-sign-in-greeting h2 { font-size: 2.125rem; }
+  .sunny-sign-in-owl { align-self: center; }
+  .sunny-sign-in-guide { display: none; }
+  .sunny-child-selector { padding: 22px; }
+  .sunny-child-selector[data-has-children='true'][data-create-open='false'][data-can-create='true'] { grid-template-columns: minmax(0, 1fr); }
+  .sunny-child-selector[data-has-children='true'][data-create-open='false'][data-can-create='true'] .sunny-child-create { grid-column: 1; grid-row: auto; }
+  .sunny-child-selector .sunny-child-list { grid-template-columns: minmax(0, 1fr); }
+  .sunny-child-selector .sunny-add-child { min-height: 140px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  :root:not(.reduce-motion) :is(.sunny-sign-in, .sunny-child-selector) button:not(:disabled) { transition: transform .12s, box-shadow .12s; }
+  :root:not(.reduce-motion) :is(.sunny-sign-in, .sunny-child-selector) button:not(:disabled):hover { transform: translateY(2px); box-shadow: 0 3px 0 var(--signin-outline); }
+  :root:not(.reduce-motion) :is(.sunny-sign-in, .sunny-child-selector) button:not(:disabled):active { transform: translateY(5px); box-shadow: none; }
+  :root:not(.reduce-motion) .sunny-sign-in .relative button:hover { transform: none; box-shadow: none; }
+}
+.reduce-motion :is(.sunny-sign-in, .sunny-child-selector) *, .reduce-motion .sunny-sign-in-loading * { animation: none !important; transition: none !important; transform: none !important; }
+@media (prefers-reduced-motion: reduce) { :is(.sunny-sign-in, .sunny-child-selector, .sunny-sign-in-loading) * { animation: none !important; transition: none !important; transform: none !important; } }
+:is(.high-contrast, .sunny-high-contrast) :is(.sunny-sign-in, .sunny-child-selector) {
+  --signin-ink: var(--text-primary, #fff);
+  --signin-paper: var(--bg-primary, #000);
+  --signin-outline: var(--border-color, #fff);
+  --signin-gold: var(--bg-primary, #000);
+  --signin-sky: var(--bg-primary, #000);
+  --signin-pink: var(--bg-primary, #000);
+  --signin-leaf: var(--bg-primary, #000);
+  --signin-grape: var(--bg-primary, #000);
+  background: var(--signin-paper); box-shadow: none;
+}
+:is(.high-contrast, .sunny-high-contrast) :is(.sunny-sign-in, .sunny-child-selector) :is(button, .sunny-sign-in-welcome, .sunny-sign-in-panel, .sunny-sign-in-guide li, .sunny-age-options button, .sunny-auth-error, .sunny-auth-success) { background: var(--signin-paper); color: var(--signin-ink); border-color: var(--signin-outline); box-shadow: none; }
+:is(.high-contrast, .sunny-high-contrast) .sunny-sign-in-sparkle { display: none; }
+:is(.high-contrast, .sunny-high-contrast) :is(.sunny-sign-in, .sunny-child-selector) .kid-speech-bubble::after { background: var(--signin-paper); border-color: var(--signin-outline); }
+:is(.large-text, .sunny-large-text) .sunny-sign-in { grid-template-columns: minmax(0, 1fr); }
+:is(.large-text, .sunny-large-text) :is(.sunny-sign-in, .sunny-child-selector) :is(p, label, button, input, code, span) { font-size: 1.35rem; }
+:is(.large-text, .sunny-large-text) .sunny-sign-in .sunny-age-options { grid-template-columns: repeat(auto-fit, minmax(56px, 1fr)); gap: 12px; }
+.sunny-child-selector code.flex-1 { min-height: 56px; border: 3px solid var(--signin-outline); border-radius: 16px; display: flex; align-items: center; justify-content: center; background: var(--signin-paper); }
+.sunny-sign-in-loading > div { color: var(--signin-ink); font-family: inherit; }

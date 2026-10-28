@@ -3,6 +3,10 @@ import { useSearchParams } from 'react-router-dom';
 import { firebaseAuthService } from '../services/firebaseAuthService';
 import { UserProfile } from '../types';
 import { TurnstileWidget } from './TurnstileWidget';
+import { Owl } from './sunny/Owl';
+import { SpeechBubble } from './sunny/SpeechBubble';
+import { Sparkle } from './sunny/Sparkle';
+import './SignIn.css';
 
 interface LoginViewProps {
   onLogin: (user: UserProfile) => void;
@@ -237,17 +241,33 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
 
   if (checkingAuth) {
     return (
-      <div className="flex items-center justify-center py-20">
+      <div className="sunny-sign-in-loading flex items-center justify-center py-20">
         <div className="text-gray-600 text-xl">Loading...</div>
       </div>
     );
   }
 
   return (
-    <div className="flex items-center justify-center p-4 py-12">
-      <div className="bg-white rounded-2xl shadow-2xl p-6 sm:p-8 w-full max-w-md animate-pop-in">
-        <div className="text-center mb-6 sm:mb-8">
-          <div className="w-20 h-20 sm:w-24 sm:h-24 bg-blue-100 rounded-full mx-auto mb-4 flex items-center justify-center text-3xl sm:text-4xl">
+    <div className="sunny-ui sunny-sign-in" data-mode={mode} data-login-as={loginAs}>
+      <aside className="sunny-sign-in-welcome">
+        <Sparkle className="sunny-sign-in-sparkle sunny-twinkle" />
+        <div className="sunny-sign-in-greeting">
+          <Owl pose="wave" height={160} className="sunny-sign-in-owl" />
+          <div>
+            <h2>Who is learning today?</h2>
+            <SpeechBubble>Enter your details, then your secret PIN!</SpeechBubble>
+          </div>
+        </div>
+        <ul className="sunny-sign-in-guide" aria-hidden="true">
+          <li><span>Aa</span>Your name</li>
+          <li><span>7–11</span>Your age</li>
+          <li><span>#</span>Parent code</li>
+          <li><span>••••</span>Your PIN</li>
+        </ul>
+      </aside>
+      <div className="sunny-sign-in-panel">
+        <div className="sunny-sign-in-title text-center mb-6 sm:mb-8">
+          <div className="sunny-sign-in-emblem w-20 h-20 sm:w-24 sm:h-24 bg-blue-100 rounded-full mx-auto mb-4 flex items-center justify-center text-3xl sm:text-4xl">
             {mode === 'forgot' ? '🔑' : mode === 'verify' ? '📧' : '🤖'}
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">
@@ -265,10 +285,11 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
 
         {/* Mode Toggle - hide in forgot and verify mode */}
         {mode !== 'forgot' && mode !== 'verify' && (
-        <div className="flex mb-6 bg-gray-100 rounded-lg p-1">
+        <div className="sunny-auth-tabs flex mb-6 bg-gray-100 rounded-lg p-1">
           <button
             type="button"
             onClick={() => { setMode('login'); setError(null); setSuccessMessage(null); }}
+            data-active={mode === 'login'}
             className={`flex-1 py-2 rounded-md text-sm font-medium transition-all ${
               mode === 'login' 
                 ? 'bg-white shadow text-blue-600' 
@@ -280,6 +301,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
           <button
             type="button"
             onClick={() => { setMode('register'); setLoginAs('parent'); setError(null); setSuccessMessage(null); }}
+            data-active={mode === 'register'}
             className={`flex-1 py-2 rounded-md text-sm font-medium transition-all ${
               mode === 'register' 
                 ? 'bg-white shadow text-purple-600' 
@@ -292,13 +314,13 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
         )}
 
         {error && (
-          <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm font-medium text-center">
+          <div className="sunny-auth-error mb-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm font-medium text-center">
             {error}
           </div>
         )}
 
         {successMessage && (
-          <div className="mb-4 p-3 bg-green-100 text-green-700 rounded-lg text-sm font-medium text-center">
+          <div className="sunny-auth-success mb-4 p-3 bg-green-100 text-green-700 rounded-lg text-sm font-medium text-center">
             {successMessage}
           </div>
         )}
@@ -364,10 +386,11 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
         ) : mode === 'login' ? (
           <>
             {/* Login Type Toggle */}
-            <div className="flex mb-4 bg-gray-100 rounded-lg p-1">
+            <div className="sunny-login-type flex mb-4 bg-gray-100 rounded-lg p-1">
               <button
                 type="button"
                 onClick={() => { setLoginAs('parent'); setError(null); setSuccessMessage(null); setTurnstileToken(''); }}
+                data-active={loginAs === 'parent'}
                 className={`flex-1 py-2 rounded-md text-sm font-medium transition-all ${
                   loginAs === 'parent'
                     ? 'bg-white shadow text-purple-600'
@@ -379,6 +402,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
               <button
                 type="button"
                 onClick={() => { setLoginAs('child'); setError(null); setSuccessMessage(null); setTurnstileToken(''); }}
+                data-active={loginAs === 'child'}
                 className={`flex-1 py-2 rounded-md text-sm font-medium transition-all ${
                   loginAs === 'child'
                     ? 'bg-white shadow text-blue-600'
@@ -409,12 +433,13 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">How old are you?</label>
-                  <div className="grid grid-cols-5 gap-2">
+                  <div className="sunny-age-options grid grid-cols-5 gap-2">
                     {[7, 8, 9, 10, 11].map((ageOption) => (
                       <button
                         key={ageOption}
                         type="button"
                         onClick={() => setAge(ageOption)}
+                        data-active={age === ageOption}
                         className={`p-3 rounded-lg border-2 transition-all text-center font-bold ${
                           age === ageOption
                             ? 'border-blue-500 bg-blue-50 text-blue-700'
