@@ -73,6 +73,7 @@ export default defineConfig(({ mode }) => {
         ...(mode === 'production' ? [VitePWA({
           registerType: 'autoUpdate',
           workbox: {
+            globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
             skipWaiting: true,
             clientsClaim: true,
             // IMPORTANT: do not precache version.json. The VersionService relies on fetching the
@@ -114,8 +115,8 @@ export default defineConfig(({ mode }) => {
             name: 'DemiWura KS2 Learning',
             short_name: 'DemiWura',
             description: 'AI-powered learning companion for KS2 students',
-            theme_color: '#3b82f6',
-            background_color: '#ffffff',
+            theme_color: '#FFC93C',
+            background_color: '#FFF9EC',
             display: 'standalone',
             icons: [
               {

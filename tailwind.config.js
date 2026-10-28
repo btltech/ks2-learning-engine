@@ -1,4 +1,5 @@
 import plugin from 'tailwindcss/plugin';
+import colors from 'tailwindcss/colors';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -26,6 +27,26 @@ export default {
       },
     },
     extend: {
+      colors: {
+        ink: '#172033', muted: '#4A5568',
+        gold: { DEFAULT: '#FFC93C', deep: '#F2A91C' },
+        sky: { ...colors.sky, DEFAULT: '#3D8BFF' }, bubblegum: '#FF6FB5', leaf: '#2FC27A',
+        grape: '#8E6CFF', orange: { ...colors.orange, DEFAULT: '#FF9F1C' }, coral: '#FF5A4E',
+        action: '#1E55C8', page: '#FFF9EC',
+        tint: {
+          sky: '#DCEBFF', grape: '#ECE6FF', leaf: '#DDF6E8', gold: '#FFF1C7',
+          orange: '#FFE9D2', bubblegum: '#FFE3F1', teal: '#D7F3EF', coral: '#FFE1DE',
+        },
+      },
+      fontFamily: {
+        display: ['Fredoka', 'ui-rounded', 'sans-serif'],
+        body: ['Atkinson Hyperlegible', 'sans-serif'],
+      },
+      borderWidth: { 3: '3px' },
+      outlineWidth: { 3: '3px', 4: '4px' },
+      outlineColor: { ink: '#172033', action: '#1E55C8' },
+      backgroundImage: { 'sunny-dots': 'radial-gradient(#F3E3B8 2px, transparent 2px)' },
+      backgroundSize: { 'sunny-grid': '28px 28px' },
       screens: {
         xs: "360px",
         mobile: "480px",
@@ -35,10 +56,14 @@ export default {
         desktop: "1280px",
       },
       borderRadius: {
+        'kid-button': '18px', 'kid-card': '28px', 'kid-hero': '32px', 'kid-chip': '999px',
         "2.5xl": "1.375rem",
         "fluid": "clamp(0.9rem, 1vw + 0.75rem, 1.5rem)",
       },
       boxShadow: {
+        chunky: '0 5px 0 #172033',
+        'chunky-card': '0 6px 0 #172033',
+        'chunky-hover': '0 3px 0 #172033',
         lifted: "0 12px 45px rgba(15, 23, 42, 0.12)",
         subtle: "0 8px 24px rgba(15, 23, 42, 0.06)",
       },

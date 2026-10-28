@@ -18,6 +18,8 @@ import {
 } from '../services/teacherWorkspaceService';
 import { parseTeacherDashboardView } from '../utils/dashboardRoutes';
 import { DashboardShell } from './layout/AppShells';
+import { OwlLogo } from './sunny/OwlLogo';
+import { Chip } from './sunny/Chip';
 
 interface Student {
   id: string;
@@ -185,6 +187,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onClose }) =
 
   return (
     <DashboardShell
+      brand={<div className="sunny-role-brand"><OwlLogo height={36} sticker /><Chip>for schools</Chip></div>}
       title="Teacher Dashboard"
       subtitle="Class overview and student progress"
       icon="👩‍🏫"

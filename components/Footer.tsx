@@ -2,6 +2,7 @@ import React, { Suspense, lazy, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserFeedbackModal from './UserFeedbackModal';
 import { GRADIENTS } from '../constants';
+import { OwlLogo } from './sunny/OwlLogo';
 
 const AccessibilitySettingsModal = lazy(() => import('./AccessibilitySettings').then(m => ({ default: m.AccessibilitySettingsModal })));
 
@@ -24,7 +25,7 @@ const Footer: React.FC<FooterProps> = () => {
     <>
       <footer className={`bg-gradient-to-r ${GRADIENTS.primary} text-white w-full`}>
         <div className="max-w-7xl mx-auto px-4 py-2 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 text-xs text-white/80">
-          <span className="font-semibold text-white">© {currentYear} DemiWura</span>
+          <span className="flex items-center gap-2 font-semibold text-white">© {currentYear} <OwlLogo height={24} sticker /></span>
           <div className="flex flex-wrap gap-x-3 gap-y-1">
             <button onClick={() => handleNavigation('/privacy-policy')} className="hover:text-white">Privacy</button>
             <button onClick={() => handleNavigation('/privacy-for-children')} className="hover:text-white">Children's Privacy</button>

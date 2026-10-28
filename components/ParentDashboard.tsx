@@ -5,6 +5,8 @@ import { authService } from '../services/authService';
 import { useUser } from '../context/UserContext';
 import { generateProgressReport, generateLearningInsights } from '../services/geminiService';
 import CurriculumTracking from './CurriculumTracking';
+import { OwlLogo } from './sunny/OwlLogo';
+import { Chip } from './sunny/Chip';
 
 interface ParentDashboardProps {
   onClose: () => void;
@@ -96,6 +98,7 @@ const ParentDashboard: React.FC<ParentDashboardProps> = ({ onClose }) => {
         {/* Header */}
         <div className="p-6 bg-gradient-to-r from-purple-500 to-indigo-600 text-white flex justify-between items-center sticky top-0 z-10">
           <div>
+            <div className="sunny-role-brand"><OwlLogo height={32} sticker /><Chip>for families</Chip></div>
             <h2 className="text-3xl font-bold flex items-center gap-2">
               <span id="parent-dashboard-title">👨‍👩‍👧 Parent Dashboard</span>
             </h2>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { GRADIENTS, SHADOWS, RADIUS } from '../constants';
+import { GRADIENTS, SHADOWS } from '../constants';
+import { OwlLogo } from './sunny/OwlLogo';
 import { CookieBanner } from './CookieBanner';
 import Footer from './Footer';
 import { SkipToMainContent } from './SkipToMainContent';
@@ -24,17 +25,9 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <button
             onClick={() => navigate('/')}
-            className="flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600 rounded-lg p-2"
+            className="sunny-brand-target flex min-w-0 items-center rounded-lg p-2"
           >
-            {/* Emoji with white background and blue border for excellent color separation */}
-            <span 
-              className={`text-3xl bg-white ${RADIUS.full} w-14 h-14 flex items-center justify-center shadow-lg border-4 border-blue-600`}
-              role="img" 
-              aria-label="DemiWura"
-            >
-              🎓
-            </span>
-            <span className="text-2xl font-bold text-white drop-shadow-lg">DemiWura</span>
+            <OwlLogo height={48} sticker className="sunny-public-logo" />
           </button>
 
           <button
