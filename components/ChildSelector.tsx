@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { UserGroupIcon, ArrowPathIcon } from '@heroicons/react/24/solid';
+import './SignIn.css';
 
 interface ChildSelectorProps {
   children: Array<{ id: string; name: string; age: number }>;
@@ -168,7 +169,7 @@ const ChildSelector: React.FC<ChildSelectorProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-6 mb-8 border-2 border-purple-100">
+    <div className="sunny-ui sunny-child-selector bg-white rounded-xl shadow-md p-6 mb-8 border-2 border-purple-100" data-create-open={showCreateChild} data-has-children={children.length > 0} data-can-create={Boolean(onCreateChild)}>
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
           <UserGroupIcon className="h-6 w-6 text-purple-600" />
@@ -188,12 +189,13 @@ const ChildSelector: React.FC<ChildSelectorProps> = ({
 
       {/* Children List */}
       {children.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="sunny-child-list grid grid-cols-1 md:grid-cols-2 gap-4">
           {children.map((child) => (
             <button
               key={child.id}
               onClick={() => onSelectChild(child.id)}
-              className={`p-4 rounded-lg border-2 transition-all text-left ${
+              data-selected={selectedChildId === child.id}
+              className={`sunny-child-picture p-4 rounded-lg border-2 transition-all text-left ${
                 selectedChildId === child.id
                   ? 'border-purple-500 bg-purple-50 ring-2 ring-purple-200'
                   : 'border-gray-200 hover:border-purple-300 bg-gray-50 hover:bg-gray-100'
@@ -204,7 +206,7 @@ const ChildSelector: React.FC<ChildSelectorProps> = ({
                   <p className="text-lg font-bold text-gray-800">{child.name}</p>
                   <p className="text-sm text-gray-600">Age: {child.age}</p>
                 </div>
-                <div className="text-3xl">👧</div>
+                <div className="sunny-child-avatar text-3xl">👧</div>
               </div>
               {selectedChildId === child.id && (
                 <div className="mt-2 pt-2 border-t border-purple-200">
@@ -225,7 +227,7 @@ const ChildSelector: React.FC<ChildSelectorProps> = ({
       )}
 
       {onCreateChild && (
-        <div className="mt-4">
+        <div className="sunny-child-create mt-4">
           {!showCreateChild ? (
             <button
               type="button"
@@ -233,7 +235,7 @@ const ChildSelector: React.FC<ChildSelectorProps> = ({
                 setShowCreateChild(true);
                 setCreatedDetails(null);
               }}
-              className="px-4 py-2 rounded-lg font-bold bg-emerald-600 text-white hover:bg-emerald-700"
+              className="sunny-add-child px-4 py-2 rounded-lg font-bold bg-emerald-600 text-white hover:bg-emerald-700"
             >
               + Add child and PIN
             </button>

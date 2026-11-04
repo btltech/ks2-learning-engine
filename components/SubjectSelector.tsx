@@ -1,4 +1,5 @@
 import React from 'react';
+import { HomeSubjectIcon } from './sunny/HomeSubjectIcon';
 import { SUBJECTS, RADIUS } from '../constants';
 import type { Subject, ProgressData } from '../types';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
@@ -7,9 +8,10 @@ import { useGameSounds } from '../hooks/useGameSounds';
 interface SubjectSelectorProps {
   onSelect: (subject: Subject) => void;
   progress: ProgressData;
+  sunny?: boolean;
 }
 
-const SubjectSelector: React.FC<SubjectSelectorProps> = ({ onSelect, progress }) => {
+const SubjectSelector: React.FC<SubjectSelectorProps> = ({ onSelect, progress, sunny = false }) => {
   const { playClick } = useGameSounds();
 
   const handleSelect = (subject: Subject) => {
@@ -20,7 +22,7 @@ const SubjectSelector: React.FC<SubjectSelectorProps> = ({ onSelect, progress })
   return (
     <div className="w-full">
       <div 
-        className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4"
+        className={sunny ? "sunny-subject-grid" : "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4"}
         role="list"
         aria-label="Subject selection"
       >
@@ -34,7 +36,7 @@ const SubjectSelector: React.FC<SubjectSelectorProps> = ({ onSelect, progress })
               onClick={() => handleSelect(subject)}
               role="listitem"
               aria-label={`${subject.name}${isCompleted ? ` - ${completedTopics} topics completed` : ''}`}
-              className={`group relative overflow-hidden flex flex-col items-center justify-center p-4 sm:p-5 ${RADIUS.card} transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${subject.bgColor}
+              className={`${sunny ? 'sunny-subject-tile' : ''} group relative overflow-hidden flex flex-col items-center justify-center p-4 sm:p-5 ${RADIUS.card} transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${subject.bgColor}
               motion-safe:hover:shadow-lg motion-safe:hover:-translate-y-1 ${subject.color.replace('text-', 'focus-visible:ring-')} motion-safe:animate-fadeInUp`}
               style={{ animationDelay: `${index * 50}ms` }}
             >
@@ -44,7 +46,7 @@ const SubjectSelector: React.FC<SubjectSelectorProps> = ({ onSelect, progress })
                   <span>{completedTopics}</span>
                 </div>
               )}
-              <subject.icon className={`h-10 w-10 sm:h-12 sm:w-12 mb-2 ${subject.color} transition-transform motion-safe:group-hover:scale-110`} aria-hidden="true" />
+              <>{sunny ? <HomeSubjectIcon subject={subject} /> : <subject.icon className={`h-10 w-10 sm:h-12 sm:w-12 mb-2 ${subject.color} transition-transform motion-safe:group-hover:scale-110`} aria-hidden="true" />}</>
               <span className="text-sm sm:text-base font-bold text-gray-800 text-center">{subject.name}</span>
             </button>
           );

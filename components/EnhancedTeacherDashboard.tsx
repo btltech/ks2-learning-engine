@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { OwlLogo } from './sunny/OwlLogo';
+import { Chip } from './sunny/Chip';
 import { teacherAnalyticsService, ClassData, ClassAnalytics } from '../services/teacherAnalyticsService';
 import { homeworkService, Homework } from '../services/homeworkService';
 
@@ -65,6 +67,7 @@ export default function EnhancedTeacherDashboard({ teacherId, onClose }: Props) 
         <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-6">
           <div className="flex items-center justify-between">
             <div>
+              <div className="sunny-role-brand"><OwlLogo height={32} sticker /><Chip>for schools</Chip></div>
               <h2 className="text-3xl font-bold mb-2">📊 Teacher Dashboard</h2>
               <p className="text-blue-100">Comprehensive class analytics and management</p>
             </div>

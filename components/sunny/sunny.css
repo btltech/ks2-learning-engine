@@ -1,0 +1,118 @@
+/* Sunny Owl foundations only. Existing screens keep their own typography/layout. */
+:root {
+  --sunny-ink: #172033;
+  --sunny-action: #1E55C8;
+  --sunny-body: 'Atkinson Hyperlegible', sans-serif;
+  --sunny-display: 'Fredoka', ui-rounded, sans-serif;
+}
+
+.sunny-ui {
+  font-family: var(--sunny-body);
+}
+.sunny-ui :where(span, p, label, input, button, a) { font-family: inherit; color: inherit; }
+.sunny-ui { color: var(--sunny-ink); font-size: 1.125rem; line-height: 1.6; }
+.sunny-ui :where(h1, h2, h3, h4, h5, h6), .sunny-heading {
+  font-family: var(--sunny-display); font-weight: 700;
+}
+.sunny-ui:focus-visible, .sunny-ui :focus-visible, .sunny-brand-target:focus-visible {
+  outline: 4px solid #1E55C8; outline-offset: 3px;
+}
+.sunny-ui[data-tint='white'] { --sunny-tint: #fff; }
+.sunny-ui[data-tint='sky'] { --sunny-tint: #DCEBFF; }
+.sunny-ui[data-tint='grape'] { --sunny-tint: #ECE6FF; }
+.sunny-ui[data-tint='leaf'] { --sunny-tint: #DDF6E8; }
+.sunny-ui[data-tint='gold'] { --sunny-tint: #FFF1C7; }
+.sunny-ui[data-tint='orange'] { --sunny-tint: #FFE9D2; }
+.sunny-ui[data-tint='bubblegum'] { --sunny-tint: #FFE3F1; }
+.sunny-ui[data-tint='teal'] { --sunny-tint: #D7F3EF; }
+.sunny-ui[data-tint='coral'] { --sunny-tint: #FFE1DE; }
+
+.kid-button {
+  display: inline-flex; align-items: center; justify-content: center; align-self: center; gap: .5rem;
+  min-width: 48px; min-height: 56px; padding: .375rem 1.25rem;
+  border: 3px solid #172033; border-radius: 18px; background: #FFC93C;
+  box-shadow: 0 5px 0 #172033; font-family: var(--sunny-display); font-weight: 600;
+  color: #172033; text-align: center; text-decoration: none; cursor: pointer;
+  touch-action: manipulation;
+}
+.kid-button[data-size='sm'] { min-height: 48px; }
+.kid-button[data-size='lg'] { min-height: 64px; }
+.kid-button[data-variant='white'] { background: #fff; }
+.kid-button[data-variant='tint'] { background: var(--sunny-tint, #DCEBFF); }
+.kid-button[data-variant='action-blue'] { background: #1E55C8; color: #fff; }
+.kid-button:disabled { cursor: not-allowed; opacity: .65; }
+.kid-card {
+  border: 3px solid #172033; border-radius: 28px; background: var(--sunny-tint, #fff);
+  box-shadow: 0 6px 0 #172033; padding: 1.5rem;
+}
+.kid-card[data-hero] { border-radius: 32px; }
+.kid-chip {
+  display: inline-flex; align-items: center; gap: .375rem; padding: .125rem .75rem;
+  border: 3px solid #172033; border-radius: 999px; background: var(--sunny-tint, #fff);
+  font-family: var(--sunny-display); font-weight: 600;
+}
+.kid-meter { display: grid; gap: .375rem; }
+.kid-meter-track { overflow: hidden; height: 24px; border: 3px solid #172033; border-radius: 999px; background: #fff; }
+.kid-meter-fill { display: block; height: 100%; background: #FFC93C; border-right: 3px solid #172033; }
+.kid-speech-bubble {
+  position: relative; border: 3px solid #172033; border-radius: 24px;
+  padding: 1rem 1.25rem; background: #fff; font-weight: 700;
+}
+.kid-speech-bubble::after { content: ''; position: absolute; background: #fff; }
+.kid-speech-bubble[data-tail='left']::after {
+  width: 16px; height: 16px; left: -10px; top: 1.25rem;
+  border-left: 3px solid #172033; border-bottom: 3px solid #172033; transform: rotate(45deg);
+}
+.kid-speech-bubble[data-tail='bottom']::after {
+  width: 16px; height: 16px; left: 1.5rem; bottom: -10px;
+  border-right: 3px solid #172033; border-bottom: 3px solid #172033; transform: rotate(45deg);
+}
+.sunny-logo { display: inline-flex; align-items: center; flex-shrink: 1; max-width: 100%; vertical-align: middle; line-height: 0; }
+.sunny-logo svg { display: block; max-width: 100%; height: var(--owl-logo-height); }
+.sunny-logo-sticker { padding: 4px 10px; border-radius: 14px; background: #fff; }
+.sunny-header-logo { min-width: 100px; max-width: clamp(100px, 42vw, 230px); }
+.sunny-public-logo { max-width: clamp(140px, 46vw, 300px); }
+.sunny-brand-target { min-width: 48px; min-height: 48px; }
+.sunny-role-brand { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin-bottom: .75rem; }
+.sunny-role-brand .kid-chip { font-size: .875rem; }
+.sunny-page { background-color: #FFF9EC; background-image: radial-gradient(#F3E3B8 2px, transparent 2px); background-size: 28px 28px; }
+.sunny-sparkle { flex-shrink: 0; }
+
+/* No timers. Motion is opt-in via classes, except the logo's hover bounce. */
+@keyframes sunny-blink { 0%, 92%, 100% { scale: 1 1; } 96% { scale: 1 .08; } }
+@keyframes sunny-twinkle { 0%, 100% { scale: 1; } 50% { scale: 1.12; } }
+@keyframes sunny-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -6px; } }
+@keyframes sunny-bounce { 0%, 100% { translate: 0 0; } 50% { translate: 0 -5px; } }
+@media (prefers-reduced-motion: no-preference) {
+  :root:not(.reduce-motion) .sunny-blink { transform-box: fill-box; transform-origin: center; animation: sunny-blink 6s ease-in-out infinite; }
+  :root:not(.reduce-motion) .sunny-twinkle { transform-box: fill-box; transform-origin: center; animation: sunny-twinkle 4s ease-in-out infinite; }
+  :root:not(.reduce-motion) .sunny-float { animation: sunny-float 6s ease-in-out infinite; }
+  :root:not(.reduce-motion) .sunny-bounce:hover,
+  :root:not(.reduce-motion) .sunny-logo:hover .sunny-logo-letter { animation: sunny-bounce .45s ease-in-out; }
+  :root:not(.reduce-motion) .kid-button:not(:disabled) { transition: transform .12s ease, box-shadow .12s ease; }
+  :root:not(.reduce-motion) .kid-button:not(:disabled):hover { transform: translateY(2px); box-shadow: 0 3px 0 #172033; }
+  :root:not(.reduce-motion) .kid-button:not(:disabled):active { transform: translateY(5px); box-shadow: none; }
+}
+.reduce-motion :is(.sunny-blink, .sunny-twinkle, .sunny-float, .sunny-bounce, .sunny-logo-letter, .kid-button) {
+  animation: none !important; transition: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  :is(.sunny-blink, .sunny-twinkle, .sunny-float, .sunny-bounce, .sunny-logo-letter, .kid-button) { animation: none !important; transition: none !important; }
+}
+
+/* Respect existing display preferences without styling whole screens. */
+:is(.high-contrast, .sunny-high-contrast) .sunny-ui {
+  color: var(--text-primary, #fff); background: var(--bg-primary, #000);
+  border-color: var(--border-color, #fff); box-shadow: none;
+}
+:is(.high-contrast, .sunny-high-contrast) .sunny-page { color: var(--text-primary, #fff); background-image: none; background-color: var(--bg-primary, #000); }
+:is(.high-contrast, .sunny-high-contrast) .kid-meter-track { background: #000; border-color: #fff; }
+:is(.high-contrast, .sunny-high-contrast) .kid-meter-fill { background: #fff; border-color: #fff; }
+:is(.high-contrast, .sunny-high-contrast) .kid-speech-bubble::after { background: #000; border-color: #fff; }
+:is(.high-contrast, .sunny-high-contrast) .sunny-logo { background: #fff; border-radius: 14px; }
+:is(.high-contrast, .sunny-high-contrast) :is(.sunny-ui, .sunny-brand-target):focus-visible {
+  outline: 4px solid #1E55C8 !important; outline-offset: 3px !important;
+}
+.sunny-large-text .sunny-ui { font-size: 1.35rem; }
+:is(.large-text, .sunny-large-text) .sunny-header-row { height: auto; min-height: 80px; flex-wrap: wrap; gap: .5rem; padding-block: .5rem; }
+.dyslexia-font .sunny-ui, .dyslexia-font .sunny-ui * { font-family: 'OpenDyslexic', 'Comic Sans MS', Arial, sans-serif !important; }

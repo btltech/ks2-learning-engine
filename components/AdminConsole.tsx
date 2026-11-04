@@ -10,6 +10,8 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { OwlLogo } from './sunny/OwlLogo';
+import { Chip } from './sunny/Chip';
 import { useUser } from '../context/UserContext';
 import { getQuestionBankStats, getPoorlyPerformingQuestionsFromFirebase } from '../services/questionPerformance';
 import { useToast } from './Toast';
@@ -122,6 +124,7 @@ export const AdminConsole: React.FC<AdminConsoleProps> = ({ onClose, onOpenQuest
       <div className="bg-gradient-to-r from-gray-900 to-gray-800 text-white p-4 shadow-lg">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div>
+            <div className="sunny-role-brand"><OwlLogo height={32} sticker /><Chip>admin</Chip></div>
             <h1 className="text-2xl font-bold">🛡️ Admin Console</h1>
             <p className="text-gray-400">Platform Management & Monitoring</p>
           </div>

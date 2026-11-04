@@ -78,6 +78,7 @@ export const PageShell: React.FC<PageShellProps> = ({
 };
 
 interface DashboardShellProps {
+  brand?: ReactNode;
   title: string;
   subtitle?: string;
   icon?: ReactNode;
@@ -90,6 +91,7 @@ interface DashboardShellProps {
 }
 
 export const DashboardShell: React.FC<DashboardShellProps> = ({
+  brand,
   title,
   subtitle,
   icon,
@@ -105,6 +107,7 @@ export const DashboardShell: React.FC<DashboardShellProps> = ({
   return (
     <section className="fixed inset-0 z-50 flex flex-col overflow-hidden bg-gray-100" aria-labelledby={headingId}>
       <header className={`bg-gradient-to-r ${headerToneClasses[tone]} text-white shadow-lg`}>
+        {brand && <div className="mx-auto max-w-7xl px-4 pt-4 sm:px-6">{brand}</div>}
         <div className="mx-auto flex max-w-7xl items-start justify-between gap-4 px-4 py-4 sm:px-6">
           <div className="flex min-w-0 items-start gap-3">
             {icon && <span className="text-3xl" aria-hidden="true">{icon}</span>}

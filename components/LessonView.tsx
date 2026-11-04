@@ -108,7 +108,7 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
   // Stop speaking when unmounting or changing lesson
   useEffect(() => {
     return () => cancel();
-  }, [cancel, lesson]);
+  }, [cancel, lesson, subject, topic, difficulty, studentAge]);
 
   const handleSpeak = () => {
     playClick();
@@ -241,7 +241,7 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
               {subject !== 'Yoruba' && <button
                 onClick={handleSpeak}
                 onDoubleClick={handleStop}
-                disabled={isTTSLoading}
+                disabled={isTTSLoading && !isSpeaking}
                 className={`p-3 rounded-full ${isSpeaking ? (isPaused ? 'bg-yellow-100 text-yellow-600' : 'bg-blue-100 text-blue-600') : 'bg-blue-100 text-blue-600'} hover:bg-opacity-80 transition-colors disabled:opacity-50`}
                 title={isSpeaking ? (isPaused ? 'Resume reading' : 'Pause reading (Double click to stop)') : 'Read lesson aloud'}
                 aria-label={isSpeaking ? (isPaused ? 'Resume reading' : 'Pause reading') : 'Read lesson aloud'}
@@ -252,6 +252,9 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
                   <SpeakerWaveIcon className="h-6 w-6" />
                 )}
               </button>}
+              {subject !== 'Yoruba' && isSpeaking && (
+                <button type="button" onClick={handleStop} className="min-h-12 min-w-12 px-3 py-2 rounded-full bg-blue-100 text-ink font-semibold" aria-label="Stop reading">Stop</button>
+              )}
             </div>
           )}
         </div>

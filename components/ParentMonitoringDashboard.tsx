@@ -11,6 +11,8 @@ import { firebaseAuthService } from '../services/firebaseAuthService';
 import { generateLearningInsights, generateProgressReport } from '../services/geminiService';
 import { parseParentWorkspaceTab } from '../utils/dashboardRoutes';
 import { useModalAccessibility } from '../hooks/useModalAccessibility';
+import { OwlLogo } from './sunny/OwlLogo';
+import { Chip } from './sunny/Chip';
 
 interface ParentMonitoringDashboardProps {
   onLogout: () => void | Promise<void>;
@@ -225,9 +227,9 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             <div className="flex items-center space-x-3">
-              <button type="button" onClick={() => navigate('/')} className="flex items-center gap-3 rounded-lg p-2 hover:bg-purple-50" aria-label="Return to parent home">
-                <AcademicCapIcon className="h-10 w-10 text-purple-500" />
-                <span className="text-2xl sm:text-3xl font-extrabold text-gray-800 hidden sm:block">Parent Portal</span>
+              <button type="button" onClick={() => navigate('/')} className="sunny-brand-target flex min-w-0 items-center gap-3 rounded-lg p-2 hover:bg-purple-50" aria-label="Return to parent home">
+                <OwlLogo height={32} decorative />
+                <Chip className="hidden sm:inline-flex">Parent Portal</Chip>
               </button>
             </div>
             <button
