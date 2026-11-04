@@ -1,3 +1,5 @@
+import { MiraFace } from './sunny/MiraFace';
+import './SunnyTopicsLesson.css';
 import React, { useState, useRef, useEffect } from 'react';
 import { XMarkIcon, ChevronDownIcon, PaperAirplaneIcon, MicrophoneIcon } from '@heroicons/react/24/solid';
 import { askMiRa, generateSubjectConnections, generateProjectSuggestions, generateConceptReinforcement } from '../services/geminiService';
@@ -20,6 +22,7 @@ interface GuideAvatarProps {
 }
 
 const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentName, userRole = 'student', context, currentActivity, quizScore, onTopicExplanation, onVoiceCommand, onQuickAction }) => {
+  const isLesson = userRole === 'student' && currentActivity === 'Lesson';
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
   const [inputMessage, setInputMessage] = useState('');
@@ -334,16 +337,17 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
   };
 
   return (
-    <div className="fixed bottom-5 right-5 z-40">
+    <div className={`${isLesson ? 'sunny-mira-lesson sunny-ui' : ''} fixed bottom-5 right-5 z-40`} data-chat-open={isChatOpen}>
+      {isLesson && !isChatOpen && <h2 className="sunny-mira-heading">Stuck? Ask MiRa</h2>}
       {/* Chat Window */}
       {isChatOpen && (
-        <div className={`absolute bottom-24 right-0 w-[min(24rem,calc(100vw-2rem))] h-[min(500px,calc(100vh-10rem))] bg-white ${RADIUS.container} ${SHADOWS.primary} flex flex-col motion-safe:animate-pop-in mb-4`}>
+        <div className={`sunny-mira-chat absolute bottom-24 right-0 w-[min(24rem,calc(100vw-2rem))] h-[min(500px,calc(100vh-10rem))] bg-white ${RADIUS.container} ${SHADOWS.primary} flex flex-col motion-safe:animate-pop-in mb-4`}>
           {/* Chat Header */}
           <div className={`bg-gradient-to-r ${GRADIENTS.primary} text-white p-4 rounded-t-${RADIUS.container.replace('rounded-', '')} flex items-center justify-between`}>
             <div className="flex items-center space-x-3">
-              <AvatarDisplay size="md" showEffects={false} />
+              <>{isLesson ? <MiraFace size={60} /> : <AvatarDisplay size="md" showEffects={false} />}</>
               <div>
-                <h3 className="font-bold text-lg">MiRa</h3>
+                <h3 className="font-bold text-lg">{isLesson ? 'Stuck? Ask MiRa' : 'MiRa'}</h3>
                 <p className="text-xs opacity-90">{roleConfig.subtitle}</p>
               </div>
             </div>
@@ -366,7 +370,7 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
                 {/* MiRa Avatar on left */}
                 {msg.sender !== 'student' && (
                   <div className="flex-shrink-0">
-                    <AvatarDisplay size="sm" showEffects={false} />
+                    <>{isLesson ? <MiraFace size={40} /> : <AvatarDisplay size="sm" showEffects={false} />}</>
                   </div>
                 )}
                 
@@ -395,7 +399,7 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
             {isTyping && (
               <div className="flex items-end gap-2 justify-start">
                 <div className="flex-shrink-0">
-                  <AvatarDisplay size="sm" showEffects={false} />
+                  <>{isLesson ? <MiraFace size={40} /> : <AvatarDisplay size="sm" showEffects={false} />}</>
                 </div>
                 <div className={`bg-white text-gray-800 ${SHADOWS.secondary} ${RADIUS.card} rounded-bl-none px-4 py-2`}>
                   <p className="text-sm font-semibold mb-1 opacity-75">MiRa</p>
@@ -492,7 +496,7 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
       )} */}
 
       {/* Avatar Button - Shows user's customized avatar */}
-      <div className="relative">
+      <div className="sunny-mira-launcher relative">
         <button
           onClick={handleAvatarClick}
           onKeyDown={handleAvatarKeyDown}
@@ -500,7 +504,7 @@ const GuideAvatar: React.FC<GuideAvatarProps> = ({ message, studentAge, studentN
           aria-label={isChatOpen ? 'Close chat with MiRa' : 'Chat with MiRa'}
           title={isChatOpen ? 'Close MiRa' : 'Open MiRa'}
         >
-          <AvatarDisplay size="lg" showEffects={true} />
+          <>{isLesson ? <><MiraFace size={64} /><span>{isChatOpen ? 'Close MiRa' : 'Chat with MiRa'}</span></> : <AvatarDisplay size="lg" showEffects={true} />}</>
         </button>
         
         {/* Voice Input Button - Always visible when supported */}

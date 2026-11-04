@@ -1,3 +1,9 @@
+import { KidCard } from './sunny/KidCard';
+import { KidButton } from './sunny/KidButton';
+import { Meter } from './sunny/Meter';
+import { Owl } from './sunny/Owl';
+import { SubjectPicture } from './sunny/SubjectPicture';
+import './SunnyTopicsLesson.css';
 import React, { useState, useEffect, useCallback } from 'react';
 // Fix: 'Difficulty' is an enum used as a value, so it must be a value import. 'Subject' is only used as a type.
 import { Difficulty, type Subject, type ProgressData } from '../types';
@@ -7,7 +13,10 @@ import LoadingSpinner from './LoadingSpinner';
 import OfflineBadge from './OfflineBadge';
 import { ArrowLeftIcon, CheckCircleIcon } from '@heroicons/react/24/solid';
 import { useGameSounds } from '../hooks/useGameSounds';
-import { getCurriculumUnits, getYearGroupForAge } from '../data/curriculumSequences';
+import {
+  getCurriculumUnits,
+  getYearGroupForAge,
+} from '../data/curriculumSequences';
 
 interface TopicSelectorProps {
   subject: Subject;
@@ -23,7 +32,15 @@ interface TopicSelectorProps {
   };
 }
 
-const TopicSelector: React.FC<TopicSelectorProps> = ({ subject, studentAge, onSelect, onBack, progress, supplementaryAction }) => {
+const TopicSelector: React.FC<TopicSelectorProps> = ({
+  subject,
+  studentAge,
+  onSelect,
+  onBack,
+  progress,
+  supplementaryAction,
+}) => {
+  const [query, setQuery] = useState('');
   const [topics, setTopics] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -41,7 +58,9 @@ const TopicSelector: React.FC<TopicSelectorProps> = ({ subject, studentAge, onSe
       }
     } catch (err) {
       console.error('Error fetching topics:', err);
-      setError('Oops! We couldn\'t load the topics. Please check your internet connection and try again.');
+      setError(
+        "Oops! We couldn't load the topics. Please check your internet connection and try again.",
+      );
     }
     setLoading(false);
   }, [subject.name, studentAge]);
@@ -49,11 +68,15 @@ const TopicSelector: React.FC<TopicSelectorProps> = ({ subject, studentAge, onSe
   useEffect(() => {
     fetchTopics();
   }, [fetchTopics]);
-  
+
   const completedTopics = progress[subject.name] || [];
   const curriculumUnits = getCurriculumUnits(subject.name, studentAge);
-  const unitByTitle = new Map(curriculumUnits.map((unit) => [unit.title, unit]));
-  const firstIncompleteTitle = curriculumUnits.find((unit) => !completedTopics.includes(unit.title))?.title;
+  const unitByTitle = new Map(
+    curriculumUnits.map((unit) => [unit.title, unit]),
+  );
+  const firstIncompleteTitle = curriculumUnits.find(
+    (unit) => !completedTopics.includes(unit.title),
+  )?.title;
 
   const handleSelect = (topic: string) => {
     playClick();
@@ -65,110 +88,197 @@ const TopicSelector: React.FC<TopicSelectorProps> = ({ subject, studentAge, onSe
     onBack();
   };
 
+  const visibleTopics = topics.filter((topic) =>
+    topic.toLocaleLowerCase().includes(query.trim().toLocaleLowerCase()),
+  );
+  const completedCount = topics.filter((topic) =>
+    completedTopics.includes(topic),
+  ).length;
+  const year = getYearGroupForAge(studentAge);
+
   return (
-    <div className="w-full max-w-5xl mx-auto text-center relative">
-      <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between mb-6 sm:mb-8 relative">
-        <button 
-          onClick={handleBack} 
-          className="mb-4 sm:mb-0 sm:absolute sm:left-0 flex items-center text-gray-600 hover:text-gray-900 hover:bg-gray-100 px-3 py-2 rounded-lg font-semibold transition-all duration-200"
-          aria-label="Go back to subject selection"
-        >
-          <ArrowLeftIcon className="h-5 w-5 mr-2" aria-hidden="true"/>
-          Back
-        </button>
-        
-        <div className="flex items-center justify-center gap-3 sm:gap-4 w-full">
-           <subject.icon className={`h-10 w-10 sm:h-12 sm:w-12 ${subject.color}`} aria-hidden="true" />
-           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 tracking-tight">{subject.name}</h2>
+    <div className="sunny-topics sunny-ui">
+      <button
+        onClick={handleBack}
+        className="sunny-back-button"
+        aria-label="Go back to subject selection"
+      >
+        <ArrowLeftIcon aria-hidden="true" /> Back
+      </button>
+      <KidCard hero tint="sky" className="sunny-subject-banner">
+        <SubjectPicture
+          name={subject.name}
+          fallback={subject.icon}
+          size={110}
+        />
+        <div className="sunny-subject-summary">
+          <h2>{subject.name} Island</h2>
+          <p>
+            Year {year} · {completedCount} of {topics.length} topics done
+          </p>
+          <Meter
+            label={`${subject.name} topics completed`}
+            value={completedCount}
+            max={topics.length || 1}
+          />
         </div>
-        
-        {/* Spacer for centering on desktop */}
-        <div className="hidden sm:block w-20"></div>
-      </div>
-
-      <p className="text-base sm:text-lg text-gray-600 mb-2 font-medium px-4">
-        Year {getYearGroupForAge(studentAge)} · Follow the units in order so each lesson builds on the last.
+        <div className="sunny-subject-tools">
+          <ul className="sunny-year-chips" aria-label="Year groups">
+            {[3, 4, 5, 6].map((group) => (
+              <li key={group}>
+                <span aria-current={year === group ? 'true' : undefined}>
+                  Year {group}
+                </span>
+              </li>
+            ))}
+          </ul>
+          <label className="sunny-topic-search">
+            <span className="sr-only">Find a topic</span>
+            <span aria-hidden="true">⌕</span>
+            <input
+              type="search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Find a topic"
+            />
+          </label>
+        </div>
+      </KidCard>
+      <p className="sunny-topic-intro">
+        Year {year} · Follow the units in order so each lesson builds on the
+        last.
       </p>
-      <p className="text-sm text-gray-500 mb-6 sm:mb-8 px-4">You can revisit any earlier unit whenever you need a reminder.</p>
-
+      <p>You can revisit any earlier unit whenever you need a reminder.</p>
       {supplementaryAction && (
-        <button
-          type="button"
+        <KidButton
+          variant="tint"
+          tint="leaf"
+          className="sunny-supplementary"
           onClick={supplementaryAction.onClick}
-          className="mb-6 flex w-full items-center justify-between gap-4 rounded-2xl border border-emerald-200 bg-gradient-to-r from-emerald-50 to-teal-50 p-4 text-left shadow-sm transition-shadow hover:shadow-md focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-emerald-200"
         >
-          <span className="flex items-center gap-3">
-            <span className="text-3xl" aria-hidden="true">{supplementaryAction.icon}</span>
-            <span>
-              <span className="block text-lg font-bold text-emerald-950">{supplementaryAction.label}</span>
-              <span className="block text-sm text-emerald-800">{supplementaryAction.description}</span>
-            </span>
+          <span aria-hidden="true">{supplementaryAction.icon}</span>
+          <span>
+            <strong>{supplementaryAction.label}</strong>
+            <span>{supplementaryAction.description}</span>
           </span>
-          <span className="font-bold text-emerald-800" aria-hidden="true">→</span>
-        </button>
+          <span aria-hidden="true">→</span>
+        </KidButton>
       )}
-      
       <div aria-live="polite" aria-busy={loading}>
-      {loading ? (
-        <LoadingSpinner message={`Finding exciting ${subject.name} topics for you...`} />
-      ) : error ? (
-        <div className="text-center p-8">
-          <div className="bg-red-50 border-2 border-red-200 rounded-lg p-6 max-w-md mx-auto">
-            <p className="text-red-600 font-semibold text-lg mb-4">{error}</p>
-            <button
-              onClick={fetchTopics}
-              className="px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold rounded-xl shadow-lg shadow-red-500/40 hover:shadow-xl hover:shadow-red-500/60 active:scale-95 transition-all duration-200"
-            >
-              Try Again
-            </button>
-          </div>
-        </div>
-      ) : (
-        <div 
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
-          role="list"
-          aria-label="Available topics"
-        >
-          {topics.map((topic) => {
-            const isCompleted = completedTopics.includes(topic);
-            const unit = unitByTitle.get(topic);
-            const isRecommended = firstIncompleteTitle === topic;
-            // Note: Cache key might need adjustment if we want to show offline status for specific difficulties, 
-            // but since difficulty is dynamic now, maybe just check Medium as a proxy or remove specific difficulty check?
-            // For now, we'll check Medium as a default.
-            const lessonCacheKey = createCacheKey('lesson', subject.name, topic, Difficulty.Medium, studentAge.toString());
-            return (
-              <button
-                key={topic}
-                onClick={() => handleSelect(topic)}
-                role="listitem"
-                aria-label={`${topic}${isCompleted ? ' - completed' : ''}`}
-                className={`p-4 rounded-xl shadow-md hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 text-left flex flex-col group relative overflow-hidden
-              
-              before:absolute before:inset-0 before:bg-gradient-to-tr before:from-white/10 before:to-transparent before:opacity-0 group-hover:before:opacity-100 before:transition-opacity before:duration-300
-              
-              ${subject.bgColor} ${subject.color.replace('text-','hover:bg-').replace('600','-200')} focus:outline-none focus:ring-4 focus:ring-opacity-50 ${subject.color.replace('text-', 'focus:ring-')} animate-fadeInUp`}
-              >
-                <div className="flex items-start justify-between mb-2 gap-3">
-                  <div className="relative">
-                    <span className="block text-xs font-bold uppercase tracking-wide opacity-70">Unit {unit?.order || 1}</span>
-                    <span className="block font-bold text-lg text-gray-900">{topic}</span>
-                  </div>
-                  {isCompleted && (
-                    <CheckCircleIcon className="h-6 w-6 text-green-500 shrink-0 relative" aria-hidden="true" />
+        {loading ? (
+          <LoadingSpinner
+            message={`Finding exciting ${subject.name} topics for you...`}
+          />
+        ) : error ? (
+          <KidCard className="sunny-topic-error">
+            <p>{error}</p>
+            <KidButton onClick={fetchTopics}>Try Again</KidButton>
+          </KidCard>
+        ) : visibleTopics.length === 0 ? (
+          <KidCard>
+            <p>No topics match “{query}”.</p>
+            <KidButton variant="white" onClick={() => setQuery('')}>
+              Show all topics
+            </KidButton>
+          </KidCard>
+        ) : (
+          <ol
+            className="sunny-topic-path"
+            role="list"
+            aria-label="Available topics"
+          >
+            {visibleTopics.map((topic, index) => {
+              const isCompleted = completedTopics.includes(topic);
+              const unit = unitByTitle.get(topic);
+              const isRecommended = firstIncompleteTitle === topic;
+              const lessonCacheKey = createCacheKey(
+                'lesson',
+                subject.name,
+                topic,
+                Difficulty.Medium,
+                studentAge.toString(),
+              );
+              const strand = unit?.bankTopic;
+              const startsStrand =
+                index === 0 ||
+                strand !== unitByTitle.get(visibleTopics[index - 1])?.bankTopic;
+              return (
+                <li
+                  key={topic}
+                  data-state={
+                    isCompleted ? 'done' : isRecommended ? 'current' : 'new'
+                  }
+                >
+                  {startsStrand && strand && (
+                    <h3 className="sunny-topic-strand">
+                      {strand.replace(`${subject.name}: `, '')}
+                    </h3>
                   )}
-                </div>
-                {unit?.objective && <p className="relative mb-3 text-sm font-medium leading-snug text-gray-700">{unit.objective}</p>}
-                {isRecommended && !isCompleted && (
-                  <span className="relative mb-3 w-fit rounded-full bg-white/80 px-2.5 py-1 text-xs font-bold text-indigo-700">Recommended next</span>
-                )}
-                {unit?.practicalNote && <p className="relative mb-3 text-xs font-medium text-amber-800">⚠ {unit.practicalNote}</p>}
-                <OfflineBadge cacheKey={lessonCacheKey} />
-              </button>
-            )
-          })}
-        </div>
-      )}
+                  <div className="sunny-topic-step">
+                    <div className="sunny-path-stone" aria-hidden="true">
+                      {isCompleted ? (
+                        <CheckCircleIcon />
+                      ) : (
+                        unit?.order || topics.indexOf(topic) + 1
+                      )}
+                      {isRecommended && !isCompleted && (
+                        <Owl
+                          pose="wave"
+                          height={82}
+                          className="sunny-path-owl"
+                        />
+                      )}
+                    </div>
+                    <KidCard className="sunny-topic-label">
+                      <button
+                        onClick={() => handleSelect(topic)}
+                        aria-label={`${topic}${isCompleted ? ' - completed' : ''}`}
+                      >
+                        <span className="sunny-topic-title">
+                          <strong>{topic}</strong>
+                          <span className="sunny-topic-status">
+                            {isCompleted
+                              ? '✓ Done'
+                              : isRecommended
+                                ? '★ You are here'
+                                : 'New'}
+                          </span>
+                        </span>
+                        <span className="sunny-topic-unit">
+                          Unit {unit?.order || 1}
+                        </span>
+                        {unit?.objective && (
+                          <span className="sunny-topic-objective">
+                            {unit.objective}
+                          </span>
+                        )}
+                        {isRecommended && !isCompleted && (
+                          <span className="sunny-topic-recommendation">
+                            Recommended next
+                          </span>
+                        )}
+                        {unit?.practicalNote && (
+                          <span className="sunny-topic-note">
+                            ⚠ {unit.practicalNote}
+                          </span>
+                        )}
+                        <span className="sunny-topic-start">
+                          {isCompleted
+                            ? 'Read again'
+                            : isRecommended
+                              ? 'Start here'
+                              : 'Start'}{' '}
+                          <span aria-hidden="true">→</span>
+                        </span>
+                        <OfflineBadge cacheKey={lessonCacheKey} />
+                      </button>
+                    </KidCard>
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
+        )}
       </div>
     </div>
   );
