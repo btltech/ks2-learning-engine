@@ -5,6 +5,7 @@
  * Uses drag-and-drop or click-to-select interaction
  */
 
+import './SunnyQuizResults.css';
 import React, { useState, useCallback } from 'react';
 import { MatchingPair } from '../types';
 
@@ -75,7 +76,7 @@ export const MatchingQuestion: React.FC<MatchingQuestionProps> = ({ pairs, onCom
   const allMatched = Object.keys(matches).length === pairs.length;
 
   return (
-    <div className="space-y-6">
+    <div className="sunny-question-kind sunny-matching sunny-ui space-y-6">
       <p className="text-center text-gray-600 font-medium">
         Click an item on the left, then click its match on the right
       </p>
@@ -101,19 +102,19 @@ export const MatchingQuestion: React.FC<MatchingQuestionProps> = ({ pairs, onCom
             }
 
             return (
-              <div key={pair.left} className={`flex items-stretch rounded-xl border-2 transition-all overflow-hidden ${bgColor}`}>
+              <div key={pair.left} data-feedback={isSubmitted ? matches[pair.left] === pair.right ? 'correct' : 'retry' : undefined} data-selected={isSelected} className={`sunny-match-pair flex items-stretch rounded-xl border-2 transition-all overflow-hidden ${bgColor}`}>
                 <button
                   type="button"
                   onClick={() => handleLeftClick(pair.left)}
                   disabled={isSubmitted}
                   aria-pressed={isSelected}
-                  className="min-h-11 flex-1 p-3 text-left focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-blue-300"
+                  className="min-h-12 flex-1 p-3 text-left focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-blue-300"
                 >
                   <span className="flex items-center justify-between gap-2">
                     <span className="font-medium text-gray-800">{pair.left}</span>
                     {isSubmitted && (
-                      <span className="text-lg" aria-hidden="true">
-                        {matches[pair.left] === pair.right ? '✓' : '✗'}
+                      <span className="sunny-kind-feedback">
+                        {matches[pair.left] === pair.right ? '✓ Correct' : '↻ Try again'}
                       </span>
                     )}
                   </span>
@@ -127,7 +128,7 @@ export const MatchingQuestion: React.FC<MatchingQuestionProps> = ({ pairs, onCom
                     <button
                       type="button"
                       onClick={() => handleRemoveMatch(pair.left)}
-                      className="min-w-11 px-3 text-gray-500 hover:text-red-700 hover:bg-white/50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-red-300"
+                      className="min-w-12 px-3 text-gray-500 hover:text-red-700 hover:bg-white/50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-red-300"
                       aria-label={`Remove match for ${pair.left}`}
                     >
                       ✕
@@ -143,6 +144,7 @@ export const MatchingQuestion: React.FC<MatchingQuestionProps> = ({ pairs, onCom
           <h4 className="text-sm font-bold text-gray-500 text-center mb-3">Match To</h4>
           {shuffledRight.map((right) => {
             const isUsed = isRightUsed(right);
+            const feedbackCorrect = pairs.find(pair => pair.right === right)?.left === Object.keys(matches).find(left => matches[left] === right);
             let bgColor = 'bg-purple-50 border-purple-200 hover:border-purple-400';
             
             if (isSubmitted) {
@@ -164,9 +166,11 @@ export const MatchingQuestion: React.FC<MatchingQuestionProps> = ({ pairs, onCom
                 type="button"
                 onClick={() => handleRightClick(right)}
                 disabled={isSubmitted || !selectedLeft}
+                data-feedback={isSubmitted ? feedbackCorrect ? 'correct' : 'retry' : undefined}
                 className={`w-full p-3 rounded-xl border-2 text-left transition-all ${bgColor}`}
               >
                 <span className="font-medium text-gray-800">{right}</span>
+                {isSubmitted && <span className="sunny-kind-feedback block">{feedbackCorrect ? '✓ Correct' : '↻ Try again'}</span>}
               </button>
             );
           })}

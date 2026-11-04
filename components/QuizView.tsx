@@ -1,3 +1,6 @@
+import { Owl } from './sunny/Owl';
+import { AnswerShape } from './sunny/AnswerShape';
+import './SunnyQuizResults.css';
 import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { type QuizQuestion, type Difficulty, type QuizResult, QuestionType } from '../types';
 import { generateQuiz, generateQuizHint } from '../services/geminiService';
@@ -15,7 +18,7 @@ import { DrawingCanvas } from './DrawingCanvas';
 import { MatchingQuestion } from './MatchingQuestion';
 import { DragDropQuestion } from './DragDropQuestion';
 import { OrderingQuestion } from './OrderingQuestion';
-import { buildQuizResults } from '../services/quizScoring';
+import { scoreQuizAnswer, buildQuizResults } from '../services/quizScoring';
 import { CURATED_LANGUAGES } from '../data/curriculumSequences';
 
 interface QuizViewProps {
@@ -329,16 +332,32 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
 
   const currentQuestion = questions[currentQuestionIndex];
   const isLastQuestion = currentQuestionIndex === questions.length - 1;
+  // Presentation of the last submitted answer, using the existing scoring rules.
+  // Submission still advances immediately, including voice input and timeouts.
+  const previousQuestion = currentQuestionIndex > 0 ? questions[currentQuestionIndex - 1] : undefined;
+  const previousOutcome = previousQuestion
+    ? scoreQuizAnswer(previousQuestion, selectedAnswers[currentQuestionIndex - 1] || '')
+    : undefined;
 
   return (
-    <section className="w-full max-w-3xl mx-auto bg-white p-4 sm:p-8 rounded-2xl shadow-[0_20px_25px_-5px_rgba(0,0,0,0.1),0_10px_10px_-5px_rgba(0,0,0,0.04)] border border-gray-100" aria-label={`${subject} ${topic} quiz`}>
-      <div className="mb-4 sm:mb-6" role="status" aria-live="polite">
-        <p className="text-sm font-bold text-blue-600 mb-2">Question {currentQuestionIndex + 1} of {questions.length}</p>
-        <div className="w-full bg-gray-200 rounded-full h-3 mt-2 overflow-hidden" role="progressbar" aria-valuenow={currentQuestionIndex + 1} aria-valuemin={1} aria-valuemax={questions.length}>
+    <section className="sunny-quiz sunny-ui w-full max-w-3xl mx-auto bg-white p-4 sm:p-8 rounded-2xl shadow-[0_20px_25px_-5px_rgba(0,0,0,0.1),0_10px_10px_-5px_rgba(0,0,0,0.04)] border border-gray-100" aria-label={`${subject} ${topic} quiz`}>
+      <div className="sunny-quiz-session-progress mb-4 sm:mb-6" role="status" aria-live="polite">
+        <div className="sunny-quiz-progress-label"><p className="text-sm font-bold text-blue-600 mb-2">Question {currentQuestionIndex + 1} of {questions.length}</p>{(mode !== 'speed' || !timerEnabled) && <span>No timer</span>}</div>
+        <ol className="sunny-quiz-dots" aria-hidden="true">{questions.map((_, index) => <li key={index} data-state={index < currentQuestionIndex ? 'done' : index === currentQuestionIndex ? 'current' : 'new'}>{index < currentQuestionIndex ? '✓' : ''}</li>)}</ol>
+        <div className="sr-only" role="progressbar" aria-valuenow={currentQuestionIndex + 1} aria-valuemin={1} aria-valuemax={questions.length}>
             <div className="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-500" style={{ width: `${((currentQuestionIndex + 1) / questions.length) * 100}%` }}></div>
         </div>
       </div>
-      <div className="flex justify-between items-start mb-6">
+      {previousQuestion && previousOutcome?.isScored && (
+        <div className="sunny-quiz-feedback" data-correct={previousOutcome.isCorrect} role="status">
+          <Owl pose={previousOutcome.isCorrect ? 'hooray' : 'wave'} height={80} />
+          <div><strong>{previousOutcome.isCorrect ? '✓ Correct! Well done.' : '↻ Worth another look'}</strong>
+          <p>Your last answer: {selectedAnswers[currentQuestionIndex - 1] || 'No answer'}</p>
+          {previousQuestion.explanation && <p>{previousQuestion.explanation}</p>}</div>
+        </div>
+      )}
+      <div className="sunny-quiz-question flex justify-between items-start mb-6">
+        <Owl pose="thinking" height={140} />
         <div className="flex-grow">
           {mode === 'speed' && (
             <div className="mb-3 rounded-xl bg-orange-50 p-3 text-orange-700">
@@ -358,15 +377,16 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
               </div>
             </div>
           )}
+          <div className="sunny-quiz-subject"><span>{subject}</span><span>{topic}</span></div>
           <h3 className="text-xl sm:text-2xl font-bold text-gray-800">{currentQuestion.question}</h3>
         </div>
-        <div className="flex gap-2 ml-2 sm:ml-4">
+        <div className="sunny-quiz-tools flex gap-2 ml-2 sm:ml-4">
           <button 
             onClick={() => isSpeaking ? cancel() : speak(currentQuestion.question)}
             className="p-2 text-blue-500 hover:bg-blue-50 rounded-full transition-colors"
             aria-label={isSpeaking ? "Stop reading" : "Read question"}
           >
-            {isSpeaking ? <StopIcon className="h-6 w-6" /> : <SpeakerWaveIcon className="h-6 w-6" />}
+            {isSpeaking ? <StopIcon className="h-6 w-6" /> : <SpeakerWaveIcon className="h-6 w-6" />}<span>{isSpeaking ? 'Stop' : 'Read question'}</span>
           </button>
           {voiceSupported && (
             <button
@@ -389,7 +409,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
             aria-label="Get a hint"
             title="Get a helpful hint (won't give away the answer)"
           >
-            <LightBulbIcon className="h-6 w-6" />
+            <LightBulbIcon className="h-6 w-6" /><span>Hint</span>
           </button>
         </div>
       </div>
@@ -411,7 +431,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
 
       {/* Hint Display */}
       {currentHint && (
-        <div className="mb-4 p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded-r-lg">
+        <div className="sunny-quiz-hint mb-4 p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded-r-lg">
           <div className="flex items-start">
             <LightBulbIcon className="h-5 w-5 text-yellow-600 mr-2 mt-0.5 flex-shrink-0" />
             <div>
@@ -455,7 +475,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
       {(currentQuestion.questionType === QuestionType.MultipleChoice || 
         currentQuestion.questionType === QuestionType.TrueFalse ||
         !currentQuestion.questionType) && currentQuestion.options && currentQuestion.options.length > 0 && (
-        <div className="space-y-4" role="radiogroup" aria-label="Quiz answer options">
+        <div className="sunny-answer-grid" role="radiogroup" aria-label="Quiz answer options">
           {currentQuestion.options.map((option, index) => (
             <button
               key={index}
@@ -463,7 +483,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
               role="radio"
               aria-checked={selectedOption === option}
               aria-label={`Option: ${option}`}
-              className={`w-full text-left p-3 sm:p-4 rounded-xl border-2 transition-all duration-200 text-base sm:text-lg font-semibold
+              className={`sunny-quiz-answer w-full text-left p-3 sm:p-4 rounded-xl border-2 transition-all duration-200 text-base sm:text-lg font-semibold
                 ${selectedOption === option 
                   ? currentQuestion.questionType === QuestionType.TrueFalse
                     ? option === 'True'
@@ -477,10 +497,13 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
                     : 'bg-blue-50 border-blue-200 text-gray-700 hover:bg-blue-100 hover:border-blue-400 hover:shadow-md'
                 }`}
             >
+              <AnswerShape index={index} />
+              <span className="sunny-quiz-answer-value">
               {currentQuestion.questionType === QuestionType.TrueFalse && (
                 <span className="mr-2">{option === 'True' ? '✓' : '✗'}</span>
               )}
-              {option}
+              {option}</span>
+              {selectedOption === option && <span className="sunny-quiz-answer-status">Your answer</span>}
             </button>
           ))}
         </div>
@@ -568,7 +591,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
         <OrderingQuestion items={currentQuestion.options} onChange={setOrderingAnswer} />
       )}
 
-      <div className="mt-6 sm:mt-8 text-right">
+      <div className="sunny-quiz-submit mt-6 sm:mt-8 text-right">
         <button
           onClick={() => handleNextQuestion(false)}
           disabled={
@@ -600,7 +623,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
           }
           className="w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-bold text-lg rounded-xl shadow-lg shadow-green-500/40 hover:shadow-xl hover:shadow-green-500/50 active:scale-95 transition-all duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:shadow-none disabled:active:scale-100"
         >
-          {isLastQuestion ? 'Finish Quiz' : 'Next Question'}
+          {isLastQuestion ? 'Finish Quiz' : 'Check answer'}
         </button>
       </div>
     </section>

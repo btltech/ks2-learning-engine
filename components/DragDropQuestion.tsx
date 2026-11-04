@@ -5,6 +5,7 @@
  * Supports touch and mouse interactions
  */
 
+import './SunnyQuizResults.css';
 import React, { useState, useCallback, useRef } from 'react';
 import { DragDropItem, DragDropZone } from '../types';
 
@@ -109,7 +110,7 @@ export const DragDropQuestion: React.FC<DragDropQuestionProps> = ({ items, zones
   const allPlaced = Object.keys(placements).length === items.length;
 
   return (
-    <div ref={containerRef} className="space-y-6">
+    <div ref={containerRef} className="sunny-question-kind sunny-sorting sunny-ui space-y-6">
       <p className="text-center text-gray-600 font-medium">
         {selectedItem 
           ? 'Now tap a zone to place the item'
@@ -133,7 +134,7 @@ export const DragDropQuestion: React.FC<DragDropQuestionProps> = ({ items, zones
                 aria-pressed={selectedItem === item.id}
                 aria-label={`Select ${item.content}`}
                 className={`
-                  min-h-11 px-4 py-2 rounded-full cursor-grab active:cursor-grabbing
+                  min-h-12 px-4 py-2 rounded-full cursor-grab active:cursor-grabbing
                   font-medium transition-all select-none
                   ${draggedItem === item.id 
                     ? 'opacity-50' 
@@ -168,10 +169,11 @@ export const DragDropQuestion: React.FC<DragDropQuestionProps> = ({ items, zones
           return (
             <div
               key={zone.id}
+              data-feedback={isSubmitted ? isCorrectZone ? 'correct' : 'retry' : undefined}
               onDrop={(e) => handleDrop(e, zone.id)}
               onDragOver={handleDragOver}
               className={`
-                min-h-[120px] p-4 rounded-xl border-2 transition-all
+                sunny-sort-zone min-h-[120px] p-4 rounded-xl border-2 transition-all
                 ${borderColor}
                 ${selectedItem ? 'bg-indigo-50' : ''}
                 ${isSubmitted ? (isCorrectZone ? 'bg-green-50' : 'bg-red-50') : 'bg-white'}
@@ -183,13 +185,14 @@ export const DragDropQuestion: React.FC<DragDropQuestionProps> = ({ items, zones
                   : 'text-gray-700 border-gray-200'
               }`}>
                 {zone.label}
+                {isSubmitted && <span className="sunny-kind-feedback block">{isCorrectZone ? '✓ Correct' : '↻ Try again'}</span>}
               </h4>
 
               {selectedItem && !isSubmitted && (
                 <button
                   type="button"
                   onClick={() => handleZoneClick(zone.id)}
-                  className="w-full min-h-11 mb-3 rounded-lg border-2 border-dashed border-indigo-400 bg-white text-indigo-700 font-semibold hover:bg-indigo-100 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-indigo-300"
+                  className="w-full min-h-12 mb-3 rounded-lg border-2 border-dashed border-indigo-400 bg-white text-indigo-700 font-semibold hover:bg-indigo-100 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-indigo-300"
                   aria-label={`Place selected item in ${zone.label}`}
                 >
                   Place here
@@ -226,7 +229,7 @@ export const DragDropQuestion: React.FC<DragDropQuestionProps> = ({ items, zones
                         </button>
                       )}
                       {isSubmitted && (
-                        <span>{isCorrect ? '✓' : '✗'}</span>
+                        <span>{isCorrect ? '✓ Correct' : '↻ Try again'}</span>
                       )}
                     </div>
                   );

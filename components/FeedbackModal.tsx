@@ -1,7 +1,11 @@
+import { Owl } from './sunny/Owl';
+import { MiraFace } from './sunny/MiraFace';
+import { useUISettings } from '../context/UISettingsContext';
+import './SunnyQuizResults.css';
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { generateFeedback } from '../services/geminiService';
 import LoadingSpinner from './LoadingSpinner';
-import { SparklesIcon, CheckCircleIcon, XCircleIcon, SpeakerWaveIcon } from '@heroicons/react/24/solid';
+import { CheckCircleIcon, XCircleIcon, SpeakerWaveIcon } from '@heroicons/react/24/solid';
 import type { QuizResult, Explanation } from '../types';
 import { useGameSounds } from '../hooks/useGameSounds';
 import { speakNaturally, speakCelebration, stopSpeaking } from '../services/naturalTTS';
@@ -21,7 +25,8 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ quizResults, studentAge, 
   const [explanations, setExplanations] = useState<Explanation[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const { playSuccess, playIncorrect } = useGameSounds();
+  const { playSuccess, playIncorrect, soundEnabled } = useGameSounds();
+  const { settings: { reducedAnimations } } = useUISettings();
   const dialogRef = useModalAccessibility(onNewTopic);
 
   const scoredResults = useMemo(() => quizResults.filter((result) => result.isScored !== false), [quizResults]);
@@ -37,6 +42,8 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ quizResults, studentAge, 
   const percentage = total > 0 ? Math.round((score / total) * 100) : 0;
 
   useEffect(() => {
+    if (!soundEnabled || reducedAnimations || window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+    let celebrationTimer: ReturnType<typeof setTimeout>;
     if (percentage >= 70) {
       playSuccess();
       const messages = [
@@ -47,7 +54,7 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ quizResults, studentAge, 
       ];
       const message = messages[Math.floor(Math.random() * messages.length)];
       const category = percentage === 100 ? 'perfect_score' : 'high_score';
-      setTimeout(() => speakCelebration(message, 'English', category), 250);
+      celebrationTimer = setTimeout(() => speakCelebration(message, 'English', category), 250);
     } else if (percentage >= 40) {
       const messages = [
         `Good effort! You got ${score} out of ${total}. Keep practicing!`,
@@ -55,10 +62,10 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ quizResults, studentAge, 
         `Well done for trying! Let's review the ones you missed.`
       ];
       const message = messages[Math.floor(Math.random() * messages.length)];
-      setTimeout(() => speakCelebration(message, 'English', 'effort'), 250);
+      celebrationTimer = setTimeout(() => speakCelebration(message, 'English', 'effort'), 250);
     } else {
       playIncorrect();
-      setTimeout(() => {
+      celebrationTimer = setTimeout(() => {
         speakCelebration(
           "Don't worry! Everyone learns at their own pace. Let's look at the explanations together.",
           'English',
@@ -68,8 +75,8 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ quizResults, studentAge, 
     }
     
     // Cleanup: stop speaking when modal closes
-    return () => stopSpeaking();
-  }, [percentage, playSuccess, playIncorrect, score, total]);
+    return () => { clearTimeout(celebrationTimer); stopSpeaking(); };
+  }, [percentage, playSuccess, playIncorrect, score, total, soundEnabled, reducedAnimations]);
 
   const fetchFeedback = useCallback(async () => {
     setLoading(true);
@@ -91,28 +98,23 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ quizResults, studentAge, 
   }, [fetchFeedback]);
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50" role="presentation">
-      <div ref={dialogRef} tabIndex={-1} className="bg-white rounded-2xl shadow-2xl p-4 sm:p-8 max-w-2xl w-full text-center transform transition-all animate-pop-in max-h-[90vh] overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="feedback-title">
-        <SparklesIcon className="h-12 w-12 sm:h-16 sm:w-16 text-yellow-400 mx-auto mb-4" aria-hidden="true"/>
-        <h2 id="feedback-title" className="text-2xl sm:text-3xl font-extrabold text-gray-800">Quiz Complete!</h2>
-        
-        <div 
-          className="bg-yellow-100 text-yellow-800 font-bold px-4 py-2 rounded-full inline-block my-4 text-base sm:text-lg"
-          role="status"
-          aria-label={`You earned ${pointsEarned} points`}
-        >
-          +{pointsEarned} points!
+    <div className="sunny-results-overlay fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50" role="presentation">
+      <div ref={dialogRef} tabIndex={-1} className="sunny-results sunny-ui bg-white rounded-2xl shadow-2xl p-4 sm:p-8 max-w-2xl w-full text-center transform transition-all animate-pop-in max-h-[90vh] overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="feedback-title">
+        <div className="sunny-results-hero" tabIndex={0} role="group" aria-label="Quiz summary">
+          <div className="sunny-confetti-strip" aria-hidden="true">{Array.from({length:12}, (_, i) => <i key={i} />)}</div>
+          <Owl pose="hooray" height={180} />
+          <p className="sunny-score-badge" role="status" aria-label={`Your score: ${score} out of ${total} correct`}>
+            <strong>{score}</strong><span>out of {total}</span>
+          </p>
+          <div className="sunny-results-greeting">
+            <h2 id="feedback-title" className="text-2xl sm:text-3xl font-extrabold text-gray-800">Quiz Complete!</h2>
+            <p>Well done for giving it a go!</p>
+            <div className="sunny-earned-points" role="status" aria-label={`You earned ${pointsEarned} points`}>
+              <span aria-hidden="true">★</span> +{pointsEarned} points earned!
+            </div>
+          </div>
         </div>
-
-        <p 
-          className="text-4xl sm:text-5xl font-bold my-2" 
-          style={{color: percentage > 70 ? '#10B981' : percentage > 40 ? '#F59E0B' : '#EF4444'}}
-          role="status"
-          aria-label={`Your score: ${score} out of ${total} correct`}
-        >
-            {score} / {total}
-        </p>
-        <div className="w-full bg-gray-200 rounded-full h-4 mb-6" role="progressbar" aria-valuenow={percentage} aria-valuemin={0} aria-valuemax={100}>
+        <div className="sunny-results-meter w-full bg-gray-200 rounded-full h-4 mb-6" role="progressbar" aria-valuenow={percentage} aria-valuemin={0} aria-valuemax={100}>
             <div 
                 className={`h-4 rounded-full transition-all duration-500 ${percentage > 70 ? 'bg-green-500' : percentage > 40 ? 'bg-yellow-500' : 'bg-red-500'}`}
                 style={{ width: `${percentage}%` }}
@@ -148,9 +150,17 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ quizResults, studentAge, 
           </div>
         )}
 
+        <div className="sunny-results-review">
+          <section className="sunny-went-well" aria-labelledby="went-well-heading">
+            <h3 id="went-well-heading">What went well</h3>
+            {score > 0 ? <ul>{scoredResults.filter(result => result.isCorrect).map((result, index) => <li key={index}>
+              <span className="sunny-result-word">✓ Correct</span><p>{result.question}</p>
+              <p>Your answer: {result.userAnswer}</p>
+            </li>)}</ul> : <p>You completed the quiz. Each practice is a step forward.</p>}
+          </section>
         {incorrectAnswers.length > 0 && (
-          <section className="text-left my-8 p-4 bg-gray-50 rounded-lg" aria-labelledby="review-heading">
-            <h3 id="review-heading" className="text-xl font-bold text-gray-800 mb-4">Let's Review!</h3>
+          <section className="sunny-worth-review text-left my-8 p-4 bg-gray-50 rounded-lg" aria-labelledby="review-heading">
+            <h3 id="review-heading" className="text-xl font-bold text-gray-800 mb-4">Worth another look</h3>
             {loading ? <LoadingSpinner message="Preparing your personalized explanations..." /> : error ? (
               <div className="bg-yellow-50 border border-yellow-200 rounded p-4 mb-4">
                 <p className="text-yellow-700 text-sm">{error}</p>
@@ -161,7 +171,8 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ quizResults, studentAge, 
                   const explanation = explanations.find(e => e.question === result.question)?.explanation;
                   const displayedCorrectAnswer = resolveMultipleChoiceAnswer(result) || result.correctAnswer;
                   return (
-                    <li key={index} className="border-b pb-4 last:border-b-0" role="listitem">
+                    <li key={index} data-feedback="retry" className="border-b pb-4 last:border-b-0" role="listitem">
+                      <span className="sunny-result-word">↻ Try again</span>
                       <p className="font-semibold text-gray-700">{result.question}</p>
                       <div className="flex items-center text-sm mt-2">
                         <XCircleIcon className="h-5 w-5 text-red-500 mr-2 shrink-0" aria-hidden="true" />
@@ -192,11 +203,13 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ quizResults, studentAge, 
           </section>
         )}
 
+        </div>
+        <div className="sunny-results-tip"><MiraFace size={64} /><p><strong>MiRa’s tip:</strong> Read the explanations, then practise again when you feel ready.</p></div>
         {total > 0 && score === total && (
             <p className="text-lg text-green-600 font-bold my-8" role="status">Wow, a perfect score! You're a superstar!</p>
         )}
 
-        <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mt-6 sm:mt-8">
+        <div className="sunny-results-actions flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mt-6 sm:mt-8">
           <button
             onClick={onRetry}
             aria-label="Retry the quiz"
