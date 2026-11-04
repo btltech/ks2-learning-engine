@@ -186,20 +186,15 @@ body:has(.sunny-mira-lesson) .sunny-lesson-main { margin-right: 420px; }
   .sunny-topic-label > button { padding: 14px 12px; }
   .sunny-topic-title > strong { font-size: 1.25rem; }
   .sunny-topic-status { padding: 2px 8px; }
-  .sunny-lesson { padding-bottom: 320px; }
   .sunny-lesson-toolbar > span { font-size: 1.25rem; }
   .sunny-storybook,.sunny-guided-practice { padding: 24px 20px; border-radius: 28px; }
   .sunny-storybook h2 { font-size: 2rem; }
   .sunny-lesson-copy h2,.sunny-lesson-copy h3 { font-size: 1.5rem; }
   .sunny-lesson-block[data-kind] { padding: 18px 16px; }
-  .sunny-reading-bar { position: fixed; z-index: 35; left: 16px; right: 16px; bottom: calc(126px + env(safe-area-inset-bottom)); margin: 0; padding: 10px 12px; gap: 8px; }
-  .sunny-reading-bar > img { display: none; }
   .sunny-reading-caption { min-width: 90px; flex-wrap: wrap; }
   .sunny-reading-caption > strong { font-size: 1.125rem; }
   .sunny-reading-actions { gap: 8px; }
   .sunny-reading-actions button { padding: 6px 10px; }
-  .sunny-lesson-next { position: fixed; z-index: 35; left: 16px; right: 16px; bottom: max(14px,env(safe-area-inset-bottom)); display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 10px; margin: 0; padding: 10px; border: 3px solid #172033; border-radius: 24px; background: #FFF9EC; }
-  .sunny-lesson-next button { min-width: 0; min-height: 72px; font-size: 1.125rem; padding: 8px; }
   .sunny-learning-step { flex-wrap: wrap; gap: 12px; padding: 16px; }
   .sunny-learning-step > div:first-child { width: 56px; height: 56px; }
   .sunny-learning-step > div:nth-child(2) { flex-basis: calc(100% - 72px); }
@@ -207,10 +202,6 @@ body:has(.sunny-mira-lesson) .sunny-lesson-main { margin-right: 420px; }
 }
 @media (max-width: 700px) {
   /* Keep the existing phone navigation reachable below the lesson controls. */
-  body:has(.sunny-lesson) { padding-bottom: 380px; }
-  body:has(.sunny-child-header) .sunny-lesson-next { bottom: calc(108px + env(safe-area-inset-bottom)); }
-  body:has(.sunny-child-header) .sunny-lesson .sunny-reading-bar { bottom: calc(222px + env(safe-area-inset-bottom)); }
-  body:has(.sunny-child-header) .sunny-mira-lesson { bottom: 340px; }
   :is(.high-contrast,.sunny-high-contrast) .sunny-lesson-next { background: var(--bg-primary,#000); border-color: var(--border-color,#fff); }
 }
 .sunny-mira-lesson .sunny-mira-chat p { font-size: 1.125rem; line-height: 1.5; }
@@ -235,26 +226,20 @@ main:has(.sunny-lesson) { content-visibility: visible; contain: none; }
 :is(.high-contrast,.sunny-high-contrast) .sunny-topics .sunny-topic-path [data-state] .sunny-path-stone,
 :is(.high-contrast,.sunny-high-contrast) .sunny-learning-paths .sunny-learning-step[data-state] > div:first-child { background: var(--bg-primary,#000); color: var(--text-primary,#fff); border-color: var(--border-color,#fff); }
 :is(.high-contrast,.sunny-high-contrast) :is(.sunny-topics,.sunny-lesson,.sunny-mira-lesson) input::placeholder { color: inherit; opacity: 1; }
-/* Keep speech controls in their original DOM location so behavior patches stay separate. */
+/* The reader stays above the story on desktop and flows with the header on phones. */
 .sunny-storybook { position: relative; }
 .sunny-storybook:has(.sunny-reading-bar:not(.sunny-no-reader)) { margin-top: 124px; }
-.sunny-storybook .sunny-reading-bar { position: absolute; left: -3px; top: -124px; width: calc(100% + 6px); margin: 0; }
+.sunny-storybook .sunny-reading-bar { position: absolute; left: -3px; top: -124px; width: calc(100% + 6px); margin: 0; min-height: 100px; justify-content: flex-end; }
+.sunny-reader-art { display: flex; align-items: center; gap: 16px; margin-right: auto; pointer-events: none; }
 @media (min-width: 1001px) { body:has(.sunny-mira-lesson) .sunny-storybook .sunny-reading-bar { width: calc(100% + 426px); } }
+.sunny-reading-bar.sunny-no-reader { display: none; }
 @media (max-width: 700px) {
   .sunny-storybook:has(.sunny-reading-bar:not(.sunny-no-reader)) { margin-top: 0; }
-  .sunny-storybook .sunny-reading-bar { position: fixed; top: auto; left: 16px; right: 16px; width: auto; bottom: calc(126px + env(safe-area-inset-bottom)); }
-  body:has(.sunny-child-header) .sunny-storybook .sunny-reading-bar { bottom: calc(222px + env(safe-area-inset-bottom)); }
-}
-
-.sunny-reading-bar.sunny-no-reader { display: none; }
-.sunny-storybook .sunny-reading-bar { justify-content: flex-end; min-height: 100px; padding-left: 220px; }
-.sunny-reader-art { display: flex; align-items: center; gap: 16px; position: absolute; top: -108px; left: 18px; height: 68px; max-width: 60%; z-index: 2; pointer-events: none; }
-@media (prefers-reduced-motion: no-preference) { :root:not(.reduce-motion) .sunny-reader-art[data-reading='true'] .sunny-sound-bars i { animation: sunny-lesson-sound .9s ease-in-out infinite; } }
-@media (max-width: 700px) {
-  .sunny-storybook .sunny-reading-bar { min-height: 96px; padding-left: 134px; gap: 8px; }
-  .sunny-reader-art { position: fixed; top: auto; left: 28px; bottom: calc(140px + env(safe-area-inset-bottom)); max-width: 106px; z-index: 36; }
-  .sunny-reader-art > img { display: none; }
-  body:has(.sunny-child-header) .sunny-reader-art { bottom: calc(236px + env(safe-area-inset-bottom)); }
+  .sunny-storybook > div:first-child { flex-wrap: wrap; gap: 20px; }
+  .sunny-storybook .sunny-reading-bar { position: static; width: 100%; min-height: 0; padding: 12px; justify-content: flex-start; }
+  .sunny-reader-art { flex: 1 1 130px; min-width: 0; gap: 10px; }
+  .sunny-reader-art > img { width: 40px; height: 48px; }
+  .sunny-reading-caption { min-width: 0; }
 }
 
 /* Let the existing modal header and badge labels wrap on narrow screens. */
@@ -267,3 +252,21 @@ main:has(.sunny-lesson) { content-visibility: visible; contain: none; }
 :is(.high-contrast,.sunny-high-contrast) .sunny-path-choice .h-2 { border: 1px solid var(--border-color,#fff); }
 :is(.high-contrast,.sunny-high-contrast) .sunny-path-choice .h-2 > div { background: var(--text-primary,#fff) !important; }
 @media (max-width: 700px) { .sunny-learning-paths [role='dialog'] > div:first-child { padding: 16px; } }
+
+@media (max-width: 700px) {
+  /* One primary quiz action; the optional speed challenge remains in the page. */
+  .sunny-lesson { padding-bottom: 180px; }
+  .sunny-lesson-next { position: static; display: flex; margin-top: 24px; padding-top: 24px; }
+  .sunny-lesson-next::before { content: ''; position: fixed; z-index: 34; left: 0; right: 0; bottom: 0; height: calc(176px + env(safe-area-inset-bottom)); background: #FFF9EC; }
+  .sunny-lesson-next > button:first-child:disabled { opacity: 1; }
+  :is(.high-contrast,.sunny-high-contrast) .sunny-lesson-next::before { background: var(--bg-primary,#000); }
+  .sunny-lesson-next > button:first-child { position: fixed; z-index: 35; left: 16px; right: 16px; bottom: calc(108px + env(safe-area-inset-bottom)); width: calc(100% - 32px); min-height: 56px; padding: 8px 12px; font-size: 1.125rem; }
+  /* An opaque help row reserves its own space above the primary action. */
+  .sunny-mira-lesson:not([data-chat-open='true']) { left: 0; right: 0; bottom: calc(176px + env(safe-area-inset-bottom)); padding: 8px 16px; background: #FFF9EC; }
+  .sunny-mira-lesson .sunny-mira-launcher { flex-direction: row; flex-wrap: nowrap; gap: 12px; }
+  .sunny-mira-lesson .sunny-mira-launcher > button:first-child { flex: 1; width: auto; height: auto; min-height: 48px; border-radius: 18px; }
+  .sunny-mira-lesson .sunny-mira-launcher > button:first-child > span { display: inline; font-size: 1.125rem; }
+  .sunny-mira-lesson .sunny-mira-launcher > button:first-child > img { width: 36px; height: 36px; }
+  .sunny-mira-lesson .sunny-mira-launcher > button:nth-child(2) { flex-shrink: 0; }
+  :is(.high-contrast,.sunny-high-contrast) .sunny-mira-lesson:not([data-chat-open='true']) { background: var(--bg-primary,#000); }
+}

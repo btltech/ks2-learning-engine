@@ -236,14 +236,14 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
             <h2 className="text-2xl sm:text-4xl font-extrabold text-gray-800">{topic}</h2>
             {curriculumUnit?.objective && <p className="mt-2 max-w-2xl text-base font-medium text-gray-600">{curriculumUnit.objective}</p>}
           </div>
-          {!loading && !error && subject !== 'Yoruba' && (
-            <div className="sunny-reader-art" aria-hidden="true" data-reading={isSpeaking && !isPaused}>
-              <Owl pose="reading" height={68} />
-              <div className="sunny-reading-caption"><strong>{isSpeaking ? isPaused ? 'Reading paused' : 'Reading aloud' : 'Read aloud'}</strong><span className="sunny-sound-bars"><i /><i /><i /><i /><i /></span></div>
-            </div>
-          )}
           {!loading && !error && (
-            <div className={`sunny-reading-bar sunny-reading-actions flex items-center gap-2 ${subject === 'Yoruba' ? 'sunny-no-reader' : ''}`} role="region" aria-label="Reading aloud">
+            <div className={`sunny-reading-bar sunny-reading-actions flex items-center gap-2 ${subject === 'Yoruba' ? 'sunny-no-reader' : ''}`} role="region" aria-label="Reading aloud" data-reading={isSpeaking && !isPaused}>
+              {!loading && !error && subject !== 'Yoruba' && (
+                <div className="sunny-reader-art" aria-hidden="true" data-reading={isSpeaking && !isPaused}>
+                  <Owl pose="reading" height={68} />
+                  <div className="sunny-reading-caption"><strong>{isSpeaking ? isPaused ? 'Reading paused' : 'Reading aloud' : 'Read aloud'}</strong>{isSpeaking && !isPaused && <span className="sunny-sound-bars"><i /><i /><i /><i /><i /></span>}</div>
+                </div>
+              )}
               {isLanguageSubject && subject !== 'Yoruba' && (
                 <button
                   onClick={() => {

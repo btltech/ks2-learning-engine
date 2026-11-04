@@ -79,12 +79,14 @@ describe('storybook lesson presentation', () => {
   it('keeps read, pause, resume and double-click stop connected to the existing speech hook', async () => {
     const view = render(<LessonView {...props} />);
     await screen.findByText('Share the number equally.');
+    expect(view.container.querySelector('.sunny-sound-bars')).toBeNull();
     fireEvent.click(screen.getByRole('button', { name: 'Read lesson aloud' }));
     expect(tts.speak).toHaveBeenCalledWith(
       'Teach. Share the number equally.. Key Vocabulary.  Equal — the same amount.. Modelled Example. Two groups of three.. Independent Check. Explain your answer.',
     );
     tts.isSpeaking = true;
     view.rerender(<LessonView {...props} />);
+    expect(view.container.querySelector('.sunny-sound-bars')).not.toBeNull();
     expect(screen.getByRole('button', { name: 'Pause reading' })).toBeEnabled();
     fireEvent.click(screen.getByRole('button', { name: 'Pause reading' }));
     expect(tts.pause).toHaveBeenCalledOnce();
@@ -95,6 +97,7 @@ describe('storybook lesson presentation', () => {
     ).toBeEnabled();
     fireEvent.click(screen.getByRole('button', { name: 'Resume reading' }));
     expect(tts.resume).toHaveBeenCalledOnce();
+    expect(view.container.querySelector('.sunny-sound-bars')).toBeNull();
     tts.cancel.mockClear();
     fireEvent.doubleClick(screen.getByRole('button', { name: 'Resume reading' }));
     expect(tts.cancel).toHaveBeenCalledOnce();
