@@ -74,6 +74,10 @@ export default {
       maxWidth: {
         "screen-content": "1200px",
       },
+      // Tailwind 3.3 has no spacing scale for min sizes, so classes such as
+      // min-h-12 (48px touch targets) were silently dropped. Tailwind 3.4 adds these.
+      minHeight: ({ theme }) => theme("spacing"),
+      minWidth: ({ theme }) => theme("spacing"),
       animation: {
         'fadeIn': 'fadeIn 0.3s ease-out',
         'fadeInUp': 'fadeInUp 0.4s ease-out',
