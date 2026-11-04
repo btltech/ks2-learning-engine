@@ -1,3 +1,4 @@
+import './SunnyQuizResults.css';
 import React, { useEffect, useState } from 'react';
 
 interface OrderingQuestionProps {
@@ -24,7 +25,7 @@ export const OrderingQuestion: React.FC<OrderingQuestionProps> = ({ items, onCha
   };
 
   return (
-    <div className="space-y-3" aria-label="Put the items in the correct order">
+    <div className="sunny-question-kind sunny-ordering sunny-ui space-y-3" aria-label="Put the items in the correct order">
       <p className="text-sm font-medium text-gray-600">Use the arrow buttons to put these items in order.</p>
       <ol className="space-y-2">
         {orderedItems.map((item, index) => (
