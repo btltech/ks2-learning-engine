@@ -1,4 +1,4 @@
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { ClassroomSession } from '../services/classroomService';
 const api=vi.hoisted(()=>({joinSession:vi.fn(),submitAnswer:vi.fn(),unsubscribe:vi.fn(),listener:null as null|((session:ClassroomSession)=>void)}));
@@ -18,6 +18,8 @@ async function joinAndStart() {
   expect(screen.getByLabelText('Class code')).toHaveValue('ABC123');
   fireEvent.click(screen.getByRole('button',{name:'Join'}));
   await screen.findByText(/Waiting for teacher/);
+  // The realtime subscription is set up in an effect that can run just after the waiting view paints.
+  await waitFor(()=>expect(api.listener).not.toBeNull());
   await act(async()=>api.listener?.({...waiting,status:'active',questionStartTime:Date.now()}));
 }
 describe('pupil classroom presentation preserves realtime actions',()=>{
