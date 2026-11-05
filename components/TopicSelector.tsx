@@ -117,7 +117,7 @@ const TopicSelector: React.FC<TopicSelectorProps> = ({
           size={110}
         />
         <div className="sunny-subject-summary">
-          <h2>{language ? `${subject.name} passport` : `${subject.name} Island`}</h2>
+          <h1>{language ? `${subject.name} passport` : `${subject.name} Island`}</h1>
           {language && <span className="sunny-language-greeting" lang={languageTag(subject.name)}>{language.greeting}!</span>}
           <p>
             Year {year} · {completedCount} of {topics.length} topics done
@@ -217,9 +217,9 @@ const TopicSelector: React.FC<TopicSelectorProps> = ({
                   }
                 >
                   {startsStrand && strand && (
-                    <h3 className="sunny-topic-strand">
+                    <h2 className="sunny-topic-strand">
                       {strand.replace(`${subject.name}: `, '')}
-                    </h3>
+                    </h2>
                   )}
                   <div className="sunny-topic-step">
                     <div className="sunny-path-stone" aria-hidden="true">

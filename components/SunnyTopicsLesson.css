@@ -8,7 +8,7 @@
 body:has(.sunny-topics,.sunny-lesson) { background: #FFF9EC radial-gradient(#F3E3B8 2px,transparent 2px) 0 0 / 28px 28px; }
 .mobile-shell:has(> :is(.sunny-topics,.sunny-lesson)) { max-width: 1280px; padding: 0 40px 64px; }
 .sunny-topics,.sunny-lesson { width: 100%; max-width: 1200px; margin: 0 auto; }
-.sunny-topics h2 { margin: 0; font-size: 2.75rem; line-height: 1.15; font-weight: 700; }
+.sunny-topics h1 { margin: 0; font-size: 2.75rem; line-height: 1.15; font-weight: 700; }
 .sunny-back-button,.sunny-lesson-toolbar > button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; border: 3px solid #172033; border-radius: 18px; padding: 8px 16px; background: #fff; box-shadow: 0 5px 0 #172033; font-weight: 600; margin-bottom: 24px; }
 .sunny-back-button svg,.sunny-lesson-toolbar svg { width: 24px; height: 24px; }
 .sunny-subject-banner { display: grid; grid-template-columns: auto minmax(0,1.25fr) minmax(0,1fr); align-items: center; gap: 24px; padding: 32px; background: linear-gradient(105deg,#BFE0FF,#DCEBFF); }
@@ -169,7 +169,7 @@ body:has(.sunny-mira-lesson) .sunny-lesson-main { margin-right: 420px; }
 }
 @media (max-width: 700px) {
   .mobile-shell:has(> :is(.sunny-topics,.sunny-lesson)) { padding: 0 16px 48px; }
-  .sunny-topics h2 { font-size: 2rem; }
+  .sunny-topics h1 { font-size: 2rem; }
   .sunny-subject-banner { padding: 20px 16px; gap: 14px; border-radius: 26px; }
   .sunny-subject-banner > img,.sunny-subject-banner > svg { width: 72px; height: 72px; }
   .sunny-subject-summary .kid-meter-track { height: 18px; }
@@ -222,7 +222,7 @@ body:has(.sunny-mira-lesson) .sunny-lesson-main { margin-right: 420px; }
 main:has(.sunny-lesson) { content-visibility: visible; contain: none; }
 
 .sunny-guided-practice [role="status"] { font-size: 1.375rem; }
-:is(.sunny-topics,.sunny-lesson) :is(h2,h3,h4,strong,p,.sunny-topic-objective) { overflow-wrap: anywhere; }
+:is(.sunny-topics,.sunny-lesson) :is(h1,h2,h3,h4,strong,p,.sunny-topic-objective) { overflow-wrap: anywhere; }
 :is(.high-contrast,.sunny-high-contrast) .sunny-topics .sunny-topic-path [data-state] .sunny-path-stone,
 :is(.high-contrast,.sunny-high-contrast) .sunny-learning-paths .sunny-learning-step[data-state] > div:first-child { background: var(--bg-primary,#000); color: var(--text-primary,#fff); border-color: var(--border-color,#fff); }
 :is(.high-contrast,.sunny-high-contrast) :is(.sunny-topics,.sunny-lesson,.sunny-mira-lesson) input::placeholder { color: inherit; opacity: 1; }
@@ -257,12 +257,12 @@ main:has(.sunny-lesson) { content-visibility: visible; contain: none; }
   /* One primary quiz action; the optional speed challenge remains in the page. */
   .sunny-lesson { padding-bottom: 180px; }
   .sunny-lesson-next { position: static; display: flex; margin-top: 24px; padding-top: 24px; }
-  .sunny-lesson-next::before { content: ''; position: fixed; z-index: 34; left: 0; right: 0; bottom: 0; height: calc(176px + env(safe-area-inset-bottom)); background: #FFF9EC; }
+  .sunny-lesson-next::before { content: ''; position: fixed; z-index: 34; left: 0; right: 0; bottom: 0; height: calc(var(--sunny-bottom-tabs-height, 96px) + 80px); background: #FFF9EC; }
   .sunny-lesson-next > button:first-child:disabled { opacity: 1; }
   :is(.high-contrast,.sunny-high-contrast) .sunny-lesson-next::before { background: var(--bg-primary,#000); }
-  .sunny-lesson-next > button:first-child { position: fixed; z-index: 35; left: 16px; right: 16px; bottom: calc(108px + env(safe-area-inset-bottom)); width: calc(100% - 32px); min-height: 56px; padding: 8px 12px; font-size: 1.125rem; }
+  .sunny-lesson-next > button:first-child { position: fixed; z-index: 35; left: max(16px,env(safe-area-inset-left)); right: max(16px,env(safe-area-inset-right)); bottom: calc(var(--sunny-bottom-tabs-height, 96px) + 12px); width: auto; min-height: 56px; padding: 8px 12px; font-size: 1.125rem; }
   /* An opaque help row reserves its own space above the primary action. */
-  .sunny-mira-lesson:not([data-chat-open='true']) { left: 0; right: 0; bottom: calc(176px + env(safe-area-inset-bottom)); padding: 8px 16px; background: #FFF9EC; }
+  .sunny-mira-lesson:not([data-chat-open='true']) { left: 0; right: 0; bottom: calc(var(--sunny-bottom-tabs-height, 96px) + 80px); padding: 8px 16px; background: #FFF9EC; }
   .sunny-mira-lesson .sunny-mira-launcher { flex-direction: row; flex-wrap: nowrap; gap: 12px; }
   .sunny-mira-lesson .sunny-mira-launcher > button:first-child { flex: 1; width: auto; height: auto; min-height: 48px; border-radius: 18px; }
   .sunny-mira-lesson .sunny-mira-launcher > button:first-child > span { display: inline; font-size: 1.125rem; }

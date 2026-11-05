@@ -1,0 +1,213 @@
+{
+  "entries": [
+    {
+      "index": 1,
+      "text": "Ẹ káàárọ̀. Báwo ni?",
+      "english": "Good morning. How are you?",
+      "hash": "4320173a8f027df2055118b9ec017540",
+      "objectKey": "audio/yoruba/curated-450-v1/4320173a8f027df2055118b9ec017540.mp3",
+      "file": "audio/yoruba/r2-pack-curated-450/4320173a8f027df2055118b9ec017540.mp3",
+      "contentType": "audio/mpeg",
+      "corrected": true,
+      "asrStatus": "likely-failure",
+      "provider": "f5-tts",
+      "category": "question-bank",
+      "source": "reviewed-example",
+      "topics": [
+        "Conversations and opinions",
+        "Greetings and introductions"
+      ]
+    },
+    {
+      "index": 38,
+      "text": "Mo fẹ́ràn…",
+      "english": "I like…",
+      "hash": "8147d651c5670a7fae0eb0de809eafbd",
+      "objectKey": "audio/yoruba/curated-450-v1/8147d651c5670a7fae0eb0de809eafbd.mp3",
+      "file": "audio/yoruba/r2-pack-curated-450/8147d651c5670a7fae0eb0de809eafbd.mp3",
+      "contentType": "audio/mpeg",
+      "corrected": false,
+      "asrStatus": "likely-match",
+      "provider": "f5-tts",
+      "category": "question-bank",
+      "source": "reviewed-example",
+      "topics": [
+        "Food and preferences"
+      ]
+    },
+    {
+      "index": 75,
+      "text": "akẹ́gbẹ́ẹ",
+      "english": "colleague",
+      "hash": "b64fd9057e84c283ff09d249e3fb10e9",
+      "objectKey": "audio/yoruba/curated-450-v1/b64fd9057e84c283ff09d249e3fb10e9.mp3",
+      "file": "audio/yoruba/r2-pack-curated-450/b64fd9057e84c283ff09d249e3fb10e9.mp3",
+      "contentType": "audio/mpeg",
+      "corrected": true,
+      "asrStatus": "likely-failure",
+      "provider": "f5-tts",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "topics": [
+        "Reading short texts",
+        "Writing connected sentences"
+      ]
+    },
+    {
+      "index": 112,
+      "text": "awakọ̀",
+      "english": "driver",
+      "hash": "4cbef5901e6c79acde6e83b6bc4908a7",
+      "objectKey": "audio/yoruba/curated-450-v1/4cbef5901e6c79acde6e83b6bc4908a7.mp3",
+      "file": "audio/yoruba/r2-pack-curated-450/4cbef5901e6c79acde6e83b6bc4908a7.mp3",
+      "contentType": "audio/mpeg",
+      "corrected": true,
+      "asrStatus": "likely-failure",
+      "provider": "yarngpt-idera",
+      "category": "question-bank",
+      "source": "question-bank-option",
+      "topics": [
+        "Transport and road safety"
+      ]
+    },
+    {
+      "index": 149,
+      "text": "búrọ́ọ̀ṣì",
+      "english": "toothbrush",
+      "hash": "a67d54adad53f60ca2532e6e2900ce42",
+      "objectKey": "audio/yoruba/curated-450-v1/a67d54adad53f60ca2532e6e2900ce42.mp3",
+      "file": "audio/yoruba/r2-pack-curated-450/a67d54adad53f60ca2532e6e2900ce42.mp3",
+      "contentType": "audio/mpeg",
+      "corrected": true,
+      "asrStatus": "likely-failure",
+      "provider": "f5-tts",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "topics": [
+        "Body and health"
+      ]
+    },
+    {
+      "index": 186,
+      "text": "ẹ káàsán",
+      "english": "Good afternoon.",
+      "hash": "d718483fffe652997c8d45d85035fce3",
+      "objectKey": "audio/yoruba/curated-450-v1/d718483fffe652997c8d45d85035fce3.mp3",
+      "file": "audio/yoruba/r2-pack-curated-450/d718483fffe652997c8d45d85035fce3.mp3",
+      "contentType": "audio/mpeg",
+      "corrected": false,
+      "asrStatus": "likely-match",
+      "provider": "f5-tts",
+      "category": "lesson-vocabulary",
+      "source": "reviewed-vocabulary",
+      "topics": [
+        "Greetings and introductions"
+      ]
+    },
+    {
+      "index": 223,
+      "text": "ẹ̀yà ọkọ̀",
+      "english": "car parts",
+      "hash": "10b06b102c9347103b8e74ea8ed027b1",
+      "objectKey": "audio/yoruba/curated-450-v1/10b06b102c9347103b8e74ea8ed027b1.mp3",
+      "file": "audio/yoruba/r2-pack-curated-450/10b06b102c9347103b8e74ea8ed027b1.mp3",
+      "contentType": "audio/mpeg",
+      "corrected": false,
+      "asrStatus": "likely-match",
+      "provider": "f5-tts",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "topics": [
+        "Transport and road safety"
+      ]
+    },
+    {
+      "index": 260,
+      "text": "ìbàmú pẹ̀lú òfin ilé-ìwé",
+      "english": "in accordance with university rules",
+      "hash": "c830fa8c75bf2e0295d59e2b44a1510a",
+      "objectKey": "audio/yoruba/curated-450-v1/c830fa8c75bf2e0295d59e2b44a1510a.mp3",
+      "file": "audio/yoruba/r2-pack-curated-450/c830fa8c75bf2e0295d59e2b44a1510a.mp3",
+      "contentType": "audio/mpeg",
+      "corrected": true,
+      "asrStatus": "likely-match",
+      "provider": "yarngpt-idera",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "topics": [
+        "School and daily routine"
+      ]
+    },
+    {
+      "index": 297,
+      "text": "ilé-ìfowópamọ́sí",
+      "english": "bank",
+      "hash": "3093fd419b4b5f5ad0cfa8bcc3b7a139",
+      "objectKey": "audio/yoruba/curated-450-v1/3093fd419b4b5f5ad0cfa8bcc3b7a139.mp3",
+      "file": "audio/yoruba/r2-pack-curated-450/3093fd419b4b5f5ad0cfa8bcc3b7a139.mp3",
+      "contentType": "audio/mpeg",
+      "corrected": false,
+      "asrStatus": "likely-match",
+      "provider": "f5-tts",
+      "category": "Noun Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "topics": [
+        "Reading short texts",
+        "Writing connected sentences"
+      ]
+    },
+    {
+      "index": 334,
+      "text": "ìwée gírámà",
+      "english": "grammar book",
+      "hash": "fdcf3430899cbf2505af549bfd1c9be1",
+      "objectKey": "audio/yoruba/curated-450-v1/fdcf3430899cbf2505af549bfd1c9be1.mp3",
+      "file": "audio/yoruba/r2-pack-curated-450/fdcf3430899cbf2505af549bfd1c9be1.mp3",
+      "contentType": "audio/mpeg",
+      "corrected": false,
+      "asrStatus": "likely-failure",
+      "provider": "f5-tts",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "topics": [
+        "Colours and classroom objects"
+      ]
+    },
+    {
+      "index": 371,
+      "text": "kííbọọ̀dù, àtẹ-ìtẹ̀wé",
+      "english": "keyboard",
+      "hash": "8e8013d5cfbe0317fc3a7e44a3ec1fa9",
+      "objectKey": "audio/yoruba/curated-450-v1/8e8013d5cfbe0317fc3a7e44a3ec1fa9.mp3",
+      "file": "audio/yoruba/r2-pack-curated-450/8e8013d5cfbe0317fc3a7e44a3ec1fa9.mp3",
+      "contentType": "audio/mpeg",
+      "corrected": false,
+      "asrStatus": "likely-failure",
+      "provider": "f5-tts",
+      "category": "Nouns",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "topics": [
+        "Reading short texts",
+        "Writing connected sentences"
+      ]
+    },
+    {
+      "index": 408,
+      "text": "máa ń dá ifá",
+      "english": "to consult the oracle",
+      "hash": "31496295a80deb14fc37903a10741db9",
+      "objectKey": "audio/yoruba/curated-450-v1/31496295a80deb14fc37903a10741db9.mp3",
+      "file": "audio/yoruba/r2-pack-curated-450/31496295a80deb14fc37903a10741db9.mp3",
+      "contentType": "audio/mpeg",
+      "corrected": true,
+      "asrStatus": "likely-match",
+      "provider": "f5-tts",
+      "category": "Verb Phrases",
+      "source": "COERLL-Yorùbá-Yé-Mi",
+      "topics": [
+        "Grammar and sentence patterns",
+        "Writing connected sentences"
+      ]
+    }
+  ]
+}

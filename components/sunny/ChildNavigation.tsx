@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
 import {
   HomeIcon,
   BookOpenIcon,
@@ -15,6 +16,24 @@ export function ChildNavigation({
   playClick: () => void;
 }) {
   const { pathname, hash } = useLocation();
+  const navRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const nav = navRef.current;
+    if (!mobile || !nav) return;
+    const measure = () => {
+      const height = nav.getBoundingClientRect().height;
+      document.documentElement.style.setProperty('--sunny-bottom-tabs-height', `${height}px`);
+    };
+    measure();
+    const observer = typeof ResizeObserver === 'undefined' ? undefined : new ResizeObserver(measure);
+    observer?.observe(nav, { box: 'border-box' });
+    window.addEventListener('resize', measure);
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener('resize', measure);
+      document.documentElement.style.removeProperty('--sunny-bottom-tabs-height');
+    };
+  }, [mobile]);
   const items = [
     {
       label: 'Home',
@@ -45,6 +64,7 @@ export function ChildNavigation({
   ];
   return (
     <nav
+      ref={navRef}
       aria-label={mobile ? 'Main (phone)' : 'Main'}
       className={`sunny-child-nav ${mobile ? 'sunny-bottom-tabs' : 'sunny-top-pills'}`}
     >

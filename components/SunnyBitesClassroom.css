@@ -57,7 +57,7 @@
 .sunny-class-active:has(> div:only-child) { display:block; max-width:900px; }
 .sunny-classroom .sunny-class-question { background:var(--bc-sky); padding:28px; }
 .sunny-class-question > img { width:80px !important; height:100px !important; margin:0 0 24px; }
-.sunny-class-question h2 { font-size:2.25rem; }
+.sunny-class-question h1 { font-size:2.25rem; }
 .sunny-class-question > .space-y-3 { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; }
 .sunny-class-question > .space-y-3 > button { display:flex; align-items:center; gap:16px; margin:0 !important; padding:20px; background:var(--bc-paper); text-align:left; flex-wrap:wrap; }
 .sunny-class-question > .space-y-3 > button:disabled { opacity:1; }
@@ -89,7 +89,7 @@
   .sunny-bite-picks { grid-template-columns:1fr; gap:0; }
   .sunny-bite-card > .p-6 { padding:20px; }
   .sunny-classroom[data-view='menu'] > div,.sunny-classroom[data-view='join'] > div { padding:24px 20px; }
-  .sunny-class-question h2 { font-size:1.75rem; }
+  .sunny-class-question h1 { font-size:1.75rem; }
   .sunny-classroom .sunny-class-question { padding:24px 16px; }
   .sunny-class-question > .space-y-3 { grid-template-columns:1fr; }
   .sunny-classroom[data-view='results'] .flex.items-end { flex-wrap:wrap; }

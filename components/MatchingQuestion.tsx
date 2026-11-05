@@ -84,7 +84,7 @@ export const MatchingQuestion: React.FC<MatchingQuestionProps> = ({ pairs, onCom
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {/* Left Column */}
         <div className="space-y-2">
-          <h4 className="text-sm font-bold text-gray-500 text-center mb-3">Match From</h4>
+          <h2 className="text-sm font-bold text-gray-500 text-center mb-3">Match From</h2>
           {pairs.map((pair) => {
             const isMatched = pair.left in matches;
             const isSelected = selectedLeft === pair.left;
@@ -141,7 +141,7 @@ export const MatchingQuestion: React.FC<MatchingQuestionProps> = ({ pairs, onCom
 
         {/* Right Column */}
         <div className="space-y-2">
-          <h4 className="text-sm font-bold text-gray-500 text-center mb-3">Match To</h4>
+          <h2 className="text-sm font-bold text-gray-500 text-center mb-3">Match To</h2>
           {shuffledRight.map((right) => {
             const isUsed = isRightUsed(right);
             const feedbackCorrect = pairs.find(pair => pair.right === right)?.left === Object.keys(matches).find(left => matches[left] === right);

@@ -69,6 +69,11 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
   const questionTimesRef = useRef<number[]>([]);
   const lastProcessedTranscript = useRef<string>('');
   const fillInBlankInputRef = useRef<HTMLInputElement>(null);
+  const questionHeadingRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    if (!loading && currentQuestionIndex > 0) questionHeadingRef.current?.focus();
+  }, [loading, currentQuestionIndex]);
 
   // Voice input for hands-free quiz answering
   const handleVoiceCommand = useCallback((command: string) => {
@@ -344,7 +349,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
       <div className="sunny-quiz-session-progress mb-4 sm:mb-6" role="status" aria-live="polite">
         <div className="sunny-quiz-progress-label"><p className="text-sm font-bold text-blue-600 mb-2">Question {currentQuestionIndex + 1} of {questions.length}</p>{(mode !== 'speed' || !timerEnabled) && <span>No timer</span>}</div>
         <ol className="sunny-quiz-dots" aria-hidden="true">{questions.map((_, index) => <li key={index} data-state={index < currentQuestionIndex ? 'done' : index === currentQuestionIndex ? 'current' : 'new'}>{index < currentQuestionIndex ? '✓' : ''}</li>)}</ol>
-        <div className="sr-only" role="progressbar" aria-valuenow={currentQuestionIndex + 1} aria-valuemin={1} aria-valuemax={questions.length}>
+        <div className="sr-only" role="progressbar" aria-label="Quiz progress" aria-valuenow={currentQuestionIndex + 1} aria-valuemin={1} aria-valuemax={questions.length}>
             <div className="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-500" style={{ width: `${((currentQuestionIndex + 1) / questions.length) * 100}%` }}></div>
         </div>
       </div>
@@ -378,7 +383,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
             </div>
           )}
           <div className="sunny-quiz-subject"><span>{subject}</span><span>{topic}</span></div>
-          <h3 className="text-xl sm:text-2xl font-bold text-gray-800">{currentQuestion.question}</h3>
+          <h1 ref={questionHeadingRef} tabIndex={-1} className="text-xl sm:text-2xl font-bold text-gray-800">{currentQuestion.question}</h1>
         </div>
         <div className="sunny-quiz-tools flex gap-2 ml-2 sm:ml-4">
           <button 
@@ -483,6 +488,17 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
               role="radio"
               aria-checked={selectedOption === option}
               aria-label={`Option: ${option}`}
+              tabIndex={selectedOption === option || (!selectedOption && index === 0) ? 0 : -1}
+              onKeyDown={(event) => {
+                const offsets: Record<string, number> = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
+                if (!(event.key in offsets) && event.key !== 'Home' && event.key !== 'End') return;
+                event.preventDefault();
+                const options = currentQuestion.options;
+                const next = event.key === 'Home' ? 0 : event.key === 'End' ? options.length - 1
+                  : (index + offsets[event.key] + options.length) % options.length;
+                handleOptionSelect(options[next]);
+                event.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>('[role="radio"]')[next]?.focus();
+              }}
               className={`sunny-quiz-answer w-full text-left p-3 sm:p-4 rounded-xl border-2 transition-all duration-200 text-base sm:text-lg font-semibold
                 ${selectedOption === option 
                   ? currentQuestion.questionType === QuestionType.TrueFalse

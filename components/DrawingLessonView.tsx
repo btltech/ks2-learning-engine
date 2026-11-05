@@ -88,7 +88,7 @@ export const DrawingLessonView: React.FC<DrawingLessonViewProps> = ({
           <div className="sunny-art-idea"><Owl pose="reading" height={90} /><SpeechBubble>Today’s idea: {lesson.title}</SpeechBubble></div>
           {/* Materials Section */}
           <div className="p-4 bg-yellow-50 border-b border-yellow-100">
-            <h3 className="font-bold text-yellow-800 mb-2">📦 You'll need:</h3>
+            <h2 className="font-bold text-yellow-800 mb-2">📦 You'll need:</h2>
             <div className="flex flex-wrap gap-2">
               {lesson.materials.map((material, idx) => (
                 <span key={idx} className="px-3 py-1 bg-yellow-100 rounded-full text-sm text-yellow-800">
@@ -101,7 +101,7 @@ export const DrawingLessonView: React.FC<DrawingLessonViewProps> = ({
           {/* Related Artwork */}
           {relatedArtwork && (
             <div className="p-4 bg-blue-50 border-b border-blue-100">
-              <h3 className="font-bold text-blue-800 mb-2">🖼️ Inspired by:</h3>
+              <h2 className="font-bold text-blue-800 mb-2">🖼️ Inspired by:</h2>
               <div className="flex items-center gap-3">
                 <img 
                   src={relatedArtwork.thumbnailUrl} 
@@ -245,7 +245,7 @@ export const DrawingLessonView: React.FC<DrawingLessonViewProps> = ({
           {/* Tips Section */}
           {lesson.tips.length > 0 && (
             <div className="p-4 bg-gradient-to-r from-blue-50 to-cyan-50 border-t">
-              <h3 className="font-bold text-blue-800 mb-3">💡 Pro Tips:</h3>
+              <h2 className="font-bold text-blue-800 mb-3">💡 Pro Tips:</h2>
               <ul className="space-y-2">
                 {lesson.tips.map((tip, idx) => (
                   <li key={idx} className="flex items-start gap-2">

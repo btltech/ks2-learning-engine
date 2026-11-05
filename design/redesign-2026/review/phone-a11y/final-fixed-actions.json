@@ -1,0 +1,215 @@
+{
+  "lesson": {
+    "url": "http://127.0.0.1:3011/scripts/review-phone/index.html?screen=lesson",
+    "width": 390,
+    "documentWidth": 390,
+    "text": "⚙\nDisplay settings\n⬜\n⭕\n🤖\nHome\nLearn\nMy progress\nGames\nBack to Topics\nAddition\n\nYEAR 5 · UNIT 1\n\nAddition\nRead aloud\nAdd",
+    "axeVersion": "4.14.0",
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": [
+          {
+            "target": [
+              ".sunny-bottom-tabs > a[href$=\"progress\"] > span"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+          },
+          {
+            "target": [
+              "span[aria-hidden=\"true\"]"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          }
+        ]
+      }
+    ],
+    "passes": [
+      "aria-allowed-attr",
+      "aria-allowed-role",
+      "aria-conditional-attr",
+      "aria-deprecated-role",
+      "aria-hidden-body",
+      "aria-hidden-focus",
+      "aria-prohibited-attr",
+      "aria-required-attr",
+      "aria-roles",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "avoid-inline-spacing",
+      "button-name",
+      "bypass",
+      "color-contrast",
+      "document-title",
+      "empty-heading",
+      "heading-order",
+      "html-has-lang",
+      "html-lang-valid",
+      "landmark-banner-is-top-level",
+      "landmark-main-is-top-level",
+      "landmark-no-duplicate-banner",
+      "landmark-no-duplicate-main",
+      "landmark-one-main",
+      "landmark-unique",
+      "link-name",
+      "meta-viewport-large",
+      "meta-viewport",
+      "nested-interactive",
+      "page-has-heading-one",
+      "region",
+      "role-img-alt"
+    ],
+    "overflow": [],
+    "smallTargets": []
+  },
+  "pronounce": {
+    "url": "http://127.0.0.1:3011/scripts/review-phone/index.html?screen=pronounce",
+    "width": 390,
+    "documentWidth": 390,
+    "text": "⚙\nDisplay settings\n⬜\n⭕\n🤖\nHome\nLearn\nMy progress\nGames\nFrench pronunciation practice\nSay it\nFrench\nbonjour\nmeans Hello\n[",
+    "axeVersion": "4.14.0",
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": [
+          {
+            "target": [
+              ".bg-white\\/50.p-2.rounded-lg:nth-child(1) > .mx-1.text-gray-500"
+            ],
+            "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+          },
+          {
+            "target": [
+              ".bg-white\\/50.p-2.rounded-lg:nth-child(2) > .mx-1.text-gray-500"
+            ],
+            "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+          },
+          {
+            "target": [
+              ".bg-white\\/50.p-2.rounded-lg:nth-child(3) > .mx-1.text-gray-500"
+            ],
+            "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+          },
+          {
+            "target": [
+              ".bg-white\\/50.p-2.rounded-lg:nth-child(4) > .mx-1.text-gray-500"
+            ],
+            "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+          },
+          {
+            "target": [
+              ".bg-white\\/50.p-2.rounded-lg:nth-child(5) > .mx-1.text-gray-500"
+            ],
+            "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+          },
+          {
+            "target": [
+              ".bg-white\\/50.p-2.rounded-lg:nth-child(6) > .mx-1.text-gray-500"
+            ],
+            "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+          }
+        ]
+      }
+    ],
+    "passes": [
+      "aria-allowed-attr",
+      "aria-allowed-role",
+      "aria-conditional-attr",
+      "aria-deprecated-role",
+      "aria-hidden-body",
+      "aria-hidden-focus",
+      "aria-prohibited-attr",
+      "aria-required-attr",
+      "aria-roles",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "avoid-inline-spacing",
+      "button-name",
+      "bypass",
+      "color-contrast",
+      "document-title",
+      "empty-heading",
+      "heading-order",
+      "html-has-lang",
+      "html-lang-valid",
+      "landmark-banner-is-top-level",
+      "landmark-main-is-top-level",
+      "landmark-no-duplicate-banner",
+      "landmark-no-duplicate-main",
+      "landmark-one-main",
+      "landmark-unique",
+      "link-name",
+      "meta-viewport-large",
+      "meta-viewport",
+      "nested-interactive",
+      "page-has-heading-one",
+      "region",
+      "role-img-alt",
+      "valid-lang"
+    ],
+    "overflow": [],
+    "smallTargets": []
+  },
+  "quiz": {
+    "url": "http://127.0.0.1:3011/scripts/review-phone/index.html?screen=quiz",
+    "width": 390,
+    "documentWidth": 390,
+    "text": "⚙\nDisplay settings\n⬜\n⭕\n🤖\nHome\nLearn\nMy progress\nGames\n\nQuestion 1 of 1\n\nNo timer\nWhat is 7 + 3?\nHint\n8\n9\n10\n11\nFinish Q",
+    "axeVersion": "4.14.0",
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": [
+          {
+            "target": [
+              "h1"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          }
+        ]
+      }
+    ],
+    "passes": [
+      "aria-allowed-attr",
+      "aria-allowed-role",
+      "aria-conditional-attr",
+      "aria-deprecated-role",
+      "aria-hidden-body",
+      "aria-hidden-focus",
+      "aria-progressbar-name",
+      "aria-prohibited-attr",
+      "aria-required-attr",
+      "aria-roles",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "avoid-inline-spacing",
+      "button-name",
+      "bypass",
+      "color-contrast",
+      "document-title",
+      "empty-heading",
+      "heading-order",
+      "html-has-lang",
+      "html-lang-valid",
+      "landmark-banner-is-top-level",
+      "landmark-main-is-top-level",
+      "landmark-no-duplicate-banner",
+      "landmark-no-duplicate-main",
+      "landmark-one-main",
+      "landmark-unique",
+      "link-name",
+      "meta-viewport-large",
+      "meta-viewport",
+      "nested-interactive",
+      "page-has-heading-one",
+      "region",
+      "role-img-alt",
+      "tabindex"
+    ],
+    "overflow": [],
+    "smallTargets": []
+  }
+}

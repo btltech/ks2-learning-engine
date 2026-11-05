@@ -35,7 +35,7 @@
 .sunny-drawing { display:grid; grid-template-columns:minmax(0,1fr) 260px; gap:24px; width:100%; padding:24px; border:3px solid var(--aa-ink); border-radius:28px; background:var(--aa-paper); box-shadow:0 6px 0 var(--aa-ink); align-items:start; }
 .sunny-drawing > .sunny-art-idea { grid-column:1/-1; margin:0 0 8px; }
 .sunny-drawing-tools { grid-column:2; grid-row:2/4; display:flex; flex-direction:column; align-items:stretch; gap:24px; padding:20px; border:3px solid var(--aa-ink); border-radius:24px; background:var(--aa-page); }
-.sunny-paint-colours h3 { font-size:1.5rem; font-weight:700; margin-bottom:16px; }
+.sunny-paint-colours h2 { font-size:1.5rem; font-weight:700; margin-bottom:16px; }
 .sunny-paint-colours > div { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px 10px; }
 .sunny-drawing .sunny-paint-colours button { display:flex; flex-direction:column; gap:8px; align-items:center; justify-content:center; width:100%; height:auto; padding:8px 4px; box-shadow:none; border:3px solid transparent; background:transparent; border-radius:18px; }
 .sunny-drawing .sunny-paint-colours button[aria-pressed='true'] { border-color:var(--aa-ink); background:var(--aa-gold); }

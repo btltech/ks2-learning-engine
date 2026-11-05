@@ -28,7 +28,7 @@ export const CookieBanner: React.FC = () => {
 
   return (
     <aside
-      className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-gray-900/95 backdrop-blur-sm border-t border-gray-700"
+      className="fixed bottom-0 left-0 right-0 z-50 p-4 pb-[max(16px,env(safe-area-inset-bottom))] bg-gray-900/95 backdrop-blur-sm border-t border-gray-700"
       aria-label="Browser storage notice"
     >
       <div className="max-w-7xl mx-auto">
@@ -41,7 +41,7 @@ export const CookieBanner: React.FC = () => {
               We do not use advertising cookies or optional analytics tracking.{' '}
               <button
                 onClick={() => navigate('/cookie-policy')}
-                className="text-blue-400 hover:text-blue-300 underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded"
+                className="inline-flex min-h-[48px] min-w-[48px] items-center text-blue-400 hover:text-blue-300 underline focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-400 rounded"
               >
                 Learn more
               </button>
@@ -51,7 +51,7 @@ export const CookieBanner: React.FC = () => {
           <div className="flex gap-3 w-full sm:w-auto">
             <button
               onClick={handleDismiss}
-              className={`flex-1 sm:flex-none px-6 py-2 ${RADIUS.button} bg-blue-600 text-white hover:bg-blue-500 motion-safe:transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400`}
+              className={`min-h-[48px] min-w-[48px] flex-1 sm:flex-none px-6 py-2 ${RADIUS.button} bg-blue-600 text-white hover:bg-blue-500 motion-safe:transition-colors focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-400`}
             >
               Got it
             </button>

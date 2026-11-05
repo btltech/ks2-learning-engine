@@ -1,0 +1,227 @@
+{
+  "url": "http://127.0.0.1:3010/review-phone.local.html?screen=login",
+  "width": 390,
+  "documentWidth": 390,
+  "text": "Skip to main content\nLogin\nWho is learning today?\nEnter your details, then your secret PIN!\nWelcome Back!\n\nYour AI-power",
+  "axeVersion": "4.14.0",
+  "violations": [],
+  "incomplete": [
+    {
+      "id": "color-contrast",
+      "nodes": [
+        {
+          "target": [
+            "h2"
+          ],
+          "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "target": [
+            ".gap-2.font-semibold.items-center"
+          ],
+          "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "target": [
+            ".hover\\:text-white:nth-child(1)"
+          ],
+          "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "target": [
+            ".hover\\:text-white:nth-child(2)"
+          ],
+          "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "target": [
+            ".hover\\:text-white:nth-child(3)"
+          ],
+          "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "target": [
+            ".hover\\:text-white:nth-child(4)"
+          ],
+          "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "target": [
+            ".hover\\:text-white:nth-child(5)"
+          ],
+          "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "target": [
+            ".hover\\:text-white:nth-child(6)"
+          ],
+          "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "target": [
+            "button[aria-haspopup=\"dialog\"]"
+          ],
+          "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "target": [
+            ".hover\\:text-white:nth-child(8)"
+          ],
+          "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "target": [
+            ".hover\\:text-white:nth-child(9)"
+          ],
+          "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "target": [
+            ".hover\\:text-white:nth-child(10)"
+          ],
+          "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "target": [
+            ".flex-1 > .mb-2"
+          ],
+          "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+        },
+        {
+          "target": [
+            "strong"
+          ],
+          "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+        },
+        {
+          "target": [
+            ".text-gray-300"
+          ],
+          "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+        }
+      ]
+    }
+  ],
+  "passes": [
+    "aria-allowed-attr",
+    "aria-allowed-role",
+    "aria-conditional-attr",
+    "aria-deprecated-role",
+    "aria-hidden-body",
+    "aria-hidden-focus",
+    "aria-prohibited-attr",
+    "aria-required-attr",
+    "aria-roles",
+    "aria-valid-attr-value",
+    "aria-valid-attr",
+    "autocomplete-valid",
+    "button-name",
+    "bypass",
+    "color-contrast",
+    "document-title",
+    "empty-heading",
+    "form-field-multiple-labels",
+    "heading-order",
+    "html-has-lang",
+    "html-lang-valid",
+    "label-title-only",
+    "label",
+    "landmark-banner-is-top-level",
+    "landmark-contentinfo-is-top-level",
+    "landmark-main-is-top-level",
+    "landmark-no-duplicate-banner",
+    "landmark-no-duplicate-contentinfo",
+    "landmark-no-duplicate-main",
+    "landmark-one-main",
+    "landmark-unique",
+    "link-name",
+    "meta-viewport-large",
+    "meta-viewport",
+    "nested-interactive",
+    "page-has-heading-one",
+    "region",
+    "skip-link",
+    "svg-img-alt"
+  ],
+  "overflow": [],
+  "smallTargets": [
+    {
+      "label": "Skip to main content",
+      "width": 1,
+      "height": 1,
+      "class": "skip-to-main sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-50 focus:bg-blue-600 focus:text-white focus:p-4"
+    },
+    {
+      "label": "Privacy",
+      "width": 41.28125,
+      "height": 16,
+      "class": "hover:text-white"
+    },
+    {
+      "label": "Children's Privacy",
+      "width": 101.7734375,
+      "height": 16,
+      "class": "hover:text-white"
+    },
+    {
+      "label": "Terms",
+      "width": 34.703125,
+      "height": 16,
+      "class": "hover:text-white"
+    },
+    {
+      "label": "Cookies",
+      "width": 45.390625,
+      "height": 16,
+      "class": "hover:text-white"
+    },
+    {
+      "label": "Safeguarding",
+      "width": 75.1875,
+      "height": 16,
+      "class": "hover:text-white"
+    },
+    {
+      "label": "Accessibility",
+      "width": 70.640625,
+      "height": 16,
+      "class": "hover:text-white"
+    },
+    {
+      "label": "Voice & display settings",
+      "width": 135.0859375,
+      "height": 16,
+      "class": "hover:text-white"
+    },
+    {
+      "label": "Help",
+      "width": 26.125,
+      "height": 16,
+      "class": "hover:text-white"
+    },
+    {
+      "label": "Contact",
+      "width": 44.859375,
+      "height": 16,
+      "class": "hover:text-white"
+    },
+    {
+      "label": "Feedback",
+      "width": 55.171875,
+      "height": 16,
+      "class": "hover:text-white"
+    },
+    {
+      "label": "Learn more",
+      "width": 63.84375,
+      "height": 16,
+      "class": "text-blue-400 hover:text-blue-300 underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded"
+    },
+    {
+      "label": "Got it",
+      "width": 358,
+      "height": 40,
+      "class": "flex-1 sm:flex-none px-6 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-500 motion-safe:transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+    }
+  ]
+}

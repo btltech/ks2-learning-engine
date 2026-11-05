@@ -1,0 +1,119 @@
+{
+  "baseline": "63288fdc",
+  "method": "Production Vite builds with the same installed dependencies. Gzip bytes calculated with Python gzip level 9. HTML assets include entry JS/CSS and modulepreloads, not lazy routes or runtime fetches.",
+  "before": {
+    ".js": {
+      "bytes": 6089410,
+      "gzip": 1914019
+    },
+    ".css": {
+      "bytes": 286246,
+      "gzip": 60575
+    },
+    ".woff2": {
+      "bytes": 124144,
+      "gzip": 124391
+    }
+  },
+  "after": {
+    ".js": {
+      "bytes": 6092397,
+      "gzip": 1914699
+    },
+    ".css": {
+      "bytes": 288946,
+      "gzip": 61093
+    },
+    ".woff2": {
+      "bytes": 124144,
+      "gzip": 124391
+    }
+  },
+  "htmlAssets": {
+    "before": {
+      "bytes": 2016534,
+      "gzip": 514447
+    },
+    "after": {
+      "bytes": 2020161,
+      "gzip": 515025
+    }
+  },
+  "fontFilesIdentical": true,
+  "beforeHtmlAssets": {
+    "/assets/index-Ceinaa9f.js": {
+      "bytes": 189692,
+      "gzip": 55725
+    },
+    "/assets/react-vendor-ys9hdbXF.js": {
+      "bytes": 428227,
+      "gzip": 140587
+    },
+    "/assets/curriculum-data-BJ9R8aiA.js": {
+      "bytes": 196312,
+      "gzip": 32023
+    },
+    "/assets/ui-vendor-D-S41Y3v.js": {
+      "bytes": 60735,
+      "gzip": 15688
+    },
+    "/assets/firebase-core-C41S65-u.js": {
+      "bytes": 230270,
+      "gzip": 50909
+    },
+    "/assets/firebase-auth-LCk7M-BO.js": {
+      "bytes": 197024,
+      "gzip": 38982
+    },
+    "/assets/firebase-firestore-C5HPItRj.js": {
+      "bytes": 523037,
+      "gzip": 137777
+    },
+    "/assets/sentry-R5sK8E8p.js": {
+      "bytes": 16438,
+      "gzip": 5681
+    },
+    "/assets/index-G_nxveY7.css": {
+      "bytes": 174799,
+      "gzip": 37075
+    }
+  },
+  "afterHtmlAssets": {
+    "/assets/ui-vendor-D-S41Y3v.js": {
+      "bytes": 60735,
+      "gzip": 15688
+    },
+    "/assets/react-vendor-ys9hdbXF.js": {
+      "bytes": 428227,
+      "gzip": 140587
+    },
+    "/assets/firebase-auth-LCk7M-BO.js": {
+      "bytes": 197024,
+      "gzip": 38982
+    },
+    "/assets/firebase-core-C41S65-u.js": {
+      "bytes": 230270,
+      "gzip": 50909
+    },
+    "/assets/curriculum-data-BJ9R8aiA.js": {
+      "bytes": 196312,
+      "gzip": 32023
+    },
+    "/assets/firebase-firestore-C5HPItRj.js": {
+      "bytes": 523037,
+      "gzip": 137777
+    },
+    "/assets/index-C4Tc8pOB.css": {
+      "bytes": 176291,
+      "gzip": 37335
+    },
+    "/assets/index-D6AL7nnu.js": {
+      "bytes": 191827,
+      "gzip": 56043
+    },
+    "/assets/sentry-R5sK8E8p.js": {
+      "bytes": 16438,
+      "gzip": 5681
+    }
+  }
+}
