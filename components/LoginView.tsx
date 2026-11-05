@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { firebaseAuthService } from '../services/firebaseAuthService';
 import { UserProfile } from '../types';
 import { TurnstileWidget } from './TurnstileWidget';
@@ -14,6 +14,7 @@ interface LoginViewProps {
 
 const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
   const [searchParams] = useSearchParams();
+  const { key: navigationKey } = useLocation();
   const initialMode = searchParams.get('mode') === 'register' ? 'register' : 'login';
   const [mode, setMode] = useState<'login' | 'register' | 'forgot' | 'verify'>(initialMode);
   const [pendingVerificationEmail, setPendingVerificationEmail] = useState('');
@@ -35,6 +36,12 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
   const [turnstileSiteKey, setTurnstileSiteKey] = useState<string>(
     ((import.meta as any).env?.VITE_TURNSTILE_SITE_KEY as string) || ''
   );
+
+  // Header links can change the form while /login is already mounted.
+  useEffect(() => {
+    setMode(initialMode);
+    if (initialMode === 'register') setLoginAs('parent');
+  }, [initialMode, navigationKey]);
 
   // Check if user is already logged in
   useEffect(() => {

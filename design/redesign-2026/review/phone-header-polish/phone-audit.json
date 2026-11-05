@@ -1,0 +1,1556 @@
+[
+  {
+    "screen": "landing",
+    "mode": "closed",
+    "audit": {
+      "url": "http://127.0.0.1:3010/scripts/review-phone/index.html?screen=landing",
+      "width": 390,
+      "documentWidth": 390,
+      "text": "Skip to main content\n☰\nMenu\nSign in\nCreate a family account\n☆\nFor children aged 7 to 11 · Key Stage 2\nLearning every chi",
+      "axeVersion": "4.14.0",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".public-entry-menu-toggle > span"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".kid-chip.sunny-ui[data-tint=\"white\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            },
+            {
+              "target": [
+                ".kid-chip.sunny-ui[data-tint=\"white\"] > span"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "#hero-heading"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            },
+            {
+              "target": [
+                ".landing-sticker-read"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".landing-sticker-hear"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".landing-sticker-enjoy"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".landing-intro > p"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#features-heading"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".landing-section-intro > p"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#subjects-heading"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#how-it-works-heading"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "li:nth-child(1) > h3"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "li:nth-child(1) > p"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "li:nth-child(2) > h3"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "li:nth-child(2) > p"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "li:nth-child(3) > h3"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "li:nth-child(3) > p"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cta-heading"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".landing-final-note > p:nth-child(2)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "p:nth-child(4)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-attr",
+        "aria-allowed-role",
+        "aria-conditional-attr",
+        "aria-deprecated-role",
+        "aria-hidden-body",
+        "aria-hidden-focus",
+        "aria-prohibited-attr",
+        "aria-required-attr",
+        "aria-roles",
+        "aria-valid-attr-value",
+        "aria-valid-attr",
+        "button-name",
+        "bypass",
+        "color-contrast",
+        "document-title",
+        "duplicate-id-aria",
+        "empty-heading",
+        "heading-order",
+        "html-has-lang",
+        "html-lang-valid",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "link-name",
+        "list",
+        "listitem",
+        "meta-viewport-large",
+        "meta-viewport",
+        "nested-interactive",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "svg-img-alt"
+      ],
+      "overflow": [],
+      "smallTargets": [
+        {
+          "label": "Skip to main content",
+          "width": 1,
+          "height": 1,
+          "class": "skip-to-main sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-50 focus:bg-blue-600 focus:text-white focus:p-4"
+        }
+      ]
+    }
+  },
+  {
+    "screen": "landing",
+    "mode": "standard",
+    "audit": {
+      "url": "http://127.0.0.1:3010/scripts/review-phone/index.html?screen=landing",
+      "width": 390,
+      "documentWidth": 390,
+      "text": "Skip to main content\n✕\nMenu\nHow it works\nSubjects\nAccessibility\nGrown-ups\nSign in\nCreate a family account\n☆\nFor children",
+      "axeVersion": "4.14.0",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".public-entry-menu-toggle > span"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".kid-chip.sunny-ui[data-tint=\"white\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            },
+            {
+              "target": [
+                ".kid-chip.sunny-ui[data-tint=\"white\"] > span"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "#hero-heading"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            },
+            {
+              "target": [
+                ".landing-sticker-read"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".landing-sticker-hear"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".landing-sticker-enjoy"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".landing-intro > p"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#features-heading"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".landing-section-intro > p"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#subjects-heading"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#how-it-works-heading"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "li:nth-child(1) > h3"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "li:nth-child(1) > p"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "li:nth-child(2) > h3"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "li:nth-child(2) > p"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "li:nth-child(3) > h3"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "li:nth-child(3) > p"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cta-heading"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".landing-final-note > p:nth-child(2)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "p:nth-child(4)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-attr",
+        "aria-allowed-role",
+        "aria-conditional-attr",
+        "aria-deprecated-role",
+        "aria-hidden-body",
+        "aria-hidden-focus",
+        "aria-prohibited-attr",
+        "aria-required-attr",
+        "aria-roles",
+        "aria-valid-attr-value",
+        "aria-valid-attr",
+        "button-name",
+        "bypass",
+        "color-contrast",
+        "document-title",
+        "duplicate-id-aria",
+        "empty-heading",
+        "heading-order",
+        "html-has-lang",
+        "html-lang-valid",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "link-name",
+        "list",
+        "listitem",
+        "meta-viewport-large",
+        "meta-viewport",
+        "nested-interactive",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "svg-img-alt"
+      ],
+      "overflow": [],
+      "smallTargets": [
+        {
+          "label": "Skip to main content",
+          "width": 1,
+          "height": 1,
+          "class": "skip-to-main sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-50 focus:bg-blue-600 focus:text-white focus:p-4"
+        }
+      ]
+    }
+  },
+  {
+    "screen": "landing",
+    "mode": "dark",
+    "audit": {
+      "url": "http://127.0.0.1:3010/scripts/review-phone/index.html?screen=landing",
+      "width": 390,
+      "documentWidth": 390,
+      "text": "Skip to main content\n✕\nMenu\nHow it works\nSubjects\nAccessibility\nGrown-ups\nSign in\nCreate a family account\n☆\nFor children",
+      "axeVersion": "4.14.0",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".public-entry-menu-toggle > span"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".kid-chip.sunny-ui[data-tint=\"white\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            },
+            {
+              "target": [
+                ".kid-chip.sunny-ui[data-tint=\"white\"] > span"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "#hero-heading"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            },
+            {
+              "target": [
+                ".landing-sticker-read"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".landing-sticker-hear"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".landing-sticker-enjoy"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".landing-intro > p"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-attr",
+        "aria-allowed-role",
+        "aria-conditional-attr",
+        "aria-deprecated-role",
+        "aria-hidden-body",
+        "aria-hidden-focus",
+        "aria-prohibited-attr",
+        "aria-required-attr",
+        "aria-roles",
+        "aria-valid-attr-value",
+        "aria-valid-attr",
+        "button-name",
+        "bypass",
+        "color-contrast",
+        "document-title",
+        "duplicate-id-aria",
+        "empty-heading",
+        "heading-order",
+        "html-has-lang",
+        "html-lang-valid",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "link-name",
+        "list",
+        "listitem",
+        "meta-viewport-large",
+        "meta-viewport",
+        "nested-interactive",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "svg-img-alt"
+      ],
+      "overflow": [],
+      "smallTargets": [
+        {
+          "label": "Skip to main content",
+          "width": 1,
+          "height": 1,
+          "class": "skip-to-main sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-50 focus:bg-blue-600 focus:text-white focus:p-4"
+        }
+      ]
+    }
+  },
+  {
+    "screen": "landing",
+    "mode": "calm",
+    "audit": {
+      "url": "http://127.0.0.1:3010/scripts/review-phone/index.html?screen=landing",
+      "width": 390,
+      "documentWidth": 390,
+      "text": "Skip to main content\n✕\nMenu\nHow it works\nSubjects\nAccessibility\nGrown-ups\nSign in\nCreate a family account\n☆\nFor children",
+      "axeVersion": "4.14.0",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".public-entry-menu-toggle > span"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".kid-chip.sunny-ui[data-tint=\"white\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            },
+            {
+              "target": [
+                ".kid-chip.sunny-ui[data-tint=\"white\"] > span"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "#hero-heading"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            },
+            {
+              "target": [
+                ".landing-sticker-read"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".landing-sticker-hear"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".landing-sticker-enjoy"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".landing-intro > p"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-attr",
+        "aria-allowed-role",
+        "aria-conditional-attr",
+        "aria-deprecated-role",
+        "aria-hidden-body",
+        "aria-hidden-focus",
+        "aria-prohibited-attr",
+        "aria-required-attr",
+        "aria-roles",
+        "aria-valid-attr-value",
+        "aria-valid-attr",
+        "button-name",
+        "bypass",
+        "color-contrast",
+        "document-title",
+        "duplicate-id-aria",
+        "empty-heading",
+        "heading-order",
+        "html-has-lang",
+        "html-lang-valid",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "link-name",
+        "list",
+        "listitem",
+        "meta-viewport-large",
+        "meta-viewport",
+        "nested-interactive",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "svg-img-alt"
+      ],
+      "overflow": [],
+      "smallTargets": [
+        {
+          "label": "Skip to main content",
+          "width": 1,
+          "height": 1,
+          "class": "skip-to-main sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-50 focus:bg-blue-600 focus:text-white focus:p-4"
+        }
+      ]
+    }
+  },
+  {
+    "screen": "landing",
+    "mode": "contrast",
+    "audit": {
+      "url": "http://127.0.0.1:3010/scripts/review-phone/index.html?screen=landing",
+      "width": 390,
+      "documentWidth": 390,
+      "text": "Skip to main content\n✕\nMenu\nHow it works\nSubjects\nAccessibility\nGrown-ups\nSign in\nCreate a family account\n☆\nFor children",
+      "axeVersion": "4.14.0",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".public-entry-menu-toggle > span"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".kid-chip.sunny-ui[data-tint=\"white\"] > span"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".landing-sticker-read"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".landing-sticker-hear"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".landing-sticker-enjoy"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "#features-heading"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "#subjects-heading"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".landing-tint-sky.landing-subject-tile > span:nth-child(2)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".landing-tint-grape.landing-subject-tile:nth-child(2) > span:nth-child(2)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".landing-tint-leaf.landing-subject-tile:nth-child(3) > span:nth-child(2)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".landing-tint-orange > span:nth-child(2)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".landing-tint-gold.landing-subject-tile > span:nth-child(2)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".landing-tint-teal > span:nth-child(2)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".landing-tint-bubblegum.landing-subject-tile > span:nth-child(2)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".landing-tint-grape.landing-subject-tile:nth-child(8) > span:nth-child(2)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".landing-tint-leaf.landing-subject-tile:nth-child(9) > span:nth-child(2)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "#cta-heading"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".font-semibold"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-attr",
+        "aria-allowed-role",
+        "aria-conditional-attr",
+        "aria-deprecated-role",
+        "aria-hidden-body",
+        "aria-hidden-focus",
+        "aria-prohibited-attr",
+        "aria-required-attr",
+        "aria-roles",
+        "aria-valid-attr-value",
+        "aria-valid-attr",
+        "button-name",
+        "bypass",
+        "color-contrast",
+        "document-title",
+        "duplicate-id-aria",
+        "empty-heading",
+        "heading-order",
+        "html-has-lang",
+        "html-lang-valid",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "link-name",
+        "list",
+        "listitem",
+        "meta-viewport-large",
+        "meta-viewport",
+        "nested-interactive",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "svg-img-alt"
+      ],
+      "overflow": [],
+      "smallTargets": [
+        {
+          "label": "Skip to main content",
+          "width": 1,
+          "height": 1,
+          "class": "skip-to-main sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-50 focus:bg-blue-600 focus:text-white focus:p-4"
+        }
+      ]
+    }
+  },
+  {
+    "screen": "login",
+    "mode": "closed",
+    "audit": {
+      "url": "http://127.0.0.1:3010/scripts/review-phone/index.html?screen=login",
+      "width": 390,
+      "documentWidth": 390,
+      "text": "Skip to main content\n☰\nMenu\nSign in\nCreate a family account\nWho is learning today?\nEnter your details, then your secret ",
+      "axeVersion": "4.14.0",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "h2"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".gap-2.font-semibold.text-white"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(1)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(2)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(3)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(4)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "button[aria-haspopup=\"dialog\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(8)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(9)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(10)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-attr",
+        "aria-allowed-role",
+        "aria-conditional-attr",
+        "aria-deprecated-role",
+        "aria-hidden-body",
+        "aria-hidden-focus",
+        "aria-prohibited-attr",
+        "aria-required-attr",
+        "aria-roles",
+        "aria-valid-attr-value",
+        "aria-valid-attr",
+        "autocomplete-valid",
+        "button-name",
+        "bypass",
+        "color-contrast",
+        "document-title",
+        "duplicate-id-aria",
+        "empty-heading",
+        "form-field-multiple-labels",
+        "heading-order",
+        "html-has-lang",
+        "html-lang-valid",
+        "label-title-only",
+        "label",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "link-name",
+        "meta-viewport-large",
+        "meta-viewport",
+        "nested-interactive",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "svg-img-alt"
+      ],
+      "overflow": [],
+      "smallTargets": [
+        {
+          "label": "Skip to main content",
+          "width": 1,
+          "height": 1,
+          "class": "skip-to-main sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-50 focus:bg-blue-600 focus:text-white focus:p-4"
+        }
+      ]
+    }
+  },
+  {
+    "screen": "login",
+    "mode": "standard",
+    "audit": {
+      "url": "http://127.0.0.1:3010/scripts/review-phone/index.html?screen=login",
+      "width": 390,
+      "documentWidth": 390,
+      "text": "Skip to main content\n✕\nMenu\nHow it works\nSubjects\nAccessibility\nGrown-ups\nSign in\nCreate a family account\nWho is learnin",
+      "axeVersion": "4.14.0",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "h2"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".gap-2.font-semibold.text-white"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(1)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(2)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(3)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(4)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "button[aria-haspopup=\"dialog\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(8)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(9)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(10)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-attr",
+        "aria-allowed-role",
+        "aria-conditional-attr",
+        "aria-deprecated-role",
+        "aria-hidden-body",
+        "aria-hidden-focus",
+        "aria-prohibited-attr",
+        "aria-required-attr",
+        "aria-roles",
+        "aria-valid-attr-value",
+        "aria-valid-attr",
+        "autocomplete-valid",
+        "button-name",
+        "bypass",
+        "color-contrast",
+        "document-title",
+        "duplicate-id-aria",
+        "empty-heading",
+        "form-field-multiple-labels",
+        "heading-order",
+        "html-has-lang",
+        "html-lang-valid",
+        "label-title-only",
+        "label",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "link-name",
+        "meta-viewport-large",
+        "meta-viewport",
+        "nested-interactive",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "svg-img-alt"
+      ],
+      "overflow": [],
+      "smallTargets": [
+        {
+          "label": "Skip to main content",
+          "width": 1,
+          "height": 1,
+          "class": "skip-to-main sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-50 focus:bg-blue-600 focus:text-white focus:p-4"
+        }
+      ]
+    }
+  },
+  {
+    "screen": "login",
+    "mode": "dark",
+    "audit": {
+      "url": "http://127.0.0.1:3010/scripts/review-phone/index.html?screen=login",
+      "width": 390,
+      "documentWidth": 390,
+      "text": "Skip to main content\n✕\nMenu\nHow it works\nSubjects\nAccessibility\nGrown-ups\nSign in\nCreate a family account\nWho is learnin",
+      "axeVersion": "4.14.0",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".gap-2.font-semibold.text-white"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(1)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(2)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(3)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(4)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "button[aria-haspopup=\"dialog\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(8)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(9)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(10)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-attr",
+        "aria-allowed-role",
+        "aria-conditional-attr",
+        "aria-deprecated-role",
+        "aria-hidden-body",
+        "aria-hidden-focus",
+        "aria-prohibited-attr",
+        "aria-required-attr",
+        "aria-roles",
+        "aria-valid-attr-value",
+        "aria-valid-attr",
+        "autocomplete-valid",
+        "button-name",
+        "bypass",
+        "color-contrast",
+        "document-title",
+        "duplicate-id-aria",
+        "empty-heading",
+        "form-field-multiple-labels",
+        "heading-order",
+        "html-has-lang",
+        "html-lang-valid",
+        "label-title-only",
+        "label",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "link-name",
+        "meta-viewport-large",
+        "meta-viewport",
+        "nested-interactive",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "svg-img-alt"
+      ],
+      "overflow": [],
+      "smallTargets": [
+        {
+          "label": "Skip to main content",
+          "width": 1,
+          "height": 1,
+          "class": "skip-to-main sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-50 focus:bg-blue-600 focus:text-white focus:p-4"
+        }
+      ]
+    }
+  },
+  {
+    "screen": "login",
+    "mode": "calm",
+    "audit": {
+      "url": "http://127.0.0.1:3010/scripts/review-phone/index.html?screen=login",
+      "width": 390,
+      "documentWidth": 390,
+      "text": "Skip to main content\n✕\nMenu\nHow it works\nSubjects\nAccessibility\nGrown-ups\nSign in\nCreate a family account\nWho is learnin",
+      "axeVersion": "4.14.0",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".gap-2.font-semibold.text-white"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(1)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(2)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(3)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(4)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "button[aria-haspopup=\"dialog\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(8)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(9)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(10)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-attr",
+        "aria-allowed-role",
+        "aria-conditional-attr",
+        "aria-deprecated-role",
+        "aria-hidden-body",
+        "aria-hidden-focus",
+        "aria-prohibited-attr",
+        "aria-required-attr",
+        "aria-roles",
+        "aria-valid-attr-value",
+        "aria-valid-attr",
+        "autocomplete-valid",
+        "button-name",
+        "bypass",
+        "color-contrast",
+        "document-title",
+        "duplicate-id-aria",
+        "empty-heading",
+        "form-field-multiple-labels",
+        "heading-order",
+        "html-has-lang",
+        "html-lang-valid",
+        "label-title-only",
+        "label",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "link-name",
+        "meta-viewport-large",
+        "meta-viewport",
+        "nested-interactive",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "svg-img-alt"
+      ],
+      "overflow": [],
+      "smallTargets": [
+        {
+          "label": "Skip to main content",
+          "width": 1,
+          "height": 1,
+          "class": "skip-to-main sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-50 focus:bg-blue-600 focus:text-white focus:p-4"
+        }
+      ]
+    }
+  },
+  {
+    "screen": "login",
+    "mode": "contrast",
+    "audit": {
+      "url": "http://127.0.0.1:3010/scripts/review-phone/index.html?screen=login",
+      "width": 390,
+      "documentWidth": 390,
+      "text": "Skip to main content\n✕\nMenu\nHow it works\nSubjects\nAccessibility\nGrown-ups\nSign in\nCreate a family account\nWho is learnin",
+      "axeVersion": "4.14.0",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "h2"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "h1"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".text-gray-600"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "div:nth-child(1) > label"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "div:nth-child(2) > label"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".mt-4"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".gap-2.font-semibold.text-white"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(1)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(2)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(3)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(4)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "button[aria-haspopup=\"dialog\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(8)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(9)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(10)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-attr",
+        "aria-allowed-role",
+        "aria-conditional-attr",
+        "aria-deprecated-role",
+        "aria-hidden-body",
+        "aria-hidden-focus",
+        "aria-prohibited-attr",
+        "aria-required-attr",
+        "aria-roles",
+        "aria-valid-attr-value",
+        "aria-valid-attr",
+        "autocomplete-valid",
+        "button-name",
+        "bypass",
+        "color-contrast",
+        "document-title",
+        "duplicate-id-aria",
+        "empty-heading",
+        "form-field-multiple-labels",
+        "heading-order",
+        "html-has-lang",
+        "html-lang-valid",
+        "label-title-only",
+        "label",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "link-name",
+        "meta-viewport-large",
+        "meta-viewport",
+        "nested-interactive",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "svg-img-alt"
+      ],
+      "overflow": [],
+      "smallTargets": [
+        {
+          "label": "Skip to main content",
+          "width": 1,
+          "height": 1,
+          "class": "skip-to-main sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-50 focus:bg-blue-600 focus:text-white focus:p-4"
+        }
+      ]
+    }
+  }
+]

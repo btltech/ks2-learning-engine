@@ -1,0 +1,144 @@
+{
+  "url": "http://127.0.0.1:3010/scripts/review-phone/index.html?screen=login",
+  "width": 390,
+  "documentWidth": 390,
+  "text": "Skip to main content\n☰\nMenu\nSign in\nCreate a family account\nWho is learning today?\nEnter your details, then your secret ",
+  "axeVersion": "4.14.0",
+  "violations": [],
+  "incomplete": [
+    {
+      "id": "color-contrast",
+      "nodes": [
+        {
+          "target": [
+            "span[aria-hidden=\"true\"]"
+          ],
+          "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+        },
+        {
+          "target": [
+            "h2"
+          ],
+          "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "target": [
+            ".gap-2.font-semibold.text-white"
+          ],
+          "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "target": [
+            ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(1)"
+          ],
+          "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "target": [
+            ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(2)"
+          ],
+          "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "target": [
+            ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(3)"
+          ],
+          "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "target": [
+            ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(4)"
+          ],
+          "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "target": [
+            ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(5)"
+          ],
+          "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "target": [
+            ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(6)"
+          ],
+          "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "target": [
+            "button[aria-haspopup=\"dialog\"]"
+          ],
+          "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "target": [
+            ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(8)"
+          ],
+          "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "target": [
+            ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(9)"
+          ],
+          "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "target": [
+            ".min-h-\\[48px\\].min-w-\\[48px\\].px-1:nth-child(10)"
+          ],
+          "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        }
+      ]
+    }
+  ],
+  "passes": [
+    "aria-allowed-attr",
+    "aria-allowed-role",
+    "aria-conditional-attr",
+    "aria-deprecated-role",
+    "aria-hidden-body",
+    "aria-hidden-focus",
+    "aria-prohibited-attr",
+    "aria-required-attr",
+    "aria-roles",
+    "aria-valid-attr-value",
+    "aria-valid-attr",
+    "autocomplete-valid",
+    "button-name",
+    "bypass",
+    "color-contrast",
+    "document-title",
+    "duplicate-id-aria",
+    "empty-heading",
+    "form-field-multiple-labels",
+    "heading-order",
+    "html-has-lang",
+    "html-lang-valid",
+    "label-title-only",
+    "label",
+    "landmark-banner-is-top-level",
+    "landmark-contentinfo-is-top-level",
+    "landmark-main-is-top-level",
+    "landmark-no-duplicate-banner",
+    "landmark-no-duplicate-contentinfo",
+    "landmark-no-duplicate-main",
+    "landmark-one-main",
+    "landmark-unique",
+    "link-name",
+    "meta-viewport-large",
+    "meta-viewport",
+    "nested-interactive",
+    "page-has-heading-one",
+    "region",
+    "skip-link",
+    "svg-img-alt"
+  ],
+  "overflow": [],
+  "smallTargets": [
+    {
+      "label": "Skip to main content",
+      "width": 1,
+      "height": 1,
+      "class": "skip-to-main sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-50 focus:bg-blue-600 focus:text-white focus:p-4"
+    }
+  ]
+}

@@ -43,11 +43,42 @@ describe('public landing navigation', () => {
     expect(within(preview).getByText('✓ Correct')).toBeTruthy();
   });
 
-  it.each(['/login', '/?verified=true', '/privacy-policy'])('keeps the calmer public header on %s', path => {
+  it.each(['/?verified=true', '/privacy-policy'])('keeps the calmer public header on %s', path => {
     renderLanding(path);
     expect(screen.queryByRole('navigation', { name: 'Main' })).toBeNull();
     expect(screen.getByRole('button', { name: 'Login' })).toBeTruthy();
     expect(document.querySelector('.sunny-landing-footer')).toBeNull();
+  });
+
+  it.each(['/', '/login'])('exposes a named phone disclosure and returns focus on Escape on %s', path => {
+    renderLanding(path);
+    const header = within(screen.getByRole('banner'));
+    const toggle = header.getByRole('button', { name: 'Navigation menu' });
+    const navigation = header.getByRole('navigation', { name: 'Main' });
+    expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    expect(toggle).toHaveAttribute('aria-controls', navigation.id);
+    fireEvent.click(toggle);
+    expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    expect(navigation).toHaveAttribute('data-open', 'true');
+    within(navigation).getAllByRole('link')[0].focus();
+    fireEvent.keyDown(document, { key: 'Escape' });
+    expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    expect(toggle).toHaveFocus();
+    expect(header.getByRole('button', { name: 'Sign in' })).toBeInTheDocument();
+    fireEvent.click(header.getByRole('button', { name: 'Create a family account' }));
+    expect(screen.getByLabelText('Current route')).toHaveTextContent('/login?mode=register');
+  });
+
+  it('links the sign-in phone menu to real landing sections and keeps its desktop login control', () => {
+    renderLanding('/login');
+    const header = within(screen.getByRole('banner'));
+    const navigation = header.getByRole('navigation', { name: 'Main' });
+    expect(navigation).toHaveClass('public-entry-phone-only');
+    expect(header.getByRole('button', { name: 'Login' })).toHaveClass('public-entry-desktop-login');
+    for (const link of within(navigation).getAllByRole('link')) {
+      expect(link.getAttribute('href')).toMatch(/^\/#/);
+      expect(document.getElementById(link.getAttribute('href')!.slice(2))).toBeTruthy();
+    }
   });
 
   it('retains all footer policy destinations and settings on the sunny variant', async () => {

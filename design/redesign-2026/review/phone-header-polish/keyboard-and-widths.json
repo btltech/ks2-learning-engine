@@ -1,0 +1,123 @@
+{
+  "keyboard": {
+    "beforeEscape": {
+      "focus": "How it works",
+      "open": "true"
+    },
+    "afterEscape": {
+      "focus": "Navigation menu",
+      "open": "false",
+      "hidden": true
+    }
+  },
+  "layouts": [
+    {
+      "screen": "landing",
+      "width": 320,
+      "documentWidth": 320,
+      "menuVisible": true,
+      "navVisible": false,
+      "actions": [
+        {
+          "label": "Sign in",
+          "visible": true
+        },
+        {
+          "label": "Create a family account",
+          "visible": true
+        }
+      ],
+      "legacyLoginVisible": false
+    },
+    {
+      "screen": "login",
+      "width": 320,
+      "documentWidth": 320,
+      "menuVisible": true,
+      "navVisible": false,
+      "actions": [
+        {
+          "label": "Sign in",
+          "visible": true
+        },
+        {
+          "label": "Create a family account",
+          "visible": true
+        }
+      ],
+      "legacyLoginVisible": false
+    },
+    {
+      "screen": "landing",
+      "width": 768,
+      "documentWidth": 768,
+      "menuVisible": false,
+      "navVisible": true,
+      "actions": [
+        {
+          "label": "Sign in",
+          "visible": true
+        },
+        {
+          "label": "Create a family account",
+          "visible": true
+        }
+      ],
+      "legacyLoginVisible": false
+    },
+    {
+      "screen": "login",
+      "width": 768,
+      "documentWidth": 768,
+      "menuVisible": false,
+      "navVisible": false,
+      "actions": [
+        {
+          "label": "Sign in",
+          "visible": false
+        },
+        {
+          "label": "Create a family account",
+          "visible": false
+        }
+      ],
+      "legacyLoginVisible": true
+    },
+    {
+      "screen": "landing",
+      "width": 1280,
+      "documentWidth": 1280,
+      "menuVisible": false,
+      "navVisible": true,
+      "actions": [
+        {
+          "label": "Sign in",
+          "visible": true
+        },
+        {
+          "label": "Create a family account",
+          "visible": true
+        }
+      ],
+      "legacyLoginVisible": false
+    },
+    {
+      "screen": "login",
+      "width": 1280,
+      "documentWidth": 1280,
+      "menuVisible": false,
+      "navVisible": false,
+      "actions": [
+        {
+          "label": "Sign in",
+          "visible": false
+        },
+        {
+          "label": "Create a family account",
+          "visible": false
+        }
+      ],
+      "legacyLoginVisible": true
+    }
+  ]
+}
