@@ -1,8 +1,8 @@
 # Artwork image rights and attribution
 
-Checked **5 November 2026** against the **exact eight configured files**, rather than assuming a licence from the painting's age or the Wikimedia host. Resizing these files does not change their rights status.
+Checked **5 November 2026** against the **exact eight files that were configured**, rather than assuming a licence from the painting's age or the Wikimedia host. Resizing these files does not change their rights status.
 
-**Seven files are marked public domain. The Dalí file is non-free: it is neither public domain nor Creative Commons licensed.** Keeping the existing picture, as requested, is not a finding that this site's reuse is cleared.
+**Seven files are marked public domain. The Dalí file is non-free: it is neither public domain nor Creative Commons licensed.** **Update, 5 November 2026: The Persistence of Memory has been removed from the gallery** because the site has no permission to reuse it. The gallery now has seven artworks, all Wikimedia Commons public-domain files, and a test keeps non-Commons images out. The Dalí row below is kept as a record of why it was removed.
 
 | Picture | Image-specific status on its source page | Attribution requirement under that status | Source |
 | --- | --- | --- | --- |
