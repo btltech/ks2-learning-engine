@@ -79,4 +79,11 @@ describe('MiniGames', () => {
     expect(screen.getByRole('button', { name: 'Games locked' })).toBeDisabled();
     expect(screen.getByText(/Pass three quizzes with at least 70%/i)).toBeVisible();
   });
+
+  it('opens the existing introduction from How to play without spending a play', async () => {
+    render(<MiniGames onClose={vi.fn()} status={unlocked} />);
+    fireEvent.click(await screen.findByRole('button', { name: 'How to play Spelling Workshop' }));
+    expect(screen.getByRole('heading', {name:'Spelling Workshop'})).toBeVisible();
+    expect(startGame).not.toHaveBeenCalled();
+  });
 });

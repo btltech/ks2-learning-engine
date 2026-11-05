@@ -1,3 +1,6 @@
+import type { UserProfile } from '../types';
+import { TrophyHero, SubjectSegments, ProgressLegend, StickerBook, PersonalBestBanner } from '../components/sunny/ProgressPresentation';
+import '../components/SunnyProgressGames.css';
 import { useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import SkillTreeView from '../components/SkillTreeView';
@@ -33,7 +36,7 @@ const subjectStyles = {
   },
 } as const;
 
-export default function ProgressView() {
+export default function ProgressView({ user }: { user?: UserProfile | null }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const requestedTab = searchParams.get('tab');
   const activeTab: ProgressTab = isProgressTab(requestedTab) ? requestedTab : 'progress';
@@ -56,7 +59,8 @@ export default function ProgressView() {
   };
 
   return (
-    <PageShell title="Your Progress" subtitle="Track your learning journey and achievements" icon="📈" tone="blue">
+    <PageShell className="sunny-progress sunny-ui" title="Your Progress" subtitle="Track your learning journey and achievements" icon="📈" tone="blue">
+        <TrophyHero user={user} completed={skillTrees.reduce((sum, tree) => sum + (tree?.completedNodes || 0), 0)} />
         <div className="bg-white rounded-2xl shadow-lg p-2 mb-6 grid grid-cols-1 sm:grid-cols-3 gap-2" role="tablist" aria-label="Progress sections">
           {([
             ['progress', '📈 Progress & Skills'],
@@ -84,13 +88,12 @@ export default function ProgressView() {
 
         {activeTab === 'progress' && (
           <div id="progress-panel-progress" role="tabpanel" aria-labelledby="progress-tab-progress" className="space-y-6">
-            <ProgressChart days={30} />
-
             <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">🌳 Skill Trees</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">How each subject is going</h2>
+              <ProgressLegend />
               <p className="text-gray-600 mb-6">Open a subject to see the milestones you have reached.</p>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="sunny-subject-rows grid grid-cols-1 md:grid-cols-3 gap-6">
                 {skillTrees.map((tree) => {
                   if (!tree) return null;
                   const style = subjectStyles[tree.subject as keyof typeof subjectStyles];
@@ -108,6 +111,7 @@ export default function ProgressView() {
                       <span className="block text-5xl mb-4 text-center" aria-hidden="true">{style.icon}</span>
                       <span className="block text-xl font-bold text-center mb-2">{tree.subject}</span>
                       <span className="block text-sm text-center">{tree.totalNodes} tracked milestones</span>
+                      <SubjectSegments nodes={tree.nodes} label={tree.subject} />
                       <span className="block mt-4 pt-4 border-t border-current/20">
                         <span className={`block h-2 rounded-full overflow-hidden ${style.track}`}>
                           <span className={`block h-full ${style.fill}`} style={{ width: `${percentage}%` }} />
@@ -118,7 +122,11 @@ export default function ProgressView() {
                   );
                 })}
               </div>
+              <p className="sunny-milestone-note">Confident means a completed skill milestone. Learning means a milestone you have tried. Open a subject to see its existing completion requirements.</p>
             </div>
+            <StickerBook badges={user?.badges || []} />
+            <PersonalBestBanner />
+            <ProgressChart days={30} />
           </div>
         )}
 
@@ -143,7 +151,7 @@ export default function ProgressView() {
                   <li key={friend.userId} className="flex items-center justify-between gap-4 py-4">
                     <div>
                       <p className="font-semibold text-gray-900">{friend.displayName}</p>
-                      <p className="text-sm text-gray-600">Level {friend.level} · {friend.points} points</p>
+
                     </div>
                     <span className={`text-sm font-medium ${friend.status === 'offline' ? 'text-gray-500' : 'text-green-700'}`}>
                       {friend.status === 'in-quiz' ? 'In a quiz' : friend.status === 'online' ? 'Online' : 'Offline'}

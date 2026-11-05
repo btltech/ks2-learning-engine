@@ -1,3 +1,5 @@
+import { Owl } from './sunny/Owl';
+import './SunnyProgressGames.css';
 /**
  * Games Lock Overlay Component
  * 
@@ -31,7 +33,7 @@ export const GamesLockOverlay: React.FC<GamesLockOverlayProps> = ({
   return (
     <button
       type="button"
-      className="relative cursor-pointer group w-full text-left rounded-xl focus:outline-none focus-visible:ring-4 focus-visible:ring-cyan-300"
+      className="sunny-games-lock sunny-ui relative cursor-pointer group w-full text-left rounded-xl focus:outline-none focus-visible:ring-4 focus-visible:ring-cyan-300"
       onClick={onClick}
       aria-label={`Mini Games locked. ${passesCount} of ${requiredPasses} passing quizzes completed. Open games for details.`}
     >
@@ -41,7 +43,7 @@ export const GamesLockOverlay: React.FC<GamesLockOverlayProps> = ({
                       border-2 border-dashed border-gray-300">
         {/* Lock icon */}
         <div className="text-center mb-2">
-          <span className="text-4xl filter grayscale opacity-50">🎮</span>
+          <Owl pose="sleepy" height={80} />
           <div className="absolute top-2 right-2">
             <span className="text-2xl">🔒</span>
           </div>
@@ -110,7 +112,7 @@ export const GamesLockBadge: React.FC<{
   requiredPasses: number;
 }> = ({ passesCount, requiredPasses }) => {
   return (
-    <div className="inline-flex items-center gap-2 bg-gray-100 rounded-full px-3 py-1 text-sm">
+    <div className="sunny-games-badge sunny-ui inline-flex items-center gap-2 bg-gray-100 rounded-full px-3 py-1 text-sm">
       <span>🔒</span>
       <div className="w-16 bg-gray-300 rounded-full h-2">
         <div 
@@ -133,7 +135,7 @@ export const GamesUnlockedCelebration: React.FC<{
   const dialogRef = useModalAccessibility(onDismiss);
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 animate-fade-in"
+      className="sunny-games-celebration sunny-ui fixed inset-0 z-50 flex items-center justify-center bg-black/50 animate-fade-in"
     >
       <div ref={dialogRef} tabIndex={-1} className="bg-white rounded-2xl p-8 text-center shadow-2xl transform animate-bounce-in max-w-sm mx-4" role="dialog" aria-modal="true" aria-labelledby="games-unlocked-title">
         <div className="text-6xl mb-4 animate-pulse">🎮🎉</div>

@@ -1,3 +1,4 @@
+import './SunnyProgressGames.css';
 import React, { useState, useEffect } from 'react';
 import { useModalAccessibility } from '../hooks/useModalAccessibility';
 import { 
@@ -77,7 +78,7 @@ const StreakRewards: React.FC<StreakRewardsProps> = ({ onClose, onXpEarned }) =>
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-900 via-red-900 to-pink-900 p-4">
+    <div className="sunny-streak sunny-ui min-h-screen bg-gradient-to-br from-orange-900 via-red-900 to-pink-900 p-4">
       {/* Notification Modal */}
       {showNotification && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" role="presentation">
@@ -150,6 +151,7 @@ const StreakRewards: React.FC<StreakRewardsProps> = ({ onClose, onXpEarned }) =>
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as Tab)}
+              aria-pressed={activeTab === tab.id}
               className={`flex-1 py-3 rounded-xl font-medium transition-all ${
                 activeTab === tab.id
                   ? 'bg-white/20 text-white'
