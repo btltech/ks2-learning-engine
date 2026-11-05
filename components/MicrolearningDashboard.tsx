@@ -1,3 +1,5 @@
+import { Owl } from './sunny/Owl';
+import './SunnyBitesClassroom.css';
 import { useState, useEffect } from 'react';
 import { microlearningService, MicroSession } from '../services/microlearningService';
 import MicrolearningCard from './MicrolearningCard';
@@ -26,9 +28,9 @@ export default function MicrolearningDashboard({ onSelectSession }: Microlearnin
   };
 
   return (
-    <PageShell title="5-Minute Challenges" subtitle="Quick learning sessions that fit into your day" icon="⚡" tone="purple">
+    <PageShell className="sunny-bites sunny-ui" title="Five-minute bites" subtitle="Quick learning sessions that fit into your day" icon={<Owl pose="wave" height={100} />} tone="purple">
         {/* Daily Progress Card */}
-        <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
+        <div className="sunny-bite-progress bg-white rounded-2xl shadow-lg p-6 mb-8">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h2 className="text-2xl font-bold text-gray-900">Today's Progress</h2>
@@ -45,7 +47,7 @@ export default function MicrolearningDashboard({ onSelectSession }: Microlearnin
           </div>
 
           {/* Progress Bar */}
-          <div className="relative h-4 bg-gray-200 rounded-full overflow-hidden">
+          <div className="sunny-bite-progress-track relative h-4 bg-gray-200 rounded-full overflow-hidden" role="progressbar" aria-label="Daily bite goal" aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress.percentage}>
             <div
               className="absolute top-0 left-0 h-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-500 rounded-full"
               style={{ width: `${progress.percentage}%` }}
@@ -62,6 +64,7 @@ export default function MicrolearningDashboard({ onSelectSession }: Microlearnin
           )}
         </div>
 
+        <div className="sunny-bite-picks">
         {/* Daily Challenge (Featured) */}
         {dailyChallenge && (
           <div className="mb-8">
@@ -94,10 +97,11 @@ export default function MicrolearningDashboard({ onSelectSession }: Microlearnin
           </div>
         )}
 
+        </div>
         {/* All Sessions */}
-        <div className="mb-8">
+        <div className="sunny-bite-more mb-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">
-            All Quick Challenges
+            More bites
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {sessions.map((session) => (
@@ -111,7 +115,7 @@ export default function MicrolearningDashboard({ onSelectSession }: Microlearnin
         </div>
 
         {/* Tips Section */}
-        <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl p-8 text-white">
+        <div className="sunny-bite-tips bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl p-8 text-white">
           <h2 className="text-2xl font-bold mb-4">💡 Pro Tips</h2>
           <ul className="space-y-3">
             <li className="flex items-start">
