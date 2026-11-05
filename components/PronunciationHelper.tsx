@@ -18,7 +18,7 @@ interface PronunciationHelperProps {
 
 /**
  * Pronunciation Helper Component
- * 
+ *
  * Displays phonetic guides and allows students to:
  * - See how words are pronounced
  * - Hear slow pronunciation
@@ -117,7 +117,7 @@ const PronunciationHelper: React.FC<PronunciationHelperProps> = ({
     <div className={`sunny-pronunciation sunny-ui bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-4 border border-purple-100 ${sizeClasses[size]}`} data-size={size}>
       {/* Yoruba Tone Guide */}
       {isYoruba && showRules && <YorubaToneGuide />}
-      
+
       <div className="sunny-say-it-label"><Owl pose="wave" height={76} /><strong>Say it</strong><span>{language}</span></div>
       {/* Word and Phonetic */}
       <div className="sunny-pronunciation-heading flex items-center justify-between mb-3">
@@ -130,26 +130,13 @@ const PronunciationHelper: React.FC<PronunciationHelperProps> = ({
             </span>
           )}
         </div>
-        
+
         <div className="sunny-pronunciation-actions flex items-center gap-2">
-          {/* Speed toggle */}
-          <button
-            onClick={() => setSpeed(s => s === 'slow' ? 'normal' : 'slow')}
-            className={`px-3 py-1 rounded-full text-xs font-semibold transition-colors ${
-              speed === 'slow' 
-                ? 'bg-amber-100 text-amber-700' 
-                : 'bg-gray-100 text-gray-600'
-            }`}
-            title={speed === 'slow' ? 'Slow speed' : 'Normal speed'}
-          >
-            {speed === 'slow' ? '🐢 Slow' : '🐇 Normal'}
-          </button>
-          
           {/* Speak button */}
           <button
             onClick={handleSpeak}
             disabled={isSpeaking}
-            className="p-2 rounded-full bg-purple-500 text-white hover:bg-purple-600 transition-colors disabled:opacity-50"
+            className="sunny-pronunciation-play p-2 rounded-full bg-purple-500 text-white hover:bg-purple-600 transition-colors disabled:opacity-50"
             title="Hear pronunciation"
           >
             {isSpeaking ? (
@@ -159,6 +146,20 @@ const PronunciationHelper: React.FC<PronunciationHelperProps> = ({
             )}
             <span>Hear it</span>
           </button>
+
+          {/* Speed toggle */}
+          <button
+            onClick={() => setSpeed(s => s === 'slow' ? 'normal' : 'slow')}
+            className={`sunny-pronunciation-speed px-3 py-1 rounded-full text-xs font-semibold transition-colors ${
+              speed === 'slow'
+                ? 'bg-amber-100 text-amber-700'
+                : 'bg-gray-100 text-gray-600'
+            }`}
+            title={speed === 'slow' ? 'Slow speed' : 'Normal speed'}
+          >
+            {speed === 'slow' ? '🐢 Slow' : '🐇 Normal'}
+          </button>
+
         </div>
       </div>
 
@@ -192,7 +193,7 @@ const PronunciationHelper: React.FC<PronunciationHelperProps> = ({
               </button>
             );
           })}
-          
+
           {syllables.length > 1 && (
             <button
               onClick={handleSpeakAllSyllables}

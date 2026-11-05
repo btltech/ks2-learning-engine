@@ -26,14 +26,14 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({ onSelect, onBack })
 
       <section className="sunny-passport-hero" aria-labelledby="language-passport-title">
         <Owl pose="wave" height={140} />
-        <div><h2 id="language-passport-title">My language passport</h2>
+        <div><h1 id="language-passport-title">My language passport</h1>
           <p>Which language would you like to explore today?</p>
         </div>
       </section>
       
       <div 
         className="sunny-passport-stamps grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
-        role="list"
+        role="group"
         aria-label="Language selection"
       >
         {LANGUAGES.map((lang) => (

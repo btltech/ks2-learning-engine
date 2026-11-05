@@ -58,7 +58,7 @@
 .sunny-legacy-progress > .bg-white > div:first-child { color:var(--pg-ink); background:var(--pg-grape); }
 .sunny-legacy-progress > .bg-white > div:first-child .grid > div { background:var(--pg-paper); border:3px solid var(--pg-ink); }
 /* Existing game catalogue, introductions, sessions and results retain the same actions. */
-.sunny-games > div > div,.sunny-games main { max-width:1200px; }
+.sunny-games > div > div,.sunny-games .sunny-game-content { max-width:1200px; }
 .sunny-games-hero { display:flex; align-items:center; gap:24px; padding:28px 32px; border:3px solid var(--pg-ink); border-radius:32px 32px 0 0; background:var(--pg-leaf); }
 .sunny-games-hero > img { width:90px !important; flex-shrink:0; }
 .sunny-games-hero h1 { font-size:2.75rem; line-height:1.2; }
@@ -84,10 +84,10 @@
 .sunny-game-art > span { font-size:4rem; }
 .sunny-game-art h2 { font-size:1.5rem; font-weight:700; }
 .sunny-game-art a { display:flex; align-items:center; font-weight:700; text-decoration:underline; }
-.sunny-games main > :is([class*='bg-gradient'],section),.sunny-games main > div > section { color:var(--pg-ink); background:var(--pg-paper); border:3px solid var(--pg-ink); border-radius:28px; box-shadow:0 6px 0 var(--pg-ink); }
-.sunny-games main > [class*='bg-gradient'] { background:var(--pg-leaf); }
-.sunny-games main > section.sunny-game-credits { background:var(--pg-leaf); border-top:0; border-radius:0 0 32px 32px; }
-.sunny-games main :is(.bg-white,.bg-white\/15,.bg-white\/20,.bg-black\/15) { background:var(--pg-paper); }
+.sunny-games .sunny-game-content > :is([class*='bg-gradient'],section),.sunny-games .sunny-game-content > div > section { color:var(--pg-ink); background:var(--pg-paper); border:3px solid var(--pg-ink); border-radius:28px; box-shadow:0 6px 0 var(--pg-ink); }
+.sunny-games .sunny-game-content > [class*='bg-gradient'] { background:var(--pg-leaf); }
+.sunny-games .sunny-game-content > section.sunny-game-credits { background:var(--pg-leaf); border-top:0; border-radius:0 0 32px 32px; }
+.sunny-games .sunny-game-content :is(.bg-white,.bg-white\/15,.bg-white\/20,.bg-black\/15) { background:var(--pg-paper); }
 .sunny-games :is(button[type='submit'],button.bg-white) { background:var(--pg-gold); }
 .sunny-games select,.sunny-games input { color:var(--pg-ink); background:var(--pg-paper); border:3px solid var(--pg-ink); border-radius:18px; }
 .sunny-games [role='progressbar'] { background:var(--pg-paper); border:2px solid var(--pg-ink); height:20px; }
@@ -129,7 +129,7 @@
   .sunny-games-hero { padding:24px 20px; gap:14px; }
   .sunny-games-hero > img { width:60px !important; height:84px !important; }
   .sunny-games .sunny-game-credits { padding:20px; }
-  .sunny-games main > [class*='bg-gradient'] { padding:20px; }
+  .sunny-games .sunny-game-content > [class*='bg-gradient'] { padding:20px; }
   .sunny-streak > div:last-child > div:first-child > div:last-child { display:none; }
   .sunny-games-lock > div { padding:20px 16px; }
 }

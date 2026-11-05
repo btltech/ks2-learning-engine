@@ -1,0 +1,2669 @@
+{
+  "home": {
+    "url": "http://127.0.0.1:3010/review-phone.local.html?screen=home",
+    "width": 390,
+    "documentWidth": 390,
+    "text": "⚙\nDisplay settings\n⬜\n⭕\n🤖\nHome\nLearn\nMy progress\nGames\nWelcome back, Casey! 👋\n\nReady to learn today?\n\nListen\n🔥 4 day s",
+    "axeVersion": "4.14.0",
+    "violations": [
+      {
+        "id": "aria-allowed-role",
+        "impact": "minor",
+        "description": "Ensure role attribute has an appropriate value for the element",
+        "help": "ARIA role should be appropriate for the element",
+        "nodes": [
+          {
+            "any": [
+              {
+                "id": "aria-allowed-role",
+                "data": [
+                  "listitem"
+                ],
+                "relatedNodes": [],
+                "impact": "minor",
+                "message": "ARIA role listitem is not allowed for given element"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": "minor",
+            "html": "<button role=\"listitem\" aria-label=\"English\" class=\"sunny-subject-tile g...\" style=\"animation-delay: 0ms...\">",
+            "target": [
+              ".bg-red-100"
+            ],
+            "failureSummary": "Fix any of the following:\n  ARIA role listitem is not allowed for given element"
+          },
+          {
+            "any": [
+              {
+                "id": "aria-allowed-role",
+                "data": [
+                  "listitem"
+                ],
+                "relatedNodes": [],
+                "impact": "minor",
+                "message": "ARIA role listitem is not allowed for given element"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": "minor",
+            "html": "<button role=\"listitem\" aria-label=\"Maths\" class=\"sunny-subject-tile g...\" style=\"animation-delay: 50m...\">",
+            "target": [
+              ".bg-blue-100"
+            ],
+            "failureSummary": "Fix any of the following:\n  ARIA role listitem is not allowed for given element"
+          },
+          {
+            "any": [
+              {
+                "id": "aria-allowed-role",
+                "data": [
+                  "listitem"
+                ],
+                "relatedNodes": [],
+                "impact": "minor",
+                "message": "ARIA role listitem is not allowed for given element"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": "minor",
+            "html": "<button role=\"listitem\" aria-label=\"Science\" class=\"sunny-subject-tile g...\" style=\"animation-delay: 100...\">",
+            "target": [
+              ".bg-green-100"
+            ],
+            "failureSummary": "Fix any of the following:\n  ARIA role listitem is not allowed for given element"
+          },
+          {
+            "any": [
+              {
+                "id": "aria-allowed-role",
+                "data": [
+                  "listitem"
+                ],
+                "relatedNodes": [],
+                "impact": "minor",
+                "message": "ARIA role listitem is not allowed for given element"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": "minor",
+            "html": "<button role=\"listitem\" aria-label=\"History\" class=\"sunny-subject-tile g...\" style=\"animation-delay: 150...\">",
+            "target": [
+              ".bg-yellow-100"
+            ],
+            "failureSummary": "Fix any of the following:\n  ARIA role listitem is not allowed for given element"
+          },
+          {
+            "any": [
+              {
+                "id": "aria-allowed-role",
+                "data": [
+                  "listitem"
+                ],
+                "relatedNodes": [],
+                "impact": "minor",
+                "message": "ARIA role listitem is not allowed for given element"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": "minor",
+            "html": "<button role=\"listitem\" aria-label=\"Geography\" class=\"sunny-subject-tile g...\" style=\"animation-delay: 200...\">",
+            "target": [
+              ".bg-purple-100"
+            ],
+            "failureSummary": "Fix any of the following:\n  ARIA role listitem is not allowed for given element"
+          },
+          {
+            "any": [
+              {
+                "id": "aria-allowed-role",
+                "data": [
+                  "listitem"
+                ],
+                "relatedNodes": [],
+                "impact": "minor",
+                "message": "ARIA role listitem is not allowed for given element"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": "minor",
+            "html": "<button role=\"listitem\" aria-label=\"Art\" class=\"sunny-subject-tile g...\" style=\"animation-delay: 250...\">",
+            "target": [
+              ".bg-orange-100"
+            ],
+            "failureSummary": "Fix any of the following:\n  ARIA role listitem is not allowed for given element"
+          },
+          {
+            "any": [
+              {
+                "id": "aria-allowed-role",
+                "data": [
+                  "listitem"
+                ],
+                "relatedNodes": [],
+                "impact": "minor",
+                "message": "ARIA role listitem is not allowed for given element"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": "minor",
+            "html": "<button role=\"listitem\" aria-label=\"Computing\" class=\"sunny-subject-tile g...\" style=\"animation-delay: 300...\">",
+            "target": [
+              ".bg-indigo-100"
+            ],
+            "failureSummary": "Fix any of the following:\n  ARIA role listitem is not allowed for given element"
+          },
+          {
+            "any": [
+              {
+                "id": "aria-allowed-role",
+                "data": [
+                  "listitem"
+                ],
+                "relatedNodes": [],
+                "impact": "minor",
+                "message": "ARIA role listitem is not allowed for given element"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": "minor",
+            "html": "<button role=\"listitem\" aria-label=\"Languages\" class=\"sunny-subject-tile g...\" style=\"animation-delay: 350...\">",
+            "target": [
+              ".bg-pink-100"
+            ],
+            "failureSummary": "Fix any of the following:\n  ARIA role listitem is not allowed for given element"
+          },
+          {
+            "any": [
+              {
+                "id": "aria-allowed-role",
+                "data": [
+                  "listitem"
+                ],
+                "relatedNodes": [],
+                "impact": "minor",
+                "message": "ARIA role listitem is not allowed for given element"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": "minor",
+            "html": "<button role=\"listitem\" aria-label=\"Music\" class=\"sunny-subject-tile g...\" style=\"animation-delay: 400...\">",
+            "target": [
+              ".bg-teal-100"
+            ],
+            "failureSummary": "Fix any of the following:\n  ARIA role listitem is not allowed for given element"
+          },
+          {
+            "any": [
+              {
+                "id": "aria-allowed-role",
+                "data": [
+                  "listitem"
+                ],
+                "relatedNodes": [],
+                "impact": "minor",
+                "message": "ARIA role listitem is not allowed for given element"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": "minor",
+            "html": "<button role=\"listitem\" aria-label=\"PE\" class=\"sunny-subject-tile g...\" style=\"animation-delay: 450...\">",
+            "target": [
+              ".bg-rose-100"
+            ],
+            "failureSummary": "Fix any of the following:\n  ARIA role listitem is not allowed for given element"
+          },
+          {
+            "any": [
+              {
+                "id": "aria-allowed-role",
+                "data": [
+                  "listitem"
+                ],
+                "relatedNodes": [],
+                "impact": "minor",
+                "message": "ARIA role listitem is not allowed for given element"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": "minor",
+            "html": "<button role=\"listitem\" aria-label=\"PSHE\" class=\"sunny-subject-tile g...\" style=\"animation-delay: 500...\">",
+            "target": [
+              ".bg-cyan-100"
+            ],
+            "failureSummary": "Fix any of the following:\n  ARIA role listitem is not allowed for given element"
+          },
+          {
+            "any": [
+              {
+                "id": "aria-allowed-role",
+                "data": [
+                  "listitem"
+                ],
+                "relatedNodes": [],
+                "impact": "minor",
+                "message": "ARIA role listitem is not allowed for given element"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": "minor",
+            "html": "<button role=\"listitem\" aria-label=\"D&T\" class=\"sunny-subject-tile g...\" style=\"animation-delay: 550...\">",
+            "target": [
+              ".bg-slate-100"
+            ],
+            "failureSummary": "Fix any of the following:\n  ARIA role listitem is not allowed for given element"
+          },
+          {
+            "any": [
+              {
+                "id": "aria-allowed-role",
+                "data": [
+                  "listitem"
+                ],
+                "relatedNodes": [],
+                "impact": "minor",
+                "message": "ARIA role listitem is not allowed for given element"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": "minor",
+            "html": "<button role=\"listitem\" aria-label=\"Religious Education\" class=\"sunny-subject-tile g...\" style=\"animation-delay: 600...\">",
+            "target": [
+              ".bg-amber-100"
+            ],
+            "failureSummary": "Fix any of the following:\n  ARIA role listitem is not allowed for given element"
+          }
+        ]
+      }
+    ],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": [
+          {
+            "target": [
+              ".sunny-adventure-progress > span[aria-hidden=\"true\"]"
+            ],
+            "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+          },
+          {
+            "target": [
+              "button[data-variant=\"gold\"] > span[aria-hidden=\"true\"]"
+            ],
+            "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+          },
+          {
+            "target": [
+              "#sunny-subject-heading"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              "#subjects > p"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              "#sunny-recent-heading"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          }
+        ]
+      }
+    ],
+    "passes": [
+      "aria-allowed-attr",
+      "aria-allowed-role",
+      "aria-conditional-attr",
+      "aria-deprecated-role",
+      "aria-hidden-body",
+      "aria-hidden-focus",
+      "aria-progressbar-name",
+      "aria-prohibited-attr",
+      "aria-required-attr",
+      "aria-required-children",
+      "aria-required-parent",
+      "aria-roles",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "avoid-inline-spacing",
+      "button-name",
+      "bypass",
+      "color-contrast",
+      "document-title",
+      "duplicate-id-aria",
+      "empty-heading",
+      "form-field-multiple-labels",
+      "heading-order",
+      "html-has-lang",
+      "html-lang-valid",
+      "label-title-only",
+      "label",
+      "landmark-banner-is-top-level",
+      "landmark-main-is-top-level",
+      "landmark-no-duplicate-banner",
+      "landmark-no-duplicate-main",
+      "landmark-one-main",
+      "landmark-unique",
+      "link-name",
+      "list",
+      "listitem",
+      "meta-viewport-large",
+      "meta-viewport",
+      "nested-interactive",
+      "page-has-heading-one",
+      "region",
+      "role-img-alt",
+      "tabindex"
+    ],
+    "overflow": [],
+    "smallTargets": []
+  },
+  "guided": {
+    "url": "http://127.0.0.1:3010/review-phone.local.html?screen=guided",
+    "width": 390,
+    "documentWidth": 390,
+    "text": "⚙\nDisplay settings\n⬜\n⭕\n🤖\nHome\nLearn\nMy progress\nGames\nHi, Casey!\n\nReady to learn today?\n\nListen\n🔥 4 day streak!\nToday'",
+    "axeVersion": "4.14.0",
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": [
+          {
+            "target": [
+              ".sunny-bottom-tabs > a[href$=\"progress\"][data-discover=\"true\"] > span"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+          },
+          {
+            "target": [
+              ".sunny-adventure-progress > span[aria-hidden=\"true\"]"
+            ],
+            "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+          },
+          {
+            "target": [
+              "button[data-variant=\"gold\"] > span[aria-hidden=\"true\"]"
+            ],
+            "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+          },
+          {
+            "target": [
+              "#subjects > .mb-4.text-gray-800"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              "#sunny-recent-heading"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              ".text-gray-600.text-lg"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          }
+        ]
+      }
+    ],
+    "passes": [
+      "aria-allowed-attr",
+      "aria-allowed-role",
+      "aria-conditional-attr",
+      "aria-deprecated-role",
+      "aria-hidden-body",
+      "aria-hidden-focus",
+      "aria-progressbar-name",
+      "aria-prohibited-attr",
+      "aria-required-attr",
+      "aria-roles",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "avoid-inline-spacing",
+      "button-name",
+      "bypass",
+      "color-contrast",
+      "document-title",
+      "duplicate-id-aria",
+      "empty-heading",
+      "heading-order",
+      "html-has-lang",
+      "html-lang-valid",
+      "landmark-banner-is-top-level",
+      "landmark-main-is-top-level",
+      "landmark-no-duplicate-banner",
+      "landmark-no-duplicate-main",
+      "landmark-one-main",
+      "landmark-unique",
+      "link-name",
+      "list",
+      "listitem",
+      "meta-viewport-large",
+      "meta-viewport",
+      "nested-interactive",
+      "page-has-heading-one",
+      "region",
+      "role-img-alt"
+    ],
+    "overflow": [],
+    "smallTargets": []
+  },
+  "topics": {
+    "url": "http://127.0.0.1:3010/review-phone.local.html?screen=topics",
+    "width": 390,
+    "documentWidth": 390,
+    "text": "⚙\nDisplay settings\n⬜\n⭕\n🤖\nHome\nLearn\nMy progress\nGames\nBack\nEnglish Island\n\nYear 5 · 0 of 3 topics done\n\nYear 3\nYear 4\nY",
+    "axeVersion": "4.14.0",
+    "violations": [
+      {
+        "id": "page-has-heading-one",
+        "impact": "moderate",
+        "description": "Ensure that the page, or at least one of its frames contains a level-one heading",
+        "help": "Page should contain a level-one heading",
+        "nodes": [
+          {
+            "any": [],
+            "all": [
+              {
+                "id": "page-has-heading-one",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "moderate",
+                "message": "Page must have a level-one heading"
+              }
+            ],
+            "none": [],
+            "impact": "moderate",
+            "html": "<html lang=\"en\" class=\"focus-highlight\">",
+            "target": [
+              "html"
+            ],
+            "failureSummary": "Fix all of the following:\n  Page must have a level-one heading"
+          }
+        ]
+      }
+    ],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": [
+          {
+            "target": [
+              ".sunny-bottom-tabs > a[href$=\"progress\"] > span"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+          },
+          {
+            "target": [
+              "h2"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              ".sunny-subject-summary > p"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              "label > span[aria-hidden=\"true\"]"
+            ],
+            "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+          },
+          {
+            "target": [
+              ".sunny-topic-intro"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              "p:nth-child(4)"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              "button[aria-label=\"Addition\"] > .sunny-topic-start > span[aria-hidden=\"true\"]"
+            ],
+            "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+          },
+          {
+            "target": [
+              "button[aria-label=\"Subtraction\"] > .sunny-topic-start > span[aria-hidden=\"true\"]"
+            ],
+            "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+          },
+          {
+            "target": [
+              "button[aria-label=\"Multiplication\"] > .sunny-topic-start > span[aria-hidden=\"true\"]"
+            ],
+            "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+          }
+        ]
+      }
+    ],
+    "passes": [
+      "aria-allowed-attr",
+      "aria-allowed-role",
+      "aria-conditional-attr",
+      "aria-deprecated-role",
+      "aria-hidden-body",
+      "aria-hidden-focus",
+      "aria-progressbar-name",
+      "aria-prohibited-attr",
+      "aria-required-attr",
+      "aria-required-children",
+      "aria-roles",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "avoid-inline-spacing",
+      "button-name",
+      "bypass",
+      "color-contrast",
+      "document-title",
+      "empty-heading",
+      "form-field-multiple-labels",
+      "heading-order",
+      "html-has-lang",
+      "html-lang-valid",
+      "label-title-only",
+      "label",
+      "landmark-banner-is-top-level",
+      "landmark-main-is-top-level",
+      "landmark-no-duplicate-banner",
+      "landmark-no-duplicate-main",
+      "landmark-one-main",
+      "landmark-unique",
+      "link-name",
+      "list",
+      "listitem",
+      "meta-viewport-large",
+      "meta-viewport",
+      "nested-interactive",
+      "region",
+      "role-img-alt"
+    ],
+    "overflow": [],
+    "smallTargets": []
+  },
+  "lesson": {
+    "url": "http://127.0.0.1:3010/review-phone.local.html?screen=lesson",
+    "width": 390,
+    "documentWidth": 390,
+    "text": "⚙\nDisplay settings\n⬜\n⭕\n🤖\nHome\nLearn\nMy progress\nGames\nBack to Topics\nAddition\n\nYEAR 5 · UNIT 1\n\nAddition\nRead aloud\nAdd",
+    "axeVersion": "4.14.0",
+    "violations": [
+      {
+        "id": "page-has-heading-one",
+        "impact": "moderate",
+        "description": "Ensure that the page, or at least one of its frames contains a level-one heading",
+        "help": "Page should contain a level-one heading",
+        "nodes": [
+          {
+            "any": [],
+            "all": [
+              {
+                "id": "page-has-heading-one",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "moderate",
+                "message": "Page must have a level-one heading"
+              }
+            ],
+            "none": [],
+            "impact": "moderate",
+            "html": "<html lang=\"en\" class=\"focus-highlight\">",
+            "target": [
+              "html"
+            ],
+            "failureSummary": "Fix all of the following:\n  Page must have a level-one heading"
+          }
+        ]
+      }
+    ],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": [
+          {
+            "target": [
+              ".sunny-bottom-tabs > a[href$=\"progress\"] > span"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+          },
+          {
+            "target": [
+              "span[aria-hidden=\"true\"]"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          }
+        ]
+      }
+    ],
+    "passes": [
+      "aria-allowed-attr",
+      "aria-allowed-role",
+      "aria-conditional-attr",
+      "aria-deprecated-role",
+      "aria-hidden-body",
+      "aria-hidden-focus",
+      "aria-prohibited-attr",
+      "aria-required-attr",
+      "aria-roles",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "avoid-inline-spacing",
+      "button-name",
+      "bypass",
+      "color-contrast",
+      "document-title",
+      "empty-heading",
+      "heading-order",
+      "html-has-lang",
+      "html-lang-valid",
+      "landmark-banner-is-top-level",
+      "landmark-main-is-top-level",
+      "landmark-no-duplicate-banner",
+      "landmark-no-duplicate-main",
+      "landmark-one-main",
+      "landmark-unique",
+      "link-name",
+      "meta-viewport-large",
+      "meta-viewport",
+      "nested-interactive",
+      "region",
+      "role-img-alt"
+    ],
+    "overflow": [],
+    "smallTargets": []
+  },
+  "quiz": {
+    "url": "http://127.0.0.1:3010/review-phone.local.html?screen=quiz",
+    "width": 390,
+    "documentWidth": 390,
+    "text": "⚙\nDisplay settings\n⬜\n⭕\n🤖\nHome\nLearn\nMy progress\nGames\n\nQuestion 1 of 1\n\nNo timer\nWhat is 7 + 3?\nHint\n8\n9\n10\n11\nFinish Q",
+    "axeVersion": "4.14.0",
+    "violations": [
+      {
+        "id": "aria-progressbar-name",
+        "impact": "serious",
+        "description": "Ensure every ARIA progressbar node has an accessible name",
+        "help": "ARIA progressbar nodes must have an accessible name",
+        "nodes": [
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "serious",
+                "message": "aria-label attribute does not exist or is empty"
+              },
+              {
+                "id": "aria-labelledby",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "serious",
+                "message": "aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": {
+                  "messageKey": "noAttr"
+                },
+                "relatedNodes": [],
+                "impact": "serious",
+                "message": "Element has no title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": "serious",
+            "html": "<div class=\"sr-only\" role=\"progressbar\" aria-valuenow=\"1\" aria-valuemin=\"1\" aria-valuemax=\"1\"><div class=\"bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-500\" style=\"width: 100%;\"></div></div>",
+            "target": [
+              "div[role=\"progressbar\"]"
+            ],
+            "failureSummary": "Fix any of the following:\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
+          }
+        ]
+      },
+      {
+        "id": "page-has-heading-one",
+        "impact": "moderate",
+        "description": "Ensure that the page, or at least one of its frames contains a level-one heading",
+        "help": "Page should contain a level-one heading",
+        "nodes": [
+          {
+            "any": [],
+            "all": [
+              {
+                "id": "page-has-heading-one",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "moderate",
+                "message": "Page must have a level-one heading"
+              }
+            ],
+            "none": [],
+            "impact": "moderate",
+            "html": "<html lang=\"en\" class=\"focus-highlight\">",
+            "target": [
+              "html"
+            ],
+            "failureSummary": "Fix all of the following:\n  Page must have a level-one heading"
+          }
+        ]
+      }
+    ],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": [
+          {
+            "target": [
+              "h3"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          }
+        ]
+      }
+    ],
+    "passes": [
+      "aria-allowed-attr",
+      "aria-allowed-role",
+      "aria-conditional-attr",
+      "aria-deprecated-role",
+      "aria-hidden-body",
+      "aria-hidden-focus",
+      "aria-prohibited-attr",
+      "aria-required-attr",
+      "aria-roles",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "avoid-inline-spacing",
+      "button-name",
+      "bypass",
+      "color-contrast",
+      "document-title",
+      "empty-heading",
+      "heading-order",
+      "html-has-lang",
+      "html-lang-valid",
+      "landmark-banner-is-top-level",
+      "landmark-main-is-top-level",
+      "landmark-no-duplicate-banner",
+      "landmark-no-duplicate-main",
+      "landmark-one-main",
+      "landmark-unique",
+      "link-name",
+      "meta-viewport-large",
+      "meta-viewport",
+      "nested-interactive",
+      "region",
+      "role-img-alt"
+    ],
+    "overflow": [],
+    "smallTargets": []
+  },
+  "results": {
+    "url": "http://127.0.0.1:3010/review-phone.local.html?screen=results",
+    "width": 390,
+    "documentWidth": 390,
+    "text": "⚙\nDisplay settings\n⬜\n⭕\n🤖\nHome\nLearn\nMy progress\nGames\n\n1\nout of 1\n\nQuiz Complete!\n\nWell done for giving it a go!\n\n★\n+10",
+    "axeVersion": "4.14.0",
+    "violations": [
+      {
+        "id": "aria-progressbar-name",
+        "impact": "serious",
+        "description": "Ensure every ARIA progressbar node has an accessible name",
+        "help": "ARIA progressbar nodes must have an accessible name",
+        "nodes": [
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "serious",
+                "message": "aria-label attribute does not exist or is empty"
+              },
+              {
+                "id": "aria-labelledby",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "serious",
+                "message": "aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": {
+                  "messageKey": "noAttr"
+                },
+                "relatedNodes": [],
+                "impact": "serious",
+                "message": "Element has no title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": "serious",
+            "html": "<div class=\"sunny-results-meter w-full bg-gray-200 rounded-full h-4 mb-6\" role=\"progressbar\" aria-valuenow=\"100\" aria-valuemin=\"0\" aria-valuemax=\"100\"><div class=\"h-4 rounded-full transition-all duration-500 bg-green-500\" style=\"width: 100%;\"></div></div>",
+            "target": [
+              ".sunny-results-meter"
+            ],
+            "failureSummary": "Fix any of the following:\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
+          }
+        ]
+      }
+    ],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": [
+          {
+            "target": [
+              "#feedback-title"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              ".sunny-results-greeting > p"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              ".sunny-earned-points"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              "span[aria-hidden=\"true\"]"
+            ],
+            "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+          }
+        ]
+      }
+    ],
+    "passes": [
+      "aria-allowed-attr",
+      "aria-allowed-role",
+      "aria-conditional-attr",
+      "aria-deprecated-role",
+      "aria-dialog-name",
+      "aria-hidden-body",
+      "aria-hidden-focus",
+      "aria-prohibited-attr",
+      "aria-required-attr",
+      "aria-roles",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "avoid-inline-spacing",
+      "button-name",
+      "bypass",
+      "color-contrast",
+      "document-title",
+      "duplicate-id-aria",
+      "empty-heading",
+      "heading-order",
+      "html-has-lang",
+      "html-lang-valid",
+      "landmark-banner-is-top-level",
+      "landmark-main-is-top-level",
+      "landmark-no-duplicate-banner",
+      "landmark-no-duplicate-main",
+      "landmark-one-main",
+      "landmark-unique",
+      "link-name",
+      "list",
+      "listitem",
+      "meta-viewport-large",
+      "meta-viewport",
+      "nested-interactive",
+      "page-has-heading-one",
+      "region",
+      "role-img-alt",
+      "scrollable-region-focusable",
+      "tabindex"
+    ],
+    "overflow": [],
+    "smallTargets": []
+  },
+  "languages": {
+    "url": "http://127.0.0.1:3010/review-phone.local.html?screen=languages",
+    "width": 390,
+    "documentWidth": 390,
+    "text": "⚙\nDisplay settings\n⬜\n⭕\n🤖\nHome\nLearn\nMy progress\nGames\nBack to Subjects\nMy language passport\n\nWhich language would you l",
+    "axeVersion": "4.14.0",
+    "violations": [
+      {
+        "id": "aria-required-children",
+        "impact": "critical",
+        "description": "Ensure elements with an ARIA role that require child roles contain them",
+        "help": "Certain ARIA roles must contain particular children",
+        "nodes": [
+          {
+            "any": [
+              {
+                "id": "aria-required-children",
+                "data": {
+                  "messageKey": "unallowed",
+                  "values": "button"
+                },
+                "relatedNodes": [
+                  {
+                    "html": "<button aria-pressed=\"false\" class=\"group flex flex-col items-center justify-center p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 border-2 border-transparent hover:border-pink-200\">",
+                    "target": [
+                      ".p-8.bg-white.rounded-2xl:nth-child(1)"
+                    ]
+                  },
+                  {
+                    "html": "<button aria-pressed=\"false\" class=\"group flex flex-col items-center justify-center p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 border-2 border-transparent hover:border-pink-200\">",
+                    "target": [
+                      ".p-8.bg-white.rounded-2xl:nth-child(2)"
+                    ]
+                  },
+                  {
+                    "html": "<button aria-pressed=\"false\" class=\"group flex flex-col items-center justify-center p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 border-2 border-transparent hover:border-pink-200\">",
+                    "target": [
+                      ".p-8.bg-white.rounded-2xl:nth-child(3)"
+                    ]
+                  },
+                  {
+                    "html": "<button aria-pressed=\"false\" class=\"group flex flex-col items-center justify-center p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 border-2 border-transparent hover:border-pink-200\">",
+                    "target": [
+                      ".p-8.bg-white.rounded-2xl:nth-child(4)"
+                    ]
+                  },
+                  {
+                    "html": "<button aria-pressed=\"false\" class=\"group flex flex-col items-center justify-center p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 border-2 border-transparent hover:border-pink-200\">",
+                    "target": [
+                      ".p-8.bg-white.rounded-2xl:nth-child(5)"
+                    ]
+                  },
+                  {
+                    "html": "<button aria-pressed=\"false\" class=\"group flex flex-col items-center justify-center p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 border-2 border-transparent hover:border-pink-200\">",
+                    "target": [
+                      ".p-8.bg-white.rounded-2xl:nth-child(6)"
+                    ]
+                  },
+                  {
+                    "html": "<button aria-pressed=\"false\" class=\"group flex flex-col items-center justify-center p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 border-2 border-transparent hover:border-pink-200\">",
+                    "target": [
+                      ".p-8.bg-white.rounded-2xl:nth-child(7)"
+                    ]
+                  },
+                  {
+                    "html": "<button aria-pressed=\"false\" class=\"group flex flex-col items-center justify-center p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 border-2 border-transparent hover:border-pink-200\">",
+                    "target": [
+                      ".p-8.bg-white.rounded-2xl:nth-child(8)"
+                    ]
+                  },
+                  {
+                    "html": "<button aria-pressed=\"false\" class=\"group flex flex-col items-center justify-center p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 border-2 border-transparent hover:border-pink-200\">",
+                    "target": [
+                      ".p-8.bg-white.rounded-2xl:nth-child(9)"
+                    ]
+                  }
+                ],
+                "impact": "critical",
+                "message": "Element has children which are not allowed: button"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": "critical",
+            "html": "<div class=\"sunny-passport-stamps grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6\" role=\"list\" aria-label=\"Language selection\">",
+            "target": [
+              ".sunny-passport-stamps"
+            ],
+            "failureSummary": "Fix any of the following:\n  Element has children which are not allowed: button"
+          }
+        ]
+      },
+      {
+        "id": "page-has-heading-one",
+        "impact": "moderate",
+        "description": "Ensure that the page, or at least one of its frames contains a level-one heading",
+        "help": "Page should contain a level-one heading",
+        "nodes": [
+          {
+            "any": [],
+            "all": [
+              {
+                "id": "page-has-heading-one",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "moderate",
+                "message": "Page must have a level-one heading"
+              }
+            ],
+            "none": [],
+            "impact": "moderate",
+            "html": "<html lang=\"en\" class=\"focus-highlight\">",
+            "target": [
+              "html"
+            ],
+            "failureSummary": "Fix all of the following:\n  Page must have a level-one heading"
+          }
+        ]
+      }
+    ],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": [
+          {
+            "target": [
+              ".sunny-bottom-tabs > a[href$=\"progress\"] > span"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+          },
+          {
+            "target": [
+              "#language-passport-title"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          }
+        ]
+      }
+    ],
+    "passes": [
+      "aria-allowed-attr",
+      "aria-allowed-role",
+      "aria-conditional-attr",
+      "aria-deprecated-role",
+      "aria-hidden-body",
+      "aria-hidden-focus",
+      "aria-prohibited-attr",
+      "aria-required-attr",
+      "aria-roles",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "avoid-inline-spacing",
+      "button-name",
+      "bypass",
+      "color-contrast",
+      "document-title",
+      "duplicate-id-aria",
+      "empty-heading",
+      "heading-order",
+      "html-has-lang",
+      "html-lang-valid",
+      "landmark-banner-is-top-level",
+      "landmark-main-is-top-level",
+      "landmark-no-duplicate-banner",
+      "landmark-no-duplicate-main",
+      "landmark-one-main",
+      "landmark-unique",
+      "link-name",
+      "meta-viewport-large",
+      "meta-viewport",
+      "nested-interactive",
+      "region",
+      "role-img-alt",
+      "valid-lang"
+    ],
+    "overflow": [],
+    "smallTargets": []
+  },
+  "pronounce": {
+    "url": "http://127.0.0.1:3010/review-phone.local.html?screen=pronounce",
+    "width": 390,
+    "documentWidth": 390,
+    "text": "⚙\nDisplay settings\n⬜\n⭕\n🤖\nHome\nLearn\nMy progress\nGames\nSay it\nFrench\nbonjour\nmeans Hello\n[bon-ZHOOR]\n🐢 Slow\nHear it\nSyl",
+    "axeVersion": "4.14.0",
+    "violations": [
+      {
+        "id": "page-has-heading-one",
+        "impact": "moderate",
+        "description": "Ensure that the page, or at least one of its frames contains a level-one heading",
+        "help": "Page should contain a level-one heading",
+        "nodes": [
+          {
+            "any": [],
+            "all": [
+              {
+                "id": "page-has-heading-one",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "moderate",
+                "message": "Page must have a level-one heading"
+              }
+            ],
+            "none": [],
+            "impact": "moderate",
+            "html": "<html lang=\"en\" class=\"focus-highlight\">",
+            "target": [
+              "html"
+            ],
+            "failureSummary": "Fix all of the following:\n  Page must have a level-one heading"
+          }
+        ]
+      }
+    ],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": [
+          {
+            "target": [
+              ".sunny-bottom-tabs > a[href$=\"progress\"] > span"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+          },
+          {
+            "target": [
+              ".bg-white\\/50.p-2.rounded-lg:nth-child(1) > .mx-1.text-gray-500"
+            ],
+            "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+          },
+          {
+            "target": [
+              ".bg-white\\/50.p-2.rounded-lg:nth-child(2) > .mx-1.text-gray-500"
+            ],
+            "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+          },
+          {
+            "target": [
+              ".bg-white\\/50.p-2.rounded-lg:nth-child(3) > .mx-1.text-gray-500"
+            ],
+            "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+          },
+          {
+            "target": [
+              ".bg-white\\/50.p-2.rounded-lg:nth-child(4) > .mx-1.text-gray-500"
+            ],
+            "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+          },
+          {
+            "target": [
+              ".bg-white\\/50.p-2.rounded-lg:nth-child(5) > .mx-1.text-gray-500"
+            ],
+            "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+          },
+          {
+            "target": [
+              ".bg-white\\/50.p-2.rounded-lg:nth-child(6) > .mx-1.text-gray-500"
+            ],
+            "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+          }
+        ]
+      }
+    ],
+    "passes": [
+      "aria-allowed-attr",
+      "aria-allowed-role",
+      "aria-conditional-attr",
+      "aria-deprecated-role",
+      "aria-hidden-body",
+      "aria-hidden-focus",
+      "aria-prohibited-attr",
+      "aria-required-attr",
+      "aria-roles",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "avoid-inline-spacing",
+      "button-name",
+      "bypass",
+      "color-contrast",
+      "document-title",
+      "html-has-lang",
+      "html-lang-valid",
+      "landmark-banner-is-top-level",
+      "landmark-main-is-top-level",
+      "landmark-no-duplicate-banner",
+      "landmark-no-duplicate-main",
+      "landmark-one-main",
+      "landmark-unique",
+      "link-name",
+      "meta-viewport-large",
+      "meta-viewport",
+      "nested-interactive",
+      "region",
+      "role-img-alt",
+      "valid-lang"
+    ],
+    "overflow": [],
+    "smallTargets": []
+  },
+  "library": {
+    "url": "http://127.0.0.1:3010/review-phone.local.html?screen=library",
+    "width": 390,
+    "documentWidth": 390,
+    "text": "⚙\nDisplay settings\n⬜\n⭕\n🤖\nHome\nLearn\nMy progress\nGames\n← Back to Yorùbá topics\nYorùbá Audio Library\n\n450 reviewed words ",
+    "axeVersion": "4.14.0",
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "aria-prohibited-attr",
+        "nodes": [
+          {
+            "target": [
+              ".sunny-library-groups"
+            ],
+            "summary": "Fix all of the following:\n  aria-label attribute is not well supported on \"div\" elements with no valid role attribute."
+          }
+        ]
+      },
+      {
+        "id": "color-contrast",
+        "nodes": [
+          {
+            "target": [
+              ".sunny-bottom-tabs > a[href$=\"progress\"] > span"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+          },
+          {
+            "target": [
+              "#_r_0_"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              ".mt-1"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          }
+        ]
+      }
+    ],
+    "passes": [
+      "aria-allowed-attr",
+      "aria-allowed-role",
+      "aria-conditional-attr",
+      "aria-deprecated-role",
+      "aria-hidden-body",
+      "aria-hidden-focus",
+      "aria-prohibited-attr",
+      "aria-required-attr",
+      "aria-roles",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "avoid-inline-spacing",
+      "button-name",
+      "bypass",
+      "color-contrast",
+      "document-title",
+      "duplicate-id-aria",
+      "empty-heading",
+      "form-field-multiple-labels",
+      "heading-order",
+      "html-has-lang",
+      "html-lang-valid",
+      "label-title-only",
+      "label",
+      "landmark-banner-is-top-level",
+      "landmark-main-is-top-level",
+      "landmark-no-duplicate-banner",
+      "landmark-no-duplicate-main",
+      "landmark-one-main",
+      "landmark-unique",
+      "link-name",
+      "meta-viewport-large",
+      "meta-viewport",
+      "nested-interactive",
+      "page-has-heading-one",
+      "region",
+      "role-img-alt",
+      "select-name",
+      "valid-lang"
+    ],
+    "overflow": [],
+    "smallTargets": []
+  },
+  "progress": {
+    "url": "http://127.0.0.1:3010/review-phone.local.html?screen=progress",
+    "width": 390,
+    "documentWidth": 390,
+    "text": "⚙\nDisplay settings\n⬜\n⭕\n🤖\nHome\nLearn\nMy progress\nGames\n📈\nYour Progress\n\nTrack your learning journey and achievements\n\n⬜",
+    "axeVersion": "4.14.0",
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "aria-prohibited-attr",
+        "nodes": [
+          {
+            "target": [
+              ".sunny-progress-legend"
+            ],
+            "summary": "Fix all of the following:\n  aria-label attribute is not well supported on \"div\" elements with no valid role attribute."
+          }
+        ]
+      },
+      {
+        "id": "color-contrast",
+        "nodes": [
+          {
+            "target": [
+              ".sunny-bottom-tabs > a[aria-current=\"page\"][href$=\"progress\"] > span"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+          },
+          {
+            "target": [
+              "#trophy-room-title"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              ".sunny-trophy-hero > div:nth-child(2) > p"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              "#sticker-book-title"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              "li[data-earned=\"true\"] > h3"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              "li[data-earned=\"false\"]:nth-child(2) > h3"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              "li[data-earned=\"false\"]:nth-child(2) > p"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              "li[data-earned=\"false\"]:nth-child(3) > h3"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              "li[data-earned=\"false\"]:nth-child(3) > p"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              "li[data-earned=\"false\"]:nth-child(4) > h3"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              "li[data-earned=\"false\"]:nth-child(4) > p"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              "li[data-earned=\"false\"]:nth-child(5) > h3"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              "li[data-earned=\"false\"]:nth-child(5) > p"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              ".text-purple-900"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              ".items-start.gap-2:nth-child(1) > span:nth-child(2)"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              ".items-start.gap-2:nth-child(1) > span:nth-child(2) > strong"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              ".items-start.gap-2:nth-child(2) > span:nth-child(2)"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              ".items-start.gap-2:nth-child(2) > span:nth-child(2) > strong"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          }
+        ]
+      }
+    ],
+    "passes": [
+      "aria-allowed-attr",
+      "aria-allowed-role",
+      "aria-conditional-attr",
+      "aria-deprecated-role",
+      "aria-hidden-body",
+      "aria-hidden-focus",
+      "aria-prohibited-attr",
+      "aria-required-attr",
+      "aria-required-children",
+      "aria-required-parent",
+      "aria-roles",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "avoid-inline-spacing",
+      "button-name",
+      "bypass",
+      "color-contrast",
+      "document-title",
+      "duplicate-id-aria",
+      "empty-heading",
+      "heading-order",
+      "html-has-lang",
+      "html-lang-valid",
+      "landmark-banner-is-top-level",
+      "landmark-main-is-top-level",
+      "landmark-no-duplicate-banner",
+      "landmark-no-duplicate-main",
+      "landmark-one-main",
+      "landmark-unique",
+      "link-name",
+      "list",
+      "listitem",
+      "meta-viewport-large",
+      "meta-viewport",
+      "nested-interactive",
+      "page-has-heading-one",
+      "region",
+      "role-img-alt"
+    ],
+    "overflow": [],
+    "smallTargets": []
+  },
+  "games": {
+    "url": "http://127.0.0.1:3010/review-phone.local.html?screen=games",
+    "width": 390,
+    "documentWidth": 390,
+    "text": "⚙\nDisplay settings\n⬜\n⭕\n🤖\nHome\nLearn\nMy progress\nGames\nHome\nGame time!\n\nEvery game teaches a KS2 skill and explains the ",
+    "axeVersion": "4.14.0",
+    "violations": [
+      {
+        "id": "aria-prohibited-attr",
+        "impact": "serious",
+        "description": "Ensure ARIA attributes are not prohibited for an element's role",
+        "help": "Elements must only use permitted ARIA attributes",
+        "nodes": [
+          {
+            "any": [],
+            "all": [],
+            "none": [
+              {
+                "id": "aria-prohibited-attr",
+                "data": {
+                  "role": null,
+                  "nodeName": "div",
+                  "messageKey": "noRoleSingular",
+                  "prohibited": [
+                    "aria-label"
+                  ]
+                },
+                "relatedNodes": [],
+                "impact": "serious",
+                "message": "aria-label attribute cannot be used on \"div\" elements with no valid role attribute."
+              }
+            ],
+            "impact": "serious",
+            "html": "<div class=\"flex gap-2\" aria-label=\"2 of 3 passing quizzes completed\"><span class=\"text-2xl\" aria-hidden=\"true\">⭐</span><span class=\"text-2xl\" aria-hidden=\"true\">⭐</span><span class=\"text-2xl\" aria-hidden=\"true\">☆</span></div>",
+            "target": [
+              ".flex-wrap > .gap-2.flex"
+            ],
+            "failureSummary": "Fix all of the following:\n  aria-label attribute cannot be used on \"div\" elements with no valid role attribute."
+          }
+        ]
+      },
+      {
+        "id": "landmark-main-is-top-level",
+        "impact": "moderate",
+        "description": "Ensure the main landmark is at top level",
+        "help": "Main landmark should not be contained in another landmark",
+        "nodes": [
+          {
+            "any": [
+              {
+                "id": "landmark-is-top-level",
+                "data": {
+                  "role": "main"
+                },
+                "relatedNodes": [],
+                "impact": "moderate",
+                "message": "The main landmark is contained in another landmark."
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": "moderate",
+            "html": "<main class=\"max-w-4xl mx-auto\" id=\"games-main\">",
+            "target": [
+              "#games-main"
+            ],
+            "failureSummary": "Fix any of the following:\n  The main landmark is contained in another landmark."
+          }
+        ]
+      },
+      {
+        "id": "landmark-no-duplicate-main",
+        "impact": "moderate",
+        "description": "Ensure the document has at most one main landmark",
+        "help": "Document should not have more than one main landmark",
+        "nodes": [
+          {
+            "any": [
+              {
+                "id": "page-no-duplicate-main",
+                "data": null,
+                "relatedNodes": [
+                  {
+                    "html": "<main class=\"max-w-4xl mx-auto\" id=\"games-main\">",
+                    "target": [
+                      "#games-main"
+                    ]
+                  }
+                ],
+                "impact": "moderate",
+                "message": "Document has more than one main landmark"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": "moderate",
+            "html": "<main id=\"main-content\" class=\"mobile-shell py-8\">",
+            "target": [
+              "#main-content"
+            ],
+            "failureSummary": "Fix any of the following:\n  Document has more than one main landmark"
+          }
+        ]
+      },
+      {
+        "id": "landmark-unique",
+        "impact": "moderate",
+        "description": "Ensure landmarks are unique",
+        "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+        "nodes": [
+          {
+            "any": [
+              {
+                "id": "landmark-is-unique",
+                "data": {
+                  "role": "main",
+                  "accessibleText": null
+                },
+                "relatedNodes": [
+                  {
+                    "html": "<main class=\"max-w-4xl mx-auto\" id=\"games-main\">",
+                    "target": [
+                      "#games-main"
+                    ]
+                  }
+                ],
+                "impact": "moderate",
+                "message": "The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": "moderate",
+            "html": "<main id=\"main-content\" class=\"mobile-shell py-8\">",
+            "target": [
+              "#main-content"
+            ],
+            "failureSummary": "Fix any of the following:\n  The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
+          }
+        ]
+      }
+    ],
+    "incomplete": [
+      {
+        "id": "aria-prohibited-attr",
+        "nodes": [
+          {
+            "target": [
+              ".sunny-game-catalogue"
+            ],
+            "summary": "Fix all of the following:\n  aria-label attribute is not well supported on \"div\" elements with no valid role attribute."
+          }
+        ]
+      },
+      {
+        "id": "color-contrast",
+        "nodes": [
+          {
+            "target": [
+              ".text-2xl[aria-hidden=\"true\"]:nth-child(3)"
+            ],
+            "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+          }
+        ]
+      }
+    ],
+    "passes": [
+      "aria-allowed-attr",
+      "aria-allowed-role",
+      "aria-conditional-attr",
+      "aria-deprecated-role",
+      "aria-hidden-body",
+      "aria-hidden-focus",
+      "aria-prohibited-attr",
+      "aria-required-attr",
+      "aria-roles",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "avoid-inline-spacing",
+      "button-name",
+      "bypass",
+      "color-contrast",
+      "document-title",
+      "duplicate-id-aria",
+      "empty-heading",
+      "heading-order",
+      "html-has-lang",
+      "html-lang-valid",
+      "landmark-banner-is-top-level",
+      "landmark-main-is-top-level",
+      "landmark-no-duplicate-banner",
+      "landmark-one-main",
+      "landmark-unique",
+      "link-name",
+      "meta-viewport-large",
+      "meta-viewport",
+      "nested-interactive",
+      "page-has-heading-one",
+      "region",
+      "role-img-alt",
+      "scrollable-region-focusable"
+    ],
+    "overflow": [],
+    "smallTargets": []
+  },
+  "gallery": {
+    "url": "http://127.0.0.1:3010/review-phone.local.html?screen=gallery",
+    "width": 390,
+    "documentWidth": 390,
+    "text": "⚙\nDisplay settings\n⬜\n⭕\n🤖\nHome\nLearn\nMy progress\nGames\n← Back\n🎨\nArt Studio\n\nExplore famous art and practise drawing\n\nTo",
+    "axeVersion": "4.14.0",
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": [
+          {
+            "target": [
+              ".mb-4"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          }
+        ]
+      }
+    ],
+    "passes": [
+      "aria-allowed-attr",
+      "aria-allowed-role",
+      "aria-conditional-attr",
+      "aria-deprecated-role",
+      "aria-hidden-body",
+      "aria-hidden-focus",
+      "aria-prohibited-attr",
+      "aria-required-attr",
+      "aria-roles",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "avoid-inline-spacing",
+      "button-name",
+      "bypass",
+      "color-contrast",
+      "document-title",
+      "duplicate-id-aria",
+      "empty-heading",
+      "heading-order",
+      "html-has-lang",
+      "html-lang-valid",
+      "image-alt",
+      "image-redundant-alt",
+      "landmark-banner-is-top-level",
+      "landmark-main-is-top-level",
+      "landmark-no-duplicate-banner",
+      "landmark-no-duplicate-main",
+      "landmark-one-main",
+      "landmark-unique",
+      "link-name",
+      "meta-viewport-large",
+      "meta-viewport",
+      "nested-interactive",
+      "page-has-heading-one",
+      "region",
+      "role-img-alt"
+    ],
+    "overflow": [],
+    "smallTargets": []
+  },
+  "artLesson": {
+    "url": "http://127.0.0.1:3010/review-phone.local.html?screen=artLesson",
+    "width": 390,
+    "documentWidth": 390,
+    "text": "⚙\nDisplay settings\n⬜\n⭕\n🤖\nHome\nLearn\nMy progress\nGames\n←\nBack to Art\n🎨\nEasy\n⏱️ 15-20 minutes\nDrawing with Basic Shapes\n",
+    "axeVersion": "4.14.0",
+    "violations": [
+      {
+        "id": "heading-order",
+        "impact": "moderate",
+        "description": "Ensure the order of headings is semantically correct",
+        "help": "Heading levels should only increase by one",
+        "nodes": [
+          {
+            "any": [
+              {
+                "id": "heading-order",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "moderate",
+                "message": "Heading order invalid"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": "moderate",
+            "html": "<h3 class=\"font-bold text-yellow-800 mb-2\">📦 You'll need:</h3>",
+            "target": [
+              ".bg-yellow-50 > h3"
+            ],
+            "failureSummary": "Fix any of the following:\n  Heading order invalid"
+          }
+        ]
+      }
+    ],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": [
+          {
+            "target": [
+              ".sunny-bottom-tabs > a[href$=\"progress\"] > span"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+          },
+          {
+            "target": [
+              ".text-purple-600 > .text-xl"
+            ],
+            "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+          }
+        ]
+      }
+    ],
+    "passes": [
+      "aria-allowed-attr",
+      "aria-allowed-role",
+      "aria-conditional-attr",
+      "aria-deprecated-role",
+      "aria-hidden-body",
+      "aria-hidden-focus",
+      "aria-prohibited-attr",
+      "aria-required-attr",
+      "aria-roles",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "avoid-inline-spacing",
+      "button-name",
+      "bypass",
+      "color-contrast",
+      "document-title",
+      "empty-heading",
+      "heading-order",
+      "html-has-lang",
+      "html-lang-valid",
+      "landmark-banner-is-top-level",
+      "landmark-main-is-top-level",
+      "landmark-no-duplicate-banner",
+      "landmark-no-duplicate-main",
+      "landmark-one-main",
+      "landmark-unique",
+      "link-name",
+      "list",
+      "listitem",
+      "meta-viewport-large",
+      "meta-viewport",
+      "nested-interactive",
+      "page-has-heading-one",
+      "region",
+      "role-img-alt"
+    ],
+    "overflow": [],
+    "smallTargets": []
+  },
+  "canvas": {
+    "url": "http://127.0.0.1:3010/review-phone.local.html?screen=canvas",
+    "width": 390,
+    "documentWidth": 390,
+    "text": "⚙\nDisplay settings\n⬜\n⭕\n🤖\nHome\nLearn\nMy progress\nGames\nToday’s idea: Draw a plant\nColours\nBlack\nRed\nGreen\nBlue\nYellow\nOr",
+    "axeVersion": "4.14.0",
+    "violations": [
+      {
+        "id": "page-has-heading-one",
+        "impact": "moderate",
+        "description": "Ensure that the page, or at least one of its frames contains a level-one heading",
+        "help": "Page should contain a level-one heading",
+        "nodes": [
+          {
+            "any": [],
+            "all": [
+              {
+                "id": "page-has-heading-one",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "moderate",
+                "message": "Page must have a level-one heading"
+              }
+            ],
+            "none": [],
+            "impact": "moderate",
+            "html": "<html lang=\"en\" class=\"focus-highlight\">",
+            "target": [
+              "html"
+            ],
+            "failureSummary": "Fix all of the following:\n  Page must have a level-one heading"
+          }
+        ]
+      }
+    ],
+    "incomplete": [],
+    "passes": [
+      "aria-allowed-attr",
+      "aria-allowed-role",
+      "aria-conditional-attr",
+      "aria-deprecated-role",
+      "aria-hidden-body",
+      "aria-hidden-focus",
+      "aria-prohibited-attr",
+      "aria-required-attr",
+      "aria-roles",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "avoid-inline-spacing",
+      "button-name",
+      "bypass",
+      "color-contrast",
+      "document-title",
+      "empty-heading",
+      "form-field-multiple-labels",
+      "heading-order",
+      "html-has-lang",
+      "html-lang-valid",
+      "label-title-only",
+      "label",
+      "landmark-banner-is-top-level",
+      "landmark-main-is-top-level",
+      "landmark-no-duplicate-banner",
+      "landmark-no-duplicate-main",
+      "landmark-one-main",
+      "landmark-unique",
+      "link-name",
+      "meta-viewport-large",
+      "meta-viewport",
+      "nested-interactive",
+      "region",
+      "role-img-alt"
+    ],
+    "overflow": [],
+    "smallTargets": []
+  },
+  "avatar": {
+    "url": "http://127.0.0.1:3010/review-phone.local.html?screen=avatar",
+    "width": 390,
+    "documentWidth": 390,
+    "text": "⚙\nDisplay settings\n⬜\n⭕\n🤖\nHome\nLearn\nMy progress\nGames\n←\nBack\nMake my picture\n\nPersonalize your character!\n\nLooking grea",
+    "axeVersion": "4.14.0",
+    "violations": [
+      {
+        "id": "heading-order",
+        "impact": "moderate",
+        "description": "Ensure the order of headings is semantically correct",
+        "help": "Heading levels should only increase by one",
+        "nodes": [
+          {
+            "any": [
+              {
+                "id": "heading-order",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "moderate",
+                "message": "Heading order invalid"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": "moderate",
+            "html": "<h3 class=\"text-white font-semibold mb-4 text-center\">Preview</h3>",
+            "target": [
+              "h3"
+            ],
+            "failureSummary": "Fix any of the following:\n  Heading order invalid"
+          }
+        ]
+      }
+    ],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": [
+          {
+            "target": [
+              ".gap-2.hover\\:bg-white\\/20.px-4 > span:nth-child(1)"
+            ],
+            "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+          },
+          {
+            "target": [
+              "h1"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              ".flex-1 > .text-white\\/60"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              ".text-green-400"
+            ],
+            "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+          }
+        ]
+      }
+    ],
+    "passes": [
+      "aria-allowed-attr",
+      "aria-allowed-role",
+      "aria-conditional-attr",
+      "aria-deprecated-role",
+      "aria-hidden-body",
+      "aria-hidden-focus",
+      "aria-prohibited-attr",
+      "aria-required-attr",
+      "aria-roles",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "avoid-inline-spacing",
+      "button-name",
+      "bypass",
+      "color-contrast",
+      "document-title",
+      "empty-heading",
+      "heading-order",
+      "html-has-lang",
+      "html-lang-valid",
+      "landmark-banner-is-top-level",
+      "landmark-main-is-top-level",
+      "landmark-no-duplicate-banner",
+      "landmark-no-duplicate-main",
+      "landmark-one-main",
+      "landmark-unique",
+      "link-name",
+      "meta-viewport-large",
+      "meta-viewport",
+      "nested-interactive",
+      "page-has-heading-one",
+      "region",
+      "role-img-alt",
+      "scrollable-region-focusable"
+    ],
+    "overflow": [
+      {
+        "tag": "BUTTON",
+        "class": "px-4 py-2 rounded-xl font-medium whitespace-nowrap transition-all bg-white/5 text-white/60 hover:bg-white/10",
+        "right": 420.921875
+      },
+      {
+        "tag": "BUTTON",
+        "class": "px-4 py-2 rounded-xl font-medium whitespace-nowrap transition-all bg-white/5 text-white/60 hover:bg-white/10",
+        "right": 581.8828125
+      },
+      {
+        "tag": "BUTTON",
+        "class": "px-4 py-2 rounded-xl font-medium whitespace-nowrap transition-all bg-white/5 text-white/60 hover:bg-white/10",
+        "right": 696.2265625
+      },
+      {
+        "tag": "BUTTON",
+        "class": "px-4 py-2 rounded-xl font-medium whitespace-nowrap transition-all bg-white/5 text-white/60 hover:bg-white/10",
+        "right": 812.1171875
+      }
+    ],
+    "smallTargets": []
+  },
+  "bites": {
+    "url": "http://127.0.0.1:3010/review-phone.local.html?screen=bites",
+    "width": 390,
+    "documentWidth": 390,
+    "text": "⚙\nDisplay settings\n⬜\n⭕\n🤖\nHome\nLearn\nMy progress\nGames\nFive-minute bites\n\nQuick learning sessions that fit into your day",
+    "axeVersion": "4.14.0",
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": [
+          {
+            "target": [
+              ".sunny-bottom-tabs > a[href$=\"progress\"] > span"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+          },
+          {
+            "target": [
+              ".mb-8:nth-child(1) > .gap-2.mb-4.flex > h2"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              ".mb-8:nth-child(2) > .gap-2.mb-4.flex > h2"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              ".sunny-bite-more > h2"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              "li:nth-child(1) > .mr-2"
+            ],
+            "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+          },
+          {
+            "target": [
+              "li:nth-child(2) > .mr-2"
+            ],
+            "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+          },
+          {
+            "target": [
+              "li:nth-child(3) > .mr-2"
+            ],
+            "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+          },
+          {
+            "target": [
+              "li:nth-child(4) > .mr-2"
+            ],
+            "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+          }
+        ]
+      }
+    ],
+    "passes": [
+      "aria-allowed-attr",
+      "aria-allowed-role",
+      "aria-conditional-attr",
+      "aria-deprecated-role",
+      "aria-hidden-body",
+      "aria-hidden-focus",
+      "aria-progressbar-name",
+      "aria-prohibited-attr",
+      "aria-required-attr",
+      "aria-roles",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "avoid-inline-spacing",
+      "button-name",
+      "bypass",
+      "color-contrast",
+      "document-title",
+      "duplicate-id-aria",
+      "empty-heading",
+      "heading-order",
+      "html-has-lang",
+      "html-lang-valid",
+      "landmark-banner-is-top-level",
+      "landmark-main-is-top-level",
+      "landmark-no-duplicate-banner",
+      "landmark-no-duplicate-main",
+      "landmark-one-main",
+      "landmark-unique",
+      "link-name",
+      "list",
+      "listitem",
+      "meta-viewport-large",
+      "meta-viewport",
+      "nested-interactive",
+      "page-has-heading-one",
+      "region",
+      "role-img-alt"
+    ],
+    "overflow": [],
+    "smallTargets": []
+  },
+  "classroom": {
+    "url": "http://127.0.0.1:3010/review-phone.local.html?screen=classroom",
+    "width": 390,
+    "documentWidth": 390,
+    "text": "⚙\nDisplay settings\n⬜\n⭕\n🤖\nHome\nLearn\nMy progress\nGames\nLive classroom\n\nJoin your teacher's quiz session\n\n🚀\nJoin Session",
+    "axeVersion": "4.14.0",
+    "violations": [],
+    "incomplete": [],
+    "passes": [
+      "aria-allowed-attr",
+      "aria-allowed-role",
+      "aria-conditional-attr",
+      "aria-deprecated-role",
+      "aria-hidden-body",
+      "aria-hidden-focus",
+      "aria-prohibited-attr",
+      "aria-required-attr",
+      "aria-roles",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "avoid-inline-spacing",
+      "button-name",
+      "bypass",
+      "color-contrast",
+      "document-title",
+      "empty-heading",
+      "heading-order",
+      "html-has-lang",
+      "html-lang-valid",
+      "landmark-banner-is-top-level",
+      "landmark-main-is-top-level",
+      "landmark-no-duplicate-banner",
+      "landmark-no-duplicate-main",
+      "landmark-one-main",
+      "landmark-unique",
+      "link-name",
+      "meta-viewport-large",
+      "meta-viewport",
+      "nested-interactive",
+      "page-has-heading-one",
+      "region",
+      "role-img-alt"
+    ],
+    "overflow": [],
+    "smallTargets": []
+  },
+  "settings": {
+    "url": "http://127.0.0.1:3010/review-phone.local.html?screen=settings",
+    "width": 390,
+    "documentWidth": 390,
+    "text": "⚙\nDisplay settings\n⬜\n⭕\n🤖\nHome\nLearn\nMy progress\nGames\nAccessibility Settings\nVoice and display\n\nMake DemiWura just righ",
+    "axeVersion": "4.14.0",
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": [
+          {
+            "target": [
+              "#accessibility-settings-title"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              "div > h3"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              "button[aria-label=\"Close settings\"]"
+            ],
+            "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+          }
+        ]
+      }
+    ],
+    "passes": [
+      "aria-allowed-attr",
+      "aria-allowed-role",
+      "aria-conditional-attr",
+      "aria-deprecated-role",
+      "aria-dialog-name",
+      "aria-hidden-body",
+      "aria-hidden-focus",
+      "aria-prohibited-attr",
+      "aria-required-attr",
+      "aria-roles",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "avoid-inline-spacing",
+      "button-name",
+      "bypass",
+      "color-contrast",
+      "document-title",
+      "duplicate-id-aria",
+      "empty-heading",
+      "form-field-multiple-labels",
+      "heading-order",
+      "html-has-lang",
+      "html-lang-valid",
+      "label-title-only",
+      "landmark-banner-is-top-level",
+      "landmark-main-is-top-level",
+      "landmark-no-duplicate-banner",
+      "landmark-no-duplicate-main",
+      "landmark-one-main",
+      "landmark-unique",
+      "link-name",
+      "meta-viewport-large",
+      "meta-viewport",
+      "nested-interactive",
+      "page-has-heading-one",
+      "region",
+      "role-img-alt",
+      "scrollable-region-focusable",
+      "select-name",
+      "tabindex"
+    ],
+    "overflow": [],
+    "smallTargets": []
+  },
+  "login": {
+    "url": "http://127.0.0.1:3010/review-phone.local.html?screen=login",
+    "width": 390,
+    "documentWidth": 390,
+    "text": "Who is learning today?\nEnter your details, then your secret PIN!\nWelcome Back!\n\nYour AI-powered learning buddy\n\nSign In\n",
+    "axeVersion": "4.14.0",
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": [
+          {
+            "target": [
+              "h2"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          }
+        ]
+      }
+    ],
+    "passes": [
+      "aria-allowed-attr",
+      "aria-allowed-role",
+      "aria-conditional-attr",
+      "aria-deprecated-role",
+      "aria-hidden-body",
+      "aria-hidden-focus",
+      "aria-prohibited-attr",
+      "aria-required-attr",
+      "aria-roles",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "autocomplete-valid",
+      "button-name",
+      "color-contrast",
+      "document-title",
+      "empty-heading",
+      "form-field-multiple-labels",
+      "heading-order",
+      "html-has-lang",
+      "html-lang-valid",
+      "label-title-only",
+      "label",
+      "landmark-main-is-top-level",
+      "landmark-no-duplicate-main",
+      "landmark-one-main",
+      "landmark-unique",
+      "meta-viewport-large",
+      "meta-viewport",
+      "nested-interactive",
+      "page-has-heading-one",
+      "region"
+    ],
+    "overflow": [],
+    "smallTargets": []
+  },
+  "children": {
+    "url": "http://127.0.0.1:3010/review-phone.local.html?screen=children",
+    "width": 390,
+    "documentWidth": 390,
+    "text": "Your Children\n\nCasey\n\nAge: 9\n\n👧\n\n📋 Your Parent Code (Share with your child)\n\n----\nCopy\n\nChild sign-in needs this paren",
+    "axeVersion": "4.14.0",
+    "violations": [
+      {
+        "id": "page-has-heading-one",
+        "impact": "moderate",
+        "description": "Ensure that the page, or at least one of its frames contains a level-one heading",
+        "help": "Page should contain a level-one heading",
+        "nodes": [
+          {
+            "any": [],
+            "all": [
+              {
+                "id": "page-has-heading-one",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "moderate",
+                "message": "Page must have a level-one heading"
+              }
+            ],
+            "none": [],
+            "impact": "moderate",
+            "html": "<html lang=\"en\" class=\"focus-highlight\">",
+            "target": [
+              "html"
+            ],
+            "failureSummary": "Fix all of the following:\n  Page must have a level-one heading"
+          }
+        ]
+      }
+    ],
+    "incomplete": [],
+    "passes": [
+      "aria-allowed-attr",
+      "aria-allowed-role",
+      "aria-conditional-attr",
+      "aria-deprecated-role",
+      "aria-hidden-body",
+      "aria-hidden-focus",
+      "aria-prohibited-attr",
+      "aria-required-attr",
+      "aria-roles",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "button-name",
+      "color-contrast",
+      "document-title",
+      "empty-heading",
+      "heading-order",
+      "html-has-lang",
+      "html-lang-valid",
+      "landmark-main-is-top-level",
+      "landmark-no-duplicate-main",
+      "landmark-one-main",
+      "landmark-unique",
+      "meta-viewport-large",
+      "meta-viewport",
+      "nested-interactive",
+      "region"
+    ],
+    "overflow": [],
+    "smallTargets": []
+  },
+  "landing": {
+    "url": "http://127.0.0.1:3010/review-phone.local.html?screen=landing",
+    "width": 390,
+    "documentWidth": 390,
+    "text": "☆\nFor children aged 7 to 11 · Key Stage 2\nLearning every child can read, hear and enjoy\n\nShort lessons, friendly quizzes",
+    "axeVersion": "4.14.0",
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": [
+          {
+            "target": [
+              ".kid-chip.sunny-ui[data-tint=\"white\"]"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+          },
+          {
+            "target": [
+              ".kid-chip.sunny-ui[data-tint=\"white\"] > span"
+            ],
+            "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+          },
+          {
+            "target": [
+              "#hero-heading"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              ".landing-sticker-read"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              ".landing-sticker-hear"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+          },
+          {
+            "target": [
+              ".landing-sticker-enjoy"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+          },
+          {
+            "target": [
+              ".landing-intro > p"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              "#features-heading"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              ".landing-section-intro > p"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              "#subjects-heading"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              ".landing-tint-sky.landing-subject-tile > span:nth-child(2)"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              ".landing-tint-grape.landing-subject-tile:nth-child(2) > span:nth-child(2)"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              ".landing-tint-leaf.landing-subject-tile:nth-child(3) > span:nth-child(2)"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              ".landing-tint-orange > span:nth-child(2)"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              ".landing-tint-gold.landing-subject-tile > span:nth-child(2)"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              ".landing-tint-teal > span:nth-child(2)"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              ".landing-tint-bubblegum.landing-subject-tile > span:nth-child(2)"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              ".landing-tint-grape.landing-subject-tile:nth-child(8) > span:nth-child(2)"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              ".landing-tint-leaf.landing-subject-tile:nth-child(9) > span:nth-child(2)"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              "#how-it-works-heading"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              ".landing-tint-sky.landing-step-circle > span"
+            ],
+            "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+          },
+          {
+            "target": [
+              "li:nth-child(1) > h3"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              "li:nth-child(1) > p"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              ".landing-step-circle.landing-tint-leaf > span"
+            ],
+            "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+          },
+          {
+            "target": [
+              "li:nth-child(2) > h3"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              "li:nth-child(2) > p"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              ".landing-step-circle.landing-tint-bubblegum > span"
+            ],
+            "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+          },
+          {
+            "target": [
+              "li:nth-child(3) > h3"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              "li:nth-child(3) > p"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              "#cta-heading"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              ".landing-final-note > p:nth-child(2)"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          },
+          {
+            "target": [
+              "p:nth-child(4)"
+            ],
+            "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+          }
+        ]
+      }
+    ],
+    "passes": [
+      "aria-allowed-attr",
+      "aria-allowed-role",
+      "aria-conditional-attr",
+      "aria-deprecated-role",
+      "aria-hidden-body",
+      "aria-hidden-focus",
+      "aria-prohibited-attr",
+      "aria-required-attr",
+      "aria-roles",
+      "aria-valid-attr-value",
+      "aria-valid-attr",
+      "button-name",
+      "bypass",
+      "color-contrast",
+      "document-title",
+      "duplicate-id-aria",
+      "empty-heading",
+      "heading-order",
+      "html-has-lang",
+      "html-lang-valid",
+      "landmark-main-is-top-level",
+      "landmark-no-duplicate-main",
+      "landmark-one-main",
+      "landmark-unique",
+      "link-name",
+      "list",
+      "listitem",
+      "meta-viewport-large",
+      "meta-viewport",
+      "nested-interactive",
+      "page-has-heading-one",
+      "region"
+    ],
+    "overflow": [],
+    "smallTargets": []
+  }
+}

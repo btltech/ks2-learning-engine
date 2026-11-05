@@ -217,7 +217,7 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
   }, [subject, topic, studentAge, difficulty, curriculumUnit?.id]);
 
   return (
-    <div className="sunny-lesson sunny-ui">
+    <div className="sunny-lesson sunny-ui" data-practising-word={showVocabulary && !!selectedWord || undefined}>
       <div className="sunny-lesson-toolbar">
        <button 
          onClick={handleBack} 
@@ -234,7 +234,7 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
         <div className="flex justify-between items-start mb-4">
           <div>
             <p className="mb-1 text-sm font-bold uppercase tracking-wide text-indigo-600">Year {getYearGroupForAge(studentAge)} · Unit {curriculumUnit?.order || 1}</p>
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-gray-800">{topic}</h2>
+            <h1 className="text-2xl sm:text-4xl font-extrabold text-gray-800">{topic}</h1>
             {curriculumUnit?.objective && <p className="mt-2 max-w-2xl text-base font-medium text-gray-600">{curriculumUnit.objective}</p>}
           </div>
           {!loading && !error && (

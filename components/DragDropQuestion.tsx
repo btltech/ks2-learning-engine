@@ -121,7 +121,7 @@ export const DragDropQuestion: React.FC<DragDropQuestionProps> = ({ items, zones
       {/* Unplaced Items */}
       {unplacedItems.length > 0 && (
         <div className="bg-gray-50 rounded-xl p-4">
-          <h4 className="text-sm font-bold text-gray-500 mb-3">Items to Sort</h4>
+          <h2 className="text-sm font-bold text-gray-500 mb-3">Items to Sort</h2>
           <div className="flex flex-wrap gap-2">
             {unplacedItems.map((item) => (
               <button
@@ -179,14 +179,14 @@ export const DragDropQuestion: React.FC<DragDropQuestionProps> = ({ items, zones
                 ${isSubmitted ? (isCorrectZone ? 'bg-green-50' : 'bg-red-50') : 'bg-white'}
               `}
             >
-              <h4 className={`text-center font-bold mb-3 pb-2 border-b ${
+              <h2 className={`text-center font-bold mb-3 pb-2 border-b ${
                 isSubmitted 
                   ? (isCorrectZone ? 'text-green-700 border-green-200' : 'text-red-700 border-red-200')
                   : 'text-gray-700 border-gray-200'
               }`}>
                 {zone.label}
                 {isSubmitted && <span className="sunny-kind-feedback block">{isCorrectZone ? '✓ Correct' : '↻ Try again'}</span>}
-              </h4>
+              </h2>
 
               {selectedItem && !isSubmitted && (
                 <button

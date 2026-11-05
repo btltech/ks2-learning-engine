@@ -151,7 +151,7 @@ const AvatarCustomization: React.FC<AvatarCustomizationProps> = ({
           {/* Preview */}
           <div className="md:col-span-1">
             <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 sticky top-4">
-              <h3 className="text-white font-semibold mb-4 text-center">Preview</h3>
+              <h2 className="text-white font-semibold mb-4 text-center">Preview</h2>
               
               {/* Avatar Preview */}
               <div className="sunny-avatar-preview relative w-48 h-48 mx-auto" role="img" aria-label={description}>
@@ -248,7 +248,7 @@ const AvatarCustomization: React.FC<AvatarCustomizationProps> = ({
               {/* Character Colors (only show for character tab) */}
               {activeCategory === 'character' && (
                 <div className="mb-6">
-                  <h4 className="text-white font-medium mb-3">Colors</h4>
+                  <h2 className="text-white font-medium mb-3">Colors</h2>
                   <div className="grid grid-cols-4 sm:grid-cols-6 gap-2">
                     {getColorsForCategory().map(item => {
                       const isUnlocked = unlockedItems.includes(item.id);
@@ -289,9 +289,9 @@ const AvatarCustomization: React.FC<AvatarCustomizationProps> = ({
 
               {/* Items Grid */}
               <div>
-                <h4 className="text-white font-medium mb-3">
+                <h2 className="text-white font-medium mb-3">
                   {categories.find(c => c.id === activeCategory)?.label}
-                </h4>
+                </h2>
                 <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
                   {getItemsForCategory(activeCategory).map(item => {
                     const isUnlocked = unlockedItems.includes(item.id);

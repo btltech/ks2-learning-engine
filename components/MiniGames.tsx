@@ -249,7 +249,7 @@ const MiniGames: React.FC<MiniGamesProps> = ({ onClose, onXpEarned, status }) =>
 
   return (
     <GamesShell onHome={onClose}>
-      <main className="max-w-4xl mx-auto" id="games-main">
+      <div className="sunny-game-content max-w-4xl mx-auto" id="games-main">
         <div className="sunny-games-hero"><Owl pose={currentStatus.gamesRemaining > 0 ? "wave" : "thinking"} height={100} /><div>
           <h1 className="text-3xl sm:text-4xl font-black text-white mb-2">Game time!</h1>
           <p>Every game teaches a KS2 skill and explains the answers.</p>
@@ -290,7 +290,7 @@ const MiniGames: React.FC<MiniGamesProps> = ({ onClose, onXpEarned, status }) =>
           ))}
           <aside className="sunny-game-art"><span aria-hidden="true">🎨</span><h2>Fancy drawing instead?</h2><a href="/art-studio">Go to the art studio</a></aside>
         </div>
-      </main>
+      </div>
     </GamesShell>
   );
 };
@@ -326,7 +326,7 @@ const GameCreditPanel: React.FC<{ status: GameStatus }> = ({ status }) => {
               : `Pass ${quizzesLeft} more ${quizzesLeft === 1 ? 'quiz' : 'quizzes'} with 70% or more to earn two plays.`}
           </p>
         </div>
-        <div className="flex gap-2" aria-label={`${status.passesCount} of ${status.requiredPasses} passing quizzes completed`}>
+        <div className="flex gap-2" role="img" aria-label={`${status.passesCount} of ${status.requiredPasses} passing quizzes completed`}>
           {Array.from({ length: status.requiredPasses }, (_, index) => (
             <span key={index} className="text-2xl" aria-hidden="true">{index < status.passesCount ? '⭐' : '☆'}</span>
           ))}
@@ -351,7 +351,7 @@ interface GameIntroductionProps {
 const GameIntroduction: React.FC<GameIntroductionProps> = ({
   definition, status, yearGroup, table, starting, error, onYearGroup, onTable, onStart,
 }) => (
-  <main className="max-w-2xl mx-auto">
+  <div className="sunny-game-content max-w-2xl mx-auto">
     <div className={`rounded-3xl bg-gradient-to-br ${definition.colour} p-6 sm:p-9 text-center shadow-2xl`}>
       <div className="text-7xl mb-3" aria-hidden="true">{definition.icon}</div>
       <h1 className="text-3xl font-black text-white">{definition.name}</h1>
@@ -407,7 +407,7 @@ const GameIntroduction: React.FC<GameIntroductionProps> = ({
         <p className="mt-3 text-sm text-white/85">Pass three quizzes with at least 70% to earn two game plays.</p>
       )}
     </div>
-  </main>
+  </div>
 );
 
 interface GamePlayerProps {
@@ -508,7 +508,7 @@ const GamePlayer: React.FC<GamePlayerProps> = ({ definition, session, onSessionC
   if (!question) return <p className="text-center text-white" role="status">Preparing the next question…</p>;
 
   return (
-    <main className="max-w-2xl mx-auto">
+    <div className="sunny-game-content max-w-2xl mx-auto">
       <div className={`rounded-3xl bg-gradient-to-br ${definition.colour} p-4 sm:p-7 shadow-2xl`}>
         <div className="mb-4 flex flex-wrap items-center justify-between gap-2 text-sm font-bold text-white">
           <span>{definition.icon} {definition.name}</span>
@@ -593,7 +593,7 @@ const GamePlayer: React.FC<GamePlayerProps> = ({ definition, session, onSessionC
           Save and return to games
         </button>
       </div>
-    </main>
+    </div>
   );
 };
 
@@ -607,7 +607,7 @@ const GameResultCard: React.FC<{
 }> = ({ definition, result, highScore, gamesRemaining, onPlayAgain, onGames }) => {
   const stars = result.stars ? '⭐'.repeat(result.stars) : '🌱';
   return (
-    <main className="max-w-xl mx-auto">
+    <div className="sunny-game-content max-w-xl mx-auto">
       <div className={`rounded-3xl bg-gradient-to-br ${definition.colour} p-7 sm:p-10 text-center text-white shadow-2xl`}>
         <div className="text-6xl" aria-hidden="true">{stars}</div>
         <h1 className="mt-3 text-3xl font-black">Mission complete!</h1>
@@ -626,7 +626,7 @@ const GameResultCard: React.FC<{
           </button>
         </div>
       </div>
-    </main>
+    </div>
   );
 };
 

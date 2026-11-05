@@ -1,0 +1,783 @@
+{
+  "keyboard": {
+    "home": [
+      {
+        "label": "Listen",
+        "tag": "BUTTON",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "rgb(23, 32, 51) 0px 5px 0px 0px",
+        "rect": {
+          "x": 111,
+          "y": 233.1875,
+          "width": 127.6875,
+          "height": 48,
+          "top": 233.1875,
+          "right": 238.6875,
+          "bottom": 281.1875,
+          "left": 111
+        }
+      },
+      {
+        "label": "Start learning\n→",
+        "tag": "BUTTON",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "rgb(23, 32, 51) 0px 5px 0px 0px",
+        "rect": {
+          "x": 35,
+          "y": 604.0625,
+          "width": 320,
+          "height": 56,
+          "top": 604.0625,
+          "right": 355,
+          "bottom": 660.0625,
+          "left": 35
+        }
+      },
+      {
+        "label": "Choose something else",
+        "tag": "A",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "rgb(23, 32, 51) 0px 5px 0px 0px",
+        "rect": {
+          "x": 35,
+          "y": 604.0625,
+          "width": 320,
+          "height": 56,
+          "top": 604.0625,
+          "right": 355,
+          "bottom": 660.0625,
+          "left": 35
+        }
+      },
+      {
+        "label": "English",
+        "tag": "BUTTON",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 2px, rgba(59, 130, 246, 0.5) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px",
+        "rect": {
+          "x": 16,
+          "y": 389.65625,
+          "width": 112.6640625,
+          "height": 120.5,
+          "top": 389.65625,
+          "right": 128.6640625,
+          "bottom": 510.15625,
+          "left": 16
+        }
+      }
+    ],
+    "guided": [
+      {
+        "label": "Listen",
+        "tag": "BUTTON",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "rgb(23, 32, 51) 0px 5px 0px 0px",
+        "rect": {
+          "x": 111,
+          "y": 201.9921875,
+          "width": 127.6875,
+          "height": 48,
+          "top": 201.9921875,
+          "right": 238.6875,
+          "bottom": 249.9921875,
+          "left": 111
+        }
+      },
+      {
+        "label": "Start learning\n→",
+        "tag": "BUTTON",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "rgb(23, 32, 51) 0px 5px 0px 0px",
+        "rect": {
+          "x": 35,
+          "y": 603.8671875,
+          "width": 320,
+          "height": 56,
+          "top": 603.8671875,
+          "right": 355,
+          "bottom": 659.8671875,
+          "left": 35
+        }
+      },
+      {
+        "label": "Choose something else",
+        "tag": "A",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "rgb(23, 32, 51) 0px 5px 0px 0px",
+        "rect": {
+          "x": 35,
+          "y": 603.8671875,
+          "width": 320,
+          "height": 56,
+          "top": 603.8671875,
+          "right": 355,
+          "bottom": 659.8671875,
+          "left": 35
+        }
+      },
+      {
+        "label": "Study English",
+        "tag": "BUTTON",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(59, 130, 246) 0px 0px 0px 6px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px",
+        "rect": {
+          "x": 16,
+          "y": 518.1640625,
+          "width": 112.6640625,
+          "height": 142,
+          "top": 518.1640625,
+          "right": 128.6640625,
+          "bottom": 660.1640625,
+          "left": 16
+        }
+      }
+    ],
+    "topics": [
+      {
+        "label": "Go back to subject selection",
+        "tag": "BUTTON",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "rgb(23, 32, 51) 0px 5px 0px 0px",
+        "rect": {
+          "x": 16,
+          "y": 71,
+          "width": 111.3515625,
+          "height": 50.796875,
+          "top": 71,
+          "right": 127.3515625,
+          "bottom": 121.796875,
+          "left": 16
+        }
+      },
+      {
+        "label": "",
+        "tag": "INPUT",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "none",
+        "rect": {
+          "x": 81.265625,
+          "y": 366.390625,
+          "width": 256.734375,
+          "height": 48,
+          "top": 366.390625,
+          "right": 338,
+          "bottom": 414.390625,
+          "left": 81.265625
+        }
+      },
+      {
+        "label": "Addition",
+        "tag": "BUTTON",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "none",
+        "rect": {
+          "x": 106,
+          "y": 498.578125,
+          "width": 248,
+          "height": 161.59375,
+          "top": 498.578125,
+          "right": 354,
+          "bottom": 660.171875,
+          "left": 106
+        }
+      },
+      {
+        "label": "Subtraction",
+        "tag": "BUTTON",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "none",
+        "rect": {
+          "x": 106,
+          "y": 498.171875,
+          "width": 248,
+          "height": 161.59375,
+          "top": 498.171875,
+          "right": 354,
+          "bottom": 659.765625,
+          "left": 106
+        }
+      }
+    ],
+    "lesson": [
+      {
+        "label": "Go back to topic selection",
+        "tag": "BUTTON",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "rgb(23, 32, 51) 0px 5px 0px 0px",
+        "rect": {
+          "x": 16,
+          "y": 71,
+          "width": 196.0859375,
+          "height": 50.796875,
+          "top": 71,
+          "right": 212.0859375,
+          "bottom": 121.796875,
+          "left": 16
+        }
+      },
+      {
+        "label": "Read lesson aloud",
+        "tag": "BUTTON",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "rgb(23, 32, 51) 0px 5px 0px 0px",
+        "rect": {
+          "x": 286,
+          "y": 292.390625,
+          "width": 50,
+          "height": 48,
+          "top": 292.390625,
+          "right": 336,
+          "bottom": 340.390625,
+          "left": 286
+        }
+      },
+      {
+        "label": "Start the quiz for this lesson",
+        "tag": "BUTTON",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "rgb(23, 32, 51) 0px 5px 0px 0px",
+        "rect": {
+          "x": 16,
+          "y": 728.609375,
+          "width": 358,
+          "height": 56,
+          "top": 728.609375,
+          "right": 374,
+          "bottom": 784.609375,
+          "left": 16
+        }
+      },
+      {
+        "label": "Start a speed challenge",
+        "tag": "BUTTON",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "rgb(23, 32, 51) 0px 5px 0px 0px",
+        "rect": {
+          "x": 16,
+          "y": 480.359375,
+          "width": 358,
+          "height": 64,
+          "top": 480.359375,
+          "right": 374,
+          "bottom": 544.359375,
+          "left": 16
+        }
+      }
+    ],
+    "quiz": [
+      {
+        "label": "Read question",
+        "tag": "BUTTON",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "rgb(23, 32, 51) 0px 5px 0px 0px",
+        "rect": {
+          "x": 35,
+          "y": 330.796875,
+          "width": 48,
+          "height": 50.796875,
+          "top": 330.796875,
+          "right": 83,
+          "bottom": 381.59375,
+          "left": 35
+        }
+      },
+      {
+        "label": "Answer by voice",
+        "tag": "BUTTON",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "rgb(23, 32, 51) 0px 5px 0px 0px",
+        "rect": {
+          "x": 95,
+          "y": 330.796875,
+          "width": 48,
+          "height": 50.796875,
+          "top": 330.796875,
+          "right": 143,
+          "bottom": 381.59375,
+          "left": 95
+        }
+      },
+      {
+        "label": "Get a hint",
+        "tag": "BUTTON",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "rgb(23, 32, 51) 0px 5px 0px 0px",
+        "rect": {
+          "x": 155,
+          "y": 330.796875,
+          "width": 87.625,
+          "height": 50.796875,
+          "top": 330.796875,
+          "right": 242.625,
+          "bottom": 381.59375,
+          "left": 155
+        }
+      },
+      {
+        "label": "Option: 8",
+        "tag": "BUTTON",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "rgb(23, 32, 51) 0px 5px 0px 0px",
+        "rect": {
+          "x": 16,
+          "y": 432.59375,
+          "width": 358,
+          "height": 76,
+          "top": 432.59375,
+          "right": 374,
+          "bottom": 508.59375,
+          "left": 16
+        }
+      }
+    ],
+    "languages": [
+      {
+        "label": "Go back to subjects",
+        "tag": "BUTTON",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "rgb(23, 32, 51) 0px 5px 0px 0px",
+        "rect": {
+          "x": 90.0546875,
+          "y": 103,
+          "width": 209.890625,
+          "height": 50.796875,
+          "top": 103,
+          "right": 299.9453125,
+          "bottom": 153.796875,
+          "left": 90.0546875
+        }
+      },
+      {
+        "label": "🇫🇷\nFrench\nBonjour!",
+        "tag": "BUTTON",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "rgb(23, 32, 51) 0px 5px 0px 0px",
+        "rect": {
+          "x": 40,
+          "y": 462.984375,
+          "width": 140,
+          "height": 140,
+          "top": 462.984375,
+          "right": 180,
+          "bottom": 602.984375,
+          "left": 40
+        }
+      },
+      {
+        "label": "🇪🇸\nSpanish\nHola!",
+        "tag": "BUTTON",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "rgb(23, 32, 51) 0px 5px 0px 0px",
+        "rect": {
+          "x": 210,
+          "y": 462.984375,
+          "width": 140,
+          "height": 140,
+          "top": 462.984375,
+          "right": 350,
+          "bottom": 602.984375,
+          "left": 210
+        }
+      },
+      {
+        "label": "🇩🇪\nGerman\nHallo!",
+        "tag": "BUTTON",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "rgb(23, 32, 51) 0px 5px 0px 0px",
+        "rect": {
+          "x": 40,
+          "y": 519.984375,
+          "width": 140,
+          "height": 140,
+          "top": 519.984375,
+          "right": 180,
+          "bottom": 659.984375,
+          "left": 40
+        }
+      }
+    ],
+    "pronounce": [
+      {
+        "label": "bon",
+        "tag": "BUTTON",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "rgb(23, 32, 51) 0px 5px 0px 0px",
+        "rect": {
+          "x": 57.796875,
+          "y": 460.2890625,
+          "width": 78.3984375,
+          "height": 64.3984375,
+          "top": 460.2890625,
+          "right": 136.1953125,
+          "bottom": 524.6875,
+          "left": 57.796875
+        }
+      }
+    ],
+    "library": [
+      {
+        "label": "Topic",
+        "tag": "SELECT",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 0px, rgb(167, 243, 208) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px",
+        "rect": {
+          "x": 42.796875,
+          "y": 604.0859375,
+          "width": 304.3984375,
+          "height": 56,
+          "top": 604.0859375,
+          "right": 347.1953125,
+          "bottom": 660.0859375,
+          "left": 42.796875
+        }
+      }
+    ],
+    "progress": [
+      {
+        "label": "👥 Friends",
+        "tag": "BUTTON",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "rgb(23, 32, 51) 0px 5px 0px 0px",
+        "rect": {
+          "x": 54.796875,
+          "y": 548.375,
+          "width": 280.3984375,
+          "height": 54.796875,
+          "top": 548.375,
+          "right": 335.1953125,
+          "bottom": 603.171875,
+          "left": 54.796875
+        }
+      }
+    ],
+    "games": [
+      {
+        "label": "How to play Maths Mission",
+        "tag": "BUTTON",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "rgb(23, 32, 51) 0px 5px 0px 0px",
+        "rect": {
+          "x": 43,
+          "y": 717.765625,
+          "width": 134.265625,
+          "height": 54.796875,
+          "top": 717.765625,
+          "right": 177.265625,
+          "bottom": 772.5625,
+          "left": 43
+        },
+        "tabs": {
+          "x": 0,
+          "y": 796.609375,
+          "width": 390,
+          "height": 103.390625,
+          "top": 796.609375,
+          "right": 390,
+          "bottom": 900,
+          "left": 0
+        }
+      }
+    ],
+    "gallery": [
+      {
+        "label": "✏️ Drawing Lessons",
+        "tag": "BUTTON",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "rgb(23, 32, 51) 0px 5px 0px 0px",
+        "rect": {
+          "x": 198.9921875,
+          "y": 552.1796875,
+          "width": 151.203125,
+          "height": 83.59375,
+          "top": 552.1796875,
+          "right": 350.1953125,
+          "bottom": 635.7734375,
+          "left": 198.9921875
+        }
+      }
+    ],
+    "artLesson": [
+      {
+        "label": "2",
+        "tag": "BUTTON",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "rgb(23, 32, 51) 0px 5px 0px 0px",
+        "rect": {
+          "x": 133.59375,
+          "y": 698.984375,
+          "width": 48,
+          "height": 48,
+          "top": 698.984375,
+          "right": 181.59375,
+          "bottom": 746.984375,
+          "left": 133.59375
+        }
+      }
+    ],
+    "canvas": [
+      {
+        "label": "Select color #00FF00",
+        "tag": "BUTTON",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "none",
+        "rect": {
+          "x": 248.7265625,
+          "y": 549.2578125,
+          "width": 87.46875,
+          "height": 106.796875,
+          "top": 549.2578125,
+          "right": 336.1953125,
+          "bottom": 656.0546875,
+          "left": 248.7265625
+        }
+      }
+    ],
+    "avatar": [
+      {
+        "label": "🎩 Hats",
+        "tag": "BUTTON",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "rgb(23, 32, 51) 0px 6px 0px 0px",
+        "rect": {
+          "x": 182.4375,
+          "y": 409.359375,
+          "width": 86.0390625,
+          "height": 66.796875,
+          "top": 409.359375,
+          "right": 268.4765625,
+          "bottom": 476.15625,
+          "left": 182.4375
+        },
+        "tabs": {
+          "x": 0,
+          "y": 796.609375,
+          "width": 390,
+          "height": 103.390625,
+          "top": 796.609375,
+          "right": 390,
+          "bottom": 900,
+          "left": 0
+        }
+      }
+    ],
+    "bites": [
+      {
+        "label": "Start Challenge →",
+        "tag": "BUTTON",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "rgb(23, 32, 51) 0px 5px 0px 0px",
+        "rect": {
+          "x": 62.796875,
+          "y": 413.15625,
+          "width": 264.3984375,
+          "height": 58.796875,
+          "top": 413.15625,
+          "right": 327.1953125,
+          "bottom": 471.953125,
+          "left": 62.796875
+        },
+        "tabs": {
+          "x": 0,
+          "y": 796.609375,
+          "width": 390,
+          "height": 103.390625,
+          "top": 796.609375,
+          "right": 390,
+          "bottom": 900,
+          "left": 0
+        }
+      }
+    ],
+    "classroom": [
+      {
+        "label": "⚙\nDisplay settings\n⬜\n⭕\n🤖\nHome\nLearn\nMy progress\nGames\nLive classroom\n\nJoin your teacher's quiz sess",
+        "tag": "BODY",
+        "outline": "rgb(15, 23, 42) none 3px",
+        "boxShadow": "none",
+        "rect": {
+          "x": 0,
+          "y": -17.5,
+          "width": 390,
+          "height": 1002.390625,
+          "top": -17.5,
+          "right": 390,
+          "bottom": 984.890625,
+          "left": 0
+        },
+        "tabs": {
+          "x": 0,
+          "y": 796.609375,
+          "width": 390,
+          "height": 103.390625,
+          "top": 796.609375,
+          "right": 390,
+          "bottom": 900,
+          "left": 0
+        }
+      }
+    ],
+    "settings": [
+      {
+        "label": "Standard",
+        "tag": "BUTTON",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "rgb(23, 32, 51) 0px 4px 0px 0px",
+        "rect": {
+          "x": 46,
+          "y": 476.171875,
+          "width": 112.59375,
+          "height": 50.796875,
+          "top": 476.171875,
+          "right": 158.59375,
+          "bottom": 526.96875,
+          "left": 46
+        },
+        "tabs": {
+          "x": 0,
+          "y": 796.609375,
+          "width": 390,
+          "height": 103.390625,
+          "top": 796.609375,
+          "right": 390,
+          "bottom": 900,
+          "left": 0
+        }
+      }
+    ],
+    "login": [
+      {
+        "label": "Parent / Teacher",
+        "tag": "BUTTON",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "rgb(23, 32, 51) 0px 5px 0px 0px",
+        "rect": {
+          "x": 45,
+          "y": 678.984375,
+          "width": 146,
+          "height": 78.390625,
+          "top": 678.984375,
+          "right": 191,
+          "bottom": 757.375,
+          "left": 45
+        }
+      }
+    ],
+    "children": [
+      {
+        "label": "Family account\nLearner profiles\nYour Children\n\nCasey\n\nAge: 9\n\n👧\n\n📋 Your Parent Code (Share with yo",
+        "tag": "BODY",
+        "outline": "rgb(15, 23, 42) none 3px",
+        "boxShadow": "none",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 900,
+          "top": 0,
+          "right": 390,
+          "bottom": 900,
+          "left": 0
+        }
+      }
+    ],
+    "landing": [
+      {
+        "label": "Start learning",
+        "tag": "BUTTON",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "rgb(23, 32, 51) 0px 5px 0px 0px",
+        "rect": {
+          "x": 86.5546875,
+          "y": 418.2109375,
+          "width": 216.890625,
+          "height": 64,
+          "top": 418.2109375,
+          "right": 303.4453125,
+          "bottom": 482.2109375,
+          "left": 86.5546875
+        }
+      }
+    ],
+    "results": [
+      {
+        "label": "Quiz summary",
+        "tag": "DIV",
+        "outline": "rgb(30, 85, 200) solid 4px",
+        "boxShadow": "rgb(23, 32, 51) 0px 6px 0px 0px",
+        "rect": {
+          "x": 31,
+          "y": 31,
+          "width": 328,
+          "height": 341.1953125,
+          "top": 31,
+          "right": 359,
+          "bottom": 372.1953125,
+          "left": 31
+        },
+        "tabs": {
+          "x": 0,
+          "y": 796.609375,
+          "width": 390,
+          "height": 103.390625,
+          "top": 796.609375,
+          "right": 390,
+          "bottom": 900,
+          "left": 0
+        }
+      }
+    ]
+  },
+  "safeArea": {
+    "before": {
+      "tabs": {
+        "x": 0,
+        "y": 752.078125,
+        "width": 390,
+        "height": 147.921875,
+        "top": 752.078125,
+        "right": 390,
+        "bottom": 900,
+        "left": 0
+      },
+      "bar": {
+        "x": 0,
+        "y": 659.4765625,
+        "width": 390,
+        "height": 92.6015625,
+        "top": 659.4765625,
+        "right": 390,
+        "bottom": 752.078125,
+        "left": 0
+      },
+      "variable": "147.921875px"
+    },
+    "after": {
+      "tabs": {
+        "x": 0,
+        "y": 732.078125,
+        "width": 390,
+        "height": 167.921875,
+        "top": 732.078125,
+        "right": 390,
+        "bottom": 900,
+        "left": 0
+      },
+      "bar": {
+        "x": 0,
+        "y": 639.4765625,
+        "width": 390,
+        "height": 92.6015625,
+        "top": 639.4765625,
+        "right": 390,
+        "bottom": 732.078125,
+        "left": 0
+      },
+      "variable": "167.921875px"
+    },
+    "documentWidth": 390
+  },
+  "menu": {
+    "closed": true,
+    "focus": "User menu"
+  }
+}

@@ -313,7 +313,7 @@ const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeach
           </button>
 
           <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6">
-            <h2 className="text-2xl font-bold text-white mb-6">Create Quiz Session</h2>
+            <h1 className="text-2xl font-bold text-white mb-6">Create Quiz Session</h1>
 
             {error && (
               <div className="bg-red-500/20 text-red-200 px-4 py-2 rounded-lg mb-4">
@@ -424,7 +424,7 @@ const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeach
           </button>
 
           {!isTeacher && <span className="sunny-class-step">Step 1</span>}
-          <h2 className="text-2xl font-bold text-white mb-2 text-center">Join Session</h2>
+          <h1 className="text-2xl font-bold text-white mb-2 text-center">Join Session</h1>
           <p className="text-white/70 text-center mb-6">{isTeacher ? "Enter the 6-digit code from your teacher" : "Enter the 6-character code from your teacher"}</p>
 
           {error && (
@@ -465,7 +465,7 @@ const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeach
         <div className="max-w-2xl mx-auto">
           <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 mb-4">
             <div className="text-center">
-              <h2 className="text-2xl font-bold text-white mb-2">{session.title}</h2>
+              <h1 className="text-2xl font-bold text-white mb-2">{session.title}</h1>
               <div className="inline-block bg-white/20 rounded-xl px-6 py-3 mb-4">
                 <p className="text-white/70 text-sm">Session Code</p>
                 <p className="text-4xl font-mono font-bold text-white tracking-widest">
@@ -479,9 +479,9 @@ const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeach
           </div>
 
           <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 mb-4">
-            <h3 className="text-lg font-semibold text-white mb-4">
+            <h2 className="text-lg font-semibold text-white mb-4">
               👥 Players ({students.length})
-            </h3>
+            </h2>
             
             {students.length === 0 ? (
               <p className="text-white/50 text-center py-8">
@@ -562,7 +562,7 @@ const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeach
             {/* Question */}
             <div className={`${isTeacher ? "" : "sunny-class-question"} bg-white/10 backdrop-blur-lg rounded-2xl p-6`}>
               {!isTeacher && <Owl pose="thinking" height={100} />}
-              <h2 className="text-xl font-bold text-white mb-6">{question.question}</h2>
+              <h1 className="text-xl font-bold text-white mb-6">{question.question}</h1>
 
               <div className="space-y-3">
                 {question.options.map((option, index) => {
@@ -631,7 +631,7 @@ const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeach
           {/* Leaderboard */}
           {session.settings.showLeaderboardDuringQuiz && (
             <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-4">
-              <h3 className="text-lg font-semibold text-white mb-4">🏆 Leaderboard</h3>
+              <h2 className="text-lg font-semibold text-white mb-4">🏆 Leaderboard</h2>
               <div className="space-y-2">
                 {leaderboard.slice(0, 10).map((student, index) => (
                   <div
@@ -731,7 +731,7 @@ const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeach
           {/* My Stats */}
           {!isTeacher && myStats && (
             <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6">
-              <h3 className="text-lg font-semibold text-white mb-4">Your Results</h3>
+              <h2 className="text-lg font-semibold text-white mb-4">Your Results</h2>
               <div className="grid grid-cols-3 gap-4 text-center">
                 <div>
                   <p className="text-3xl font-bold text-white">#{myRank}</p>
@@ -753,7 +753,7 @@ const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeach
 
           {/* Full Leaderboard */}
           <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6">
-            <h3 className="text-lg font-semibold text-white mb-4">Final Standings</h3>
+            <h2 className="text-lg font-semibold text-white mb-4">Final Standings</h2>
             <div className="space-y-2 max-h-64 overflow-y-auto">
               {leaderboard.map((student, index) => (
                 <div

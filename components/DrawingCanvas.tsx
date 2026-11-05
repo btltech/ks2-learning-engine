@@ -134,7 +134,7 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
       <div className="sunny-art-idea"><Owl pose="reading" height={90} /><SpeechBubble>Today’s idea: {idea || "Choose a colour and draw your answer."}</SpeechBubble></div>
       <div className="sunny-drawing-tools flex flex-wrap gap-4 items-center justify-center w-full mb-2">
         {/* Color Picker */}
-        <div className="sunny-paint-colours"><h3>Colours</h3><div>
+        <div className="sunny-paint-colours"><h2>Colours</h2><div>
           {Object.entries({'#000000':'Black', '#FF0000':'Red', '#00FF00':'Green', '#0000FF':'Blue', '#FFFF00':'Yellow', '#FFA500':'Orange', '#800080':'Purple'}).map(([c,name]) => (
             <button
               key={c}

@@ -23,7 +23,7 @@ const SubjectSelector: React.FC<SubjectSelectorProps> = ({ onSelect, progress, s
     <div className="w-full">
       <div 
         className={sunny ? "sunny-subject-grid" : "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4"}
-        role="list"
+        role="group"
         aria-label="Subject selection"
       >
         {SUBJECTS.map((subject, index) => {
@@ -34,7 +34,6 @@ const SubjectSelector: React.FC<SubjectSelectorProps> = ({ onSelect, progress, s
             <button
               key={subject.name}
               onClick={() => handleSelect(subject)}
-              role="listitem"
               aria-label={`${subject.name}${isCompleted ? ` - ${completedTopics} topics completed` : ''}`}
               className={`${sunny ? 'sunny-subject-tile' : ''} group relative overflow-hidden flex flex-col items-center justify-center p-4 sm:p-5 ${RADIUS.card} transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${subject.bgColor}
               motion-safe:hover:shadow-lg motion-safe:hover:-translate-y-1 ${subject.color.replace('text-', 'focus-visible:ring-')} motion-safe:animate-fadeInUp`}

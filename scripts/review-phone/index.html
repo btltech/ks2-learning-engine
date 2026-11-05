@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://apis.google.com https://www.gstatic.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; media-src 'self' data: https: blob:; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://*.cloudfunctions.net https://*.firebase.googleapis.com https://*.openai.com https://generativelanguage.googleapis.com https://challenges.cloudflare.com wss://*.firebaseio.com; frame-src https://ks2-learning-engine.firebaseapp.com https://challenges.cloudflare.com; object-src 'none'; base-uri 'self'; form-action 'self'; worker-src 'self' blob:; manifest-src 'self'">
+
+    <!-- Primary SEO -->
+    <title>Sunny Owl synthetic accessibility review</title>
+    <meta name="description" content="DemiWura helps UK children aged 7–11 master KS2 subjects: Maths, English, Science, History and more. Fun quizzes, mini-games and AI-powered practice. Free to join." />
+    <link rel="canonical" href="https://demiwuraks2.co.uk/" />
+    <meta name="keywords" content="KS2 learning, UK primary school, year 3 4 5 6, KS2 maths, KS2 English, KS2 science, free learning app children, key stage 2" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Favicons -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/pwa-192x192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="mask-icon" href="/masked-icon.svg" color="#172033" />
+
+    <!-- PWA / mobile -->
+    <meta name="theme-color" content="#FFC93C" />
+    <meta name="apple-mobile-web-app-title" content="DemiWura" />
+    <meta name="application-name" content="DemiWura" />
+
+    <!-- Open Graph (Facebook / WhatsApp / LinkedIn) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://demiwuraks2.co.uk/" />
+    <meta property="og:site_name" content="DemiWura" />
+    <meta property="og:title" content="Sunny Owl synthetic accessibility review" />
+    <meta property="og:description" content="Fun quizzes, mini-games and AI-powered practice for UK children aged 7–11. Covers all KS2 subjects. Free to join." />
+    <meta property="og:image" content="https://demiwuraks2.co.uk/pwa-512x512.png" />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+    <meta property="og:locale" content="en_GB" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="DemiWura – Free KS2 Learning App" />
+    <meta name="twitter:description" content="Fun quizzes, mini-games and AI-powered practice for UK children aged 7–11. Free to join." />
+    <meta name="twitter:image" content="https://demiwuraks2.co.uk/pwa-512x512.png" />
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "DemiWura",
+      "url": "https://demiwuraks2.co.uk",
+      "description": "Free KS2 learning app for UK primary school children aged 7–11. Covers Maths, English, Science, History and more.",
+      "applicationCategory": "EducationApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "en-GB",
+      "audience": {
+        "@type": "EducationalAudience",
+        "educationalRole": "student",
+        "suggestedMinAge": "7",
+        "suggestedMaxAge": "11"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "GBP"
+      },
+      "provider": {
+        "@type": "Organization",
+        "name": "DemiWura",
+        "url": "https://demiwuraks2.co.uk"
+      }
+    }
+    </script>
+    <!-- Tailwind is bundled locally (no CDN) to work on restricted devices -->
+    <style>
+      * {
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;
+        letter-spacing: -0.015em;
+      }
+      body {
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;
+        background: radial-gradient(circle at 20% 20%, #eef2ff 0, #eef2ff 22%, #f8fafc 55%), radial-gradient(circle at 80% 0%, #e0f2fe 0, #e0f2fe 15%, #f8fafc 45%), linear-gradient(180deg, #f8fafc 0%, #f1f5f9 45%, #f8fafc 100%);
+        color: #0f172a;
+        min-height: 100vh;
+      }
+      @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
+      }
+      .animate-float {
+        animation: float 4s ease-in-out infinite;
+      }
+      @keyframes pop-in {
+        0% {
+          opacity: 0;
+          transform: translateY(10px) scale(0.95);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+      .animate-pop-in {
+        animation: pop-in 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+      }
+      @keyframes slideUp {
+        0% {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-slideUp {
+        animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.6, 1);
+      }
+      @keyframes shimmer {
+        0% {
+          background-position: -1000px 0;
+        }
+        100% {
+          background-position: 1000px 0;
+        }
+      }
+      .animate-shimmer {
+        animation: shimmer 2s infinite;
+        background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
+        background-size: 1000px 100%;
+      }
+      /* Smooth entrance animations */
+      @keyframes fadeInDown {
+        0% {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fadeInDown {
+        animation: fadeInDown 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      @keyframes fadeInUp {
+        0% {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fadeInUp {
+        animation: fadeInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      @keyframes fadeInLeft {
+        0% {
+          opacity: 0;
+          transform: translateX(-30px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      .animate-fadeInLeft {
+        animation: fadeInLeft 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      @keyframes fadeInRight {
+        0% {
+          opacity: 0;
+          transform: translateX(30px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      .animate-fadeInRight {
+        animation: fadeInRight 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      @keyframes scaleIn {
+        0% {
+          opacity: 0;
+          transform: scale(0.9);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      .animate-scaleIn {
+        animation: scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      /* Premium color glow animations */
+      @keyframes glow-blue {
+        0%, 100% { filter: drop-shadow(0 0 0px rgba(59, 130, 246, 0.3)); }
+        50% { filter: drop-shadow(0 0 12px rgba(59, 130, 246, 0.5)); }
+      }
+      @keyframes glow-green {
+        0%, 100% { filter: drop-shadow(0 0 0px rgba(16, 185, 129, 0.3)); }
+        50% { filter: drop-shadow(0 0 12px rgba(16, 185, 129, 0.5)); }
+      }
+      @keyframes glow-purple {
+        0%, 100% { filter: drop-shadow(0 0 0px rgba(139, 92, 246, 0.3)); }
+        50% { filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.5)); }
+      }
+      @keyframes glow-amber {
+        0%, 100% { filter: drop-shadow(0 0 0px rgba(245, 158, 11, 0.3)); }
+        50% { filter: drop-shadow(0 0 12px rgba(245, 158, 11, 0.5)); }
+      }
+      @keyframes glow-rose {
+        0%, 100% { filter: drop-shadow(0 0 0px rgba(244, 63, 94, 0.3)); }
+        50% { filter: drop-shadow(0 0 12px rgba(244, 63, 94, 0.5)); }
+      }
+      /* Staggered animation delays */
+      .animate-delay-50 { animation-delay: 50ms; }
+      .animate-delay-100 { animation-delay: 100ms; }
+      .animate-delay-150 { animation-delay: 150ms; }
+      .animate-delay-200 { animation-delay: 200ms; }
+      .animate-delay-300 { animation-delay: 300ms; }
+      .animate-delay-400 { animation-delay: 400ms; }
+      .animate-delay-500 { animation-delay: 500ms; }
+      .animate-delay-600 { animation-delay: 600ms; }
+      /* Screen reader only utility */
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+      }
+      .sr-only:focus,
+      .sr-only:active {
+        position: static;
+        width: auto;
+        height: auto;
+        padding: inherit;
+        margin: inherit;
+        overflow: visible;
+        clip: auto;
+        white-space: normal;
+      }
+      /* Focus visible styles for better keyboard navigation */
+      *:focus-visible {
+        outline: 3px solid #3b82f6;
+        outline-offset: 2px;
+      }
+      /* Touch-friendly + mobile utility layer */
+      :root {
+        --mobile-gutter: clamp(1rem, 3vw, 1.75rem);
+        --card-radius: 18px;
+        --card-shadow-strong: 0 16px 48px rgba(15, 23, 42, 0.14);
+        --card-shadow-soft: 0 10px 28px rgba(15, 23, 42, 0.08);
+        --max-shell: min(1320px, 96vw);
+      }
+      .mobile-shell {
+        width: 100%;
+        max-width: var(--max-shell);
+        margin: 0 auto;
+        padding-left: var(--mobile-gutter);
+        padding-right: var(--mobile-gutter);
+      }
+      .touch-card {
+        border-radius: var(--card-radius);
+        background: rgba(255, 255, 255, 0.92);
+        box-shadow: var(--card-shadow-soft);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+      .touch-target {
+        min-height: 48px;
+        min-width: 48px;
+        padding: 0.75rem 1rem;
+        border-radius: 14px;
+        touch-action: manipulation;
+        transition: transform 120ms ease, box-shadow 180ms ease;
+      }
+      .touch-target:active {
+        transform: translateY(1px);
+      }
+      .touch-scroll {
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+        scrollbar-width: thin;
+        scroll-behavior: smooth;
+      }
+      .safe-area-top { padding-top: env(safe-area-inset-top); }
+      .safe-area-bottom { padding-bottom: max(env(safe-area-inset-bottom), 1rem); }
+      .content-visibility-auto {
+        content-visibility: auto;
+        contain-intrinsic-size: 1px 600px;
+      }
+      .page-shell {
+        max-width: var(--max-shell);
+        margin: 0 auto;
+        padding: clamp(1rem, 2vw, 2rem);
+      }
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: clamp(0.75rem, 1.5vw, 1.5rem);
+      }
+      @media (max-width: 767px) {
+        .stack-mobile {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 0.75rem;
+        }
+        .mobile-fluid {
+          margin-left: -0.5rem;
+          margin-right: -0.5rem;
+          padding-left: var(--mobile-gutter);
+          padding-right: var(--mobile-gutter);
+        }
+      }
+      @media (pointer: coarse) {
+        .touch-text-lg { font-size: 1.05rem; }
+        .touch-only-shadow { box-shadow: var(--card-shadow-strong); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.001ms !important;
+        }
+      }
+    </style>
+</head>
+  <body class="bg-blue-50">
+    <div id="root"></div>
+    <script type="module" src="/scripts/review-phone/main.tsx"></script>
+  </body>
+</html>

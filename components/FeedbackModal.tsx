@@ -114,7 +114,7 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ quizResults, studentAge, 
             </div>
           </div>
         </div>
-        <div className="sunny-results-meter w-full bg-gray-200 rounded-full h-4 mb-6" role="progressbar" aria-valuenow={percentage} aria-valuemin={0} aria-valuemax={100}>
+        <div className="sunny-results-meter w-full bg-gray-200 rounded-full h-4 mb-6" role="progressbar" aria-label="Quiz score" aria-valuenow={percentage} aria-valuemin={0} aria-valuemax={100}>
             <div 
                 className={`h-4 rounded-full transition-all duration-500 ${percentage > 70 ? 'bg-green-500' : percentage > 40 ? 'bg-yellow-500' : 'bg-red-500'}`}
                 style={{ width: `${percentage}%` }}

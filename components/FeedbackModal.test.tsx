@@ -22,6 +22,7 @@ describe('Sunny Owl results', () => {
     render(<FeedbackModal {...props}/>);
     expect(await screen.findByText('Five is odd.')).toBeInTheDocument();
     expect(screen.getByRole('group', {name: 'Quiz summary'})).toHaveFocus();
+    expect(screen.getByRole('progressbar', {name: 'Quiz score'})).toHaveAttribute('aria-valuenow', '50');
     expect(screen.getByLabelText('Your score: 1 out of 2 correct')).toBeInTheDocument();
     expect(screen.getByLabelText('You earned 17 points')).toBeInTheDocument();
     expect(screen.getByText(/1 creative task was completed/)).toBeInTheDocument();

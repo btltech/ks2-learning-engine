@@ -23,11 +23,13 @@ describe('Sunny Owl quiz keeps the submission flow', () => {
     render(<QuizView {...props}/>);
     const first = await screen.findByRole('radio', {name: 'Option: Two'});
     expect(screen.getByText('No timer')).toBeInTheDocument();
+    expect(screen.getByRole('progressbar', { name: 'Quiz progress' })).toHaveAttribute('aria-valuenow', '1');
     expect(screen.getByRole('button', {name: 'Go to next question'})).toBeDisabled();
     fireEvent.click(first);
     expect(screen.getByText('Your answer')).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', {name: 'Go to next question'}));
     expect(screen.getByText('Which number is odd?')).toBeInTheDocument();
+    expect(screen.getByRole('heading', {name: 'Which number is odd?'})).toHaveFocus();
     expect(screen.getByText('✓ Correct! Well done.')).toBeInTheDocument();
     fireEvent.click(screen.getByRole('radio', {name: 'Option: Four'}));
     fireEvent.click(screen.getByRole('button', {name: 'Go to next question'}));
@@ -38,6 +40,20 @@ describe('Sunny Owl quiz keeps the submission flow', () => {
     const results = props.onSubmit.mock.calls[0][0];
     expect(results.map((r: {isCorrect: boolean}) => r.isCorrect)).toEqual([true, false, true]);
     expect(recordQuizAttempts).toHaveBeenCalledOnce();
+  });
+  it('lets keyboard users select and wrap radio answers without submitting', async () => {
+    render(<QuizView {...props}/>);
+    const first = await screen.findByRole('radio', {name: 'Option: Two'});
+    const second = screen.getByRole('radio', {name: 'Option: Three'});
+    first.focus();
+    fireEvent.keyDown(first, {key: 'ArrowRight'});
+    expect(second).toHaveFocus();
+    expect(second).toHaveAttribute('aria-checked', 'true');
+    expect(first).toHaveAttribute('tabindex', '-1');
+    fireEvent.keyDown(second, {key: 'ArrowDown'});
+    expect(first).toHaveFocus();
+    expect(first).toHaveAttribute('aria-checked', 'true');
+    expect(props.onSubmit).not.toHaveBeenCalled();
   });
   it('keeps the opt-in speed timeout and timer-off controls working', async () => {
     vi.useFakeTimers();
