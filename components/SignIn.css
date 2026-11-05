@@ -154,3 +154,11 @@
 :is(.large-text, .sunny-large-text) .sunny-sign-in .sunny-age-options { grid-template-columns: repeat(auto-fit, minmax(56px, 1fr)); gap: 12px; }
 .sunny-child-selector code.flex-1 { min-height: 56px; border: 3px solid var(--signin-outline); border-radius: 16px; display: flex; align-items: center; justify-content: center; background: var(--signin-paper); }
 .sunny-sign-in-loading > div { color: var(--signin-ink); font-family: inherit; }
+/* Keep sign-in surfaces paired with the global dark/calm text colours. */
+:root:is(.appearance-dark,.appearance-calm) .sunny-sign-in {
+  --signin-ink: var(--display-ink); --signin-paper: var(--display-paper);
+  --signin-outline: var(--display-border); --signin-gold: var(--display-paper);
+  --signin-sky: var(--display-paper); --signin-pink: var(--display-paper);
+  --signin-leaf: var(--display-paper); --signin-grape: var(--display-paper);
+}
+:root:is(.appearance-dark,.appearance-calm) .sunny-sign-in-welcome { background: var(--display-paper); }

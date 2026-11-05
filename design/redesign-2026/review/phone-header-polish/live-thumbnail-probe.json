@@ -1,0 +1,94 @@
+{
+  "origin": "https://demiwuraks2.co.uk",
+  "date": "2026-11-05T17:36:37.008Z",
+  "method": "Plain Image requests from the live public page using the exact gallery thumbnail URLs; no gallery sign-in or server changes.",
+  "headers": {
+    "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://apis.google.com https://www.gstatic.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; media-src 'self' data: https: blob:; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://*.cloudfunctions.net https://*.firebase.googleapis.com https://*.openai.com https://generativelanguage.googleapis.com https://challenges.cloudflare.com wss://*.firebaseio.com; frame-src https://ks2-learning-engine.firebaseapp.com https://challenges.cloudflare.com; object-src 'none'; base-uri 'self'; form-action 'self'; worker-src 'self' blob:; manifest-src 'self'",
+    "cross-origin-embedder-policy": null,
+    "cross-origin-resource-policy": null
+  },
+  "images": [
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/300px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
+      "loaded": false,
+      "width": 0,
+      "status": 400,
+      "contentType": "text/html; charset=utf-8",
+      "upstreamMessage": "Use thumbnail sizes listed on https://w.wiki/GHai",
+      "title": "The Starry Night",
+      "browserError": "net::ERR_BLOCKED_BY_ORB"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/220px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg",
+      "loaded": false,
+      "width": 0,
+      "status": 400,
+      "contentType": "text/html; charset=utf-8",
+      "upstreamMessage": "Use thumbnail sizes listed on https://w.wiki/GHai",
+      "title": "Mona Lisa",
+      "browserError": "net::ERR_BLOCKED_BY_ORB"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Vincent_Willem_van_Gogh_127.jpg/220px-Vincent_Willem_van_Gogh_127.jpg",
+      "loaded": false,
+      "width": 0,
+      "status": 400,
+      "contentType": "text/html; charset=utf-8",
+      "upstreamMessage": "Use thumbnail sizes listed on https://w.wiki/GHai",
+      "title": "Sunflowers",
+      "browserError": "net::ERR_BLOCKED_BY_ORB"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Tsunami_by_hokusai_19th_century.jpg/300px-Tsunami_by_hokusai_19th_century.jpg",
+      "loaded": false,
+      "width": 0,
+      "status": 400,
+      "contentType": "text/html; charset=utf-8",
+      "upstreamMessage": "Use thumbnail sizes listed on https://w.wiki/GHai",
+      "title": "The Great Wave off Kanagawa",
+      "browserError": "net::ERR_BLOCKED_BY_ORB"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Claude_Monet_-_Water_Lilies_-_1906%2C_Ryerson.jpg/300px-Claude_Monet_-_Water_Lilies_-_1906%2C_Ryerson.jpg",
+      "loaded": false,
+      "width": 0,
+      "status": 400,
+      "contentType": "text/html; charset=utf-8",
+      "upstreamMessage": "Use thumbnail sizes listed on https://w.wiki/GHai",
+      "title": "Water Lilies",
+      "browserError": "net::ERR_BLOCKED_BY_ORB"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/1665_Girl_with_a_Pearl_Earring.jpg/220px-1665_Girl_with_a_Pearl_Earring.jpg",
+      "loaded": false,
+      "width": 0,
+      "status": 400,
+      "contentType": "text/html; charset=utf-8",
+      "upstreamMessage": "Use thumbnail sizes listed on https://w.wiki/GHai",
+      "title": "Girl with a Pearl Earring",
+      "browserError": "net::ERR_BLOCKED_BY_ORB"
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/en/d/dd/The_Persistence_of_Memory.jpg",
+      "loaded": true,
+      "width": 371,
+      "height": 268,
+      "status": 200,
+      "contentType": "image/jpeg",
+      "upstreamMessage": null,
+      "title": "The Persistence of Memory",
+      "browserError": null
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Edvard_Munch%2C_1893%2C_The_Scream%2C_oil%2C_tempera_and_pastel_on_cardboard%2C_91_x_73_cm%2C_National_Gallery_of_Norway.jpg/220px-Edvard_Munch%2C_1893%2C_The_Scream%2C_oil%2C_tempera_and_pastel_on_cardboard%2C_91_x_73_cm%2C_National_Gallery_of_Norway.jpg",
+      "loaded": false,
+      "width": 0,
+      "status": 400,
+      "contentType": "text/html; charset=utf-8",
+      "upstreamMessage": "Use thumbnail sizes listed on https://w.wiki/GHai",
+      "title": "The Scream",
+      "browserError": "net::ERR_BLOCKED_BY_ORB"
+    }
+  ],
+  "policyReference": "https://www.mediawiki.org/wiki/Common_thumbnail_sizes"
+}

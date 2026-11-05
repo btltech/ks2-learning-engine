@@ -1,7 +1,8 @@
 import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import LoginView from './LoginView';
+import { PublicLayout } from './PublicLayout';
 
 const auth = vi.hoisted(() => ({
   getCurrentUser: vi.fn(), login: vi.fn(), loginChildWithParentCode: vi.fn(),
@@ -50,6 +51,23 @@ describe('sign-in behaviour through the redesigned controls', () => {
     fireEvent.click(screen.getByRole('button', { name: '10', exact: true, pressed: false }));
     expect(screen.getByRole('button', { name: '10', exact: true, pressed: true })).toBeTruthy();
     for (const age of [7, 8, 9, 11]) expect(screen.getByRole('button', { name: String(age), exact: true, pressed: false })).toBeTruthy();
+  });
+
+  it('switches the mounted form through header navigation, including the same sign-in URL', async () => {
+    render(<MemoryRouter initialEntries={['/login']}><PublicLayout><LoginView onLogin={vi.fn()}/></PublicLayout></MemoryRouter>);
+    await screen.findByRole('heading', { name: 'Welcome Back!' });
+    fireEvent.click(screen.getByRole('button', { name: 'Forgot your password?' }));
+    expect(screen.queryByRole('heading', { name: 'Welcome Back!' })).toBeNull();
+    const header=within(screen.getByRole('banner'));
+    fireEvent.click(header.getByRole('button', { name: 'Sign in' }));
+    await screen.findByRole('heading', { name: 'Welcome Back!' });
+    fireEvent.click(screen.getByRole('button', { name: 'Child', exact: true }));
+    fireEvent.click(header.getByRole('button', { name: 'Create a family account' }));
+    await screen.findByRole('heading', { name: 'Join DemiWura!' });
+    fireEvent.click(header.getByRole('button', { name: 'Sign in' }));
+    await screen.findByRole('heading', { name: 'Welcome Back!' });
+    expect(auth.login).not.toHaveBeenCalled();
+    expect(auth.register).not.toHaveBeenCalled();
   });
 
   it('keeps numeric PIN sanitisation and the child-session payload', async () => {

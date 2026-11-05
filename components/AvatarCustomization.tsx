@@ -1,6 +1,7 @@
 import { Owl } from './sunny/Owl';
 import { SpeechBubble } from './sunny/SpeechBubble';
 import { describeAvatar } from './sunny/avatarDescription';
+import { avatarUnlockText } from './sunny/avatarUnlockText';
 import './SunnyArtAvatar.css';
 import React, { useState, useEffect } from 'react';
 import { 
@@ -270,7 +271,7 @@ const AvatarCustomization: React.FC<AvatarCustomizationProps> = ({
                               ? 'bg-white/10 hover:bg-white/20'
                               : 'bg-white/5 opacity-50'
                           }`}
-                          title={isUnlocked ? item.name : progress.progressText}
+                          title={isUnlocked ? item.name : avatarUnlockText(item.unlockCondition, progress.progressText)}
                         >
                           <div
                             className="w-8 h-8 rounded-full mx-auto"
@@ -328,7 +329,7 @@ const AvatarCustomization: React.FC<AvatarCustomizationProps> = ({
                           <div className="absolute inset-0 bg-black/50 rounded-xl flex flex-col items-center justify-center">
                             <span className="text-2xl mb-1">🔒</span>
                             <span className="text-white/60 text-xs text-center px-1">
-                              {progress.progressText}
+                              {avatarUnlockText(item.unlockCondition, progress.progressText)}
                             </span>
                           </div>
                         )}
