@@ -1,3 +1,6 @@
+import { Owl } from './sunny/Owl';
+import { SpeechBubble } from './sunny/SpeechBubble';
+import './SunnyArtAvatar.css';
 import React, { useState, useMemo } from 'react';
 import { famousArtworks, drawingLessons, Artwork, DrawingLesson } from '../data/artResources';
 import { ModalShell, PageShell } from './layout/AppShells';
@@ -48,11 +51,13 @@ export const ArtGalleryView: React.FC<ArtGalleryViewProps> = ({
   };
 
   return (
-    <PageShell title="Art Studio" subtitle="Explore famous art and practise drawing" icon="🎨" onBack={onBack} maxWidth="4xl" tone="purple">
+    <PageShell className="sunny-art-gallery sunny-ui" title="Art Studio" subtitle="Explore famous art and practise drawing" icon="🎨" onBack={onBack} maxWidth="4xl" tone="purple">
+        <div className="sunny-art-idea"><Owl pose="wave" height={90} /><SpeechBubble>Today’s idea: explore a famous artwork or choose a drawing lesson. Make something your own!</SpeechBubble></div>
         {/* Tabs */}
         <div className="flex gap-2 mb-6">
           <button
             onClick={() => setActiveTab('gallery')}
+            aria-pressed={activeTab === 'gallery'}
             className={`flex-1 py-3 px-4 rounded-xl font-bold transition-all ${
               activeTab === 'gallery'
                 ? 'bg-purple-500 text-white shadow-lg scale-105'
@@ -63,6 +68,7 @@ export const ArtGalleryView: React.FC<ArtGalleryViewProps> = ({
           </button>
           <button
             onClick={() => setActiveTab('lessons')}
+            aria-pressed={activeTab === 'lessons'}
             className={`flex-1 py-3 px-4 rounded-xl font-bold transition-all ${
               activeTab === 'lessons'
                 ? 'bg-pink-500 text-white shadow-lg scale-105'
@@ -86,7 +92,7 @@ export const ArtGalleryView: React.FC<ArtGalleryViewProps> = ({
                   onClick={() => handleArtworkClick(artwork)}
                   className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all hover:scale-105 text-left"
                 >
-                  <div className="aspect-square relative">
+                  <div className="sunny-artwork-picture aspect-square relative">
                     <img
                       src={artwork.thumbnailUrl}
                       alt={artwork.title}
@@ -94,8 +100,8 @@ export const ArtGalleryView: React.FC<ArtGalleryViewProps> = ({
                       loading="lazy"
                     />
                     <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3">
-                      <p className="text-white text-sm font-bold truncate">{artwork.title}</p>
-                      <p className="text-white/80 text-xs truncate">{artwork.artist}</p>
+                      <p className="text-white text-sm font-bold">{artwork.title}</p>
+                      <p className="text-white/80 text-xs">{artwork.artist}</p>
                     </div>
                   </div>
                 </button>

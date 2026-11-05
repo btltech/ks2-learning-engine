@@ -1,3 +1,7 @@
+import { Owl } from './sunny/Owl';
+import { SpeechBubble } from './sunny/SpeechBubble';
+import { describeAvatar } from './sunny/avatarDescription';
+import './SunnyArtAvatar.css';
 import React, { useState, useEffect } from 'react';
 import { 
   avatarCustomizationService, 
@@ -87,9 +91,11 @@ const AvatarCustomization: React.FC<AvatarCustomizationProps> = ({
   };
 
   const display = avatarCustomizationService.getAvatarDisplay();
+  const avatarItems = avatarCustomizationService.getAllItems();
+  const description = describeAvatar(config, avatarItems);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-indigo-900 to-blue-900 p-4">
+    <div className="sunny-avatar-editor sunny-ui min-h-screen bg-gradient-to-br from-purple-900 via-indigo-900 to-blue-900 p-4">
       {/* Unlock Modal */}
       {showUnlockModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
@@ -134,20 +140,21 @@ const AvatarCustomization: React.FC<AvatarCustomizationProps> = ({
             <span>Back</span>
           </button>
           <div className="text-center flex-1">
-            <h1 className="text-2xl font-bold text-white">✨ Avatar Customization</h1>
+            <h1 className="text-2xl font-bold text-white">Make my picture</h1>
             <p className="text-white/60">Personalize your character!</p>
           </div>
           <div className="w-20" /> {/* Spacer for centering */}
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="sunny-art-idea"><Owl pose="wave" height={90} /><SpeechBubble>Looking great! Pick anything you like. You can change it any time. Your choices save as you pick.</SpeechBubble></div>
+        <div className="sunny-avatar-layout grid md:grid-cols-3 gap-6">
           {/* Preview */}
           <div className="md:col-span-1">
             <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 sticky top-4">
               <h3 className="text-white font-semibold mb-4 text-center">Preview</h3>
               
               {/* Avatar Preview */}
-              <div className="relative w-48 h-48 mx-auto">
+              <div className="sunny-avatar-preview relative w-48 h-48 mx-auto" role="img" aria-label={description}>
                 {/* Background */}
                 <div className="absolute inset-0 rounded-full flex items-center justify-center text-6xl opacity-30">
                   {display.background}
@@ -194,13 +201,14 @@ const AvatarCustomization: React.FC<AvatarCustomizationProps> = ({
                 )}
               </div>
 
+              <p className="sunny-avatar-description" aria-live="polite" aria-atomic="true">{description}</p>
               {/* Stats */}
               <div className="mt-6 space-y-2 text-center">
                 <p className="text-white/60 text-sm">
                   ⭐ {currentXp} XP • 🔥 {currentStreak} Day Streak
                 </p>
                 <p className="text-white/40 text-xs">
-                  {unlockedItems.length} / {avatarCustomizationService.getAllItems().length} items unlocked
+                  {unlockedItems.length} / {avatarItems.length} items unlocked
                 </p>
               </div>
 
@@ -224,6 +232,7 @@ const AvatarCustomization: React.FC<AvatarCustomizationProps> = ({
                 <button
                   key={cat.id}
                   onClick={() => setActiveCategory(cat.id)}
+                  aria-pressed={activeCategory === cat.id}
                   className={`px-4 py-2 rounded-xl font-medium whitespace-nowrap transition-all ${
                     activeCategory === cat.id
                       ? 'bg-white/20 text-white'
@@ -253,6 +262,7 @@ const AvatarCustomization: React.FC<AvatarCustomizationProps> = ({
                           key={item.id}
                           onClick={() => isUnlocked && handleEquip(item.id)}
                           disabled={!isUnlocked}
+                          aria-pressed={equipped}
                           className={`relative p-3 rounded-xl transition-all ${
                             equipped
                               ? 'ring-2 ring-white bg-white/20'
@@ -266,6 +276,7 @@ const AvatarCustomization: React.FC<AvatarCustomizationProps> = ({
                             className="w-8 h-8 rounded-full mx-auto"
                             style={{ background: item.color }}
                           />
+                          <span className="sunny-avatar-colour-name">{item.name}</span>
                           {!isUnlocked && (
                             <span className="absolute top-0 right-0 text-xs">🔒</span>
                           )}
@@ -294,6 +305,7 @@ const AvatarCustomization: React.FC<AvatarCustomizationProps> = ({
                         key={item.id}
                         onClick={() => isUnlocked && handleEquip(item.id)}
                         disabled={!isUnlocked}
+                        aria-pressed={equipped}
                         className={`relative p-4 rounded-xl transition-all ${
                           equipped
                             ? 'ring-2 ring-white bg-white/20'
@@ -303,7 +315,7 @@ const AvatarCustomization: React.FC<AvatarCustomizationProps> = ({
                         }`}
                       >
                         <div className="text-3xl text-center mb-2">{item.icon}</div>
-                        <p className="text-white text-xs text-center truncate">{item.name}</p>
+                        <p className="text-white text-xs text-center">{item.name}</p>
                         
                         {/* Rarity indicator */}
                         <div

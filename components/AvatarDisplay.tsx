@@ -1,3 +1,5 @@
+import { describeAvatar } from './sunny/avatarDescription';
+import './SunnyArtAvatar.css';
 /**
  * Avatar Display Component
  * 
@@ -22,6 +24,7 @@ const AvatarDisplay: React.FC<AvatarDisplayProps> = ({
   onClick,
 }) => {
   const display = avatarCustomizationService.getAvatarDisplay();
+  const config = avatarCustomizationService.getConfig();
 
   const sizeClasses = {
     sm: 'w-10 h-10',
@@ -43,11 +46,13 @@ const AvatarDisplay: React.FC<AvatarDisplayProps> = ({
     <div
       onClick={onClick}
       className={`
-        relative ${sizeClasses[size]} rounded-full
+        sunny-avatar-display relative ${sizeClasses[size]} rounded-full
         ${isClickable ? 'cursor-pointer hover:scale-110 transition-transform' : ''}
         ${className}
       `}
-      role={isClickable ? 'button' : undefined}
+      role={isClickable ? 'button' : 'img'}
+      aria-label={describeAvatar({ ...config, effect: showEffects ? config.effect : null }, avatarCustomizationService.getAllItems())}
+      onKeyDown={isClickable ? (event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); onClick?.(); } } : undefined}
       tabIndex={isClickable ? 0 : undefined}
     >
       {/* Background */}
@@ -97,7 +102,7 @@ const AvatarDisplay: React.FC<AvatarDisplayProps> = ({
 
       {/* Effect */}
       {showEffects && display.effect && (
-        <div className="absolute inset-0 flex items-center justify-center animate-pulse pointer-events-none">
+        <div data-avatar-effect className="absolute inset-0 flex items-center justify-center animate-pulse pointer-events-none">
           <span className={iconSizes[size].effect}>{display.effect}</span>
         </div>
       )}

@@ -545,7 +545,8 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
       {/* Drawing Canvas */}
       {currentQuestion.questionType === QuestionType.Drawing && (
         <div className="space-y-4">
-          <DrawingCanvas 
+          <DrawingCanvas
+            idea={currentQuestion.question}
             onSave={(data) => setDrawingData(data)} 
             width={600} 
             height={400} 
