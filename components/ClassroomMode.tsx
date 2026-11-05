@@ -1,3 +1,6 @@
+import { Owl } from './sunny/Owl';
+import { AnswerShape } from './sunny/AnswerShape';
+import './SunnyBitesClassroom.css';
 import React, { useState, useEffect } from 'react';
 import { classroomService, ClassroomSession, ClassroomStudent } from '../services/classroomService';
 import { QuizQuestion, Difficulty } from '../types';
@@ -81,6 +84,9 @@ const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeach
   const [timeLeft, setTimeLeft] = useState(30);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [hasAnswered, setHasAnswered] = useState(false);
+  // Delivery feedback only; joining, answer arguments and realtime handlers stay unchanged.
+  const [answerDelivery, setAnswerDelivery] = useState<{ key: string; status: 'sending' | 'sent' | 'failed' } | null>(null);
+  const pupilClass = isTeacher ? '' : 'sunny-classroom sunny-ui';
 
   // Subscribe to session updates
   useEffect(() => {
@@ -255,9 +261,10 @@ const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeach
   // Menu View
   if (viewMode === 'menu') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 p-4 flex items-center justify-center">
+      <div data-view={viewMode} className={`${pupilClass} min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 p-4 flex items-center justify-center`}>
         <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 max-w-md w-full">
-          <h1 className="text-3xl font-bold text-white text-center mb-2">🏫 Classroom Mode</h1>
+          <h1 className="text-3xl font-bold text-white text-center mb-2">{isTeacher ? "🏫 Classroom Mode" : "Live classroom"}</h1>
+          {!isTeacher && <Owl pose="wave" height={100} />}
           <p className="text-white/70 text-center mb-8">
             {isTeacher ? 'Create a live quiz session for your class' : 'Join your teacher\'s quiz session'}
           </p>
@@ -296,7 +303,7 @@ const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeach
   // Create Session View
   if (viewMode === 'create') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 p-4">
+      <div data-view={viewMode} className={`${pupilClass} min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 p-4`}>
         <div className="max-w-2xl mx-auto">
           <button
             onClick={() => setViewMode('menu')}
@@ -407,7 +414,7 @@ const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeach
   // Join Session View
   if (viewMode === 'join') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 p-4 flex items-center justify-center">
+      <div data-view={viewMode} className={`${pupilClass} min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 p-4 flex items-center justify-center`}>
         <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 max-w-md w-full">
           <button
             onClick={() => setViewMode('menu')}
@@ -416,8 +423,9 @@ const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeach
             ← Back
           </button>
 
+          {!isTeacher && <span className="sunny-class-step">Step 1</span>}
           <h2 className="text-2xl font-bold text-white mb-2 text-center">Join Session</h2>
-          <p className="text-white/70 text-center mb-6">Enter the 6-digit code from your teacher</p>
+          <p className="text-white/70 text-center mb-6">{isTeacher ? "Enter the 6-digit code from your teacher" : "Enter the 6-character code from your teacher"}</p>
 
           {error && (
             <div className="bg-red-500/20 text-red-200 px-4 py-2 rounded-lg mb-4 text-center">
@@ -425,7 +433,9 @@ const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeach
             </div>
           )}
 
+          <label className={!isTeacher ? "sunny-class-code-label" : "sr-only"} htmlFor="classroom-join-code">Class code</label>
           <input
+            id="classroom-join-code"
             type="text"
             value={joinCode}
             onChange={(e) => setJoinCode(e.target.value.toUpperCase().slice(0, 6))}
@@ -451,7 +461,7 @@ const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeach
     const students: ClassroomStudent[] = Object.values(session.students || {}) as ClassroomStudent[];
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 p-4">
+      <div data-view={viewMode} className={`${pupilClass} min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 p-4`}>
         <div className="max-w-2xl mx-auto">
           <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 mb-4">
             <div className="text-center">
@@ -535,14 +545,14 @@ const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeach
     const correctAnswerIndex = resolveCorrectOptionIndex(question);
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 p-4">
-        <div className="max-w-4xl mx-auto grid md:grid-cols-3 gap-4">
+      <div data-view={viewMode} className={`${pupilClass} min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 p-4`}>
+        <div className={`${isTeacher ? "" : "sunny-class-active"} max-w-4xl mx-auto grid md:grid-cols-3 gap-4`}>
           {/* Main Quiz Area */}
           <div className="md:col-span-2 space-y-4">
             {/* Progress & Timer */}
             <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-4 flex items-center justify-between">
               <span className="text-white font-medium">
-                Question {session.currentQuestionIndex + 1} of {session.questions.length}
+                {!isTeacher && <span className="sunny-class-step">Step 2 · </span>}Question {session.currentQuestionIndex + 1} of {session.questions.length}
               </span>
               <div className={`text-2xl font-bold ${timeLeft <= 5 ? 'text-red-400 animate-pulse' : 'text-white'}`}>
                 ⏱️ {timeLeft}s
@@ -550,7 +560,8 @@ const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeach
             </div>
 
             {/* Question */}
-            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6">
+            <div className={`${isTeacher ? "" : "sunny-class-question"} bg-white/10 backdrop-blur-lg rounded-2xl p-6`}>
+              {!isTeacher && <Owl pose="thinking" height={100} />}
               <h2 className="text-xl font-bold text-white mb-6">{question.question}</h2>
 
               <div className="space-y-3">
@@ -572,17 +583,29 @@ const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeach
                   return (
                     <button
                       key={index}
-                      onClick={() => handleSubmitAnswer(index)}
+                      onClick={() => {
+                        const key = `${session.id}:${session.currentQuestionIndex}`;
+                        setAnswerDelivery({ key, status: 'sending' });
+                        void handleSubmitAnswer(index)
+                          .then(() => setAnswerDelivery({ key, status: 'sent' }))
+                          .catch(() => setAnswerDelivery({ key, status: 'failed' }));
+                      }}
+                      data-answer-state={hasAnswered ? (index === correctAnswerIndex ? 'correct' : index === selectedAnswer ? 'incorrect' : 'other') : undefined}
                       disabled={hasAnswered || isTeacher}
                       className={buttonClass}
                     >
-                      <span className="font-mono mr-3">{String.fromCharCode(65 + index)}.</span>
-                      {option}
+                      {!isTeacher && <AnswerShape index={index} />}
+                      <span><span className="font-mono mr-3">{String.fromCharCode(65 + index)}.</span>{option}</span>
+                      {!isTeacher && hasAnswered && (index === correctAnswerIndex || index === selectedAnswer) && <span className="sunny-class-answer-label" aria-hidden="true">{index === correctAnswerIndex ? '✓ Correct answer' : '↻ Not correct'}</span>}
                     </button>
                   );
                 })}
               </div>
 
+              {!isTeacher && <>
+                {hasAnswered && <p className="sunny-class-delivery" role="status">{answerDelivery?.key === `${session.id}:${session.currentQuestionIndex}` ? (answerDelivery.status === 'sent' ? '✓ Answer sent!' : answerDelivery.status === 'failed' ? 'Your answer could not be sent. Please tell your teacher.' : 'Sending your answer…') : 'The question time has ended.'}</p>}
+                <p className="sunny-class-privacy">Your teacher can see submitted results. Names and scores can appear on the class leaderboard.</p>
+              </>}
               {hasAnswered && session.settings.showCorrectAnswers && (
                 <div className="mt-4 p-4 bg-blue-500/20 rounded-xl">
                   <p className="text-blue-200">{question.explanation}</p>
@@ -645,7 +668,7 @@ const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeach
     const myRank = leaderboard.findIndex(s => s.id === userId) + 1;
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 p-4">
+      <div data-view={viewMode} className={`${pupilClass} min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 p-4`}>
         <div className="max-w-2xl mx-auto space-y-4">
           <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 text-center">
             <h1 className="text-3xl font-bold text-white mb-2">🎉 Quiz Complete!</h1>

@@ -1,3 +1,4 @@
+import './SunnyBitesClassroom.css';
 import React, { useState } from 'react';
 import { MicroSession } from '../services/microlearningService';
 
@@ -15,14 +16,15 @@ const MicrolearningCard: React.FC<Props> = ({ session, onStart }) => {
 
   return (
     <article
-      className={`relative bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 ${
+      data-subject={session.subject}
+      className={`sunny-bite-card sunny-ui relative bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 ${
         isHovered ? 'transform scale-105 shadow-2xl' : ''
       }`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Header with gradient */}
-      <div className={`h-2 ${
+      <div className={`sunny-bite-strip h-2 ${
         (session.subject as string) === 'Maths' ? 'bg-gradient-to-r from-blue-500 to-purple-500' :
         (session.subject as string) === 'English' ? 'bg-gradient-to-r from-green-500 to-teal-500' :
         'bg-gradient-to-r from-orange-500 to-red-500'
@@ -41,6 +43,7 @@ const MicrolearningCard: React.FC<Props> = ({ session, onStart }) => {
           <span className="text-2xl">⚡</span>
         </div>
 
+        <span className="sunny-bite-subject">{session.subject}</span>
         {/* Title */}
         <h3 className="text-xl font-bold text-gray-900 mb-2">
           {session.title}
