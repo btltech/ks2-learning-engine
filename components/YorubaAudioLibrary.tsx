@@ -1,3 +1,6 @@
+import { Owl } from './sunny/Owl';
+import { YorubaToneGuide } from './sunny/YorubaToneGuide';
+import './SunnyLanguages.css';
 import React, { useEffect, useMemo, useState } from 'react';
 import { SpeakerWaveIcon } from '@heroicons/react/24/solid';
 import { getYorubaAudioEntries, playYorubaAudio, stopYorubaAudio, type YorubaAudioEntry } from '../services/yorubaAudio';
@@ -86,15 +89,17 @@ const YorubaAudioLibrary: React.FC<YorubaAudioLibraryProps> = ({ onBack }) => {
 
   return (
     <PageShell
+      className="sunny-yoruba-library sunny-ui"
       title="Yorùbá Audio Library"
       subtitle={`${entries.length || 450} reviewed words and phrases with English translations`}
-      icon="🔊"
+      icon={<Owl pose="reading" height={120} />}
       onBack={onBack}
       backLabel="Back to Yorùbá topics"
       maxWidth="6xl"
       tone="purple"
     >
-      <div className="rounded-2xl border border-emerald-100 bg-white p-4 shadow-sm sm:p-6">
+      <YorubaToneGuide compact />
+      <div className="sunny-library-filters rounded-2xl border border-emerald-100 bg-white p-4 shadow-sm sm:p-6">
         <div className="grid grid-cols-1 gap-3 md:grid-cols-[1fr_16rem]">
           <div>
             <label htmlFor="yoruba-library-search" className="mb-1 block text-sm font-bold text-gray-700">Search Yorùbá or English</label>
@@ -104,7 +109,7 @@ const YorubaAudioLibrary: React.FC<YorubaAudioLibraryProps> = ({ onBack }) => {
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder="For example: family, ọjọ́, school…"
-              className="min-h-11 w-full rounded-xl border border-gray-300 px-4 focus:outline-none focus:ring-4 focus:ring-emerald-200"
+              className="min-h-12 w-full rounded-xl border border-gray-300 px-4 focus:outline-none focus:ring-4 focus:ring-emerald-200"
             />
           </div>
           <div>
@@ -113,7 +118,7 @@ const YorubaAudioLibrary: React.FC<YorubaAudioLibraryProps> = ({ onBack }) => {
               id="yoruba-library-category"
               value={category}
               onChange={(event) => setCategory(event.target.value)}
-              className="min-h-11 w-full rounded-xl border border-gray-300 px-3 focus:outline-none focus:ring-4 focus:ring-emerald-200"
+              className="min-h-12 w-full rounded-xl border border-gray-300 px-3 focus:outline-none focus:ring-4 focus:ring-emerald-200"
             >
               <option value="">All topics</option>
               {categories.map((value) => <option key={value} value={value}>{value}</option>)}
@@ -121,6 +126,12 @@ const YorubaAudioLibrary: React.FC<YorubaAudioLibraryProps> = ({ onBack }) => {
           </div>
         </div>
 
+        <div className="sunny-library-groups" aria-label="Recording groups">
+          <button type="button" aria-pressed={category === ''} onClick={() => setCategory('')}>All topics</button>
+          {categories.filter(value => ['Greetings and introductions', 'Numbers and age', 'Family and people'].includes(value)).map(value => (
+            <button key={value} type="button" aria-pressed={category === value} onClick={() => setCategory(value)}>{value}</button>
+          ))}
+        </div>
         <div className="mt-4 flex flex-wrap items-center justify-between gap-2 text-sm text-gray-600" role="status" aria-live="polite">
           <span>{filteredEntries.length} {filteredEntries.length === 1 ? 'recording' : 'recordings'} found</span>
           <span>Audio is served from the reviewed library, not browser or Google speech.</span>
@@ -134,10 +145,11 @@ const YorubaAudioLibrary: React.FC<YorubaAudioLibraryProps> = ({ onBack }) => {
         <div className="mt-6 rounded-2xl bg-white p-10 text-center text-gray-600 shadow-sm">No matching word or phrase was found.</div>
       ) : (
         <>
-          <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="sunny-library-tiles mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {visibleEntries.map((entry) => (
               <button
                 key={entry.hash}
+                data-playing={playingHash === entry.hash || undefined}
                 type="button"
                 onClick={() => void playEntry(entry)}
                 disabled={playingHash !== null}
@@ -145,23 +157,25 @@ const YorubaAudioLibrary: React.FC<YorubaAudioLibraryProps> = ({ onBack }) => {
                 aria-label={`Play ${entry.text}: ${entry.english || 'English translation unavailable'}`}
               >
                 <span>
-                  <span className="block text-lg font-bold text-gray-900">{entry.text}</span>
+                  <span className="sunny-library-word block text-lg font-bold text-gray-900" lang="yo">{entry.text}</span>
                   <span className="mt-1 block text-sm text-gray-600">{entry.english || 'English translation unavailable'}</span>
                   {entry.category && <span className="mt-2 inline-block rounded-full bg-purple-50 px-2 py-1 text-xs font-semibold text-purple-700">{entry.category}</span>}
                 </span>
-                <SpeakerWaveIcon className={`mt-1 h-6 w-6 shrink-0 text-emerald-700 ${playingHash === entry.hash ? 'animate-pulse' : ''}`} aria-hidden="true" />
+                <span className="sunny-library-play"><SpeakerWaveIcon className="h-6 w-6" aria-hidden="true" /><span>Play</span></span>
+                {playingHash === entry.hash && <span className="sunny-library-playing" role="status"><span className="sunny-language-sound" aria-hidden="true"><i /><i /><i /><i /></span>Playing now</span>}
               </button>
             ))}
           </div>
           {visibleCount < filteredEntries.length && (
             <div className="mt-6 text-center">
-              <button type="button" onClick={() => setVisibleCount((count) => count + 60)} className="min-h-11 rounded-xl bg-emerald-700 px-6 font-bold text-white hover:bg-emerald-800">
+              <button type="button" onClick={() => setVisibleCount((count) => count + 60)} className="min-h-12 rounded-xl bg-emerald-700 px-6 font-bold text-white hover:bg-emerald-800">
                 Show 60 more
               </button>
             </div>
           )}
         </>
       )}
+      <div className="sunny-library-practise"><Owl pose="wave" height={80} /><div><strong>Say them with me</strong><p>Play a recording, listen to the tones, then say it out loud.</p></div></div>
     </PageShell>
   );
 };

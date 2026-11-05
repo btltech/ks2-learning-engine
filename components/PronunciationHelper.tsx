@@ -1,3 +1,7 @@
+import { Owl } from './sunny/Owl';
+import { YorubaToneGuide } from './sunny/YorubaToneGuide';
+import { languageTag } from './sunny/languagePresentation';
+import './SunnyLanguages.css';
 import React, { useState } from 'react';
 import { SpeakerWaveIcon, ArrowPathIcon } from '@heroicons/react/24/solid';
 import { getPhonetics, getPronunciationRules, breakIntoSyllables } from '../services/phoneticsService';
@@ -7,36 +11,10 @@ import { playYorubaAudio, stopYorubaAudio } from '../services/yorubaAudio';
 interface PronunciationHelperProps {
   word: string;
   language: string;
+  meaning?: string;
   showRules?: boolean;
   size?: 'sm' | 'md' | 'lg';
 }
-
-// Yoruba tone guide component
-const YorubaToneGuide: React.FC = () => (
-  <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-3">
-    <div className="text-sm font-bold text-amber-800 mb-2">🎵 Yoruba is a TONAL language!</div>
-    <div className="grid grid-cols-3 gap-2 text-xs">
-      <div className="bg-white rounded p-2 text-center">
-        <div className="text-red-500 font-bold text-lg">↑</div>
-        <div className="font-semibold">HIGH</div>
-        <div className="text-gray-500">Voice goes UP</div>
-      </div>
-      <div className="bg-white rounded p-2 text-center">
-        <div className="text-blue-500 font-bold text-lg">→</div>
-        <div className="font-semibold">MID</div>
-        <div className="text-gray-500">Normal voice</div>
-      </div>
-      <div className="bg-white rounded p-2 text-center">
-        <div className="text-green-500 font-bold text-lg">↓</div>
-        <div className="font-semibold">LOW</div>
-        <div className="text-gray-500">Voice goes DOWN</div>
-      </div>
-    </div>
-    <div className="text-xs text-amber-700 mt-2">
-      💡 The same word with different tones can mean different things!
-    </div>
-  </div>
-);
 
 /**
  * Pronunciation Helper Component
@@ -49,6 +27,7 @@ const YorubaToneGuide: React.FC = () => (
 const PronunciationHelper: React.FC<PronunciationHelperProps> = ({
   word,
   language,
+  meaning,
   showRules = false,
   size = 'md',
 }) => {
@@ -62,6 +41,9 @@ const PronunciationHelper: React.FC<PronunciationHelperProps> = ({
   const pronunciationRules = showRules ? getPronunciationRules(language) : null;
   const isYoruba = language === 'Yoruba';
   const tones = phoneticsData?.tones?.split('-') || [];
+  const phoneticParts = phoneticsData?.phonetic.split(/([A-Z]{2,})/g) || [];
+  const guideSyllables = phoneticsData?.phonetic.split(/[-\s]+/) || [];
+  const hasAlignedStressGuide = !isYoruba && guideSyllables.length === syllables.length;
 
   React.useEffect(() => () => stopYorubaAudio(), []);
 
@@ -132,22 +114,24 @@ const PronunciationHelper: React.FC<PronunciationHelperProps> = ({
   };
 
   return (
-    <div className={`bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-4 border border-purple-100 ${sizeClasses[size]}`}>
+    <div className={`sunny-pronunciation sunny-ui bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-4 border border-purple-100 ${sizeClasses[size]}`} data-size={size}>
       {/* Yoruba Tone Guide */}
       {isYoruba && showRules && <YorubaToneGuide />}
       
+      <div className="sunny-say-it-label"><Owl pose="wave" height={76} /><strong>Say it</strong><span>{language}</span></div>
       {/* Word and Phonetic */}
-      <div className="flex items-center justify-between mb-3">
+      <div className="sunny-pronunciation-heading flex items-center justify-between mb-3">
         <div>
-          <span className="font-bold text-gray-800 text-xl">{word}</span>
+          <span className="sunny-pronunciation-word font-bold text-gray-800 text-xl" lang={languageTag(language)}>{word}</span>
+          {meaning && <span className="sunny-word-meaning">means <strong>{meaning}</strong></span>}
           {phoneticsData && (
-            <span className="ml-3 text-purple-600 font-mono bg-purple-100 px-2 py-1 rounded">
-              [{phoneticsData.phonetic}]
+            <span className="sunny-phonetic ml-3 text-purple-600 font-mono bg-purple-100 px-2 py-1 rounded">
+              [{phoneticParts.map((part, index) => /^[A-Z]{2,}$/.test(part) ? <mark key={index}>{part}</mark> : part)}]
             </span>
           )}
         </div>
         
-        <div className="flex items-center gap-2">
+        <div className="sunny-pronunciation-actions flex items-center gap-2">
           {/* Speed toggle */}
           <button
             onClick={() => setSpeed(s => s === 'slow' ? 'normal' : 'slow')}
@@ -173,12 +157,13 @@ const PronunciationHelper: React.FC<PronunciationHelperProps> = ({
             ) : (
               <SpeakerWaveIcon className="h-5 w-5" />
             )}
+            <span>Hear it</span>
           </button>
         </div>
       </div>
 
       {/* Syllables */}
-      <div className="mb-3">
+      <div className="sunny-syllables mb-3">
         <div className="text-xs text-gray-500 mb-2 font-semibold uppercase tracking-wide">
           Syllables {isYoruba && tones.length > 0 ? '(with tones)' : '(tap each to hear)'}:
         </div>
@@ -188,6 +173,9 @@ const PronunciationHelper: React.FC<PronunciationHelperProps> = ({
             return (
               <button
                 key={index}
+                lang={languageTag(language)}
+                data-stressed={hasAlignedStressGuide && /^[A-Z]+$/.test(guideSyllables[index]) || undefined}
+                data-playing={currentSyllable === index || undefined}
                 onClick={() => handleSpeakSyllable(syllable, index)}
                 className={`px-4 py-2 rounded-lg font-bold transition-all transform hover:scale-105 relative ${
                   currentSyllable === index
@@ -197,7 +185,7 @@ const PronunciationHelper: React.FC<PronunciationHelperProps> = ({
               >
                 {syllable}
                 {toneInfo && (
-                  <span className={`absolute -top-2 -right-2 ${toneInfo.color} bg-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold shadow border`}>
+                  <span className={`sunny-syllable-tone absolute -top-2 -right-2 ${toneInfo.color} bg-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold shadow border`}>
                     {toneInfo.symbol}
                   </span>
                 )}

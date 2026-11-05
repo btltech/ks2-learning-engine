@@ -1,0 +1,159 @@
+/* Sunny Owl language presentation. Audio, curriculum and routing stay with their owners. */
+:is(.sunny-languages,.sunny-pronunciation,.sunny-yoruba-library,.sunny-tone-guide) { color: #172033; font: 1.125rem/1.6 'Atkinson Hyperlegible',sans-serif; }
+:is(.sunny-languages,.sunny-pronunciation,.sunny-yoruba-library,.sunny-tone-guide) :is(p,span,div,label,input,select,button,h1,h2,h3) { font-family: inherit; color: inherit; }
+:is(.sunny-languages,.sunny-pronunciation,.sunny-yoruba-library,.sunny-tone-guide) :is(h1,h2,h3,strong,button) { font-family: 'Fredoka',sans-serif; }
+:is(.sunny-languages,.sunny-pronunciation,.sunny-yoruba-library) :is(p,span,h1,h2,h3,strong) { overflow-wrap: anywhere; }
+:is(.sunny-languages,.sunny-pronunciation,.sunny-yoruba-library) :is(button,input,select) { min-height: 48px; min-width: 48px; font-size: 1.125rem; scroll-margin-block: 120px; }
+:is(.sunny-languages,.sunny-pronunciation,.sunny-yoruba-library) :is(button,input,select):focus-visible { outline: 4px solid #1E55C8 !important; outline-offset: 3px !important; }
+:is(.sunny-languages,.sunny-pronunciation,.sunny-yoruba-library).sunny-ui button { border: 3px solid #172033; border-radius: 18px; background: #fff; background-image: none; color: inherit; box-shadow: 0 5px 0 #172033; font-weight: 600; transform: none; }
+:is(.sunny-languages,.sunny-pronunciation,.sunny-yoruba-library).sunny-ui button:disabled { opacity: .65; cursor: not-allowed; }
+body:has(.sunny-languages,.sunny-yoruba-library) { background: #FFF9EC radial-gradient(#F3E3B8 2px,transparent 2px) 0 0 / 28px 28px; }
+.mobile-shell:has(> .sunny-languages) { max-width: 1280px; }
+.sunny-languages { max-width: 1200px; padding-bottom: 40px; }
+.sunny-languages > button:first-child { display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px; margin-bottom: 28px; }
+.sunny-passport-hero { display: flex; align-items: center; gap: 28px; padding: 32px 36px; border: 3px solid #172033; border-radius: 32px 32px 0 0; background: linear-gradient(110deg,#FFD9B0,#FFF0DF); text-align: left; }
+.sunny-passport-hero > img { flex-shrink: 0; width: 120px !important; height: 140px !important; }
+.sunny-passport-hero h2 { font-size: 2.75rem; font-weight: 700; line-height: 1.2; margin-bottom: 14px; }
+.sunny-passport-hero p { padding: 12px 18px; border: 3px solid #172033; border-radius: 20px; background: #fff; font-weight: 700; }
+.sunny-passport-stamps { display: grid; grid-template-columns: repeat(auto-fit,minmax(160px,1fr)); justify-items: center; gap: 24px 16px; padding: 24px 32px 36px; border: 3px solid #172033; border-top: 0; border-radius: 0 0 32px 32px; background: #FFF0DF; box-shadow: 0 6px 0 #172033; }
+.sunny-passport-stamps > button { --stamp-colour: #3D8BFF; position: relative; display: flex; flex-direction: column; gap: 4px; width: 160px; height: 160px; padding: 16px; border-radius: 50% !important; }
+.sunny-passport-stamps > button::before { content: ''; position: absolute; inset: 8px; border: 3px dashed var(--stamp-colour); border-radius: 50%; pointer-events: none; }
+.sunny-passport-stamps > button:nth-child(4n+2) { --stamp-colour: #FF6FB5; }
+.sunny-passport-stamps > button:nth-child(4n+3) { --stamp-colour: #2FC27A; }
+.sunny-passport-stamps > button:nth-child(4n+4) { --stamp-colour: #8E6CFF; }
+.sunny-passport-stamps > button[aria-pressed='true'] { outline: 4px solid #172033; outline-offset: 4px; background: #FFF1C7; }
+.sunny-stamp-flag { order: 0; font-size: 1.5rem; line-height: 1.1; margin: 0; transform: none !important; }
+.sunny-stamp-greeting { order: 1; width: 100%; min-width: 0; white-space: normal; overflow-wrap: anywhere; font: 700 1.375rem/1.2 'Fredoka',sans-serif !important; }
+.sunny-stamp-greeting:is([lang='ja'],[lang='ko']) { font-size: 1.125rem !important; max-width: 100%; }
+.sunny-stamp-name { order: 2; margin: 0; font-size: 1.125rem; line-height: 1.3; }
+/* Language topic pages keep their real ordered path, search and progress. */
+.sunny-language-topics .sunny-subject-banner { background: linear-gradient(110deg,#FFD9B0,#FFF0DF); }
+.sunny-language-greeting { display: inline-block; font-size: 1.5rem; font-weight: 700; margin-top: 12px; padding: 2px 14px; background: #fff; border: 2px solid #172033; border-radius: 999px; }
+.sunny-language-topics > .sunny-tone-guide { margin-block: 28px; }
+/* Say it: the existing speed toggle, playback, syllables, tips and rules. */
+.sunny-pronunciation { padding: 28px; border: 3px solid #172033; border-radius: 28px; background: #fff; box-shadow: 0 6px 0 #172033; }
+.sunny-say-it-label { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+.sunny-say-it-label > img { width: 62px !important; height: 76px !important; }
+.sunny-say-it-label > strong { font-size: 1.5rem; }
+.sunny-say-it-label > span { padding: 2px 12px; border: 2px solid #172033; border-radius: 999px; background: #DDF6E8; font-weight: 700; }
+.sunny-pronunciation-heading { display: flex; flex-direction: column; align-items: stretch; gap: 24px; }
+.sunny-pronunciation-heading > div:first-child { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 20px; }
+.sunny-pronunciation-word { font: 700 clamp(2.5rem,5vw,4.5rem)/1.2 'Fredoka',sans-serif !important; }
+.sunny-pronunciation[data-size='sm'] .sunny-pronunciation-word { font-size: 2rem !important; }
+.sunny-word-meaning { border: 3px solid #172033; border-radius: 16px; background: #FFF1C7; padding: 8px 14px; font-size: 1.125rem; }
+.sunny-phonetic { display: block; flex-basis: 100%; margin: 0; padding: 0; background: transparent; font-size: 1.375rem; }
+.sunny-phonetic mark { background: #FFE3F1; color: inherit; border-radius: 6px; padding: 0 4px; font-weight: 700; }
+.sunny-pronunciation-actions { display: flex; flex-wrap: wrap; gap: 14px; padding-bottom: 8px; }
+.sunny-pronunciation-actions > button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 60px; padding: 10px 20px; }
+.sunny-pronunciation-actions > button:last-child { order: -1; background: #FFC93C; }
+.sunny-pronunciation-actions svg { width: 24px; height: 24px; }
+.sunny-syllables { margin-block: 24px; padding: 20px; border: 3px solid #172033; border-radius: 24px; background: #DCEBFF; }
+.sunny-syllables > div:first-child { font-size: 1.125rem; text-transform: none; letter-spacing: normal; margin-bottom: 14px; }
+.sunny-syllables > div:last-child { gap: 14px; }
+.sunny-syllables button { min-height: 64px; padding: 10px 20px; font-size: 1.5rem; }
+.sunny-syllables button[data-stressed='true'] { background: #FFE3F1; }
+.sunny-syllables button[data-playing='true'] { background: #1E55C8; color: #fff; }
+.sunny-syllable-tone { position: static; display: inline-flex; width: auto; height: auto; margin-left: 8px; padding: 0 6px; border: 2px solid #172033; border-radius: 999px; background: #FFF1C7; color: #172033 !important; font-size: 1.125rem; box-shadow: none; }
+.sunny-pronunciation > div:not([class*='sunny-']) { font-size: 1.125rem; border: 2px solid #172033; border-radius: 18px; padding: 16px; background: #FFF1C7; }
+.sunny-pronunciation > div:last-child:not([class*='sunny-']) > div:last-child > div { font-size: 1.125rem; background: #fff; border: 2px solid #172033; border-radius: 14px; padding: 12px; }
+.sunny-pronunciation .text-xs,.sunny-pronunciation .text-sm { font-size: 1.125rem; }
+/* Tone is always expressed with words, marks and arrows as well as colour. */
+.sunny-tone-guide { margin-bottom: 24px; padding: 20px; border: 3px solid #172033; border-radius: 24px; background: #DDF6E8; }
+.sunny-tone-title { font: 700 1.375rem/1.3 'Fredoka',sans-serif !important; margin-bottom: 14px; }
+.sunny-tone-chips { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; }
+.sunny-tone-chips > div { display: flex; flex-direction: column; align-items: center; gap: 4px; border: 3px solid #172033; border-radius: 18px; padding: 10px; background: #fff; text-align: center; }
+.sunny-tone-chips > div > span:first-child { font: 700 2.25rem/1.2 'Fredoka',sans-serif; }
+.sunny-tone-guide > p:last-child { margin-top: 14px; }
+.sunny-tone-guide[data-compact] { background: linear-gradient(110deg,#DDF6E8,#FFF1C7); border-radius: 0 0 28px 28px; margin-top: -3px; }
+.sunny-tone-guide[data-compact] .sunny-tone-chips { max-width: 600px; }
+.sunny-tone-guide[data-compact] .sunny-tone-chips > div { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.sunny-tone-guide[data-compact] .sunny-tone-chips > div > span:last-child { display: none; }
+/* Library catalog: original search, topic select, loading/error states and play gate. */
+.sunny-yoruba-library { min-height: 0; padding: 0 0 40px; background: transparent; }
+.sunny-yoruba-library > div { max-width: 1200px; }
+.sunny-yoruba-library > div > header { display: block; margin: 0; padding: 28px 32px; border: 3px solid #172033; border-radius: 32px 32px 0 0; background: linear-gradient(110deg,#BFEED5,#FFF1C7); }
+.sunny-yoruba-library header button { padding: 8px 16px; margin-bottom: 24px; }
+.sunny-yoruba-library header h1 { font-size: 2.75rem; line-height: 1.2; font-weight: 700; }
+.sunny-yoruba-library header p { font-size: 1.125rem; margin-top: 12px; }
+.sunny-yoruba-library header img { width: 100px !important; height: 120px !important; max-width: none; }
+.sunny-yoruba-library header .flex.items-center > span:first-child { flex: 0 0 100px; }
+.sunny-library-filters { margin-top: 28px; border: 3px solid #172033; border-radius: 24px; padding: 24px; background: #fff; box-shadow: 0 6px 0 #172033; }
+.sunny-library-filters label,.sunny-library-filters [role='status'] { font-size: 1.125rem; }
+.sunny-library-filters :is(input,select) { background: #fff; border: 3px solid #172033; border-radius: 18px; min-height: 56px; color: inherit; }
+.sunny-library-groups { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; padding-bottom: 6px; }
+.sunny-library-groups button { padding: 8px 16px; text-transform: capitalize; }
+.sunny-library-groups button[aria-pressed='true'] { background: #FFC93C; }
+.sunny-library-tiles { gap: 24px; }
+.sunny-yoruba-library .sunny-library-tiles > button { --tile-strip: #FFC93C; position: relative; display: flex; flex-wrap: wrap; align-content: flex-start; gap: 16px; padding: 32px 22px 22px; border-radius: 26px; box-shadow: 0 6px 0 #172033; min-height: 230px; overflow: hidden; }
+.sunny-library-tiles > button::before { content: ''; position: absolute; inset: 0 0 auto; height: 14px; background: var(--tile-strip); border-bottom: 3px solid #172033; }
+.sunny-library-tiles > button:nth-child(6n+2) { --tile-strip: #FF9F1C; }
+.sunny-library-tiles > button:nth-child(6n+3) { --tile-strip: #8E6CFF; }
+.sunny-library-tiles > button:nth-child(6n+4) { --tile-strip: #3D8BFF; }
+.sunny-library-tiles > button:nth-child(6n+5) { --tile-strip: #2FC27A; }
+.sunny-library-tiles > button:nth-child(6n+6) { --tile-strip: #FF6FB5; }
+.sunny-library-tiles > button > span:first-child { display: block; flex: 1 1 100%; }
+.sunny-library-word { font: 700 1.75rem/1.3 'Fredoka',sans-serif; }
+.sunny-library-tiles .text-sm,.sunny-library-tiles .text-xs { font-size: 1.125rem; }
+.sunny-library-tiles > button > span:first-child > span:last-child:not(.sunny-library-word) { background: #ECE6FF; border-radius: 999px; }
+.sunny-library-play { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border: 3px solid #172033; border-radius: 16px; background: #FFC93C; font-weight: 700; }
+.sunny-library-playing { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+.sunny-library-tiles > button:disabled { opacity: .75; }
+.sunny-library-tiles > button[data-playing='true'] { opacity: 1; border-color: #1E55C8; box-shadow: 0 6px 0 #1E55C8; }
+.sunny-language-sound { display: inline-flex; align-items: center; gap: 4px; height: 28px; }
+.sunny-language-sound i { display: block; height: 20px; width: 5px; background: #1E55C8; border-radius: 4px; }
+.sunny-language-sound i:nth-child(2n) { height: 28px; }
+.sunny-library-practise { display: flex; align-items: center; gap: 20px; margin-top: 28px; padding: 20px 24px; border: 3px solid #172033; border-radius: 28px; box-shadow: 0 6px 0 #172033; background: #FFE3F1; }
+.sunny-library-practise > img { flex-shrink: 0; width: 64px !important; height: 80px !important; }
+.sunny-library-practise strong { font-size: 1.5rem; }
+@keyframes sunny-language-wave { 50% { transform: scaleY(.45); } }
+@media (prefers-reduced-motion: no-preference) {
+  :root:not(.reduce-motion) .sunny-library-playing .sunny-language-sound i { animation: sunny-language-wave .9s ease-in-out infinite; }
+  :root:not(.reduce-motion) .sunny-library-playing .sunny-language-sound i:nth-child(2n) { animation-delay: .15s; }
+}
+.reduce-motion :is(.sunny-languages,.sunny-pronunciation,.sunny-yoruba-library,.sunny-tone-guide) * { animation: none !important; transition: none !important; transform: none !important; scroll-behavior: auto !important; }
+@media (prefers-reduced-motion: reduce) { :is(.sunny-languages,.sunny-pronunciation,.sunny-yoruba-library,.sunny-tone-guide) * { animation: none !important; transition: none !important; transform: none !important; scroll-behavior: auto !important; } }
+:is(.large-text,.sunny-large-text) :is(.sunny-languages,.sunny-pronunciation,.sunny-yoruba-library,.sunny-tone-guide) :is(p,span,button,input,select,label) { font-size: 1.35rem; }
+:is(.large-text,.sunny-large-text) .sunny-stamp-greeting { font-size: 1.5rem !important; }
+:is(.large-text,.sunny-large-text) .sunny-pronunciation-word { font-size: 4.75rem !important; }
+:is(.high-contrast,.sunny-high-contrast) body:has(.sunny-languages,.sunny-yoruba-library) { background: var(--bg-primary,#000); }
+:is(.high-contrast,.sunny-high-contrast) :is(.sunny-languages,.sunny-pronunciation,.sunny-yoruba-library,.sunny-tone-guide) { color: var(--text-primary,#fff); background: var(--bg-primary,#000); border-color: var(--border-color,#fff); box-shadow: none; }
+:is(.high-contrast,.sunny-high-contrast) :is(.sunny-languages,.sunny-pronunciation,.sunny-yoruba-library,.sunny-tone-guide) :is(button,input,select,mark,.sunny-passport-hero,.sunny-passport-stamps,.sunny-passport-hero p,.sunny-say-it-label > span,.sunny-word-meaning,.sunny-syllables,.sunny-syllable-tone,.sunny-tone-chips > div,.sunny-library-filters,.sunny-library-play,.sunny-library-practise,header) { color: var(--text-primary,#fff) !important; background: var(--bg-primary,#000) !important; border-color: var(--border-color,#fff) !important; box-shadow: none !important; }
+:is(.high-contrast,.sunny-high-contrast) .sunny-passport-stamps > button::before { border-color: currentColor; }
+:is(.high-contrast,.sunny-high-contrast) .sunny-passport-stamps > button[aria-pressed='true'] { outline-color: currentColor; }
+:is(.high-contrast,.sunny-high-contrast) .sunny-library-tiles > button::before { display: none; }
+:is(.high-contrast,.sunny-high-contrast) .sunny-pronunciation > div:not([class*='sunny-']) { color: inherit; background: var(--bg-primary,#000); border-color: currentColor; }
+:is(.high-contrast,.sunny-high-contrast) .sunny-pronunciation > div:last-child:not([class*='sunny-']) > div:last-child > div { background: var(--bg-primary,#000); border-color: currentColor; }
+:is(.high-contrast,.sunny-high-contrast) .sunny-library-tiles > button > span:first-child > span:last-child:not(.sunny-library-word) { background: transparent; }
+@media (max-width: 700px) {
+  .sunny-passport-hero { gap: 16px; padding: 24px 20px; }
+  .sunny-passport-hero > img { width: 64px !important; height: 84px !important; }
+  .sunny-passport-hero h2 { font-size: 2rem; }
+  .sunny-passport-stamps { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px 12px; padding: 24px 12px; }
+  .sunny-passport-stamps > button { width: 140px; max-width: 100%; height: 140px; padding: 12px; }
+  .sunny-stamp-greeting { font-size: 1.25rem !important; }
+  .sunny-passport-hero p { padding: 10px 12px; }
+  .sunny-pronunciation { padding: 20px 16px; }
+  .sunny-pronunciation-heading > div:first-child { justify-content: center; text-align: center; }
+  .sunny-pronunciation-word { font-size: 2.75rem !important; }
+  .sunny-pronunciation-heading { gap: 20px; }
+  .sunny-pronunciation-actions > button { flex: 1 1 120px; padding: 10px; }
+  .sunny-syllables { padding: 16px 12px; }
+  .sunny-syllables button { padding: 10px 16px; }
+  .sunny-tone-guide { padding: 16px 12px; }
+  .sunny-tone-chips { gap: 8px; }
+  .sunny-tone-chips > div { padding: 8px 4px; }
+  .sunny-tone-chips > div > span:last-child { display: none; }
+  .sunny-yoruba-library > div > header { padding: 24px 20px; }
+  .sunny-yoruba-library header h1 { font-size: 2rem; }
+  .sunny-yoruba-library header img { width: 64px !important; height: 84px !important; }
+  .sunny-library-filters { padding: 20px 16px; }
+  .sunny-yoruba-library header .flex.items-center > span:first-child { flex-basis: 64px; }
+  .sunny-library-groups { gap: 10px; flex-wrap: nowrap; overflow-x: auto; padding: 4px 4px 10px; }
+  .sunny-library-groups button { flex-shrink: 0; white-space: nowrap; }
+  .sunny-library-tiles { gap: 20px; }
+  .sunny-yoruba-library .sunny-library-tiles > button { min-height: 200px; padding: 28px 20px 20px; }
+  .sunny-library-practise { padding: 20px 16px; gap: 12px; }
+  :is(.large-text,.sunny-large-text) .sunny-pronunciation-word { font-size: 3.25rem !important; }
+  :is(.large-text,.sunny-large-text) .sunny-passport-stamps > button { width: 100%; height: auto; min-height: 160px; border-radius: 28px !important; }
+  :is(.large-text,.sunny-large-text) .sunny-passport-stamps > button::before { border-radius: 20px; }
+}
