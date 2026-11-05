@@ -1,0 +1,62 @@
+{
+  "documentWidth": 390,
+  "viewport": 390,
+  "images": [
+    {
+      "title": "The Starry Night",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/330px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
+      "loaded": true,
+      "width": 330,
+      "height": 261
+    },
+    {
+      "title": "Mona Lisa",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/330px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg",
+      "loaded": true,
+      "width": 330,
+      "height": 492
+    },
+    {
+      "title": "Sunflowers",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Vincent_Willem_van_Gogh_127.jpg/330px-Vincent_Willem_van_Gogh_127.jpg",
+      "loaded": true,
+      "width": 330,
+      "height": 416
+    },
+    {
+      "title": "The Great Wave off Kanagawa",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Tsunami_by_hokusai_19th_century.jpg/330px-Tsunami_by_hokusai_19th_century.jpg",
+      "loaded": true,
+      "width": 330,
+      "height": 222
+    },
+    {
+      "title": "Water Lilies",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Claude_Monet_-_Water_Lilies_-_1906%2C_Ryerson.jpg/330px-Claude_Monet_-_Water_Lilies_-_1906%2C_Ryerson.jpg",
+      "loaded": true,
+      "width": 330,
+      "height": 317
+    },
+    {
+      "title": "Girl with a Pearl Earring",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/1665_Girl_with_a_Pearl_Earring.jpg/330px-1665_Girl_with_a_Pearl_Earring.jpg",
+      "loaded": true,
+      "width": 330,
+      "height": 391
+    },
+    {
+      "title": "The Persistence of Memory",
+      "url": "https://upload.wikimedia.org/wikipedia/en/thumb/d/dd/The_Persistence_of_Memory.jpg/330px-The_Persistence_of_Memory.jpg",
+      "loaded": true,
+      "width": 330,
+      "height": 238
+    },
+    {
+      "title": "The Scream",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Edvard_Munch%2C_1893%2C_The_Scream%2C_oil%2C_tempera_and_pastel_on_cardboard%2C_91_x_73_cm%2C_National_Gallery_of_Norway.jpg/330px-Edvard_Munch%2C_1893%2C_The_Scream%2C_oil%2C_tempera_and_pastel_on_cardboard%2C_91_x_73_cm%2C_National_Gallery_of_Norway.jpg",
+      "loaded": true,
+      "width": 330,
+      "height": 410
+    }
+  ]
+}

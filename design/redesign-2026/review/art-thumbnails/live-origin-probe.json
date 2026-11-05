@@ -1,0 +1,176 @@
+{
+  "origin": "https://demiwuraks2.co.uk",
+  "checkedAt": "2026-11-05T19:48:13.748Z",
+  "method": "Plain Image requests from the live public origin for baseline thumbnails and candidate local-branch card/detail URLs; the site was not deployed or modified.",
+  "headers": {
+    "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://apis.google.com https://www.gstatic.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; media-src 'self' data: https: blob:; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://*.cloudfunctions.net https://*.firebase.googleapis.com https://*.openai.com https://generativelanguage.googleapis.com https://challenges.cloudflare.com wss://*.firebaseio.com; frame-src https://ks2-learning-engine.firebaseapp.com https://challenges.cloudflare.com; object-src 'none'; base-uri 'self'; form-action 'self'; worker-src 'self' blob:; manifest-src 'self'",
+    "cross-origin-embedder-policy": null,
+    "cross-origin-resource-policy": null
+  },
+  "before": [
+    {
+      "kind": "thumbnailUrl",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/300px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
+      "loaded": false,
+      "width": 0
+    },
+    {
+      "kind": "thumbnailUrl",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/220px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg",
+      "loaded": false,
+      "width": 0
+    },
+    {
+      "kind": "thumbnailUrl",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Vincent_Willem_van_Gogh_127.jpg/220px-Vincent_Willem_van_Gogh_127.jpg",
+      "loaded": false,
+      "width": 0
+    },
+    {
+      "kind": "thumbnailUrl",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Tsunami_by_hokusai_19th_century.jpg/300px-Tsunami_by_hokusai_19th_century.jpg",
+      "loaded": false,
+      "width": 0
+    },
+    {
+      "kind": "thumbnailUrl",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Claude_Monet_-_Water_Lilies_-_1906%2C_Ryerson.jpg/300px-Claude_Monet_-_Water_Lilies_-_1906%2C_Ryerson.jpg",
+      "loaded": false,
+      "width": 0
+    },
+    {
+      "kind": "thumbnailUrl",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/1665_Girl_with_a_Pearl_Earring.jpg/220px-1665_Girl_with_a_Pearl_Earring.jpg",
+      "loaded": false,
+      "width": 0
+    },
+    {
+      "kind": "thumbnailUrl",
+      "url": "https://upload.wikimedia.org/wikipedia/en/d/dd/The_Persistence_of_Memory.jpg",
+      "loaded": true,
+      "width": 371,
+      "height": 268
+    },
+    {
+      "kind": "thumbnailUrl",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Edvard_Munch%2C_1893%2C_The_Scream%2C_oil%2C_tempera_and_pastel_on_cardboard%2C_91_x_73_cm%2C_National_Gallery_of_Norway.jpg/220px-Edvard_Munch%2C_1893%2C_The_Scream%2C_oil%2C_tempera_and_pastel_on_cardboard%2C_91_x_73_cm%2C_National_Gallery_of_Norway.jpg",
+      "loaded": false,
+      "width": 0
+    }
+  ],
+  "after": [
+    {
+      "kind": "imageUrl",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/960px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
+      "loaded": true,
+      "width": 960,
+      "height": 760
+    },
+    {
+      "kind": "thumbnailUrl",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/330px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
+      "loaded": true,
+      "width": 330,
+      "height": 261
+    },
+    {
+      "kind": "imageUrl",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/960px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg",
+      "loaded": true,
+      "width": 960,
+      "height": 1431
+    },
+    {
+      "kind": "thumbnailUrl",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/330px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg",
+      "loaded": true,
+      "width": 330,
+      "height": 492
+    },
+    {
+      "kind": "imageUrl",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Vincent_Willem_van_Gogh_127.jpg/960px-Vincent_Willem_van_Gogh_127.jpg",
+      "loaded": true,
+      "width": 960,
+      "height": 1211
+    },
+    {
+      "kind": "thumbnailUrl",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Vincent_Willem_van_Gogh_127.jpg/330px-Vincent_Willem_van_Gogh_127.jpg",
+      "loaded": true,
+      "width": 330,
+      "height": 416
+    },
+    {
+      "kind": "imageUrl",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Tsunami_by_hokusai_19th_century.jpg/960px-Tsunami_by_hokusai_19th_century.jpg",
+      "loaded": true,
+      "width": 960,
+      "height": 645
+    },
+    {
+      "kind": "thumbnailUrl",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Tsunami_by_hokusai_19th_century.jpg/330px-Tsunami_by_hokusai_19th_century.jpg",
+      "loaded": true,
+      "width": 330,
+      "height": 222
+    },
+    {
+      "kind": "imageUrl",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Claude_Monet_-_Water_Lilies_-_1906%2C_Ryerson.jpg/960px-Claude_Monet_-_Water_Lilies_-_1906%2C_Ryerson.jpg",
+      "loaded": true,
+      "width": 960,
+      "height": 922
+    },
+    {
+      "kind": "thumbnailUrl",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Claude_Monet_-_Water_Lilies_-_1906%2C_Ryerson.jpg/330px-Claude_Monet_-_Water_Lilies_-_1906%2C_Ryerson.jpg",
+      "loaded": true,
+      "width": 330,
+      "height": 317
+    },
+    {
+      "kind": "imageUrl",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/1665_Girl_with_a_Pearl_Earring.jpg/960px-1665_Girl_with_a_Pearl_Earring.jpg",
+      "loaded": true,
+      "width": 960,
+      "height": 1137
+    },
+    {
+      "kind": "thumbnailUrl",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/1665_Girl_with_a_Pearl_Earring.jpg/330px-1665_Girl_with_a_Pearl_Earring.jpg",
+      "loaded": true,
+      "width": 330,
+      "height": 391
+    },
+    {
+      "kind": "imageUrl",
+      "url": "https://upload.wikimedia.org/wikipedia/en/thumb/d/dd/The_Persistence_of_Memory.jpg/330px-The_Persistence_of_Memory.jpg",
+      "loaded": true,
+      "width": 330,
+      "height": 238
+    },
+    {
+      "kind": "thumbnailUrl",
+      "url": "https://upload.wikimedia.org/wikipedia/en/thumb/d/dd/The_Persistence_of_Memory.jpg/330px-The_Persistence_of_Memory.jpg",
+      "loaded": true,
+      "width": 330,
+      "height": 238
+    },
+    {
+      "kind": "imageUrl",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Edvard_Munch%2C_1893%2C_The_Scream%2C_oil%2C_tempera_and_pastel_on_cardboard%2C_91_x_73_cm%2C_National_Gallery_of_Norway.jpg/960px-Edvard_Munch%2C_1893%2C_The_Scream%2C_oil%2C_tempera_and_pastel_on_cardboard%2C_91_x_73_cm%2C_National_Gallery_of_Norway.jpg",
+      "loaded": true,
+      "width": 960,
+      "height": 1191
+    },
+    {
+      "kind": "thumbnailUrl",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Edvard_Munch%2C_1893%2C_The_Scream%2C_oil%2C_tempera_and_pastel_on_cardboard%2C_91_x_73_cm%2C_National_Gallery_of_Norway.jpg/330px-Edvard_Munch%2C_1893%2C_The_Scream%2C_oil%2C_tempera_and_pastel_on_cardboard%2C_91_x_73_cm%2C_National_Gallery_of_Norway.jpg",
+      "loaded": true,
+      "width": 330,
+      "height": 410
+    }
+  ],
+  "violations": []
+}
