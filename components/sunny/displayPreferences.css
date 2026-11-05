@@ -1,0 +1,43 @@
+/* Global presentation preferences. No navigation, answers or artwork data changes. */
+:root:is(.large-text,.sunny-large-text) { font-size:120% !important; }
+:root.appearance-dark { --display-page:#101827; --display-paper:#1C283B; --display-ink:#F7FAFF; --display-border:#C5D2E5; color-scheme:dark; }
+:root.appearance-calm { --display-page:#E8EEE8; --display-paper:#F2F5EE; --display-ink:#172033; --display-border:#172033; }
+:root:is(.high-contrast,.sunny-high-contrast) { --display-page:var(--bg-primary,#000); --display-paper:var(--bg-primary,#000); --display-ink:var(--text-primary,#fff); --display-border:var(--border-color,#fff); }
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) body { background:var(--display-page) !important; color:var(--display-ink); }
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) :is(.sunny-ui,.sunny-home,.sunny-child-header,.sunny-mode-selector) {
+  --sunny-ink:var(--display-ink); --sunny-tint:var(--display-paper);
+  --pg-ink:var(--display-ink); --pg-paper:var(--display-paper); --pg-page:var(--display-page); --pg-gold:var(--display-paper); --pg-leaf:var(--display-paper); --pg-grape:var(--display-paper);
+  --aa-ink:var(--display-ink); --aa-paper:var(--display-paper); --aa-page:var(--display-page); --aa-gold:var(--display-paper);
+  --bc-ink:var(--display-ink); --bc-paper:var(--display-paper); --bc-page:var(--display-page); --bc-gold:var(--display-paper); --bc-sky:var(--display-paper); --bc-leaf:var(--display-paper);
+  color:var(--display-ink) !important; background:var(--display-page) !important; border-color:var(--display-border) !important; box-shadow:none !important;
+}
+/* Flatten painted UI surfaces, keeping original artwork, SVG shapes and canvas pixels. */
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) :is(.sunny-ui,.sunny-home,.sunny-child-header,.sunny-mode-selector) :is([class*='sunny-'],[class*='kid-'],[class*='bg-'],button,input,select,textarea,kbd):where(:not(.sunny-paint-blob)) {
+  background:var(--display-paper) !important; color:var(--display-ink) !important; border-color:var(--display-border) !important; box-shadow:none !important;
+}
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) :is(.sunny-ui,.sunny-home,.sunny-child-header,.sunny-mode-selector) :is(p,span,div,label,legend,h1,h2,h3,h4,a,strong,em,li) { color:var(--display-ink) !important; border-color:var(--display-border) !important; text-shadow:none !important; }
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) :is(.sunny-ui,.sunny-home,.sunny-child-header,.sunny-mode-selector) :is(button,a,[role='radio'])[aria-pressed='true'],
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) :is(.sunny-ui,.sunny-home,.sunny-child-header,.sunny-mode-selector) :is([aria-selected='true'],[aria-checked='true'],[aria-current='page']) { outline:3px solid var(--display-ink); outline-offset:-6px; }
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) :is(.sunny-logo,.sunny-logo-sticker) { padding:4px 10px; border-radius:14px; background:#fff !important; }
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) .sunny-settings-hero { background:var(--display-paper) !important; border-color:var(--display-border); }
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) .sunny-settings :is(.sunny-settings-content,.sunny-settings-cards > section,.sunny-example-card,.sunny-settings-footer) { background:var(--display-paper) !important; border-color:var(--display-border); box-shadow:none !important; }
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) .sunny-settings button[aria-pressed='true'] { outline:3px solid var(--display-ink); outline-offset:-7px; }
+/* Explicit On/Off text and position stay visible in monochrome themes. */
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) .sunny-settings .sunny-switch-word { color:#172033 !important; background:#fff !important; }
+:root:is(.high-contrast,.sunny-high-contrast) :is(.sunny-ui,.sunny-home,.sunny-child-header) *,
+:root:is(.high-contrast,.sunny-high-contrast) :is(.sunny-ui,.sunny-home,.sunny-child-header) :is(*::before,*::after) { box-shadow:none !important; text-shadow:none !important; background-image:none !important; }
+:root:is(.high-contrast,.sunny-high-contrast) :is(.sunny-home-cloud,.sunny-sparkle) { visibility:hidden; }
+:root:is(.reduce-motion,.accessibility-reduced-motion) *,
+:root:is(.reduce-motion,.accessibility-reduced-motion) *::before,
+:root:is(.reduce-motion,.accessibility-reduced-motion) *::after { animation:none !important; transition:none !important; scroll-behavior:auto !important; }
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after { animation:none !important; transition:none !important; scroll-behavior:auto !important; }
+}
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) .sunny-settings-hero p { background:var(--display-paper) !important; }
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) :is(.sunny-ui,.sunny-home,.sunny-child-header,.sunny-mode-selector) a { background:var(--display-paper) !important; color:var(--display-ink) !important; }
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) :is(.sunny-ui,.sunny-home,.sunny-child-header) .sunny-logo { background:#fff !important; }
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) :is(.sunny-ui,.sunny-home) :is(.kid-meter-fill,.sunny-quiz-progress > div > span,.sunny-results-meter > div) { background:var(--display-ink) !important; }
+
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) .kid-speech-bubble::after { background:var(--display-paper) !important; border-color:var(--display-border) !important; }
+/* Also cover unclassed content inside cards (for example the quiz's dot list). */
+:root:is(.high-contrast,.sunny-high-contrast) :is(.sunny-ui,.sunny-home,.sunny-child-header) :is(div,main,section,article,header,footer,aside,nav,li,button,input,select,textarea,p,span,a,fieldset,legend,kbd):where(:not(.sunny-logo,.sunny-switch-word,.sunny-paint-blob)) { background:var(--display-paper) !important; }

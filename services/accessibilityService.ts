@@ -7,6 +7,7 @@
 export interface AccessibilitySettings {
   // Visual
   highContrast: boolean;
+  appearance: 'standard' | 'calm' | 'dark';
   largeText: boolean;
   dyslexiaFriendlyFont: boolean;
   reducedMotion: boolean;
@@ -29,6 +30,7 @@ export interface AccessibilitySettings {
 
 const DEFAULT_SETTINGS: AccessibilitySettings = {
   highContrast: false,
+  appearance: 'standard',
   largeText: false,
   dyslexiaFriendlyFont: false,
   reducedMotion: false,
@@ -82,6 +84,11 @@ class AccessibilityService {
   applySettings(): void {
     const root = document.documentElement;
     const body = document.body;
+
+    // Presentation only; old saved preferences receive the standard default.
+    root.classList.toggle('appearance-dark', this.settings.appearance === 'dark');
+    root.classList.toggle('appearance-calm', this.settings.appearance === 'calm');
+    root.classList.toggle('accessibility-reduced-motion', this.settings.reducedMotion);
 
     // High contrast
     root.classList.toggle('high-contrast', this.settings.highContrast);

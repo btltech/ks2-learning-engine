@@ -1,0 +1,77 @@
+/* Voice/display dialog: the same component is used by the public footer. */
+.sunny-settings-overlay { padding:24px; background:#172033b3; }
+.sunny-settings { --settings-paper:#fff; color:#172033; max-width:1200px; max-height:94dvh; border:3px solid #172033; border-radius:32px; box-shadow:0 6px 0 #172033; font:1.125rem/1.6 'Atkinson Hyperlegible',sans-serif; }
+.sunny-settings :is(p,span,label,div,button,input,select,kbd,h2,h3,h4) { color:inherit; font-family:inherit; }
+.sunny-settings :is(h2,h3,h4,button,legend) { font-family:'Fredoka',sans-serif; font-weight:600; }
+.sunny-settings h2 { font-size:1rem; margin:0 0 4px; }
+.sunny-settings h3 { font-size:1.5rem; margin-bottom:16px; }
+.sunny-settings h4 { font-size:1.75rem; margin-block:16px; }
+.sunny-settings p,.sunny-settings label { font-size:1.125rem; }
+.sunny-settings :is(button,select,input) { min-width:48px; min-height:48px; }
+.sunny-settings :focus-visible { outline:4px solid #1E55C8 !important; outline-offset:3px; }
+.sunny-settings button { color:#172033; border:3px solid #172033; border-radius:18px; background:#fff; box-shadow:0 4px 0 #172033; padding:8px 16px; }
+.sunny-settings button[aria-pressed='true'] { background:#FFC93C; }
+.sunny-settings-hero { display:flex; align-items:center; gap:24px; padding:24px 28px; border-bottom:3px solid #172033; background:linear-gradient(110deg,#DCEBFF,#ECE6FF); }
+.sunny-settings-hero > div { flex:1; min-width:0; }
+.sunny-settings-hero h3 { font-size:2.25rem; margin:0 0 8px; }
+.sunny-settings-hero p { background:#fff; border:3px solid #172033; border-radius:20px; padding:12px 16px; font-weight:700; }
+.sunny-settings-hero > button { align-self:flex-start; padding:8px; flex-shrink:0; }
+.sunny-settings-content { display:grid; grid-template-columns:minmax(0,2fr) minmax(0,1fr); align-items:start; gap:24px; min-height:0; background:#FFF9EC radial-gradient(#F3E3B8 2px,transparent 2px) 0 0/28px 28px; }
+.sunny-settings-cards { min-width:0; }
+.sunny-settings-cards > section { padding:24px; border:3px solid #172033; border-radius:28px; box-shadow:0 6px 0 #172033; background:#fff; }
+.sunny-settings-cards > section > .space-y-4 > div { background:transparent; padding:16px 0; border-top:2px dashed #DAD8CF; border-radius:0; margin-left:0; }
+.sunny-setting-choices { margin-bottom:24px; min-width:0; }
+.sunny-setting-choices legend { font-family:inherit; font-weight:700; margin-bottom:10px; }
+.sunny-setting-choices > div { display:flex; flex-wrap:wrap; gap:12px; }
+.sunny-setting-choices[role='group'] { display:flex; flex-wrap:wrap; gap:12px; }
+.sunny-setting-toggle { gap:20px; }
+.sunny-setting-toggle > div { min-width:0; }
+.sunny-setting-toggle > div > span { font-size:1.125rem; font-weight:700; }
+.sunny-setting-toggle button { position:relative; flex:0 0 88px; width:88px; height:48px; border-radius:999px; padding:4px; box-shadow:none; background:#E6E7EA; }
+.sunny-setting-toggle button[aria-checked='true'] { background:#1E55C8; }
+.sunny-setting-toggle .sunny-switch-word { display:grid; place-items:center; width:36px; height:34px; border:2px solid #172033; border-radius:50%; background:#fff; color:#172033; font:700 .875rem/1 'Atkinson Hyperlegible',sans-serif; }
+.sunny-setting-toggle button[aria-checked='true'] .sunny-switch-word { margin-left:auto; }
+.sunny-settings select { color:#172033; background:#fff; border:3px solid #172033; border-radius:16px; font:inherit; }
+.sunny-settings input[type='range'] { accent-color:#1E55C8; cursor:pointer; }
+.sunny-settings-example { position:sticky; top:0; min-width:0; }
+.sunny-example-card { padding:24px; border:3px solid #172033; border-radius:28px; background:#fff; }
+.sunny-example-card p { margin-bottom:16px; }
+.sunny-example-answer { padding:12px; border:3px solid #172033; border-radius:16px; background:#DDF6E8; font-weight:700; }
+.sunny-settings-example > p { margin-top:16px; }
+.sunny-settings-footer { flex-shrink:0; gap:16px; flex-wrap:wrap; border-top:3px solid #172033; background:#fff; }
+.sunny-settings-footer > button:last-child { background:#FFC93C; }
+.sunny-settings .grid-cols-2 { grid-template-columns:1fr; }
+.sunny-mode-selector { color:#172033; font:1.125rem/1.6 'Atkinson Hyperlegible',sans-serif; }
+.sunny-mode-selector button { min-height:48px; border:3px solid #172033; background:#fff; border-radius:18px; padding:16px; color:#172033; }
+.sunny-mode-selector button[aria-pressed='true'] { background:#FFC93C; }
+.sunny-mode-selector :is(p,span,h3) { color:inherit; font-family:inherit; font-size:1.125rem; }
+.sunny-mode-selector h3 { font:600 1.5rem 'Fredoka',sans-serif; }
+.sunny-mode-selector :focus-visible { outline:4px solid #1E55C8; outline-offset:3px; }
+@media(max-width:700px) {
+  .sunny-settings-overlay { padding:8px; }
+  .sunny-settings { max-height:calc(100dvh - 16px); border-radius:24px; }
+  .sunny-settings-hero { padding:16px; gap:12px; flex-wrap:wrap; }
+  .sunny-settings-hero > img { width:48px !important; height:68px !important; }
+  .sunny-settings-hero > div { flex-basis:calc(100% - 120px); }
+  .sunny-settings-hero h3 { font-size:1.75rem; }
+  .sunny-settings-hero p { padding:8px; }
+  .sunny-settings-content { display:block; padding:16px; }
+  .sunny-settings-cards > section { padding:20px 16px; }
+  .sunny-settings-example { position:static; margin-bottom:16px; }
+  .sunny-setting-toggle { gap:12px; flex-wrap:wrap; }
+  .sunny-setting-toggle > div { flex-basis:170px; }
+  .sunny-setting-toggle button { margin-left:auto; }
+}
+/* Leave room for the scrollable controls at phone sizes, including large text. */
+.sunny-settings .sunny-settings-hero h2 { font-size:1rem; }
+.sunny-settings .sunny-settings-hero p { font-size:1.125rem; }
+.sunny-settings .sunny-settings-footer button { font-size:1rem; }
+@media(max-width:700px) {
+  .sunny-settings-hero { display:block; position:relative; }
+  .sunny-settings-hero > img { float:left; margin:0 12px 8px 0; }
+  .sunny-settings-hero h2,.sunny-settings-hero h3 { padding-right:48px; }
+  .sunny-settings-hero p { clear:both; margin-top:12px; }
+  .sunny-settings-hero > button { position:absolute; top:12px; right:12px; }
+  .sunny-settings-footer { flex-wrap:nowrap; gap:12px; padding:12px; }
+  .sunny-settings-footer button { padding:8px 12px; }
+}

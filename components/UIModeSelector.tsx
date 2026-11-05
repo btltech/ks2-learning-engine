@@ -6,6 +6,7 @@
  */
 
 import React from 'react';
+import './SunnySettings.css';
 import { useUISettings, UIMode } from '../context/UISettingsContext';
 import { ModalShell } from './layout/AppShells';
 
@@ -78,16 +79,17 @@ export const UIModeSelector: React.FC<{ onClose: () => void }> = ({ onClose }) =
         <button
           type="button"
           onClick={onClose}
-          className="w-full min-h-11 py-2 bg-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-300 transition-colors"
+          className="w-full min-h-12 py-2 bg-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-300 transition-colors"
         >
           Done
         </button>
       )}
     >
-      <div className="p-6 space-y-4">
+      <div className="sunny-mode-selector p-6 space-y-4">
         {MODE_OPTIONS.map((option) => (
           <button
             key={option.mode}
+            aria-pressed={settings.mode === option.mode}
             onClick={() => handleSelectMode(option.mode)}
             className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
               settings.mode === option.mode
