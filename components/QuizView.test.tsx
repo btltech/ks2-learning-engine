@@ -162,6 +162,30 @@ describe('QuizView check then next', () => {
     expect(props.onSubmit.mock.calls[0][0][0]).toMatchObject({ userAnswer: answer, isCorrect: correct, isScored: type !== QuestionType.Drawing });
   });
 
+  it('preserves a reordered answer across quiz re-renders, speed timer ticks and Check', async () => {
+    vi.useFakeTimers();
+    vi.mocked(generateQuiz).mockResolvedValue([{ ...questions[0], options: ['Two', 'One'], correctOrder: ['One', 'Two'], questionType: QuestionType.Ordering }]);
+    const { rerender } = render(<QuizView {...props} mode="speed" />);
+    await act(async () => {});
+    click('Move Two down');
+    const visibleOrder = () => screen.getAllByRole('listitem').map(item => item.children[1].textContent);
+    expect(visibleOrder()).toEqual(['One', 'Two']);
+    rerender(<QuizView {...props} studentName="Casey" mode="speed" />);
+    expect(visibleOrder()).toEqual(['One', 'Two']);
+    act(() => vi.advanceTimersByTime(3000));
+    expect(screen.getByText('12s')).toBeInTheDocument();
+    expect(visibleOrder()).toEqual(['One', 'Two']);
+    check();
+    expect(visibleOrder()).toEqual(['One', 'Two']);
+    expect(feedback()).toHaveTextContent("Hooray! That's correct");
+    act(() => vi.advanceTimersByTime(30000));
+    expect(visibleOrder()).toEqual(['One', 'Two']);
+    click('Finish Quiz');
+    expect(buildQuizResults).toHaveBeenCalledOnce();
+    expect(props.onSubmit).toHaveBeenCalledOnce();
+    expect(props.onSubmit.mock.calls[0][0][0]).toMatchObject({ userAnswer: '["One","Two"]', isCorrect: true });
+  });
+
   it('checks fill-in answers with Enter once; repeats cannot advance or change the locked answer', async () => {
     vi.mocked(generateQuiz).mockResolvedValue([{ ...questions[0], questionType: QuestionType.FillInBlank, correctAnswer: 'Two' }]);
     render(<QuizView {...props} />);

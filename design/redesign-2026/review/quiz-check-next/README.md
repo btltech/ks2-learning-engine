@@ -10,6 +10,8 @@ Timeouts retain the existing blank-answer scoring rule, stop the timer, focus â€
 
 ## Validation
 
+See the [ordering review follow-up](ordering-review.md) for the reproduced reset race, fix, Node 22 validation and extended stress runs. The results below record the initial PR validation at `93b05448`.
+
 Using Node 20.19.5, matching CI:
 
 - `npm run lint` â€” passed, zero warnings.

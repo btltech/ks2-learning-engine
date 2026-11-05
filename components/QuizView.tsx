@@ -276,7 +276,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
     hintHandlerRef.current = handleGetHint;
   });
 
-  // A stable callback is essential: OrderingQuestion uses it to initialise its list.
+  // Keep ordering notifications stable across timer and feedback renders.
   const handleOrderingChange = useCallback((answer: string[]) => {
     if (phaseRef.current === 'answering') setOrderingAnswer(answer);
   }, []);
