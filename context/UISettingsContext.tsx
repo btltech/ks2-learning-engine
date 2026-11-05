@@ -8,6 +8,7 @@
  */
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import '../components/sunny/displayPreferences.css';
 import { accessibilityService } from '../services/accessibilityService';
 
 export type UIMode = 'guided' | 'standard' | 'advanced';
@@ -247,3 +248,6 @@ export const useFeatureVisibility = () => {
     autoReadQuestions: settings.autoReadQuestions,
   };
 };
+
+// The public footer also opens settings outside the signed-in provider.
+export const useOptionalUISettings = () => useContext(UISettingsContext);

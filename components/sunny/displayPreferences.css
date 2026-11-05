@@ -1,0 +1,98 @@
+/* Global presentation preferences. No navigation, answers or artwork data changes. */
+:root:is(.large-text,.sunny-large-text) { font-size:120% !important; }
+:root.appearance-dark { --display-page:#101827; --display-paper:#1C283B; --display-ink:#F7FAFF; --display-border:#C5D2E5; color-scheme:dark; }
+:root.appearance-calm { --display-page:#E8EEE8; --display-paper:#F2F5EE; --display-ink:#172033; --display-border:#172033; }
+:root:is(.high-contrast,.sunny-high-contrast) { --display-page:var(--bg-primary,#000); --display-paper:var(--bg-primary,#000); --display-ink:var(--text-primary,#fff); --display-border:var(--border-color,#fff); }
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) body { background:var(--display-page) !important; color:var(--display-ink); }
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) :is(.sunny-ui,.sunny-home,.sunny-child-header,.sunny-mode-selector) {
+  --sunny-ink:var(--display-ink); --sunny-tint:var(--display-paper);
+  --pg-ink:var(--display-ink); --pg-paper:var(--display-paper); --pg-page:var(--display-page); --pg-gold:var(--display-paper); --pg-leaf:var(--display-paper); --pg-grape:var(--display-paper);
+  --aa-ink:var(--display-ink); --aa-paper:var(--display-paper); --aa-page:var(--display-page); --aa-gold:var(--display-paper);
+  --bc-ink:var(--display-ink); --bc-paper:var(--display-paper); --bc-page:var(--display-page); --bc-gold:var(--display-paper); --bc-sky:var(--display-paper); --bc-leaf:var(--display-paper);
+  color:var(--display-ink) !important; background:var(--display-page) !important; border-color:var(--display-border) !important; box-shadow:none !important;
+}
+/* Theme real panels/controls, not every sunny-* layout or decorative element.
+   Keep this surface list explicit so scenery and artwork remain transparent. */
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) :is(.sunny-ui,.sunny-home,.sunny-child-header,.sunny-mode-selector) :is(
+  .kid-card,.kid-button,.kid-chip,.kid-speech-bubble,.kid-meter-track,
+  .sunny-home-hero,.sunny-home-streak,.sunny-week-star,.sunny-daily-complete,
+  .sunny-home-action,.sunny-home-stat,.sunny-subject-tile,.sunny-user-dropdown,
+  .sunny-header-points,.sunny-settings-button,.sunny-avatar-button,.sunny-bottom-tabs,
+  .sunny-storybook,.sunny-reading-bar,.sunny-lesson-block,.sunny-lesson-actions,
+  .sunny-subject-banner,.sunny-year-chips span,.sunny-topic-search,.sunny-topic-path,
+  .sunny-path-stone,.sunny-topic-status,.sunny-step-status,.sunny-guided-practice,
+  .sunny-lesson-extra,.sunny-learning-step,.sunny-mira-lesson,.sunny-mira-chat,.sunny-lesson-next,
+  .sunny-quiz-question,.sunny-quiz-session-progress,.sunny-quiz-feedback,.sunny-quiz-hint,
+  .sunny-quiz-answer,.sunny-quiz-submit,.sunny-question-kind,.sunny-ordering li,
+  .sunny-results-hero,.sunny-score-badge,.sunny-went-well,.sunny-worth-review,
+  .sunny-results-review li,.sunny-results-tip p,.sunny-quiz-subject span,
+  .sunny-passport-hero,.sunny-passport-stamps,.sunny-passport-hero p,
+  .sunny-language-greeting,.sunny-word-meaning,.sunny-syllables,.sunny-stamp-greeting,.sunny-pronunciation,
+  .sunny-tone-guide,.sunny-tone-chips > div,.sunny-library-tiles > button,
+  .sunny-trophy-hero,.sunny-stat-stickers > div,.sunny-sticker-picture,
+  .sunny-personal-best,.sunny-game-card,.sunny-game-picture,.sunny-game-art,
+  .sunny-game-credits,.sunny-streak > div,.sunny-games-lock > div,
+  .sunny-art-idea,.sunny-drawing-tools,.sunny-avatar-preview,.sunny-avatar-description,
+  .sunny-bite-progress,.sunny-bite-card,.sunny-bite-subject,.sunny-bite-tips,
+  .sunny-class-question,.sunny-class-delivery,.sunny-class-answer-label,
+  .sunny-settings-hero,.sunny-settings-content,.sunny-settings-cards > section,
+  .sunny-example-card,.sunny-example-answer,.sunny-settings-footer,
+  .landing-sticker,.landing-listen-badge,.landing-answers li,.landing-mira p,
+  .landing-feature-icon,.landing-subject-banner,.landing-subject-tile,
+  .landing-step-circle,.landing-step-circle > span,
+  [class*='bg-'],button,input,select,textarea,kbd
+):where(:not(img,svg,.sunny-paint-blob)) {
+  background:var(--display-paper) !important; color:var(--display-ink) !important; border-color:var(--display-border) !important; box-shadow:none !important;
+}
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) :is(.sunny-ui,.sunny-home,.sunny-child-header,.sunny-mode-selector) :is(p,span,div,label,legend,h1,h2,h3,h4,a,strong,em,li) { color:var(--display-ink) !important; border-color:var(--display-border) !important; text-shadow:none !important; }
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) :is(.sunny-ui,.sunny-home,.sunny-child-header,.sunny-mode-selector) :is(button,a,[role='radio'])[aria-pressed='true'],
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) :is(.sunny-ui,.sunny-home,.sunny-child-header,.sunny-mode-selector) :is([aria-selected='true'],[aria-checked='true'],[aria-current='page']) { outline:3px solid var(--display-ink); outline-offset:-6px; }
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) :is(.sunny-logo,.sunny-logo-sticker) { padding:4px 10px; border-radius:14px; background:#fff !important; }
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) .sunny-settings-hero { background:var(--display-paper) !important; border-color:var(--display-border); }
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) .sunny-settings :is(.sunny-settings-content,.sunny-settings-cards > section,.sunny-example-card,.sunny-settings-footer) { background:var(--display-paper) !important; border-color:var(--display-border); box-shadow:none !important; }
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) .sunny-settings button[aria-pressed='true'] { outline:3px solid var(--display-ink); outline-offset:-7px; }
+/* Explicit On/Off text and position stay visible in monochrome themes. */
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) .sunny-settings .sunny-switch-word { color:#172033 !important; background:#fff !important; }
+:root:is(.high-contrast,.sunny-high-contrast) :is(.sunny-ui,.sunny-home,.sunny-child-header) *,
+:root:is(.high-contrast,.sunny-high-contrast) :is(.sunny-ui,.sunny-home,.sunny-child-header) :is(*::before,*::after) { box-shadow:none !important; text-shadow:none !important; background-image:none !important; }
+:root:is(.high-contrast,.sunny-high-contrast) :is(.sunny-home-cloud,.sunny-sparkle) { visibility:hidden; }
+:root:is(.reduce-motion,.accessibility-reduced-motion) *,
+:root:is(.reduce-motion,.accessibility-reduced-motion) *::before,
+:root:is(.reduce-motion,.accessibility-reduced-motion) *::after { animation:none !important; transition:none !important; scroll-behavior:auto !important; }
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after { animation:none !important; transition:none !important; scroll-behavior:auto !important; }
+}
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) .sunny-settings-hero p { background:var(--display-paper) !important; }
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) :is(.sunny-ui,.sunny-home,.sunny-child-header,.sunny-mode-selector) a { background:var(--display-paper) !important; color:var(--display-ink) !important; }
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) :is(.sunny-ui,.sunny-home,.sunny-child-header) .sunny-logo { background:#fff !important; }
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) :is(.sunny-ui,.sunny-home) :is(.kid-meter-fill,.sunny-quiz-progress > div > span,.sunny-results-meter > div) { background:var(--display-ink) !important; }
+
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) .kid-speech-bubble::after { background:var(--display-paper) !important; border-color:var(--display-border) !important; }
+/* Also cover unclassed content inside cards (for example the quiz's dot list). */
+:root:is(.high-contrast,.sunny-high-contrast) :is(.sunny-ui,.sunny-home,.sunny-child-header) :is(div,main,section,article,header,footer,aside,nav,li,button,input,select,textarea,p,span,a,fieldset,legend,kbd):where(:not(.sunny-logo,.sunny-switch-word,.sunny-paint-blob,.landing-scenery,.landing-scenery *,.sunny-home-scenery,.sunny-home-scenery *)) { background:var(--display-paper) !important; }
+
+/* Shared public landing tokens also cover the space around its sections. */
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) .sunny-landing-shell {
+  --landing-surface:var(--display-paper); --landing-page:var(--display-page);
+  --landing-ink:var(--display-ink); --landing-border:var(--display-border);
+}
+:root.appearance-dark:not(.high-contrast):not(.sunny-high-contrast) .landing-hero {
+  background:linear-gradient(180deg,#101827 0%,#172B46 60%,#1D3554 100%) !important;
+}
+:root.appearance-calm:not(.high-contrast):not(.sunny-high-contrast) .landing-hero {
+  background:linear-gradient(180deg,#DDE9DF,#F2F5EE) !important;
+}
+/* Image/SVG backgrounds are transparent; fills inside the supplied art are intact. */
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) :is(.sunny-ui,.sunny-home,.sunny-child-header) :is(img,svg,.landing-scenery,.sunny-home-scenery) {
+  background:transparent !important; box-shadow:none !important;
+}
+/* Heroicons use currentColor; illustrated subject assets keep their own colours. */
+:root:is(.appearance-dark,.high-contrast,.sunny-high-contrast) .sunny-subject-tile > svg {
+  color:var(--display-ink) !important;
+}
+
+:root:is(.appearance-dark,.appearance-calm) .sunny-lesson-next::before { background:var(--display-page) !important; }
+/* At phone width this greeting becomes its own bordered card. */
+@media(max-width:767px) {
+  :root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) .sunny-home-greeting { background:var(--display-paper) !important; }
+}
