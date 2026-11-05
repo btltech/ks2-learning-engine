@@ -1,3 +1,4 @@
+import { languageTag } from './sunny/languagePresentation';
 import { Owl } from './sunny/Owl';
 import './SunnyTopicsLesson.css';
 import React, { useState, useEffect, useCallback } from 'react';
@@ -409,6 +410,7 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
                   <PronunciationHelper
                     word={selectedWord}
                     language={subject}
+                    meaning={reviewedTopicVocabulary.find((item) => item.word === selectedWord)?.english}
                     showRules={true}
                     size="lg"
                   />
@@ -425,7 +427,7 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
                         onClick={() => setSelectedWord(item.word)}
                         className="p-3 bg-gradient-to-r from-purple-50 to-blue-50 border-2 border-purple-100 rounded-xl hover:border-purple-400 hover:shadow-md transition-all text-left group"
                       >
-                        <div className="font-bold text-gray-800 group-hover:text-purple-600 transition-colors">
+                        <div lang={languageTag(subject)} className="font-bold text-gray-800 group-hover:text-purple-600 transition-colors">
                           {item.word}
                         </div>
                         <div className="text-xs text-purple-500 font-mono mt-1">
@@ -474,7 +476,7 @@ const LessonView: React.FC<LessonViewProps> = ({ subject, topic, difficulty, stu
                   className="flex items-start justify-between gap-3 text-left rounded-xl border border-emerald-100 bg-emerald-50/50 hover:bg-emerald-100 px-3 py-3 transition-colors disabled:opacity-60"
                 >
                   <span>
-                    <span className="block font-bold text-gray-800">{entry.text}</span>
+                    <span className="block font-bold text-gray-800" lang="yo">{entry.text}</span>
                     <span className="block text-sm text-gray-600 mt-1">{entry.english || 'English translation unavailable'}</span>
                   </span>
                   <SpeakerWaveIcon className="mt-1 h-5 w-5 shrink-0 text-emerald-700" aria-hidden="true" />

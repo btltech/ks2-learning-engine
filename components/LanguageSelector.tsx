@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Owl } from './sunny/Owl';
+import { languageTag } from './sunny/languagePresentation';
+import './SunnyLanguages.css';
 import { LANGUAGES } from '../constants';
 import { ArrowLeftIcon } from '@heroicons/react/24/solid';
 
@@ -8,8 +11,10 @@ interface LanguageSelectorProps {
 }
 
 const LanguageSelector: React.FC<LanguageSelectorProps> = ({ onSelect, onBack }) => {
+  const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
+
   return (
-    <div className="w-full max-w-4xl mx-auto text-center">
+    <div className="sunny-languages sunny-ui w-full max-w-4xl mx-auto text-center">
       <button 
          onClick={onBack} 
          className="flex items-center text-gray-600 hover:text-gray-900 font-semibold transition-colors mb-8"
@@ -19,25 +24,30 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({ onSelect, onBack })
         Back to Subjects
       </button>
 
-      <h2 className="text-3xl font-bold text-gray-800 mb-4">Choose a Language</h2>
-      <p className="text-lg text-gray-600 mb-10">Which language would you like to explore today?</p>
+      <section className="sunny-passport-hero" aria-labelledby="language-passport-title">
+        <Owl pose="wave" height={140} />
+        <div><h2 id="language-passport-title">My language passport</h2>
+          <p>Which language would you like to explore today?</p>
+        </div>
+      </section>
       
       <div 
-        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
+        className="sunny-passport-stamps grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
         role="list"
         aria-label="Language selection"
       >
         {LANGUAGES.map((lang) => (
           <button
             key={lang.name}
-            onClick={() => onSelect(lang.name)}
+            onClick={() => { setSelectedLanguage(lang.name); onSelect(lang.name); }}
+            aria-pressed={selectedLanguage === lang.name}
             className="group flex flex-col items-center justify-center p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 border-2 border-transparent hover:border-pink-200"
           >
-            <span className="text-6xl mb-4 transform group-hover:scale-110 transition-transform" role="img" aria-label={`${lang.name} flag`}>
+            <span className="sunny-stamp-flag text-6xl mb-4 transform group-hover:scale-110 transition-transform" role="img" aria-label={`${lang.name} flag`}>
               {lang.flag}
             </span>
-            <span className="text-2xl font-bold text-gray-800 mb-2">{lang.name}</span>
-            <span className="text-pink-500 font-medium">{lang.greeting}!</span>
+            <span className="sunny-stamp-name text-2xl font-bold text-gray-800 mb-2">{lang.name}</span>
+            <span className="sunny-stamp-greeting text-pink-500 font-medium" lang={languageTag(lang.name)}>{lang.greeting}!</span>
           </button>
         ))}
       </div>

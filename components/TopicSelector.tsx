@@ -1,3 +1,7 @@
+import { LANGUAGES } from '../constants';
+import { languageTag } from './sunny/languagePresentation';
+import { YorubaToneGuide } from './sunny/YorubaToneGuide';
+import './SunnyLanguages.css';
 import { KidCard } from './sunny/KidCard';
 import { KidButton } from './sunny/KidButton';
 import { Meter } from './sunny/Meter';
@@ -95,9 +99,10 @@ const TopicSelector: React.FC<TopicSelectorProps> = ({
     completedTopics.includes(topic),
   ).length;
   const year = getYearGroupForAge(studentAge);
+  const language = LANGUAGES.find((item) => item.name === subject.name);
 
   return (
-    <div className="sunny-topics sunny-ui">
+    <div className={`sunny-topics sunny-ui ${language ? 'sunny-language-topics' : ''}`}>
       <button
         onClick={handleBack}
         className="sunny-back-button"
@@ -112,7 +117,8 @@ const TopicSelector: React.FC<TopicSelectorProps> = ({
           size={110}
         />
         <div className="sunny-subject-summary">
-          <h2>{subject.name} Island</h2>
+          <h2>{language ? `${subject.name} passport` : `${subject.name} Island`}</h2>
+          {language && <span className="sunny-language-greeting" lang={languageTag(subject.name)}>{language.greeting}!</span>}
           <p>
             Year {year} · {completedCount} of {topics.length} topics done
           </p>
@@ -144,6 +150,7 @@ const TopicSelector: React.FC<TopicSelectorProps> = ({
           </label>
         </div>
       </KidCard>
+      {language?.name === 'Yoruba' && <YorubaToneGuide />}
       <p className="sunny-topic-intro">
         Year {year} · Follow the units in order so each lesson builds on the
         last.
