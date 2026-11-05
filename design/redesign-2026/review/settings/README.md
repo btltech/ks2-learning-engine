@@ -2,6 +2,9 @@
 
 Independent branch `redesign/9-settings`, based on main `15d1039ef84a8e6bd2c9b473277513cca53e14ae`. Does not depend on the bites/classroom PR #19.
 
+
+[Public landing / theme review follow-up: fixes, contrast checks and the full before/after matrix](theme-fix/README.md).
+
 ## Files and behaviour
 
 - `components/AccessibilitySettings.tsx`: Wura hero, Reading / Listening / Calm and focus cards, gold segmented choices with aria-pressed, named On/Off switches, labelled selects and speed slider, and a live display example. This is also the exact modal opened by the public footer. Its dialog name, Close settings label, focus trap, Escape/Done and reset confirmation remain. Existing voice enable/disable callbacks, download/loading/error descriptions, settings keys and full 0.5–2.0 speed range remain.

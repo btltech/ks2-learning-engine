@@ -97,6 +97,7 @@ export const AccessibilitySettingsModal: React.FC<AccessibilitySettingsModalProp
                   syncDisplay('highContrast', appearance === 'contrast');
                   accessibilityService.updateSettings({ highContrast: appearance === 'contrast', ...(appearance !== 'contrast' ? { appearance } : {}) });
                 }}>{({ standard: 'Standard', calm: 'Calm tint', dark: 'Dark', contrast: 'High Contrast Mode' })[appearance]}</button>)}</div>
+                <p>Dark and calm colours apply to the main learning screens.</p>
               </fieldset>
               <ToggleSetting
                 label="Dyslexia-Friendly Font"

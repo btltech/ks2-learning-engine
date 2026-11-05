@@ -11,8 +11,37 @@
   --bc-ink:var(--display-ink); --bc-paper:var(--display-paper); --bc-page:var(--display-page); --bc-gold:var(--display-paper); --bc-sky:var(--display-paper); --bc-leaf:var(--display-paper);
   color:var(--display-ink) !important; background:var(--display-page) !important; border-color:var(--display-border) !important; box-shadow:none !important;
 }
-/* Flatten painted UI surfaces, keeping original artwork, SVG shapes and canvas pixels. */
-:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) :is(.sunny-ui,.sunny-home,.sunny-child-header,.sunny-mode-selector) :is([class*='sunny-'],[class*='kid-'],[class*='bg-'],button,input,select,textarea,kbd):where(:not(.sunny-paint-blob)) {
+/* Theme real panels/controls, not every sunny-* layout or decorative element.
+   Keep this surface list explicit so scenery and artwork remain transparent. */
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) :is(.sunny-ui,.sunny-home,.sunny-child-header,.sunny-mode-selector) :is(
+  .kid-card,.kid-button,.kid-chip,.kid-speech-bubble,.kid-meter-track,
+  .sunny-home-hero,.sunny-home-streak,.sunny-week-star,.sunny-daily-complete,
+  .sunny-home-action,.sunny-home-stat,.sunny-subject-tile,.sunny-user-dropdown,
+  .sunny-header-points,.sunny-settings-button,.sunny-avatar-button,.sunny-bottom-tabs,
+  .sunny-storybook,.sunny-reading-bar,.sunny-lesson-block,.sunny-lesson-actions,
+  .sunny-subject-banner,.sunny-year-chips span,.sunny-topic-search,.sunny-topic-path,
+  .sunny-path-stone,.sunny-topic-status,.sunny-step-status,.sunny-guided-practice,
+  .sunny-lesson-extra,.sunny-learning-step,.sunny-mira-lesson,.sunny-mira-chat,.sunny-lesson-next,
+  .sunny-quiz-question,.sunny-quiz-session-progress,.sunny-quiz-feedback,.sunny-quiz-hint,
+  .sunny-quiz-answer,.sunny-quiz-submit,.sunny-question-kind,.sunny-ordering li,
+  .sunny-results-hero,.sunny-score-badge,.sunny-went-well,.sunny-worth-review,
+  .sunny-results-review li,.sunny-results-tip p,.sunny-quiz-subject span,
+  .sunny-passport-hero,.sunny-passport-stamps,.sunny-passport-hero p,
+  .sunny-language-greeting,.sunny-word-meaning,.sunny-syllables,.sunny-stamp-greeting,.sunny-pronunciation,
+  .sunny-tone-guide,.sunny-tone-chips > div,.sunny-library-tiles > button,
+  .sunny-trophy-hero,.sunny-stat-stickers > div,.sunny-sticker-picture,
+  .sunny-personal-best,.sunny-game-card,.sunny-game-picture,.sunny-game-art,
+  .sunny-game-credits,.sunny-streak > div,.sunny-games-lock > div,
+  .sunny-art-idea,.sunny-drawing-tools,.sunny-avatar-preview,.sunny-avatar-description,
+  .sunny-bite-progress,.sunny-bite-card,.sunny-bite-subject,.sunny-bite-tips,
+  .sunny-class-question,.sunny-class-delivery,.sunny-class-answer-label,
+  .sunny-settings-hero,.sunny-settings-content,.sunny-settings-cards > section,
+  .sunny-example-card,.sunny-example-answer,.sunny-settings-footer,
+  .landing-sticker,.landing-listen-badge,.landing-answers li,.landing-mira p,
+  .landing-feature-icon,.landing-subject-banner,.landing-subject-tile,
+  .landing-step-circle,.landing-step-circle > span,
+  [class*='bg-'],button,input,select,textarea,kbd
+):where(:not(img,svg,.sunny-paint-blob)) {
   background:var(--display-paper) !important; color:var(--display-ink) !important; border-color:var(--display-border) !important; box-shadow:none !important;
 }
 :root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) :is(.sunny-ui,.sunny-home,.sunny-child-header,.sunny-mode-selector) :is(p,span,div,label,legend,h1,h2,h3,h4,a,strong,em,li) { color:var(--display-ink) !important; border-color:var(--display-border) !important; text-shadow:none !important; }
@@ -40,4 +69,30 @@
 
 :root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) .kid-speech-bubble::after { background:var(--display-paper) !important; border-color:var(--display-border) !important; }
 /* Also cover unclassed content inside cards (for example the quiz's dot list). */
-:root:is(.high-contrast,.sunny-high-contrast) :is(.sunny-ui,.sunny-home,.sunny-child-header) :is(div,main,section,article,header,footer,aside,nav,li,button,input,select,textarea,p,span,a,fieldset,legend,kbd):where(:not(.sunny-logo,.sunny-switch-word,.sunny-paint-blob)) { background:var(--display-paper) !important; }
+:root:is(.high-contrast,.sunny-high-contrast) :is(.sunny-ui,.sunny-home,.sunny-child-header) :is(div,main,section,article,header,footer,aside,nav,li,button,input,select,textarea,p,span,a,fieldset,legend,kbd):where(:not(.sunny-logo,.sunny-switch-word,.sunny-paint-blob,.landing-scenery,.landing-scenery *,.sunny-home-scenery,.sunny-home-scenery *)) { background:var(--display-paper) !important; }
+
+/* Shared public landing tokens also cover the space around its sections. */
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) .sunny-landing-shell {
+  --landing-surface:var(--display-paper); --landing-page:var(--display-page);
+  --landing-ink:var(--display-ink); --landing-border:var(--display-border);
+}
+:root.appearance-dark:not(.high-contrast):not(.sunny-high-contrast) .landing-hero {
+  background:linear-gradient(180deg,#101827 0%,#172B46 60%,#1D3554 100%) !important;
+}
+:root.appearance-calm:not(.high-contrast):not(.sunny-high-contrast) .landing-hero {
+  background:linear-gradient(180deg,#DDE9DF,#F2F5EE) !important;
+}
+/* Image/SVG backgrounds are transparent; fills inside the supplied art are intact. */
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) :is(.sunny-ui,.sunny-home,.sunny-child-header) :is(img,svg,.landing-scenery,.sunny-home-scenery) {
+  background:transparent !important; box-shadow:none !important;
+}
+/* Heroicons use currentColor; illustrated subject assets keep their own colours. */
+:root:is(.appearance-dark,.high-contrast,.sunny-high-contrast) .sunny-subject-tile > svg {
+  color:var(--display-ink) !important;
+}
+
+:root:is(.appearance-dark,.appearance-calm) .sunny-lesson-next::before { background:var(--display-page) !important; }
+/* At phone width this greeting becomes its own bordered card. */
+@media(max-width:767px) {
+  :root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) .sunny-home-greeting { background:var(--display-paper) !important; }
+}
