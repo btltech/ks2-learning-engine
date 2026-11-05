@@ -14,7 +14,11 @@ export const useGameSounds = ()=>({soundEnabled:false,playClick:()=>{},playCorre
 export const useGameSoundsEnhanced = useGameSounds;
 export const getTopicsForSubject = async()=>['Addition','Subtraction','Multiplication'];
 export const generateLesson = async()=> '# Addition\nAdding means putting groups together.\n## Worked example\nSeven and three make ten: 7 + 3 = 10.\n## Remember\nCount on to find the total.';
-export const generateQuiz = async()=>[{question:'What is 7 + 3?',options:['8','9','10','11'],correctAnswer:'10',explanation:'Seven and three make ten.',questionType:query.get('kind')||'multiple-choice',matchingPairs:[{left:'One',right:'1'},{left:'Two',right:'2'}],dragItems:['Apple','Carrot'],dropZones:['Fruit','Vegetables']}];
+export const generateQuiz = async()=> query.get('flow') === 'check-next' ? [
+  {question:'What is 7 + 3?',options:['8','9','10','11'],correctAnswer:'10',explanation:'Seven and three make ten.',questionType:'multiple-choice'},
+  {question:'Which number is odd?',options:['4','5','6','8'],correctAnswer:'5',explanation:'Five has one left over when you split it into pairs.',questionType:'multiple-choice'},
+  {question:'What is 2 + 2?',options:['3','4','5','6'],correctAnswer:'4',explanation:'Two and two make four.',questionType:'multiple-choice'},
+] : [{question:'What is 7 + 3?',options:['8','9','10','11'],correctAnswer:'10',explanation:'Seven and three make ten.',questionType:query.get('kind')||'multiple-choice',matchingPairs:[{left:'One',right:'1'},{left:'Two',right:'2'}],dragItems:['Apple','Carrot'],dropZones:['Fruit','Vegetables']}];
 export const generateQuizHint = async()=> 'Count on three from seven.';
 export const askMiRa = async()=> 'Try counting on from seven.';
 export const generateSubjectConnections = async()=>[];

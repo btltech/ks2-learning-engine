@@ -12,9 +12,12 @@ import { MatchingPair } from '../types';
 interface MatchingQuestionProps {
   pairs: MatchingPair[];
   onComplete: (isCorrect: boolean, matches: Record<string, string>) => void;
+  /** Let a parent quiz own checking and feedback; standalone checks stay unchanged. */
+  deferCheck?: boolean;
+  onChange?: (answer: Record<string, string>) => void;
 }
 
-export const MatchingQuestion: React.FC<MatchingQuestionProps> = ({ pairs, onComplete }) => {
+export const MatchingQuestion: React.FC<MatchingQuestionProps> = ({ pairs, onComplete, deferCheck = false, onChange }) => {
   const [selectedLeft, setSelectedLeft] = useState<string | null>(null);
   const [matches, setMatches] = useState<Record<string, string>>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -42,15 +45,17 @@ export const MatchingQuestion: React.FC<MatchingQuestionProps> = ({ pairs, onCom
     // Add new match
     newMatches[selectedLeft] = right;
     setMatches(newMatches);
+    onChange?.(newMatches);
     setSelectedLeft(null);
-  }, [selectedLeft, matches, isSubmitted]);
+  }, [selectedLeft, matches, isSubmitted, onChange]);
 
   const handleRemoveMatch = useCallback((left: string) => {
     if (isSubmitted) return;
     const newMatches = { ...matches };
     delete newMatches[left];
     setMatches(newMatches);
-  }, [matches, isSubmitted]);
+    onChange?.(newMatches);
+  }, [matches, isSubmitted, onChange]);
 
   const handleSubmit = useCallback(() => {
     // Check if all pairs are matched
@@ -185,7 +190,7 @@ export const MatchingQuestion: React.FC<MatchingQuestionProps> = ({ pairs, onCom
       )}
 
       {/* Submit Button */}
-      {!isSubmitted && (
+      {!deferCheck && !isSubmitted && (
         <button
           type="button"
           onClick={handleSubmit}
