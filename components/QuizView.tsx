@@ -18,7 +18,7 @@ import { DrawingCanvas } from './DrawingCanvas';
 import { MatchingQuestion } from './MatchingQuestion';
 import { DragDropQuestion } from './DragDropQuestion';
 import { OrderingQuestion } from './OrderingQuestion';
-import { scoreQuizAnswer, buildQuizResults } from '../services/quizScoring';
+import { resolveMultipleChoiceAnswer, getExpectedOrder, buildQuizResults } from '../services/quizScoring';
 import { CURATED_LANGUAGES } from '../data/curriculumSequences';
 
 interface QuizViewProps {
@@ -44,28 +44,36 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
   const isLanguageSubject = (CURATED_LANGUAGES as readonly string[]).includes(subject);
   const detectedLanguage = isLanguageSubject ? subject : 'English';
   const { speak, cancel, isSpeaking } = useTTSEnhanced(detectedLanguage);
-  
+
   const [questions, setQuestions] = useState<QuizQuestion[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [selectedAnswers, setSelectedAnswers] = useState<string[]>([]);
+  const [feedback, setFeedback] = useState<{ result: QuizResult; timedOut: boolean } | null>(null);
+  const [finished, setFinished] = useState(false);
+  // Refs close the gap before React commits a render (rapid input / timeout races).
+  const phaseRef = useRef<'answering' | 'checked' | 'finished'>('answering');
+  const activeQuestionRef = useRef(0);
+  const quizEpochRef = useRef(0);
+  const resultsRef = useRef<QuizResult[]>([]);
+  const feedbackRef = useRef<HTMLDivElement>(null);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [fillInBlankAnswer, setFillInBlankAnswer] = useState<string>('');
   const [drawingData, setDrawingData] = useState<string | null>(null);
-  const [matchingCompleted, setMatchingCompleted] = useState<boolean>(false);
-  const [matchingResult, setMatchingResult] = useState<{ isCorrect: boolean; matches: Record<string, string> } | null>(null);
-  const [dragDropCompleted, setDragDropCompleted] = useState<boolean>(false);
-  const [dragDropResult, setDragDropResult] = useState<{ isCorrect: boolean; placements: Record<string, string> } | null>(null);
+  const [matchingAnswer, setMatchingAnswer] = useState<Record<string, string>>({});
+  const [sortingAnswer, setSortingAnswer] = useState<Record<string, string>>({});
   const [orderingAnswer, setOrderingAnswer] = useState<string[]>([]);
   const { playClick } = useGameSounds();
   const [timeLeft, setTimeLeft] = useState(15);
   const [timerEnabled, setTimerEnabled] = useState(mode === 'speed');
   const [currentHint, setCurrentHint] = useState<string>('');
   const [isGettingHint, setIsGettingHint] = useState(false);
-  const [questionStartTime, setQuestionStartTime] = useState<number>(Date.now());
+  const questionStartTimeRef = useRef(Date.now());
+  const remainingTimeRef = useRef(15);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const timeoutHandlerRef = useRef<(isTimeout?: boolean) => void>(() => undefined);
+  const checkHandlerRef = useRef<(isTimeout?: boolean, index?: number, epoch?: number) => void>(() => undefined);
+  const nextHandlerRef = useRef<() => void>(() => undefined);
+  const hintHandlerRef = useRef<() => void>(() => undefined);
   const questionTimesRef = useRef<number[]>([]);
   const lastProcessedTranscript = useRef<string>('');
   const fillInBlankInputRef = useRef<HTMLInputElement>(null);
@@ -79,39 +87,33 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
   const handleVoiceCommand = useCallback((command: string) => {
     const currentQuestion = questions[currentQuestionIndex];
     if (!currentQuestion) return;
-    
-    // Handle answer selection
-    if (command === 'selectA' && currentQuestion.options[0]) {
-      setSelectedOption(currentQuestion.options[0]);
-      playClick();
-    } else if (command === 'selectB' && currentQuestion.options[1]) {
-      setSelectedOption(currentQuestion.options[1]);
-      playClick();
-    } else if (command === 'selectC' && currentQuestion.options[2]) {
-      setSelectedOption(currentQuestion.options[2]);
-      playClick();
-    } else if (command === 'selectD' && currentQuestion.options[3]) {
-      setSelectedOption(currentQuestion.options[3]);
-      playClick();
-    } else if (command === 'next' || command === 'submit') {
-      if (selectedOption) {
-        handleNextQuestion();
-      }
-    } else if (command === 'repeat') {
-      speak(currentQuestion.question);
-    } else if (command === 'hint') {
-      handleGetHint();
-    }
-  }, [questions, currentQuestionIndex, selectedOption, playClick, speak]);
 
-  const { 
-    isListening, 
-    transcript, 
+    if (command === 'repeat') {
+      speak(currentQuestion.question);
+      return;
+    }
+    if (command === 'next' || command === 'submit') {
+      // Repeated submit commands cannot turn checking into advancement.
+      if (phaseRef.current === 'checked' && command === 'next') nextHandlerRef.current();
+      else if (phaseRef.current === 'answering') checkHandlerRef.current();
+      return;
+    }
+    if (phaseRef.current !== 'answering') return;
+    const optionIndex = ['selectA', 'selectB', 'selectC', 'selectD'].indexOf(command);
+    if (optionIndex >= 0 && currentQuestion.options[optionIndex]) {
+      setSelectedOption(currentQuestion.options[optionIndex]);
+      playClick();
+    } else if (command === 'hint') hintHandlerRef.current();
+  }, [questions, currentQuestionIndex, playClick, speak]);
+
+  const {
+    isListening,
+    transcript,
     interimTranscript,
     isSupported: voiceSupported,
-    startListening, 
-    stopListening 
-  } = useVoiceInput({ 
+    startListening,
+    stopListening
+  } = useVoiceInput({
     language: 'en-GB',
     onCommand: handleVoiceCommand
   });
@@ -119,8 +121,9 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
   // Process voice transcript for direct answer selection
   useEffect(() => {
     // Prevent processing the same transcript twice
-    if (transcript && transcript !== lastProcessedTranscript.current && questions[currentQuestionIndex]) {
+    if (transcript && transcript !== lastProcessedTranscript.current) {
       lastProcessedTranscript.current = transcript;
+      if (phaseRef.current !== 'answering' || !questions[currentQuestionIndex]) return;
       const answerOption = parseAnswerOption(transcript);
       if (answerOption) {
         const optionIndex = answerOption.charCodeAt(0) - 65; // A=0, B=1, etc.
@@ -133,38 +136,33 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
     }
   }, [transcript, questions, currentQuestionIndex, playClick]);
 
-  // Timer for speed mode
   useEffect(() => {
-    // Clear any existing timer first
-    if (timerRef.current) {
-      clearInterval(timerRef.current);
-      timerRef.current = null;
+    if (feedback) {
+      cancel();
+      stopListening?.();
+      feedbackRef.current?.focus();
     }
-    
-    if (mode === 'speed' && timerEnabled && !loading && !error && questions.length > 0) {
-      setTimeLeft(15);
-      timerRef.current = setInterval(() => {
-        setTimeLeft((prev) => {
-          if (prev <= 1) {
-            if (timerRef.current) {
-              clearInterval(timerRef.current);
-              timerRef.current = null;
-            }
-            setTimeout(() => timeoutHandlerRef.current(true), 0);
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-    }
-    
+  }, [feedback, cancel, stopListening]);
+
+  // Only an opted-in, unanswered question can run a timer. Capture its identity
+  // so a stale tick can never submit the following question.
+  useEffect(() => {
+    if (mode !== 'speed' || !timerEnabled || loading || error || !questions.length || feedback || finished) return;
+    const index = currentQuestionIndex;
+    const epoch = quizEpochRef.current;
+    remainingTimeRef.current = 15;
+    setTimeLeft(15);
+    timerRef.current = setInterval(() => {
+      if (phaseRef.current !== 'answering' || activeQuestionRef.current !== index || quizEpochRef.current !== epoch) return;
+      remainingTimeRef.current = Math.max(0, remainingTimeRef.current - 1);
+      setTimeLeft(remainingTimeRef.current);
+      if (remainingTimeRef.current === 0) checkHandlerRef.current(true, index, epoch);
+    }, 1000);
     return () => {
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
-        timerRef.current = null;
-      }
+      if (timerRef.current) clearInterval(timerRef.current);
+      timerRef.current = null;
     };
-  }, [mode, timerEnabled, loading, error, questions.length, currentQuestionIndex]);
+  }, [mode, timerEnabled, loading, error, questions.length, currentQuestionIndex, feedback, finished]);
 
   // Stop speaking when question changes
   useEffect(() => {
@@ -175,18 +173,29 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
     setLoading(true);
     setError(null);
     setCurrentQuestionIndex(0);
-    setSelectedAnswers([]);
+    quizEpochRef.current += 1;
+    phaseRef.current = 'answering';
+    activeQuestionRef.current = 0;
+    resultsRef.current = [];
+    setFeedback(null);
+    setFinished(false);
+    setFillInBlankAnswer('');
+    setDrawingData(null);
+    setMatchingAnswer({});
+    setSortingAnswer({});
+    setCurrentHint('');
     setSelectedOption(null);
     setOrderingAnswer([]);
     setTimerEnabled(mode === 'speed');
     setTimeLeft(15);
     questionTimesRef.current = [];
-    setQuestionStartTime(Date.now());
+    questionStartTimeRef.current = Date.now();
     try {
       const generatedQuestions = await generateQuiz(subject, topic, difficulty, studentAge, undefined, studentProfile);
       if (!generatedQuestions || generatedQuestions.length === 0) {
         setError('We couldn\'t create quiz questions right now. Please try again.');
       } else {
+        questionStartTimeRef.current = Date.now();
         setQuestions(questionCount ? generatedQuestions.slice(0, questionCount) : generatedQuestions);
       }
     } catch (err) {
@@ -205,78 +214,85 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
     fetchQuiz();
   }, [fetchQuiz]);
 
-  const handleNextQuestion = (isTimeout = false) => {
-    const currentQuestion = questions[currentQuestionIndex];
-    const questionType = currentQuestion?.questionType || QuestionType.MultipleChoice;
-    
-    // Get the answer based on question type
-    let answerToRecord: string;
-    if (isTimeout) {
-      answerToRecord = '';
-    } else if (questionType === QuestionType.FillInBlank) {
-      answerToRecord = fillInBlankAnswer.trim();
-    } else if (questionType === QuestionType.Drawing) {
-      // Keep the canvas local; quiz history records completion without uploading image data.
-      answerToRecord = drawingData ? 'Drawing submitted' : '';
-    } else if (questionType === QuestionType.Matching) {
-      answerToRecord = matchingResult ? JSON.stringify(matchingResult.matches) : '';
-    } else if (questionType === QuestionType.DragAndDrop) {
-      answerToRecord = dragDropResult ? JSON.stringify(dragDropResult.placements) : '';
-    } else if (questionType === QuestionType.Ordering) {
-      answerToRecord = orderingAnswer.length ? JSON.stringify(orderingAnswer) : '';
-    } else {
-      answerToRecord = selectedOption || '';
-    }
-    
-    // Calculate time spent on this question
-    const timeSpent = (Date.now() - questionStartTime) / 1000;
-    
-    if (answerToRecord || isTimeout) {
-      const newAnswers = [...selectedAnswers, answerToRecord];
-      questionTimesRef.current[currentQuestionIndex] = timeSpent;
-      setSelectedAnswers(newAnswers);
-      setSelectedOption(null);
-      setFillInBlankAnswer('');
-      setDrawingData(null);
-      setMatchingCompleted(false);
-      setMatchingResult(null);
-      setDragDropCompleted(false);
-      setDragDropResult(null);
-      setOrderingAnswer([]);
-      setQuestionStartTime(Date.now());
+  const currentQuestion = questions[currentQuestionIndex];
+  const questionType = currentQuestion?.questionType || QuestionType.MultipleChoice;
+  const canCheck = questionType === QuestionType.FillInBlank ? Boolean(fillInBlankAnswer.trim())
+    : questionType === QuestionType.Drawing ? Boolean(drawingData)
+    : questionType === QuestionType.Matching ? Object.keys(matchingAnswer).length === currentQuestion?.matchingPairs?.length
+    : questionType === QuestionType.DragAndDrop ? Object.keys(sortingAnswer).length === currentQuestion?.dragItems?.length
+    : questionType === QuestionType.Ordering ? orderingAnswer.length === currentQuestion?.options.length
+    : Boolean(selectedOption);
 
-      if (currentQuestionIndex < questions.length - 1) {
-        setCurrentQuestionIndex(currentQuestionIndex + 1);
-        setCurrentHint(''); // Clear hint for new question
-      } else {
-        // Final submission - check answers and record performance
-        const results: QuizResult[] = buildQuizResults(questions, newAnswers);
-        
-        // Record question performance for analytics
-        recordQuizAttempts(
-          results.map((r, idx) => ({
-            id: r.id,
-            question: r.question,
-            isCorrect: r.isCorrect,
-            timeToAnswer: questionTimesRef.current[idx]
-          })),
-          subject,
-          topic,
-          difficulty
-        );
-        
-        onSubmit(results);
-      }
+  const handleCheckAnswer = (isTimeout = false, index = currentQuestionIndex, epoch = quizEpochRef.current) => {
+    if (phaseRef.current !== 'answering' || index !== activeQuestionRef.current || epoch !== quizEpochRef.current ||
+        !currentQuestion || loading || error || (!isTimeout && !canCheck)) return;
+    phaseRef.current = 'checked';
+    if (timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = null;
+    const answer = isTimeout ? ''
+      : questionType === QuestionType.FillInBlank ? fillInBlankAnswer.trim()
+      // Keep canvas data local, as before.
+      : questionType === QuestionType.Drawing ? 'Drawing submitted'
+      : questionType === QuestionType.Matching ? JSON.stringify(matchingAnswer)
+      : questionType === QuestionType.DragAndDrop ? JSON.stringify(sortingAnswer)
+      : questionType === QuestionType.Ordering ? JSON.stringify(orderingAnswer)
+      : selectedOption || '';
+    const result = buildQuizResults([currentQuestion], [answer])[0];
+    resultsRef.current[currentQuestionIndex] = result;
+    questionTimesRef.current[currentQuestionIndex] = (Date.now() - questionStartTimeRef.current) / 1000;
+    setFeedback({ result, timedOut: isTimeout });
+  };
+
+  const handleNextQuestion = () => {
+    if (phaseRef.current !== 'checked' || activeQuestionRef.current !== currentQuestionIndex) return;
+    if (currentQuestionIndex === questions.length - 1) {
+      phaseRef.current = 'finished';
+      setFinished(true);
+      // The existing completion pipeline receives the results already scored at Check.
+      const results = [...resultsRef.current];
+      recordQuizAttempts(results.map((r, idx) => ({
+        id: r.id, question: r.question, isCorrect: r.isCorrect, timeToAnswer: questionTimesRef.current[idx]
+      })), subject, topic, difficulty);
+      onSubmit(results);
+      return;
     }
+    phaseRef.current = 'answering';
+    activeQuestionRef.current = currentQuestionIndex + 1;
+    setCurrentQuestionIndex(currentQuestionIndex + 1);
+    setFeedback(null);
+    setSelectedOption(null);
+    setFillInBlankAnswer('');
+    setDrawingData(null);
+    setMatchingAnswer({});
+    setSortingAnswer({});
+    setOrderingAnswer([]);
+    setCurrentHint('');
+    questionStartTimeRef.current = Date.now();
   };
 
   useEffect(() => {
-    timeoutHandlerRef.current = handleNextQuestion;
+    checkHandlerRef.current = handleCheckAnswer;
+    nextHandlerRef.current = handleNextQuestion;
+    hintHandlerRef.current = handleGetHint;
   });
 
+  // Keep ordering notifications stable across timer and feedback renders.
+  const handleOrderingChange = useCallback((answer: string[]) => {
+    if (phaseRef.current === 'answering') setOrderingAnswer(answer);
+  }, []);
+  const blockLockedInput = (event: React.SyntheticEvent) => {
+    if (phaseRef.current !== 'answering') {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  };
+
   const handleGetHint = async () => {
-    if (!currentQuestion || isGettingHint) return;
-    
+    if (!currentQuestion || isGettingHint || phaseRef.current !== 'answering') return;
+    const index = currentQuestionIndex;
+    const epoch = quizEpochRef.current;
+    const stillAnswering = () => activeQuestionRef.current === index && quizEpochRef.current === epoch && phaseRef.current === 'answering';
+
     setIsGettingHint(true);
     try {
       const hint = await generateQuizHint(
@@ -287,16 +303,17 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
         studentAge,
         studentName
       );
-      setCurrentHint(hint);
+      if (stillAnswering()) setCurrentHint(hint);
     } catch (error) {
       console.error('Error getting hint:', error);
-      setCurrentHint("I'm having trouble thinking of a hint right now. Try reading the question again carefully!");
+      if (stillAnswering()) setCurrentHint("I'm having trouble thinking of a hint right now. Try reading the question again carefully!");
     } finally {
       setIsGettingHint(false);
     }
   };
 
   const handleOptionSelect = (option: string) => {
+    if (phaseRef.current !== 'answering') return;
     playClick();
     setSelectedOption(option);
   };
@@ -304,8 +321,8 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
   if (loading) {
     return (
       <div className="w-full max-w-3xl mx-auto">
-        <LoadingSpinner 
-          message="Preparing your quiz questions..." 
+        <LoadingSpinner
+          message="Preparing your quiz questions..."
           showProgress={true}
           estimatedTime={6}
         />
@@ -318,7 +335,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
       </div>
     );
   }
-  
+
   if (error) {
     return (
       <div className="w-full max-w-3xl mx-auto text-center p-8">
@@ -335,14 +352,14 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
     );
   }
 
-  const currentQuestion = questions[currentQuestionIndex];
   const isLastQuestion = currentQuestionIndex === questions.length - 1;
-  // Presentation of the last submitted answer, using the existing scoring rules.
-  // Submission still advances immediately, including voice input and timeouts.
-  const previousQuestion = currentQuestionIndex > 0 ? questions[currentQuestionIndex - 1] : undefined;
-  const previousOutcome = previousQuestion
-    ? scoreQuizAnswer(previousQuestion, selectedAnswers[currentQuestionIndex - 1] || '')
-    : undefined;
+  const correctAnswer = questionType === QuestionType.Matching
+    ? currentQuestion.matchingPairs?.map(pair => `${pair.left} → ${pair.right}`).join('; ')
+    : questionType === QuestionType.DragAndDrop
+    ? currentQuestion.dragItems?.map((item, index) => `${item} → ${currentQuestion.dropZones?.[index]}`).join('; ')
+    : questionType === QuestionType.Ordering ? getExpectedOrder(currentQuestion).join(' → ')
+    : questionType === QuestionType.FillInBlank ? currentQuestion.correctAnswer
+    : resolveMultipleChoiceAnswer(currentQuestion);
 
   return (
     <section className="sunny-quiz sunny-ui w-full max-w-3xl mx-auto bg-white p-4 sm:p-8 rounded-2xl shadow-[0_20px_25px_-5px_rgba(0,0,0,0.1),0_10px_10px_-5px_rgba(0,0,0,0.04)] border border-gray-100" aria-label={`${subject} ${topic} quiz`}>
@@ -353,16 +370,8 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
             <div className="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-500" style={{ width: `${((currentQuestionIndex + 1) / questions.length) * 100}%` }}></div>
         </div>
       </div>
-      {previousQuestion && previousOutcome?.isScored && (
-        <div className="sunny-quiz-feedback" data-correct={previousOutcome.isCorrect} role="status">
-          <Owl pose={previousOutcome.isCorrect ? 'hooray' : 'wave'} height={80} />
-          <div><strong>{previousOutcome.isCorrect ? '✓ Correct! Well done.' : '↻ Worth another look'}</strong>
-          <p>Your last answer: {selectedAnswers[currentQuestionIndex - 1] || 'No answer'}</p>
-          {previousQuestion.explanation && <p>{previousQuestion.explanation}</p>}</div>
-        </div>
-      )}
       <div className="sunny-quiz-question flex justify-between items-start mb-6">
-        <Owl pose="thinking" height={140} />
+        <Owl pose={feedback ? feedback.result.isCorrect ? 'hooray' : 'wave' : 'thinking'} height={140} />
         <div className="flex-grow">
           {mode === 'speed' && (
             <div className="mb-3 rounded-xl bg-orange-50 p-3 text-orange-700">
@@ -372,11 +381,11 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
                   {timerEnabled ? `${timeLeft}s` : 'No time limit'}
                 </span>
                 {timerEnabled && (
-                  <button type="button" onClick={() => setTimeLeft((seconds) => seconds + 30)} className="rounded-lg bg-white px-3 py-2 text-sm shadow-sm hover:bg-orange-100">
+                  <button type="button" disabled={Boolean(feedback)} onClick={() => { remainingTimeRef.current += 30; setTimeLeft(remainingTimeRef.current); }} className="rounded-lg bg-white px-3 py-2 text-sm shadow-sm hover:bg-orange-100">
                     +30 seconds
                   </button>
                 )}
-                <button type="button" onClick={() => setTimerEnabled((enabled) => !enabled)} className="rounded-lg bg-white px-3 py-2 text-sm shadow-sm hover:bg-orange-100">
+                <button type="button" disabled={Boolean(feedback)} onClick={() => setTimerEnabled((enabled) => !enabled)} className="rounded-lg bg-white px-3 py-2 text-sm shadow-sm hover:bg-orange-100">
                   {timerEnabled ? 'Turn off timer' : 'Turn timer on'}
                 </button>
               </div>
@@ -386,7 +395,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
           <h1 ref={questionHeadingRef} tabIndex={-1} className="text-xl sm:text-2xl font-bold text-gray-800">{currentQuestion.question}</h1>
         </div>
         <div className="sunny-quiz-tools flex gap-2 ml-2 sm:ml-4">
-          <button 
+          <button
             onClick={() => isSpeaking ? cancel() : speak(currentQuestion.question)}
             className="p-2 text-blue-500 hover:bg-blue-50 rounded-full transition-colors"
             aria-label={isSpeaking ? "Stop reading" : "Read question"}
@@ -395,10 +404,10 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
           </button>
           {voiceSupported && (
             <button
-              onClick={() => isListening ? stopListening() : startListening()}
+              disabled={Boolean(feedback)} onClick={() => isListening ? stopListening() : startListening()}
               className={`p-2 rounded-full transition-colors ${
-                isListening 
-                  ? 'bg-red-100 text-red-600 animate-pulse' 
+                isListening
+                  ? 'bg-red-100 text-red-600 animate-pulse'
                   : 'text-purple-500 hover:bg-purple-50'
               }`}
               aria-label={isListening ? "Stop voice input" : "Answer by voice"}
@@ -409,7 +418,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
           )}
           <button
             onClick={handleGetHint}
-            disabled={isGettingHint}
+            disabled={isGettingHint || Boolean(feedback)}
             className="p-2 text-yellow-500 hover:bg-yellow-50 rounded-full transition-colors disabled:opacity-50"
             aria-label="Get a hint"
             title="Get a helpful hint (won't give away the answer)"
@@ -451,7 +460,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
       {currentQuestion.questionType && currentQuestion.questionType !== QuestionType.MultipleChoice && (
         <div className="mb-4 flex items-center gap-2">
           <span className={`text-xs font-bold px-3 py-1 rounded-full ${
-            currentQuestion.questionType === QuestionType.TrueFalse 
+            currentQuestion.questionType === QuestionType.TrueFalse
               ? 'bg-purple-100 text-purple-700'
               : currentQuestion.questionType === QuestionType.FillInBlank
               ? 'bg-green-100 text-green-700'
@@ -476,8 +485,11 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
         </div>
       )}
 
+      <fieldset key={currentQuestionIndex} className="sunny-quiz-inputs" aria-label="Your answer" disabled={Boolean(feedback) || finished}
+        onClickCapture={blockLockedInput} onPointerDownCapture={blockLockedInput} onPointerMoveCapture={blockLockedInput}
+        onKeyDownCapture={blockLockedInput} onDropCapture={blockLockedInput} onDragStartCapture={blockLockedInput}>
       {/* Multiple Choice / True-False Options */}
-      {(currentQuestion.questionType === QuestionType.MultipleChoice || 
+      {(currentQuestion.questionType === QuestionType.MultipleChoice ||
         currentQuestion.questionType === QuestionType.TrueFalse ||
         !currentQuestion.questionType) && currentQuestion.options && currentQuestion.options.length > 0 && (
         <div className="sunny-answer-grid" role="radiogroup" aria-label="Quiz answer options">
@@ -500,7 +512,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
                 event.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>('[role="radio"]')[next]?.focus();
               }}
               className={`sunny-quiz-answer w-full text-left p-3 sm:p-4 rounded-xl border-2 transition-all duration-200 text-base sm:text-lg font-semibold
-                ${selectedOption === option 
+                ${selectedOption === option
                   ? currentQuestion.questionType === QuestionType.TrueFalse
                     ? option === 'True'
                       ? 'bg-gradient-to-r from-green-500 to-green-600 border-green-600 text-white scale-105 shadow-lg shadow-green-500/40'
@@ -531,12 +543,14 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
           <div className="relative">
             <input
               ref={fillInBlankInputRef}
+              aria-label="Your answer"
               type="text"
               value={fillInBlankAnswer}
-              onChange={(e) => setFillInBlankAnswer(e.target.value)}
+              onChange={(e) => { if (phaseRef.current === 'answering') setFillInBlankAnswer(e.target.value); }}
               onKeyDown={(e) => {
-                if (e.key === 'Enter' && fillInBlankAnswer.trim()) {
-                  handleNextQuestion(false);
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  if (!e.repeat && fillInBlankAnswer.trim()) handleCheckAnswer();
                 }
               }}
               placeholder="Type your answer here..."
@@ -545,6 +559,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
             />
             {fillInBlankAnswer && (
               <button
+                aria-label="Clear answer"
                 onClick={() => setFillInBlankAnswer('')}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
               >
@@ -553,7 +568,7 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
             )}
           </div>
           <p className="text-sm text-gray-500 text-center">
-            💡 Type your answer and press Enter or click Next
+            💡 Type your answer and press Enter or click Check answer
           </p>
         </div>
       )}
@@ -563,9 +578,9 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
         <div className="space-y-4">
           <DrawingCanvas
             idea={currentQuestion.question}
-            onSave={(data) => setDrawingData(data)} 
-            width={600} 
-            height={400} 
+            onSave={(data) => { if (phaseRef.current === 'answering') setDrawingData(data); }}
+            width={600}
+            height={400}
           />
           <p className="text-sm text-gray-500 text-center">
             🎨 Draw your answer above and click Submit Drawing!
@@ -577,10 +592,9 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
       {currentQuestion.questionType === QuestionType.Matching && currentQuestion.matchingPairs && (
         <MatchingQuestion
           pairs={currentQuestion.matchingPairs}
-          onComplete={(isCorrect, matches) => {
-            setMatchingCompleted(true);
-            setMatchingResult({ isCorrect, matches });
-          }}
+          deferCheck
+          onChange={(answer) => { if (phaseRef.current === 'answering') setMatchingAnswer(answer); }}
+          onComplete={() => undefined}
         />
       )}
 
@@ -596,51 +610,45 @@ const QuizView: React.FC<QuizViewProps> = ({ subject, topic, difficulty, student
             id: label,
             label
           }))}
-          onComplete={(isCorrect, placements) => {
-            setDragDropCompleted(true);
-            setDragDropResult({ isCorrect, placements });
-          }}
+          deferCheck
+          onChange={(answer) => { if (phaseRef.current === 'answering') setSortingAnswer(answer); }}
+          onComplete={() => undefined}
         />
       )}
 
       {/* Ordering Question */}
       {currentQuestion.questionType === QuestionType.Ordering && currentQuestion.options.length > 0 && (
-        <OrderingQuestion items={currentQuestion.options} onChange={setOrderingAnswer} />
+        <OrderingQuestion items={currentQuestion.options} onChange={handleOrderingChange} />
       )}
 
+      </fieldset>
+      {feedback && (
+        <div ref={feedbackRef} className="sunny-quiz-feedback" data-correct={feedback.result.isScored === false ? undefined : feedback.result.isCorrect}
+          role="status" aria-label="Answer feedback" aria-live="polite" aria-atomic="true" tabIndex={-1}>
+          <Owl pose={feedback.result.isCorrect ? 'hooray' : 'wave'} height={80} />
+          <div>
+            <strong><span aria-hidden="true">{feedback.timedOut ? '→' : feedback.result.isScored === false ? '✓' : feedback.result.isCorrect ? '✓' : '→'} </span>
+              {feedback.timedOut ? "Time’s up" : feedback.result.isScored === false ? 'Creative task complete' : feedback.result.isCorrect ? "Hooray! That's correct" : 'Worth another look'}</strong>
+            {currentQuestion.explanation && <p>{currentQuestion.explanation}</p>}
+            {feedback.result.isScored === false ? <p>Creative tasks are not part of your quiz score.</p>
+              : !feedback.result.isCorrect && <p>Correct answer: {correctAnswer}</p>}
+          </div>
+        </div>
+      )}
       <div className="sunny-quiz-submit mt-6 sm:mt-8 text-right">
         <button
-          onClick={() => handleNextQuestion(false)}
-          disabled={
-            currentQuestion.questionType === QuestionType.FillInBlank 
-              ? !fillInBlankAnswer.trim()
-              : currentQuestion.questionType === QuestionType.Drawing
-              ? !drawingData
-              : currentQuestion.questionType === QuestionType.Matching
-              ? !matchingCompleted
-              : currentQuestion.questionType === QuestionType.DragAndDrop
-              ? !dragDropCompleted
-              : currentQuestion.questionType === QuestionType.Ordering
-              ? orderingAnswer.length !== currentQuestion.options.length
-              : !selectedOption
-          }
-          aria-label={isLastQuestion ? 'Finish quiz and see results' : 'Go to next question'}
-          aria-disabled={
-            currentQuestion.questionType === QuestionType.FillInBlank 
-              ? !fillInBlankAnswer.trim()
-              : currentQuestion.questionType === QuestionType.Drawing
-              ? !drawingData
-              : currentQuestion.questionType === QuestionType.Matching
-              ? !matchingCompleted
-              : currentQuestion.questionType === QuestionType.DragAndDrop
-              ? !dragDropCompleted
-              : currentQuestion.questionType === QuestionType.Ordering
-              ? orderingAnswer.length !== currentQuestion.options.length
-              : !selectedOption
-          }
+          onClick={(event) => {
+            if (event.detail > 1) return;
+            if (feedback) handleNextQuestion();
+            else handleCheckAnswer();
+          }}
+          onKeyDown={(event) => {
+            if (event.repeat && (event.key === 'Enter' || event.key === ' ')) event.preventDefault();
+          }}
+          disabled={finished || (!feedback && !canCheck)}
           className="w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-bold text-lg rounded-xl shadow-lg shadow-green-500/40 hover:shadow-xl hover:shadow-green-500/50 active:scale-95 transition-all duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:shadow-none disabled:active:scale-100"
         >
-          {isLastQuestion ? 'Finish Quiz' : 'Check answer'}
+          {feedback ? isLastQuestion ? 'Finish Quiz' : 'Next question' : 'Check answer'}
         </button>
       </div>
     </section>

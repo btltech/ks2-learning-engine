@@ -1,25 +1,32 @@
 import './SunnyQuizResults.css';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface OrderingQuestionProps {
   items: string[];
   onChange: (orderedItems: string[]) => void;
 }
 
-export const OrderingQuestion: React.FC<OrderingQuestionProps> = ({ items, onChange }) => {
-  const [orderedItems, setOrderedItems] = useState<string[]>(items);
+// Equivalent arrays must not reset a child's work. A genuinely new list remounts.
+export const OrderingQuestion: React.FC<OrderingQuestionProps> = (props) => (
+  <OrderingItems key={JSON.stringify(props.items)} {...props} />
+);
+
+const OrderingItems: React.FC<OrderingQuestionProps> = ({ items, onChange }) => {
+  const [orderedItems, setOrderedItems] = useState(() => [...items]);
+  const currentOrder = useRef(orderedItems);
 
   useEffect(() => {
-    const next = [...items];
-    setOrderedItems(next);
-    onChange(next);
-  }, [items, onChange]);
+    // A delayed mount effect (or new callback) reports the latest order; it
+    // must never restore the starting items after the child has already moved one.
+    onChange(currentOrder.current);
+  }, [onChange]);
 
   const move = (index: number, offset: number) => {
     const target = index + offset;
     if (target < 0 || target >= orderedItems.length) return;
     const next = [...orderedItems];
     [next[index], next[target]] = [next[target], next[index]];
+    currentOrder.current = next;
     setOrderedItems(next);
     onChange(next);
   };

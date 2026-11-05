@@ -13,9 +13,12 @@ interface DragDropQuestionProps {
   items: DragDropItem[];
   zones: DragDropZone[];
   onComplete: (isCorrect: boolean, placements: Record<string, string>) => void;
+  /** Let a parent quiz own checking and feedback; standalone checks stay unchanged. */
+  deferCheck?: boolean;
+  onChange?: (answer: Record<string, string>) => void;
 }
 
-export const DragDropQuestion: React.FC<DragDropQuestionProps> = ({ items, zones, onComplete }) => {
+export const DragDropQuestion: React.FC<DragDropQuestionProps> = ({ items, zones, onComplete, deferCheck = false, onChange }) => {
   const [placements, setPlacements] = useState<Record<string, string>>({}); // itemId -> zoneId
   const [draggedItem, setDraggedItem] = useState<string | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -50,8 +53,9 @@ export const DragDropQuestion: React.FC<DragDropQuestionProps> = ({ items, zones
     });
     newPlacements[itemId] = zoneId;
     setPlacements(newPlacements);
+    onChange?.(newPlacements);
     setDraggedItem(null);
-  }, [placements, isSubmitted, items]);
+  }, [placements, isSubmitted, items, onChange]);
 
   // Handle drag over
   const handleDragOver = useCallback((e: React.DragEvent) => {
@@ -71,8 +75,9 @@ export const DragDropQuestion: React.FC<DragDropQuestionProps> = ({ items, zones
     const newPlacements = { ...placements };
     newPlacements[selectedItem] = zoneId;
     setPlacements(newPlacements);
+    onChange?.(newPlacements);
     setSelectedItem(null);
-  }, [selectedItem, placements, isSubmitted]);
+  }, [selectedItem, placements, isSubmitted, onChange]);
 
   // Remove item from zone
   const handleRemoveItem = useCallback((itemId: string) => {
@@ -80,7 +85,8 @@ export const DragDropQuestion: React.FC<DragDropQuestionProps> = ({ items, zones
     const newPlacements = { ...placements };
     delete newPlacements[itemId];
     setPlacements(newPlacements);
-  }, [placements, isSubmitted]);
+    onChange?.(newPlacements);
+  }, [placements, isSubmitted, onChange]);
 
   // Submit answers
   const handleSubmit = useCallback(() => {
@@ -254,7 +260,7 @@ export const DragDropQuestion: React.FC<DragDropQuestionProps> = ({ items, zones
       )}
 
       {/* Submit Button */}
-      {!isSubmitted && (
+      {!deferCheck && !isSubmitted && (
         <button
           type="button"
           onClick={handleSubmit}

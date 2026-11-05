@@ -1,4 +1,4 @@
-/* Quiz presentation only. Question state, scoring and navigation stay with their owners. */
+/* Shared quiz, question and results presentation. */
 :is(.sunny-quiz,.sunny-results,.sunny-question-kind) { color: #172033; font: 1.125rem/1.6 'Atkinson Hyperlegible',sans-serif; }
 :is(.sunny-quiz,.sunny-results,.sunny-question-kind) :is(p,span,div,label,input,button,h1,h2,h3,h4) { color: inherit; font-family: inherit; }
 :is(.sunny-quiz,.sunny-results,.sunny-question-kind) :is(h1,h2,h3,h4,strong,button) { font-family: 'Fredoka',sans-serif; }
@@ -176,3 +176,11 @@ body:has(.sunny-quiz,.sunny-results) { background: #FFF9EC radial-gradient(#F3E3
 .sunny-match-pair > button { border: 0; box-shadow: none; }
 .sunny-match-pair > button:hover:enabled { box-shadow: none; transform: none; }
 :is(.high-contrast,.sunny-high-contrast) :is(.sunny-sort-zone,.sunny-match-pair) { background: var(--bg-primary,#000); border-color: var(--border-color,#fff); }
+
+/* Keep checked answers readable while the single shared action moves on. */
+.sunny-quiz-inputs { min-width: 0; margin: 0; padding: 0; border: 0; }
+.sunny-quiz-inputs:disabled { pointer-events: none; }
+.sunny-quiz-inputs:disabled .sunny-quiz-answer[aria-checked='true'] { border: 4px solid #1E55C8; background: #DCEBFF; color: #172033; }
+.sunny-quiz-feedback { scroll-margin-block: calc(var(--sunny-header-height, 110px) + 24px) 220px; }
+.sunny-quiz-feedback:focus { outline: 4px solid #1E55C8; outline-offset: 4px; }
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) .sunny-quiz-feedback:focus { outline-color: var(--display-ink,#fff); }
