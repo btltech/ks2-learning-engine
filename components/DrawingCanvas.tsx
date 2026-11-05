@@ -1,7 +1,11 @@
+import { Owl } from './sunny/Owl';
+import { SpeechBubble } from './sunny/SpeechBubble';
+import './SunnyArtAvatar.css';
 import React, { useRef, useState, useEffect } from 'react';
 
 interface DrawingCanvasProps {
   onSave: (imageData: string) => void;
+  idea?: string;
   width?: number;
   height?: number;
   initialImage?: string; // Optional background image to draw on
@@ -19,7 +23,8 @@ export const getCanvasPoint = (
 });
 
 export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({ 
-  onSave, 
+  onSave,
+  idea,
   width = 600, 
   height = 400,
   initialImage 
@@ -125,32 +130,33 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
   };
 
   return (
-    <div className="flex flex-col items-center gap-4 p-4 bg-white rounded-xl shadow-sm border border-gray-200">
-      <div className="flex flex-wrap gap-4 items-center justify-center w-full mb-2">
+    <div className="sunny-drawing sunny-ui flex flex-col items-center gap-4 p-4 bg-white rounded-xl shadow-sm border border-gray-200">
+      <div className="sunny-art-idea"><Owl pose="reading" height={90} /><SpeechBubble>Today’s idea: {idea || "Choose a colour and draw your answer."}</SpeechBubble></div>
+      <div className="sunny-drawing-tools flex flex-wrap gap-4 items-center justify-center w-full mb-2">
         {/* Color Picker */}
-        <div className="flex gap-2">
-          {['#000000', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FFA500', '#800080'].map((c) => (
+        <div className="sunny-paint-colours"><h3>Colours</h3><div>
+          {Object.entries({'#000000':'Black', '#FF0000':'Red', '#00FF00':'Green', '#0000FF':'Blue', '#FFFF00':'Yellow', '#FFA500':'Orange', '#800080':'Purple'}).map(([c,name]) => (
             <button
               key={c}
               type="button"
               className={`w-11 h-11 rounded-full border-2 ${color === c ? 'border-gray-600 scale-105' : 'border-transparent'}`}
-              style={{ backgroundColor: c }}
+              aria-pressed={color === c}
               onClick={() => setColor(c)}
               aria-label={`Select color ${c}`}
-            />
+            ><span className="sunny-paint-blob" style={{backgroundColor:c}} aria-hidden="true" /><span>{name}</span></button>
           ))}
-          <input 
+          <label className="sunny-custom-paint"><span>Custom</span><input
             type="color" 
             value={color} 
             onChange={(e) => setColor(e.target.value)}
             className="w-11 h-11 rounded-full overflow-hidden cursor-pointer"
             aria-label="Choose a custom drawing colour"
-          />
+          /></label></div>
         </div>
 
         {/* Line Width */}
         <div className="flex items-center gap-2 bg-gray-100 px-3 py-1 rounded-lg">
-          <span className="text-xs font-medium text-gray-600">Size:</span>
+          <span className="text-xs font-medium text-gray-600">Line size:</span>
           <input
             type="range"
             min="1"
@@ -172,7 +178,7 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
         </button>
       </div>
 
-      <div className="relative border-2 border-dashed border-gray-300 rounded-lg overflow-hidden touch-none">
+      <div className="sunny-drawing-surface relative border-2 border-dashed border-gray-300 rounded-lg overflow-hidden touch-none">
         <canvas
           ref={canvasRef}
           width={width}

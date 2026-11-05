@@ -1,3 +1,6 @@
+import { Owl } from './sunny/Owl';
+import { SpeechBubble } from './sunny/SpeechBubble';
+import './SunnyArtAvatar.css';
 import React, { useState, useCallback } from 'react';
 import { DrawingLesson, getArtworkById } from '../data/artResources';
 
@@ -55,7 +58,7 @@ export const DrawingLessonView: React.FC<DrawingLessonViewProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-100 to-pink-100 p-4">
+    <div className="sunny-art-lesson sunny-ui min-h-screen bg-gradient-to-b from-purple-100 to-pink-100 p-4">
       {/* Header */}
       <div className="max-w-2xl mx-auto">
         <button
@@ -82,6 +85,7 @@ export const DrawingLessonView: React.FC<DrawingLessonViewProps> = ({
             <h1 className="text-2xl font-bold">{lesson.title}</h1>
           </div>
 
+          <div className="sunny-art-idea"><Owl pose="reading" height={90} /><SpeechBubble>Today’s idea: {lesson.title}</SpeechBubble></div>
           {/* Materials Section */}
           <div className="p-4 bg-yellow-50 border-b border-yellow-100">
             <h3 className="font-bold text-yellow-800 mb-2">📦 You'll need:</h3>
@@ -135,6 +139,7 @@ export const DrawingLessonView: React.FC<DrawingLessonViewProps> = ({
                 <button
                   key={idx}
                   onClick={() => setCurrentStep(idx)}
+                  aria-pressed={idx === currentStep}
                   className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all
                     ${idx === currentStep 
                       ? 'bg-purple-500 text-white scale-110' 
