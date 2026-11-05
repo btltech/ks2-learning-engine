@@ -761,7 +761,7 @@ const AppContent: React.FC = () => {
               
               {/* Phase 2: New Progress & Social Routes */}
               <Route path="/progress" element={
-                hasRole(user, 'student') ? <ProgressView /> : <Navigate to="/" replace />
+                hasRole(user, 'student') ? <ProgressView user={user} /> : <Navigate to="/" replace />
               } />
 
               <Route path="/leaderboard" element={

@@ -1,7 +1,9 @@
+import { Owl } from './sunny/Owl';
+import { StickerBook, PersonalBestBanner } from './sunny/ProgressPresentation';
+import './SunnyProgressGames.css';
 import React from 'react';
 import { useUser } from '../context/UserContext';
 import { SUBJECTS } from '../constants';
-import { ChartBarIcon } from '@heroicons/react/24/solid';
 
 interface ProgressViewProps {
   onBack: () => void;
@@ -34,7 +36,7 @@ const ProgressView: React.FC<ProgressViewProps> = ({ onBack }) => {
   }).filter(s => s.topicsCompleted > 0).sort((a, b) => b.averageScore - a.averageScore);
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-4">
+    <div className="sunny-progress sunny-legacy-progress sunny-ui w-full max-w-4xl mx-auto p-4">
       <button 
         onClick={onBack}
         className="mb-6 text-blue-600 hover:text-blue-800 font-bold flex items-center"
@@ -46,10 +48,10 @@ const ProgressView: React.FC<ProgressViewProps> = ({ onBack }) => {
         <div className="bg-gradient-to-r from-blue-500 to-indigo-600 p-8 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold mb-2">Your Progress</h1>
+              <h1 className="text-3xl font-bold mb-2">My trophy room</h1>
               <p className="opacity-90">Keep up the great work, {user.name}!</p>
             </div>
-            <ChartBarIcon className="h-20 w-20 text-blue-200 opacity-50" />
+            <Owl pose="hooray" height={100} />
           </div>
           
           <div className="grid grid-cols-3 gap-4 mt-8">
@@ -109,6 +111,8 @@ const ProgressView: React.FC<ProgressViewProps> = ({ onBack }) => {
           )}
         </div>
       </div>
+      <StickerBook badges={user.badges} />
+      <PersonalBestBanner />
     </div>
   );
 };

@@ -96,6 +96,7 @@ export default function ProgressChart({ subject, days = 30 }: Props) {
 
   const chartOptions = {
     responsive: true,
+    animation: false as const,
     maintainAspectRatio: false,
     plugins: {
       legend: {

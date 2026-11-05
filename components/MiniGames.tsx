@@ -1,3 +1,5 @@
+import { Owl } from './sunny/Owl';
+import './SunnyProgressGames.css';
 import React, { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import confetti from 'canvas-confetti';
 import { useGameSounds } from '../hooks/useGameSounds';
@@ -157,7 +159,7 @@ const MiniGames: React.FC<MiniGamesProps> = ({ onClose, onXpEarned, status }) =>
     setCompletedResult(result);
     updateStatus(nextStatus);
     onXpEarned?.(result.xpEarned);
-    const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches || document.documentElement.classList.contains('reduce-motion');
     if (!reduceMotion && result.stars >= 2) {
       confetti({ particleCount: 80, spread: 65, origin: { y: 0.7 } });
     }
@@ -248,10 +250,10 @@ const MiniGames: React.FC<MiniGamesProps> = ({ onClose, onXpEarned, status }) =>
   return (
     <GamesShell onHome={onClose}>
       <main className="max-w-4xl mx-auto" id="games-main">
-        <div className="text-center mb-6">
-          <h1 className="text-3xl sm:text-4xl font-black text-white mb-2">🎮 Learning Games</h1>
-          <p className="text-white/75">Every game teaches a KS2 skill and explains the answers.</p>
-        </div>
+        <div className="sunny-games-hero"><Owl pose={currentStatus.gamesRemaining > 0 ? "wave" : "thinking"} height={100} /><div>
+          <h1 className="text-3xl sm:text-4xl font-black text-white mb-2">Game time!</h1>
+          <p>Every game teaches a KS2 skill and explains the answers.</p>
+        </div></div>
 
         <GameCreditPanel status={currentStatus} />
 
@@ -272,32 +274,21 @@ const MiniGames: React.FC<MiniGamesProps> = ({ onClose, onXpEarned, status }) =>
 
         {error && <p className="mb-4 rounded-xl bg-red-100 p-3 text-red-800" role="alert">{error}</p>}
 
-        <div className="grid gap-4 sm:grid-cols-2" aria-label="Available learning games">
+        <div className="sunny-game-catalogue" aria-label="Available learning games">
           {GAMES.map((game) => (
-            <button
-              type="button"
-              key={game.id}
-              onClick={() => { setSelectedGame(game.id); setError(''); }}
-              className={`bg-gradient-to-br ${game.colour} rounded-2xl p-5 text-left shadow-lg transition motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-2xl focus:outline-none focus-visible:ring-4 focus-visible:ring-white`}
-              aria-label={`${game.name}, ${game.subject}. ${game.description}`}
-            >
-              <div className="flex items-start gap-4">
-                <span className="text-5xl" aria-hidden="true">{game.icon}</span>
-                <span className="min-w-0 flex-1">
-                  <span className="block text-xl font-black text-white">{game.name}</span>
-                  <span className="block text-sm text-white/85 mt-1">{game.description}</span>
-                  <span className="mt-3 flex flex-wrap items-center gap-2 text-xs">
-                    <span className="rounded-full bg-white/20 px-3 py-1 text-white">{game.subject}</span>
-                    <span className="rounded-full bg-black/15 px-3 py-1 text-white">{game.questions} questions</span>
-                    {currentStatus.highScores[game.id] > 0 && (
-                      <span className="font-bold text-yellow-200">Best: {currentStatus.highScores[game.id]}</span>
-                    )}
-                  </span>
+            <article className="sunny-game-card" key={game.id} data-game={game.id}>
+              <button type="button" onClick={() => { setSelectedGame(game.id); setError(''); }}
+                aria-label={`${game.name}, ${game.subject}. ${game.description}`}>
+                <span className="sunny-game-picture" aria-hidden="true"><span>{game.icon}</span><strong>{game.id === 'times_table_sprint' ? '6 × 7' : game.id === 'maths_mission' ? '7 + ? = 10' : game.id === 'spelling_workshop' ? 'b e _ s' : game.id === 'science_lab' ? 'Observe + sort' : 'Look for clues'}</strong></span>
+                <span className="sunny-game-card-body"><strong>{game.name}</strong><span>{game.description}</span>
+                  <span className="sunny-game-chips"><span>{game.subject}</span><span>{game.questions} questions</span>{game.id === 'spelling_workshop' && <span>Hear the word</span>}{currentStatus.highScores[game.id] > 0 && <span>Best: {currentStatus.highScores[game.id]}</span>}</span>
+                  <span className="sunny-game-play">▷ Play</span>
                 </span>
-                <span className="text-2xl text-white/70" aria-hidden="true">→</span>
-              </div>
-            </button>
+              </button>
+              <button type="button" className="sunny-game-how" onClick={() => { setSelectedGame(game.id); setError(''); }} aria-label={`How to play ${game.name}`}>How to play</button>
+            </article>
           ))}
+          <aside className="sunny-game-art"><span aria-hidden="true">🎨</span><h2>Fancy drawing instead?</h2><a href="/art-studio">Go to the art studio</a></aside>
         </div>
       </main>
     </GamesShell>
@@ -305,7 +296,7 @@ const MiniGames: React.FC<MiniGamesProps> = ({ onClose, onXpEarned, status }) =>
 };
 
 const GamesShell: React.FC<{ onHome: () => void; onBack?: () => void; children: React.ReactNode }> = ({ onHome, onBack, children }) => (
-  <div className="fixed inset-0 z-50 overflow-y-auto bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900">
+  <div className="sunny-games sunny-ui fixed inset-0 z-50 overflow-y-auto bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900">
     <div className="min-h-screen p-4 sm:p-6">
       <div className="max-w-5xl mx-auto mb-6 flex items-center justify-between">
         {onBack ? (
@@ -325,7 +316,7 @@ const GamesShell: React.FC<{ onHome: () => void; onBack?: () => void; children: 
 const GameCreditPanel: React.FC<{ status: GameStatus }> = ({ status }) => {
   const quizzesLeft = Math.max(0, status.requiredPasses - status.passesCount);
   return (
-    <section className="mb-6 rounded-2xl border border-white/15 bg-white/10 p-4 text-white" aria-labelledby="game-credit-title">
+    <section className="sunny-game-credits mb-6 rounded-2xl border border-white/15 bg-white/10 p-4 text-white" aria-labelledby="game-credit-title">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 id="game-credit-title" className="font-bold">Game plays: {status.gamesRemaining}</h2>
