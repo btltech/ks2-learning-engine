@@ -109,7 +109,7 @@ const SubjectProgressCharts: React.FC<SubjectProgressChartsProps> = ({
     return (
       <div className="bg-white rounded-xl shadow-md p-8 text-center">
         <div className="text-6xl mb-4">📚</div>
-        <h3 className="text-2xl font-bold text-gray-800 mb-4">No Progress Yet</h3>
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">No Progress Yet</h2>
         <p className="text-gray-600 mb-4">
           {studentName} hasn't completed any quizzes yet. Progress will appear here once they start learning!
         </p>
@@ -127,22 +127,22 @@ const SubjectProgressCharts: React.FC<SubjectProgressChartsProps> = ({
   }
 
   return (
-    <div className="space-y-8">
+    <div className="cp-subjects space-y-8">
       {/* Overall Progress Summary */}
       <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl shadow-md p-8 border border-purple-100">
-        <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+        <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
           <ChartBarIcon className="h-6 w-6 text-purple-500" />
           Subject Progress Overview
-        </h3>
+        </h2>
 
         {/* Summary Stats */}
-        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-8">
+        <div className="cp-chart-summary grid grid-cols-1 sm:grid-cols-4 gap-4 mb-8">
           <div className="bg-white rounded-lg p-4 shadow-sm">
             <p className="text-sm text-gray-600 font-medium">Overall Mastery</p>
             <p className="text-3xl font-black text-purple-600 mt-2">{Math.round(totalProgress)}%</p>
-            <div className="w-full bg-gray-200 rounded-full h-2 mt-3">
+            <div className="cp-meter w-full bg-gray-200 rounded-full h-2 mt-3">
               <div
-                className="bg-gradient-to-r from-purple-500 to-blue-500 h-2 rounded-full transition-all"
+                className="cp-meter-fill bg-gradient-to-r from-purple-500 to-blue-500 h-2 rounded-full transition-all"
                 style={{ width: `${totalProgress}%` }}
               />
             </div>
@@ -173,9 +173,9 @@ const SubjectProgressCharts: React.FC<SubjectProgressChartsProps> = ({
             <ArrowTrendingUpIcon className="h-5 w-5 text-green-500" />
             Learning Progress
           </p>
-          <div className="w-full bg-gray-300 rounded-full h-4">
+          <div className="cp-meter w-full bg-gray-300 rounded-full h-4">
             <div
-              className="bg-gradient-to-r from-green-500 via-blue-500 to-purple-500 h-4 rounded-full transition-all"
+              className="cp-meter-fill bg-gradient-to-r from-green-500 via-blue-500 to-purple-500 h-4 rounded-full transition-all"
               style={{ width: `${totalProgress}%` }}
             />
           </div>
@@ -183,6 +183,17 @@ const SubjectProgressCharts: React.FC<SubjectProgressChartsProps> = ({
             Keep going! You're {Math.round(totalProgress)}% through your learning journey.
           </p>
         </div>
+      </div>
+
+      <div className="cp-table-frame" role="region" tabIndex={0} aria-label="Subject progress data">
+        <table>
+          <caption>Subject progress data</caption>
+          <thead><tr><th scope="col">Subject</th><th scope="col">Mastery</th><th scope="col">Topics mastered</th><th scope="col">Total topics</th></tr></thead>
+          <tbody>{rankedSubjects.map(subject => {
+            const data = getSubjectData(subject);
+            return <tr key={subject}><th scope="row">{subject}</th><td>{data.progress}%</td><td>{data.mastered}</td><td>{data.topics}</td></tr>;
+          })}</tbody>
+        </table>
       </div>
 
       {/* Individual Subject Cards */}
@@ -210,9 +221,9 @@ const SubjectProgressCharts: React.FC<SubjectProgressChartsProps> = ({
                   <span>Mastery Level</span>
                   <span>{Math.round(data.progress)}%</span>
                 </div>
-                <div className="w-full bg-white bg-opacity-25 rounded-full h-3">
+                <div className="cp-meter w-full bg-white bg-opacity-25 rounded-full h-3">
                   <div
-                    className="bg-white h-3 rounded-full transition-all"
+                    className="cp-meter-fill bg-white h-3 rounded-full transition-all"
                     style={{ width: `${data.progress}%` }}
                   />
                 </div>
@@ -250,10 +261,10 @@ const SubjectProgressCharts: React.FC<SubjectProgressChartsProps> = ({
 
       {/* Recommendations */}
       <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
-        <h4 className="font-bold text-blue-900 mb-4 flex items-center gap-2">
+        <h3 className="font-bold text-blue-900 mb-4 flex items-center gap-2">
           <SparklesIcon className="h-5 w-5" />
           Personalized Recommendations
-        </h4>
+        </h3>
         <div className="space-y-3">
           {rankedSubjects.length > 0 && getSubjectData(rankedSubjects[rankedSubjects.length - 1]).progress < 50 && (
             <p className="text-blue-800">

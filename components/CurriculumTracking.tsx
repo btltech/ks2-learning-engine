@@ -217,9 +217,9 @@ const CurriculumTracking: React.FC<CurriculumTrackingProps> = ({ user }) => {
                           </div>
                         </div>
                         <div className="flex items-center gap-3">
-                          <div className="w-24 h-2 bg-gray-200 rounded-full overflow-hidden">
+                          <div className="cp-meter w-24 h-2 bg-gray-200 rounded-full overflow-hidden">
                             <div 
-                              className="h-full bg-green-500 transition-all duration-500"
+                              className="cp-meter-fill h-full bg-green-500 transition-all duration-500"
                               style={{ width: `${progressPercent}%` }}
                             />
                           </div>
@@ -246,6 +246,7 @@ const CurriculumTracking: React.FC<CurriculumTrackingProps> = ({ user }) => {
                                 <div>
                                   <div className="text-xs font-bold opacity-70 mb-0.5">{obj.code}</div>
                                   <div className="text-sm">{obj.description}</div>
+                                  <span className="cp-objective-status">{status === 'mastered' ? '✓ Mastered' : status === 'in-progress' ? '◐ In progress' : '○ Not started'}</span>
                                 </div>
                               </div>
                             );

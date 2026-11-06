@@ -1,0 +1,1642 @@
+{
+  "errors": [],
+  "audits": [
+    {
+      "name": "preview",
+      "theme": "standard",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390
+    },
+    {
+      "name": "reset-confirm",
+      "theme": "standard",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "#reset-activities-description"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            },
+            {
+              "target": [
+                "li:nth-child(1)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390
+    },
+    {
+      "name": "curriculum",
+      "theme": "standard",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390
+    },
+    {
+      "name": "generated-report",
+      "theme": "standard",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [],
+      "width": 390,
+      "documentWidth": 390
+    },
+    {
+      "name": "user-menu",
+      "theme": "standard",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "h1"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390
+    },
+    {
+      "name": "notification",
+      "theme": "standard",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [],
+      "width": 390,
+      "documentWidth": 390
+    },
+    {
+      "name": "empty-home",
+      "theme": "standard",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390
+    },
+    {
+      "name": "empty-dashboard",
+      "theme": "standard",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390
+    },
+    {
+      "name": "welcome-dismissed",
+      "theme": "standard",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [],
+      "width": 390,
+      "documentWidth": 390
+    },
+    {
+      "name": "preview",
+      "theme": "dark",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390
+    },
+    {
+      "name": "reset-confirm",
+      "theme": "dark",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "#reset-activities-description"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            },
+            {
+              "target": [
+                "li:nth-child(1)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390
+    },
+    {
+      "name": "curriculum",
+      "theme": "dark",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390
+    },
+    {
+      "name": "generated-report",
+      "theme": "dark",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [],
+      "width": 390,
+      "documentWidth": 390
+    },
+    {
+      "name": "user-menu",
+      "theme": "dark",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "h1"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390
+    },
+    {
+      "name": "notification",
+      "theme": "dark",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [],
+      "width": 390,
+      "documentWidth": 390
+    },
+    {
+      "name": "empty-home",
+      "theme": "dark",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390
+    },
+    {
+      "name": "empty-dashboard",
+      "theme": "dark",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390
+    },
+    {
+      "name": "welcome-dismissed",
+      "theme": "dark",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [],
+      "width": 390,
+      "documentWidth": 390
+    },
+    {
+      "name": "preview",
+      "theme": "contrast",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390
+    },
+    {
+      "name": "reset-confirm",
+      "theme": "contrast",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".mb-6.justify-between.items-center > h2"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "#reset-activities-description"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            },
+            {
+              "target": [
+                "li:nth-child(1)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390
+    },
+    {
+      "name": "curriculum",
+      "theme": "contrast",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390
+    },
+    {
+      "name": "generated-report",
+      "theme": "contrast",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".mb-6.justify-between.items-center > h2"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390
+    },
+    {
+      "name": "user-menu",
+      "theme": "contrast",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "h1"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390
+    },
+    {
+      "name": "notification",
+      "theme": "contrast",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [],
+      "width": 390,
+      "documentWidth": 390
+    },
+    {
+      "name": "empty-home",
+      "theme": "contrast",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390
+    },
+    {
+      "name": "empty-dashboard",
+      "theme": "contrast",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390
+    },
+    {
+      "name": "welcome-dismissed",
+      "theme": "contrast",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [],
+      "width": 390,
+      "documentWidth": 390
+    },
+    {
+      "name": "monitoring-large-less-movement",
+      "theme": "calm",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [],
+      "width": 390,
+      "documentWidth": 390
+    },
+    {
+      "name": "home-large-less-movement",
+      "theme": "calm",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390
+    },
+    {
+      "name": "dashboard-large-less-movement",
+      "theme": "calm",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390
+    },
+    {
+      "name": "create-large-less-movement",
+      "theme": "calm",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [],
+      "width": 390,
+      "documentWidth": 390
+    },
+    {
+      "name": "preview",
+      "theme": "standard",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 768,
+      "documentWidth": 768
+    },
+    {
+      "name": "reset-confirm",
+      "theme": "standard",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "#reset-activities-description"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "width": 768,
+      "documentWidth": 768
+    },
+    {
+      "name": "curriculum",
+      "theme": "standard",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 768,
+      "documentWidth": 768
+    },
+    {
+      "name": "generated-report",
+      "theme": "standard",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768
+    },
+    {
+      "name": "user-menu",
+      "theme": "standard",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 768,
+      "documentWidth": 768
+    },
+    {
+      "name": "notification",
+      "theme": "standard",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768
+    },
+    {
+      "name": "empty-home",
+      "theme": "standard",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 768,
+      "documentWidth": 768
+    },
+    {
+      "name": "empty-dashboard",
+      "theme": "standard",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 768,
+      "documentWidth": 768
+    },
+    {
+      "name": "welcome-dismissed",
+      "theme": "standard",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768
+    },
+    {
+      "name": "preview",
+      "theme": "dark",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 768,
+      "documentWidth": 768
+    },
+    {
+      "name": "reset-confirm",
+      "theme": "dark",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "#reset-activities-description"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "width": 768,
+      "documentWidth": 768
+    },
+    {
+      "name": "curriculum",
+      "theme": "dark",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 768,
+      "documentWidth": 768
+    },
+    {
+      "name": "generated-report",
+      "theme": "dark",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768
+    },
+    {
+      "name": "user-menu",
+      "theme": "dark",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 768,
+      "documentWidth": 768
+    },
+    {
+      "name": "notification",
+      "theme": "dark",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768
+    },
+    {
+      "name": "empty-home",
+      "theme": "dark",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 768,
+      "documentWidth": 768
+    },
+    {
+      "name": "empty-dashboard",
+      "theme": "dark",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 768,
+      "documentWidth": 768
+    },
+    {
+      "name": "welcome-dismissed",
+      "theme": "dark",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768
+    },
+    {
+      "name": "preview",
+      "theme": "contrast",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 768,
+      "documentWidth": 768
+    },
+    {
+      "name": "reset-confirm",
+      "theme": "contrast",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "#reset-activities-description"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "width": 768,
+      "documentWidth": 768
+    },
+    {
+      "name": "curriculum",
+      "theme": "contrast",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 768,
+      "documentWidth": 768
+    },
+    {
+      "name": "generated-report",
+      "theme": "contrast",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768
+    },
+    {
+      "name": "user-menu",
+      "theme": "contrast",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 768,
+      "documentWidth": 768
+    },
+    {
+      "name": "notification",
+      "theme": "contrast",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768
+    },
+    {
+      "name": "empty-home",
+      "theme": "contrast",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 768,
+      "documentWidth": 768
+    },
+    {
+      "name": "empty-dashboard",
+      "theme": "contrast",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 768,
+      "documentWidth": 768
+    },
+    {
+      "name": "welcome-dismissed",
+      "theme": "contrast",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768
+    },
+    {
+      "name": "monitoring-large-less-movement",
+      "theme": "calm",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768
+    },
+    {
+      "name": "home-large-less-movement",
+      "theme": "calm",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 768,
+      "documentWidth": 768
+    },
+    {
+      "name": "dashboard-large-less-movement",
+      "theme": "calm",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 768,
+      "documentWidth": 768
+    },
+    {
+      "name": "create-large-less-movement",
+      "theme": "calm",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768
+    },
+    {
+      "name": "preview",
+      "theme": "standard",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 1280,
+      "documentWidth": 1280
+    },
+    {
+      "name": "reset-confirm",
+      "theme": "standard",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "#reset-activities-description"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "width": 1280,
+      "documentWidth": 1280
+    },
+    {
+      "name": "curriculum",
+      "theme": "standard",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 1280,
+      "documentWidth": 1280
+    },
+    {
+      "name": "generated-report",
+      "theme": "standard",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280
+    },
+    {
+      "name": "user-menu",
+      "theme": "standard",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 1280,
+      "documentWidth": 1280
+    },
+    {
+      "name": "notification",
+      "theme": "standard",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280
+    },
+    {
+      "name": "empty-home",
+      "theme": "standard",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 1280,
+      "documentWidth": 1280
+    },
+    {
+      "name": "empty-dashboard",
+      "theme": "standard",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 1280,
+      "documentWidth": 1280
+    },
+    {
+      "name": "welcome-dismissed",
+      "theme": "standard",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280
+    },
+    {
+      "name": "preview",
+      "theme": "dark",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 1280,
+      "documentWidth": 1280
+    },
+    {
+      "name": "reset-confirm",
+      "theme": "dark",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "#reset-activities-description"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "width": 1280,
+      "documentWidth": 1280
+    },
+    {
+      "name": "curriculum",
+      "theme": "dark",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 1280,
+      "documentWidth": 1280
+    },
+    {
+      "name": "generated-report",
+      "theme": "dark",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280
+    },
+    {
+      "name": "user-menu",
+      "theme": "dark",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 1280,
+      "documentWidth": 1280
+    },
+    {
+      "name": "notification",
+      "theme": "dark",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280
+    },
+    {
+      "name": "empty-home",
+      "theme": "dark",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 1280,
+      "documentWidth": 1280
+    },
+    {
+      "name": "empty-dashboard",
+      "theme": "dark",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 1280,
+      "documentWidth": 1280
+    },
+    {
+      "name": "welcome-dismissed",
+      "theme": "dark",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280
+    },
+    {
+      "name": "preview",
+      "theme": "contrast",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 1280,
+      "documentWidth": 1280
+    },
+    {
+      "name": "reset-confirm",
+      "theme": "contrast",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "#reset-activities-description"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "width": 1280,
+      "documentWidth": 1280
+    },
+    {
+      "name": "curriculum",
+      "theme": "contrast",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 1280,
+      "documentWidth": 1280
+    },
+    {
+      "name": "generated-report",
+      "theme": "contrast",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280
+    },
+    {
+      "name": "user-menu",
+      "theme": "contrast",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 1280,
+      "documentWidth": 1280
+    },
+    {
+      "name": "notification",
+      "theme": "contrast",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280
+    },
+    {
+      "name": "empty-home",
+      "theme": "contrast",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 1280,
+      "documentWidth": 1280
+    },
+    {
+      "name": "empty-dashboard",
+      "theme": "contrast",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 1280,
+      "documentWidth": 1280
+    },
+    {
+      "name": "welcome-dismissed",
+      "theme": "contrast",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280
+    },
+    {
+      "name": "monitoring-large-less-movement",
+      "theme": "calm",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280
+    },
+    {
+      "name": "home-large-less-movement",
+      "theme": "calm",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 1280,
+      "documentWidth": 1280
+    },
+    {
+      "name": "dashboard-large-less-movement",
+      "theme": "calm",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 1280,
+      "documentWidth": 1280
+    },
+    {
+      "name": "create-large-less-movement",
+      "theme": "calm",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280
+    }
+  ],
+  "keyboard": [
+    {
+      "width": 390,
+      "tabs": true,
+      "confirmationUnchanged": true,
+      "resetFocusTrapAndReturn": true,
+      "tableKeyboardScroll": true,
+      "struggleFocusAndEscape": true
+    },
+    {
+      "width": 768,
+      "tabs": true,
+      "confirmationUnchanged": true,
+      "resetFocusTrapAndReturn": true,
+      "tableKeyboardScroll": true,
+      "struggleFocusAndEscape": true
+    },
+    {
+      "width": 1280,
+      "tabs": true,
+      "confirmationUnchanged": true,
+      "resetFocusTrapAndReturn": true,
+      "tableKeyboardScroll": true,
+      "struggleFocusAndEscape": true
+    }
+  ]
+}

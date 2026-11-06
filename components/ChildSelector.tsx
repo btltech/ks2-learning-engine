@@ -171,10 +171,10 @@ const ChildSelector: React.FC<ChildSelectorProps> = ({
   return (
     <div className="sunny-ui sunny-child-selector bg-white rounded-xl shadow-md p-6 mb-8 border-2 border-purple-100" data-create-open={showCreateChild} data-has-children={children.length > 0} data-can-create={Boolean(onCreateChild)}>
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+        <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
           <UserGroupIcon className="h-6 w-6 text-purple-600" />
           Your Children
-        </h3>
+        </h2>
         {onRefresh && (
           <button
             onClick={() => void onRefresh()}
@@ -195,6 +195,7 @@ const ChildSelector: React.FC<ChildSelectorProps> = ({
               key={child.id}
               onClick={() => onSelectChild(child.id)}
               data-selected={selectedChildId === child.id}
+              aria-pressed={selectedChildId === child.id}
               className={`sunny-child-picture p-4 rounded-lg border-2 transition-all text-left ${
                 selectedChildId === child.id
                   ? 'border-purple-500 bg-purple-50 ring-2 ring-purple-200'
@@ -243,7 +244,7 @@ const ChildSelector: React.FC<ChildSelectorProps> = ({
             <form onSubmit={handleCreateChild} className="p-5 bg-emerald-50 rounded-xl border border-emerald-200">
               <div className="flex items-start justify-between gap-3 mb-4">
                 <div>
-                  <h4 className="font-bold text-emerald-950">Create a child profile</h4>
+                  <h3 className="font-bold text-emerald-950">Create a child profile</h3>
                   <p className="text-sm text-emerald-800">Choose their name, age and private login PIN.</p>
                 </div>
                 {children.length > 0 && (

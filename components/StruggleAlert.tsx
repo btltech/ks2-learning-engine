@@ -1,4 +1,6 @@
+import './ClearPathParent.css';
 import { useState, useEffect } from 'react';
+import { useModalAccessibility } from '../hooks/useModalAccessibility';
 
 interface Props {
   intervention: {
@@ -18,8 +20,6 @@ export default function StruggleAlert({ intervention, onDismiss, onAccept }: Pro
     }
   }, [intervention]);
 
-  if (!intervention || !isVisible) return null;
-
   const handleDismiss = () => {
     setIsVisible(false);
     setTimeout(onDismiss, 300);
@@ -32,6 +32,10 @@ export default function StruggleAlert({ intervention, onDismiss, onAccept }: Pro
       onDismiss();
     }, 300);
   };
+
+  const dialogRef = useModalAccessibility(handleDismiss, Boolean(intervention) && isVisible);
+
+  if (!intervention || !isVisible) return null;
 
   const getIcon = () => {
     switch (intervention.type) {
@@ -78,9 +82,10 @@ export default function StruggleAlert({ intervention, onDismiss, onAccept }: Pro
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+    <div className="clear-path-parent cp-overlay fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
       <div
-        className={`bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 transition-all duration-300 ${
+        ref={dialogRef} tabIndex={-1} role="dialog" aria-modal="true" aria-labelledby="struggle-alert-title"
+        className={`cp-alert-panel bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 transition-all duration-300 ${
           isVisible ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
         }`}
       >
@@ -90,12 +95,12 @@ export default function StruggleAlert({ intervention, onDismiss, onAccept }: Pro
         </div>
 
         {/* Title */}
-        <h3 className="text-2xl font-bold text-gray-900 mb-4 text-center">
+        <h2 id="struggle-alert-title" className="text-2xl font-bold text-gray-900 mb-4 text-center">
           {intervention.type === 'parent_alert' ? "Let's Get Some Help" :
            intervention.type === 'video_tutorial' ? "Watch & Learn" :
            intervention.type === 'easier_questions' ? "Build Confidence First" :
            "Review Time"}
-        </h3>
+        </h2>
 
         {/* Message */}
         <p className="text-gray-600 mb-6 text-center leading-relaxed">

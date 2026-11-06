@@ -1,3 +1,4 @@
+import './ClearPathParent.css';
 /**
  * Parent Home View Component
  * 
@@ -85,10 +86,11 @@ export const ParentHomeView: React.FC<ParentHomeViewProps> = ({
   ];
 
   return (
-    <div className="w-full max-w-6xl mx-auto p-4 sm:p-6">
+    <div className="clear-path-parent cp-page cp-home w-full max-w-6xl mx-auto p-4 sm:p-6">
+      {!showWelcome && <h1 className="sr-only">Welcome, {user?.name || 'Parent'}!</h1>}
       {/* Welcome Banner */}
       {showWelcome && (
-        <div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl p-6 text-white mb-6 relative">
+        <div className="cp-home-welcome bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl p-6 text-white mb-6 relative">
           <button
             onClick={() => setShowWelcome(false)}
             className="absolute top-4 right-4 text-white/60 hover:text-white"
@@ -139,7 +141,7 @@ export const ParentHomeView: React.FC<ParentHomeViewProps> = ({
             <div className="flex items-center gap-3">
               <span className="text-2xl">👋</span>
               <div>
-                <h3 className="font-semibold text-yellow-800">No child profile yet</h3>
+                <h2 className="font-semibold text-yellow-800">No child profile yet</h2>
                 <p className="text-yellow-700 text-sm">
                   Open Parent Monitoring to create the child's profile and private PIN.
                   Your parent code: <span className="font-mono font-bold">{user?.parentCode || 'N/A'}</span>
@@ -180,7 +182,7 @@ export const ParentHomeView: React.FC<ParentHomeViewProps> = ({
       </div>
 
       {/* Stats Overview */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <div className="cp-stats grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
         <StatCard 
           icon="📚" 
           label="Quizzes Done" 
@@ -210,7 +212,7 @@ export const ParentHomeView: React.FC<ParentHomeViewProps> = ({
       {/* Quick Actions */}
       <div className="mb-6">
         <h2 className="text-xl font-bold text-gray-800 mb-4">Parent Tools</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="cp-home-actions grid grid-cols-1 md:grid-cols-2 gap-4">
           {quickActions.map((action, i) => (
             <button
               key={i}

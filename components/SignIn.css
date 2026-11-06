@@ -86,7 +86,7 @@
 .sunny-child-selector { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; border: 3px solid var(--signin-outline); border-radius: 28px; padding: 28px; box-shadow: 0 6px 0 var(--signin-outline); background: var(--signin-paper); }
 .sunny-child-selector > * { grid-column: 1 / -1; min-width: 0; margin-block: 0; }
 .sunny-child-selector > div:first-child { flex-wrap: wrap; gap: 16px; }
-.sunny-child-selector h3 { font-size: 1.875rem; }
+.sunny-child-selector > div:first-child :is(h2,h3) { font-size: 1.875rem; }
 .sunny-child-selector code { font-family: ui-monospace, monospace; overflow-wrap: anywhere; }
 .sunny-child-selector .sunny-child-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 18px; }
 .sunny-child-selector .sunny-child-picture { padding: 18px 22px; border-radius: 28px; text-align: center; min-width: 0; }

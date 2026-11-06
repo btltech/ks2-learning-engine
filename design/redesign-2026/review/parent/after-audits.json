@@ -1,0 +1,1448 @@
+{
+  "errors": [],
+  "audits": [
+    {
+      "name": "home",
+      "theme": "standard",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "dashboard",
+      "theme": "standard",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "monitoring",
+      "theme": "standard",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [],
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [
+        {
+          "tag": "TABLE",
+          "class": ""
+        },
+        {
+          "tag": "CAPTION",
+          "class": ""
+        },
+        {
+          "tag": "THEAD",
+          "class": ""
+        },
+        {
+          "tag": "TR",
+          "class": ""
+        },
+        {
+          "tag": "TH",
+          "class": ""
+        },
+        {
+          "tag": "TH",
+          "class": ""
+        },
+        {
+          "tag": "TBODY",
+          "class": ""
+        },
+        {
+          "tag": "TR",
+          "class": ""
+        },
+        {
+          "tag": "TD",
+          "class": ""
+        },
+        {
+          "tag": "TD",
+          "class": ""
+        }
+      ],
+      "smallTargets": []
+    },
+    {
+      "name": "progress",
+      "theme": "standard",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [],
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "insights",
+      "theme": "standard",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [],
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "leaderboard",
+      "theme": "standard",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [],
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "reports",
+      "theme": "standard",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [],
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "settings",
+      "theme": "standard",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [],
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "struggle",
+      "theme": "standard",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [],
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "create",
+      "theme": "standard",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [],
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "home",
+      "theme": "dark",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "dashboard",
+      "theme": "dark",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "monitoring",
+      "theme": "dark",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [],
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [
+        {
+          "tag": "TABLE",
+          "class": ""
+        },
+        {
+          "tag": "CAPTION",
+          "class": ""
+        },
+        {
+          "tag": "THEAD",
+          "class": ""
+        },
+        {
+          "tag": "TR",
+          "class": ""
+        },
+        {
+          "tag": "TH",
+          "class": ""
+        },
+        {
+          "tag": "TH",
+          "class": ""
+        },
+        {
+          "tag": "TBODY",
+          "class": ""
+        },
+        {
+          "tag": "TR",
+          "class": ""
+        },
+        {
+          "tag": "TD",
+          "class": ""
+        },
+        {
+          "tag": "TD",
+          "class": ""
+        }
+      ],
+      "smallTargets": []
+    },
+    {
+      "name": "progress",
+      "theme": "dark",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [],
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "insights",
+      "theme": "dark",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [],
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "leaderboard",
+      "theme": "dark",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [],
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "reports",
+      "theme": "dark",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [],
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "settings",
+      "theme": "dark",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [],
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "struggle",
+      "theme": "dark",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [],
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "create",
+      "theme": "dark",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [],
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "home",
+      "theme": "contrast",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "dashboard",
+      "theme": "contrast",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "monitoring",
+      "theme": "contrast",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".mb-6.items-center.justify-between > h2"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [
+        {
+          "tag": "TABLE",
+          "class": ""
+        },
+        {
+          "tag": "CAPTION",
+          "class": ""
+        },
+        {
+          "tag": "THEAD",
+          "class": ""
+        },
+        {
+          "tag": "TR",
+          "class": ""
+        },
+        {
+          "tag": "TH",
+          "class": ""
+        },
+        {
+          "tag": "TH",
+          "class": ""
+        },
+        {
+          "tag": "TBODY",
+          "class": ""
+        },
+        {
+          "tag": "TR",
+          "class": ""
+        },
+        {
+          "tag": "TD",
+          "class": ""
+        },
+        {
+          "tag": "TD",
+          "class": ""
+        }
+      ],
+      "smallTargets": []
+    },
+    {
+      "name": "progress",
+      "theme": "contrast",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".mb-6.justify-between.items-center > h2"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "insights",
+      "theme": "contrast",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".mb-6.justify-between.items-center > h2"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "leaderboard",
+      "theme": "contrast",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".mb-6.justify-between.items-center > h2"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "reports",
+      "theme": "contrast",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".mb-6.justify-between.items-center > h2"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "settings",
+      "theme": "contrast",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".mb-6.justify-between.items-center > h2"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "struggle",
+      "theme": "contrast",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [],
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "create",
+      "theme": "contrast",
+      "viewport": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".mb-6.justify-between.items-center > h2"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "h3"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            }
+          ]
+        }
+      ],
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "home",
+      "theme": "standard",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "dashboard",
+      "theme": "standard",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "monitoring",
+      "theme": "standard",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "progress",
+      "theme": "standard",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "insights",
+      "theme": "standard",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "leaderboard",
+      "theme": "standard",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "reports",
+      "theme": "standard",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "settings",
+      "theme": "standard",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "struggle",
+      "theme": "standard",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "create",
+      "theme": "standard",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "home",
+      "theme": "dark",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "dashboard",
+      "theme": "dark",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "monitoring",
+      "theme": "dark",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "progress",
+      "theme": "dark",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "insights",
+      "theme": "dark",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "leaderboard",
+      "theme": "dark",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "reports",
+      "theme": "dark",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "settings",
+      "theme": "dark",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "struggle",
+      "theme": "dark",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "create",
+      "theme": "dark",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "home",
+      "theme": "contrast",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "dashboard",
+      "theme": "contrast",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "monitoring",
+      "theme": "contrast",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "progress",
+      "theme": "contrast",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "insights",
+      "theme": "contrast",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "leaderboard",
+      "theme": "contrast",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "reports",
+      "theme": "contrast",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "settings",
+      "theme": "contrast",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "struggle",
+      "theme": "contrast",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [],
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "create",
+      "theme": "contrast",
+      "viewport": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "h3"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            }
+          ]
+        }
+      ],
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "home",
+      "theme": "standard",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 1280,
+      "documentWidth": 1280,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "dashboard",
+      "theme": "standard",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 1280,
+      "documentWidth": 1280,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "monitoring",
+      "theme": "standard",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "progress",
+      "theme": "standard",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "insights",
+      "theme": "standard",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "leaderboard",
+      "theme": "standard",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "reports",
+      "theme": "standard",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "settings",
+      "theme": "standard",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "struggle",
+      "theme": "standard",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "create",
+      "theme": "standard",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "home",
+      "theme": "dark",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 1280,
+      "documentWidth": 1280,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "dashboard",
+      "theme": "dark",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 1280,
+      "documentWidth": 1280,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "monitoring",
+      "theme": "dark",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "progress",
+      "theme": "dark",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "insights",
+      "theme": "dark",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "leaderboard",
+      "theme": "dark",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "reports",
+      "theme": "dark",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "settings",
+      "theme": "dark",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "struggle",
+      "theme": "dark",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "create",
+      "theme": "dark",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "home",
+      "theme": "contrast",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 1280,
+      "documentWidth": 1280,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "dashboard",
+      "theme": "contrast",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "width": 1280,
+      "documentWidth": 1280,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "monitoring",
+      "theme": "contrast",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "progress",
+      "theme": "contrast",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "insights",
+      "theme": "contrast",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "leaderboard",
+      "theme": "contrast",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "reports",
+      "theme": "contrast",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "settings",
+      "theme": "contrast",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "struggle",
+      "theme": "contrast",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [],
+      "width": 1280,
+      "documentWidth": 1280,
+      "overflow": [],
+      "smallTargets": []
+    },
+    {
+      "name": "create",
+      "theme": "contrast",
+      "viewport": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "h3"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            }
+          ]
+        }
+      ],
+      "width": 1280,
+      "documentWidth": 1280,
+      "overflow": [],
+      "smallTargets": []
+    }
+  ]
+}

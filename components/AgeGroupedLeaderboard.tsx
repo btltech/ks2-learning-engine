@@ -62,10 +62,10 @@ const AgeGroupedLeaderboard: React.FC<AgeGroupedLeaderboardProps> = ({
   return (
     <div className="bg-white rounded-xl shadow-md p-4 sm:p-8">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-6">
-        <h3 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+        <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
           <TrophyIcon className="h-6 w-6 text-yellow-500" />
           Leaderboard
-        </h3>
+        </h2>
         <div className="grid grid-cols-2 gap-2" role="tablist" aria-label="Leaderboard groups">
           <button
             onClick={() => setViewMode('age-group')}
