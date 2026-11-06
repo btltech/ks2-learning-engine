@@ -1,0 +1,10 @@
+Node 22.23.4 / Vitest 4.0.10
+Every run: components/AdminPresentation.test.tsx, all 10 tests, including every new async/timer test.
+40 consecutive fresh-process runs: 0 failures.
+After successful npm run build: three parallel workers, each 40 consecutive fresh-process runs: 120 runs, 0 failures.
+Total: 160 process runs / 1,600 test executions / zero failures.
+Realtime or production data access is not needed; all services are synthetic mocks.
+NODE_BINARY=/path/to/node22 python3 scripts/review-admin/repeat-tests.py sequential 1 40
+npm run build
+NODE_BINARY=/path/to/node22 python3 scripts/review-admin/repeat-tests.py parallel-after-build 3 40
+Raw logs remain temporary; per-run exit codes/timings are in repeated-tests.json.

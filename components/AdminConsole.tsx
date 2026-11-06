@@ -1,3 +1,4 @@
+import './ClearPathAdmin.css';
 /**
  * Admin Console Component
  * 
@@ -119,9 +120,9 @@ export const AdminConsole: React.FC<AdminConsoleProps> = ({ onClose, onOpenQuest
   ];
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="clear-path-admin ca-console min-h-screen bg-gray-100">
       {/* Header */}
-      <div className="bg-gradient-to-r from-gray-900 to-gray-800 text-white p-4 shadow-lg">
+      <div className="ca-header bg-gradient-to-r from-gray-900 to-gray-800 text-white p-4 shadow-lg">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div>
             <div className="sunny-role-brand"><OwlLogo height={32} sticker /><Chip>admin</Chip></div>
@@ -304,7 +305,7 @@ const DashboardView: React.FC<{
 
           {/* Session Claims */}
           <div className="bg-white rounded-xl shadow-sm p-6">
-            <div className="flex items-start justify-between gap-4">
+            <div className="ca-heading-row flex items-start justify-between gap-4">
               <div>
                 <h3 className="text-lg font-semibold text-gray-800">Session Claims</h3>
                 <p className="text-sm text-gray-500">Use this to confirm your admin/teacher claims are active.</p>
@@ -353,7 +354,7 @@ const DashboardView: React.FC<{
           </div>
 
           {/* Stats Grid */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="ca-stats grid grid-cols-2 lg:grid-cols-4 gap-4">
             {statCards.map((stat, i) => (
               <div key={i} className="bg-white rounded-xl shadow-sm p-6">
                 <div className={`w-12 h-12 ${stat.color} rounded-lg flex items-center justify-center text-2xl text-white mb-3`}>
@@ -380,7 +381,7 @@ const DashboardView: React.FC<{
           {/* Quick Actions */}
           <div className="bg-white rounded-xl shadow-sm p-6">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">Quick Actions</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="ca-stats grid grid-cols-2 md:grid-cols-4 gap-3">
               <QuickActionButton icon="📚" label="Review Content" onClick={() => onNavigate('content')} />
               <QuickActionButton icon="👥" label="Manage Roles" onClick={() => onNavigate('users')} />
               <QuickActionButton icon="📊" label="View Analytics" onClick={() => onNavigate('analytics')} />
@@ -517,7 +518,7 @@ const UserManagementView: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
+      <div className="ca-heading-row flex justify-between items-center">
         <h2 className="text-2xl font-bold text-gray-800">User Management</h2>
         <button disabled className="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-lg cursor-not-allowed font-semibold">
           Add User After Signup
@@ -534,6 +535,7 @@ const UserManagementView: React.FC = () => {
         <div className="flex flex-col md:flex-row gap-3">
           <input
             type="email"
+            aria-label="Role management email"
             placeholder="user@example.com"
             value={manageEmail}
             onChange={(e) => setManageEmail(e.target.value)}
@@ -567,6 +569,7 @@ const UserManagementView: React.FC = () => {
       <div className="bg-white rounded-xl shadow-sm p-4 flex flex-col md:flex-row gap-4">
         <input
           type="text"
+          aria-label="Search users by name"
           placeholder="Search users by name..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
@@ -576,6 +579,7 @@ const UserManagementView: React.FC = () => {
           }}
         />
         <select
+          aria-label="Filter users by role"
           value={roleFilter}
           onChange={(e) => setRoleFilter(e.target.value)}
           className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
@@ -1015,7 +1019,7 @@ const SettingRow: React.FC<{
   value: string | number | boolean;
   onChange: (value: string | number | boolean) => void;
 }> = ({ label, description, type, value, onChange }) => (
-  <div className="flex items-center justify-between py-3 border-b last:border-0">
+  <div className="ca-setting flex items-center justify-between py-3 border-b last:border-0">
     <div>
       <p className="font-medium text-gray-800">{label}</p>
       <p className="text-sm text-gray-500">{description}</p>
@@ -1023,21 +1027,20 @@ const SettingRow: React.FC<{
     {type === 'toggle' ? (
       <button
         type="button"
+        aria-label={label}
         onClick={() => onChange(!value)}
-        className={`w-12 h-6 rounded-full transition-colors ${
+        className={`ca-switch w-12 h-6 rounded-full transition-colors ${
           value ? 'bg-green-500' : 'bg-gray-300'
         }`}
         aria-pressed={Boolean(value)}
       >
-        <div
-          className={`w-5 h-5 bg-white rounded-full shadow transform transition-transform ${
-            value ? 'translate-x-6' : 'translate-x-0.5'
-          }`}
-        />
+        <span aria-hidden="true">{value ? '✓' : '–'}</span>
+        <span>{value ? 'On' : 'Off'}</span>
       </button>
     ) : (
       <input
         type={type}
+        aria-label={label}
         value={String(value)}
         onChange={(e) => onChange(type === 'number' ? Number(e.target.value) : e.target.value)}
         className="w-40 px-3 py-2 border rounded-lg text-right"

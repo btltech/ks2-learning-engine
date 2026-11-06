@@ -1,0 +1,2157 @@
+{
+  "keyboard": [
+    {
+      "width": 390,
+      "passed": [
+        "Tab reaches admin navigation and directory controls; role update request keeps exact normalized email and selected roles",
+        "directory role filter and Enter search",
+        "feedback resolution retains exact id and refreshes queue; toast visible",
+        "settings switch words/symbols and Space activation; save callback retains values",
+        "analytics activity table scrolls with keyboard at phone width; weekly states have words and symbols",
+        "quality dialog traps forward/reverse Tab; filter/disclose/Escape keep original callbacks",
+        "curriculum Space disclosure and subject/year selectors",
+        "cloud refresh callback"
+      ]
+    },
+    {
+      "width": 768,
+      "passed": [
+        "Tab reaches admin navigation and directory controls; role update request keeps exact normalized email and selected roles",
+        "directory role filter and Enter search",
+        "feedback resolution retains exact id and refreshes queue; toast visible",
+        "settings switch words/symbols and Space activation; save callback retains values",
+        "analytics activity table scrolls with keyboard at phone width; weekly states have words and symbols",
+        "quality dialog traps forward/reverse Tab; filter/disclose/Escape keep original callbacks",
+        "curriculum Space disclosure and subject/year selectors",
+        "cloud refresh callback"
+      ]
+    },
+    {
+      "width": 1280,
+      "passed": [
+        "Tab reaches admin navigation and directory controls; role update request keeps exact normalized email and selected roles",
+        "directory role filter and Enter search",
+        "feedback resolution retains exact id and refreshes queue; toast visible",
+        "settings switch words/symbols and Space activation; save callback retains values",
+        "analytics activity table scrolls with keyboard at phone width; weekly states have words and symbols",
+        "quality dialog traps forward/reverse Tab; filter/disclose/Escape keep original callbacks",
+        "curriculum Space disclosure and subject/year selectors",
+        "cloud refresh callback"
+      ]
+    }
+  ],
+  "preferences": [
+    {
+      "width": 390,
+      "screen": "admin",
+      "preference": "ui-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)",
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)"
+      ],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "admin",
+      "preference": "os-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)",
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)"
+      ],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "admin",
+      "preference": "large",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "21.6px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)",
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)"
+      ],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "admin",
+      "preference": "calm",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)",
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)"
+      ],
+      "animations": [],
+      "pageColor": "#E8EEE8",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "analytics",
+      "preference": "ui-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)"
+      ],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "analytics",
+      "preference": "os-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)"
+      ],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "analytics",
+      "preference": "large",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "21.6px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)"
+      ],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "analytics",
+      "preference": "calm",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)"
+      ],
+      "animations": [],
+      "pageColor": "#E8EEE8",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "quality",
+      "preference": "ui-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "16px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "quality",
+      "preference": "os-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "16px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "quality",
+      "preference": "large",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "21.6px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "quality",
+      "preference": "calm",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "16px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#E8EEE8",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "curriculum",
+      "preference": "ui-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "curriculum",
+      "preference": "os-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "curriculum",
+      "preference": "large",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "21.6px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "curriculum",
+      "preference": "calm",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#E8EEE8",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "cloud",
+      "preference": "ui-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "16px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "cloud",
+      "preference": "os-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "16px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "cloud",
+      "preference": "large",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "21.6px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "cloud",
+      "preference": "calm",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "16px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#E8EEE8",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "admin",
+      "preference": "ui-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)",
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)"
+      ],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "admin",
+      "preference": "os-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)",
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)"
+      ],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "admin",
+      "preference": "large",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "21.6px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)",
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)"
+      ],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "admin",
+      "preference": "calm",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)",
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)"
+      ],
+      "animations": [],
+      "pageColor": "#E8EEE8",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "analytics",
+      "preference": "ui-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)"
+      ],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "analytics",
+      "preference": "os-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)"
+      ],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "analytics",
+      "preference": "large",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "21.6px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)"
+      ],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "analytics",
+      "preference": "calm",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)"
+      ],
+      "animations": [],
+      "pageColor": "#E8EEE8",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "quality",
+      "preference": "ui-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "16px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "quality",
+      "preference": "os-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "16px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "quality",
+      "preference": "large",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "21.6px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "quality",
+      "preference": "calm",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "16px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#E8EEE8",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "curriculum",
+      "preference": "ui-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "curriculum",
+      "preference": "os-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "curriculum",
+      "preference": "large",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "21.6px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "curriculum",
+      "preference": "calm",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#E8EEE8",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "cloud",
+      "preference": "ui-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "16px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "cloud",
+      "preference": "os-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "16px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "cloud",
+      "preference": "large",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "21.6px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "cloud",
+      "preference": "calm",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "16px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#E8EEE8",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "admin",
+      "preference": "ui-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)",
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)"
+      ],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "admin",
+      "preference": "os-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)",
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)"
+      ],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "admin",
+      "preference": "large",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "21.6px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)",
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)"
+      ],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "admin",
+      "preference": "calm",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)",
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)"
+      ],
+      "animations": [],
+      "pageColor": "#E8EEE8",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "analytics",
+      "preference": "ui-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)"
+      ],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "analytics",
+      "preference": "os-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)"
+      ],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "analytics",
+      "preference": "large",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "21.6px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)"
+      ],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "analytics",
+      "preference": "calm",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [
+        "matrix(1, 0, 0, 1, 330, 0)",
+        "matrix(1, 0, 0, 1, 900, 0)",
+        "matrix(0.994522, -0.104528, 0.104528, 0.994522, 37.5784, 33.039)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 708.562, -49.2915)",
+        "matrix(0.99863, -0.052336, 0.052336, 0.99863, 1343.42, 30.3879)",
+        "matrix(0.996195, 0.0871557, -0.0871557, 0.996195, 2160.1, -52.3515)",
+        "matrix(0.997564, -0.0697565, 0.0697565, 0.997564, 2537.22, 32.1544)",
+        "matrix(0.99863, 0.052336, -0.052336, 0.99863, 3466.51, -40.2005)",
+        "matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 4139.47, 33.7535)",
+        "matrix(0.997564, 0.0697565, -0.0697565, 0.997564, 4572.5, -39.5032)"
+      ],
+      "animations": [],
+      "pageColor": "#E8EEE8",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "quality",
+      "preference": "ui-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "16px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "quality",
+      "preference": "os-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "16px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "quality",
+      "preference": "large",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "21.6px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "quality",
+      "preference": "calm",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "16px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#E8EEE8",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "curriculum",
+      "preference": "ui-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "curriculum",
+      "preference": "os-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "curriculum",
+      "preference": "large",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "21.6px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "curriculum",
+      "preference": "calm",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#E8EEE8",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "cloud",
+      "preference": "ui-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "16px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "cloud",
+      "preference": "os-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "16px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "cloud",
+      "preference": "large",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "21.6px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "cloud",
+      "preference": "calm",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "16px",
+      "localFontsReady": true,
+      "logoStaticTransforms": [],
+      "animations": [],
+      "pageColor": "#E8EEE8",
+      "focusWidth": "4px"
+    }
+  ],
+  "audits": [
+    {
+      "name": "roles-updated-toast",
+      "width": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".text-green-800"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390
+    },
+    {
+      "name": "feedback-resolved-toast",
+      "width": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".bg-green-50.border-green-200.shadow-\\[0_20px_25px_-5px_rgba\\(0\\,0\\,0\\,0\\.1\\)\\,0_10px_10px_-5px_rgba\\(0\\,0\\,0\\,0\\.04\\)\\]:nth-child(1) > .text-green-800.font-medium.text-sm"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390
+    },
+    {
+      "name": "settings-saved",
+      "width": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "button[aria-label=\"Maintenance Mode\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "button[aria-label=\"Enable AI Questions\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "button[aria-label=\"Content Review Queue\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "button[aria-label=\"Admin-only Role Changes\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390
+    },
+    {
+      "name": "admin-ui-motion",
+      "width": 390,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390
+    },
+    {
+      "name": "admin-os-motion",
+      "width": 390,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390
+    },
+    {
+      "name": "admin-large",
+      "width": 390,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390
+    },
+    {
+      "name": "admin-calm",
+      "width": 390,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390
+    },
+    {
+      "name": "analytics-ui-motion",
+      "width": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390
+    },
+    {
+      "name": "analytics-os-motion",
+      "width": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390
+    },
+    {
+      "name": "analytics-large",
+      "width": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390
+    },
+    {
+      "name": "analytics-calm",
+      "width": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390
+    },
+    {
+      "name": "quality-ui-motion",
+      "width": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390
+    },
+    {
+      "name": "quality-os-motion",
+      "width": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390
+    },
+    {
+      "name": "quality-large",
+      "width": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390
+    },
+    {
+      "name": "quality-calm",
+      "width": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390
+    },
+    {
+      "name": "curriculum-ui-motion",
+      "width": 390,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390
+    },
+    {
+      "name": "curriculum-os-motion",
+      "width": 390,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390
+    },
+    {
+      "name": "curriculum-large",
+      "width": 390,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390
+    },
+    {
+      "name": "curriculum-calm",
+      "width": 390,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390
+    },
+    {
+      "name": "cloud-ui-motion",
+      "width": 390,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390
+    },
+    {
+      "name": "cloud-os-motion",
+      "width": 390,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390
+    },
+    {
+      "name": "cloud-large",
+      "width": 390,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390
+    },
+    {
+      "name": "cloud-calm",
+      "width": 390,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390
+    },
+    {
+      "name": "roles-updated-toast",
+      "width": 768,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768
+    },
+    {
+      "name": "feedback-resolved-toast",
+      "width": 768,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768
+    },
+    {
+      "name": "settings-saved",
+      "width": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "button[aria-label=\"Maintenance Mode\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "button[aria-label=\"Enable AI Questions\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "button[aria-label=\"Content Review Queue\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "button[aria-label=\"Admin-only Role Changes\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768
+    },
+    {
+      "name": "admin-ui-motion",
+      "width": 768,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768
+    },
+    {
+      "name": "admin-os-motion",
+      "width": 768,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768
+    },
+    {
+      "name": "admin-large",
+      "width": 768,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768
+    },
+    {
+      "name": "admin-calm",
+      "width": 768,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768
+    },
+    {
+      "name": "analytics-ui-motion",
+      "width": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768
+    },
+    {
+      "name": "analytics-os-motion",
+      "width": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768
+    },
+    {
+      "name": "analytics-large",
+      "width": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768
+    },
+    {
+      "name": "analytics-calm",
+      "width": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768
+    },
+    {
+      "name": "quality-ui-motion",
+      "width": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768
+    },
+    {
+      "name": "quality-os-motion",
+      "width": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768
+    },
+    {
+      "name": "quality-large",
+      "width": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768
+    },
+    {
+      "name": "quality-calm",
+      "width": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768
+    },
+    {
+      "name": "curriculum-ui-motion",
+      "width": 768,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768
+    },
+    {
+      "name": "curriculum-os-motion",
+      "width": 768,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768
+    },
+    {
+      "name": "curriculum-large",
+      "width": 768,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768
+    },
+    {
+      "name": "curriculum-calm",
+      "width": 768,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768
+    },
+    {
+      "name": "cloud-ui-motion",
+      "width": 768,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768
+    },
+    {
+      "name": "cloud-os-motion",
+      "width": 768,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768
+    },
+    {
+      "name": "cloud-large",
+      "width": 768,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768
+    },
+    {
+      "name": "cloud-calm",
+      "width": 768,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768
+    },
+    {
+      "name": "roles-updated-toast",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280
+    },
+    {
+      "name": "feedback-resolved-toast",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280
+    },
+    {
+      "name": "settings-saved",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "button[aria-label=\"Maintenance Mode\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "button[aria-label=\"Enable AI Questions\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "button[aria-label=\"Content Review Queue\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "button[aria-label=\"Admin-only Role Changes\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280
+    },
+    {
+      "name": "admin-ui-motion",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280
+    },
+    {
+      "name": "admin-os-motion",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280
+    },
+    {
+      "name": "admin-large",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280
+    },
+    {
+      "name": "admin-calm",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280
+    },
+    {
+      "name": "analytics-ui-motion",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280
+    },
+    {
+      "name": "analytics-os-motion",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280
+    },
+    {
+      "name": "analytics-large",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280
+    },
+    {
+      "name": "analytics-calm",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280
+    },
+    {
+      "name": "quality-ui-motion",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280
+    },
+    {
+      "name": "quality-os-motion",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280
+    },
+    {
+      "name": "quality-large",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280
+    },
+    {
+      "name": "quality-calm",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280
+    },
+    {
+      "name": "curriculum-ui-motion",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280
+    },
+    {
+      "name": "curriculum-os-motion",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280
+    },
+    {
+      "name": "curriculum-large",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280
+    },
+    {
+      "name": "curriculum-calm",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280
+    },
+    {
+      "name": "cloud-ui-motion",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280
+    },
+    {
+      "name": "cloud-os-motion",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280
+    },
+    {
+      "name": "cloud-large",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280
+    },
+    {
+      "name": "cloud-calm",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280
+    }
+  ],
+  "externalRequests": []
+}

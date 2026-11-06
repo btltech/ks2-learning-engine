@@ -1,3 +1,4 @@
+import './ClearPathAdmin.css';
 import React, { useState, useMemo } from 'react';
 import { 
   BookOpen, 
@@ -116,7 +117,7 @@ export const CurriculumCoverageDashboard: React.FC<CurriculumCoverageDashboardPr
   };
 
   return (
-    <div className="bg-gray-50 min-h-screen p-6">
+    <div className="clear-path-admin ca-curriculum bg-gray-50 min-h-screen p-6">
       <div className="max-w-6xl mx-auto space-y-6">
         
         {/* Header */}
@@ -129,9 +130,10 @@ export const CurriculumCoverageDashboard: React.FC<CurriculumCoverageDashboardPr
             <p className="text-gray-500 mt-1">Tracking progress for {studentName} against DfE statutory objectives</p>
           </div>
           
-          <div className="flex gap-3">
+          <div className="ca-curriculum-controls flex gap-3">
             <div className="relative">
-              <select 
+              <select
+                aria-label="Curriculum subject"
                 value={selectedSubject}
                 onChange={(e) => setSelectedSubject(e.target.value)}
                 className="appearance-none bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded-lg leading-tight focus:outline-none focus:bg-white focus:border-indigo-500"
@@ -154,7 +156,8 @@ export const CurriculumCoverageDashboard: React.FC<CurriculumCoverageDashboardPr
             </div>
 
             <div className="relative">
-              <select 
+              <select
+                aria-label="Curriculum year"
                 value={selectedYear}
                 onChange={(e) => setSelectedYear(Number(e.target.value) as YearGroup)}
                 className="appearance-none bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded-lg leading-tight focus:outline-none focus:bg-white focus:border-indigo-500"
@@ -172,7 +175,7 @@ export const CurriculumCoverageDashboard: React.FC<CurriculumCoverageDashboardPr
         </div>
 
         {/* Stats Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="ca-stats grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-200 flex items-center gap-4">
             <div className="p-3 bg-indigo-100 rounded-full">
               <BookOpen className="w-6 h-6 text-indigo-600" />
@@ -190,8 +193,8 @@ export const CurriculumCoverageDashboard: React.FC<CurriculumCoverageDashboardPr
             <div>
               <p className="text-sm text-gray-500 font-medium">Mastery Level</p>
               <p className="text-2xl font-bold text-gray-900">{stats.masteryPercent}%</p>
-              <div className="w-24 h-1.5 bg-gray-200 rounded-full mt-1">
-                <div className="h-1.5 bg-green-500 rounded-full" style={{ width: `${stats.masteryPercent}%` }}></div>
+              <div className="ca-track w-24 h-1.5 bg-gray-200 rounded-full mt-1">
+                <div className="ca-fill h-1.5 bg-green-500 rounded-full" style={{ width: `${stats.masteryPercent}%` }}></div>
               </div>
             </div>
           </div>
@@ -203,8 +206,8 @@ export const CurriculumCoverageDashboard: React.FC<CurriculumCoverageDashboardPr
             <div>
               <p className="text-sm text-gray-500 font-medium">Coverage</p>
               <p className="text-2xl font-bold text-gray-900">{stats.coveragePercent}%</p>
-              <div className="w-24 h-1.5 bg-gray-200 rounded-full mt-1">
-                <div className="h-1.5 bg-blue-500 rounded-full" style={{ width: `${stats.coveragePercent}%` }}></div>
+              <div className="ca-track w-24 h-1.5 bg-gray-200 rounded-full mt-1">
+                <div className="ca-fill h-1.5 bg-blue-500 rounded-full" style={{ width: `${stats.coveragePercent}%` }}></div>
               </div>
             </div>
           </div>
@@ -212,9 +215,9 @@ export const CurriculumCoverageDashboard: React.FC<CurriculumCoverageDashboardPr
 
         {/* Detailed Breakdown */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-          <div className="p-6 border-b border-gray-200 flex justify-between items-center">
+          <div className="ca-breakdown-header p-6 border-b border-gray-200 flex justify-between items-center">
             <h2 className="text-lg font-semibold text-gray-900">Detailed Breakdown by Strand</h2>
-            <div className="flex gap-2 text-sm">
+            <div className="ca-legend flex gap-2 text-sm">
               <span className="flex items-center gap-1"><CheckCircle className="w-4 h-4 text-green-500" /> Mastered</span>
               <span className="flex items-center gap-1"><Clock className="w-4 h-4 text-amber-500" /> In Progress</span>
               <span className="flex items-center gap-1"><Circle className="w-4 h-4 text-gray-300" /> Not Started</span>
@@ -236,8 +239,9 @@ export const CurriculumCoverageDashboard: React.FC<CurriculumCoverageDashboardPr
                 return (
                   <div key={strand} className="bg-white">
                     <button 
+                      aria-expanded={isExpanded}
                       onClick={() => toggleStrand(strand)}
-                      className="w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
+                      className="ca-strand w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
                     >
                       <div className="flex items-center gap-3">
                         {isExpanded ? <ChevronDown className="w-5 h-5 text-gray-400" /> : <ChevronRight className="w-5 h-5 text-gray-400" />}
@@ -247,9 +251,9 @@ export const CurriculumCoverageDashboard: React.FC<CurriculumCoverageDashboardPr
                         </div>
                       </div>
                       <div className="flex items-center gap-4">
-                        <div className="w-32 h-2 bg-gray-200 rounded-full hidden sm:block">
+                        <div className="ca-track w-32 h-2 bg-gray-200 rounded-full hidden sm:block">
                           <div 
-                            className={`h-2 rounded-full ${strandProgress === 100 ? 'bg-green-500' : 'bg-indigo-500'}`} 
+                            className={`ca-fill h-2 rounded-full ${strandProgress === 100 ? 'bg-green-500' : 'bg-indigo-500'}`}
                             style={{ width: `${strandProgress}%` }}
                           ></div>
                         </div>

@@ -1,3 +1,4 @@
+import './ClearPathAdmin.css';
 import React, { useState, useEffect } from 'react';
 import { OwlLogo } from './sunny/OwlLogo';
 import { Chip } from './sunny/Chip';
@@ -23,7 +24,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
 
   if (loading || !summary) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-4 flex items-center justify-center">
+      <div className="clear-path-admin ca-analytics min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-4 flex items-center justify-center">
         <div className="text-white text-xl">Loading analytics...</div>
       </div>
     );
@@ -65,10 +66,10 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-4">
-      <div className="max-w-4xl mx-auto">
+    <div className="clear-path-admin ca-analytics min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-4">
+      <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="ca-header ca-heading-row flex items-center justify-between mb-6">
           <div>
             <div className="sunny-role-brand"><OwlLogo height={32} sticker /><Chip>analytics</Chip></div>
             <h1 className="text-2xl font-bold text-white">📊 Analytics Dashboard</h1>
@@ -76,6 +77,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
           </div>
           <button
             onClick={onClose}
+            aria-label="Close analytics dashboard"
             className="p-2 bg-white/10 hover:bg-white/20 rounded-xl text-white transition-all"
           >
             ✕
@@ -83,7 +85,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
         </div>
 
         {/* Quick Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div className="ca-stats grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           <div className="bg-white/10 backdrop-blur-lg rounded-xl p-4 text-center">
             <p className="text-3xl font-bold text-white">{summary.totalQuizzes}</p>
             <p className="text-white/60 text-sm">Total Quizzes</p>
@@ -103,10 +105,11 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
+        <div className="ca-tabs flex gap-2 mb-6 overflow-x-auto pb-2">
           {tabs.map(tab => (
             <button
               key={tab.id}
+              aria-pressed={activeTab === tab.id}
               onClick={() => setActiveTab(tab.id as Tab)}
               className={`px-4 py-2 rounded-xl font-medium whitespace-nowrap transition-all ${
                 activeTab === tab.id
@@ -126,7 +129,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
             <div className="space-y-6">
               {/* Study Pattern */}
               <div>
-                <h3 className="text-lg font-semibold text-white mb-4">📚 Study Patterns</h3>
+                <h2 className="text-lg font-semibold text-white mb-4">📚 Study Patterns</h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   <div className="bg-white/5 rounded-xl p-4">
                     <p className="text-white/60 text-sm">Preferred Time</p>
@@ -151,7 +154,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
 
               {/* Recommendations */}
               <div>
-                <h3 className="text-lg font-semibold text-white mb-4">💡 Recommendations</h3>
+                <h2 className="text-lg font-semibold text-white mb-4">💡 Recommendations</h2>
                 <div className="space-y-2">
                   {summary.recommendations.map((rec, i) => (
                     <div key={i} className="bg-white/5 rounded-xl p-4 flex items-start gap-3">
@@ -165,7 +168,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
               {/* Struggling Topics */}
               {summary.weeklyReport.struggleAreas.length > 0 && (
                 <div>
-                  <h3 className="text-lg font-semibold text-white mb-4">⚠️ Areas to Focus On</h3>
+                  <h2 className="text-lg font-semibold text-white mb-4">⚠️ Areas to Focus On</h2>
                   <div className="space-y-2">
                     {summary.weeklyReport.struggleAreas.map((topic, i) => (
                       <div key={i} className="bg-red-500/10 rounded-xl p-4 flex items-center justify-between">
@@ -188,7 +191,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
           {/* Topics Tab */}
           {activeTab === 'topics' && (
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-white mb-4">Topic Performance</h3>
+              <h2 className="text-lg font-semibold text-white mb-4">Topic Performance</h2>
               
               {summary.topicPerformance.length === 0 ? (
                 <p className="text-white/60 text-center py-8">
@@ -211,15 +214,15 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                             {topic.avgScore}%
                           </p>
                           <p className="text-white/40 text-xs">
-                            {getTrendIcon(topic.trend)} {topic.totalAttempts} attempts
+                            {getTrendIcon(topic.trend)} <span className="capitalize">{topic.trend}</span> · {topic.totalAttempts} attempts
                           </p>
                         </div>
                       </div>
                       
                       {/* Progress bar */}
-                      <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+                      <div className="ca-track h-2 bg-white/10 rounded-full overflow-hidden">
                         <div
-                          className={`h-full rounded-full ${
+                          className={`ca-fill h-full rounded-full ${
                             topic.avgScore >= 90 ? 'bg-green-400' :
                             topic.avgScore >= 70 ? 'bg-blue-400' :
                             topic.avgScore >= 50 ? 'bg-yellow-400' :
@@ -231,7 +234,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
 
                       <div className="flex justify-between mt-2 text-xs text-white/40">
                         <span>Best: {topic.bestScore}%</span>
-                        <span className="capitalize">{topic.masteryLevel}</span>
+                        <span className="capitalize"><span aria-hidden="true">{topic.masteryLevel === 'struggling' ? '!' : topic.masteryLevel === 'learning' ? '~' : '✓'}</span> {topic.masteryLevel}</span>
                       </div>
                     </div>
                   ))}
@@ -243,10 +246,10 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
           {/* Activity Tab */}
           {activeTab === 'activity' && (
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-white mb-4">Daily Activity (Last 30 Days)</h3>
+              <h2 className="text-lg font-semibold text-white mb-4">Daily Activity (Last 30 Days)</h2>
               
               {/* Activity Grid */}
-              <div className="grid grid-cols-7 gap-1">
+              <div className="ca-heatmap grid grid-cols-7 gap-1">
                 {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, i) => (
                   <div key={i} className="text-center text-white/40 text-xs py-1">{day}</div>
                 ))}
@@ -258,20 +261,34 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                     <div
                       key={day.date}
                       className="aspect-square rounded-sm"
+                      role="img"
+                      aria-label={`${day.date}: ${day.quizzesCompleted} quizzes`}
+                      data-active={day.quizzesCompleted > 0}
                       style={{
                         backgroundColor: intensity > 0
                           ? `rgba(34, 197, 94, ${0.2 + intensity * 0.8})`
                           : 'rgba(255, 255, 255, 0.05)',
                       }}
                       title={`${day.date}: ${day.quizzesCompleted} quizzes`}
-                    />
+                    ><span aria-hidden="true">{day.quizzesCompleted}</span></div>
                   );
                 })}
               </div>
 
+              <details>
+                <summary>Daily activity data</summary>
+                <div className="ca-table-region" role="region" aria-label="Daily activity data" tabIndex={0}>
+                  <table>
+                    <caption>Daily activity (all displayed days)</caption>
+                    <thead><tr><th scope="col">Date</th><th scope="col">Quizzes</th><th scope="col">Questions</th><th scope="col">Correct answers</th><th scope="col">Minutes</th><th scope="col">Subjects</th></tr></thead>
+                    <tbody>{summary.dailyActivity.map(day => <tr key={day.date}><th scope="row">{day.date}</th><td>{day.quizzesCompleted}</td><td>{day.questionsAnswered}</td><td>{day.correctAnswers}</td><td>{day.timeSpentMinutes}</td><td>{day.subjectsStudied.join(', ') || 'No activity'}</td></tr>)}</tbody>
+                  </table>
+                </div>
+              </details>
+
               {/* Recent Activity List */}
               <div className="mt-6">
-                <h4 className="text-white font-medium mb-3">Recent Days</h4>
+                <h3 className="text-white font-medium mb-3">Recent Days</h3>
                 <div className="space-y-2">
                   {summary.dailyActivity.slice(-7).reverse().map((day) => (
                     <div
@@ -309,7 +326,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
           {activeTab === 'weekly' && (
             <div className="space-y-6">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-white">This Week's Summary</h3>
+                <h2 className="text-lg font-semibold text-white">This Week's Summary</h2>
                 <p className="text-white/40 text-sm">
                   {new Date(summary.weeklyReport.weekStart).toLocaleDateString('en-GB', { month: 'short', day: 'numeric' })}
                   {' - '}
@@ -318,7 +335,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
               </div>
 
               {/* Weekly Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="ca-stats grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="bg-white/5 rounded-xl p-4 text-center">
                   <p className="text-2xl font-bold text-white">{summary.weeklyReport.totalQuizzes}</p>
                   <p className="text-white/60 text-xs">Quizzes</p>
@@ -360,7 +377,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
               {/* Achievements */}
               {summary.weeklyReport.achievements.length > 0 && (
                 <div>
-                  <h4 className="text-white font-medium mb-3">🏆 Achievements Unlocked</h4>
+                  <h3 className="text-white font-medium mb-3">🏆 Achievements Unlocked</h3>
                   <div className="flex flex-wrap gap-2">
                     {summary.weeklyReport.achievements.map((achievement, i) => (
                       <span
@@ -377,7 +394,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
               {/* Active Days */}
               <div className="bg-white/5 rounded-xl p-4">
                 <p className="text-white/60 text-sm mb-2">Active Days</p>
-                <div className="flex gap-2">
+                <div className="ca-days flex gap-2">
                   {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, i) => {
                     const weekStart = new Date(summary.weeklyReport.weekStart);
                     const dayDate = new Date(weekStart);
@@ -395,7 +412,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                             : 'bg-white/10 text-white/40'
                         }`}
                       >
-                        {day}
+                        {day} <span aria-hidden="true">{isActive ? '✓' : '–'}</span><span className="sr-only">{isActive ? 'Active' : 'No quizzes'}</span>
                       </div>
                     );
                   })}

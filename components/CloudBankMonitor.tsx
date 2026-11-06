@@ -1,3 +1,4 @@
+import './ClearPathAdmin.css';
 /**
  * Cloud Bank Monitor Component
  * Displays statistics about AI-generated questions saved to Firebase
@@ -31,7 +32,7 @@ export const CloudBankMonitor: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="bg-white rounded-xl shadow-sm p-6">
+      <div className="clear-path-admin ca-cloud bg-white rounded-xl shadow-sm p-6">
         <div className="flex items-center gap-3 mb-4">
           <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center text-2xl">
             ☁️
@@ -53,7 +54,7 @@ export const CloudBankMonitor: React.FC = () => {
 
   if (error || !stats) {
     return (
-      <div className="bg-white rounded-xl shadow-sm p-6">
+      <div className="clear-path-admin ca-cloud bg-white rounded-xl shadow-sm p-6">
         <div className="flex items-center gap-3 mb-4">
           <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center text-2xl">
             ⚠️
@@ -69,8 +70,8 @@ export const CloudBankMonitor: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="clear-path-admin ca-cloud space-y-6">
+      <div className="ca-cloud-row flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center text-2xl">
             ☁️
@@ -144,12 +145,12 @@ export const CloudBankMonitor: React.FC = () => {
             {(Object.entries(stats.bySubject) as [string, number][])
               .sort((a, b) => b[1] - a[1])
               .map(([subject, count]) => (
-                <div key={subject} className="flex items-center justify-between">
+                <div key={subject} className="ca-cloud-row flex items-center justify-between">
                   <span className="text-gray-600">{subject}</span>
                   <div className="flex items-center gap-2">
-                    <div className="w-32 h-2 bg-gray-100 rounded-full overflow-hidden">
+                    <div className="ca-track w-32 h-2 bg-gray-100 rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-indigo-500 rounded-full"
+                        className="ca-fill h-full bg-indigo-500 rounded-full"
                         style={{
                           width: `${(count / stats.totalQuestions) * 100}%`
                         }}
@@ -194,12 +195,12 @@ export const CloudBankMonitor: React.FC = () => {
             {(Object.entries(stats.byAgeGroup) as [string, number][])
               .sort((a, b) => Number(a[0]) - Number(b[0]))
               .map(([age, count]) => (
-                <div key={age} className="flex items-center justify-between">
+                <div key={age} className="ca-cloud-row flex items-center justify-between">
                   <span className="text-gray-600">Age {age}</span>
                   <div className="flex items-center gap-2">
-                    <div className="w-32 h-2 bg-gray-100 rounded-full overflow-hidden">
+                    <div className="ca-track w-32 h-2 bg-gray-100 rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-purple-500 rounded-full"
+                        className="ca-fill h-full bg-purple-500 rounded-full"
                         style={{
                           width: `${(count / stats.totalQuestions) * 100}%`
                         }}
