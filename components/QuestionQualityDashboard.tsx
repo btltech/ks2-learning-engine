@@ -1,3 +1,4 @@
+import './ClearPathAdmin.css';
 import React, { useEffect, useState } from 'react';
 import { 
   ExclamationTriangleIcon, 
@@ -98,7 +99,7 @@ const QuestionQualityDashboard: React.FC<QuestionQualityDashboardProps> = ({ onC
   };
 
   return (
-    <ModalShell
+    <div className="clear-path-admin ca-quality"><ModalShell
       title="Question Quality Dashboard"
       subtitle="Monitor and improve your question bank"
       onClose={onClose}
@@ -126,7 +127,7 @@ const QuestionQualityDashboard: React.FC<QuestionQualityDashboardProps> = ({ onC
           )}
 
           {/* Stats Cards */}
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+          <div className="ca-stats grid grid-cols-2 md:grid-cols-5 gap-4">
             <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-xl border border-blue-200">
               <div className="text-blue-600 text-sm font-medium">Total Questions</div>
               <div className="text-2xl font-bold text-blue-800">
@@ -215,6 +216,7 @@ const QuestionQualityDashboard: React.FC<QuestionQualityDashboardProps> = ({ onC
               <span className="text-gray-600 font-medium">Filter by Subject:</span>
             </div>
             <select
+              aria-label="Filter questions by subject"
               value={selectedSubject}
               onChange={(e) => setSelectedSubject(e.target.value)}
               className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
@@ -229,7 +231,7 @@ const QuestionQualityDashboard: React.FC<QuestionQualityDashboardProps> = ({ onC
           {/* Poorly Performing Questions */}
           <div className="bg-white rounded-xl border shadow-sm">
             <div className="p-4 border-b bg-gray-50 rounded-t-xl">
-              <h3 className="font-semibold text-gray-800 flex items-center gap-2">
+              <h3 className="font-semibold text-gray-800 flex flex-wrap items-center gap-2">
                 <ExclamationTriangleIcon className="w-5 h-5 text-amber-500" />
                 Questions Needing Review
                 <span className="text-sm font-normal text-gray-500">
@@ -250,23 +252,25 @@ const QuestionQualityDashboard: React.FC<QuestionQualityDashboardProps> = ({ onC
                 <p className="text-gray-500 text-sm">No questions need review at this time.</p>
               </div>
             ) : (
-              <div className="divide-y max-h-96 overflow-y-auto">
+              <div className="divide-y max-h-96 overflow-y-auto" tabIndex={0} role="region" aria-label="Questions needing review">
                 {poorQuestions.map((q) => (
                   <div key={q.id} className="p-4 hover:bg-gray-50 transition-colors">
-                    <div className="flex items-start justify-between gap-4">
+                    <div className="ca-quality-row flex items-start justify-between gap-4">
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
                           <span className={`px-2 py-0.5 rounded text-xs font-medium ${getHealthColor(q.correctRate)}`}>
-                            {getHealthLabel(q.correctRate)}
+                            <span aria-hidden="true">⚠</span> {getHealthLabel(q.correctRate)}
                           </span>
                           <span className="text-xs text-gray-500">{q.subject} • {q.topic}</span>
                         </div>
-                        <p 
-                          className={`text-gray-800 ${expandedQuestion === q.id ? '' : 'truncate'} cursor-pointer`}
+                        <button
+                          type="button"
+                          aria-expanded={expandedQuestion === q.id}
+                          className={`ca-question text-gray-800 ${expandedQuestion === q.id ? '' : 'truncate'} cursor-pointer`}
                           onClick={() => setExpandedQuestion(expandedQuestion === q.id ? null : q.id)}
                         >
                           {q.question}
-                        </p>
+                        </button>
                       </div>
                       <div className="flex items-center gap-4 shrink-0">
                         <div className="text-right">
@@ -280,6 +284,8 @@ const QuestionQualityDashboard: React.FC<QuestionQualityDashboardProps> = ({ onC
                             onClick={() => setExpandedQuestion(expandedQuestion === q.id ? null : q.id)}
                             className="p-2 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
                             title="View details"
+                            aria-label="View details"
+                            aria-expanded={expandedQuestion === q.id}
                           >
                             <EyeIcon className="w-4 h-4" />
                           </button>
@@ -346,7 +352,7 @@ const QuestionQualityDashboard: React.FC<QuestionQualityDashboardProps> = ({ onC
               </li>
             </ul>
           </div>
-    </ModalShell>
+    </ModalShell></div>
   );
 };
 

@@ -1,0 +1,17 @@
+{
+  "baseline": "3144ae86",
+  "screens": 27,
+  "appearances": [
+    "standard",
+    "dark",
+    "contrast"
+  ],
+  "widths": [
+    390,
+    1280
+  ],
+  "imageCount": 162,
+  "pageErrors": [],
+  "externalRequests": [],
+  "location": "temporary storage only; reproducible with scripts/review-admin/capture.mjs before"
+}

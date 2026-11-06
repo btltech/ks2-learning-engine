@@ -1,0 +1,76 @@
+{
+  "baseline": "3144ae86",
+  "checks": "Existing effects/dependencies, non-JSX handlers/calculations, click/change payloads, logging/fetch/confirmation calls, test IDs and accessible labels unchanged; App role gates, shared modal and toast source unchanged",
+  "files": [
+    {
+      "path": "components/AdminConsole.tsx",
+      "effects": 5,
+      "loggingAndRequestCalls": 2,
+      "functions": [
+        "loadSystemStats",
+        "loadClaims",
+        "loadUsers",
+        "submitRoleUpdate",
+        "refreshModerationQueue",
+        "resolveFeedback",
+        "updateSetting",
+        "handleSave"
+      ],
+      "unchangedClickChangeActions": 32,
+      "existingLabelsPreserved": 1,
+      "testIdsPreserved": 0
+    },
+    {
+      "path": "components/AnalyticsDashboard.tsx",
+      "effects": 1,
+      "loggingAndRequestCalls": 0,
+      "functions": [
+        "getMasteryColor",
+        "getMasteryBg",
+        "getTrendIcon"
+      ],
+      "unchangedClickChangeActions": 2,
+      "existingLabelsPreserved": 0,
+      "testIdsPreserved": 0
+    },
+    {
+      "path": "components/QuestionQualityDashboard.tsx",
+      "effects": 1,
+      "loggingAndRequestCalls": 1,
+      "functions": [
+        "loadData",
+        "getHealthColor",
+        "getHealthLabel",
+        "formatPercent"
+      ],
+      "unchangedClickChangeActions": 4,
+      "existingLabelsPreserved": 1,
+      "testIdsPreserved": 0
+    },
+    {
+      "path": "components/CurriculumCoverageDashboard.tsx",
+      "effects": 4,
+      "loggingAndRequestCalls": 0,
+      "functions": [
+        "generateMockProgress",
+        "toggleStrand",
+        "getStatusLabel",
+        "getStatusColor"
+      ],
+      "unchangedClickChangeActions": 3,
+      "existingLabelsPreserved": 0,
+      "testIdsPreserved": 0
+    },
+    {
+      "path": "components/CloudBankMonitor.tsx",
+      "effects": 1,
+      "loggingAndRequestCalls": 1,
+      "functions": [
+        "loadStats"
+      ],
+      "unchangedClickChangeActions": 1,
+      "existingLabelsPreserved": 0,
+      "testIdsPreserved": 0
+    }
+  ]
+}

@@ -1,0 +1,5145 @@
+{
+  "errors": [],
+  "externalRequests": [],
+  "audits": [
+    {
+      "name": "admin",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "user-menu",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".sunny-ui"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                ".max-w-7xl.mx-auto.justify-between > div:nth-child(1) > .text-gray-400"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                ".font-medium.text-white"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "users",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "users-empty",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "users-error",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "content",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "content-empty",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "platform",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "settings",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "button[aria-label=\"Enable AI Questions\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "button[aria-label=\"Content Review Queue\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "button[aria-label=\"Admin-only Role Changes\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "admin-error",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "analytics",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "topics",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500\\/20 > .mt-2.text-xs.text-white\\/40 > .capitalize > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "activity",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "activity-table",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "th[scope=\"col\"]:nth-child(4)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "th[scope=\"col\"]:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "th[scope=\"col\"]:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(1) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(1) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(2) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(2) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(3) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(3) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(4) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(4) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(5) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(5) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(6) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(6) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(7) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(7) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(8) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(8) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(9) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(9) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(10) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(10) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(11) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(11) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(12) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(12) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(13) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(13) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(14) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(14) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(15) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(15) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(16) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(16) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(17) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(17) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(18) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(18) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(19) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(19) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(20) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(20) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(21) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(21) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(22) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(22) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(23) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(23) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(24) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(24) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(25) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(25) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(26) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(26) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(27) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(27) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(28) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(28) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(29) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(29) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(30) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(30) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "weekly",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(2) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(3) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(5) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(6) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "analytics-empty",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "quality",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-detail",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-filter",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-empty",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-error",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "curriculum",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "curriculum-expanded",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "curriculum-other",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "cloud",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "cloud-empty",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "cloud-error",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "admin",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "user-menu",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".sunny-ui"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                ".max-w-7xl.mx-auto.justify-between > div:nth-child(1) > .text-gray-400"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                ".font-medium.text-white"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "users",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "users-empty",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "users-error",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "content",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "content-empty",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "platform",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "settings",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "button[aria-label=\"Enable AI Questions\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "button[aria-label=\"Content Review Queue\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "button[aria-label=\"Admin-only Role Changes\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "admin-error",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "analytics",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "topics",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500\\/20 > .mt-2.text-xs.text-white\\/40 > .capitalize > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "activity",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "activity-table",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "th[scope=\"col\"]:nth-child(4)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "th[scope=\"col\"]:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "th[scope=\"col\"]:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(1) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(1) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(2) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(2) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(3) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(3) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(4) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(4) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(5) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(5) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(6) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(6) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(7) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(7) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(8) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(8) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(9) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(9) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(10) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(10) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(11) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(11) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(12) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(12) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(13) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(13) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(14) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(14) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(15) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(15) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(16) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(16) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(17) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(17) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(18) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(18) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(19) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(19) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(20) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(20) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(21) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(21) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(22) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(22) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(23) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(23) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(24) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(24) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(25) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(25) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(26) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(26) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(27) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(27) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(28) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(28) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(29) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(29) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(30) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(30) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "weekly",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(2) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(3) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(5) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(6) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "analytics-empty",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "quality",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-detail",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-filter",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-empty",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-error",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "curriculum",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "curriculum-expanded",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "curriculum-other",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "cloud",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "cloud-empty",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "cloud-error",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "admin",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "user-menu",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".sunny-ui"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                ".max-w-7xl.mx-auto.justify-between > div:nth-child(1) > .text-gray-400"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                ".font-medium.text-white"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "users",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "users-empty",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "users-error",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "content",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "content-empty",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "platform",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "settings",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "button[aria-label=\"Enable AI Questions\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "button[aria-label=\"Content Review Queue\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "button[aria-label=\"Admin-only Role Changes\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "admin-error",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "analytics",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "topics",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500\\/20 > .mt-2.text-xs.text-white\\/40 > .capitalize > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "activity",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "activity-table",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "th[scope=\"col\"]:nth-child(4)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "th[scope=\"col\"]:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "th[scope=\"col\"]:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(1) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(1) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(2) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(2) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(3) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(3) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(4) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(4) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(5) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(5) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(6) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(6) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(7) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(7) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(8) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(8) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(9) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(9) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(10) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(10) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(11) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(11) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(12) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(12) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(13) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(13) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(14) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(14) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(15) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(15) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(16) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(16) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(17) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(17) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(18) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(18) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(19) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(19) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(20) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(20) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(21) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(21) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(22) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(22) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(23) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(23) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(24) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(24) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(25) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(25) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(26) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(26) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(27) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(27) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(28) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(28) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(29) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "tr:nth-child(29) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(30) > td:nth-child(5)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(30) > td:nth-child(6)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "weekly",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(2) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(3) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(5) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(6) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "analytics-empty",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "quality",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-detail",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-filter",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-empty",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-error",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "curriculum",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "curriculum-expanded",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "curriculum-other",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "cloud",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "cloud-empty",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "cloud-error",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "admin",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "user-menu",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".font-medium.text-white"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "users",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "users-empty",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "users-error",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "content",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "content-empty",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "platform",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "settings",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "button[aria-label=\"Enable AI Questions\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "button[aria-label=\"Content Review Queue\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "button[aria-label=\"Admin-only Role Changes\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "admin-error",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "analytics",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "topics",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500\\/20 > .mt-2.text-xs.text-white\\/40 > .capitalize > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "activity",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "activity-table",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "weekly",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(2) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(3) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(5) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(6) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "analytics-empty",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "quality",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-detail",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-filter",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-empty",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-error",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "curriculum",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "curriculum-expanded",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "curriculum-other",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "cloud",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "cloud-empty",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "cloud-error",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "admin",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "user-menu",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".font-medium.text-white"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "users",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "users-empty",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "users-error",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "content",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "content-empty",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "platform",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "settings",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "button[aria-label=\"Enable AI Questions\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "button[aria-label=\"Content Review Queue\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "button[aria-label=\"Admin-only Role Changes\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "admin-error",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "analytics",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "topics",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500\\/20 > .mt-2.text-xs.text-white\\/40 > .capitalize > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "activity",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "activity-table",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "weekly",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(2) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(3) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(5) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(6) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "analytics-empty",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "quality",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-detail",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-filter",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-empty",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-error",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "curriculum",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "curriculum-expanded",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "curriculum-other",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "cloud",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "cloud-empty",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "cloud-error",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "admin",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "user-menu",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".font-medium.text-white"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "users",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "users-empty",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "users-error",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "content",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "content-empty",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "platform",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "settings",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "button[aria-label=\"Enable AI Questions\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "button[aria-label=\"Content Review Queue\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "button[aria-label=\"Admin-only Role Changes\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "admin-error",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "analytics",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "topics",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500\\/20 > .mt-2.text-xs.text-white\\/40 > .capitalize > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "activity",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "activity-table",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "weekly",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(2) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(3) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(5) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(6) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "analytics-empty",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "quality",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-detail",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-filter",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-empty",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-error",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "curriculum",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "curriculum-expanded",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "curriculum-other",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "cloud",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "cloud-empty",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "cloud-error",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "admin",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "user-menu",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".font-medium.text-white"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "users",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "users-empty",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "users-error",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "content",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "content-empty",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "platform",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "settings",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "button[aria-label=\"Enable AI Questions\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "button[aria-label=\"Content Review Queue\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "button[aria-label=\"Admin-only Role Changes\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "admin-error",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "analytics",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "topics",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500\\/20 > .mt-2.text-xs.text-white\\/40 > .capitalize > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "activity",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "activity-table",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "weekly",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(2) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(3) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(5) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(6) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "analytics-empty",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "quality",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-detail",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-filter",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-empty",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-error",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "curriculum",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "curriculum-expanded",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "curriculum-other",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "cloud",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "cloud-empty",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "cloud-error",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "admin",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "user-menu",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".font-medium.text-white"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "users",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "users-empty",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "users-error",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "content",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "content-empty",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "platform",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "settings",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "button[aria-label=\"Enable AI Questions\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "button[aria-label=\"Content Review Queue\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "button[aria-label=\"Admin-only Role Changes\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "admin-error",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "analytics",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "topics",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500\\/20 > .mt-2.text-xs.text-white\\/40 > .capitalize > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "activity",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "activity-table",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "weekly",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(2) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(3) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(5) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(6) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "analytics-empty",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "quality",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-detail",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-filter",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-empty",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-error",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "curriculum",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "curriculum-expanded",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "curriculum-other",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "cloud",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "cloud-empty",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "cloud-error",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "admin",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "user-menu",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".font-medium.text-white"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "users",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "users-empty",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "users-error",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "content",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "content-empty",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "platform",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "settings",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "button[aria-label=\"Enable AI Questions\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "button[aria-label=\"Content Review Queue\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "button[aria-label=\"Admin-only Role Changes\"] > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "admin-error",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "analytics",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "topics",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500\\/20 > .mt-2.text-xs.text-white\\/40 > .capitalize > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "activity",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "activity-table",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "weekly",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(2) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(3) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(5) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-green-500.w-10.h-10:nth-child(6) > span[aria-hidden=\"true\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "analytics-empty",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".p-2"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "quality",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-detail",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-filter",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-empty",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "quality-error",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".focus-visible\\:outline-none"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "curriculum",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "curriculum-expanded",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "curriculum-other",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "cloud",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "cloud-empty",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "cloud-error",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    }
+  ]
+}

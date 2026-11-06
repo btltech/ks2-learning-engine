@@ -1,0 +1,131 @@
+{
+  "baseline": "3144ae86",
+  "branch": "redesign/13-admin",
+  "lint": {
+    "passed": true,
+    "warnings": 0,
+    "node": "20.19.5"
+  },
+  "tests": {
+    "passed": 369,
+    "files": 73,
+    "failures": 0
+  },
+  "build": {
+    "passed": true,
+    "pwa": true
+  },
+  "repeatedTests": {
+    "node": "22.23.4",
+    "sequentialRuns": 40,
+    "parallelWorkers": 3,
+    "runsPerWorker": 40,
+    "totalProcessRuns": 160,
+    "testExecutions": 1600,
+    "failures": 0
+  },
+  "axe": {
+    "version": "4.14.0",
+    "coreSamples": 243,
+    "extraSamples": 69,
+    "violations": 0,
+    "incompleteRules": [
+      "color-contrast"
+    ],
+    "coreIncompleteSamples": 117,
+    "extraIncompleteSamples": 29,
+    "reasons": [
+      "glyph-only controls/status symbols",
+      "zero/short table text",
+      "cells clipped within horizontal table region",
+      "text overlapped by sticky headers/menus/toasts"
+    ]
+  },
+  "computedContrastSamples": 108,
+  "keyboardWidths": [
+    390,
+    768,
+    1280
+  ],
+  "preferenceSamples": 60,
+  "externalReviewRequests": 0,
+  "retainedImages": [
+    {
+      "file": "after-activity-standard-1280.jpg",
+      "width": 1280,
+      "height": 2188,
+      "bytes": 132477
+    },
+    {
+      "file": "after-activity-standard-390.jpg",
+      "width": 390,
+      "height": 2102,
+      "bytes": 81649
+    },
+    {
+      "file": "after-admin-contrast-390.jpg",
+      "width": 390,
+      "height": 3800,
+      "bytes": 166900
+    },
+    {
+      "file": "after-admin-dark-390.jpg",
+      "width": 390,
+      "height": 3798,
+      "bytes": 154627
+    },
+    {
+      "file": "after-admin-standard-1280.jpg",
+      "width": 1280,
+      "height": 1750,
+      "bytes": 161197
+    },
+    {
+      "file": "after-admin-standard-390.jpg",
+      "width": 390,
+      "height": 3798,
+      "bytes": 144874
+    },
+    {
+      "file": "after-cloud-standard-1280.jpg",
+      "width": 1280,
+      "height": 1051,
+      "bytes": 53979
+    },
+    {
+      "file": "after-cloud-standard-390.jpg",
+      "width": 390,
+      "height": 1327,
+      "bytes": 39330
+    },
+    {
+      "file": "after-curriculum-expanded-standard-1280.jpg",
+      "width": 1280,
+      "height": 1710,
+      "bytes": 169806
+    },
+    {
+      "file": "after-curriculum-expanded-standard-390.jpg",
+      "width": 390,
+      "height": 2971,
+      "bytes": 133851
+    },
+    {
+      "file": "after-quality-detail-standard-1280.jpg",
+      "width": 1280,
+      "height": 1422,
+      "bytes": 118770
+    },
+    {
+      "file": "after-quality-detail-standard-390.jpg",
+      "width": 390,
+      "height": 2433,
+      "bytes": 88470
+    }
+  ],
+  "retainedImageBytes": 1445930,
+  "jpegQuality": 70,
+  "fullMatrixLocation": "temporary storage only",
+  "merged": false,
+  "deployed": false
+}
