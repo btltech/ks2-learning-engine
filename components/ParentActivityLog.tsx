@@ -1,3 +1,4 @@
+import './ClearPathParent.css';
 import React, { useMemo } from 'react';
 import { CheckCircleIcon, SparklesIcon, FireIcon, StarIcon, TrophyIcon, ClockIcon } from '@heroicons/react/24/solid';
 import { useRealtimeStudentActivity, useRealtimeChildProfile } from '../hooks/useRealtimeListeners';
@@ -106,11 +107,11 @@ const ParentActivityLog: React.FC<ParentActivityLogProps> = ({ childId, childNam
   );
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-8">
-      <h3 className="text-2xl font-bold text-gray-800 mb-2 flex items-center gap-2">
+    <div className="clear-path-parent cp-activity bg-white rounded-xl shadow-md p-8">
+      <h2 className="text-2xl font-bold text-gray-800 mb-2 flex items-center gap-2">
         <ClockIcon className="h-6 w-6 text-blue-500" />
         Activity Timeline
-      </h3>
+      </h2>
       <p className="text-gray-600 mb-6">Real-time updates of {childName}'s learning activities</p>
 
       {/* Activity Stats */}

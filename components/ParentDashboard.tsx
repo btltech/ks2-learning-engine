@@ -1,3 +1,4 @@
+import './ClearPathParent.css';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useModalAccessibility } from '../hooks/useModalAccessibility';
 import { ParentStats } from '../types';
@@ -77,8 +78,8 @@ const ParentDashboard: React.FC<ParentDashboardProps> = ({ onClose }) => {
 
   if (!currentChild || !stats) {
     return (
-      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" role="presentation">
-        <div ref={dialogRef} tabIndex={-1} className="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-8" role="dialog" aria-modal="true" aria-labelledby="parent-dashboard-empty-title">
+      <div className="clear-path-parent cp-overlay fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" role="presentation">
+        <div ref={dialogRef} tabIndex={-1} className="cp-dialog bg-white rounded-2xl shadow-2xl w-full max-w-lg p-8" role="dialog" aria-modal="true" aria-labelledby="parent-dashboard-empty-title">
           <div className="flex items-start justify-between gap-4">
             <div>
               <h2 id="parent-dashboard-empty-title" className="text-2xl font-bold text-gray-800">No learner selected</h2>
@@ -93,10 +94,10 @@ const ParentDashboard: React.FC<ParentDashboardProps> = ({ onClose }) => {
   }
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" role="presentation">
-      <div ref={dialogRef} tabIndex={-1} className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto animate-pop-in" role="dialog" aria-modal="true" aria-labelledby="parent-dashboard-title">
+    <div className="clear-path-parent cp-overlay fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" role="presentation">
+      <div ref={dialogRef} tabIndex={-1} className="cp-dialog bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto animate-pop-in" role="dialog" aria-modal="true" aria-labelledby="parent-dashboard-title">
         {/* Header */}
-        <div className="p-6 bg-gradient-to-r from-purple-500 to-indigo-600 text-white flex justify-between items-center sticky top-0 z-10">
+        <div className="cp-header p-6 bg-gradient-to-r from-purple-500 to-indigo-600 text-white flex justify-between items-center sticky top-0 z-10">
           <div>
             <div className="sunny-role-brand"><OwlLogo height={32} sticker /><Chip>for families</Chip></div>
             <h2 className="text-3xl font-bold flex items-center gap-2">
@@ -115,7 +116,7 @@ const ParentDashboard: React.FC<ParentDashboardProps> = ({ onClose }) => {
 
         <div className="p-8 space-y-8">
           {/* Key Metrics */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="cp-stats grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bg-purple-50 p-6 rounded-xl border border-purple-100">
               <div className="text-purple-500 text-lg font-bold mb-2">Total Learning Time</div>
               <div className="text-4xl font-bold text-gray-800">
@@ -208,9 +209,9 @@ const ParentDashboard: React.FC<ParentDashboardProps> = ({ onClose }) => {
                     <div key={subject} className="flex items-center justify-between">
                       <div className="flex items-center gap-3 flex-1">
                         <span className="font-semibold text-gray-700 w-24">{subject}</span>
-                        <div className="flex-1 bg-gray-200 rounded-full h-6 overflow-hidden">
+                        <div className="cp-meter flex-1 bg-gray-200 rounded-full h-6 overflow-hidden">
                           <div
-                            className="bg-gradient-to-r from-blue-500 to-purple-500 h-full transition-all duration-300"
+                            className="cp-meter-fill bg-gradient-to-r from-blue-500 to-purple-500 h-full transition-all duration-300"
                             style={{
                               width: `${Math.min((minutesNum / 300) * 100, 100)}%`
                             }}

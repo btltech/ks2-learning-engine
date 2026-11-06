@@ -1,0 +1,6 @@
+Node 22.23.4; ParentPresentation.test.tsx + ChildSelector.test.tsx (10 tests per run).
+sequential, worker 1: 40 consecutive runs, 0 failures
+parallel, worker 1: 40 consecutive runs, 0 failures
+parallel, worker 2: 40 consecutive runs, 0 failures
+parallel, worker 3: 40 consecutive runs, 0 failures
+Total: 160 process runs, 1600 test executions, 0 failures. Every new async/timer test was included in every run.

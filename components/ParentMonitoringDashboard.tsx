@@ -1,3 +1,4 @@
+import './ClearPathParent.css';
 import React, { useState, useMemo } from 'react';
 import { AcademicCapIcon, FireIcon, StarIcon, Cog6ToothIcon, TrashIcon } from '@heroicons/react/24/solid';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -215,7 +216,7 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-purple-50 to-blue-50">
+    <div className="clear-path-parent cp-page cp-monitor min-h-screen flex flex-col bg-gradient-to-b from-purple-50 to-blue-50">
       {/* Notifications Toast */}
       <ProgressNotifications
         notifications={notifications}
@@ -223,7 +224,7 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
         maxVisible={3}
       />
       {/* Header */}
-      <header className="bg-white shadow-md sticky top-0 z-40">
+      <header className="cp-header bg-white shadow-md sticky top-0 z-40">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             <div className="flex items-center space-x-3">
@@ -244,6 +245,14 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
 
       {/* Main Content */}
       <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Student Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-800 mb-4">
+            Monitoring: <span className="text-purple-600">{studentData.name}</span>
+          </h1>
+          <p className="text-gray-600">Track your child's learning progress and insights</p>
+        </div>
+
         {/* Child Selector */}
         <ChildSelector
           children={childrenForSelector}
@@ -259,16 +268,8 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
           onDeleteChild={handleDeleteChild}
         />
 
-        {/* Student Header */}
-        <div className="mb-8">
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">
-            Monitoring: <span className="text-purple-600">{studentData.name}</span>
-          </h2>
-          <p className="text-gray-600">Track your child's learning progress and insights</p>
-        </div>
-
         {/* Key Stats */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div className="cp-stats grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <div className="bg-white rounded-xl shadow-md p-6 border-l-4 border-blue-500">
             <div className="flex items-center justify-between">
               <div>
@@ -311,12 +312,22 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-2 sm:gap-4 mb-8 overflow-x-auto pb-2" role="tablist" aria-label="Parent dashboard sections">
+        <div className="cp-tabs flex gap-2 sm:gap-4 mb-8 overflow-x-auto pb-2" role="tablist" aria-label="Parent dashboard sections">
           {(['overview', 'progress', 'insights', 'leaderboard', 'reports', 'settings'] as const).map((tab) => (
             <button
               key={tab}
               type="button"
               onClick={() => setSearchParams(tab === 'overview' ? {} : { tab })}
+              onKeyDown={(event) => {
+                const offsets: Record<string, number> = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
+                if (!(event.key in offsets) && event.key !== 'Home' && event.key !== 'End') return;
+                event.preventDefault();
+                const tabs = [...(event.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>('[role="tab"]') || [])];
+                const current = tabs.indexOf(event.currentTarget);
+                const next = event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 : (current + offsets[event.key] + tabs.length) % tabs.length;
+                tabs[next]?.focus();
+                tabs[next]?.click();
+              }}
               role="tab"
               id={`parent-tab-${tab}`}
               aria-controls={`parent-panel-${tab}`}
@@ -335,7 +346,7 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
 
         {/* Tab Content */}
         {activeTab === 'overview' && (
-          <div id="parent-panel-overview" role="tabpanel" aria-labelledby="parent-tab-overview" className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div id="parent-panel-overview" role="tabpanel" aria-labelledby="parent-tab-overview" className="cp-overview grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Subject Progress Charts */}
             <div className="lg:col-span-2">
               <SubjectProgressCharts
@@ -358,7 +369,7 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
 
         {activeTab === 'progress' && (
           <div id="parent-panel-progress" role="tabpanel" aria-labelledby="parent-tab-progress" className="bg-white rounded-xl shadow-md p-4 sm:p-8">
-            <h3 className="text-2xl font-bold text-gray-800 mb-6">Learning Progress</h3>
+            <h2 className="text-2xl font-bold text-gray-800 mb-6">Learning Progress</h2>
             {Object.keys(studentData.subjects).length === 0 ? (
               <div className="text-center py-12 text-gray-500">
                 <p className="text-5xl mb-4">📚</p>
@@ -371,16 +382,16 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
                   const data = subjectData as { progress: number; lastActive: string; topicsMastered: number };
                   return (
                     <div key={subject} className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6 border border-blue-100">
-                      <h4 className="text-xl font-bold text-gray-800 mb-4">{subject}</h4>
+                      <h3 className="text-xl font-bold text-gray-800 mb-4">{subject}</h3>
                       <div className="space-y-3">
                         <div>
                           <div className="flex justify-between mb-2">
                             <span className="text-sm font-medium text-gray-600">Mastery Level</span>
                             <span className="text-sm font-bold text-blue-600">{data.progress}%</span>
                           </div>
-                          <div className="w-full bg-gray-300 rounded-full h-2">
+                          <div className="cp-meter w-full bg-gray-300 rounded-full h-2">
                             <div
-                              className="bg-blue-500 h-2 rounded-full"
+                              className="cp-meter-fill bg-blue-500 h-2 rounded-full"
                               style={{ width: `${data.progress}%` }}
                             />
                           </div>
@@ -408,7 +419,7 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
 
         {activeTab === 'insights' && (
           <div id="parent-panel-insights" role="tabpanel" aria-labelledby="parent-tab-insights" className="bg-white rounded-xl shadow-md p-4 sm:p-8">
-            <h3 className="text-2xl font-bold text-gray-800 mb-6">Learning Insights</h3>
+            <h2 className="text-2xl font-bold text-gray-800 mb-6">Learning Insights</h2>
             {Object.keys(studentData.subjects).length === 0 ? (
               <div className="text-center py-12 text-gray-500">
                 <p className="text-5xl mb-4">🔍</p>
@@ -457,7 +468,7 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
 
         {activeTab === 'reports' && (
           <div id="parent-panel-reports" role="tabpanel" aria-labelledby="parent-tab-reports" className="bg-white rounded-xl shadow-md p-4 sm:p-8">
-            <h3 className="text-2xl font-bold text-gray-800 mb-6">Reports & Analysis</h3>
+            <h2 className="text-2xl font-bold text-gray-800 mb-6">Reports & Analysis</h2>
             {!selectedChild ? (
               <div className="rounded-xl border border-amber-200 bg-amber-50 p-6 text-amber-900">
                 Select or create a child profile before generating a report.
@@ -490,13 +501,13 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
                 </div>
                 {progressReport && (
                   <section className="rounded-xl border border-blue-200 bg-blue-50 p-5" aria-labelledby="progress-report-heading">
-                    <h4 id="progress-report-heading" className="text-lg font-bold text-blue-950 mb-3">Progress Report</h4>
+                    <h3 id="progress-report-heading" className="text-lg font-bold text-blue-950 mb-3">Progress Report</h3>
                     <pre className="whitespace-pre-wrap font-sans text-sm text-gray-800">{progressReport}</pre>
                   </section>
                 )}
                 {learningReport && (
                   <section className="rounded-xl border border-green-200 bg-green-50 p-5" aria-labelledby="learning-report-heading">
-                    <h4 id="learning-report-heading" className="text-lg font-bold text-green-950 mb-3">Learning Recommendations</h4>
+                    <h3 id="learning-report-heading" className="text-lg font-bold text-green-950 mb-3">Learning Recommendations</h3>
                     <pre className="whitespace-pre-wrap font-sans text-sm text-gray-800">{learningReport}</pre>
                   </section>
                 )}
@@ -507,13 +518,13 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
 
         {activeTab === 'settings' && (
           <div id="parent-panel-settings" role="tabpanel" aria-labelledby="parent-tab-settings" className="bg-white rounded-xl shadow-md p-4 sm:p-8">
-            <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+            <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
               <Cog6ToothIcon className="h-6 w-6 text-purple-500" />
               Settings & Actions
-            </h3>
+            </h2>
             <div className="space-y-6">
               <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-6">
-                <h4 className="text-lg font-bold text-blue-900 mb-4">📊 Account Management</h4>
+                <h3 className="text-lg font-bold text-blue-900 mb-4">📊 Account Management</h3>
                 <div className="space-y-3">
                   <button
                     onClick={handleResetMastery}
@@ -526,7 +537,7 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
               </div>
 
               <div className="bg-orange-50 border-2 border-orange-200 rounded-xl p-6">
-                <h4 className="text-lg font-bold text-orange-900 mb-4">🪙 Points & Rewards</h4>
+                <h3 className="text-lg font-bold text-orange-900 mb-4">🪙 Points & Rewards</h3>
                 <div className="space-y-3">
                   <button onClick={handleResetPoints} className="w-full p-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors font-bold text-left">
                     💰 Reset All Points to Zero
@@ -536,7 +547,7 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
               </div>
 
               <div className="bg-amber-50 border-2 border-amber-200 rounded-xl p-6">
-                <h4 className="text-lg font-bold text-amber-900 mb-4">🔥 Streak Management</h4>
+                <h3 className="text-lg font-bold text-amber-900 mb-4">🔥 Streak Management</h3>
                 <div className="space-y-3">
                   <button onClick={handleResetStreak} className="w-full p-3 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors font-bold text-left">
                     🔄 Reset Streak Counter
@@ -546,7 +557,7 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
               </div>
 
               <div className="bg-red-50 border-2 border-red-200 rounded-xl p-6">
-                <h4 className="text-lg font-bold text-red-900 mb-4">🗑️ Reset All Activities</h4>
+                <h3 className="text-lg font-bold text-red-900 mb-4">🗑️ Reset All Activities</h3>
                 <div className="space-y-3">
                   <button 
                     onClick={() => setShowResetConfirm(true)}
@@ -563,7 +574,7 @@ const ParentMonitoringDashboard: React.FC<ParentMonitoringDashboardProps> = ({ o
               {showResetConfirm && (
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" role="presentation">
                   <div ref={resetDialogRef} tabIndex={-1} className="bg-white rounded-2xl shadow-2xl p-4 sm:p-8 max-w-md w-full animate-pop-in" role="alertdialog" aria-modal="true" aria-labelledby="reset-activities-title" aria-describedby="reset-activities-description">
-                    <h4 id="reset-activities-title" className="text-xl font-bold text-gray-800 mb-4">⚠️ Confirm Reset</h4>
+                    <h3 id="reset-activities-title" className="text-xl font-bold text-gray-800 mb-4">⚠️ Confirm Reset</h3>
                     <p id="reset-activities-description" className="text-gray-600 mb-6">
                       Are you sure you want to reset all activities for <strong>{studentData.name}</strong>? This includes:
                     </p>

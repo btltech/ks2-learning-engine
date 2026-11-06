@@ -1,0 +1,71 @@
+{
+  "samples": [
+    {
+      "width": 390,
+      "preference": "ui",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "localFontsReady": true,
+      "logoStaticTransform": "matrix(1, 0, 0, 1, 330, 0)",
+      "animations": [],
+      "transition": "0s"
+    },
+    {
+      "width": 390,
+      "preference": "os",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "localFontsReady": true,
+      "logoStaticTransform": "matrix(1, 0, 0, 1, 330, 0)",
+      "animations": [],
+      "transition": "0s"
+    },
+    {
+      "width": 768,
+      "preference": "ui",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "localFontsReady": true,
+      "logoStaticTransform": "matrix(1, 0, 0, 1, 330, 0)",
+      "animations": [],
+      "transition": "0s"
+    },
+    {
+      "width": 768,
+      "preference": "os",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "localFontsReady": true,
+      "logoStaticTransform": "matrix(1, 0, 0, 1, 330, 0)",
+      "animations": [],
+      "transition": "0s"
+    },
+    {
+      "width": 1280,
+      "preference": "ui",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "localFontsReady": true,
+      "logoStaticTransform": "matrix(1, 0, 0, 1, 330, 0)",
+      "animations": [],
+      "transition": "0s"
+    },
+    {
+      "width": 1280,
+      "preference": "os",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "localFontsReady": true,
+      "logoStaticTransform": "matrix(1, 0, 0, 1, 330, 0)",
+      "animations": [],
+      "transition": "0s"
+    }
+  ],
+  "externalRequests": []
+}

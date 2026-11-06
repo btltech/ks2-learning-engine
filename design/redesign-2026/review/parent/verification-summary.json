@@ -1,0 +1,53 @@
+{
+  "date": "2026-11-06",
+  "base": "ff97190e",
+  "axeVersion": "4.14.0",
+  "auditSamples": 183,
+  "violations": 0,
+  "pageHorizontalOverflow": 0,
+  "undersizedEnabledControlsInCoreSamples": 0,
+  "incompleteSampleCounts": {
+    "color-contrast": 88
+  },
+  "keyboard": [
+    {
+      "width": 390,
+      "tabs": true,
+      "confirmationUnchanged": true,
+      "resetFocusTrapAndReturn": true,
+      "tableKeyboardScroll": true,
+      "struggleFocusAndEscape": true
+    },
+    {
+      "width": 768,
+      "tabs": true,
+      "confirmationUnchanged": true,
+      "resetFocusTrapAndReturn": true,
+      "tableKeyboardScroll": true,
+      "struggleFocusAndEscape": true
+    },
+    {
+      "width": 1280,
+      "tabs": true,
+      "confirmationUnchanged": true,
+      "resetFocusTrapAndReturn": true,
+      "tableKeyboardScroll": true,
+      "struggleFocusAndEscape": true
+    }
+  ],
+  "stress": {
+    "runtime": "Node 22.23.4",
+    "sequentialRuns": 40,
+    "parallelWorkers": 3,
+    "runsPerParallelWorker": 40,
+    "failures": 0,
+    "testsPerRun": 10
+  },
+  "fullSuite": {
+    "runtime": "Node 20.19.5",
+    "files": 70,
+    "tests": 351,
+    "failures": 0
+  },
+  "containedTableScroll": "The 520px table scrolls within its labelled region on phones; page width remains equal to viewport width."
+}

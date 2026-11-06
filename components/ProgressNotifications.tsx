@@ -89,7 +89,7 @@ const ProgressNotifications: React.FC<ProgressNotificationsProps> = ({
         return (
           <div
             key={notif.id}
-            className={`${colors.bg} border-l-4 ${colors.border} rounded-lg shadow-lg p-4 animate-slide-in-right`}
+            className={`cp-notification ${colors.bg} border-l-4 ${colors.border} rounded-lg shadow-lg p-4 animate-slide-in-right`}
           >
             <div className="flex items-start gap-3">
               {/* Icon */}
@@ -110,6 +110,7 @@ const ProgressNotifications: React.FC<ProgressNotificationsProps> = ({
               {notif.dismissible !== false && (
                 <button
                   onClick={() => onDismiss(notif.id)}
+                  aria-label="Dismiss notification"
                   className="flex-shrink-0 text-gray-400 hover:text-gray-600 transition-colors"
                 >
                   <XMarkIcon className="h-5 w-5" />
