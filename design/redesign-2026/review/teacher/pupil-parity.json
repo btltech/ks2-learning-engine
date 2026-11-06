@@ -1,0 +1,58 @@
+{
+  "samples": [
+    {
+      "width": 390,
+      "theme": "standard",
+      "menu": "identical computed presentation",
+      "join": "identical computed presentation"
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "menu": "identical computed presentation",
+      "join": "identical computed presentation"
+    },
+    {
+      "width": 390,
+      "theme": "contrast",
+      "menu": "identical computed presentation",
+      "join": "identical computed presentation"
+    },
+    {
+      "width": 768,
+      "theme": "standard",
+      "menu": "identical computed presentation",
+      "join": "identical computed presentation"
+    },
+    {
+      "width": 768,
+      "theme": "dark",
+      "menu": "identical computed presentation",
+      "join": "identical computed presentation"
+    },
+    {
+      "width": 768,
+      "theme": "contrast",
+      "menu": "identical computed presentation",
+      "join": "identical computed presentation"
+    },
+    {
+      "width": 1280,
+      "theme": "standard",
+      "menu": "identical computed presentation",
+      "join": "identical computed presentation"
+    },
+    {
+      "width": 1280,
+      "theme": "dark",
+      "menu": "identical computed presentation",
+      "join": "identical computed presentation"
+    },
+    {
+      "width": 1280,
+      "theme": "contrast",
+      "menu": "identical computed presentation",
+      "join": "identical computed presentation"
+    }
+  ]
+}

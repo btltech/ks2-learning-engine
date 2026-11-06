@@ -1,0 +1,62 @@
+{
+  "baseline": "5da9936d",
+  "checks": "Existing effects/dependencies, non-JSX handlers/calculations, click/change payloads, test IDs and accessible labels unchanged",
+  "files": [
+    {
+      "path": "components/TeacherHomeView.tsx",
+      "effects": 1,
+      "functions": [],
+      "unchangedClickChangeActions": 7,
+      "existingLabelsPreserved": 1,
+      "testIdsPreserved": 0
+    },
+    {
+      "path": "components/TeacherDashboard.tsx",
+      "effects": 2,
+      "functions": [
+        "handleCreateClass",
+        "handleRemoveStudent",
+        "createAssignment",
+        "download",
+        "exportJson",
+        "exportCsv",
+        "escape",
+        "isToday",
+        "formatTimeAgo"
+      ],
+      "unchangedClickChangeActions": 21,
+      "existingLabelsPreserved": 1,
+      "testIdsPreserved": 0
+    },
+    {
+      "path": "components/EnhancedTeacherDashboard.tsx",
+      "effects": 2,
+      "functions": [
+        "loadData",
+        "loadClassAnalytics",
+        "handleExportReport"
+      ],
+      "unchangedClickChangeActions": 6,
+      "existingLabelsPreserved": 0,
+      "testIdsPreserved": 0
+    },
+    {
+      "path": "components/ClassroomMode.tsx",
+      "effects": 3,
+      "functions": [
+        "normalizeAnswerText",
+        "resolveCorrectOptionIndex",
+        "handleCreateSession",
+        "handleJoinSession",
+        "handleStartSession",
+        "handleNextQuestion",
+        "handleSubmitAnswer",
+        "handleEndSession",
+        "getLeaderboard"
+      ],
+      "unchangedClickChangeActions": 18,
+      "existingLabelsPreserved": 0,
+      "testIdsPreserved": 0
+    }
+  ]
+}

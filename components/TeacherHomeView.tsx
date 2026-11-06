@@ -1,3 +1,4 @@
+import './ClearPathTeacher.css';
 /**
  * Teacher Home View Component
  * 
@@ -127,10 +128,11 @@ export const TeacherHomeView: React.FC<TeacherHomeViewProps> = ({
   ];
 
   return (
-    <div className="w-full max-w-6xl mx-auto p-4 sm:p-6">
+    <div className="clear-path-teacher ct-home w-full max-w-6xl mx-auto p-4 sm:p-6">
+      {!showWelcome && <h1 className="sr-only">Welcome back, {user?.name || 'Teacher'}!</h1>}
       {/* Welcome Banner */}
       {showWelcome && (
-        <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-6 text-white mb-6 relative">
+        <div className="ct-welcome bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-6 text-white mb-6 relative">
           <button
             onClick={() => setShowWelcome(false)}
             className="absolute top-4 right-4 text-white/60 hover:text-white"
@@ -176,7 +178,7 @@ export const TeacherHomeView: React.FC<TeacherHomeViewProps> = ({
           </button>
         </div>
       )}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <div className="ct-stats grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
         <StatCard
           icon="👥"
           label="Students"
@@ -227,7 +229,7 @@ export const TeacherHomeView: React.FC<TeacherHomeViewProps> = ({
       {/* Quick Actions */}
       <div className="mb-6">
         <h2 className="text-xl font-bold text-gray-800 mb-4">Teacher Tools</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="ct-home-actions grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {quickActions.map((action, i) => (
             <button
               key={i}

@@ -1,0 +1,114 @@
+@import '@fontsource/lexend/600.css';
+@import '@fontsource/lexend/700.css';
+
+/* Teacher-only Clear Path. In ClassroomMode the pupil root never gets this class. */
+.clear-path-teacher, body:has(.ct-home) {
+  --ct-page:#F6F7FB; --ct-paper:#fff; --ct-ink:#172033; --ct-muted:#4A5568;
+  --ct-action:#1E55C8; --ct-on-action:#fff; --ct-line:#D5DAE5; --ct-outline:#7A8496;
+  --ct-tint:#E8EFFC; --ct-focus:#1E55C8;
+}
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) :is(.clear-path-teacher,body:has(.ct-home)) {
+  --ct-page:var(--display-page); --ct-paper:var(--display-paper); --ct-ink:var(--display-ink);
+  --ct-muted:var(--display-ink); --ct-line:var(--display-border); --ct-outline:var(--display-border);
+  --ct-tint:var(--display-paper); --ct-focus:var(--display-ink);
+}
+:root.appearance-dark :is(.clear-path-teacher,body:has(.ct-home)) { --ct-action:#8AB4FF; --ct-on-action:#172033; }
+:root:is(.high-contrast,.sunny-high-contrast) :is(.clear-path-teacher,body:has(.ct-home)) { --ct-action:#FFF200; --ct-on-action:#000; }
+body:has(.clear-path-teacher) { background:#F6F7FB; }
+.clear-path-teacher { font:1.125rem/1.6 'Atkinson Hyperlegible',sans-serif; color:var(--ct-ink); }
+.clear-path-teacher *, .clear-path-teacher *::before, .clear-path-teacher *::after { box-sizing:border-box; }
+.clear-path-teacher :is(div,p,span,label,button,input,select,textarea,pre,code,th,td,a,li,dt,dd,caption) { font-family:'Atkinson Hyperlegible',sans-serif; color:var(--ct-ink) !important; }
+.clear-path-teacher :is(h1,h2,h3,h4,h5,strong) { color:var(--ct-ink) !important; }
+.clear-path-teacher :is(h1,h2,h3,h4,h5) { font-family:'Lexend',sans-serif !important; font-weight:600; line-height:1.35; overflow-wrap:anywhere; }
+.clear-path-teacher h1 { font-size:clamp(1.75rem,3vw,2.25rem); font-weight:700; }
+.clear-path-teacher h2 { font-size:1.5rem; }
+.clear-path-teacher h3 { font-size:1.25rem; }
+.clear-path-teacher :is(p,span,button,a,pre,code,td,th) { overflow-wrap:anywhere; }
+.clear-path-teacher :is(.text-xs,.text-sm) { font-size:1rem; line-height:1.6; }
+.clear-path-teacher :is([class*='text-gray-4'],[class*='text-gray-5'],[class*='text-gray-6']) { color:var(--ct-muted) !important; }
+.clear-path-teacher [class*='shadow'] { box-shadow:none !important; }
+.clear-path-teacher [class*='border-'] { border-color:var(--ct-line); }
+.clear-path-teacher [class*='bg-']:where(:not(.fixed,.ct-header,.ct-fill)) { background:var(--ct-paper) !important; background-image:none !important; }
+.clear-path-teacher :is([class*='rounded-xl'],[class*='rounded-2xl'],.ct-card) { border:2px solid var(--ct-line); border-radius:24px; box-shadow:none; }
+.clear-path-teacher :is(button,input,select,textarea,a,[role='button']) { min-width:48px; min-height:48px; scroll-margin-block:140px; }
+.clear-path-teacher :is(button,input,select,textarea) { font:inherit; border:2px solid var(--ct-outline); border-radius:12px; line-height:1.5; }
+.clear-path-teacher button { padding:10px 16px; background:var(--ct-paper) !important; color:var(--ct-action) !important; font-weight:700; box-shadow:none !important; transform:none !important; }
+.clear-path-teacher button :is(span,div,p,h2,h3,h4) { color:inherit !important; }
+.clear-path-teacher button:hover:enabled { background:var(--ct-tint) !important; border-color:var(--ct-action); }
+.clear-path-teacher button[class*='text-white'] { background:var(--ct-action) !important; border-color:var(--ct-action); color:var(--ct-on-action) !important; }
+.clear-path-teacher button:disabled { background:var(--ct-page) !important; color:var(--ct-muted) !important; border-style:dashed; opacity:1; cursor:not-allowed; }
+.clear-path-teacher :is(button,a,input,select,textarea,[tabindex]):focus-visible { outline:4px solid var(--ct-focus) !important; outline-offset:3px; box-shadow:none !important; transition:none !important; }
+.clear-path-teacher :is(input,select,textarea) { background:var(--ct-paper) !important; color:var(--ct-ink) !important; padding:10px 12px; max-width:100%; }
+.clear-path-teacher input::placeholder, .clear-path-teacher textarea::placeholder { color:var(--ct-muted); opacity:1; }
+.clear-path-teacher a { display:inline-flex; align-items:center; color:var(--ct-action) !important; font-weight:700; text-decoration:underline; text-underline-offset:3px; }
+.clear-path-teacher :is(.flex-1,.flex-grow,.grid > *) { min-width:0; }
+.clear-path-teacher :is(.opacity-75,.opacity-90,.opacity-70) { opacity:1; }
+.clear-path-teacher svg:where(:not(.sunny-logo svg)) { flex-shrink:0; color:var(--ct-muted); }
+.clear-path-teacher :is([style*='background-color']) { background-color:var(--ct-tint) !important; }
+.clear-path-teacher .ct-track { background:var(--ct-line) !important; overflow:hidden; border:0; }
+.clear-path-teacher .ct-fill { background:var(--ct-action) !important; border:0; border-radius:inherit; }
+.clear-path-teacher .ct-note { background:var(--ct-tint) !important; }
+.ct-home { max-width:1240px; padding:28px 24px 64px; background:var(--ct-page); }
+.clear-path-teacher .ct-welcome { background:var(--ct-tint) !important; padding:24px 80px 24px 24px; }
+.clear-path-teacher .ct-home-actions > button { padding:24px; border:2px solid var(--ct-line); border-radius:24px; background:var(--ct-paper) !important; color:var(--ct-ink) !important; text-align:left; }
+.clear-path-teacher .ct-home-actions > button h3 { color:var(--ct-action) !important; }
+.clear-path-teacher .ct-stats { grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:16px; }
+.ct-stats > div { border:2px solid var(--ct-line); border-radius:24px; background:var(--ct-paper); padding:20px; }
+.ct-stats .text-3xl { font:700 2rem/1.3 'Lexend',sans-serif; }
+.clear-path-teacher.ct-dashboard > section { background:var(--ct-page) !important; }
+.clear-path-teacher.ct-dashboard > section > header, .clear-path-teacher .ct-header { background:#172033 !important; color:#fff !important; box-shadow:none; }
+.clear-path-teacher.ct-dashboard > section > header :is(h1,p,span), .clear-path-teacher .ct-header :is(h1,h2,p,span) { color:#fff !important; }
+.clear-path-teacher.ct-dashboard > section > header button, .clear-path-teacher .ct-header button { background:#fff !important; color:#172033 !important; border-color:#fff; }
+.clear-path-teacher.ct-dashboard > section > header [role='tab'], .clear-path-teacher .ct-header [role='tab'] { background:#172033 !important; border-color:#7A8496; color:#fff !important; }
+.clear-path-teacher.ct-dashboard > section > header [role='tab'][aria-selected='true'] { background:#fff !important; color:#172033 !important; border-color:#8AB4FF; text-decoration:underline; text-underline-offset:4px; }
+.clear-path-teacher.ct-dashboard > section > header :is(button,[role='tab']):focus-visible { outline-color:#8AB4FF !important; }
+.ct-dashboard .sunny-logo, .clear-path-teacher .ct-header .sunny-logo { background:#fff !important; padding:4px 10px; border-radius:14px; }
+.clear-path-teacher.ct-dashboard > section > header .kid-chip, .clear-path-teacher .ct-header .kid-chip { background:#FFF1C7 !important; color:#172033 !important; border:0; box-shadow:none; }
+.clear-path-teacher .ct-tabs { display:flex; flex-wrap:wrap; gap:10px; padding:4px; overflow:visible; }
+.clear-path-teacher [role='tab'][aria-selected='true'] { border:3px solid var(--ct-action); text-decoration:underline; text-underline-offset:4px; }
+.clear-path-teacher .ct-student-card { cursor:pointer; }
+.clear-path-teacher .ct-student-card:hover { border-color:var(--ct-action); }
+.ct-overlay { background:rgb(23 32 51 / .65); }
+.clear-path-teacher .ct-dialog { background:var(--ct-paper) !important; border:2px solid var(--ct-line); border-radius:24px; }
+.ct-dialog > .ct-header { flex-shrink:0; }
+.ct-dialog > .ct-header > .flex { flex-wrap:wrap; gap:16px; }
+.ct-dialog > .ct-header h2 { margin-top:16px; }
+.ct-dialog > .ct-header select { width:min(100%,420px); }
+.clear-path-teacher.ct-classroom { background:var(--ct-page) !important; padding:24px; }
+.ct-classroom > .max-w-md, .ct-classroom > .max-w-2xl { max-width:880px; }
+.ct-classroom > .max-w-4xl { max-width:1240px; }
+.ct-classroom .backdrop-blur-lg { backdrop-filter:none; }
+.ct-classroom :is(.flex.gap-4,.flex.items-end.justify-center) { flex-wrap:wrap; }
+.ct-classroom .truncate { white-space:normal; overflow:visible; }
+body:has(.ct-home) header[role='banner']:not(.sunny-child-header) { background:#172033; border-bottom:2px solid #172033; box-shadow:none; }
+body:has(.ct-home) header[role='banner'] .sunny-logo { background:#fff; padding:4px 10px; border-radius:14px; }
+body:has(.ct-home) header[role='banner'] button { min-height:48px; min-width:48px; font:700 1rem/1.5 'Atkinson Hyperlegible',sans-serif; color:#fff; border-radius:12px; }
+body:has(.ct-home) header[role='banner'] button:not(.sunny-brand-target) { background:#172033; border:2px solid #7A8496; box-shadow:none; }
+body:has(.ct-home) header[role='banner'] [class*='text-gray'] { color:#fff; }
+body:has(.ct-home) header[role='banner'] button:focus-visible { outline:4px solid #8AB4FF !important; outline-offset:3px; transition:none !important; }
+body:has(.ct-home) header[role='banner'] .sunny-header-row { height:auto; min-height:80px; padding-block:12px; gap:16px; flex-wrap:wrap; }
+body:has(.ct-home) header[role='banner'] .sunny-user-dropdown, body:has(.ct-home) header[role='banner'] .sunny-user-dropdown :is(p,span,button) { background:var(--ct-paper); color:var(--ct-ink); }
+:root:is(.large-text,.sunny-large-text) .clear-path-teacher :is(p,span,label,button,input,select,textarea,td,th) { font-size:1.125rem; }
+:root:is(.high-contrast,.sunny-high-contrast) .clear-path-teacher * { box-shadow:none !important; text-shadow:none !important; }
+:root:is(.high-contrast,.sunny-high-contrast) .clear-path-teacher.ct-dashboard > section > header, :root:is(.high-contrast,.sunny-high-contrast) .clear-path-teacher .ct-header { background:var(--ct-paper) !important; border-bottom:2px solid var(--ct-outline); }
+:root:is(.high-contrast,.sunny-high-contrast) .clear-path-teacher.ct-dashboard > section > header :is(h1,p,span), :root:is(.high-contrast,.sunny-high-contrast) .clear-path-teacher .ct-header :is(h1,h2,p,span) { color:var(--ct-ink) !important; }
+:root:is(.high-contrast,.sunny-high-contrast) .clear-path-teacher.ct-dashboard > section > header .kid-chip, :root:is(.high-contrast,.sunny-high-contrast) .clear-path-teacher .ct-header .kid-chip { background:var(--ct-paper) !important; color:var(--ct-ink) !important; border:2px solid var(--ct-outline); }
+:root:is(.reduce-motion,.accessibility-reduced-motion) .clear-path-teacher * { animation:none !important; transition:none !important; scroll-behavior:auto !important; }
+@media(prefers-reduced-motion:reduce) { .clear-path-teacher * { animation:none !important; transition:none !important; scroll-behavior:auto !important; } }
+@media(max-width:767px) {
+ .ct-home, .clear-path-teacher.ct-classroom { padding:24px 16px 48px; }
+ .clear-path-teacher :is(.p-8,.p-6) { padding:20px; }
+ .clear-path-teacher .ct-welcome { padding:24px 72px 24px 20px; }
+ .ct-welcome > .flex > .flex.items-center { flex-direction:column; align-items:flex-start; }
+ .clear-path-teacher .ct-stats, .ct-dialog .grid-cols-4, .ct-dialog .grid-cols-2, .ct-classroom .grid-cols-2 { grid-template-columns:minmax(0,1fr); }
+ .clear-path-teacher .ct-tabs > button { flex:1 1 120px; margin:0; white-space:normal; }
+ .clear-path-teacher.ct-dashboard > section > header .max-w-7xl.items-start { flex-wrap:wrap; }
+ .clear-path-teacher.ct-dashboard > section > header .kid-chip { display:none; }
+ .ct-home .mt-6 > .flex { flex-wrap:wrap; gap:16px; }
+ .ct-classroom .tracking-widest { letter-spacing:.12em; font-size:2rem; }
+ .ct-dialog > .ct-header { max-height:45dvh; overflow:auto; }
+}
+
+.clear-path-teacher button[aria-pressed='true'] { border:3px solid var(--ct-action); background:var(--ct-tint) !important; color:var(--ct-ink) !important; }
+
+:root:is(.appearance-dark,.appearance-calm,.high-contrast,.sunny-high-contrast) body:has(.clear-path-teacher) { background:var(--display-page); }

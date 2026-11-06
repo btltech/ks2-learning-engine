@@ -1,0 +1,2300 @@
+{
+  "errors": [],
+  "audits": [
+    {
+      "name": "home",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "home-empty",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "home-error",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "dashboard",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "students",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "student-detail",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "assignments",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "reports",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "dashboard-empty",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced-students",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced-homework",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced-empty",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-menu",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-create",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-join",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-waiting",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-active",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-results",
+      "width": 390,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "home",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "home-empty",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "home-error",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "dashboard",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "students",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "student-detail",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "assignments",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "reports",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "dashboard-empty",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced-students",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced-homework",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced-empty",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-menu",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-create",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-join",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-waiting",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-active",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-results",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "home",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "home-empty",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "home-error",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "dashboard",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "students",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "student-detail",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "assignments",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "reports",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "dashboard-empty",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced-students",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced-homework",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced-empty",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-menu",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-create",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-join",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-waiting",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-active",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-results",
+      "width": 390,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "name": "home",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "home-empty",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "home-error",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "dashboard",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "students",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "student-detail",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "assignments",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "reports",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "dashboard-empty",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced-students",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced-homework",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced-empty",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-menu",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-create",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-join",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-waiting",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-active",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-results",
+      "width": 768,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "home",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "home-empty",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "home-error",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "dashboard",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "students",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "student-detail",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "assignments",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "reports",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "dashboard-empty",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced-students",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced-homework",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced-empty",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-menu",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-create",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-join",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-waiting",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-active",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-results",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "home",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "home-empty",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "home-error",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "dashboard",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "students",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "student-detail",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "assignments",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "reports",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "dashboard-empty",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced-students",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced-homework",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced-empty",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-menu",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-create",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-join",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-waiting",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-active",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-results",
+      "width": 768,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768,
+      "smallTargets": []
+    },
+    {
+      "name": "home",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "home-empty",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "home-error",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "dashboard",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "students",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "student-detail",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "assignments",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "reports",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "dashboard-empty",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced-students",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced-homework",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced-empty",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-menu",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-create",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-join",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-waiting",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-active",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-results",
+      "width": 1280,
+      "theme": "standard",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "home",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "home-empty",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "home-error",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "dashboard",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "students",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "student-detail",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "assignments",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "reports",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "dashboard-empty",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced-students",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced-homework",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced-empty",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-menu",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-create",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-join",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-waiting",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-active",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-results",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "home",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "home-empty",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "home-error",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "dashboard",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "students",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "student-detail",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "assignments",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "reports",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "dashboard-empty",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced-students",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced-homework",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "enhanced-empty",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-menu",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-create",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-join",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-waiting",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-active",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    },
+    {
+      "name": "classroom-results",
+      "width": 1280,
+      "theme": "contrast",
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280,
+      "smallTargets": []
+    }
+  ]
+}

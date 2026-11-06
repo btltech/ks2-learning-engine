@@ -1,0 +1,184 @@
+{
+  "samples": [
+    {
+      "width": 390,
+      "theme": "standard",
+      "screen": "home",
+      "foreground": "rgb(255, 255, 255)",
+      "background": "rgb(30, 85, 200)",
+      "label": "Dismiss welcome message",
+      "ratio": 6.59,
+      "review": "Named close glyph visible; computed color ratio exceeds 4.5:1. Axe keeps its glyph-only item incomplete."
+    },
+    {
+      "width": 390,
+      "theme": "standard",
+      "screen": "enhanced",
+      "foreground": "rgb(23, 32, 51)",
+      "background": "rgb(255, 255, 255)",
+      "label": "Close teacher dashboard",
+      "ratio": 16.27,
+      "review": "Named close glyph visible; computed color ratio exceeds 4.5:1. Axe keeps its glyph-only item incomplete."
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "screen": "home",
+      "foreground": "rgb(23, 32, 51)",
+      "background": "rgb(138, 180, 255)",
+      "label": "Dismiss welcome message",
+      "ratio": 7.79,
+      "review": "Named close glyph visible; computed color ratio exceeds 4.5:1. Axe keeps its glyph-only item incomplete."
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "screen": "enhanced",
+      "foreground": "rgb(23, 32, 51)",
+      "background": "rgb(255, 255, 255)",
+      "label": "Close teacher dashboard",
+      "ratio": 16.27,
+      "review": "Named close glyph visible; computed color ratio exceeds 4.5:1. Axe keeps its glyph-only item incomplete."
+    },
+    {
+      "width": 390,
+      "theme": "contrast",
+      "screen": "home",
+      "foreground": "rgb(0, 0, 0)",
+      "background": "rgb(255, 242, 0)",
+      "label": "Dismiss welcome message",
+      "ratio": 17.95,
+      "review": "Named close glyph visible; computed color ratio exceeds 4.5:1. Axe keeps its glyph-only item incomplete."
+    },
+    {
+      "width": 390,
+      "theme": "contrast",
+      "screen": "enhanced",
+      "foreground": "rgb(23, 32, 51)",
+      "background": "rgb(255, 255, 255)",
+      "label": "Close teacher dashboard",
+      "ratio": 16.27,
+      "review": "Named close glyph visible; computed color ratio exceeds 4.5:1. Axe keeps its glyph-only item incomplete."
+    },
+    {
+      "width": 768,
+      "theme": "standard",
+      "screen": "home",
+      "foreground": "rgb(255, 255, 255)",
+      "background": "rgb(30, 85, 200)",
+      "label": "Dismiss welcome message",
+      "ratio": 6.59,
+      "review": "Named close glyph visible; computed color ratio exceeds 4.5:1. Axe keeps its glyph-only item incomplete."
+    },
+    {
+      "width": 768,
+      "theme": "standard",
+      "screen": "enhanced",
+      "foreground": "rgb(23, 32, 51)",
+      "background": "rgb(255, 255, 255)",
+      "label": "Close teacher dashboard",
+      "ratio": 16.27,
+      "review": "Named close glyph visible; computed color ratio exceeds 4.5:1. Axe keeps its glyph-only item incomplete."
+    },
+    {
+      "width": 768,
+      "theme": "dark",
+      "screen": "home",
+      "foreground": "rgb(23, 32, 51)",
+      "background": "rgb(138, 180, 255)",
+      "label": "Dismiss welcome message",
+      "ratio": 7.79,
+      "review": "Named close glyph visible; computed color ratio exceeds 4.5:1. Axe keeps its glyph-only item incomplete."
+    },
+    {
+      "width": 768,
+      "theme": "dark",
+      "screen": "enhanced",
+      "foreground": "rgb(23, 32, 51)",
+      "background": "rgb(255, 255, 255)",
+      "label": "Close teacher dashboard",
+      "ratio": 16.27,
+      "review": "Named close glyph visible; computed color ratio exceeds 4.5:1. Axe keeps its glyph-only item incomplete."
+    },
+    {
+      "width": 768,
+      "theme": "contrast",
+      "screen": "home",
+      "foreground": "rgb(0, 0, 0)",
+      "background": "rgb(255, 242, 0)",
+      "label": "Dismiss welcome message",
+      "ratio": 17.95,
+      "review": "Named close glyph visible; computed color ratio exceeds 4.5:1. Axe keeps its glyph-only item incomplete."
+    },
+    {
+      "width": 768,
+      "theme": "contrast",
+      "screen": "enhanced",
+      "foreground": "rgb(23, 32, 51)",
+      "background": "rgb(255, 255, 255)",
+      "label": "Close teacher dashboard",
+      "ratio": 16.27,
+      "review": "Named close glyph visible; computed color ratio exceeds 4.5:1. Axe keeps its glyph-only item incomplete."
+    },
+    {
+      "width": 1280,
+      "theme": "standard",
+      "screen": "home",
+      "foreground": "rgb(255, 255, 255)",
+      "background": "rgb(30, 85, 200)",
+      "label": "Dismiss welcome message",
+      "ratio": 6.59,
+      "review": "Named close glyph visible; computed color ratio exceeds 4.5:1. Axe keeps its glyph-only item incomplete."
+    },
+    {
+      "width": 1280,
+      "theme": "standard",
+      "screen": "enhanced",
+      "foreground": "rgb(23, 32, 51)",
+      "background": "rgb(255, 255, 255)",
+      "label": "Close teacher dashboard",
+      "ratio": 16.27,
+      "review": "Named close glyph visible; computed color ratio exceeds 4.5:1. Axe keeps its glyph-only item incomplete."
+    },
+    {
+      "width": 1280,
+      "theme": "dark",
+      "screen": "home",
+      "foreground": "rgb(23, 32, 51)",
+      "background": "rgb(138, 180, 255)",
+      "label": "Dismiss welcome message",
+      "ratio": 7.79,
+      "review": "Named close glyph visible; computed color ratio exceeds 4.5:1. Axe keeps its glyph-only item incomplete."
+    },
+    {
+      "width": 1280,
+      "theme": "dark",
+      "screen": "enhanced",
+      "foreground": "rgb(23, 32, 51)",
+      "background": "rgb(255, 255, 255)",
+      "label": "Close teacher dashboard",
+      "ratio": 16.27,
+      "review": "Named close glyph visible; computed color ratio exceeds 4.5:1. Axe keeps its glyph-only item incomplete."
+    },
+    {
+      "width": 1280,
+      "theme": "contrast",
+      "screen": "home",
+      "foreground": "rgb(0, 0, 0)",
+      "background": "rgb(255, 242, 0)",
+      "label": "Dismiss welcome message",
+      "ratio": 17.95,
+      "review": "Named close glyph visible; computed color ratio exceeds 4.5:1. Axe keeps its glyph-only item incomplete."
+    },
+    {
+      "width": 1280,
+      "theme": "contrast",
+      "screen": "enhanced",
+      "foreground": "rgb(23, 32, 51)",
+      "background": "rgb(255, 255, 255)",
+      "label": "Close teacher dashboard",
+      "ratio": 16.27,
+      "review": "Named close glyph visible; computed color ratio exceeds 4.5:1. Axe keeps its glyph-only item incomplete."
+    }
+  ]
+}
