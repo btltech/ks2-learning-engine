@@ -1,3 +1,4 @@
+import './ClearPathTeacher.css';
 /**
  * Teacher Dashboard Component
  * 
@@ -186,7 +187,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onClose }) =
   };
 
   return (
-    <DashboardShell
+    <div className="clear-path-teacher ct-dashboard"><DashboardShell
       brand={<div className="sunny-role-brand"><OwlLogo height={36} sticker /><Chip>for schools</Chip></div>}
       title="Teacher Dashboard"
       subtitle="Class overview and student progress"
@@ -195,7 +196,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onClose }) =
       exitLabel="Back to teacher home"
       tone="purple"
       navigation={(
-        <div className="flex gap-2 overflow-x-auto" role="tablist" aria-label="Teacher dashboard sections">
+        <div className="ct-tabs flex gap-2 overflow-x-auto" role="tablist" aria-label="Teacher dashboard sections">
           {[
             { id: 'overview', label: '📊 Overview' },
             { id: 'students', label: '👨‍🎓 Students' },
@@ -206,6 +207,15 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onClose }) =
               key={tab.id}
               type="button"
               onClick={() => setSearchParams(tab.id === 'overview' ? {} : { tab: tab.id })}
+              onKeyDown={(event) => {
+                const offsets: Record<string, number> = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
+                if (!(event.key in offsets) && event.key !== 'Home' && event.key !== 'End') return;
+                event.preventDefault();
+                const tabs = [...(event.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>('[role="tab"]') || [])];
+                const current = tabs.indexOf(event.currentTarget);
+                const next = event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 : (current + offsets[event.key] + tabs.length) % tabs.length;
+                tabs[next]?.focus(); tabs[next]?.click();
+              }}
               role="tab"
               id={`teacher-tab-${tab.id}`}
               aria-controls={`teacher-panel-${tab.id}`}
@@ -235,8 +245,8 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onClose }) =
           )}
           <div className="bg-white rounded-xl p-4 shadow mb-6 flex flex-col lg:flex-row lg:items-end gap-4">
             <div className="flex-1">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Active Class</label>
-              <select
+              <label htmlFor="teacher-active-class" className="block text-sm font-medium text-gray-700 mb-1">Active Class</label>
+              <select id="teacher-active-class"
                 value={selectedClassId}
                 onChange={(e) => setSelectedClassId(e.target.value)}
                 className="w-full p-3 border rounded-lg"
@@ -253,8 +263,8 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onClose }) =
               </select>
             </div>
             <div className="flex-1">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Create Class</label>
-              <input
+              <label htmlFor="teacher-class-name" className="block text-sm font-medium text-gray-700 mb-1">Create Class</label>
+              <input id="teacher-class-name"
                 value={newClassName}
                 onChange={(e) => setNewClassName(e.target.value)}
                 placeholder="e.g. Year 5 Maple"
@@ -262,8 +272,8 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onClose }) =
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Year</label>
-              <select
+              <label htmlFor="teacher-class-year" className="block text-sm font-medium text-gray-700 mb-1">Year</label>
+              <select id="teacher-class-year"
                 value={newClassGrade}
                 onChange={(e) => setNewClassGrade(e.target.value)}
                 className="w-full p-3 border rounded-lg"
@@ -325,7 +335,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ onClose }) =
               <ReportsView stats={classStats} students={students} />
             </div>
           )}
-    </DashboardShell>
+    </DashboardShell></div>
   );
 };
 
@@ -341,7 +351,7 @@ const OverviewView: React.FC<{
       </div>
 
       {/* Stats Cards */}
-      <div className="grid md:grid-cols-4 gap-4">
+      <div className="ct-stats grid md:grid-cols-4 gap-4">
         <StatCard
           title="Total Students"
           value={stats.totalStudents.toString()}
@@ -370,7 +380,7 @@ const OverviewView: React.FC<{
 
       {/* Subject Mastery Overview */}
       <div className="bg-white rounded-xl p-6 shadow">
-        <h3 className="text-lg font-bold text-gray-900 mb-4">📚 Class Mastery by Subject</h3>
+        <h2 className="text-lg font-bold text-gray-900 mb-4">📚 Class Mastery by Subject</h2>
         <div className="space-y-4">
           {Object.keys(stats.averageMastery).length === 0 ? (
             <p className="text-sm text-gray-500">Subject mastery will appear after learners complete quizzes.</p>
@@ -382,9 +392,9 @@ const OverviewView: React.FC<{
                   <span className="font-medium text-gray-700">{subject}</span>
                   <span className="text-gray-500">{masteryValue}%</span>
                 </div>
-                <div className="bg-gray-200 rounded-full h-3 overflow-hidden">
+                <div className="ct-track bg-gray-200 rounded-full h-3 overflow-hidden">
                   <div
-                    className={`h-full rounded-full ${
+                    className={`ct-fill h-full rounded-full ${
                       masteryValue >= 70 ? 'bg-green-500' : masteryValue >= 50 ? 'bg-yellow-500' : 'bg-red-500'
                     }`}
                     style={{ width: `${masteryValue}%` }}
@@ -400,7 +410,7 @@ const OverviewView: React.FC<{
       <div className="grid md:grid-cols-2 gap-6">
         {/* Top Performers */}
         <div className="bg-white rounded-xl p-6 shadow">
-          <h3 className="text-lg font-bold text-gray-900 mb-4">🏆 Top Performers</h3>
+          <h2 className="text-lg font-bold text-gray-900 mb-4">🏆 Top Performers</h2>
           <div className="space-y-3">
             {stats.topPerformers.length === 0 ? (
               <div className="text-center py-8 text-gray-500">
@@ -437,7 +447,7 @@ const OverviewView: React.FC<{
 
         {/* Recent Activity */}
         <div className="bg-white rounded-xl p-6 shadow">
-          <h3 className="text-lg font-bold text-gray-900 mb-4">📋 Recent Activity</h3>
+          <h2 className="text-lg font-bold text-gray-900 mb-4">📋 Recent Activity</h2>
           <div className="space-y-3">
             {stats.recentActivity.length === 0 ? (
               <div className="text-center py-8 text-gray-500">
@@ -470,9 +480,9 @@ const OverviewView: React.FC<{
       {/* Struggling Students Alert */}
       {stats.strugglingStudents.length > 0 && (
         <div className="bg-red-50 border border-red-200 rounded-xl p-6">
-          <h3 className="text-lg font-bold text-red-800 mb-3 flex items-center gap-2">
+          <h2 className="text-lg font-bold text-red-800 mb-3 flex items-center gap-2">
             <span>⚠️</span> Students Needing Support
-          </h3>
+          </h2>
           <p className="text-red-600 mb-4">
             These students are averaging below 60% and may need additional help:
           </p>
@@ -529,12 +539,14 @@ const StudentsView: React.FC<{
       <div className="bg-white rounded-xl p-4 shadow flex flex-wrap gap-4">
         <input
           type="text"
+          aria-label="Search students"
           placeholder="Search students..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="flex-1 min-w-[200px] px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
         />
         <select
+          aria-label="Sort students"
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value as any)}
           className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
@@ -550,7 +562,7 @@ const StudentsView: React.FC<{
       {filteredStudents.length === 0 ? (
         <div className="bg-white rounded-xl p-8 shadow text-center text-gray-500">
           <div className="text-5xl mb-3">👨‍🎓</div>
-          <h3 className="text-lg font-bold text-gray-800">No students in this class yet</h3>
+          <h2 className="text-lg font-bold text-gray-800">No students in this class yet</h2>
           <p className="text-sm">Add student IDs to the class data source and they will appear here with progress summaries.</p>
         </div>
       ) : (
@@ -559,7 +571,9 @@ const StudentsView: React.FC<{
           <div
             key={student.id}
             onClick={() => onSelectStudent(student)}
-            className="bg-white rounded-xl p-4 shadow hover:shadow-lg transition-shadow cursor-pointer"
+            role="button" tabIndex={0} aria-label={`View ${student.name}'s progress`}
+            onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); onSelectStudent(student); } }}
+            className="ct-student-card bg-white rounded-xl p-4 shadow hover:shadow-lg transition-shadow cursor-pointer"
           >
             <div className="flex items-center gap-3 mb-3">
               <div
@@ -642,7 +656,7 @@ const StudentDetailView: React.FC<{
 
       {/* Subject Progress */}
       <div className="bg-white rounded-xl p-6 shadow">
-        <h3 className="text-lg font-bold text-gray-900 mb-4">Subject Progress</h3>
+        <h2 className="text-lg font-bold text-gray-900 mb-4">Subject Progress</h2>
         <div className="grid md:grid-cols-3 gap-4">
           {Object.entries(student.subjectMastery).map(([subject, mastery]) => {
             const masteryValue = mastery as number;
@@ -650,9 +664,9 @@ const StudentDetailView: React.FC<{
               <div key={subject} className="text-center">
                 <div className="text-3xl font-bold text-gray-900 mb-1">{masteryValue}%</div>
                 <div className="text-gray-500">{subject}</div>
-                <div className="mt-2 bg-gray-200 rounded-full h-2">
+                <div className="ct-track mt-2 bg-gray-200 rounded-full h-2">
                   <div
-                    className={`h-full rounded-full ${
+                    className={`ct-fill h-full rounded-full ${
                       masteryValue >= 70 ? 'bg-green-500' : masteryValue >= 50 ? 'bg-yellow-500' : 'bg-red-500'
                     }`}
                     style={{ width: `${masteryValue}%` }}
@@ -666,7 +680,7 @@ const StudentDetailView: React.FC<{
 
       {/* Class membership */}
       <div className="bg-white rounded-xl p-6 shadow">
-        <h3 className="text-lg font-bold text-gray-900 mb-2">Class membership</h3>
+        <h2 className="text-lg font-bold text-gray-900 mb-2">Class membership</h2>
         <p className="text-sm text-gray-600 mb-4">Removing a learner does not delete their account or learning history.</p>
         <button onClick={onRemove} className="bg-red-100 text-red-700 px-4 py-2 rounded-lg hover:bg-red-200">
           Remove from this class
@@ -728,46 +742,46 @@ const AssignmentsView: React.FC<{
   return (
     <div className="space-y-6">
       <div className="bg-white rounded-xl p-6 shadow">
-        <h3 className="text-lg font-bold text-gray-900 mb-4">📝 Create Assignment</h3>
+        <h2 className="text-lg font-bold text-gray-900 mb-4">📝 Create Assignment</h2>
         {message && <div className="mb-4 rounded-lg bg-indigo-50 p-3 text-sm text-indigo-800">{message}</div>}
         <div className="grid md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
-            <input value={title} onChange={(event) => setTitle(event.target.value)} className="w-full p-3 border rounded-lg" placeholder="e.g. Fractions practice" />
+            <label htmlFor="teacher-assignment-title" className="block text-sm font-medium text-gray-700 mb-1">Title</label>
+            <input id="teacher-assignment-title" value={title} onChange={(event) => setTitle(event.target.value)} className="w-full p-3 border rounded-lg" placeholder="e.g. Fractions practice" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Class</label>
-            <input value={selectedClass?.className || 'Create a class first'} readOnly className="w-full p-3 border rounded-lg bg-gray-50" />
+            <label htmlFor="teacher-assignment-class" className="block text-sm font-medium text-gray-700 mb-1">Class</label>
+            <input id="teacher-assignment-class" value={selectedClass?.className || 'Create a class first'} readOnly className="w-full p-3 border rounded-lg bg-gray-50" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Subject</label>
-            <select value={subject} onChange={(event) => setSubject(event.target.value)} className="w-full p-3 border rounded-lg">
+            <label htmlFor="teacher-assignment-subject" className="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+            <select id="teacher-assignment-subject" value={subject} onChange={(event) => setSubject(event.target.value)} className="w-full p-3 border rounded-lg">
               <option>Maths</option>
               <option>English</option>
               <option>Science</option>
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Topic</label>
-            <input value={topic} onChange={(event) => setTopic(event.target.value)} className="w-full p-3 border rounded-lg" placeholder="e.g. Fractions" />
+            <label htmlFor="teacher-assignment-topic" className="block text-sm font-medium text-gray-700 mb-1">Topic</label>
+            <input id="teacher-assignment-topic" value={topic} onChange={(event) => setTopic(event.target.value)} className="w-full p-3 border rounded-lg" placeholder="e.g. Fractions" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Difficulty</label>
-            <select value={difficulty} onChange={(event) => setDifficulty(event.target.value as Difficulty)} className="w-full p-3 border rounded-lg">
+            <label htmlFor="teacher-assignment-difficulty" className="block text-sm font-medium text-gray-700 mb-1">Difficulty</label>
+            <select id="teacher-assignment-difficulty" value={difficulty} onChange={(event) => setDifficulty(event.target.value as Difficulty)} className="w-full p-3 border rounded-lg">
               {Object.values(Difficulty).map((value) => <option key={value}>{value}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Due Date</label>
-            <input type="date" value={dueDate} min={new Date().toISOString().slice(0, 10)} onChange={(event) => setDueDate(event.target.value)} className="w-full p-3 border rounded-lg" />
+            <label htmlFor="teacher-assignment-due" className="block text-sm font-medium text-gray-700 mb-1">Due Date</label>
+            <input id="teacher-assignment-due" type="date" value={dueDate} min={new Date().toISOString().slice(0, 10)} onChange={(event) => setDueDate(event.target.value)} className="w-full p-3 border rounded-lg" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Questions</label>
-            <input type="number" min={5} max={20} value={questionCount} onChange={(event) => setQuestionCount(Number(event.target.value))} className="w-full p-3 border rounded-lg" />
+            <label htmlFor="teacher-assignment-count" className="block text-sm font-medium text-gray-700 mb-1">Questions</label>
+            <input id="teacher-assignment-count" type="number" min={5} max={20} value={questionCount} onChange={(event) => setQuestionCount(Number(event.target.value))} className="w-full p-3 border rounded-lg" />
           </div>
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-700 mb-1">Instructions (optional)</label>
-            <textarea value={description} onChange={(event) => setDescription(event.target.value)} rows={3} className="w-full p-3 border rounded-lg" placeholder="What should learners focus on?" />
+            <label htmlFor="teacher-assignment-instructions" className="block text-sm font-medium text-gray-700 mb-1">Instructions (optional)</label>
+            <textarea id="teacher-assignment-instructions" value={description} onChange={(event) => setDescription(event.target.value)} rows={3} className="w-full p-3 border rounded-lg" placeholder="What should learners focus on?" />
           </div>
         </div>
         <button onClick={createAssignment} disabled={saving || !selectedClassId} className="mt-4 bg-indigo-600 disabled:bg-indigo-300 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700">
@@ -776,7 +790,7 @@ const AssignmentsView: React.FC<{
       </div>
 
       <div className="bg-white rounded-xl p-6 shadow">
-        <h3 className="text-lg font-bold text-gray-900 mb-4">Published Assignments</h3>
+        <h2 className="text-lg font-bold text-gray-900 mb-4">Published Assignments</h2>
         {visibleHomework.length === 0 ? (
           <p className="text-gray-500">No shared assignments for this class yet.</p>
         ) : (
@@ -787,7 +801,7 @@ const AssignmentsView: React.FC<{
                 <div key={assignment.homeworkId} className="rounded-xl border border-gray-200 p-4">
                   <div className="flex justify-between gap-3">
                     <div>
-                      <h4 className="font-bold text-gray-900">{assignment.title}</h4>
+                      <h3 className="font-bold text-gray-900">{assignment.title}</h3>
                       <p className="text-sm text-gray-600">{assignment.subject} · {assignment.topics.join(', ')} · {assignment.difficulty}</p>
                     </div>
                     <span className="text-xs text-gray-500">Due {new Date(assignment.dueDate).toLocaleDateString()}</span>
@@ -836,11 +850,11 @@ const ReportsView: React.FC<{ stats: ClassStats; students: Student[] }> = ({ sta
   return (
     <div className="space-y-6">
       <div className="bg-white rounded-xl p-6 shadow">
-        <h3 className="text-lg font-bold text-gray-900 mb-4">📊 Class Performance Report</h3>
+        <h2 className="text-lg font-bold text-gray-900 mb-4">📊 Class Performance Report</h2>
         <p className="text-gray-600 mb-4">
           Generate detailed reports for your class or individual students.
         </p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div className="ct-stats grid grid-cols-2 md:grid-cols-4 gap-3">
           <StatCard title="Learners" value={String(stats.totalStudents)} icon="👥" color="bg-indigo-500" />
           <StatCard title="Average score" value={`${Math.round(students.length ? students.reduce((sum, student) => sum + student.averageScore, 0) / students.length : 0)}%`} icon="📈" color="bg-green-500" />
           <StatCard title="Quizzes" value={String(students.reduce((sum, student) => sum + student.quizzesCompleted, 0))} icon="📝" color="bg-purple-500" />
@@ -850,7 +864,7 @@ const ReportsView: React.FC<{ stats: ClassStats; students: Student[] }> = ({ sta
 
       {/* Export Options */}
       <div className="bg-white rounded-xl p-6 shadow">
-        <h3 className="text-lg font-bold text-gray-900 mb-4">📥 Export Data</h3>
+        <h2 className="text-lg font-bold text-gray-900 mb-4">📥 Export Data</h2>
         <div className="flex flex-wrap gap-3">
           <button onClick={exportCsv} className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200">
             Export as CSV

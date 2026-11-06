@@ -1,3 +1,5 @@
+import './ClearPathTeacher.css';
+import { useModalAccessibility } from '../hooks/useModalAccessibility';
 import { useState, useEffect } from 'react';
 import { OwlLogo } from './sunny/OwlLogo';
 import { Chip } from './sunny/Chip';
@@ -15,6 +17,7 @@ export default function EnhancedTeacherDashboard({ teacherId, onClose }: Props) 
   const [analytics, setAnalytics] = useState<ClassAnalytics | null>(null);
   const [homework, setHomework] = useState<Homework[]>([]);
   const [activeTab, setActiveTab] = useState<'overview' | 'students' | 'homework'>('overview');
+  const dialogRef = useModalAccessibility(onClose);
   
   useEffect(() => {
     loadData();
@@ -61,17 +64,18 @@ export default function EnhancedTeacherDashboard({ teacherId, onClose }: Props) 
   };
   
   return (
-    <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-7xl w-full max-h-[90vh] overflow-hidden flex flex-col">
+    <div className="clear-path-teacher ct-overlay fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
+      <div ref={dialogRef} tabIndex={-1} role="dialog" aria-modal="true" aria-labelledby="enhanced-teacher-title" className="ct-dialog bg-white rounded-2xl shadow-2xl max-w-7xl w-full max-h-[90vh] overflow-hidden flex flex-col">
         {/* Header */}
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-6">
+        <div className="ct-header bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-6">
           <div className="flex items-center justify-between">
             <div>
               <div className="sunny-role-brand"><OwlLogo height={32} sticker /><Chip>for schools</Chip></div>
-              <h2 className="text-3xl font-bold mb-2">📊 Teacher Dashboard</h2>
+              <h2 id="enhanced-teacher-title" className="text-3xl font-bold mb-2">📊 Teacher Dashboard</h2>
               <p className="text-blue-100">Comprehensive class analytics and management</p>
             </div>
             <button
+              aria-label="Close teacher dashboard"
               onClick={onClose}
               className="text-white hover:bg-white/20 p-2 rounded-lg transition-colors"
             >
@@ -82,6 +86,7 @@ export default function EnhancedTeacherDashboard({ teacherId, onClose }: Props) 
           {/* Class Selector */}
           <div className="mt-4">
             <select
+              aria-label="Class"
               value={selectedClass || ''}
               onChange={(e) => setSelectedClass(e.target.value)}
               className="px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white"
@@ -96,8 +101,9 @@ export default function EnhancedTeacherDashboard({ teacherId, onClose }: Props) 
         </div>
         
         {/* Tabs */}
-        <div className="flex border-b border-gray-200 bg-gray-50">
+        <div className="ct-tabs flex border-b border-gray-200 bg-gray-50">
           <button
+            aria-pressed={activeTab === 'overview'}
             onClick={() => setActiveTab('overview')}
             className={`px-6 py-3 font-semibold ${
               activeTab === 'overview'
@@ -108,6 +114,7 @@ export default function EnhancedTeacherDashboard({ teacherId, onClose }: Props) 
             📈 Overview
           </button>
           <button
+            aria-pressed={activeTab === 'students'}
             onClick={() => setActiveTab('students')}
             className={`px-6 py-3 font-semibold ${
               activeTab === 'students'
@@ -118,6 +125,7 @@ export default function EnhancedTeacherDashboard({ teacherId, onClose }: Props) 
             👥 Students
           </button>
           <button
+            aria-pressed={activeTab === 'homework'}
             onClick={() => setActiveTab('homework')}
             className={`px-6 py-3 font-semibold ${
               activeTab === 'homework'
@@ -137,11 +145,11 @@ export default function EnhancedTeacherDashboard({ teacherId, onClose }: Props) 
         </div>
         
         {/* Content */}
-        <div className="flex-1 overflow-auto p-6">
+        <div tabIndex={0} role="region" aria-label="Class analytics" className="flex-1 overflow-auto p-6">
           {activeTab === 'overview' && analytics && (
             <div className="space-y-6">
               {/* Stats Grid */}
-              <div className="grid grid-cols-4 gap-4">
+              <div className="ct-stats grid grid-cols-4 gap-4">
                 <div className="bg-blue-50 p-4 rounded-xl">
                   <div className="text-3xl font-bold text-blue-600">{analytics.totalStudents}</div>
                   <div className="text-sm text-blue-800">Students</div>
@@ -172,9 +180,9 @@ export default function EnhancedTeacherDashboard({ teacherId, onClose }: Props) 
                           {Math.round(data.averageScore)}% • {data.quizzesCompleted} quizzes
                         </span>
                       </div>
-                      <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
+                      <div className="ct-track h-3 bg-gray-200 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-gradient-to-r from-blue-500 to-indigo-500"
+                          className="ct-fill h-full bg-gradient-to-r from-blue-500 to-indigo-500"
                           style={{ width: `${data.averageScore}%` }}
                         />
                       </div>
@@ -273,7 +281,7 @@ export default function EnhancedTeacherDashboard({ teacherId, onClose }: Props) 
                         <div className="flex items-start justify-between mb-2">
                           <h4 className="font-bold text-lg">{hw.title}</h4>
                           {isOverdue && (
-                            <span className="text-xs bg-red-100 text-red-700 px-2 py-1 rounded">Overdue</span>
+                            <span className="text-xs bg-red-100 text-red-700 px-2 py-1 rounded">⚠ Overdue</span>
                           )}
                         </div>
                         <p className="text-sm text-gray-600 mb-3">{hw.description}</p>
@@ -285,9 +293,9 @@ export default function EnhancedTeacherDashboard({ teacherId, onClose }: Props) 
                           <div>Avg Score: <span className="font-semibold">{stats.averageScore}%</span></div>
                         </div>
                         
-                        <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div className="ct-track h-2 bg-gray-200 rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-blue-500"
+                            className="ct-fill h-full bg-blue-500"
                             style={{ width: `${(stats.submitted / stats.totalAssigned) * 100}%` }}
                           />
                         </div>

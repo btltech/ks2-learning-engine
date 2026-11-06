@@ -1,0 +1,1377 @@
+{
+  "keyboard": [
+    {
+      "width": 390,
+      "passed": [
+        "Tab reaches all dashboard tabs; arrow/Home/End preserve focus and routing",
+        "learner card Enter; removal confirmation dismissed without API mutation",
+        "class creation and homework publishing via keyboard",
+        "enhanced dialog traps forward and reverse Tab; analytics tabs reachable",
+        "teacher session creation/start/next/results via keyboard; answers disabled; no submitAnswer"
+      ]
+    },
+    {
+      "width": 768,
+      "passed": [
+        "Tab reaches all dashboard tabs; arrow/Home/End preserve focus and routing",
+        "learner card Enter; removal confirmation dismissed without API mutation",
+        "class creation and homework publishing via keyboard",
+        "enhanced dialog traps forward and reverse Tab; analytics tabs reachable",
+        "teacher session creation/start/next/results via keyboard; answers disabled; no submitAnswer"
+      ]
+    },
+    {
+      "width": 1280,
+      "passed": [
+        "Tab reaches all dashboard tabs; arrow/Home/End preserve focus and routing",
+        "learner card Enter; removal confirmation dismissed without API mutation",
+        "class creation and homework publishing via keyboard",
+        "enhanced dialog traps forward and reverse Tab; analytics tabs reachable",
+        "teacher session creation/start/next/results via keyboard; answers disabled; no submitAnswer"
+      ]
+    }
+  ],
+  "preferences": [
+    {
+      "width": 390,
+      "screen": "home",
+      "preference": "ui-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransform": null,
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "home",
+      "preference": "os-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransform": null,
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "home",
+      "preference": "large",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "21.6px",
+      "localFontsReady": true,
+      "logoStaticTransform": null,
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "home",
+      "preference": "calm",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransform": null,
+      "animations": [],
+      "pageColor": "#E8EEE8",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "dashboard",
+      "preference": "ui-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "16px",
+      "localFontsReady": true,
+      "logoStaticTransform": "matrix(1, 0, 0, 1, 330, 0)",
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "dashboard",
+      "preference": "os-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "16px",
+      "localFontsReady": true,
+      "logoStaticTransform": "matrix(1, 0, 0, 1, 330, 0)",
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "dashboard",
+      "preference": "large",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "21.6px",
+      "localFontsReady": true,
+      "logoStaticTransform": "matrix(1, 0, 0, 1, 330, 0)",
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "dashboard",
+      "preference": "calm",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "16px",
+      "localFontsReady": true,
+      "logoStaticTransform": "matrix(1, 0, 0, 1, 330, 0)",
+      "animations": [],
+      "pageColor": "#E8EEE8",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "enhanced",
+      "preference": "ui-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransform": "matrix(1, 0, 0, 1, 330, 0)",
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "enhanced",
+      "preference": "os-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransform": "matrix(1, 0, 0, 1, 330, 0)",
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "enhanced",
+      "preference": "large",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "21.6px",
+      "localFontsReady": true,
+      "logoStaticTransform": "matrix(1, 0, 0, 1, 330, 0)",
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "enhanced",
+      "preference": "calm",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransform": "matrix(1, 0, 0, 1, 330, 0)",
+      "animations": [],
+      "pageColor": "#E8EEE8",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "classroom",
+      "preference": "ui-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransform": null,
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "classroom",
+      "preference": "os-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransform": null,
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "classroom",
+      "preference": "large",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "21.6px",
+      "localFontsReady": true,
+      "logoStaticTransform": null,
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 390,
+      "screen": "classroom",
+      "preference": "calm",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransform": null,
+      "animations": [],
+      "pageColor": "#E8EEE8",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "home",
+      "preference": "ui-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransform": null,
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "home",
+      "preference": "os-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransform": null,
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "home",
+      "preference": "large",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "21.6px",
+      "localFontsReady": true,
+      "logoStaticTransform": null,
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "home",
+      "preference": "calm",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransform": null,
+      "animations": [],
+      "pageColor": "#E8EEE8",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "dashboard",
+      "preference": "ui-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "16px",
+      "localFontsReady": true,
+      "logoStaticTransform": "matrix(1, 0, 0, 1, 330, 0)",
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "dashboard",
+      "preference": "os-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "16px",
+      "localFontsReady": true,
+      "logoStaticTransform": "matrix(1, 0, 0, 1, 330, 0)",
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "dashboard",
+      "preference": "large",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "21.6px",
+      "localFontsReady": true,
+      "logoStaticTransform": "matrix(1, 0, 0, 1, 330, 0)",
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "dashboard",
+      "preference": "calm",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "16px",
+      "localFontsReady": true,
+      "logoStaticTransform": "matrix(1, 0, 0, 1, 330, 0)",
+      "animations": [],
+      "pageColor": "#E8EEE8",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "enhanced",
+      "preference": "ui-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransform": "matrix(1, 0, 0, 1, 330, 0)",
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "enhanced",
+      "preference": "os-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransform": "matrix(1, 0, 0, 1, 330, 0)",
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "enhanced",
+      "preference": "large",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "21.6px",
+      "localFontsReady": true,
+      "logoStaticTransform": "matrix(1, 0, 0, 1, 330, 0)",
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "enhanced",
+      "preference": "calm",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransform": "matrix(1, 0, 0, 1, 330, 0)",
+      "animations": [],
+      "pageColor": "#E8EEE8",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "classroom",
+      "preference": "ui-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransform": null,
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "classroom",
+      "preference": "os-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransform": null,
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "classroom",
+      "preference": "large",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "21.6px",
+      "localFontsReady": true,
+      "logoStaticTransform": null,
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 768,
+      "screen": "classroom",
+      "preference": "calm",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransform": null,
+      "animations": [],
+      "pageColor": "#E8EEE8",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "home",
+      "preference": "ui-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransform": null,
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "home",
+      "preference": "os-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransform": null,
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "home",
+      "preference": "large",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "21.6px",
+      "localFontsReady": true,
+      "logoStaticTransform": null,
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "home",
+      "preference": "calm",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransform": null,
+      "animations": [],
+      "pageColor": "#E8EEE8",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "dashboard",
+      "preference": "ui-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "16px",
+      "localFontsReady": true,
+      "logoStaticTransform": "matrix(1, 0, 0, 1, 330, 0)",
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "dashboard",
+      "preference": "os-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "16px",
+      "localFontsReady": true,
+      "logoStaticTransform": "matrix(1, 0, 0, 1, 330, 0)",
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "dashboard",
+      "preference": "large",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "21.6px",
+      "localFontsReady": true,
+      "logoStaticTransform": "matrix(1, 0, 0, 1, 330, 0)",
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "dashboard",
+      "preference": "calm",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "16px",
+      "localFontsReady": true,
+      "logoStaticTransform": "matrix(1, 0, 0, 1, 330, 0)",
+      "animations": [],
+      "pageColor": "#E8EEE8",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "enhanced",
+      "preference": "ui-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransform": "matrix(1, 0, 0, 1, 330, 0)",
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "enhanced",
+      "preference": "os-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransform": "matrix(1, 0, 0, 1, 330, 0)",
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "enhanced",
+      "preference": "large",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "21.6px",
+      "localFontsReady": true,
+      "logoStaticTransform": "matrix(1, 0, 0, 1, 330, 0)",
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "enhanced",
+      "preference": "calm",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "600",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransform": "matrix(1, 0, 0, 1, 330, 0)",
+      "animations": [],
+      "pageColor": "#E8EEE8",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "classroom",
+      "preference": "ui-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransform": null,
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "classroom",
+      "preference": "os-motion",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransform": null,
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "classroom",
+      "preference": "large",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "21.6px",
+      "localFontsReady": true,
+      "logoStaticTransform": null,
+      "animations": [],
+      "pageColor": "#F6F7FB",
+      "focusWidth": "4px"
+    },
+    {
+      "width": 1280,
+      "screen": "classroom",
+      "preference": "calm",
+      "headingFont": "Lexend, sans-serif",
+      "headingWeight": "700",
+      "bodyFont": "\"Atkinson Hyperlegible\", sans-serif",
+      "bodySize": "18px",
+      "localFontsReady": true,
+      "logoStaticTransform": null,
+      "animations": [],
+      "pageColor": "#E8EEE8",
+      "focusWidth": "4px"
+    }
+  ],
+  "audits": [
+    {
+      "name": "assignment-published",
+      "width": 390,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390
+    },
+    {
+      "name": "classroom-selected-subject",
+      "width": 390,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390
+    },
+    {
+      "name": "home-ui-motion",
+      "width": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390
+    },
+    {
+      "name": "home-os-motion",
+      "width": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390
+    },
+    {
+      "name": "home-large",
+      "width": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390
+    },
+    {
+      "name": "home-calm",
+      "width": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390
+    },
+    {
+      "name": "dashboard-ui-motion",
+      "width": 390,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390
+    },
+    {
+      "name": "dashboard-os-motion",
+      "width": 390,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390
+    },
+    {
+      "name": "dashboard-large",
+      "width": 390,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390
+    },
+    {
+      "name": "dashboard-calm",
+      "width": 390,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390
+    },
+    {
+      "name": "enhanced-ui-motion",
+      "width": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390
+    },
+    {
+      "name": "enhanced-os-motion",
+      "width": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390
+    },
+    {
+      "name": "enhanced-large",
+      "width": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390
+    },
+    {
+      "name": "enhanced-calm",
+      "width": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 390
+    },
+    {
+      "name": "classroom-ui-motion",
+      "width": 390,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390
+    },
+    {
+      "name": "classroom-os-motion",
+      "width": 390,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390
+    },
+    {
+      "name": "classroom-large",
+      "width": 390,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390
+    },
+    {
+      "name": "classroom-calm",
+      "width": 390,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 390
+    },
+    {
+      "name": "assignment-published",
+      "width": 768,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768
+    },
+    {
+      "name": "classroom-selected-subject",
+      "width": 768,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768
+    },
+    {
+      "name": "home-ui-motion",
+      "width": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768
+    },
+    {
+      "name": "home-os-motion",
+      "width": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768
+    },
+    {
+      "name": "home-large",
+      "width": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768
+    },
+    {
+      "name": "home-calm",
+      "width": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768
+    },
+    {
+      "name": "dashboard-ui-motion",
+      "width": 768,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768
+    },
+    {
+      "name": "dashboard-os-motion",
+      "width": 768,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768
+    },
+    {
+      "name": "dashboard-large",
+      "width": 768,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768
+    },
+    {
+      "name": "dashboard-calm",
+      "width": 768,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768
+    },
+    {
+      "name": "enhanced-ui-motion",
+      "width": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768
+    },
+    {
+      "name": "enhanced-os-motion",
+      "width": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768
+    },
+    {
+      "name": "enhanced-large",
+      "width": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768
+    },
+    {
+      "name": "enhanced-calm",
+      "width": 768,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 768
+    },
+    {
+      "name": "classroom-ui-motion",
+      "width": 768,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768
+    },
+    {
+      "name": "classroom-os-motion",
+      "width": 768,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768
+    },
+    {
+      "name": "classroom-large",
+      "width": 768,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768
+    },
+    {
+      "name": "classroom-calm",
+      "width": 768,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 768
+    },
+    {
+      "name": "assignment-published",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280
+    },
+    {
+      "name": "classroom-selected-subject",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280
+    },
+    {
+      "name": "home-ui-motion",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280
+    },
+    {
+      "name": "home-os-motion",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280
+    },
+    {
+      "name": "home-large",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280
+    },
+    {
+      "name": "home-calm",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".top-4"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280
+    },
+    {
+      "name": "dashboard-ui-motion",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280
+    },
+    {
+      "name": "dashboard-os-motion",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280
+    },
+    {
+      "name": "dashboard-large",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280
+    },
+    {
+      "name": "dashboard-calm",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280
+    },
+    {
+      "name": "enhanced-ui-motion",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280
+    },
+    {
+      "name": "enhanced-os-motion",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280
+    },
+    {
+      "name": "enhanced-large",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280
+    },
+    {
+      "name": "enhanced-calm",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".hover\\:bg-white\\/20"
+              ],
+              "summary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "documentWidth": 1280
+    },
+    {
+      "name": "classroom-ui-motion",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280
+    },
+    {
+      "name": "classroom-os-motion",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280
+    },
+    {
+      "name": "classroom-large",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280
+    },
+    {
+      "name": "classroom-calm",
+      "width": 1280,
+      "violations": [],
+      "incomplete": [],
+      "documentWidth": 1280
+    }
+  ],
+  "externalRequests": []
+}

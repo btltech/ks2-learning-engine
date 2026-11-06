@@ -1,0 +1,10 @@
+Node 22.23.4 / Vitest 4.0.10
+Files in every run: components/TeacherPresentation.test.tsx (6), components/TeacherClassroom.test.tsx (2), components/ClassroomMode.test.tsx (4).
+40 consecutive fresh-process runs: 0 failures.
+After successful npm run build: 3 parallel workers, each 40 consecutive fresh-process runs: 120 runs, 0 failures.
+Total: 160 process runs / 1,920 test executions / 0 failures.
+All new async/timer tests included in every run. Realtime events wait for the subscription effect before emitting.
+Commands: NODE_BINARY=/path/to/node22 python3 scripts/review-teacher/repeat-tests.py sequential 1 40
+          npm run build
+          NODE_BINARY=/path/to/node22 python3 scripts/review-teacher/repeat-tests.py parallel-after-build 3 40
+Raw per-run logs remain in temporary storage, not git; run details are in repeated-tests.json.

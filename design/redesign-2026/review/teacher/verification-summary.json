@@ -1,0 +1,127 @@
+{
+  "baseline": "5da9936d",
+  "branch": "redesign/12-teacher",
+  "lint": {
+    "passed": true,
+    "warnings": 0,
+    "node": "20.19.5"
+  },
+  "tests": {
+    "passed": 359,
+    "files": 72,
+    "failures": 0
+  },
+  "build": {
+    "passed": true,
+    "pwa": true
+  },
+  "repeatedTests": {
+    "node": "22.23.4",
+    "sequentialRuns": 40,
+    "parallelWorkers": 3,
+    "runsPerWorker": 40,
+    "totalProcessRuns": 160,
+    "testExecutions": 1920,
+    "failures": 0
+  },
+  "axe": {
+    "version": "4.14.0",
+    "coreSamples": 171,
+    "extraSamples": 54,
+    "violations": 0,
+    "incompleteRules": [
+      "color-contrast"
+    ],
+    "coreIncompleteSamples": 63,
+    "extraIncompleteSamples": 24,
+    "reason": "Named glyph-only close/dismiss controls; 18 computed-color review samples >=4.5:1"
+  },
+  "keyboardWidths": [
+    390,
+    768,
+    1280
+  ],
+  "preferenceSamples": 48,
+  "pupilParitySamples": 9,
+  "externalReviewRequests": 0,
+  "retainedImages": [
+    {
+      "file": "after-classroom-active-standard-1280.jpg",
+      "width": 1280,
+      "height": 900,
+      "bytes": 63167
+    },
+    {
+      "file": "after-classroom-active-standard-390.jpg",
+      "width": 390,
+      "height": 900,
+      "bytes": 36109
+    },
+    {
+      "file": "after-classroom-waiting-standard-1280.jpg",
+      "width": 1280,
+      "height": 900,
+      "bytes": 39488
+    },
+    {
+      "file": "after-classroom-waiting-standard-390.jpg",
+      "width": 390,
+      "height": 900,
+      "bytes": 28561
+    },
+    {
+      "file": "after-dashboard-contrast-390.jpg",
+      "width": 390,
+      "height": 2739,
+      "bytes": 122307
+    },
+    {
+      "file": "after-dashboard-dark-390.jpg",
+      "width": 390,
+      "height": 2737,
+      "bytes": 113856
+    },
+    {
+      "file": "after-dashboard-standard-1280.jpg",
+      "width": 1280,
+      "height": 1475,
+      "bytes": 129289
+    },
+    {
+      "file": "after-dashboard-standard-390.jpg",
+      "width": 390,
+      "height": 2737,
+      "bytes": 105578
+    },
+    {
+      "file": "after-enhanced-standard-1280.jpg",
+      "width": 1280,
+      "height": 1040,
+      "bytes": 75045
+    },
+    {
+      "file": "after-enhanced-standard-390.jpg",
+      "width": 390,
+      "height": 1803,
+      "bytes": 60532
+    },
+    {
+      "file": "after-home-standard-1280.jpg",
+      "width": 1280,
+      "height": 1689,
+      "bytes": 133659
+    },
+    {
+      "file": "after-home-standard-390.jpg",
+      "width": 390,
+      "height": 3437,
+      "bytes": 116012
+    }
+  ],
+  "retainedImageBytes": 1023603,
+  "quality": 70,
+  "fullMatrixLocation": "temporary storage only; reproducible via scripts/review-teacher",
+  "merged": false,
+  "deployed": false,
+  "prCStarted": false
+}

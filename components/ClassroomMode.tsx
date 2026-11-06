@@ -1,3 +1,4 @@
+import './ClearPathTeacher.css';
 import { Owl } from './sunny/Owl';
 import { AnswerShape } from './sunny/AnswerShape';
 import './SunnyBitesClassroom.css';
@@ -86,7 +87,7 @@ const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeach
   const [hasAnswered, setHasAnswered] = useState(false);
   // Delivery feedback only; joining, answer arguments and realtime handlers stay unchanged.
   const [answerDelivery, setAnswerDelivery] = useState<{ key: string; status: 'sending' | 'sent' | 'failed' } | null>(null);
-  const pupilClass = isTeacher ? '' : 'sunny-classroom sunny-ui';
+  const pupilClass = isTeacher ? 'clear-path-teacher ct-classroom' : 'sunny-classroom sunny-ui';
 
   // Subscribe to session updates
   useEffect(() => {
@@ -323,8 +324,8 @@ const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeach
 
             <div className="space-y-4">
               <div>
-                <label className="text-white/80 text-sm mb-1 block">Session Title</label>
-                <input
+                <label htmlFor="teacher-session-title" className="text-white/80 text-sm mb-1 block">Session Title</label>
+                <input id="teacher-session-title"
                   type="text"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
@@ -339,6 +340,7 @@ const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeach
                   {SUBJECTS.map((subject) => (
                     <button
                       key={subject.name}
+                      aria-pressed={selectedSubject === subject.name}
                       onClick={() => { setSelectedSubject(subject.name); setSelectedTopic(''); }}
                       className={`p-3 rounded-xl text-left transition-all ${
                         selectedSubject === subject.name
@@ -354,8 +356,8 @@ const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeach
 
               {selectedSubject && SUBJECT_TOPICS[selectedSubject] && (
                 <div>
-                  <label className="text-white/80 text-sm mb-1 block">Topic</label>
-                  <select
+                  <label htmlFor="teacher-session-topic" className="text-white/80 text-sm mb-1 block">Topic</label>
+                  <select id="teacher-session-topic"
                     value={selectedTopic}
                     onChange={(e) => setSelectedTopic(e.target.value)}
                     className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white appearance-none cursor-pointer"
@@ -370,8 +372,8 @@ const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeach
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-white/80 text-sm mb-1 block">Difficulty</label>
-                  <select
+                  <label htmlFor="teacher-session-difficulty" className="text-white/80 text-sm mb-1 block">Difficulty</label>
+                  <select id="teacher-session-difficulty"
                     value={difficulty}
                     onChange={(e) => setDifficulty(e.target.value as Difficulty)}
                     className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white appearance-none cursor-pointer"
@@ -383,8 +385,8 @@ const ClassroomMode: React.FC<ClassroomModeProps> = ({ userId, userName, isTeach
                 </div>
 
                 <div>
-                  <label className="text-white/80 text-sm mb-1 block">Questions</label>
-                  <select
+                  <label htmlFor="teacher-session-count" className="text-white/80 text-sm mb-1 block">Questions</label>
+                  <select id="teacher-session-count"
                     value={questionCount}
                     onChange={(e) => setQuestionCount(parseInt(e.target.value))}
                     className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white appearance-none cursor-pointer"
