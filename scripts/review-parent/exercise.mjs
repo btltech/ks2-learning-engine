@@ -1,12 +1,13 @@
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { tmpdir } from 'node:os';
 const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const browser = await chromium.launch({ headless: true, ...(process.env.REVIEW_BROWSER ? { executablePath: process.env.REVIEW_BROWSER } : {}) });
 const context = await browser.newContext();
 await context.route('**/*', route => new URL(route.request().url()).hostname === '127.0.0.1' ? route.continue() : route.abort());
 const page = await context.newPage();
-const out = resolve('design/redesign-2026/review/parent');
+const out = resolve(process.env.REVIEW_OUT || resolve(tmpdir(), 'ks2-parent-review'));
 await mkdir(out, { recursive: true });
 const base = process.env.REVIEW_URL || 'http://127.0.0.1:3011';
 const stage = process.argv[2] || 'after';

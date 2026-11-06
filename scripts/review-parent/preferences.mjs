@@ -1,5 +1,9 @@
 import assert from 'node:assert/strict';
-import { writeFile } from 'node:fs/promises';
+import { mkdir, writeFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
+import { tmpdir } from 'node:os';
+const out = resolve(process.env.REVIEW_OUT || resolve(tmpdir(), 'ks2-parent-review'));
+await mkdir(out, { recursive: true });
 const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const browser = await chromium.launch({ headless: true, ...(process.env.REVIEW_BROWSER ? { executablePath: process.env.REVIEW_BROWSER } : {}) });
 const context = await browser.newContext();
@@ -26,5 +30,5 @@ for (const width of [390,768,1280]) for (const preference of ['ui','os']) {
   samples.push({ width, preference, ...sample });
 }
 assert.equal(external.length, 0);
-await writeFile('design/redesign-2026/review/parent/preferences.json', JSON.stringify({ samples, externalRequests: external }, null, 2) + '\n');
+await writeFile(resolve(out, 'preferences.json'), JSON.stringify({ samples, externalRequests: external }, null, 2) + '\n');
 await browser.close();console.log('6 display preference/font/static-logo checks passed; no external requests');

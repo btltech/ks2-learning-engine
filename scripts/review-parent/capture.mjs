@@ -2,9 +2,10 @@
 // tool, not an application dependency. See the review README for invocation.
 import { mkdir, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { tmpdir } from 'node:os';
 const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const stage = process.argv[2] || 'after';
-const out = resolve('design/redesign-2026/review/parent');
+const out = resolve(process.env.REVIEW_OUT || resolve(tmpdir(), 'ks2-parent-review'));
 await mkdir(out, { recursive: true });
 const cases = [
   ['home', 'screen=home'], ['dashboard', 'screen=dashboard'], ['monitoring', 'screen=monitoring'],

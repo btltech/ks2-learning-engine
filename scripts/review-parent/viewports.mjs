@@ -1,4 +1,8 @@
 import { resolve } from 'node:path';
+import { mkdir } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+const out = resolve(process.env.REVIEW_OUT || resolve(tmpdir(), 'ks2-parent-review'));
+await mkdir(out, { recursive: true });
 const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const browser = await chromium.launch({ headless: true, ...(process.env.REVIEW_BROWSER ? { executablePath: process.env.REVIEW_BROWSER } : {}) });
 const context = await browser.newContext();
@@ -9,7 +13,7 @@ for (const stage of ['before','after']) for (const width of [390,1280]) for (con
   const base = stage === 'before' ? 'http://127.0.0.1:3012' : 'http://127.0.0.1:3011';
   await page.goto(base + '/scripts/review-parent/index.html?screen=' + name + '&theme=' + theme, { waitUntil: 'networkidle' });
   await page.evaluate(async () => { await document.fonts.ready; });
-  await page.screenshot({ path: resolve(`design/redesign-2026/review/parent/${stage}-${name}-viewport-${theme}-${width}.jpg`), type: 'jpeg', quality: 65, animations: 'disabled' });
+  await page.screenshot({ path: resolve(out, `${stage}-${name}-viewport-${theme}-${width}.jpg`), type: 'jpeg', quality: 65, animations: 'disabled' });
 }
 await browser.close();
 console.log('24 before/after viewport screenshots captured');
