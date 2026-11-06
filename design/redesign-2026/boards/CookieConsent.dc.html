@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Storage notice</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&amp;family=Lexend:wght@500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#1E55C8}a:hover{color:#163F96}
+button{font:inherit}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F6F7FB; color: #172033; font-family: 'Atkinson Hyperlegible', system-ui, sans-serif; font-size: 18px; line-height: 1.6">
+  <main style="max-width: 1200px; margin: 0 auto; padding: 36px 24px 64px; display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start">
+    <section aria-label="State 1: first visit" style="flex: 1 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+      <strong style="color: #4A5568">State 1 · first visit (banner at the bottom, page still usable)</strong>
+      <div style="position: relative; min-height: 560px; border-radius: 24px; border: 2px solid #D5DAE5; background: #FFFFFF; overflow: hidden">
+        <div aria-hidden="true" style="padding: 28px; display: flex; flex-direction: column; gap: 14px">
+          <span style="width: 60%; height: 28px; border-radius: 8px; background: #EEF1F6"></span>
+          <span style="width: 85%; height: 16px; border-radius: 8px; background: #EEF1F6"></span>
+          <span style="width: 75%; height: 16px; border-radius: 8px; background: #EEF1F6"></span>
+          <span style="width: 40%; height: 48px; border-radius: 14px; background: #E8EFFC"></span>
+        </div>
+        <div role="region" aria-labelledby="notice" style="position: absolute; left: 16px; right: 16px; bottom: 16px; background: #172033; color: #FFFFFF; border-radius: 20px; padding: 22px; display: flex; flex-direction: column; gap: 12px">
+          <h2 id="notice" style="margin: 0; font-family: 'Lexend', sans-serif; font-weight: 600; font-size: 22px">We only store what the app needs</h2>
+          <p style="margin: 0; color: #EEF2F8">Your sign-in and settings like text size are saved on this device so the app works. [Say here whether anything optional is stored.]</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 10px">
+            <button type="button" style="min-height: 52px; padding: 0 22px; border-radius: 14px; border: 0; background: #FFFFFF; color: #172033; font-weight: 700; cursor: pointer">Got it</button>
+            <button type="button" style="min-height: 52px; padding: 0 18px; border-radius: 14px; border: 2px solid #C9D2E3; background: transparent; color: #FFFFFF; font-weight: 700; cursor: pointer">See what is stored</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-label="State 2: details" style="flex: 1 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+      <strong style="color: #4A5568">State 2 · “See what is stored” (dialog)</strong>
+      <div role="dialog" aria-modal="true" aria-labelledby="dlg" style="background: #FFFFFF; border: 2px solid #D5DAE5; border-radius: 24px; padding: 28px; display: flex; flex-direction: column; gap: 16px">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px">
+          <h2 id="dlg" style="margin: 0; font-family: 'Lexend', sans-serif; font-weight: 600; font-size: 24px">What we store on this device</h2>
+          <button type="button" aria-label="Close" style="width: 48px; height: 48px; border-radius: 12px; border: 2px solid #7A8496; background: #FFFFFF; color: #172033; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12"/><path d="M18 6 6 18"/></svg></button>
+        </div>
+        <div style="border: 2px solid #EEF1F6; border-radius: 16px; padding: 16px; display: flex; justify-content: space-between; gap: 14px; align-items: center">
+          <div style="display: flex; flex-direction: column"><strong>Needed for the app to work</strong><span style="font-size: 16px; color: #4A5568">Sign-in, safety checks, your reading and listening settings.</span></div>
+          <span style="padding: 4px 12px; border-radius: 999px; background: #E2F3F0; color: #0F6E66; font-weight: 700; font-size: 16px; white-space: nowrap">Always on</span>
+        </div>
+        <div style="border: 2px solid #EEF1F6; border-radius: 16px; padding: 16px; display: flex; justify-content: space-between; gap: 14px; align-items: center">
+          <div style="display: flex; flex-direction: column"><strong>Offline copies of lessons</strong><span style="font-size: 16px; color: #4A5568">So lessons still open on a bad connection.</span></div>
+          <span style="padding: 4px 12px; border-radius: 999px; background: #E2F3F0; color: #0F6E66; font-weight: 700; font-size: 16px; white-space: nowrap">Always on</span>
+        </div>
+        <div style="border: 2px dashed #7A8496; border-radius: 16px; padding: 16px; display: flex; justify-content: space-between; gap: 14px; align-items: center">
+          <div style="display: flex; flex-direction: column"><strong>[Optional category, only if one exists]</strong><span style="font-size: 16px; color: #4A5568">[What it does and who sees it.] Off unless a grown-up turns it on.</span></div>
+          <button type="button" role="switch" aria-checked="false" aria-label="[Optional category]" style="flex: none; width: 76px; height: 44px; border-radius: 999px; border: 2px solid #7A8496; background: #7A8496; position: relative; cursor: pointer"><span style="position: absolute; top: 4px; left: 4px; width: 32px; height: 32px; border-radius: 50%; background: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #172033">Off</span></button>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; align-items: center">
+          <a href="InfoPage.dc.html" style="font-weight: 700">Read the cookie policy</a>
+          <button type="button" style="min-height: 52px; padding: 0 22px; border-radius: 14px; border: 0; background: #1E55C8; color: #FFFFFF; font-weight: 700; cursor: pointer">Save and close</button>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":950}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>
